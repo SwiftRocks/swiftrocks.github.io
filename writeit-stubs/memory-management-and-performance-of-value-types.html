@@ -1,0 +1,263 @@
+
+<!--WRITEIT_POST_NAME=Memory Management and Performance of Value Types-->
+<!--WRITEIT_POST_HTML_NAME=memory-management-and-performance-of-value-types.html-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITE_IT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=It's very likely that you asked yourself at least once in your iOS career what's the difference between a struct and a class. While realistically the choice between using one or another always boils down to value semantics versus reference semantics, the performance differences between the two are expressive and can heavily favor one or another depending on the contents of your object, specially when dealing with value types.-->
+
+<title>Memory Management and Performance of Value Types - SwiftRocks</title>
+         <div class="col-md-12 blog-post"> 
+          <div class="post-title"> 
+           <h1>Memory Management and Performance of Value Types</h1> 
+          </div> 
+          <div class="post-info">
+            April 13, 2018 
+          </div> 
+          <p>It's very likely that you asked yourself at least once in your iOS career what's the difference between a <code>struct</code> and a <code>class</code>. While realistically the choice between using one or another always boils down to <i>value semantics</i> versus <i>reference semantics</i>, the performance differences between the two are expressive and can heavily favor one or another depending on the contents of your object, specially when dealing with value types.</p> 
+          <p>Some people might say that knowledge of memory architecture is irrelevant for application level developers, and I agree <i>partially</i>. Knowing how to save a few bits here and there will make no visible difference on newer iPhones, and premature optimization is a highly shunned practice.</p> 
+          <p>However, both reference and value types can severely slow down your app when misused, and such knowledge will define whether or not you can fix the problem efficiently.</p> 
+          <p>To understand the deeper differences between the two, let's look back at the address space of a process: (single thread for simplicity)</p> 
+          <pre>|- - - - - - - - - - - - - - - - - - - - - - - - - - |
+|                    Instructions                    |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - -
+|                    Global Data                     |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - -
+|                        Heap                        |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - -
+|      Nothing (Stack and heap grow towards here)    |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - -
+|                        Stack                       |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - -</pre> 
+          <h2>Stack Allocation</h2>
+          <p>In memory architecture, the stack is no different from the data structure you already know, and Stack Allocation is a simple and fast way to allocate/deallocate memory that involves the stack.</p> 
+          <p>Each "scope" in your app (like the inner contents of a method) will provide the amount of memory it needs to run, move the stack pointer in memory by such amount and run - adding data to the empty memory addresses it now posesses. After the scope is lost, the stack pointer will simply decrease by the same amount - safely deallocating all the scope's data. The cost of allocating/deallocating stack memory is literally the cost of assigning an integer.</p> 
+          <h3>Stack Allocated Value Types</h3>
+          <p>In Stack Allocation, the data gathered by the scope means everything attributed to it - like method arguments, return values, but more importantly: <b>value types</b>. As long as the size of the value type is known during compile time and it doesn't contain / is not contained, recursively, by a reference type, it will not need reference counting, and its life will be <b>static</b> - equal to the life of its scope. It will be allocated completely on the stack, and when the scope is deallocated, so is the value type. The absence of reference counting overhead and the presence of stack allocation is a considerable performance boost.</p> 
+          <p><i>PS: All benchmarks done with -O. I had to add some special logic and keywords/attributes to prevent the compiler from skipping my methods, but I've hidden them in the examples to make the code easy to read.</i></p> 
+          <pre class="language-swift"><code class="language-swift">struct EmptyStruct {
+	private let number: Int64 = 1
+	//Empty classes have 64bits of storage by default for the pointer
+	//so we're adding 64bits to our struct to make fair comparisons.
+}
+
+@inline(never) func createABunchOfEmptyStructs() {
+    for _ in 0..&lt;1_000_000 {
+        let myStruct = EmptyStruct()
+    }
+}
+
+createABunchOfEmptyStructs()
+//Moving the stack pointer up by the size of a million EmptyStructs.
+//Adding a million EmptyStructs to the empty addresses created by moving the stack pointer.
+//Moving the stack pointer down by the same amount.
+//Total: ~0.005 seconds</code></pre> 
+          <p>If the contents of your value type are other stack allocated, static size value types, then your value type also is also static sized. That means your value type will also leverage full stack allocation as well as having a performance boost in copying operations.</p> 
+          <p>We once asked a candidate why he chose to use a <code>class</code> for something that was clearly immutable and meant to be treated with value semantics. His reasoning was that the object was being constantly sent as a parameter inside methods, and so he was concerned about the potential performance implications of copying that several times.</p>
+          <p>Assigning a property to most value types will indeed create a full copy of the object. However, this <b>copy-on-assignment</b> behaviour for fully stack allocated value types is so fast and so cheap that Apple claims it runs in constant time:</p> 
+          <pre class="language-swift"><code class="language-swift">struct BigStaticStruct {
+    let fp1: Int64 = 1
+    let fp2: Int64 = 1
+    let fp3: Int64 = 1
+    let fp4: Int64 = 1
+    let fp5: Int64 = 1
+}
+
+func createABunchOfCopiesOfHugeStruct() {
+    let bigStruct = BigStaticStruct()
+    for _ in 0..&lt;1_000_000 {
+        let copy = bigStruct
+    }
+}
+
+createABunchOfCopiesOfHugeStruct() // ~0.0033 secs
+
+//Even if you increase the number of properties tenfold the runtime is unchanged
+//because copying a static sized struct is a constant time operation.</code></pre> 
+          <p>Stack Allocation can, however, devour your app's memory if you're dealing with many depths of recursion. Thankfully, Swift has tail recursion optimization, meaning that if you disassemble a method with tail recursion you'll find an iterative version of your algorithm instead.</p> 
+          <h2>Heap Allocation</h2>
+          <p>But what happens when you need to introduce objects with extendable sizes and <i>"shudders"</i> the concept of <b>pointers</b>?</p> 
+          <p>The stack is not meant to be used with objects that change in size, and the concept of pointers / dynamic lifetime means that an object's life could have nothing to do with its scope - after all, it's possible to have an object existing in memory even if there's nothing going on.</p> 
+          <p>The heap, like the stack, is not much different from the data structure with the same name, and in this case, it's meant to be used for dynamically-allocated, user-managed memory.</p> 
+          <p>When the process requests a certain amount of memory, the heap will search for a memory address that fulfills this request and return it to the process. When the memory is not being used anymore, the process must tell the heap to free that section of memory.</p> 
+          <p>In iOS, "not being used anymore" works in the shape of reference counting, and luckily the existence of ARC means that most things are automatically handled for you unless you have to deal with the <a href="https://developer.apple.com/documentation/swift/manual_memory_management">RawPointer family</a>.</p> 
+          <p>Heap Allocation is slower than Stack Allocation not just because of the more complex data structure - it also requires thread safety. Each thread has its own stack, but the heap is shared with everybody, demanding synchronization. However, it allows reference types and things like dynamic size arrays to exist.</p> 
+          <pre class="language-swift"><code class="language-swift">final class EmptyClass {}
+
+@inline(never) func createABunchOfEmptyClasses() {
+    for _ in 0..&lt;1_000_000 {
+        let myClass = EmptyClass()
+    }
+}
+
+createABunchOfEmptyClasses()
+
+//Moving the stack pointer up by the size of a million EmptyClass pointers.
+//Requesting memory in the heap for a million EmptyClasses.
+//Adding a million EmptyClass pointers to the empty addresses created by moving the stack pointer, pointing to the heap's returned addresses.
+//(Loop ends) Decrementing the reference count of the pointers.
+//The reference count of each class drops to zero, and a request to free their memory addresses is sent.
+//Moving the stack pointer down.
+//Total: ~0.117 secs</code></pre> 
+          <p>It would be nice if memory management was as binary as saying that value types go to the stack and reference types go to the heap, but in reality, the life and performance of a value type is heavily defined by its contents.</p> 
+          <h3>Heap Allocated Value Types</h3>
+          <p>If the size of your value type cannot be determined during compile time (because of a protocol/generic requirement), or if your value type recursively contains / is contained by a reference type (remember that closures are also reference types), then it will require heap allocation. This can range from being not being an issue at all to making your <code>struct</code> perform exponentially <b>worse</b> than it would if it was a <code>class</code> instead.</p>
+          <p>Stack allocated value types are great because their life are directly related to their scope's life, but if your value type is the child of a <code>class</code>, a reference is all it takes for it to outlive its scope. This situation is common in <code>@escaping</code> closures, and this value type will lose its stack allocation properties in order to be fully <b>heap allocated</b> alongside the reference type. In a way, you could even say that this kind of value type is <b>a reference type itself</b>, as living in the heap means that several objects can point to it - even though it still possesses <i>value semantics</i>.</p>
+          <p>If your value type is instead the parent of a heap allocated <code>class</code>, then it will not be heap allocated itself, but it <b>will</b> inherit reference counting overhead in order to be able to keep it's inner references alive. This can cause a considerable drop in performance depending on the complexity of the value type.</p>
+          <p>In the Standard Library, examples of value types with child references are <code>String</code>, <code>Array</code>, <code>Dictionary</code> and <code>Set</code>. These value types contain internal reference types that manage the storage of elements in the heap, allowing them to increase/decrease in size as needed.</p>
+          <p>Since heap operations are more expensive than stack ones, copying heap allocated value types is not a constant operation like in stack allocated ones. To prevent this from hurting performance, the Standard Library's extensible data structures are <b>copy-on-write</b>.</p> 
+          <p>With this capability, merely assigning properties will not copy the value type - instead, it will create a reference just like if it was a regular reference type. The actual copying will only happen when it's really necessary.</p> 
+          <pre class="language-swift"><code class="language-swift">//Copy on Assignment
+let emptyStruct = EmptyStruct() //address A
+let copy = emptyStruct //address B
+
+//Copy on Write
+let array = [1,2,3] //address C
+var notACopy = array //still address C
+notACopy = [4,5,6] //now address D</code></pre>
+          <p>Be aware that any value type you create will be <b>copy-on-assignment</b>, but you can code them to have <b>copy-on-write</b> capabilities. This is not a compiler thing, The Standard Library itself does it on the code level and so can you. <a href="https://github.com/apple/swift/blob/master/docs/OptimizationTips.rst#advice-use-copy-on-write-semantics-for-large-values">Here's an example from Apple.</a></p> 
+          <h2>Problematic Reference Counting in Value Types With Inner References</h2>
+          <p>A fully stack allocated value type will not need reference counting, but a value type with inner references <b>will</b> unfortunately inherit this ability.</p> 
+          <p>Consider two objects: a <code>struct</code> full of <code>classes</code> and a <code>class</code> full of the same <code>classes</code>:</p> 
+          <pre class="language-swift"><code class="language-swift">struct HugeDynamicStruct {
+    var emptyClass = EmptyClass()
+    var emptyClass2 = EmptyClass()
+    var emptyClass3 = EmptyClass()
+    var emptyClass4 = EmptyClass()
+    var emptyClass5 = EmptyClass()
+    var emptyClass6 = EmptyClass()
+    var emptyClass7 = EmptyClass()
+    var emptyClass8 = EmptyClass()
+    var emptyClass9 = EmptyClass()
+    var emptyClass10 = EmptyClass()
+}
+
+class HugeClass {
+    var emptyClass = EmptyClass()
+    var emptyClass2 = EmptyClass()
+    var emptyClass3 = EmptyClass()
+    var emptyClass4 = EmptyClass()
+    var emptyClass5 = EmptyClass()
+    var emptyClass6 = EmptyClass()
+    var emptyClass7 = EmptyClass()
+    var emptyClass8 = EmptyClass()
+    var emptyClass9 = EmptyClass()
+    var emptyClass10 = EmptyClass()
+}
+</code></pre> 
+          <p>The following snippet will check how long it takes to create a <code>HugeClass</code>, reference it ten million times, add all these references to an array and deallocate everything. Then it will do the same to a <code>struct</code> variant.</p> 
+          <pre class="language-swift"><code class="language-swift">func createABunchOfReferencesOfClass() {
+    var array = [HugeClass]()
+    let object = HugeClass()
+    for _ in 0..&lt;10_000_000 {
+        array.append(object)
+    }
+}
+
+func createABunchOfCopiesOfStruct() {
+    var array = [HugeDynamicStruct]()
+    let object = HugeDynamicStruct()
+    for _ in 0..&lt;10_000_000 {
+        array.append(object)
+    }
+}
+
+//Each object contains ten EmptyClasses
+
+createABunchOfReferencesOfClass() // ~1.71 seconds
+createABunchOfCopiesOfStruct() // ~5.1 seconds
+</code></pre> 
+          <p>Judging from what was previously said it's somewhat expected that the <code>struct</code> version would take longer as it is <b>copy-on-assignment</b>, compared to the <code>class</code> version which is only increasing a reference count value.</p> 
+          <p>However, consider what happens when we increase the amount of <code>EmptyClasses</code> inside of each object:</p> 
+          <pre class="language-swift"><code class="language-swift">//Each object now contains TWENTY EmptyClasses
+
+createABunchOfReferencesOfClass() // ~1.75 seconds
+createABunchOfCopiesOfStruct() // ~14.5 seconds
+</code></pre> 
+          <p>Adding more classes to <code>HugeClass</code> did nothing to the runtime of the algorithm, but <code>HugeDynamicStruct</code>'s version took <b>more than twice</b> as much to run!</p> 
+          <p>Since all reference types require reference counting, increasing the amount of properties of a <code>class</code> of <code>classes</code> will not change the runtime of this algorithm, as merely increasing the reference count of the parent reference will be enough to keep it's inner references alive.</p>
+          <p>However, value types do not naturally have a reference count. If your value type contains inner references, copying it will require increasing the reference count of it's children instead - not the first, not the second, but literally <b>every single one</b> of them.</p>
+          <pre class="language-swift"><code class="language-swift">final class ClassOfClasses {
+    let emptyClass = EmptyClass()
+    let emptyClass2 = EmptyClass()
+    let emptyClass3 = EmptyClass()
+}
+
+let classOfClasses = ClassOfClasses()
+let reference = classOfClasses
+let reference2 = classOfClasses
+let reference3 = classOfClasses
+
+CFGetRetainCount(classOfClasses) // 4
+CFGetRetainCount(classOfClasses.emptyClass) // 1
+CFGetRetainCount(classOfClasses.emptyClass2) // 1
+CFGetRetainCount(classOfClasses.emptyClass3) // 1
+
+struct StructOfClasses {
+    let emptyClass = EmptyClass()
+    let emptyClass2 = EmptyClass()
+    let emptyClass3 = EmptyClass()
+}
+
+let structOfClasses = StructOfClasses()
+let copy = structOfClasses
+let copy2 = structOfClasses
+let copy3 = structOfClasses
+
+CFGetRetainCount(structOfClasses) // Doesn't compile, structs themselves don't have a reference count.
+CFGetRetainCount(structOfClasses.emptyClass) // 4
+CFGetRetainCount(structOfClasses.emptyClass2) // 4
+CFGetRetainCount(structOfClasses.emptyClass3) // 4
+</code></pre> 
+          <p>The more reference types you have inside of a value type, the more reference counting overhead you are going to have when copying it, leading to potentially nasty performance issues.</p> 
+          <h2>Avoiding Reference Counting Overhead in Value Types</h2>
+          <p>You can improve your app's performance by swapping unnecessary references with proper static size value types.</p> 
+          <p>Consider the following value type with inner references:</p> 
+          <pre class="language-swift"><code class="language-swift">struct DeliveryAddress {
+    let identifier: String
+    let type: String
+}</code></pre> 
+          <p>If <code>identifier</code> represents an UUID, it can be safely replaced by <code>Foundation</code>'s <code>UUID</code> struct, which is statically sized.</p> 
+          <p>In a similar fashion, <code>type</code> could easily be a pre-defined <code>enum</code> instead.</p> 
+          <pre class="language-swift"><code class="language-swift">struct DeliveryAddress {
+    enum AddressType {
+        case home
+        case work
+    }
+    let identifier: UUID
+    let type: AddressType
+}</code></pre> 
+          <p>With these changes, this struct is now statically sized. Not only reference counting overhead was eliminated, but it is also a lot more typesafe now.</p> 
+          <p>If your value type is more complicated than this (and you have a performance issue), ask yourself if it really shouldn't be a <code>class</code> with <b>copy-on-write</b> capabilities instead.</p> 
+          <p>From the Apple Docs:</p> 
+          <blockquote class="margin-top-40 margin-bottom-40"> 
+           <p>As a general guideline, consider creating a structure when one or more of these conditions apply:</p> 
+           <p><b>The structure’s primary purpose is to encapsulate a few relatively simple data values.</b></p> 
+           <p><b>It is reasonable to expect that the encapsulated values will be copied rather than referenced when you assign or pass around an instance of that structure.</b></p> 
+           <p><b>Any properties stored by the structure are themselves value types, which would also be expected to be copied rather than referenced.</b></p> 
+           <p><b>The structure does not need to inherit properties or behavior from another existing type.</b></p> 
+           <p>Examples of good candidates for structures include:</p> 
+           <p><b>The size of a geometric shape, perhaps encapsulating a width property and a height property, both of type Double.</b></p> 
+           <p><b>A way to refer to ranges within a series, perhaps encapsulating a start property and a length property, both of type Int.</b></p> 
+           <p><b>A point in a 3D coordinate system, perhaps encapsulating x, y and z properties, each of type Double.</b></p> 
+           <p>In all other cases, define a class, and create instances of that class to be managed and passed by reference. In practice, this means that most custom data constructs should be classes, not structures.</p> 
+          </blockquote> 
+          <h2>What else?</h2>
+          <p>Even though the examples shown here are extremely exaggerated, small mistakes can and will add up quick enough to cause you trouble in the future. Remember: People want to have a good time with apps, and most of them won't accept anything less than a silky smooth 60 fps experience. Waits/freezes are so universally hated that <a href="https://www.thinkwithgoogle.com/data-gallery/detail/mobile-site-abandonment-three-second-load/">53% of visits are abandoned if a mobile site takes longer than 3 seconds to load,</a> and you should keep that in mind when your app starts displaying random hiccups/slowdowns, specially when scrolling content.</p> 
+          <p>Performance depends on several factors, and choosing between <code>structs</code> and <code>classes</code> are just one of them. If you are interested in this topic, I largely recommend watching the WWDC videos about Method Dispatching and Witness Tables.</p> 
+<p>Follow me on my Twitter - <a href="https://twitter.com/rockthebruno">@rockthebruno</a>, and let me know of any suggestions and corrections you want to share.</p>
+          <h2>References and Good reads</h2>
+          <a href="http://www.cs.albany.edu/~sdc/CSI500/Fal13/OSTEP/">Operating Systems: Three Easy Pieces</a> 
+          <br> 
+          <a href="https://developer.apple.com/videos/play/wwdc2016/416/">WWDC: Understanding Swift Performance</a> 
+          <br> 
+          <a href="https://developer.apple.com/videos/play/wwdc2015/409/">WWDC: Optimizing Swift Performance</a> 
+          <br> 
+          <a href="https://developer.apple.com/videos/play/wwdc2015/414/">WWDC: Building Better Apps with Value Types in Swift</a> 
+          <br> 
+          <a href="https://github.com/apple/swift/blob/master/docs/OptimizationTips.rst">Apple: Optimization Tips</a> 
+          <br> 
+         </div>

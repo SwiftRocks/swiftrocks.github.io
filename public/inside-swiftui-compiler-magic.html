@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+    <!-- Meta Tag -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO -->
+    <meta name="author" content="Bruno Rocha">
+    <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
+    <meta name="description" content="SwiftUI is a revolutionary framework announced by Apple in WWDC 2019 and you might've noticed that it looks pretty different from regular Swift. Let's see why.">
+    <meta name="title" content="Inside SwiftUI's Declarative Syntax's Compiler Magic">
+    <meta name="url" content="https://swiftrocks.com/inside-swiftui-compiler-magic.html">
+    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png">
+    <meta name="copyright" content="Bruno Rocha">
+    <meta name="robots" content="index,follow">
+
+    <meta property="og:title" content="Inside SwiftUI's Declarative Syntax's Compiler Magic"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
+    <meta property="og:description" content="SwiftUI is a revolutionary framework announced by Apple in WWDC 2019 and you might've noticed that it looks pretty different from regular Swift. Let's see why."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://swiftrocks.com/inside-swiftui-compiler-magic.html"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
+    <meta name="twitter:title" content="Inside SwiftUI's Declarative Syntax's Compiler Magic"/>
+    <meta name="twitter:description" content="SwiftUI is a revolutionary framework announced by Apple in WWDC 2019 and you might've noticed that it looks pretty different from regular Swift. Let's see why."/>
+    <meta name="twitter:site" content="@rockthebruno"/>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
+    <link rel="mask-icon" href="images/favicon/favicon-2.ico">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    
+  <!-- All CSS Plugins --> 
+  <link rel="stylesheet" type="text/css" href="css/plugin.css"> 
+    <!-- Prism CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/prism.css"> 
+  <!-- Main CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/style18.css"> 
+  <!-- PT Sans --> 
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    
+    <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+
+  </head>
+
+ <body>
+      
+    
+    
+  <div id="main"> 
+   <div class="container"> 
+    <div class="row"> 
+     <!-- Blog Header --> 
+     <div class="blog-header">
+     <div class="blog-header-container">
+         <a href="https://swiftrocks.com">
+           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="height: 110px; margin-left: -8px; margin-right: 6px; margin-bottom: -18px;"> 
+         </a> 
+     </div> 
+   </div>
+     <!-- Blog Post (Right Sidebar) Start --> 
+                 <div class="col-sm-8">
+                    <div class="col-sm-12 page-body">
+                    	<div class="row">
+
+                            <div class="col-sm-12 content-page" id="WRITEIT_DYNAMIC_CONTENT">
+<!--WRITEIT_POST_NAME=Inside SwiftUI's Declarative Syntax's Compiler Magic-->
+<!--WRITEIT_POST_HTML_NAME=inside-swiftui-compiler-magic.html-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=SwiftUI is a revolutionary framework announced by Apple in WWDC 2019 and you might've noticed that it looks pretty different from regular Swift. Let's see why.-->
+
+<title>Inside SwiftUI's Declarative Syntax's Compiler Magic - SwiftRocks</title>
+<div class="col-md-12 blog-post"> 
+<div class="post-title"> 
+  <h1>Inside SwiftUI's Declarative Syntax's Compiler Magic</h1> 
+</div> 
+<div class="post-info"> 
+June 4, 2019
+</div>
+<p>Announced in WWDC 2019, SwiftUI is an incredible UI building framework that might forever change how iOS apps are made. For years we've engaged in the war of writing views via Storyboard or View Code, and SwiftUI seems to finally end this. With its release, not only Storyboards are now pretty much irrelevant, but the old fashioned View Code is also very threatened as SwiftUI mixes the best of both worlds.</p>
+<p>With this new framework, you can use Xcode to define your screens visually just like in Storyboards -- but instead of generating unreadable XML files, it generates code:</p>
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/NfE8605.png" alt="">                                    
+</div>
+<p>If that wasn't crazy enough, changes to the code will update a live preview in real time, bringing to Xcode a long requested feature.</p>
+<p>But the part that interests me most is that if you take a look at the SwiftUI examples, you'll see that almost appear to make no sense at all in current Swift -- how the hell can a bunch of seemingly disconnected <code>View</code> properties result in a complete screen?</p>
+<pre>
+<code>struct LandmarkList: View {</code>
+<code>    @State var showFavoritesOnly = true</code>
+<code></code>
+<code>    var body: some View {</code>
+<code>        NavigationView {</code>
+<code>            List {</code>
+<code>                Toggle(isOn: $showFavoritesOnly) {</code>
+<code>                    Text("Favorites only")</code>
+<code>                }</code>
+<code></code>
+<code>                ForEach(landmarkData) { landmark in</code>
+<code>                    if !self.showFavoritesOnly || landmark.isFavorite {</code>
+<code>                        NavigationButton(destination: LandmarkDetail(landmark: landmark)) {</code>
+<code>                            LandmarkRow(landmark: landmark)</code>
+<code>                        }</code>
+<code>                    }</code>
+<code>                }</code>
+<code>            }</code>
+<code>            .navigationBarTitle(Text("Landmarks"))</code>
+<code>        )</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>Having strong support for declarative programming paradigms (where you describe what you want instead of explicitly coding it) was always a goal of Swift, and the release of SwiftUI is finally applying this concept. However, Swift doesn't have these features <i>yet</i>; The reason the previous example works is that SwiftUI is powered by tons of compiler features -- some of them coming in Swift 5.1, and others that still aren't officially part of Swift. As always, I investigated that out.</p>
+<h2>Return-less single expressions</h2>
+<p>You might have noticed that although <code>body</code> returns a <code>View</code>, there's no <code>return</code> statement! Swift 5.1 introduces return-less single expressions, where closures consisting of only one expression are allowed to omit the <code>return</code> statement for visual purposes. The way it works is what you'd expect: when the compiler is parsing a function body and notices it only has a single statement, it injects a <code>return</code> token in the tree. <a href="https://github.com/apple/swift/blob/0dc0b035218ca4412cbebd2a4d61a019b6b71ea0/lib/Parse/ParseDecl.cpp#L5683">Check it out here.</a></p>
+<pre>
+<code>auto RS = new (Context) ReturnStmt(SourceLoc(), E);</code>
+<code>BS->setElement(0, RS);</code>
+<code>AFD->setHasSingleExpressionBody();</code>
+<code>AFD->setSingleExpressionBody(E);</code>
+</pre>
+<p>Although I personally think that this can be a little confusing (but I haven't used it much, so I might change my mind), this is really great to bring the declarative feeling into the language.</p>
+<h2>Property Delegates</h2>
+<p>One of the most interesting features of SwiftUI is how changing the state of your view can trigger a full UI reload of it. This is enabled by the fact that Xcode 11 adds the <a href="https://developer.apple.com/documentation/combine">Combine</a> framework, officially bringing tons of Reactive concepts to iOS in the shape of declarative Swift APIs. However, what's cooler isn't these concepts themselves, but how they are applied. The previous example contains this line:</p>
+<pre>
+<code>@State var showFavoritesOnly = false</code>
+</pre>
+<p>Because this property is marked with the <code>@State</code> attribute, changing it triggers <code>body</code>, resulting in a new <code>View</code> being drawn in the screen.</p>
+<p>This attribute isn't available in Swift itself, but it relates to a compiler feature that is currently under discussion to be added officially into the language: <b>property delegates.</b></p>
+<p>Sometimes, we want to add more complex pieces of logic to a property that doesn't really justify the use of a new type, at least not that in that scope. This can with the <code>get/set/willSet/didSet</code> property observers, like in the classic <code>UserDefaults</code> example:</p>
+<pre>
+<code>var isFirstBoot: Bool {</code>
+<code>    get {</code>
+<code>        return UserDefaults.standard.object(forKey: key) as? Bool ?? false</code>
+<code>    } set {</code>
+<code>      UserDefaults.standard.set(newValue, forKey: "isFirstBoot")</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>This example is simple enough to work, but it's not difficult to see how bloated this gets if you do something more complex, like manually implementing the <code>lazy</code> logic:</p>
+<pre>
+<code>private var _foo: Int?</code>
+<code>var lazyFoo: Int {</code>
+<code>    get {</code>
+<code>        if let value = _foo { return value }</code>
+<code>        let initialValue = 1738</code>
+<code>        _foo = initialValue</code>
+<code>        return initialValue</code>
+<code>    } set {</code>
+<code>        _foo = newValue</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>In current Swift your only choice would be to wrap this inside a <code>Lazy&lt;T></code> generic type, which visually doesn't fit SwiftUI's declarative programming style. In response, the <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-delegates.md">Property Delegates</a> proposal was created in April 2019. This compiler feature isn't officially added to the language yet, but it's already being used as part of SwiftUI. Its purpose is to do exactly what we have to do in current Swift, but visually <b>abstracting it from the user</b>.</p>
+<p>When creating generic types, you can now add the <code>@propertyDelegate</code> attribute to its declaration to make it <b>usable as an attribute:</b></p>
+<pre>
+<code>@propertyDelegate class UserDefault&lt;T> {</code>
+<code>    let key: String</code>
+<code>    let defaultValue: T</code>
+<code></code>
+<code>    var value: T {</code>
+<code>        get {</code>
+<code>            return UserDefaults.standard.object(forKey: key) as? T ?? defaultValue</code>
+<code>        } set {</code>
+<code>            UserDefaults.standard.set(newValue, forKey: key)</code>
+<code>        }</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p><b>Update: It appears that the official Swift 5.1 name for this attribute is going to be <code>@propertyWrapper</code>, but the SwiftUI beta is using <code>@propertyDelegate</code> so I'm using this one.</b></p>
+<p>I can now use <code>isFirstBoot</code> as follows:</p>
+<pre>
+<code>@UserDefault(key: "isFirstBoot", defaultValue: false) var isFirstBoot: Bool</code>
+</pre>
+<p>This allows you to interface with the complex generic type, but visually see nothing but a regular <code>Bool</code> property, As stated, the attribute empowers compiler magic to abstract the creation of the original generic type. Because the full implementation of it deserves an <code>How 'x' Works Internally in Swift</code> article of its own, we'll jump to the interesting parts -- with property delegates, the compiler translates the previous declaration to this:</p>
+<pre>
+<code>var $isFirstBoot: UserDefaults&lt;Bool> = UserDefaults&lt;Bool>(key: "isFirstBoot", defaultValue: false)</code>
+<code>var isFirstBoot: Bool {</code>
+<code>  get { return $isFirstBoot.value }</code>
+<code>  set { $isFirstBoot.value = newValue }</code>
+<code>}</code>
+</pre>
+<p>The use of <code>$</code> as a prefix is on purpose; Even though <code>isFirstBoot</code> is a <code>Bool</code>, I might still want to access properties and methods from the more complex generic type. Although the original property is hidden, you can still access it for this purpose. For example, here's an example where <code>UserDefault</code> has a method for returning it to the default value:</p>
+<pre>
+<code>extension UserDefault {</code>
+<code>    func reset() {</code>
+<code>        value = defaultValue</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>Although <code>Bool</code> won't have this property, I can use it from <code>$isFirstBoot</code>:</p>
+<pre>
+<code>$isFirstBoot.reset()</code>
+</pre>
+<p>This is why <code>Toggle(isOn: $showFavoritesOnly)</code> in SwiftUI's example use <code>$</code>: it doesn't want the actual <code>Bool</code>, but the <code>Binding</code> property provided by the <code>State</code> property delegate struct which will be able to trigger a view reload when it changes.</p>
+<pre>
+<code>/// A linked View property that instantiates a persistent state</code>
+<code>/// value of type `Value`, allowing the view to read and update its</code>
+<code>/// value.</code>
+<code>@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)</code>
+<code>@propertyDelegate public struct State&lt;Value> : DynamicViewProperty, BindingConvertible {</code>
+<code></code>
+<code>    /// Initialize with the provided initial value.</code>
+<code>    public init(initialValue value: Value)</code>
+<code></code>
+<code>    /// The current state value.</code>
+<code>    public var value: Value { get nonmutating set }</code>
+<code></code>
+<code>    /// Returns a binding referencing the state value.</code>
+<code>    public var binding: Binding&lt;Value> { get }</code>
+<code></code>
+<code>    /// Produces the binding referencing this state value</code>
+<code>    public var delegateValue: Binding&lt;Value> { get }</code>
+<code></code>
+<code>    /// Produces the binding referencing this state value</code>
+<code>    /// TODO: old name for storageValue, to be removed</code>
+<code>    public var storageValue: Binding&lt;Value> { get }</code>
+<code>}</code>
+</pre>
+<h2>Function Builders</h2>
+<p>We've seen how single expression don't need to add <code>return</code> statements, but what the hell is going on here?</p>
+<pre>
+<code>HStack {</code>
+<code>   Text("Hi")</code>
+<code>   Text("Swift")</code>
+<code>   Text("Rocks")</code>
+<code>}</code>
+</pre>
+<p>This will result in a nice horizontal stack with three labels, but all we did was instantiate them! How could they be added to the view?</p>
+<p>The answer to this is perhaps the most groundbreaking change in SwiftUI -- <b>function builders.</b></p>
+<p>The function builders feature pitch was introduced to the Swift community right after SwiftUI was released, allowing Swift to abstract factory patterns into a clean visual declarative expression. All indicates that it'll be part of Swift itself very soon, but for now you can try it as part of SwiftUI.</p>
+<p>Function builders relate to types that, given a closure, can retrieve a sequence of statements and abstract the creation of something more concrete based on them.</p>
+<p><code>HStack</code> can do this because it has the <code>ViewBuilder</code> function builder in its signature:</p>
+<pre>
+<code>public init(..., content: @ViewBuilder () -> Content)</code>
+<code>//Note: The official docs won't show the attribute, and I'm not sure why,</code>
+<code>//but you can confirm it has it by adding a normal expression `let a = 1` expression inside of the closure.</code>
+<code>//It will give you a compilation error.</code>
+</pre>
+<p><code>@ViewBuilder</code> translates to the <code>ViewBuilder</code> struct: a <b>function builder</b> that can transform view expressions into actual views. Function builders are determined by the <code>@_functionBuilder</code> attribute (with an underline because we're not supposed to use it manually yet) and a series of methods that determine how expressions should be parsed:</p>
+<pre>
+<code>@_functionBuilder public struct ViewBuilder {</code>
+<code></code>
+<code>    /// Builds an empty view from an block containing no statements, `{ }`.</code>
+<code>    public static func buildBlock() -> EmptyView</code>
+<code></code>
+<code>    /// Passes a single view written as a child view (e..g, `{ Text("Hello") }`) through</code>
+<code>    /// unmodified.</code>
+<code>    public static func buildBlock<Content>(_ content: Content) -> Content where Content : View</code>
+<code>    // Not here: Another 9 buildBlock methods with increasing amount of generic parameters</code>
+<code>}</code>
+</pre>
+<p>We don't really know what's going on inside these methods as they are internal to SwiftUI, but we know the compiler magic behind it. That example will result in the following:</p>
+<pre>
+<code>HStack {</code>
+<code>   return ViewBuilder.buildBlock(Text("Hi"), Text("Swift"), Text("Rocks"))</code>
+<code>}</code>
+</pre>
+<p>The more complex the block, the more complex the magic'd expression is. The important thing here is that function builders block can <b>only contain content that is understandable by the builder.</b> For example, you can only add an <code>if</code> statement to <code>HStack</code> because it contains the related <code>buildIf()</code> method from the attribute. If you want an example of something that doesn't work, try the following:</p>
+<pre>
+<code>HStack {</code>
+<code>    let a = 1 //Closure containing a declaration cannot be used with function builder 'ViewBuilder'</code>
+<code>    Text("a")</code>
+<code>}</code>
+</pre>
+<p>The purpose of this feature is to enable the creation of embedded DSLs in Swift -- allowing you to define content that gets translated to something else down the line, but it plays a big role in giving the declarative programming feeling to Swift. Here's how building a HTML page can look with this function builders:</p>
+<pre>
+<code>div {</code>
+<code>    p {</code>
+<code>        "Call me Ishmael. Some years ago"</code>
+<code>    }</code>
+<code>    p {</code>
+<code>        "There is now your insular city"</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>The version of the feature inside Xcode 11 is internal and has less features than the proposed Swift version, and thus shouldn't be used manually until it's officially added into the language.</p>
+<h2>Conclusion</h2>
+<p>SwiftUI has just been announced and it's already causing a huge impact. The new Swift features that are spawning out it are also game changing, and I for one am ready for the addition of new compiler black magics into Swift.</p>
+<p>Follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any suggestions and corrections you want to share.</p>
+<h2>References and Good reads</h2>
+<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-delegates.md">SE-0258: Property Delegates</a><br>
+<a href="https://github.com/apple/swift/pull/23251">Original Returnless Expressions PR</a><br>
+<a href="https://forums.swift.org/t/pitch-function-builders/25167">Function Builders Pitch</a><br>
+</div></div>
+                              
+                         </div>
+                        
+                           
+                         </div>
+                     
+                     
+                  </div>
+                  <!-- Blog Post (Right Sidebar) End -->
+
+                 <!-- About Me (Left Sidebar) Start -->
+                 <div class="col-sm-4">
+                   <div class="about-fixed">
+                     <div class="my-pic">
+                        <img src="images/pic/my-pic-2.jpg" alt="">
+                        </div>
+                      
+                      
+                      
+                      <div class="my-detail">
+                        <h3 class="separator">Contact Info</h3>
+        			    <b>Bruno Rocha</b>
+                        <br>
+                        <span>Senior iOS Software Engineer</span><br>
+                        <span><a href="mailto:bruno@swiftrocks.com">bruno@swiftrocks.com</a></span>
+                        <h3 class="separator">Newsletter</h3>
+                        <a href="https://bit.ly/2IY5F4Y">Click here to subscribe to my newsletter to get notified of new posts by e-mail.</a>
+                        <h3 class="separator">RSS / Social</h3>
+                        <div class="social-icon">
+                         <a href="https://swiftrocks.com/rss.xml" target="_blank" class="rss"><i class="fa fa-rss"></i></a>
+                         <a href="https://twitter.com/rockthebruno" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+                         <a href="https://github.com/rockbruno" target="_blank" class="github"><i class="fa fa-github"></i></a>
+                         <a href="https://www.linkedin.com/in/bruno-rocha-45786a98/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                        <h3 class="separator">Info</h3>
+                        <a href="https://github.com/rockbruno/writeit">This website's static HTML pages are generated by WriteIt.</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- About Me (Left Sidebar) End -->
+                
+            </div>
+         </div>
+      </div>
+    
+    
+    <!-- All Javascript Plugins  -->
+  <script type="text/javascript" src="js/jquery.min.js"></script> 
+  <script type="text/javascript" src="js/plugin.js"></script> 
+  <script type="text/javascript" src="js/prism.js"></script> 
+    <!-- Main Javascript File  -->
+    <script type="text/javascript" src="js/scripts4.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-130406165-1');
+</script>
+
+   </body>
+ </html>

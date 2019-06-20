@@ -1,0 +1,141 @@
+
+<!--WRITEIT_POST_NAME=Competitive Programming With Swift-->
+<!--WRITEIT_POST_HTML_NAME=competitive-programming-with-swift.html-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITE_IT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Competitive programming is a great way to master a specific programming language. Even if you're not interested in competing in world events like the Facebook Hacker Cup, tackling difficult algorithm problems using nothing but the language's bread and butter will expose you to aspects/shortcuts of the language you would otherwise never see, such as how efficient certain methods/operations are and how to code better alternatives.-->
+
+<title>Competitive Programming With Swift - SwiftRocks</title>
+<div class="col-md-12 blog-post"> 
+          <div class="post-title"> 
+           <h1>Competitive Programming With Swift</h1> 
+          </div> 
+          <div class="post-info"> 
+          May 21, 2018
+          </div>
+          <p>Competitive programming is a great way to master a specific programming language. Even if you're not interested in competing in world events like the <b>Facebook Hacker Cup</b>, tackling difficult algorithm problems using nothing but the language's bread and butter will expose you to aspects/shortcuts of the language you would otherwise never see, such as how efficient certain methods/operations are and how to code better alternatives. This is a cool hobby to have, and as a bonus you'll even be indirectly preparing yourself to the feared Big 4 interviews where you have to solve algorithm problems in a whiteboard!</p>
+          <p>Even though in a real competition coding in Swift would be a big disavantage (as it's slightly slow compared to other languages and has few native data structures), lots of popular online platforms like <a href='https://leetcode.com/'>LeetCode</a>, <a href='https://www.hackerrank.com/'>HackerRank</a> and <a href='https://codefights.com/'>Codefights</a> support Swift and they are a great way to make yourself a better iOS developer, specially since competitive problems will only accept very fast algorithms as possible solutions. If you've never did this before, I highly recommend giving it a shot.</p>
+          <p>In this article, I'll give a brief tutorial on how to use Swift to read input data and some tips for tackling competitive problems in Swift.</p>
+          <h2>Reading Standard Input with Swift</h2>
+          <p>In competitive programming, the problem's input is usually fed into a command line application which makes some sense of it and prints the desired result.</p>
+          <p>Platforms like <b>LeetCode</b> and <b>CodeFights</b> will automatically process input data for you and expose an empty Swift method that should return the problem's solution, but other platforms like <b>HackerRank</b> will sometimes have you manually read, parse the standard input and then print the result. Thankfully, that's not as complex as it sounds.</p>
+          <p>To simulate a competitive programming environment, create a <b>Command Line Tool</b> project in Xcode:</p>
+          <div class="post-image margin-top-40 margin-bottom-40">
+            <img src="https://i.imgur.com/MyAl2I0.png" alt="">                                    
+          </div>
+          <p>Be aware that a Command Line Tool is not a Cocoa app, so you'll have no access to things like <code>UIKit</code>! The core frameworks like <code>Foundation</code> are all you have here.</p>
+          <p>In <code>main.swift</code>, type and run the following code:</p>
+<pre class = "language-swift"><code class="language-swift">let line = readLine()
+print("Got something! \(line)")
+</code></pre>
+<p>At this point, the program will be frozen. <code>readLine()</code> is a Standard Library method that synchronously reads the standard input and returns a <code>String?</code> once a full line is retrieved or <code>nil</code> if EOF is reached.</p>
+<p>If you type something in Xcode's console, the program's execution will continue and print what you wrote:</p>
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/U5IwGnn.png" alt="">                                    
+</div>
+<p>However, a competitive programming problem will likely have several hundred lines of input. You can use a <code>while</code> loop to make your code run until the input ends:</p>
+<pre class = "language-swift"><code class="language-swift">while let line = readLine() {
+    print("Got something! \(line)")
+}
+</code></pre>
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/KLUwiBK.png" alt="">                                    
+</div>
+<p>That is all you need to know to get started. From here forward, your skill with pure Swift is the only variable.</p>
+<p>Here's an example problem if you've never done this before:</p>
+<h2>Example Problem</h2>
+<p>Given an array of integers, find the sum of its elements.</p>
+<h3>Input Format</h3>
+<p>The first line contains an integer, denoting the size of the array.</p>
+<p>The second line contains <code>n</code> space-separated integers representing the array's elements.</p>
+<h3>Output Format</h3>
+<p>Print the sum of the array's elements as a single integer.</p>
+<h3>Sample Input</h3>
+<pre class = "language-swift"><code class="language-swift">6
+1 2 3 4 10 11
+</code></pre>
+<h3>Sample Output</h3>
+<p><code>31</code></p>
+<h2>Solution</h2>
+<p>Every problem has multiple possible solutions. For this one, we can harness the power of <code>reduce</code>:</p>
+<pre class = "language-swift"><code class="language-swift">import Foundation
+
+_ = readLine() //Read and drop the array size line.
+//Knowing the size of the array beforehand is needed for some languages
+//But as readLine() returns the whole line, Swift doesn't need it!
+
+let array = readLine()!.components(separatedBy: " ").map { Int($0)! }
+let result = array.reduce(0, +)
+print(result)
+</code></pre>
+<h2>Swift tips for Competitive Programming</h2>
+<p>The beauty of competitive programming is that merely solving the problem is not enough - your program must solve it as fast as possible.</p>
+<p>There's a lot to talk about <a href="https://pt.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/big-o-notation">runtime complexity</a>, but this section is supposed to cover Swift tips that are useful when things need to be quick.</p>
+<p><b>If you have a tip that is not here, feel free to contact me and I'll add it and credit you!</b></p>
+<h3>Use Overflow Operators</h3>
+<p>Swift naturally protects you from numbers overflowing at the cost of performance. This can cost you some valuable nano-seconds, and some problems might even <b>want</b> you to overflow numbers. Luckily, Swift has special arithmetic operators that ignore overflow checks, making them faster than the regular operators:</p>
+<pre class="language-swift"><code class="language-swift">1 &+ 1
+1 &- 1
+1 &* 1
+1 &>> 1
+</code></pre>
+<h3>Printing is slow</h3>
+<p>The <code>print(_:)</code> method is very slow, and it can be particularly painful when printing things like <code>Arrays</code>. You can gain some performance if you print everything at once.</p>
+<pre class="language-swift"><code class="language-swift">let array = [String](repeating: "A", count: 1000)
+
+for a in array {
+    print(separated, terminator: " ") // slow
+}
+
+/////
+
+let separated = array.joined(separator: " ")
+print(separated) // a lot quicker, even though we're processing the array beforehand
+</code></pre>
+<h3>Allocate Array capacities in advance</h3>
+<p>Swift's <code>Arrays</code> have dynamic sizes, meaning that the language automatically allocates more memory space for it as it increases in size. Even if this is quite fast, you can make it even faster if you know the array size in advance by using the <code>Array.reserveCapacity(_:)</code> method. This is useful if you have a problem where the solution is an <code>Array</code> with a specific size.</p>
+<pre class="language-swift"><code class="language-swift">let arraySize = Int(readLine()!)!
+var array = [Int]()
+array.reserveCapacity(arraySize) //Runtime is slightly slower without manually setting the array's capacity.
+for i in 0..&lt;arraySize {
+    array.append(solve(for: i))
+}
+</code></pre>
+<p>Alternatively, you can use the <code>repeating:count:</code> initializer when you need a pre-filled array:</p>
+<pre class="language-swift"><code class="language-swift">let fiveZs = Array(repeating: "Z", count: 5)
+print(fiveZs)
+// Prints "["Z", "Z", "Z", "Z", "Z"]"
+</code></pre>
+<h3>Abuse Implicitly Unwrapped Optionals</h3>
+<p>While the dreaded <code>!</code> should be avoided in real applications, safety is not a concern in competitive programming. Since inputs are guaranteed to always be the same, you can completely skip the overhead of unwrapping optionals.</p>
+          <h3>Use <code>inout</code> - Dmitry Volevodz</h3> 
+          <p>Using <code>inout</code> arguments can be really useful when passing data around recursive functions, and I was able to confirm that <code>inout</code> arguments are even faster to create than regular ones when passing around value types with inner reference types.</p>
+          <h3>Subtract Dates to measure performance - Rodrigo Carvalho</h3> 
+          <p>The following snippet will measure how long it takes to run something:</p>
+          <pre class="language-swift"><code class="language-swift">func measure(function: () -> Void) {
+    let start = Date()
+    function()
+    let end = Date()
+    print("Elapsed time: \(end.timeIntervalSince(start))")
+}
+
+measure {
+    timeIntensiveTask()
+}
+</code></pre>
+<p>This can be useful when you have multiple approaches and is not sure which one is faster. Be sure to run this with optimizations turned on to properly measure things, as most of the Swift compiler's tricks require it.</p>
+<h2>Swift Algorithm Club</h2>
+<p>Most competitive programming problems will rely on a specific data structure, and since Swift unfortunately has no native support for most of them, that means you'll have to code them yourself.</p>
+<p>Fortunately, the <a href="https://github.com/raywenderlich/swift-algorithm-club/">swift-algorithm-club</a> repo has Swift implementations of pretty much everything, making it a great place to learn how to code popular data structures in Swift.</p>
+<h2>What else?</h2>
+<p>Regardless if you are studying for an interview, wanting to compete at world events or just trying to get better at iOS development, solving competitive programming problems is a very interesting way of increasing your Swift skills. I've personally benefited a lot from it, and would love to know what you think of it.</p>
+<p>Follow me on my Twitter - <a href="https://twitter.com/rockthebruno">@rockthebruno</a>, and let me know of any suggestions and corrections you want to share.</p>
+<h2>References and Good reads</h2>
+<a href="https://pt.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/big-o-notation">Big O Notation</a><br>
+<a href="http://jordansmith.io/on-performant-arrays-in-swift/">Performant Arrays In Swift</a><br>
+<a href="https://developer.apple.com/documentation/swift/1641199-readline">Apple Docs: readLine()</a>
+         </div>

@@ -1,0 +1,61 @@
+
+<!--WRITEIT_POST_NAME=Avoiding Release Anxiety 2: On the importance of creating a code Style Guide-->
+<!--WRITEIT_POST_HTML_NAME=code-style-guides-in-swift.html-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=When teams start to grow, it becomes to difficult to track what everyone is doing. If the team has different ideas on what a specific piece of code should look like, you can very quickly end up with a project where nobody wanders outside the things they coded themselves.-->
+
+<title>$WRITEIT_POST_NAME - SwiftRocks</title>
+<div class="col-md-12 blog-post"> 
+<div class="post-title"> 
+  <h1>$WRITEIT_POST_NAME</h1> 
+</div> 
+<div class="post-info"> 
+May 6, 2019
+</div>
+<blockquote class="margin-top-40 margin-bottom-40">
+<p><i>This is part 2 of the Avoiding Release Anxiety series. <a href="https://swiftrocks.com/blockbased-ui-testing-in-swift.html">Check out part 1 here!</a></i></p>
+</blockquote>
+<p><i>"I'm not sure how to implement this feature, Johnny is the one who created this screen."</i><br>
+<i>"Better to leave that code as it is, the guy who did it left the company a few months ago."</i><br>
+<i>"We should postpone this because Ana is the best person to handle this and she's on vacation."</i></p>
+<p>When teams start to grow, it becomes to difficult to track what everyone is doing. If the team has different ideas on what a specific piece of code should look like, you can very quickly end up with a project where nobody wanders outside the things they coded themselves. I've heard things like this and witnessed the consequences of the lack of a consistent style guides many times in many projects.</p>
+<p>Style guides can be seen as an anti-pattern when the subject is speed and there is often resistence from developers that haven't been part of large projects, and indeed having a traditional bureaucratic process in this modern tech world seems very odd, but a strict style guide is critical to have a project scale to the point where you can have hundreds of developers like Uber.</p>
+<p>Humans have an easier time understanding things that are familiar to them, which is why most people immediately label code bases from other teams as bad. When someone says <i>"What a terrible architecture!"</i> or <i>"I can't understand this, it's so badly written"</i> it's not that the code is bad, but that <b>you</b> are so used to what you wrote that everything else will feel off. The code could be bad indeed, but the opinions would remain even if it wasn't as you naturally search for the things that are familiar to you.</p>
+<p>Now, imagine an app with a team of 30+ developers. At this point the company is likely divided in squads, so there's no conceivable way you could review everyone's pull requests. Even if you could, it's 20 different opinions competing with yours, so you're bound to lose a few arguments. The more people the more opinions will differ, and without a style guide every squad's codebase will feel like a <b>completely</b> different project in your eyes in this scenario.</p>
+<p>After hearing phrases like the ones in the beginning of the article, you'll find that moving people from/to different squads becomes problematic. Because there's a big difference in code patterns from squads, a learning curve needs to be taken into account as your brain needs to be re-trained every time you wander into someone else's code.</p>
+<p>Finally, the worst outcome of this becomes visible: code review becomes inefficient. A PR that has changes in the code of multiple squads is too complex to understand due to the mix of many people's mental style guide. This leaves you unable to properly process the contents of the PR, making bugs and crashes slip into production. Hotfixes are pushed, but the PRs are just as bad to understand and the problem repeats over and over. Tons of "legacy" code is created -- an alias for "code that's too scary to change". Features that longer to develop, and refactors are nonexistent. Enter release anxiety!</p>
+<p>Now, not only this story isn't made-up, I actually made it <b>much less severe</b> than it really was. The lack of style guides can greatly harm the progress of a company, and the notion that it hurts speed is nonsense. The few minutes someone gained by ignoring lesser issues in a pull request once spiraled into hours of bug fixing and shipping hotfixes. Strict style guides actually <b>give</b> you speed in the long term!</p>
+<p>When an entire code base is written in a style that is familiar to you, all code feels like it was written by you. <a href="https://github.com/Rapiddo/rapiddo-ios-style-guide/blob/mpay/RAPIDDO.md">Rapiddo was the first app where we created our own style guide</a>, and it was also the first app where I felt like making changes in someone else's code was just as straightforward as making changes in my own. The presence of a style guide meant that I knew exactly where to look just like I was the one who wrote it as we strived to code in the exact same way. In the two years that this app lived only <b>one</b> critical bug was found in production, and it was in the very beginning -- way before we had a style guide. This played a huge part in making the releases stress-free.</p>
+<h2>Bootstrapping a Style Guide</h2>
+<p>For tips on creating your team's own style guide, I recommend taking a look at other team's guides. Here are some links to get you started:</p>
+<p><a href="https://github.com/raywenderlich/swift-style-guide">- Ray Wenderlich's Style Guide</a><br>
+<a href="https://github.com/linkedin/swift-style-guide">- Linkedin's Style Guide</a><br>
+<a href="https://google.github.io/swift/">- Google's Style Guide</a><br>
+<a href="https://github.com/Rapiddo/rapiddo-ios-style-guide/blob/master/README.md">- MovilePay/Rapiddo's Style Guide (mine)</a>
+</p>
+<p>In general, here are the things I personally find important to cover:</p>
+<p>
+- How to build something in the app's architecture, detailing the desired pattern as much as possible<br>
+- Details on how to write clean code (I personally recommend <a href="https://www.amazon.com.br/dp/B001GSTOAM/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1">this book</a>)
+- How to name properties/methods (This is important for CMD+F reasons! Things need to be easy to find for everyone.)<br>
+- When to use delegation/notifications/closures, and how to use them<br>
+- Desired usage of specific syntax sugars, like the way you can write methods where the last parameter is a closure<br>
+- The <b>order/position</b> of properties and methods in the file, to allow quick lookups<br>
+- Usage of special components/abstractions<br>
+- Usage of comments/documentation<br>
+- Be strict! In the long term, the project becomes easier to handle to everyone.
+</p>
+<p>An important thing to mention is that style guides <b>are incremental</b>. Don't worry about covering everything at once, new topics will naturally come up during code review. Here's an example where a comment resulted in a new addition to the style guide:</p>
+<div class="post-image margin-top-24 margin-bottom-24">
+  <img src="https://i.imgur.com/IWMSaIV.png" alt="">                                    
+</div>
+<p>With time, the topics that matter most to you and your team will be covered and you'll have a complete guide.</p>
+<h2>Conclusion</h2>
+<p>In the end, it's all about how far you see your project going. Style guides are strict, have a learning curve and are hard to get used to initially, but if neglected, the lack of one ends up being one of the main reasons why a repository fell apart. In the long term, being able to seamlessly access and understand someone else's code in a team of 200 engineers is a large scale project's biggest strength.</p>
+<p>Follow me on my Twitter - <a href="https://twitter.com/rockthebruno">@rockthebruno</a>, and let me know of any suggestions and corrections you want to share.</p>
+</div>

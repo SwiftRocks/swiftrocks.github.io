@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+    <title>SwiftRocks</title>
+    <description>Recent content on SwiftRocks</description>
+    <language>en-us</language>
+    <copyright>2019 Bruno Rocha</copyright>
+    <link>https://swiftrocks.com</link>
+    <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+        <title>Understanding Opaque Return Types in Swift</title>
+        <link>https://swiftrocks.com/understanding-opaque-return-types-in-swift.html</link>
+        <guid>https://swiftrocks.com/understanding-opaque-return-types-in-swift.html</guid>
+        <pubDate>Tue, 10 Jun 2019 17:30:00 MST</pubDate>
+        <description>Opaque Return Types is a feature added in Swift 5.1 that is a big part of the new SwiftUI framework's functionality. It comes to finally fix a fundamental problem of the usage of protocols and the design of Swift APIs, opening new possibilities for the creation and usage of public APIs. Let's see the compiler magic behind it and why SwiftUI uses it to return the "some View" type.</description>
+    </item>
+    <item>
+        <title>Inside SwiftUI's Declarative Syntax's Compiler Magic</title>
+        <link>https://swiftrocks.com/inside-swiftui-compiler-magic.html</link>
+        <guid>https://swiftrocks.com/inside-swiftui-compiler-magic.html</guid>
+        <pubDate>Tue, 04 Jun 2019 11:00:00 MST</pubDate>
+        <description>Announced in WWDC 2019, SwiftUI is an incredible UI building framework that might forever change how iOS apps are made. For years we've engaged in the war of writing views via Storyboard or View Code, and SwiftUI seems to finally end this. With its release, not only Storyboards are now pretty much irrelevant, but the old fashioned View Code is also very threatened as SwiftUI mixes the best of both worlds. The thing is, it looks very different from the Swift we're used to, and the reason is because it empowers a few new "unreleased" compiler features. Let's see how this works.</description>
+    </item>
+    <item>
+        <title>@autoreleasepool uses in 2019 Swift</title>
+        <link>https://swiftrocks.com/autoreleasepool-in-2019-swift.html</link>
+        <guid>https://swiftrocks.com/autoreleasepool-in-2019-swift.html</guid>
+        <pubDate>Wed, 22 May 2019 07:30:00 MST</pubDate>
+        <description>Foundation's NSAutoreleasePool type, later abstracted to the @autoreleasepool block, is a very old concept in iOS development. During the OBJ-C era of iOS, usage of this type was important to prevent your app's memory from blowing up in specific cases. As ARC and Swift came around and evolved, very few people still have to manually play around with memory, making seeing it become a rare occurrence. Having developed tools that need to allocate enourmous amounts of memory, I asked myself if there's still a case where @autoreleasepool is useful in Swift 5. Here are the answers.</description>
+    </item>
+    <item>
+        <title>Avoiding Release Anxiety 2: On the importance of creating a code Style Guide</title>
+        <link>https://swiftrocks.com/code-style-guides-in-swift.html</link>
+        <guid>https://swiftrocks.com/code-style-guides-in-swift.html</guid>
+        <pubDate>Tue, 07 May 2019 07:30:00 MST</pubDate>
+        <description>When teams start to grow, it becomes to difficult to track what everyone is doing. If the team has different ideas on what a specific piece of code should look like, you can very quickly end up with a project where nobody wanders outside the things they coded themselves. Style guides can be seen as an anti-pattern when the subject is speed and there is often resistence from developers that haven't been part of large projects, and indeed having a traditional bureaucratic process in this modern tech world seems very odd, but a strict style guide is critical to have a project scale to the point where you can have hundreds of developers like Uber.</description>
+    </item>
+    <item>
+        <title>Avoiding Release Anxiety 1: Block-based UI Testing in Swift</title>
+        <link>https://swiftrocks.com/blockbased-ui-testing-in-swift.html</link>
+        <guid>https://swiftrocks.com/blockbased-ui-testing-in-swift.html</guid>
+        <pubDate>Sat, 20 Apr 2019 09:57:00 MST</pubDate>
+        <description>When deadlines are tight and the product faces considerable changes, it's common for developers to make concessions in the project's quality to make sure it gets shipped in time. This leads to release anxiety - that stressful feeling where you're unsure if you're shipping something that actually works. As a result, teams resort to heavy amounts of manual testing, staying overtime to make sure nothing fell apart and an unhappy environment in general. Avoiding Release Anxiety is a series of posts where I show the things I do to develop durable Swift apps that allow me and my team to sleep worry-free at night. In this edition, I show why I like UI Tests and how I build them to make my projects reliable.</description>
+    </item>
+    <item>
+        <title>iOS Responder Chain: UIResponder, UIEvent, UIControl and uses</title>
+        <link>https://swiftrocks.com/understanding-the-ios-responder-chain.html</link>
+        <guid>https://swiftrocks.com/understanding-the-ios-responder-chain.html</guid>
+        <pubDate>Thu, 28 Feb 2019 09:57:00 MST</pubDate>
+        <description>In iOS, the Responder Chain is the name given to an UIKit-generated linked list of UIResponder objects, and is the foundation for everything regarding events (like touch and motion) in iOS. The Responder Chain is something that you constantly deal with in the world of iOS development, and although you rarely have to directly deal with it outside of UITextField keyboard shenanigans, knowledge of how it works allows you to solve event-related problems in very easy/creative ways - you can even build architectures that rely on Responder Chains.</description>
+    </item>
+    <item>
+        <title>Adding iOS Home Shortcuts to Specific Parts of An App in Swift</title>
+        <link>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen.html</link>
+        <guid>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen.html</guid>
+        <pubDate>Wed, 20 Feb 2019 11:00:00 MST</pubDate>
+        <description>iOS already allows you to add "shortcuts" to an app in the shape of 3D Touch Quick Actions, but they are very limited, hidden from the user, and let's be honest - it's one of these features that nobody remembers. You can also use Siri Extensions, but then you have to deal with Siri, and the regular Siri Shortcuts relies on the Shortcuts app, so it's not something that you can provide to your users. Wouldn't it be great if you could give your users the ability to add shortcuts to things like ordering their favorite coffee in the shape of a home icon - just like the app itself? Well, after reverse engineering Apple's Shortcuts app, it turns out that you can! That's exactly what it does when you add a system shortcut to the home screen, and we're going to replicate it in order to give users the ability to add home icons that directly open a specific part of an app.</description>
+    </item>
+    <item>
+        <title>Avoiding Callback Hell in Swift</title>
+        <link>https://swiftrocks.com/avoiding-callback-hell-in-swift.html</link>
+        <guid>https://swiftrocks.com/avoiding-callback-hell-in-swift.html</guid>
+        <pubDate>Mon, 17 Dec 2018 07:30:00 MST</pubDate>
+        <description>Being able to work in projects of the most diverse varieties gave me the chance to be in contact with several types of developers and code bases. Besides their core differences, what stood out to me during this process is that projects with a lower level of maturity will always face similar problems. Perhaps they choose the wrong architecture, or the lack of unit tests caused a nasty bug to sneak into production, but there's a specific problem that always draws my attention - callback hell. If not treated from the very beginning, these awful pyramids of braces you get when chaining callbacks inside other callbacks or conditions plague code bases with an eternity of impossible code-reviews and distant screams of "what the hell is this method supposed to be doing?". I've shared a few tips on how to avoid them.</description>
+    </item>
+    <item>
+        <title>How @dynamicMemberLookup Works Internally in Swift (+ Creating Custom Swift Attributes)</title>
+        <link>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift.html</link>
+        <guid>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift.html</guid>
+        <pubDate>Thu, 6 Dec 2018 07:30:00 MST</pubDate>
+        <description>The @dynamicMemberLookup attribute was introduced in Swift 4.2 to add a certain degree of dynamism into the language similar to what is seen in languages like Python. I was interested in learning how the attributes worked inside the compiler to know more about how this attribute is able to transform fake expressions into legit ones, so I've once again reverse-engineered the Swift compiler to find these answers - and used this knowledge to create a brand new @swiftRocks attribute.</description>
+    </item>
+    <item>
+        <title>How Never Works Internally in Swift</title>
+        <link>https://swiftrocks.com/how-never-works-internally-in-swift.html</link>
+        <guid>https://swiftrocks.com/how-never-works-internally-in-swift.html</guid>
+        <pubDate>Wed, 14 Nov 2018 07:30:00 MST</pubDate>
+        <description>Added in Swift 3, the Never type allows you to define a method that is guaranteed to crash your app. Although we rarely write methods that use this type directly, we do interact with it constantly given that it is the return type of all forced-crash methods like fatalError(). The advantage this type brings is that a method that calls another Never-returning method does not need to provide a return value, after all, a crash is certain to happen. I investigated how that works.</description>
+    </item>
+    <item>
+        <title>What's .self, .Type and .Protocol? Understanding Swift Metatypes</title>
+        <link>https://swiftrocks.com/whats-type-and-self-swift-metatypes.html</link>
+        <guid>https://swiftrocks.com/whats-type-and-self-swift-metatypes.html</guid>
+        <pubDate>Mon, 29 Oct 2018 08:00:00 MST</pubDate>
+        <description>Metatypes are pretty useful in Swift, and you have certainly used it in multiple occasions. Unfortunately they look pretty weird in code, which can cause some confusion when trying to understand what they really are. I for one know how these weird suffixes can confuse you, but don't worry, they are actually pretty straightforward once you get to know the differences between each of them.</description>
+    </item>
+    <item>
+        <title>Running Other Apps' Siri Shortcuts Through Deeplinks in Swift</title>
+        <link>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift.html</link>
+        <guid>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift.html</guid>
+        <pubDate>Thu, 18 Oct 2018 07:30:00 MST</pubDate>
+        <description>Siri Shortcuts are definitely my favorite iOS 12 feature. Ever since SiriKit first came out I was very disappointed that you couldn't use it for your own custom commands, but the new Shortcuts app solves this problem. Not only it allows you to create your custom commands, but it also provides a very intuitive UI to allow even non-devs to automate tons of kinds of workflows in their iPhones. We've all seen how to create a workflow and make your app expose custom actions, but one thing that I haven't seen people mention is that the Shortcuts app exposes several deeplinks for opening and running shortcuts - meaning that you can make an app that runs other apps' Siri Shortcuts. I used this to make an app run my "Take Picture" shortcut every time I tapped my AirPods.</description>
+    </item>
+    <item>
+        <title>How CaseIterable Works Internally in Swift</title>
+        <link>https://swiftrocks.com/how-caseiterable-works-internally-in-swift.html</link>
+        <guid>https://swiftrocks.com/how-caseiterable-works-internally-in-swift.html</guid>
+        <pubDate>Fri, 21 Sep 2018 00:00:00 MST</pubDate>
+        <description>CaseIterable is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum. But this protocol is special: The requirements are automatically filled by the compiler. I investigated how that works - and as a bonus, modified it to also provide a "first" property.</description>
+    </item>
+    <item>
+        <title>Swift Associated Types With Default Values</title>
+        <link>https://swiftrocks.com/swift-associated-types-with-default-values.html</link>
+        <guid>https://swiftrocks.com/swift-associated-types-with-default-values.html</guid>
+        <pubDate>Sun, 16 Sep 2018 00:00:00 MST</pubDate>
+        <description>I was browsing the Swift forums when I stumbled across a discussion regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value. Here's how they can improve your objects.</description>
+    </item>
+    <item>
+        <title>Lazy Sequences in Swift And How They Work</title>
+        <link>https://swiftrocks.com/lazy-sequences-in-swift-and-how-they-work.html</link>
+        <guid>https://swiftrocks.com/lazy-sequences-in-swift-and-how-they-work.html</guid>
+        <pubDate>Mon, 27 Aug 2018 00:00:00 MST</pubDate>
+        <description>Usage of high-order functions like map and filter are very common in Swift projects, as they are simple algorithms that allow you to convert extensive ideas into simple one-liners. Unfortunately, they don't solve every issue - at least not in their default implementations. High-order functions are eager: they use the closure immediately and return a new array, regardless if you need an early return or only going to use specific elements.</description>
+    </item>
+    <item>
+        <title>Writing Custom Pattern Matching in Swift</title>
+        <link>https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift.html</link>
+        <guid>https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift.html</guid>
+        <pubDate>Wed, 8 Aug 2018 00:00:00 MST</pubDate>
+        <description>Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like switch cases. While regular switch cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of switches to result in really cool and short lines of code.</description>
+    </item>
+    <item>
+        <title>Writing Cleaner View Code in Swift By Overriding loadView()</title>
+        <link>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview.html</link>
+        <guid>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview.html</guid>
+        <pubDate>Mon, 23 Jul 2018 00:00:00 MST</pubDate>
+        <description>The choice between using Storyboards and writing views programatically is very subjetive. Having dealt with both in the past, I personally vouch for writing projects entirely through view code as it allows multiple people to work in the same class without nasty conflicts, and easier code reviews. When starting with the practice of writing views programatically, a common problem people face is where to put the code in the first place. If you follow the regular storyboard approach of putting everything view related in your view controller, it's very easy to end up with gigantic classes. However, there's also a very easy way to overcome this problem.</description>
+    </item>
+    <item>
+        <title>The Forbidden @inline Attribute in Swift</title>
+        <link>https://swiftrocks.com/the-forbidden-inline-attribute-in-swift.html</link>
+        <guid>https://swiftrocks.com/the-forbidden-inline-attribute-in-swift.html</guid>
+        <pubDate>Sat, 26 May 2018 00:00:00 MST</pubDate>
+        <description>The @inline attribute is one of those obscure things in Swift - it's nowhere to be found in Apple's docs, doesn't help you write cleaner code and has no purpose but to help the compiler make optimization decisions, but it's related to a pretty important aspect of your app's performance.</description>
+    </item>
+    <item>
+        <title>Competitive Programming With Swift</title>
+        <link>https://swiftrocks.com/competitive-programming-with-swift.html</link>
+        <guid>https://swiftrocks.com/competitive-programming-with-swift.html</guid>
+        <pubDate>Mon, 21 May 2018 00:00:00 MST</pubDate>
+        <description>Competitive programming is a great way to master a specific programming language. Even if you're not interested in competing in world events like the Facebook Hacker Cup, tackling difficult algorithm problems using nothing but the language's bread and butter will expose you to aspects/shortcuts of the language you would otherwise never see, such as how efficient certain methods/operations are and how to code better alternatives.</description>
+    </item>
+    <item>
+        <title>Unowned Properties in Swift</title>
+        <link>https://swiftrocks.com/unowned-properties-in-swift.html</link>
+        <guid>https://swiftrocks.com/unowned-properties-in-swift.html</guid>
+        <pubDate>Wed, 2 May 2018 00:00:00 MST</pubDate>
+        <description>It's very common to use the weak keyword in order to prevent reference cycles in properties like delegates. Unfortunately, since it protects you from references being lost, it forces the usage of var and an optional type, which can be quite jarring if you're building something like an UIView that is not supposed to be used without a delegate - much less change delegates suddenly. The unowned keyword allows you to overcome these issues.</description>
+    </item>
+    <item>
+        <title>Memory Management and Performance of Value Types</title>
+        <link>https://swiftrocks.com/memory-management-and-performance-of-value-types.html</link>
+        <guid>https://swiftrocks.com/memory-management-and-performance-of-value-types.html</guid>
+        <pubDate>Fri, 13 Apr 2018 00:00:00 MST</pubDate>
+        <description>It's very likely that you asked yourself at least once in your iOS career what's the difference between a struct and a class. While realistically the choice between using one or another always boils down to value semantics versus reference semantics, the performance differences between the two are expressive and can heavily favor one or another depending on the contents of your object, specially when dealing with value types.</description>
+    </item>
+  	<item>
+		<title>Understanding DispatchQueues</title>
+		<link>https://swiftrocks.com/understanding-dispatchqueues.html</link>
+		<guid>https://swiftrocks.com/understanding-dispatchqueues.html</guid>
+        <pubDate>Wed, 14 Feb 2018 00:00:00 MST</pubDate>
+        <description>Understanding how threads operate on the CPU level is the key to writing good concurrent code. This article explains how the CPU executes multithreaded processes, what exactly are iOS's DispatchQueues, what's the point of their "Quality of Services", and why do you have to process UI code in the so called Main Thread.</description>
+	</item>
+</channel>
+</rss>
