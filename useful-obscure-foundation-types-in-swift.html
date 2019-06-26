@@ -11,7 +11,7 @@
     <!-- SEO -->
     <meta name="author" content="Bruno Rocha">
     <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
-    <meta name="description" content="There's a bunch of Foundation types are so situational that people doubt they even existed in first place. In fact, they are so rarely mentioned as the solutions to problems that people end up making code to mimicks things that already exist in the language. But they exist, and although they are old most of these types are still very useful. Let's see a few of them.">
+    <meta name="description" content="There's a bunch of Foundation types are so situational that people doubt they even existed in first place. In fact, they are so rarely mentioned as the solutions to problems that people end up making code to mimic things that already exist in the language. But they exist, and although they are old most of these types are still very useful. Let's see a few of them.">
     <meta name="title" content="Useful obscure Foundation types in Swift">
     <meta name="url" content="https://swiftrocks.com/useful-obscure-foundation-types-in-swift.html">
     <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png">
@@ -20,14 +20,14 @@
 
     <meta property="og:title" content="Useful obscure Foundation types in Swift"/>
     <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
-    <meta property="og:description" content="There's a bunch of Foundation types are so situational that people doubt they even existed in first place. In fact, they are so rarely mentioned as the solutions to problems that people end up making code to mimicks things that already exist in the language. But they exist, and although they are old most of these types are still very useful. Let's see a few of them."/>
+    <meta property="og:description" content="There's a bunch of Foundation types are so situational that people doubt they even existed in first place. In fact, they are so rarely mentioned as the solutions to problems that people end up making code to mimic things that already exist in the language. But they exist, and although they are old most of these types are still very useful. Let's see a few of them."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/useful-obscure-foundation-types-in-swift.html"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
     <meta name="twitter:title" content="Useful obscure Foundation types in Swift"/>
-    <meta name="twitter:description" content="There's a bunch of Foundation types are so situational that people doubt they even existed in first place. In fact, they are so rarely mentioned as the solutions to problems that people end up making code to mimicks things that already exist in the language. But they exist, and although they are old most of these types are still very useful. Let's see a few of them."/>
+    <meta name="twitter:description" content="There's a bunch of Foundation types are so situational that people doubt they even existed in first place. In fact, they are so rarely mentioned as the solutions to problems that people end up making code to mimic things that already exist in the language. But they exist, and although they are old most of these types are still very useful. Let's see a few of them."/>
     <meta name="twitter:site" content="@rockthebruno"/>
     
     <!-- Favicon -->
@@ -82,7 +82,7 @@
 <!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=There's a bunch of Foundation types are so situational that people doubt they even existed in first place. In fact, they are so rarely mentioned as the solutions to problems that people end up making code to mimicks things that already exist in the language. But they exist, and although they are old most of these types are still very useful. Let's see a few of them.-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=There's a bunch of Foundation types are so situational that people doubt they even existed in first place. In fact, they are so rarely mentioned as the solutions to problems that people end up making code to mimic things that already exist in the language. But they exist, and although they are old most of these types are still very useful. Let's see a few of them.-->
 
 <title>Useful obscure Foundation types in Swift - SwiftRocks</title>
 <div class="col-md-12 blog-post"> 
@@ -93,7 +93,7 @@
 June 26, 2019
 </div>
 <p>Foundation has a huge amount of classes that makes iOS development easier but we only interact with a few of them, like <code>Data</code> and <code>URLSession</code>. As these types related to things that are used daily, they end up being more popular than other ones. But what about the other ones?</p>
-<p>There's a bunch of Foundation types are <b>so situational</b> that people doubt they even existed in first place. In fact, they are so rarely mentioned as the solutions to problems that people end up making code to mimicks things that already exist in the language. But they exist, and although they are old most of these types are still very useful. Let's see a few of them.</p>
+<p>There's a bunch of Foundation types are <b>so situational</b> that people doubt they even existed in first place. In fact, they are so rarely mentioned as the solutions to problems that people end up making code to mimic things that already exist in the language. But they exist, and although they are old most of these types are still very useful. Let's see a few of them.</p>
 <h2>NSScanner</h2>
 <p><code>NSScanner</code> can progressively extract numbers and strings from a base string similarly to how <code>scanf</code> works in C:</p>
 <pre>
@@ -110,12 +110,12 @@ June 26, 2019
 <code>    }</code>
 <code>    return result</code>
 <code>}</code>
-</code>
+<code></code>
 <code>let string = "1M very L337 700"</code>
 <code>let ints = extractIntsFrom(string: string)</code>
 <code>// [1, 337, 700]</code>
 </pre>
-<p>It has many variations like <code>scanString</code>, <code>scanDouble</code> and <code>scanHexInt</code>, and can be configured to scan at specific locations in a string and to take case sensitivity in consideration. This is a more direct solution for searching occurances of a string when you're looking for specific patterns (like being a number) instead of a concrete match.</p>
+<p>It has many variations like <code>scanString</code>, <code>scanDouble</code> and <code>scanHexInt</code>, and can be configured to scan at specific locations in a string and to take case sensitivity in consideration. This is a more direct solution for searching occurrences of a string when you're looking for specific patterns (like being a number) instead of a concrete match.</p>
 <p>The fact that it comes from OBJ-C means that it isn't very Swifty (given away here by the use of pointers to a dummy object), but you can wrap it up in an extension to make it better to the end user.</p>
 <h2>NSCountedSet</h2>
 <p>There are many problems in computer science that requires you to keep track of the quantity of a certain element, like the classic anagram interview problem:</p>
@@ -134,7 +134,7 @@ June 26, 2019
 <code>            dict[character] = nil</code>
 <code>        }</code>
 <code>    }</code>
-<code>    eturn dict.isEmpty</code>
+<code>    return dict.isEmpty</code>
 <code>}</code>
 </pre>
 <p>This is easy to solve with dictionaries with <code>Int</code> values, but we don't need to, because that's exactly what <code>NSCountedSet</code> does.</p>
