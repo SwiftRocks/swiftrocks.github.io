@@ -8,6 +8,13 @@
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+        <title>Swift ExpressibleBy protocols: What they are and how they work internally in the compiler</title>
+        <link>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler.html</link>
+        <guid>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler.html</guid>
+        <pubDate>Wed, 17 Jul 2019 10:30:00 MST</pubDate>
+        <description>ExpressibleBy represents a series of protocols in the Swift Standard library that allows you to instantiate objects directly from token literals, like a string, a number, a floating-point and so on, if the object can be "expressed" like that. Let's see how the compiler applies this magic.</description>
+    </item>
+    <item>
         <title>Useful obscure Foundation types in Swift</title>
         <link>https://swiftrocks.com/useful-obscure-foundation-types-in-swift.html</link>
         <guid>https://swiftrocks.com/useful-obscure-foundation-types-in-swift.html</guid>
