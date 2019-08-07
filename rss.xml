@@ -8,6 +8,13 @@
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+        <title>Advanced lldb tricks for Swift - Injecting and changing code on the fly</title>
+        <link>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks.html</link>
+        <guid>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks.html</guid>
+        <pubDate>Thu, 08 Aug 2019 20:40:00 MST</pubDate>
+        <description>While Xcode provides several visual abstractions for lldb commands like adding breakpoints by clicking the lines of code and running by clicking the play button, lldb provides several useful commands that are not present in Xcode's UI. This can range from creating methods on the fly to even changing the CPU's registers to force a specific flow on the app without having to recompile it, and knowing them can greatly improve your debugging experience.</description>
+    </item>
+    <item>
         <title>Swift ExpressibleBy protocols: What they are and how they work internally in the compiler</title>
         <link>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler.html</link>
         <guid>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler.html</guid>
