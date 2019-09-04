@@ -1,0 +1,213 @@
+
+<!--WRITEIT_POST_NAME=Introsort and Timsort: Swift's Sorting Algorithms-->
+<!--WRITEIT_POST_HTML_NAME=introsort-timsort-swifts-sorting-algorithm.html-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin sort() method. However, knowing the properties of the sorting algorithm built into your language is important for you to able to prevent unwanted behavior and nasty edge cases.-->
+
+<title>Introsort and Timsort: Swift's Sorting Algorithms</title>
+<div class="col-md-12 blog-post"> 
+<div class="post-title"> 
+  <h1>Introsort and Timsort: Swift's Sorting Algorithms</h1> 
+</div> 
+<div class="post-info"> 
+September 8, 2019
+</div>
+<p>Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin <code>sort()</code> method. However, knowing the properties of the sorting algorithm built into your language is important for you to able to prevent unwanted behavior and nasty edge cases.</p>
+<p>When analyzing sorting algorithms, you'll want to search for two properties:</p>
+<h2>1 - Sorting Stability</h2>
+<p>The <b>stability</b> of a sorting algorithm represents the ability of the algorithm to <b>maintain the original order of equal elements after sorting</b>. An <b>unstable</b> sorting algorithm has no guarantees that the order of equal elements in the unsorted array will stay the same after sorting, while a <b>stable</b> one guarantees that they will stay the same.</p>
+<p>This might sound weird, after all, if the elements are the same, why should I care about their overall order? This can be true if you're sorting elements by value, but when sorting elements by some arbitrary <b>priority</b>, using unstable algorithms can give you undesired results.</p>
+<p>Let's assume that we're building a music player, and our current task is to sort songs based on their popularity:</p>
+<pre>
+<code>struct Music: Comparable, Equatable, CustomStringConvertible {</code>
+<code>    let name: String</code>
+<code>    let popularityValue: Int</code>
+<code></code>
+<code>    static func < (lhs: Music, rhs: Music) -> Bool {</code>
+<code>        return lhs.popularityValue < rhs.popularityValue</code>
+<code>    }</code>
+<code></code>
+<code>    var description: String {</code>
+<code>        return name</code>
+<code>    }</code>
+<code>}</code>
+<code></code>
+<code>var songs: [Music] = [</code>
+<code>    Music(name: "I'm that swifty", popularityValue: 3),</code>
+<code>    Music(name: "Swift boi", popularityValue: 5),</code>
+<code>    Music(name: "Swift That Walk", popularityValue: 1),</code>
+<code>    Music(name: "Too Swift", popularityValue: 5),</code>
+<code>]</code>
+</pre>
+<p>If we sort <code>songs</code> using Quicksort, we'll get the following result:</p>
+<pre>
+<code>extension Array where Element: Equatable & Comparable {</code>
+<code>    func quicksort(comparison: ((Element, Element) -> Bool)) -> [Element] {</code>
+<code>        var copy = self</code>
+<code>        copy.quick(0, count - 1, comparison: comparison)</code>
+<code>        return copy</code>
+<code>    }</code>
+<code></code>
+<code>    mutating private func quick(_ i: Int, _ j: Int, comparison: ((Element, Element) -> Bool)) {</code>
+<code>        guard i < j else {</code>
+<code>            return</code>
+<code>        }</code>
+<code>        let pivot = partition(i, j, comparison: comparison)</code>
+<code>        quick(i, pivot - 1, comparison: comparison)</code>
+<code>        quick(pivot + 1, j, comparison: comparison)</code>
+<code>    }</code>
+<code></code>
+<code>    mutating private func partition(_ i: Int, _ j: Int, comparison: ((Element, Element) -> Bool)) -> Int {</code>
+<code>        let pivotElement = self[j]</code>
+<code>        var indexToAdd = i - 1</code>
+<code>        for k in i..&lt;j {</code>
+<code>            if comparison(self[k], pivotElement) {</code>
+<code>                indexToAdd += 1</code>
+<code>                swapAt(indexToAdd, k)</code>
+<code>            }</code>
+<code>        }</code>
+<code>        swapAt(indexToAdd + 1, j)</code>
+<code>        return indexToAdd + 1</code>
+<code>    }</code>
+<code>}</code>
+<code></code>
+<code>songs = songs.mergesort {</code>
+<code>    $0.popularityValue > $1.popularityValue</code>
+<code>}</code>
+<code>print(songs)</code>
+</pre>
+<pre>
+<code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code>
+</pre>
+<p>Although <code>"Swift boi"</code> was placed before <code>Too Swift</code> in the original array, Quicksorted changed their positions!</p>
+<p>That's not too bad though as we never actually used the unsorted version of the array. However, consider what happens if we re-sort the array multiple times:</p>
+<pre>
+<code>songs = songs.quicksort {</code>
+<code>    $0.popularityValue > $1.popularityValue</code>
+<code>}</code>
+<code>print(songs)</code>
+<code>songs = songs.quicksort {</code>
+<code>    $0.popularityValue > $1.popularityValue</code>
+<code>}</code>
+<code>print(songs)</code>
+<code>songs = songs.quicksort {</code>
+<code>    $0.popularityValue > $1.popularityValue</code>
+<code>}</code>
+<code>print(songs)</code>
+<code>songs = songs.quicksort {</code>
+<code>    $0.popularityValue > $1.popularityValue</code>
+<code>}</code>
+<code>print(songs)</code>
+<code>songs = songs.quicksort {</code>
+<code>    $0.popularityValue > $1.popularityValue</code>
+<code>}</code>
+<code>print(songs)</code>
+</pre>
+<pre>
+<code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code>
+<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
+<code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code>
+<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
+<code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code>
+</pre>
+<p>Their relative order keeps changing!</p>
+<p>The reason is because Quicksort is an <b>unstable</b> sorting algorithm. If for some reason we needed to continously update this list in the UI, the user would see songs changing positions in the ranking even though they have the same priority. That's not very good.</p>
+<p>To keep their order, we need to use a <b>stable</b> algorithm like <b>Mergesort</b>.</p>
+<pre>
+<code>extension Array where Element: Equatable & Comparable {</code>
+<code>    func mergesort(comparison: ((Element, Element) -> Bool)) -> [Element] {</code>
+<code>        return merge(0, count - 1, comparison: comparison)</code>
+<code>    }</code>
+<code></code>
+<code>    private func merge(_ i: Int, _ j: Int, comparison: ((Element, Element) -> Bool)) -> [Element] {</code>
+<code>        guard i <= j else {</code>
+<code>            return []</code>
+<code>        }</code>
+<code>        guard i != j else {</code>
+<code>            return [self[i]]</code>
+<code>        }</code>
+<code>        let half = i + (j - i) / 2</code>
+<code>        let left = merge(i, half, comparison: comparison)</code>
+<code>        let right = merge(half + 1, j, comparison: comparison)</code>
+<code>        var i1 = 0</code>
+<code>        var i2 = 0</code>
+<code>        var new = [Element]()</code>
+<code>        new.reserveCapacity(left.count + right.count)</code>
+<code>        while i1 < left.count && i2 < right.count {</code>
+<code>            if comparison(right[i2], left[i1]) {</code>
+<code>                new.append(right[i2])</code>
+<code>                i2 += 1</code>
+<code>            } else {</code>
+<code>                new.append(left[i1])</code>
+<code>                i1 += 1</code>
+<code>            }</code>
+<code>        }</code>
+<code>        while i1 < left.count {</code>
+<code>            new.append(left[i1])</code>
+<code>            i1 += 1</code>
+<code>        }</code>
+<code>        while i2 < right.count {</code>
+<code>            new.append(right[i2])</code>
+<code>            i2 += 1</code>
+<code>        }</code>
+<code>        return new</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<pre>
+<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
+<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
+<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
+<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
+<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
+</pre>
+<h2>2 - Time/Space Complexity</h2>
+<p>The second important thing to be aware of is how much additional memory the algorithm takes to run and what are best/worst cases for the algorithm.</p>
+<p>My favorite example of this is <b>Counting Sort</b>: where an array is sorted by simply counting the occurences of each element number of elements and then laying them out in order. If the difference between each value is small, say <code>[3,1,4,2,5]</code>, this algorithm can sort arrays in runtimes very close to <b>O(n)</b> -- but if the difference is big, like <code>[1,1000000000]</code>, Counting Sort will take an enourmous amount of time to run even if the array is small.</p>
+<p>Likewise, the famous Quick Sort is highly regarded for being a fast and in-place O(n log n) algorithm in average, but it has a terrible worst case of O(n2) if the pivot is always the highest/smallest element in the partition. If you're dealing with large amounts of data or a constrained environment, there will be a specific sorting algorithm that best fits your needs.</p>
+<h2>Pre-Swift 5 Algorithm: Introsort</h2>
+<p>Before Swift 5, Swift's sorting algorithm was a hybrid algorithm called <b>Introsort</b>, which mixes the strengths of <code>Quicksort</code>, <code>Heapsort</code> and <code>Insertion Sort</code> into a single algorithm to guarantee a worse case of O(n log n).</p>
+<p>The idea behind Introsort is straightforward: First, if you have <b>less than 20 elements</b> in the partition being sorted, Insertion Sort is used. Although this algorithm has a time complexity of O(n2), it also has a best case of O(n), meaning that will outperform the usual O(n log n) algorithms in small inputs.</p>
+<p>If the array is not small, Quicksort will be used -- but if the recursion tree gets too deep, the partition switches to Heapsort to avoid Quicksort's worst case. In this case, "too deep" will be precisely <code>2 * floor(log2(array.count))</code></p>
+<pre>
+<code>internal mutating func _introSortImpl(within range: Range&lt;Index>,</code>
+<code>                                      by areInIncreasingOrder: (Element, Element) throws -> Bool,</code>
+<code>                                      depthLimit: Int) rethrows {</code>
+<code>    // Insertion sort is better at handling smaller regions.</code>
+<code>    if distance(from: range.lowerBound, to: range.upperBound) < 20 {</code>
+<code>        try _insertionSort(within: range, by: areInIncreasingOrder)</code>
+<code>    } else if depthLimit == 0 {</code>
+<code>        try _heapSort(within: range, by: areInIncreasingOrder)</code>
+<code>    } else {</code>
+<code>        // Partition and sort.</code>
+<code>        // We don't check the depthLimit variable for underflow because this</code>
+<code>        // variable is always greater than zero (see check above).</code>
+<code>        let partIdx = try _partition(within: range, by: areInIncreasingOrder)</code>
+<code>        try _introSortImpl(</code>
+<code>            within: range.lowerBound..&lt;partIdx,</code>
+<code>            by: areInIncreasingOrder,</code>
+<code>            depthLimit: depthLimit &- 1)</code>
+<code>        try _introSortImpl(</code>
+<code>            within: partIdx..&lt;range.upperBound,</code>
+<code>            by: areInIncreasingOrder,</code>
+<code>            depthLimit: depthLimit &- 1)</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>This way, Swift will</p>
+<h2>Subsection</h2>
+<h3>Other section</h3>
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/xbVOfbq.png"" alt="">                                    
+</div>
+<h2>Conclusion</h2>
+<p>WriteConclusion</p>
+<p>Follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any suggestions and corrections you want to share.</p>
+<h2>References and Good reads</h2>
+<a href="https://github.com/apple/swift">The Swift Source Code</a><br>
+</div>

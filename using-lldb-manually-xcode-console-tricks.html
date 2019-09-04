@@ -145,14 +145,14 @@ August 8, 2019
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/L6sIsZf.png" alt=""> 
           </div>
-<h3><code>v</code> - Avoiding <code>po</code>'s dynamicity</h3>
+<h3><code>v</code> - Avoiding <code>po</code>'s dynamic behavior</h3>
 <p>If you've used <code>po</code> for some time, you might've seen a cryptic error message like this in the past:</p>
 <pre>
 <code>error: Couldn't lookup symbols:</code>
 <code>$myProperty #1 : Swift.Int in __lldb_expr_26.$__lldb_expr(Swift.UnsafeMutablePointer&lt;Any>) -> ()</code>
 </pre>
 <p>This is because <code>po</code> evaluates your code by compiling it, and unfortunately there are still cases where this can go wrong even though the code you're trying to access is correct.</p>
-<p>If you're dealing with something that doesn't need to be evaluated (like a static property instead of a method or closure), you can use the <code>v</code> command (short for <code>frame variable</code>) as an alterative to printing with <code>po</code> to instantly get the contents of an object.</p>
+<p>If you're dealing with something that doesn't need to be evaluated (like a static property instead of a method or closure), you can use the <code>v</code> command (short for <code>frame variable</code>) as an alternative to printing with <code>po</code> to instantly get the contents of an object.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="2-2">
 <code>v myProperty</code>
 <code>(Int) myProperty = 1</code>
