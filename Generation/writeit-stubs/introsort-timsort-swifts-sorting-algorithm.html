@@ -29,7 +29,7 @@ September 4, 2019
 <code>    let popularityValue: Int</code>
 <code></code>
 <code>    static func &lt; (lhs: Music, rhs: Music) -> Bool {</code>
-<code>        return lhs.popularityValue < rhs.popularityValue</code>
+<code>        return lhs.popularityValue &lt; rhs.popularityValue</code>
 <code>    }</code>
 <code></code>
 <code>    var description: String {</code>
@@ -76,7 +76,7 @@ September 4, 2019
 <code>    }</code>
 <code>}</code>
 <code></code>
-<code>songs = songs.mergesort {</code>
+<code>songs = songs.quicksort {</code>
 <code>    $0.popularityValue > $1.popularityValue</code>
 <code>}</code>
 <code>print(songs)</code>
@@ -225,7 +225,7 @@ September 4, 2019
 <code></code>
 <code>// If the current run is shorter than the minimum length, use the</code>
 <code>// insertion sort to extend it.</code>
-<code>if end < endIndex && end - start < minimumRunLength {</code>
+<code>if end &lt; endIndex && end - start &lt; minimumRunLength {</code>
 <code>    let newEnd = Swift.min(endIndex, start + minimumRunLength)</code>
 <code>    try _insertionSort(within: start..&lt;newEnd, sortedEnd: end, by: areInIncreasingOrder)</code>
 <code>    end = newEnd</code>
@@ -235,9 +235,9 @@ September 4, 2019
 <h3>Merging runs</h3>
 <p>Every time a run is found, Timsort will attempt to collapse the top three runs of the stack into a single one by merging them together until the following conditions are satisfied:</p>
 <pre>
-<code>runs.count < 3 || runs[runs.count - 2].size > (runs[runs.count - 1].size + runs.last!.count)</code>
+<code>runs.count &lt; 3 || runs[runs.count - 2].size > (runs[runs.count - 1].size + runs.last!.count)</code>
 <code>&&</code>
-<code>runs.count < 2 || runs[runs.count - 1].size > runs.last!.size</code>
+<code>runs.count &lt; 2 || runs[runs.count - 1].size > runs.last!.size</code>
 </pre>
 <p>This is done to reduce the amount of runs we have to remember, but mainly to balance the overall size of the runs as having them close together is beneficial for Timsort's merging phase.</p>
 <p>At first glance Timsort's merging phase works just like Mergesort: we compare a pair of elements from each array, picking the smallest one and moving it to its proper position in the final array.</p>

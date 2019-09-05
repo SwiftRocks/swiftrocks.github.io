@@ -103,8 +103,8 @@ September 4, 2019
 <code>    let name: String</code>
 <code>    let popularityValue: Int</code>
 <code></code>
-<code>    static func < (lhs: Music, rhs: Music) -> Bool {</code>
-<code>        return lhs.popularityValue < rhs.popularityValue</code>
+<code>    static func &lt; (lhs: Music, rhs: Music) -> Bool {</code>
+<code>        return lhs.popularityValue &lt; rhs.popularityValue</code>
 <code>    }</code>
 <code></code>
 <code>    var description: String {</code>
@@ -129,7 +129,7 @@ September 4, 2019
 <code>    }</code>
 <code></code>
 <code>    mutating private func quick(_ i: Int, _ j: Int, comparison: ((Element, Element) -> Bool)) {</code>
-<code>        guard i < j else {</code>
+<code>        guard i &lt; j else {</code>
 <code>            return</code>
 <code>        }</code>
 <code>        let pivot = partition(i, j, comparison: comparison)</code>
@@ -151,7 +151,7 @@ September 4, 2019
 <code>    }</code>
 <code>}</code>
 <code></code>
-<code>songs = songs.mergesort {</code>
+<code>songs = songs.quicksort {</code>
 <code>    $0.popularityValue > $1.popularityValue</code>
 <code>}</code>
 <code>print(songs)</code>
@@ -200,7 +200,7 @@ September 4, 2019
 <code>    }</code>
 <code></code>
 <code>    private func merge(_ i: Int, _ j: Int, comparison: ((Element, Element) -> Bool)) -> [Element] {</code>
-<code>        guard i <= j else {</code>
+<code>        guard i &lt;= j else {</code>
 <code>            return []</code>
 <code>        }</code>
 <code>        guard i != j else {</code>
@@ -213,7 +213,7 @@ September 4, 2019
 <code>        var i2 = 0</code>
 <code>        var new = [Element]()</code>
 <code>        new.reserveCapacity(left.count + right.count)</code>
-<code>        while i1 < left.count && i2 < right.count {</code>
+<code>        while i1 &lt; left.count && i2 &lt; right.count {</code>
 <code>            if comparison(right[i2], left[i1]) {</code>
 <code>                new.append(right[i2])</code>
 <code>                i2 += 1</code>
@@ -222,11 +222,11 @@ September 4, 2019
 <code>                i1 += 1</code>
 <code>            }</code>
 <code>        }</code>
-<code>        while i1 < left.count {</code>
+<code>        while i1 &lt; left.count {</code>
 <code>            new.append(left[i1])</code>
 <code>            i1 += 1</code>
 <code>        }</code>
-<code>        while i2 < right.count {</code>
+<code>        while i2 &lt; right.count {</code>
 <code>            new.append(right[i2])</code>
 <code>            i2 += 1</code>
 <code>        }</code>
@@ -254,7 +254,7 @@ September 4, 2019
 <code>                                      by areInIncreasingOrder: (Element, Element) throws -> Bool,</code>
 <code>                                      depthLimit: Int) rethrows {</code>
 <code>    // Insertion sort is better at handling smaller regions.</code>
-<code>    if distance(from: range.lowerBound, to: range.upperBound) < 20 {</code>
+<code>    if distance(from: range.lowerBound, to: range.upperBound) &lt; 20 {</code>
 <code>        try _insertionSort(within: range, by: areInIncreasingOrder)</code>
 <code>    } else if depthLimit == 0 {</code>
 <code>        try _heapSort(within: range, by: areInIncreasingOrder)</code>
@@ -300,7 +300,7 @@ September 4, 2019
 <code></code>
 <code>// If the current run is shorter than the minimum length, use the</code>
 <code>// insertion sort to extend it.</code>
-<code>if end < endIndex && end - start < minimumRunLength {</code>
+<code>if end &lt; endIndex && end - start &lt; minimumRunLength {</code>
 <code>    let newEnd = Swift.min(endIndex, start + minimumRunLength)</code>
 <code>    try _insertionSort(within: start..&lt;newEnd, sortedEnd: end, by: areInIncreasingOrder)</code>
 <code>    end = newEnd</code>
@@ -310,9 +310,9 @@ September 4, 2019
 <h3>Merging runs</h3>
 <p>Every time a run is found, Timsort will attempt to collapse the top three runs of the stack into a single one by merging them together until the following conditions are satisfied:</p>
 <pre>
-<code>runs.count < 3 || runs[runs.count - 2].size > (runs[runs.count - 1].size + runs.last!.count)</code>
+<code>runs.count &lt; 3 || runs[runs.count - 2].size > (runs[runs.count - 1].size + runs.last!.count)</code>
 <code>&&</code>
-<code>runs.count < 2 || runs[runs.count - 1].size > runs.last!.size</code>
+<code>runs.count &lt; 2 || runs[runs.count - 1].size > runs.last!.size</code>
 </pre>
 <p>This is done to reduce the amount of runs we have to remember, but mainly to balance the overall size of the runs as having them close together is beneficial for Timsort's merging phase.</p>
 <p>At first glance Timsort's merging phase works just like Mergesort: we compare a pair of elements from each array, picking the smallest one and moving it to its proper position in the final array.</p>
