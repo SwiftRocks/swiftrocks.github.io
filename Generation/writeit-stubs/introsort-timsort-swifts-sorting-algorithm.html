@@ -28,7 +28,7 @@ September 4, 2019
 <code>    let name: String</code>
 <code>    let popularityValue: Int</code>
 <code></code>
-<code>    static func < (lhs: Music, rhs: Music) -> Bool {</code>
+<code>    static func &lt; (lhs: Music, rhs: Music) -> Bool {</code>
 <code>        return lhs.popularityValue < rhs.popularityValue</code>
 <code>    }</code>
 <code></code>
@@ -54,7 +54,7 @@ September 4, 2019
 <code>    }</code>
 <code></code>
 <code>    mutating private func quick(_ i: Int, _ j: Int, comparison: ((Element, Element) -> Bool)) {</code>
-<code>        guard i < j else {</code>
+<code>        guard i &lt; j else {</code>
 <code>            return</code>
 <code>        }</code>
 <code>        let pivot = partition(i, j, comparison: comparison)</code>
@@ -125,7 +125,7 @@ September 4, 2019
 <code>    }</code>
 <code></code>
 <code>    private func merge(_ i: Int, _ j: Int, comparison: ((Element, Element) -> Bool)) -> [Element] {</code>
-<code>        guard i <= j else {</code>
+<code>        guard i &lt;= j else {</code>
 <code>            return []</code>
 <code>        }</code>
 <code>        guard i != j else {</code>
@@ -138,7 +138,7 @@ September 4, 2019
 <code>        var i2 = 0</code>
 <code>        var new = [Element]()</code>
 <code>        new.reserveCapacity(left.count + right.count)</code>
-<code>        while i1 < left.count && i2 < right.count {</code>
+<code>        while i1 &lt; left.count && i2 &lt; right.count {</code>
 <code>            if comparison(right[i2], left[i1]) {</code>
 <code>                new.append(right[i2])</code>
 <code>                i2 += 1</code>
@@ -147,11 +147,11 @@ September 4, 2019
 <code>                i1 += 1</code>
 <code>            }</code>
 <code>        }</code>
-<code>        while i1 < left.count {</code>
+<code>        while i1 &lt; left.count {</code>
 <code>            new.append(left[i1])</code>
 <code>            i1 += 1</code>
 <code>        }</code>
-<code>        while i2 < right.count {</code>
+<code>        while i2 &lt; right.count {</code>
 <code>            new.append(right[i2])</code>
 <code>            i2 += 1</code>
 <code>        }</code>
@@ -179,7 +179,7 @@ September 4, 2019
 <code>                                      by areInIncreasingOrder: (Element, Element) throws -> Bool,</code>
 <code>                                      depthLimit: Int) rethrows {</code>
 <code>    // Insertion sort is better at handling smaller regions.</code>
-<code>    if distance(from: range.lowerBound, to: range.upperBound) < 20 {</code>
+<code>    if distance(from: range.lowerBound, to: range.upperBound) &lt; 20 {</code>
 <code>        try _insertionSort(within: range, by: areInIncreasingOrder)</code>
 <code>    } else if depthLimit == 0 {</code>
 <code>        try _heapSort(within: range, by: areInIncreasingOrder)</code>
