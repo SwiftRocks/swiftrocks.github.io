@@ -84,7 +84,7 @@ September 4, 2019
 <pre>
 <code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code>
 </pre>
-<p>Although <code>"Swift boi"</code> was placed before <code>Too Swift</code> in the original array, Quicksorted changed their positions!</p>
+<p>Although <code>"Swift boi"</code> was placed before <code>"Too Swift"</code> in the original array, Quicksort changed their positions!</p>
 <p>That's not too bad though as we never actually used the unsorted version of the array. However, consider what happens if we re-sort the array multiple times:</p>
 <pre>
 <code>songs = songs.quicksort {</code>
@@ -116,7 +116,7 @@ September 4, 2019
 <code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code>
 </pre>
 <p>Their relative order keeps changing!</p>
-<p>The reason is because Quicksort is an <b>unstable</b> sorting algorithm. If for some reason we needed to continously update this list in the UI, the user would see songs changing positions in the ranking even though they have the same priority. That's not very good.</p>
+<p>The reason is because Quicksort is an <b>unstable</b> sorting algorithm. If for some reason we needed to continuously update this list in the UI, the user would see songs changing positions in the ranking even though they have the same priority. That's not very good.</p>
 <p>To keep their order, we need to use a <b>stable</b> algorithm like <b>Mergesort</b>.</p>
 <pre>
 <code>extension Array where Element: Equatable & Comparable {</code>
@@ -168,7 +168,7 @@ September 4, 2019
 </pre>
 <h2>2 - Time/Space Complexity</h2>
 <p>The second important thing to be aware of is how much additional memory the algorithm takes to run and what are best/worst cases for the algorithm.</p>
-<p>My favorite example of this is <b>Counting Sort</b>: where an array is sorted by simply counting the occurences of each element number of elements and then laying them out in order. If the difference between each value is small, say <code>[3,1,4,2,5]</code>, this algorithm can sort arrays in runtimes very close to <b>O(n)</b> -- but if the difference is big, like <code>[1,1000000000]</code>, Counting Sort will take an enourmous amount of time to run even if the array is small.</p>
+<p>My favorite example of this is <b>Counting Sort</b>: where an array is sorted by simply counting the occurrences of each element number of elements and then laying them out in order. If the difference between each value is small, say <code>[3,1,4,2,5]</code>, this algorithm can sort arrays in runtimes very close to <b>O(n)</b> -- but if the difference is big, like <code>[1,1000000000]</code>, Counting Sort will take an enormous amount of time to run even if the array is small.</p>
 <p>Likewise, the famous Quick Sort is highly regarded for being a fast and in-place O(n log n) algorithm in average, but it has a terrible worst case of O(n2) if the pivot is always the highest/smallest element in the partition. If you're dealing with large amounts of data or a constrained environment, there will be a specific sorting algorithm that best fits your needs.</p>
 <h2>Pre-Swift 5 Algorithm: Introsort</h2>
 <p>Before Swift 5, Swift's sorting algorithm was a hybrid algorithm called <b>Introsort</b>, which mixes the strengths of <code>Quicksort</code>, <code>Heapsort</code> and <code>Insertion Sort</code> into a single algorithm to guarantee a worse case of O(n log n).</p>
@@ -204,7 +204,7 @@ September 4, 2019
 <p>The biggest thing to note is that Introsort was <b>unstable</b>. Although Insertion Sort is stable, the default implementation of Quicksort and Heapsort are not. If the order of equal elements was important, using <code>sort()</code> pre-Swift 5 was also not a good idea.</p>
 <h2>After Swift 5 - Timsort</h2>
 <p>Multiple threads surfaced between 2015 and 2018 about adding a stable sorting algorithm to Swift that didn't rely on recursion, but promising discussions first showed up only in the beginning of 2018. In October 2018, <a href="https://github.com/apple/swift/pull/19717">a pull request was finally merged</a> to change Introsort to a modified version of <b>Timsort.</b></p>
-<p>Timsort is a hybrid algorithm like Introsort, but with different approaches. It works by dividing an array into smallers sections, sorting these smaller sections with Insertion Sort, and then merging these sections together with Merge Sort. Because both Inserion Sort and Mergesort are stable, Timsort is <b>stable</b>, and while it also has a worst case of O(n log n) and non-constant space complexity, it tends to be considerably quicker than the more naive algorithms in real world scenarios. The reason why Timsort can be so fast is that although the description sounds simple enough, in reality each of these steps are highly tuned for efficiency.</p>
+<p>Timsort is a hybrid algorithm like Introsort, but with different approaches. It works by dividing an array into smaller sections, sorting these smaller sections with Insertion Sort, and then merging these sections together with Merge Sort. Because both Insertion Sort and Mergesort are stable, Timsort is <b>stable</b>, and while it also has a worst case of O(n log n) and non-constant space complexity, it tends to be considerably quicker than the more naive algorithms in real world scenarios. The reason why Timsort can be so fast is that although the description sounds simple enough, in reality each of these steps are highly tuned for efficiency.</p>
 <h3>Finding the next "run" (Partitioning)</h3>
 <p>Instead of dividing everything first and merging as the last step like Mergesort, Timsort scans the array once and progressively merge these regions (called "runs") as they are found.</p>
 <p>The beauty is that unlike Mergesort, a run isn't simply the array divided by half. Timsort abuses the fact that every array that you want to sort is likely to have a few contiguous subsequences that are <b>almost or already sorted</b>, which happens to be Insertion Sort's best case. To find the next run, Timsort will advance a pointer until the current sequence stops being an ascending/descending pattern:</p>
@@ -243,7 +243,7 @@ September 4, 2019
 <p>At first glance Timsort's merging phase works just like Mergesort: we compare a pair of elements from each array, picking the smallest one and moving it to its proper position in the final array.</p>
 <p>However, Timsort beautifully empowers the fact that if one specific array keeps "winning" the comparison, then it's likely to keep doing so. If this happens, instead of continuing to compare elements, we can simply binary search for the correct position of the element from the "losing" array in the "winning" one, moving all elements before it to the final array. This is called <b>galloping</b> and it saves us a lot of time by letting us skip comparing an entire chunk of the winning array.</p>
 <p>The galloping process can be aborted if the binary search process "loses" to the regular comparison process. <a href="https://bugs.python.org/file4451/timsort.txt">You can see all the optimizations that are done in the Timsort description.</a> Finally, after all runs were found, the remaining runs in the stack are progressively merged together until the entire array is sorted.</p>
-<p>The major differences in Swift is that the compiler's implementation of Timsort doesn't use galloping, and it attemps to collapse runs based on the last four runs instead of the last three. Still, it outperforms Introsort in pretty much every scenario.</p>
+<p>The major differences in Swift is that the compiler's implementation of Timsort doesn't use galloping, and it attempts to collapse runs based on the last four runs instead of the last three. Still, it outperforms Introsort in pretty much every scenario.</p>
 <h2>Conclusion</h2>
 <p>Timsort is one of the fastest sorting algorithms for real world problems. Knowing what algorithm your language uses can help you optimize your code by making better decisions based on what data you're handling.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any suggestions and corrections you want to share.</p>
