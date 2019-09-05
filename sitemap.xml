@@ -13,6 +13,11 @@
   <priority>1.00</priority>
 </url>
 <url>
+    <loc>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm.html</loc>
+    <lastmod>2019-09-04T18:00:00+00:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks.html</loc>
     <lastmod>2019-08-08T18:00:00+00:00</lastmod>
     <priority>0.80</priority>

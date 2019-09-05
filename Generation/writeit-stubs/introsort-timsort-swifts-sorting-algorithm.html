@@ -1,5 +1,5 @@
 
-<!--WRITEIT_POST_NAME=Introsort and Timsort: Swift's Sorting Algorithms-->
+<!--WRITEIT_POST_NAME=Timsort and Introsort: Swift's Sorting Algorithms-->
 <!--WRITEIT_POST_HTML_NAME=introsort-timsort-swifts-sorting-algorithm.html-->
 
 <!--Add here the additional properties that you want each page to possess.-->
@@ -7,17 +7,17 @@
 <!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin sort() method. However, knowing the properties of the sorting algorithm built into your language is important for you to able to prevent unwanted behavior and nasty edge cases.-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin sort() method. However, knowing the properties of the sorting algorithm built into your language is important if you want to prevent unwanted behaviors and nasty edge cases.-->
 
-<title>Introsort and Timsort: Swift's Sorting Algorithms</title>
+<title>Timsort and Introsort: Swift's Sorting Algorithms</title>
 <div class="col-md-12 blog-post"> 
 <div class="post-title"> 
-  <h1>Introsort and Timsort: Swift's Sorting Algorithms</h1> 
+  <h1>Timsort and Introsort: Swift's Sorting Algorithms</h1> 
 </div> 
 <div class="post-info"> 
-September 8, 2019
+September 4, 2019
 </div>
-<p>Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin <code>sort()</code> method. However, knowing the properties of the sorting algorithm built into your language is important for you to able to prevent unwanted behavior and nasty edge cases.</p>
+<p>Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin <code>sort()</code> method. However, knowing the properties of the sorting algorithm built into your language is important if you want to prevent unwanted behaviors and nasty edge cases.</p>
 <p>When analyzing sorting algorithms, you'll want to search for two properties:</p>
 <h2>1 - Sorting Stability</h2>
 <p>The <b>stability</b> of a sorting algorithm represents the ability of the algorithm to <b>maintain the original order of equal elements after sorting</b>. An <b>unstable</b> sorting algorithm has no guarantees that the order of equal elements in the unsorted array will stay the same after sorting, while a <b>stable</b> one guarantees that they will stay the same.</p>
@@ -172,8 +172,8 @@ September 8, 2019
 <p>Likewise, the famous Quick Sort is highly regarded for being a fast and in-place O(n log n) algorithm in average, but it has a terrible worst case of O(n2) if the pivot is always the highest/smallest element in the partition. If you're dealing with large amounts of data or a constrained environment, there will be a specific sorting algorithm that best fits your needs.</p>
 <h2>Pre-Swift 5 Algorithm: Introsort</h2>
 <p>Before Swift 5, Swift's sorting algorithm was a hybrid algorithm called <b>Introsort</b>, which mixes the strengths of <code>Quicksort</code>, <code>Heapsort</code> and <code>Insertion Sort</code> into a single algorithm to guarantee a worse case of O(n log n).</p>
-<p>The idea behind Introsort is straightforward: First, if you have <b>less than 20 elements</b> in the partition being sorted, Insertion Sort is used. Although this algorithm has a time complexity of O(n2), it also has a best case of O(n), meaning that will outperform the usual O(n log n) algorithms in small inputs.</p>
-<p>If the array is not small, Quicksort will be used -- but if the recursion tree gets too deep, the partition switches to Heapsort to avoid Quicksort's worst case. In this case, "too deep" will be precisely <code>2 * floor(log2(array.count))</code></p>
+<p>The idea behind Introsort is straightforward: First, if you have <b>less than 20 elements</b> in the partition being sorted, Insertion Sort is used. Although this algorithm has a worst case of O(n2), it also has a best case of O(n). Compared to the general O(n log n) algorithms, Insertion Sort will always perform better in small inputs.</p>
+<p>If the array is not small, Quicksort will be used. This will bring our best case to O(n log n), but also maintain the worst case of O(n2). However, Introsort can avoid it -- if the recursion tree for Quicksort gets too deep, the partition switches to Heapsort. In this case, "too deep" is considered as <code>2 * floor(log2(array.count))</code>.</p>
 <pre>
 <code>internal mutating func _introSortImpl(within range: Range&lt;Index>,</code>
 <code>                                      by areInIncreasingOrder: (Element, Element) throws -> Bool,</code>
@@ -199,15 +199,58 @@ September 8, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>This way, Swift will</p>
-<h2>Subsection</h2>
-<h3>Other section</h3>
-<div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/xbVOfbq.png"" alt="">                                    
-</div>
+<p>Introsort greedily attempts to pick the best algorithm for the given situation, backing up to a different option when the previous choice goes wrong. It has a best case of O(n) and worst case of O(n log n), making it a decent one-size-fits-all algorithm.</p>
+<p>In terms of memory usage, it will perform slightly worse than the usual sorting algorithm. Although the three algorithms can sort inplace, Introsort's implementation in Swift was recursive. Since Swift doesn't guarantee that tail recursion calls will be optimized, running the builtin <code>sort()</code> pre-Swift 5 was not the best option if keeping memory usage low was important.</p>
+<p>The biggest thing to note is that Introsort was <b>unstable</b>. Although Insertion Sort is stable, the default implementation of Quicksort and Heapsort are not. If the order of equal elements was important, using <code>sort()</code> pre-Swift 5 was also not a good idea.</p>
+<h2>After Swift 5 - Timsort</h2>
+<p>Multiple threads surfaced between 2015 and 2018 about adding a stable sorting algorithm to Swift that didn't rely on recursion, but promising discussions first showed up only in the beginning of 2018. In October 2018, <a href="https://github.com/apple/swift/pull/19717">a pull request was finally merged</a> to change Introsort to a modified version of <b>Timsort.</b></p>
+<p>Timsort is a hybrid algorithm like Introsort, but with different approaches. It works by dividing an array into smallers sections, sorting these smaller sections with Insertion Sort, and then merging these sections together with Merge Sort. Because both Inserion Sort and Mergesort are stable, Timsort is <b>stable</b>, and while it also has a worst case of O(n log n) and non-constant space complexity, it tends to be considerably quicker than the more naive algorithms in real world scenarios. The reason why Timsort can be so fast is that although the description sounds simple enough, in reality each of these steps are highly tuned for efficiency.</p>
+<h3>Finding the next "run" (Partitioning)</h3>
+<p>Instead of dividing everything first and merging as the last step like Mergesort, Timsort scans the array once and progressively merge these regions (called "runs") as they are found.</p>
+<p>The beauty is that unlike Mergesort, a run isn't simply the array divided by half. Timsort abuses the fact that every array that you want to sort is likely to have a few contiguous subsequences that are <b>almost or already sorted</b>, which happens to be Insertion Sort's best case. To find the next run, Timsort will advance a pointer until the current sequence stops being an ascending/descending pattern:</p>
+<pre>
+<code>[1, 2, 3, 1, 9, 6]</code>
+<code> i     j</code>
+</pre>
+<p><i>Note: This example is just for visual purposes -- because the array here is small, Timsort would just Insertion Sort it right away.</i></p>
+<p>The range from i to j defines our first run <b>run</b>, but the optimizations don't stop here.</p>
+<p>First: If the sequence is descending, we can already sort it in linear time by reversing the elements.</p>
+<p>Second: To increase the speed of Insertion Sort and to balance the amount of merge operations that will be done later, Timsort defines that every run should have a <b>minimum size</b> of a power of two between 16 and 128, or at least something very close to it. If the run that we found has a size smaller than the minimum run size, then the current run's range is expanded and sorted with Insertion Sort.</p>
+<pre>
+<code>// Find the next consecutive run, reversing it if necessary.</code>
+<code>var (end, descending) = try _findNextRun(in: self, from: start, by: areInIncreasingOrder)</code>
+<code>if descending {</code>
+<code>    _reverse(within: start..&lt;end)</code>
+<code>}</code>
+<code></code>
+<code>// If the current run is shorter than the minimum length, use the</code>
+<code>// insertion sort to extend it.</code>
+<code>if end < endIndex && end - start < minimumRunLength {</code>
+<code>    let newEnd = Swift.min(endIndex, start + minimumRunLength)</code>
+<code>    try _insertionSort(within: start..&lt;newEnd, sortedEnd: end, by: areInIncreasingOrder)</code>
+<code>    end = newEnd</code>
+<code>}</code>
+</pre>
+<p>For the actual size, Swift specifically will pick a value between 32 and 64 that varies according to the size of the array. Finally, after a run is found, it's added to a stack containing all the other previous runs that we've found.</p>
+<h3>Merging runs</h3>
+<p>Every time a run is found, Timsort will attempt to collapse the top three runs of the stack into a single one by merging them together until the following conditions are satisfied:</p>
+<pre>
+<code>runs.count < 3 || runs[runs.count - 2].size > (runs[runs.count - 1].size + runs.last!.count)</code>
+<code>&&</code>
+<code>runs.count < 2 || runs[runs.count - 1].size > runs.last!.size</code>
+</pre>
+<p>This is done to reduce the amount of runs we have to remember, but mainly to balance the overall size of the runs as having them close together is beneficial for Timsort's merging phase.</p>
+<p>At first glance Timsort's merging phase works just like Mergesort: we compare a pair of elements from each array, picking the smallest one and moving it to its proper position in the final array.</p>
+<p>However, Timsort beautifully empowers the fact that if one specific array keeps "winning" the comparison, then it's likely to keep doing so. If this happens, instead of continuing to compare elements, we can simply binary search for the correct position of the element from the "losing" array in the "winning" one, moving all elements before it to the final array. This is called <b>galloping</b> and it saves us a lot of time by letting us skip comparing an entire chunk of the winning array.</p>
+<p>The galloping process can be aborted if the binary search process "loses" to the regular comparison process. <a href="https://bugs.python.org/file4451/timsort.txt">You can see all the optimizations that are done in the Timsort description.</a> Finally, after all runs were found, the remaining runs in the stack are progressively merged together until the entire array is sorted.</p>
+<p>The major differences in Swift is that the compiler's implementation of Timsort doesn't use galloping, and it attemps to collapse runs based on the last four runs instead of the last three. Still, it outperforms Introsort in pretty much every scenario.</p>
 <h2>Conclusion</h2>
-<p>WriteConclusion</p>
+<p>Timsort is one of the fastest sorting algorithms for real world problems. Knowing what algorithm your language uses can help you optimize your code by making better decisions based on what data you're handling.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
-<a href="https://github.com/apple/swift">The Swift Source Code</a><br>
+<a href="https://forums.swift.org/t/starter-proposal-add-stable-sort-to-stdlib/9309">Stable Sort Proposal</a><br>
+<a href="https://github.com/apple/swift/pull/19717">Stable Sort PR</a><br>
+<a href="https://en.wikipedia.org/wiki/Introsort">Introsort</a><br>
+<a href="https://svn.python.org/projects/python/trunk/Objects/listsort.txt">Timsort</a><br>
+<a href="https://en.wikipedia.org/wiki/Timsort">Timsort (Wiki)</a>
 </div>
