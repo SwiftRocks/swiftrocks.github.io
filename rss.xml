@@ -8,6 +8,13 @@
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+        <title>Building a Face Detecting Sentry Gun with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino</title>
+        <link>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.html</link>
+        <guid>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.html</guid>
+        <pubDate>Tue, 15 Oct 2019 15:37:00 MST</pubDate>
+        <description>iOS 13 marks the release of long-waited features like Dark Mode, but it also brought some needed changes on less popular aspects. Prior to iOS 13, creating socket connections required coding very low-level network interactions which made libraries like Starscream and Socket.io the go-to solution for sockets in iOS. Now with iOS 13, a new native URLSessionWebSocketTask class is available to finally make creating and managing socket connections easier for developers. Some time ago I created a little side project that involved an Arduino-powered servo motor that menacingly pointed at people's faces with the help of CoreML, mimicking the Team Fortress 2 Engineer's Sentry Gun. With iOS 13, I decided to re-write that using the new Socket APIs and SwiftUI.</description>
+    </item>
+    <item>
         <title>Using SIMD Vector Types in Swift</title>
         <link>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm.html</link>
         <guid>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm.html</guid>

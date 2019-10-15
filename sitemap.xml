@@ -13,6 +13,11 @@
   <priority>1.00</priority>
 </url>
 <url>
+    <loc>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.html</loc>
+    <lastmod>2019-10-15T18:39:00+00:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/using-simd-vector-types-in-swift.html</loc>
     <lastmod>2019-09-29T18:00:00+00:00</lastmod>
     <priority>0.80</priority>
