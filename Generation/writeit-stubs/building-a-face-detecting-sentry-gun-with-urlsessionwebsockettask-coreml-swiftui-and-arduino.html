@@ -225,6 +225,7 @@ Your browser does not support the video tag.
 <pre>
 <code>extension SocketWorker: TargetDataViewModelDelegate {</code>
 <code>    func targetDataDidChange(_ data: String) {</code>
+<code>        // Avoid sending duplicate data to the socket.</code>
 <code>        guard data != lastSentData else {</code>
 <code>            return</code>
 <code>        }</code>
