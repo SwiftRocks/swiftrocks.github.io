@@ -8,7 +8,7 @@
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-        <title>Building a Face Detecting Sentry Gun with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino</title>
+        <title>Building a Face Detecting Robot with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino</title>
         <link>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.html</link>
         <guid>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.html</guid>
         <pubDate>Tue, 15 Oct 2019 15:37:00 MST</pubDate>
