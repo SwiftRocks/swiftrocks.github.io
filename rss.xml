@@ -8,6 +8,13 @@
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+        <title>Swift's Sequence Inside The Compiler: How for loops work internally</title>
+        <link>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work.html</link>
+        <guid>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work.html</guid>
+        <pubDate>Fri, 25 Oct 2019 17:50:00 MST</pubDate>
+        <description>One of my favorite things about Swift is that almost every compiler feature is built on top of actual classes and protocols of the language. This means that if you see a native type that has some special magical property (like SwiftUI's declarative syntax, which was covered in another post here in SwiftRocks), it's likely that you can reproduce that behavior in your custom types. In this article, I'll cover one of my favorite syntax sugars in the language: the protocols and the internal compiler behavior that allow you to write for loops. You might have heard already of the Sequence family of protocols, and here, we'll see how the compiler uses them as the building blocks for "for" loops.</description>
+    </item>
+    <item>
         <title>Building a Face Detecting Robot with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino</title>
         <link>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.html</link>
         <guid>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.html</guid>

@@ -90,7 +90,7 @@
   <h1>Swift's <code>Sequence</code> Inside The Compiler: How <code>for</code> loops work internally</h1> 
 </div> 
 <div class="post-info"> 
-October 29, 2019
+October 26, 2019
 </div>
 <p>One of my favorite things about Swift is that almost every compiler feature is built on top of actual classes and protocols of the language. This means that if you see a native type that has some special magical property (like SwiftUI's declarative syntax, which was covered in another post here in SwiftRocks), it's likely that you can reproduce that behavior in your custom types.</p>
 <p>In this article, I'll cover one of my favorite syntax sugars in the language: the protocols and the internal compiler behavior that allow you to write <code>for</code> loops. You might have heard already of the <code>Sequence</code> family of protocols, and here, we'll see how the compiler uses them as the building blocks for <code>for</code> loops.</p>
@@ -232,7 +232,7 @@ October 29, 2019
 <p>Unlike regular <code>Sequences</code>, <code>Collections</code> allow you to access elements multiple times, iterate them in reverse order (in the case of <code>BidirectionalCollections</code>) and even access specific elements directly through subscripts (in the case of <code>RandomAccessCollections</code> like <code>Array&lt;></code>)</p>
 <p>Unlike <code>Sequences</code>, <code>Collections</code> do not need to provide an <code>IteratorProtocol</code>. By default, Swift provides the <code>IndexingIterator</code> struct: an <code>IteratorProtocol</code> that takes a collection and simply traverses the indexes that are defined as part of the <code>Collection</code> protocol. As all <code>Collections</code> are <code>Sequences</code>, they can also benefit from having syntax sugar loops.</p>
 <p>---</p>
-<p>If you want to see more Swift and iOS stuff like this, follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
+<p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="https://github.com/apple/swift">The Swift Source Code</a><br>
 </div></div>
@@ -257,7 +257,7 @@ October 29, 2019
                       
                       <div class="my-detail">
                         <h3 class="separator">Contact Info</h3>
-        			    <b>Bruno Rocha</b><span> is an iOS Software Engineer at iFood and is the developer of open sources libraries like <a href="https://github.com/rockbruno/SwiftInfo">SwiftInfo</a> and <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>.</span>
+        			    <b>Bruno Rocha</b><span> is an iOS Software Engineer and is the developer of open sources libraries like <a href="https://github.com/rockbruno/SwiftInfo">SwiftInfo</a> and <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>.</span>
                         <br>
                         <span><a href="mailto:bruno@swiftrocks.com">bruno@swiftrocks.com</a></span>
                         <h3 class="separator">Newsletter</h3>

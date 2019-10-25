@@ -13,6 +13,11 @@
   <priority>1.00</priority>
 </url>
 <url>
+    <loc>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work.html</loc>
+    <lastmod>2019-10-25T17:50:00+00:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.html</loc>
     <lastmod>2019-10-15T18:39:00+00:00</lastmod>
     <priority>0.80</priority>
