@@ -13,6 +13,11 @@
   <priority>1.00</priority>
 </url>
 <url>
+    <loc>https://swiftrocks.com/nscopying-nszone-uses-in-swift.html</loc>
+    <lastmod>2019-11-05T06:00:00+00:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work.html</loc>
     <lastmod>2019-10-25T17:50:00+00:00</lastmod>
     <priority>0.80</priority>
