@@ -113,6 +113,7 @@ December 3rd, 2019
 <p>Even though the options argument is the struct itself, we're sending an array of them to the type -- and it works.</p>
 <p>Interestingly enough this syntax sugar has nothing to do with <code>OptionSet</code> itself. IT comes from an inner protocol of which it inherits from: <code>SetAlgebra</code>.</p>
 <p>The <code>SetAlgebra</code> protocol is the backbone for mathematical set operations in the Standard Library and is used by types like <code>Set</code> and <code>OptionSet</code>:</p>
+<pre>
 <code>public protocol SetAlgebra: Equatable {</code>
 <code>    associatedtype Element</code>
 <code></code>
