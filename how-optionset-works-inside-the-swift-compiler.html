@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+    <!-- Meta Tag -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO -->
+    <meta name="author" content="Bruno Rocha">
+    <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
+    <meta name="description" content="How OptionSet works inside the Swiftt compiler">
+    <meta name="title" content="How OptionSet works inside the Swift Compiler">
+    <meta name="url" content="https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler.html">
+    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png">
+    <meta name="copyright" content="Bruno Rocha">
+    <meta name="robots" content="index,follow">
+
+    <meta property="og:title" content="How OptionSet works inside the Swift Compiler"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
+    <meta property="og:description" content="How OptionSet works inside the Swiftt compiler"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler.html"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
+    <meta name="twitter:title" content="How OptionSet works inside the Swift Compiler"/>
+    <meta name="twitter:description" content="How OptionSet works inside the Swiftt compiler"/>
+    <meta name="twitter:site" content="@rockthebruno"/>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
+    <link rel="mask-icon" href="images/favicon/favicon-2.ico">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    
+  <!-- All CSS Plugins --> 
+  <link rel="stylesheet" type="text/css" href="css/plugin.css"> 
+    <!-- Prism CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/prism.css"> 
+  <!-- Main CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/style18.css"> 
+  <!-- PT Sans --> 
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    
+    <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+
+  </head>
+
+ <body>
+      
+    
+    
+  <div id="main"> 
+   <div class="container"> 
+    <div class="row"> 
+     <!-- Blog Header --> 
+     <div class="blog-header">
+     <div class="blog-header-container">
+         <a href="https://swiftrocks.com">
+           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="height: 110px; margin-left: -8px; margin-right: 6px; margin-bottom: -18px;"> 
+         </a> 
+     </div> 
+   </div>
+     <!-- Blog Post (Right Sidebar) Start --> 
+                 <div class="col-sm-8">
+                    <div class="col-sm-12 page-body">
+                    	<div class="row">
+
+                            <div class="col-sm-12 content-page" id="WRITEIT_DYNAMIC_CONTENT">
+<!--WRITEIT_POST_NAME=How OptionSet works inside the Swift Compiler-->
+<!--WRITEIT_POST_HTML_NAME=how-optionset-works-inside-the-swift-compiler.html-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=How OptionSet works inside the Swiftt compiler-->
+
+<title>How OptionSet works inside the Swift Compiler - SwiftRocks</title>
+<div class="col-md-12 blog-post"> 
+<div class="post-title"> 
+  <h1>How <code>OptionSet</code> works inside the Swift Compiler</h1> 
+</div> 
+<div class="post-info"> 
+December 3rd, 2019
+</div>
+<p>Swift's <code>OptionSet</code> protocol is the bridged version of Objective-C's <code>NS_OPTIONS</code> enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation.</p>
+<p>If for example we were developing a JSON serializer, it would be nice if we allowed the user to control how certain aspects of the serialization process happened, such as if the keys are sorted or if indendation should be applied to the final JSON. In fact, this is how <code>Foundation's</code> <code>JSONSerialization</code> works:</p>
+<pre>
+<code>try JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted, .sortedKeys])</code>
+</pre>
+<p>From a "list" of options (the quotes will make sense later!), the <code>OptionSet</code> protocol contains a <code>contains(_:)</code> method to see if a specific option is inside the "list". Having several options passed together means that all these options should be considered, and passing no options can be done through an empty array.</p>
+<p>But despite the looks, the <code>options</code> parameter <b>is not an array</b> but a <code>WritingOptions</code> <b>struct</b> that conforms to the <code>OptionSet</code> protocol. How the hell does it behaves like a <code>Set</code> even though it is not?!</p>
+<p>If you've been following this blog, you'll know that the answer is a bunch of Swift compiler magic. Let's see what this protocol is, why <code>OptionSets</code> are preferred over a regular <code>Set</code> in this case, and finally what magic is done to provide the final behavior.</p>
+<h2>Context: Objective-C's <code>NS_OPTIONS</code></h2>
+<p>Before analyzing the Swift compiler code that allows a regular <code>struct</code> to behave like a <code>Set</code>, let's see where <code>OptionSet</code> came from.</p>
+<p>The Objective-C equivalent of <code>OptionSet</code> was the <code>NS_OPTIONS</code> macro, a glorified enum that allowed the same option-mixing gimmick. With it, you can define your options just like an integer enum, like these hipothetical options for browsing SwiftRocks articles:</p>
+<pre>
+<code>typedef NS_OPTIONS(NSUInteger, SwiftRocksOptions) {</code>
+<code>    DarkMode     = 1 << 0,</code>
+<code>    NoJavaScript = 1 << 1,</code>
+<code>    NoImages     = 1 << 2,</code>
+<code>};</code>
+</pre>
+<p>However, instead of using sequential numbers like 0, 1 and 2 in a regular enum, the idea is that you would use <b>powers of two</b> (easier represented by the number one 1 left shifted (<<) by some value.):</p>
+<p>If the usage of powers of two sounds confusing, consider how a three bit number <b>0</b> looks like in binary:</p>
+<pre>
+<code>0 0 0</code>
+</pre>
+<p>In contrast, this is how a three bit number <b>15</b> looks like in binary:</p>
+<pre>
+<code>1 1 1</code>
+</pre>
+<p>Since we have four bits and each of these bits can be zeroes or ones, what if we treated each bit as an option?</p>
+<p>The first bit (from the right) could be the first option (DarkMode), the second bit the second option (NoJavaScript), and the third bit the third option (NoImage). if a bit it set to <b>one</b>, it means that option is "selected". This means that we could represent the selection of DarkMode as the number <b>1</b> (0 0 1), the selection of NoJavaScript as the number <b>2</b> (0 1 0), the selection of NoImage as the number <b>4</b> (1 0 0), and a potential combination of NoJavascript and NoImages as the number <b>6</b> (1 1 0).</p>
+<p>The process of creating such numbers is normally referred as <b>bitmasking</b> and is a very efficient way to treat the existence / combination of arbitrary values. While using a regular Array or Set would require us to store the actual elements in memory, the bitmasked requires just the memory space of the integer itself used to process the mask.</p>
+<p>Adding and checking options in a mask is done through bitwise operators. The bitwise OR operator (|) returns a number that has a specific bit set to one if any of the numbers in the operation do so, so since we're using powers of two, using it on two options return a number that represents their combination:</p>
+<pre>
+<code>NSUInteger options = SwiftRocksOptionsNoJavaScript | SwiftRocksOptionsNoImages</code>
+<code>// 1 1 0 (6)</code>
+</pre>
+<p>On the other hand, the bitwise AND (&) operator returns a number that has a specific bit set to one only if <b>both</b> numbers in the operation do so. If we use it with the set of options along with the specific option that we're checking, because we're using powers of two, we'll get a value different from zero if the option exists in the set (or zero if it doesn't):</p>
+<pre>
+<code>(options & SwiftRocksOptionsDarkMode)     != 0 // false</code>
+<code>(options & SwiftRocksOptionsNoJavaScript) != 0 // true</code>
+<code>(options & SwiftRocksOptionsNoImages)     != 0 // true</code>
+</pre>
+<p>Option bitmasking is a very clever use of the binary representation of a number. While unrelated to the article, I like to mention that doing option bitmasks like this is also used as the (current) most efficient solution to the famous Traveling Salesman problem.</p>
+<h2>How <code>NS_OPTIONS</code> is bridged to <code>OptionSet</code></h2>
+<p>In Swift, you don't have to create enums and manually generate these masks. The <code>OptionSet</code> protocol abstracts the process of creating such bitmasks. Hooray!</p>
+<p>But what about things that come from Objective-C? If the Clang importer section of the compiler detects a <code>NS_OPTIONS</code> macro, it will convert it to a <code>struct</code> that inherits from <Code>OptionSet</Code>. <code>OptionSet</code> itself inherits from <code>RawRepresentable</code>, so the enum elements are converted into <code>static let</code> properties that take a <code>rawValue</code>. Here's an example of a converted <code>JSONSerialization.WritingOptions</code>:</p>
+<pre>
+<code>public struct WritingOptions: OptionSet {</code>
+<code></code>
+<code>    public typealias RawValue = Int</code>
+<code></code>
+<code>    public let rawValue: RawValue</code>
+<code></code>
+<code>    public init(rawValue: RawValue) {</code>
+<code>        self.rawValue = rawValue</code>
+<code>    }</code>
+<code></code>
+<code>    public static let prettyPrinted = WritingOptions(rawValue: 1 << 0)</code>
+<code>    public static let sortedKeys = WritingOptions(rawValue: 1 << 1)</code>
+<code>    public static let fragmentsAllowed = WritingOptions(rawValue: 1 << 2)</code>
+<code>    public static let withoutEscapingSlashes = WritingOptions(rawValue: 1 << 3)</code>
+<code>}</code>
+</pre>
+<h2>How <code>OptionSet</code> is defined in the Standard Library</h2>
+<p>Although the <code>OptionSet</code> is used with integers and bitmasking, it can in theory be used with anything else as the protocol is just a <code>rawValue</code> and some algebra methods:</p>
+<pre>
+<code>public protocol OptionSet: RawRepresentable, SetAlgebra {</code>
+<code>    associatedtype Element = Self // from SetAlgebra</code>
+<code></code>
+<code>    init(rawValue: Self.RawValue)</code>
+<code></code>
+<code>    public func union(_ other: Self) -> Self</code>
+<code>    public func intersection(_ other: Self) -> Self</code>
+<code>    public func symmetricDifference(_ other: Self) -> Self</code>
+<code>    public func contains(_ member: Self) -> Bool</code>
+<code>    public mutating func insert(_ newMember: Self.Element) -> (Bool, Self.Element)</code>
+<code>    public mutating func remove(_ member: Self.Element) -> Self.Element?</code>
+<code>    public mutating func update(with newMember: Self.Element) -> Self.Element?</code>
+</pre>
+<p>However, implementing these methods isn't required -- if the <code>rawValue</code> type is a number that isn't a floating point, you'll get default implementations in the form of the bitmasking techniques seen before!</p>
+<pre>
+<code>public mutating func formUnion(_ other: Self) {</code>
+<code>    self = Self(rawValue: self.rawValue | other.rawValue)</code>
+<code>}</code>
+<code></code>
+<code>public mutating func formIntersection(_ other: Self) {</code>
+<code>    self = Self(rawValue: self.rawValue & other.rawValue)</code>
+<code>}</code>
+</pre>
+<h2><code>OptionSet</code> Syntax Sugars</h2>
+<p>We've seen how to work with <code>OptionSet</code> through its methods, but where does this behavior come from?</p>
+<pre>
+<code>options: [.prettyPrinted, .sortedKeys]</code>
+</pre>
+<p>Even though the options argument is the struct itself, we're sending an array of them to the type -- and it works.</p>
+<p>Interestingly enough this syntax sugar has nothing to do with <code>OptionSet</code> itself. IT comes from an inner protocol of which it inherits from: <code>SetAlgebra</code>.</p>
+<p>The <code>SetAlgebra</code> protocol is the backbone for mathematical set operations in the Standard Library, and is used by types like <code>Set</code> and <code>OptionSet</code>:</p>
+<code>public protocol SetAlgebra: Equatable {</code>
+<code>    associatedtype Element</code>
+<code></code>
+<code>    public func union(_ other: Self) -> Self</code>
+<code>    public func intersection(_ other: Self) -> Self</code>
+<code>    public func symmetricDifference(_ other: Self) -> Self</code>
+<code>    public func contains(_ member: Self) -> Bool</code>
+<code>    ...</code>
+</pre>
+<p>(This looks very similar to <code>OptionSet</code> itself, and is because <code>OptionSet</code> can be seen as just a light abstraction of <code>SetAlgebra</code> that provides the bitmasking features through a rawValue.)</p>
+<p>The magic comes from this little extension:</p>
+<pre>
+<code>extension SetAlgebra: ExpressibleByArrayLiteral {</code>
+<code>    public init(arrayLiteral: Element...) {</code>
+<code>        self.init(arrayLiteral)</code>
+<code>    }</code>
+<code></code>
+<code>    public init&lt;S: Sequence>(_ sequence: S) where S.Element == Element {</code>
+<code>        self.init()</code>
+<code>        for e in sequence { insert(e) }</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p><code>SetAlgebra</code> inherits from <code>ExpressibleByArrayLiteral</code>, which allow it to be represented directly as an array. This triggers an <code>insert()</code> call for every element, which for our <code>OptionSet</code> types means that we'll progressively trigger bitwise AND (|) operations, resulting in a final <code>OptionSet</code> that represents the combination of all the options. Hooray!</p>
+<h2>How <code>ExpressibleByArrayLiteral</code> works internally</h2>
+<p><a href="https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler.html">The innards of the ExpressibleBy family are covered in detail in my previous article,</a> but as a short explanation, we can say that when the typechecker finds a literal being attributed to a explicit type, it checks if it conforms to the related <code>ExpressibleBy</code> protocol and coverts the expression to the designated initializer from the protocol if it does (and throws a compilation error if it does not). For more details, check the linked article.</p>
+<h2>Conclusion</h2>
+<p>The <code>OptionSet</code> protocol itself is hardly used nowadays, but its existance has some history and shows some of the importance of analyzing what you're developing in terms of performance. You can always use a regular <code>Array</code> or <code>Set</code> to define these options, but should you? For these case where you have a limited set of unique options, using a bitmask is considerably quicker and less resource intensive, something which your user's device will be very grateful for :)</p>
+<p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
+<h2>References and Good reads</h2>
+<a href="https://github.com/apple/swift">The Swift Source Code</a><br>
+</div></div>
+                              
+                         </div>
+                        
+                           
+                         </div>
+                     
+                     
+                  </div>
+                  <!-- Blog Post (Right Sidebar) End -->
+
+                 <!-- About Me (Left Sidebar) Start -->
+                 <div class="col-sm-4">
+                   <div class="about-fixed">
+                     <div class="my-pic">
+                        <img src="images/pic/my-pic-2.jpg" alt="">
+                        </div>
+                      
+                      
+                      
+                      <div class="my-detail">
+                        <h3 class="separator">Contact Info</h3>
+        			    <b>Bruno Rocha</b><span> is an iOS Software Engineer and is the developer of open sources libraries like <a href="https://github.com/rockbruno/SwiftInfo">SwiftInfo</a> and <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>.</span>
+                        <br>
+                        <span><a href="mailto:bruno@swiftrocks.com">bruno@swiftrocks.com</a></span>
+                        <h3 class="separator">Newsletter</h3>
+                        <a href="https://bit.ly/2IY5F4Y">Click here to subscribe to my newsletter to get notified of new posts by e-mail.</a>
+                        <h3 class="separator">RSS / Social</h3>
+                        <div class="social-icon">
+                         <a href="https://swiftrocks.com/rss.xml" target="_blank" class="rss"><i class="fa fa-rss"></i></a>
+                         <a href="https://twitter.com/rockthebruno" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+                         <a href="https://github.com/rockbruno" target="_blank" class="github"><i class="fa fa-github"></i></a>
+                         <a href="https://www.linkedin.com/in/bruno-rocha-45786a98/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                        <h3 class="separator">Info</h3>
+                        <a href="https://github.com/rockbruno/writeit">This website's static HTML pages are generated by WriteIt.</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- About Me (Left Sidebar) End -->
+                
+            </div>
+         </div>
+      </div>
+    
+    
+    <!-- All Javascript Plugins  -->
+  <script type="text/javascript" src="js/jquery.min.js"></script> 
+  <script type="text/javascript" src="js/plugin.js"></script> 
+  <script type="text/javascript" src="js/prism.js"></script> 
+    <!-- Main Javascript File  -->
+    <script type="text/javascript" src="js/scripts4.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-130406165-1');
+</script>
+
+   </body>
+ </html>
