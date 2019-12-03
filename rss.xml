@@ -12,7 +12,7 @@
         <link>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler.html</link>
         <guid>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler.html</guid>
         <pubDate>Tue, 03 Dec 2019 01:42:00 MST</pubDate>
-        <description>Swift's OptionSet protocol is the bridged version of Objective-C's NS_OPTIONS enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation. Let's see what this protocol is, why OptionSets are preferred over a regular Set in some cases and finally what compiler magics it posesses.</description>
+        <description>Swift's OptionSet protocol is the bridged version of Objective-C's NS_OPTIONS enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation. Let's see what this protocol is, why OptionSets are preferred over a regular Set in some cases and finally what compiler magics it possesses.</description>
     </item>
     <item>
         <title>NSCopying uses in Swift</title>
