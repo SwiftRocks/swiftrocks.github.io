@@ -171,15 +171,16 @@ June 26, 2019
 <code>let string = "I write for https://swiftrocks.com and my phone is 555-111-111."</code>
 <code>let range = NSRange(0..&lt;string.count)</code>
 <code></code>
-<code>let types: NSTextCheckingResult.CheckingType = [.link]</code>
+<code>let types: NSTextCheckingResult.CheckingType = [.link, .phoneNumber]</code>
 <code>let dataDetector = try NSDataDetector(types: types.rawValue)</code>
 <code>dataDetector.enumerateMatches(in: string, options: [], range: range) { (match, _, _) in</code>
-<code>    switch match?.resultType {</code>
-<code>    case .link?:</code>
-<code>        print(match?.url)</code>
+<code>    guard let match = match else { return }</code>
+<code>    switch match.resultType {</code>
+<code>    case .link:</code>
+<code>        print(match.url!)</code>
 <code>        // https://swiftrocks.com</code>
-<code>    case .phoneNumber?:</code>
-<code>        print(result?.phoneNumber)</code>
+<code>    case .phoneNumber:</code>
+<code>        print(match.phoneNumber!)</code>
 <code>        // "555-111-111"</code>
 <code>    default:</code>
 <code>        return</code>
