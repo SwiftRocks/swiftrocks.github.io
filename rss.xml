@@ -8,6 +8,13 @@
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+        <title>Faster Array Operations With CollectionOfOne in Swift</title>
+        <link>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone.html</link>
+        <guid>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone.html</guid>
+        <pubDate>Mon, 23 Dec 2019 01:42:00 MST</pubDate>
+        <description>CollectionOfOne is a type inside the Swift Standard Library that defines a collection of a single element. While this sounds a bit weird, there's a good reason for this to exist. Let's check out why.</description>
+    </item>
+    <item>
         <title>How OptionSet works inside the Swift Compiler</title>
         <link>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler.html</link>
         <guid>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler.html</guid>
