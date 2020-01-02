@@ -59,10 +59,10 @@ January 2nd, 2020
 <p>The same problem surfaces if the protocol contained generic constraints or associated types.</p>
 <h3>Does the compiler really care about this?</h3>
 <p>There are multiple efficient ways to solve this problem, but before going into that, it's interesting to know why these errors exist -- is this really a problem for the compiler?</p>
-<p>The answer is not really -- these errors only exist inside your IDE as a means to prevent you from making silly code mistakes. Think of access control properties like <code>public</code> and <code>private</code>: They are good examples of concepts that have absolute no impact on the final binary -- in the end, everything is accessible from everywhere, but inside your IDE, the compiler forces access control conventions to be followed so at the very least you are able to write code that is used the way you intenred it to be used.</p>
-<p>The issue here with generic constraints is similar -- the compiler <b>does</b> know what the underlying type of a <code>Shape</code> is in runtime, but because Swift is very type-safe, for safety reasons, if it can't be determined in compile time, it can't be done in the IDE. This is the complete opposite of Objective-C, where you could easily do whatever you wanted for the (very big) cost of compile time safety.</p>
+<p>The answer is not really -- these errors only exist inside your IDE as a means to prevent you from making silly code mistakes. Think of access control properties like <code>public</code> and <code>private</code>: They are good examples of concepts that have absolute no impact on the final binary -- in the end, everything is accessible from everywhere, but inside your IDE, the compiler forces access control conventions to be followed so at the very least you are able to write code that is used the way you intended it to be used.</p>
+<p>The issue here with generic constraints is similar -- the compiler <b>does</b> know what the underlying type of a <code>Shape</code> is in runtime, but because Swift is very type-safe, for safety reasons, if it can't be determined in compile time, it can't be done in the IDE. This is the complete opposite of Objective-C, where you could easily do whatever you wanted for the (very big) cost of compile-time safety.</p>
 <h3>Type Erasing with Closures</h3>
-<p>To bypass this problem, we can used the concept of Type Erasure. Instead of representing our stored shapes as <code>Any</code>, we abstract our contrained, boring <code>Shape</code> into an <code>AnyShape</code> type that has no constraints:</p>
+<p>To bypass this problem, we can use the concept of Type Erasure. Instead of representing our stored shapes as <code>Any</code>, we abstract our constrained, boring <code>Shape</code> into an <code>AnyShape</code> type that has no constraints:</p>
 <pre>
 <code>class AnyShape {</code>
 <code>    let value: Any</code>
@@ -175,7 +175,7 @@ January 2nd, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p><i>(Note how the RouterService itself is also a dependency -- this is because this is the interface that ViewControllers will use to navigate the app.)</i></p>
+<p><i>(Notice how the RouterService itself is also a dependency -- this is because this is the interface that ViewControllers will use to navigate the app.)</i></p>
 <p>In our AppDelegate, we can now register our dependencies and inject the service into our first screen (a fake splash, in this case):</p>
 <pre>
 <code>@UIApplicationMain</code>
@@ -322,7 +322,7 @@ public final class AnyInitializer {
 </pre>
 <p>As a nice complement, because <code>AnyInitializer</code> is constrained to <code>Dependency</code> arguments, you are guaranteed to never have misconfigured features as the compiler would fail to build otherwise.</p>
 <h2>Conclusion: Where to go from here?</h2>
-<p>The shown <code>RouterService</code> and its related components is a very simplified version of a navigation framework being tested at iFood. This can be evolved to a structure (which we use) that relies on Codable <code>Routes</code> and <code>RouteHandlers</code> instead of directly invoking features, allowing you to have a very smart deep link structure where your backend can dictate where the app's flow should go to.</p>
+<p>The shown <code>RouterService</code> and its related components is a very simplified version of a navigation framework being tested at iFood. This can be evolved into a structure (which we use) that relies on Codable <code>Routes</code> and <code>RouteHandlers</code> instead of directly invoking features, allowing you to have a very smart deep link structure where your backend can dictate where the app's flow should go to.</p>
 <p>Type Erasures are a very nice way to temporarily tell the compiler to "stop" type-checking your code. This allows you to conceive all sorts of complex structures without giving up type safety -- as long as you are careful with where they are used.</p>
 <p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
 </div>
