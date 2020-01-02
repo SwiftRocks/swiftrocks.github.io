@@ -11,7 +11,7 @@
         <title>Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift</title>
         <link>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift.html</link>
         <guid>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift.html</guid>
-        <pubDate>Mon, 02 Jan 2020 01:42:00 MST</pubDate>
+        <pubDate>Mon, 02 Jan 2020 05:00:00 MST</pubDate>
         <description>With Swift being a very type-safe and namespaced language, you'll find that certain tasks are really hard to complete if at some point you can't determine the types that are being handled - mostly when generics are involved. Using an automatic dependency injector as an example, let's see how generic arguments and closures can be "erased" to trick the compiler into compiling code that it would otherwise claim to be impossible. (when it's clearly not!)</description>
     </item>
     <item>
