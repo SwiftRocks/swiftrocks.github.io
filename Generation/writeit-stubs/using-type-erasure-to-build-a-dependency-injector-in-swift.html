@@ -254,40 +254,40 @@ January 2nd, 2020
 <p>But what if it <b>doesn't</b> fulfill the constraint? For example, a feature with <b>three</b> dependencies would need an additional generic argument, and a feature with <b>no</b> dependencies would only need the generic argument that represents the final result.</p>
 <p><b>Unfortunately, Swift doesn't support variadic generics.</b> This means that <code>AnyInitializer</code> needs to support multiple initializers with varied sizes:</p>
 <pre>
-public final class AnyInitializer {
-
-    public let build: (Store) -> Any
-
-    public init&lt;T>(_ function: @escaping () -> T) {
-        build = { store in
-            return function()
-        }
-    }
-
-    public init&lt;T: Dependency, U>(_ function: @escaping (T) -> U) {
-        build = { store in
-            let t: T = store.get(T.self)
-            return function(t)
-        }
-    }
-
-    public init&lt;T: Dependency, U: Dependency, V>(_ function: @escaping (T, U) -> V) {
-        build = { store in
-            let t: T = store.get(T.self)
-            let u: U = store.get(U.self)
-            return function(t, u)
-        }
-    }
-
-    public init&lt;T: Dependency, U: Dependency, V: Dependency, W>(_ function: @escaping (T, U, V) -> W) {
-        build = { store in
-            let t: T = store.get(T.self)
-            let u: U = store.get(U.self)
-            let v: V = store.get(V.self)
-            return function(t, u, v)
-        }
-    }
-}
+<code>public final class AnyInitializer {</code>
+<code></code>
+<code>    public let build: (Store) -> Any</code>
+<code></code>
+<code>    public init&lt;T>(_ function: @escaping () -> T) {</code>
+<code>        build = { store in</code>
+<code>            return function()</code>
+<code>        }</code>
+<code>    }</code>
+<code></code>
+<code>    public init&lt;T: Dependency, U>(_ function: @escaping (T) -> U) {</code>
+<code>        build = { store in</code>
+<code>            let t: T = store.get(T.self)</code>
+<code>            return function(t)</code>
+<code>        }</code>
+<code>    }</code>
+<code></code>
+<code>    public init&lt;T: Dependency, U: Dependency, V>(_ function: @escaping (T, U) -> V) {</code>
+<code>        build = { store in</code>
+<code>            let t: T = store.get(T.self)</code>
+<code>            let u: U = store.get(U.self)</code>
+<code>            return function(t, u)</code>
+<code>        }</code>
+<code>    }</code>
+<code></code>
+<code>    public init&lt;T: Dependency, U: Dependency, V: Dependency, W>(_ function: @escaping (T, U, V) -> W) {</code>
+<code>        build = { store in</code>
+<code>            let t: T = store.get(T.self)</code>
+<code>            let u: U = store.get(U.self)</code>
+<code>            let v: V = store.get(V.self)</code>
+<code>            return function(t, u, v)</code>
+<code>        }</code>
+<code>    }</code>
+<code>}</code>
 </pre>
 <p>While this looks weird, <a href="https://twitter.com/rockthebruno/status/1194225536949792769">you may be interested to know that this is exactly how Apple handles SwiftUI's subviews.</a> Unfortunately, this is a problem with the Swift language itself.</p>
 <h3>Finishing Touches: Retrieving <code>AnyInitializer</code></h3>
