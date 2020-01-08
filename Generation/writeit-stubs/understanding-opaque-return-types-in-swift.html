@@ -82,10 +82,10 @@ June 10, 2019
 </pre>
 <p>When this is done, the return type of the method is going to be the actual <code>CreditCard</code> concrete type, but the compiler is going to <b>pretend</b> that it's the protocol instead. This means that while the API's user will see this as a regular protocol, it will have all the capabilities of the concrete type:</p>
 <pre>
-<code>let creditCard = favoriteCreditCard() // some 'PaymentType'</code>
-<code>let debitCard = mostRecentCreditCard() // some 'PaymentType'</code>
+<code>let creditCard = favoriteCreditCard() // 'some PaymentType' returning 'CreditCard'</code>
+<code>let anotherCreditCard = mostRecentCreditCard() // 'some PaymentType' returning a 'CreditCard'</code>
 <code></code>
-<code>creditCard == debitCard // Now works, because two concrete CreditCards can be compared.</code>
+<code>creditCard == anotherCreditCard // Now works, because two concrete CreditCards can be compared.</code>
 </pre>
 <p>The reason this works is because you're looking at some fancy compiler magic — <b>the return type was <code>CreditCard</code> all along, it's just being hidden from you for coding purposes.</b> This is what <code>favoriteCreditCard()</code> looks like after compiling:</p>
 <pre>
