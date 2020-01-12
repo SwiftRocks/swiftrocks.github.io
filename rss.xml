@@ -8,6 +8,13 @@
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+        <title>How Hashable works in Swift</title>
+        <link>https://swiftrocks.com/how-hashable-works-in-swift.html</link>
+        <guid>https://swiftrocks.com/how-hashable-works-in-swift.html</guid>
+        <pubDate>Mon, 13 Jan 2020 05:00:00 MST</pubDate>
+        <description>Hashing algorithms are functions that map an arbitrary string to a seemingly "random" output with a fixed length. Commonly associated as a component of Sets and Dictionaries, hashing algorithms are a major component of several branches of computer science, including cryptography. The internal algorithm used to calculate a type's `hashValue` (now `Hasher` in Swift 4.2) and the related compiler features changed several times throughout Swift's releases, ant it was only after Swift 4.2 that a real universal hashing algorithm was added to Swift. To see how this is implemented today, let's take a look at how this looked like throughout the history of Swift.</description>
+    </item>
+    <item>
         <title>Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift</title>
         <link>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift.html</link>
         <guid>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift.html</guid>
