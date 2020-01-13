@@ -70,7 +70,7 @@ January 13rd, 2020
 <code>  return b</code>
 <code>}</code>
 </pre>
-<o>If this looks like a bunch of gibberish to you, welcome to hashing algorithms! In fact, as having pseudorandom results is an important quality of good hashing algorithms, you'll see that most hashing algorithms are based on even weirder non-sense. It's exactly what they are supposed to do!</o>
+<p>If this looks like a bunch of gibberish to you, welcome to hashing algorithms! In fact, as having pseudorandom results is an important quality of good hashing algorithms, you'll see that most hashing algorithms are based on even weirder non-sense. It's exactly what they are supposed to do!</p>
 <p>Although <code>_mixInt</code> is an implementation of its own, its behavior was inspired by a widely-used hashing algorithm called MurmurHash -- which works in a similar fashion of progressively multiplying, shifting and XORing values, although in a more complex way.</p>
 <p>While this is better than simply XORing properties, this approach still had some flaws. First of all, while <code>_mixInt</code> ticked a few boxes of what defines a good hashing algorithm, like having <i>avalanche behavior</i> (minor changes in the input have catastrophic, pseudorandom effects in the output), it was never intended to be used to combine hash values.</p>
 <p>A second problem is that <code>_mixInt</code> was private, so manual implementations of <code>Hashable</code> were still flawed in the same ways of the past Swift versions.</p>
