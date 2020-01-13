@@ -23,7 +23,7 @@ January 13rd, 2020
 <p>The internal algorithm used to calculate a type's <code>hashValue</code> (now <code>Hasher</code> in Swift 4.2) and the related compiler features changed several times throughout Swift's releases, and it was only after Swift 4.2 that a real universal hashing algorithm was added to Swift. To see how this is implemented today, let's take a look at how this looked like throughout the history of Swift.</p>
 <h2>Swift 4.0 and below - A lawless world</h2>
 <p>Throughout the history of Swift up until Swift 4.0, the internal implementation of a <code>Int's</code> <code>hashValue</code> simply returned their own value, while <code>Strings</code> alternated between using the MurmurHash2 algorithm (Swift 3.0 and below) and SipHash1-3 (Swift 4.0 forward).</p>
-<p>Although <code>Strings</code> were doing fine in terms of algorithms and using the <code>Int</code> itself as a result isn't that bad, adding <code>Hashable</code> conformance to custom types in that period of time was usually an annoyance. If you were around that time, then you probably remember that Apple's recommended way to implement <code>hashValue</code> was to XOR all properties together:</p>
+<p>Although <code>Strings</code> were doing fine in terms of algorithms, adding <code>Hashable</code> conformance to custom types in that period of time was usually an annoyance. If you were around that time, then you probably remember that Apple's recommended way to implement <code>hashValue</code> was to XOR all properties together:</p>
 <pre>
 <code>struct Foo: Hashable {</code>
 <code>    let someProperty: String</code>
