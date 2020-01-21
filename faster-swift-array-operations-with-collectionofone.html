@@ -114,7 +114,7 @@ December 23rd, 2019
 <p>The way this works is straight-forward: the <code>CollectionOfOne</code> type implements <code>Collection</code>, meaning that it's able to respond to iterations and more. But instead of implementing these things with buffers like in an <code>Array</code>, the <code>CollectionOfOne</code> type simply holds a reference to the element:</p>
 <pre>
 <code>@frozen // trivial-implementation</code>
-<code>public struct CollectionOfOn&lt;Element> {</code>
+<code>public struct CollectionOfOne&lt;Element> {</code>
 <code>  @usableFromInline // trivial-implementation</code>
 <code>  internal var _element: Element</code>
 <code></code>
