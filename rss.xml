@@ -8,6 +8,13 @@
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+        <title>Reducing iOS Build Times by using Interface Targets</title>
+        <link>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets.html</link>
+        <guid>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets.html</guid>
+        <pubDate>Wed, 23 Jan 2020 07:00:00 MST</pubDate>
+        <description>While dividing an app into several targets can improve the build time of an iOS app, the result heavily depends on what is being changed. If you're not careful with how your dependency graph is laid out, you can often have results that are worse than non-modularized apps. Let's take a look at a technique used at iFood to have big and consistent improvements to the build times of our app.</description>
+    </item>
+    <item>
         <title>How Hashable works in Swift</title>
         <link>https://swiftrocks.com/how-hashable-works-in-swift.html</link>
         <guid>https://swiftrocks.com/how-hashable-works-in-swift.html</guid>
