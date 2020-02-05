@@ -12,7 +12,7 @@
         <link>https://swiftrocks.com/swift-codable-decodingencoding-with-context.html</link>
         <guid>https://swiftrocks.com/swift-codable-decodingencoding-with-context.html</guid>
         <pubDate>Wed, 05 Feb 2020 07:25:00 MST</pubDate>
-        <description>The Codable protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like Unbox, Codable has the advantage of being powered by the compiler. One of my favorite features in Unbox was to give a context to the decoding operation. Let's take a look how we can achieve the same with Codable and how I use to power a type-erased Decodable type.</description>
+        <description>The Codable protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like Unbox, Codable has the advantage of being powered by the compiler. One of my favorite features in Unbox was to give a context to the decoding operation. Let's take a look at how we can achieve the same with Codable and how I use to power a type-erased Decodable type.</description>
     </item>
     <item>
         <title>Reducing iOS Build Times by using Interface Targets</title>
