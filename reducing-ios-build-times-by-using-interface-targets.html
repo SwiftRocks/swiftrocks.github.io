@@ -28,7 +28,7 @@
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
     <meta name="twitter:title" content="Reducing iOS Build Times by using Interface Targets"/>
     <meta name="twitter:description" content="While dividing an app into several targets can improve the build time of an iOS app, the result heavily depends on what is being changed. If you're not careful with how your dependency graph is laid out, you can often have results that are worse< than non-modularized apps. Let's take a look at a technique used at iFood to have big and consistent improvements to the build times of our app."/>
-    <meta name="twitter:site" content="@rockthebruno"/>
+    <meta name="twitter:site" content="@rockbruno_"/>
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
@@ -217,7 +217,7 @@ January 23rd, 2020
 </div>
 <p><i>(Not shown: In our case, everyone depends on something called a <code>RouterServiceInterface</code>, with the main target depending on the concrete <code>RouterService</code>, which dynamically links the interfaces to their actual classes.)</i></p>
 <p>Note how the graph is considerably more <b>horizontal</b> than its counterpart -- even though everyone depends on <code>HTTPClientInterface</code>, changes to the actual <code>HTTPClient</code> will have no repercussions on the other targets, making the app compile considerably faster. With an entire app running on this structure, you should only have bad compilation times if the interfaces themselves are changed -- something that should be a rare occurrence. In general, every target is going to be completely independent of each other, which can be especially useful and productive when developing inside the target's specific scheme in Xcode.</p>
-<p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
+<p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
 </div></div>
                               
                          </div>
@@ -248,7 +248,7 @@ January 23rd, 2020
                         <h3 class="separator">RSS / Social</h3>
                         <div class="social-icon">
                          <a href="https://swiftrocks.com/rss.xml" target="_blank" class="rss"><i class="fa fa-rss"></i></a>
-                         <a href="https://twitter.com/rockthebruno" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+                         <a href="https://twitter.com/rockbruno_" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
                          <a href="https://github.com/rockbruno" target="_blank" class="github"><i class="fa fa-github"></i></a>
                          <a href="https://www.linkedin.com/in/bruno-rocha-45786a98/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
                         </div>

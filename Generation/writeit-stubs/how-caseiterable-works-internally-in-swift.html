@@ -262,7 +262,7 @@ bt</code>
 </pre>
 <h2>Conclusion</h2>
 <p>Compilers are scary, and the Swift one is no different. I'm still trying to figure out how most things work (If you're a compiler expert, I'm looking for tips on great books and resources!), but one thing that I've said before on my posts is that knowing the internals of a language can really help you write efficient code. I had a lot of fun inspecting this feature and hope it was useful to you in some way.</p>
-<p>Follow me on my Twitter - <a href="https://twitter.com/rockthebruno">@rockthebruno</a>, and let me know of any suggestions and corrections you want to share.</p>
+<p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="https://github.com/apple/swift">The Swift Source Code</a><br><br>
 <p>Update: People were curious on how <code>first</code> acts if the enum has no cases: It crashes! We can fix it by adding a new rule to <code>derivesProtocolRequirement</code> that returns false if the requirement is <code>first</code> and the enum is empty - which would make the compiler return a <code>does not conform to CaseIterable</code> error in that case.</p>

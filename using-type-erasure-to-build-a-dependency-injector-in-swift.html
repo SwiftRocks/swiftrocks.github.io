@@ -28,7 +28,7 @@
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
     <meta name="twitter:title" content="Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift"/>
     <meta name="twitter:description" content="With Swift being a very type-safe and namespaced language, you'll find that certain tasks are really hard to complete if at some point you can't determine the types that are being handled - mostly when generics are involved. Using an automatic dependency injector as an example, let's see how generic arguments and closures can be "erased" to trick the compiler into compiling code that it would otherwise claim to be impossible (when it's clearly not!). While this isn't your usual SwiftRocks-compiler-feature-deconstruction article, we'll take an exciting look at how the treatment of methods/closures as properties can be used in this context to bypass one of the Swift Compiler's most annoying compilation errors."/>
-    <meta name="twitter:site" content="@rockthebruno"/>
+    <meta name="twitter:site" content="@rockbruno_"/>
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
@@ -364,7 +364,7 @@ January 2nd, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>While this looks weird, <a href="https://twitter.com/rockthebruno/status/1194225536949792769">you may be interested to know that this is exactly how Apple handles SwiftUI's subviews.</a> Unfortunately, this is a problem with the Swift language itself.</p>
+<p>While this looks weird, <a href="https://twitter.com/rockbruno_/status/1194225536949792769">you may be interested to know that this is exactly how Apple handles SwiftUI's subviews.</a> Unfortunately, this is a problem with the Swift language itself.</p>
 <h3>Finishing Touches: Retrieving <code>AnyInitializer</code></h3>
 <p>To complete our <code>RouterService's</code> <code>navigate(_:)</code> method, we need to be able to retrieve a <code>Feature's</code> <code>Dependencies</code> <code>AnyInitializer</code>. We can do so by adding it to the <code>Feature</code> protocol:</p>
 <pre>
@@ -399,7 +399,7 @@ January 2nd, 2020
 <h2>Conclusion: Where to go from here?</h2>
 <p>The shown <code>RouterService</code> and its related components is a very simplified version of a navigation framework being tested at iFood. This can be evolved into a structure (which we use) that relies on Codable <code>Routes</code> and <code>RouteHandlers</code> instead of directly invoking features, allowing you to have a very smart deep link structure where your backend can dictate where the app's flow should go to.</p>
 <p>Type Erasures are a very nice way to temporarily tell the compiler to "stop" type-checking your code. This allows you to conceive all sorts of complex structures without giving up type safety -- as long as you are careful with where they are used.</p>
-<p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
+<p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
 </div></div>
                               
                          </div>
@@ -430,7 +430,7 @@ January 2nd, 2020
                         <h3 class="separator">RSS / Social</h3>
                         <div class="social-icon">
                          <a href="https://swiftrocks.com/rss.xml" target="_blank" class="rss"><i class="fa fa-rss"></i></a>
-                         <a href="https://twitter.com/rockthebruno" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+                         <a href="https://twitter.com/rockbruno_" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
                          <a href="https://github.com/rockbruno" target="_blank" class="github"><i class="fa fa-github"></i></a>
                          <a href="https://www.linkedin.com/in/bruno-rocha-45786a98/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
                         </div>

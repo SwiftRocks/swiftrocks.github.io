@@ -124,5 +124,5 @@ May 22, 2019
 <p>I also tried to create a <code>weak</code> reference to the <code>Data</code> instance hoping that it would be still alive after its loop, but it was too set to <code>nil</code>. This makes me think that it's possible that the <code>Data</code> object is indeed deiniting after the loop and what's autoreleasing in that init is something else entirely, but there's way to confirm this without looking the source code; which we unfortunately can't. I believe that there must be an internal property in <code>NSAutoreleasePool</code> or <code>NSThread</code> that you can inspect autoreleased properties, but for now the only way I found really is to manually look the Allocations instrument.</p>
 <h2>Conclusion</h2>
 <p>To put it short, <code>autoreleasepool</code> is still useful in iOS/Swift development as there are still legacy Obj-C classes in UIKit and Foundation that call <code>autorelease</code>, but you likely don't need to worry about it when dealing with Swift classes due to ARC's optimizations.</p>
-<p>Follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any suggestions and corrections you want to share.</p>
+<p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 </div>
