@@ -28,7 +28,7 @@
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
     <meta name="twitter:title" content="@autoreleasepool uses in 2019 Swift"/>
     <meta name="twitter:description" content="NSAutoreleasePool was very important during the Obj-C era. Let's see cases where it's still useful in Swift."/>
-    <meta name="twitter:site" content="@rockthebruno"/>
+    <meta name="twitter:site" content="@rockbruno_"/>
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
@@ -199,7 +199,7 @@ May 22, 2019
 <p>I also tried to create a <code>weak</code> reference to the <code>Data</code> instance hoping that it would be still alive after its loop, but it was too set to <code>nil</code>. This makes me think that it's possible that the <code>Data</code> object is indeed deiniting after the loop and what's autoreleasing in that init is something else entirely, but there's way to confirm this without looking the source code; which we unfortunately can't. I believe that there must be an internal property in <code>NSAutoreleasePool</code> or <code>NSThread</code> that you can inspect autoreleased properties, but for now the only way I found really is to manually look the Allocations instrument.</p>
 <h2>Conclusion</h2>
 <p>To put it short, <code>autoreleasepool</code> is still useful in iOS/Swift development as there are still legacy Obj-C classes in UIKit and Foundation that call <code>autorelease</code>, but you likely don't need to worry about it when dealing with Swift classes due to ARC's optimizations.</p>
-<p>Follow me on my Twitter (<a href="https://twitter.com/rockthebruno">@rockthebruno</a>), and let me know of any suggestions and corrections you want to share.</p>
+<p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 </div></div>
                               
                          </div>
@@ -230,7 +230,7 @@ May 22, 2019
                         <h3 class="separator">RSS / Social</h3>
                         <div class="social-icon">
                          <a href="https://swiftrocks.com/rss.xml" target="_blank" class="rss"><i class="fa fa-rss"></i></a>
-                         <a href="https://twitter.com/rockthebruno" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+                         <a href="https://twitter.com/rockbruno_" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
                          <a href="https://github.com/rockbruno" target="_blank" class="github"><i class="fa fa-github"></i></a>
                          <a href="https://www.linkedin.com/in/bruno-rocha-45786a98/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
                         </div>

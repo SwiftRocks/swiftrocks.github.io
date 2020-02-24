@@ -28,7 +28,7 @@
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
     <meta name="twitter:title" content="How CaseIterable Works Internally in Swift"/>
     <meta name="twitter:description" content="CaseIterable is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum."/>
-    <meta name="twitter:site" content="@rockthebruno"/>
+    <meta name="twitter:site" content="@rockbruno_"/>
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
@@ -337,7 +337,7 @@ bt</code>
 </pre>
 <h2>Conclusion</h2>
 <p>Compilers are scary, and the Swift one is no different. I'm still trying to figure out how most things work (If you're a compiler expert, I'm looking for tips on great books and resources!), but one thing that I've said before on my posts is that knowing the internals of a language can really help you write efficient code. I had a lot of fun inspecting this feature and hope it was useful to you in some way.</p>
-<p>Follow me on my Twitter - <a href="https://twitter.com/rockthebruno">@rockthebruno</a>, and let me know of any suggestions and corrections you want to share.</p>
+<p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="https://github.com/apple/swift">The Swift Source Code</a><br><br>
 <p>Update: People were curious on how <code>first</code> acts if the enum has no cases: It crashes! We can fix it by adding a new rule to <code>derivesProtocolRequirement</code> that returns false if the requirement is <code>first</code> and the enum is empty - which would make the compiler return a <code>does not conform to CaseIterable</code> error in that case.</p>
@@ -371,7 +371,7 @@ bt</code>
                         <h3 class="separator">RSS / Social</h3>
                         <div class="social-icon">
                          <a href="https://swiftrocks.com/rss.xml" target="_blank" class="rss"><i class="fa fa-rss"></i></a>
-                         <a href="https://twitter.com/rockthebruno" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+                         <a href="https://twitter.com/rockbruno_" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
                          <a href="https://github.com/rockbruno" target="_blank" class="github"><i class="fa fa-github"></i></a>
                          <a href="https://www.linkedin.com/in/bruno-rocha-45786a98/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
                         </div>

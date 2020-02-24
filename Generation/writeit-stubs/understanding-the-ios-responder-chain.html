@@ -199,7 +199,7 @@ March 1, 2019
 <p>This allows the <code>Coordinator</code> to receive system events, and by defining a new <code>PushScreenEvent</code> that contains info about a new view controller, we can dispatch a <code>pushNewScreen</code> action that is handled by these <code>Coordinators</code> to push new screens.</p>
 <p>With this structure, <code>UIApplication.shared.push(vc: newVC)</code> can be called from <b>anywhere</b> in the app without needing a single delegate or singleton as UIKit will make sure that only the current <code>Coordinator</code> is notified of this action, thanks to the Responder Chain.</p>
 <p>The examples shown here were highly theoretical, but I hope this helped you understand the purpose and uses of the Responder Chain.</p>
-<p>Follow me on my Twitter - <a href="https://twitter.com/rockthebruno">@rockthebruno</a>, and let me know of any suggestions and corrections you want to share.</p>
+<p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/using_responders_and_the_responder_chain_to_handle_events">Using Responders and the Responder Chain to Handle Events</a><br>
 <a href="https://developer.apple.com/documentation/uikit/uiresponder">UIResponder</a><br>

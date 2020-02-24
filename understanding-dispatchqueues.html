@@ -28,7 +28,7 @@
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
     <meta name="twitter:title" content="Understanding DispatchQueues"/>
     <meta name="twitter:description" content="Multithreading in general is a difficult thing to fully understand, but understanding how the CPU deals with concurrency is the key to writing good, fast code that does what you expected it to do. Otherwise, you might be abusing your user's CPUs but thinking everything is fine because they are too fast for you to notice that something is wrong."/>
-    <meta name="twitter:site" content="@rockthebruno"/>
+    <meta name="twitter:site" content="@rockbruno_"/>
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
@@ -276,7 +276,7 @@ async task ended
 <p>A <code>sync</code> task is forwarded to the queue, and the main thread will freeze until <code>"a"</code> gets printed. The task gets sent to the Main Thread, which is frozen because it's waiting for the task to run. But the task can't run, because the thread is frozen waiting for the task to run, and on and on and on until your app decides to crash. You can't call <code>sync</code> dispatches from the thread itself, it has to come from somewhere else. Nothing will get printed here. As you most likely know, this is called a <b>deadlock</b>.</p>
 <h2>What else?</h2>
 <p>Hopefully, this is to answer the questions at the beginning of the article. Concurrency is a very wide issue, and in iOS, <code>DispatchQueues</code> are just one way to approach concurrency problems. There's still much more in the shape of <code>Atomicity</code>, <code>OperationQueues</code>, <code>Locks</code>, <code>Semaphores</code>. However, <code>DispatchQueues</code> are the most used concurrency tools in iOS, and when understood, one of the keys to writing efficient multi-threaded code.</p>
-<p>Follow me on my Twitter - <a href="https://twitter.com/rockthebruno">@rockthebruno</a>, and let me know of any suggestions and corrections you want to share.</p>
+<p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="http://www.cs.albany.edu/~sdc/CSI500/Fal13/OSTEP/">Operating Systems: Three Easy Pieces</a><br>
 <a href="https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/PrioritizeWorkWithQoS.html">Apple Docs: QoS</a><br>
@@ -312,7 +312,7 @@ async task ended
                         <h3 class="separator">RSS / Social</h3>
                         <div class="social-icon">
                          <a href="https://swiftrocks.com/rss.xml" target="_blank" class="rss"><i class="fa fa-rss"></i></a>
-                         <a href="https://twitter.com/rockthebruno" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+                         <a href="https://twitter.com/rockbruno_" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
                          <a href="https://github.com/rockbruno" target="_blank" class="github"><i class="fa fa-github"></i></a>
                          <a href="https://www.linkedin.com/in/bruno-rocha-45786a98/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
                         </div>
