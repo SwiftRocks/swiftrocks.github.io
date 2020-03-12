@@ -8,6 +8,13 @@
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+        <title>How Collection Diffing works in Swift</title>
+        <link>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift.html</link>
+        <guid>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift.html</guid>
+        <pubDate>Wed, 18 Mar 2020 07:25:00 MST</pubDate>
+        <description>Ordered Collection Diffing is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in UITableViews. With the addition of this feature, developers can now diff Collections without having to bother with external libraries. Have you wondered what efficiently diffing something looks like? In this article we'll see and analyze the diffing APIs, as well as the Myers's Diffing Algorithm used by the Swift Standard Library.</description>
+    </item>
+    <item>
         <title>Swift Codable: Decoding/Encoding With Context</title>
         <link>https://swiftrocks.com/swift-codable-decodingencoding-with-context.html</link>
         <guid>https://swiftrocks.com/swift-codable-decodingencoding-with-context.html</guid>
