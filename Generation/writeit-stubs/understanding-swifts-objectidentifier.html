@@ -12,26 +12,144 @@
 <title>$WRITEIT_POST_NAME - SwiftRocks</title>
 <div class="col-md-12 blog-post"> 
 <div class="post-title"> 
-  <h1>$WRITEIT_POST_NAME</h1> 
+  <h1>Understanding Swift's <code>ObjectIdentifier</code></h1> 
 </div> 
 <div class="post-info"> 
 March 24th, 2020
 </div>
-<p>$WRITEIT_POST_SHORT_DESCRIPTION</p>
-<p>LongDescriptionHere</p>
+<p><code>ObjectIdentifier</code> is one of these obscure Swift types that you only see when looking at the answers for very specific problems in StackOverflow, and chances are that you have never really needed to use it. However, <code>ObjectIdentifier</code> plays an important part in Swift and is actually pretty useful as a solution to problems that involve metatypes. Let's take a look at why this type exists and what you can use it for.</p>
+<h2>Where you might have seen it</h2>
+<p>If you're like me, your first contact with <code>ObjectIdentifier</code> might have involved trying to use metatypes as the key for a dictionary:</p>
 <pre>
-<code>func codeExample() -> Int</code>
-<code>    fatalError()</code>
+<code>let routes = [Route.Type: String]</code>
+<code>// Error: Route.Type does not conform to Hashable</code>
+</pre>
+<p>Metatypes cannot be used as the key to dictionaries because metatypes do not conform <code>Hashable</code>, but you can't make them conform because you also <b>can't</b> extend metatypes! If you search for problems like this on StackOverflow, <code>ObjectIdentifier</code> will be revealed as one of the solutions.</p>
+<h2>What's <code>ObjectIdentifier</code>?</h2>
+<p><code>ObjectIdentifier</code> is a class defined in the Swift Standard Library that is able to provide an <b>unique identifier to reference types and metatypes.</b> This distinction is important -- value types like structs and enums cannot have unique identifiers because they do no have the concept of "identity" inside the language as we'll understand better shortly.</p>
+<p>It's usage is very simple: By initializing <code>ObjectIdentifier</code> with an <code>AnyObject</code> instance (any <code>class</code> instance) or a metatype, you'll have access to an object that represents an unique identifier to that reference.</p>
+<pre>
+<code>class Foo: Equatable {</code>
+<code>    let val: Int</code>
+<code>}</code>
+<code></code>
+<code>let fooA = Foo(1)</code>
+<code></code>
+<code>let identifierA = ObjectIdentifier(fooA)</code>
+</pre>
+<p><code>ObjectIdentifier</code> has no public properties or methods, but it conforms to both <code>Equatable</code> and <code>Hashable</code>, which allows you to pinpoint and separate different instances of the same object. Here's an example: Can you guess the results of the following equality operations?</p>
+<pre>
+<code>let fooA = Foo(1)</code>
+<code>let fooB = Foo(1)</code>
+<code></code>
+<code>fooA == fooB // ?</code>
+<code>ObjectIdentifier(fooA) == ObjectIdentifier(fooB) // ?</code>
+</pre>
+<p>If you guessed <code>true</code> and <code>false</code>, you are correct. <code>fooA</code> is equal to <code>fooB</code> because they have the same value, but their <code>ObjectIdentifier</code> counterparts are <b>not</b> equal because they are <b>not</b> the same instance -- they are diferent representations of <code>Foo</code>. What about this one?</p>
+<pre>
+<code>let fooC = fooA</code>
+<code>ObjectIdentifier(fooA) == ObjectIdentifier(fooC) // ?</code>
+</pre>
+<p>On the other hand, the previous comparison is <code>true</code> because <code>fooA</code> and <code>fooC</code> are representations of the same instance. This is why <code>ObjectIdentifier</code> only works for reference types and metatypes -- although it is possible to create references of value types if you try hard enough (for example, with <code>inout</code>), they do not have this specific assignment behavior.</p>
+<p>You might have noticed that the behavior of <code>ObjectIdentifier</code> is similar to the pointer equality operator <code>===</code> -- you might be interested to know that <code>===</code> is just a wrapper for <code>ObjectIdentifier</code> equality:</p>
+<pre>
+<code>public func === (lhs: AnyObject?, rhs: AnyObject?) -> Bool {</code>
+<code>  switch (lhs, rhs) {</code>
+<code>  case let (l?, r?):</code>
+<code>    return ObjectIdentifier(l) == ObjectIdentifier(r)</code>
+<code>  case (nil, nil):</code>
+<code>    return true</code>
+<code>  default:</code>
+<code>    return false</code>
+<code>  }</code>
 <code>}</code>
 </pre>
-<h2>Subsection</h2>
-<h3>Other section</h3>
-<div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/xbVOfbq.png"" alt="">                                    
-</div>
-<h2>Conclusion</h2>
-<p>WriteConclusion</p>
+<p>As mentioned before but not shown, you can also use <code>ObjectIdentifier</code> with metatypes to give them <code>Hashable</code> and <code>Equatable</code> capabilities. This is because metatypes are treated as single global instances of an object's type, and thus hold that concept of "identity".</p>
+<pre>
+<code>let dict = [UIViewController.Type: String]()</code>
+<code>let metaObject = ObjectIdentifier(MyViewController.self)</code>
+<code>dict[metaObject] = "SwiftRocks!"</code>
+</pre>
+<h2>How <code>ObjectIdentifier</code> works internally</h2>
+<p>Internally, <code>ObjectIdentifier</code> is just a wrapper for an object's memory address.</p>
+<pre>
+<code>public struct ObjectIdentifier {</code>
+<code></code>
+<code>  internal let _value: Builtin.RawPointer</code>
+<code></code>
+<code>  public init(_ x: AnyObject) {</code>
+<code>    self._value = Builtin.bridgeToRawPointer(x)</code>
+<code>  }</code>
+<code></code>
+<code>  public init(_ x: Any.Type) {</code>
+<code>    self._value = unsafeBitCast(x, to: Builtin.RawPointer.self)</code>
+<code>  }</code>
+<code>}</code>
+</pre>
+<p>Because the memory address is in its core a mere number, we can use it to give <code>ObjectIdentifier</code> <code>Equatable</code> and <code>Hashable</code> capabilities by simply comparing this number. Clever, isn't it?</p>
+<pre>
+<code>extension ObjectIdentifier: Equatable {</code>
+<code>  public static func == (x: ObjectIdentifier, y: ObjectIdentifier) -> Bool {</code>
+<code>    return Bool(Builtin.cmp_eq_RawPointer(x._value, y._value))</code>
+<code>  }</code>
+<code>}</code>
+<code></code>
+<code>extension ObjectIdentifier: Hashable {</code>
+<code>  public func hash(into hasher: inout Hasher) {</code>
+<code>    hasher.combine(Int(Builtin.ptrtoint_Word(_value)))</code>
+<code>  }</code>
+<code>}</code>
+</pre>
+<p><code>ObjectIdentifier</code> is used internally in the compiler whenever identifying specific instances is needed, but one interesting use is that <code>ObjectIdentifier</code> is the default "identification method" for reference types in the <code>Identifiable</code> protocol:</p>
+<pre>
+<code>public protocol Identifiable {</code>
+<code>  associatedtype ID: Hashable</code>
+<code>  var id: ID { get }</code>
+<code>}</code>
+<code></code>
+<code>extension Identifiable where Self: AnyObject {</code>
+<code>  public var id: ObjectIdentifier {</code>
+<code>    return ObjectIdentifier(self)</code>
+<code>  }</code>
+<code>}</code>
+</pre>
+<h2>Example: Using <code>ObjectIdentifier</code> to increase performance</h2>
+<p><code>ObjectIdentifier</code> can be used a way to bypass the limitation of metatypes in order to give them <code>Hashable</code> capabilities. If you're working on something that behaves like a plugin architecture, you'll find that being able to create <code>Sets</code> and <code>Dictionaries</code> based on metatypes is useful.</p>
+<p>Here's an example from one of my first apps. In <b>Rapiddo</b>, features were completely modularized. They were developed as <b>mini programs</b> that were registered into the main app and exposed some capabilities. One of these capabilities was called <b>Widget</b>, which represented views that could be displayed in the app's home's feed.</p>
+<pre>
+<code>final class MainMiniProgram: MiniProgram {</code>
+<code></code>
+<code>    override class var supportedWidgets: [WidgetView.Type] {</code>
+<code>        return [</code>
+<code>            CircleCarrouselWidgetView.self,</code>
+<code>            NewsFeedWidgetView.self,</code>
+<code>            OngoingOrdersWidgetView.self,</code>
+<code>            SimpleMessageWidgetView.self</code>
+<code>        ]</code>
+<code>    }</code>
+<code></code>
+<code>    ...</code>
+<code></code>
+</pre>
+<p>Sometimes the main app wanted to know if a mini program supported a specific type of widget. Because <code>supportedWidgets</code> is an array, the solution was to iterate all of the widgets:</p>
+<pre>
+<code>func miniProgram&lt;T: Widget>(framework: RapiddoCore.MiniProgram.Type, supportsWidget widgetMetaType: T.Type) -> Bool {</code>
+<code>    return framework.supportedWidgets.first { $0 == widgetMetaType }</code>
+<code>}</code>
+</pre>
+<p>Unfortunately, since it was possible for some mini programs to contain hundreds of widgets, this method was a big performance problem. The best solution is for <code>supportedWidgets</code> to be a <code>Set</code> to allow us to answer this question in constant time, but we can't have a <code>Set</code> of metatypes because they are not <code>Hashable</code>.</p>
+<p>The solution? We can extend <code>MiniProgram</code> to pre-process our widget array into <code>Set&lt;ObjectIdentifier></code> and search from there.</p>
+<pre>
+<code>extension MiniProgram {</code>
+<code>    private static let _widgetSet: Set&lt;ObjectIdentifier> = Set(supportedWidgets.map(ObjectIdentifier.init))</code>
+<code></code>
+<code>    static func supports<T: Widget>(widgetType: T.Type) -> Bool {</code>
+<code>        return _widgetSet.contains(ObjectIdentifier(widgetType))</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>With this code, the array of widgets will only be iterated the first time that <code>_widgetSet</code> is accessed. On subsequent calls, the set will be provided instantly due to the <code>lazy</code> behavior or static properties.</p>
 <p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
 <h2>References and Good Reads</h2>
-<a href="https://github.com/apple/swift">The Swift Source Code</a><br>
+<a href="https://github.com/apple/swift/blob/master/stdlib/public/core/ObjectIdentifier.swift">ObjectIdentifier.swift</a><br>
 </div>

@@ -7,7 +7,7 @@
 <!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Ordered Collection Diffing is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in UITableViews. With the addition of this feature, developers can now diff Collections without having to bother with external libraries. Have you wondered what efficiently diffing something looks like? In this article we'll see and analyze the diffing APIs, as well as the diffing algorithm used by the Swift Standard Library.-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Ordered Collection Diffing is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in UITableViews. With the addition of this feature, developers can now diff Collections without having to bother with external libraries. Have you wondered what efficiently diffing something looks like? In this article, we'll see and analyze the diffing APIs as well as the diffing algorithm used by the Swift Standard Library.-->
 
 <title>$WRITEIT_POST_NAME - SwiftRocks</title>
 <div class="col-md-12 blog-post"> 
@@ -18,7 +18,7 @@
 March 18th, 2020
 </div>
 <p><b>Ordered Collection Diffing</b> is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in <code>UITableViews</code>. With the addition of this feature, developers can now diff <code>Collections</code> without having to bother with external libraries.</p>
-<p>Have you wondered what efficiently diffing something looks like? In this article we'll see and analyze the diffing APIs, as well as the <b>Myers's Diffing Algorithm</b> used by the Swift Standard Library.</p>
+<p>Have you wondered what efficiently diffing something looks like? In this article, we'll see and analyze the diffing APIs as well as the <b>Myers's Diffing Algorithm</b> used by the Swift Standard Library -- the same used in <b>git</b>.</p>
 <h2>Collection Diffing APIs</h2>
 <p>The diffing APIs are available as an extension for any <code>BidirectionalCollection</code>, with an abstracted helper type for ones whose's elements are <code>Equatable</code>:</p>
 <pre>
@@ -72,7 +72,7 @@ March 18th, 2020
 <code>// insert(offset: 5, element: "C", associatedWith: nil)</code>
 </pre>
 <p>(We'll leave the explanation of the algorithm itself for the last section because it's a bit complicated.)</p>
-<p>From here, you can use the resulting <code>CollectionDifference</code> object as you see fit, like animating the addition and removal of rows from an <code>UITableView</code>. The neat thing is that Swift provides an <code>applying(_:)</code> method that allows you directly apply a <code>CollectionDifference</code> object into a <code>Collection</code>:</p>
+<p>From here, you can use the resulting <code>CollectionDifference</code> object as you see fit, like animating the addition and removal of rows from an <code>UITableView</code>. The neat thing is that Swift provides an <code>applying(_:)</code> method that allows you to directly apply a <code>CollectionDifference</code> object into a <code>Collection</code>:</p>
 <pre>
 <code>let newB = a.applying(diff)</code>
 <code>//CBABAC</code>
