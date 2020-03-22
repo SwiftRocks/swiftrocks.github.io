@@ -85,7 +85,7 @@
 
 <!--WRITEIT_POST_SHORT_DESCRIPTION=Being able to work in projects of the most diverse varieties gave me the chance to be in contact with several types of developers and code bases. Besides their core differences, what stood out to me during this process is that projects with a lower level of maturity will always face similar problems.-->
 
-<title>Avoiding Callback Hell in Swift - SwiftRocks</title>
+<title>Avoiding Callback Hell in Swift</title>
 <div class="col-md-12 blog-post"> 
 <div class="post-title"> 
   <h1>Avoiding Callback Hell in Swift</h1> 
@@ -135,7 +135,7 @@ December 17, 2018
 </pre>
 <p>They are difficult to read, nearly impossible to review but unfortunately super easy to write, cementing their place as the bane of junior developers.</p>
 <p>Fortunately for us, Swift offers several options to avoid this behavior. With a bit of patience and a proper style guide, you can prevent this sort of mistake from affecting your productivity. I'll use this article to share how I personally avoid them, and hopefully this will help you come up with your own solutions.</p>
-<h2>Condition hells: Favor using <code>guard</code> instead of <code>if</code></h2>
+<h2>Condition hells: Favor using guard instead of if</h2>
 <p>Pyramids of conditions are very common, and fortunately the easier to deal with. <code>guard</code> is on my top 10 features in Swift for a good reason - although it works basically as an inverted <code>if</code> statement, it gives you a great advantage in terms of code quality. Besides providing a way for you to give an early return to a method, it allows you to put the "good" outcome of a method in the same indentation as the method itself, making your method's intent far easier to be understood by your colleague. The improvement is not difficult to spot in a chain of <code>if</code> statement:</p>
 <pre>
 <code>func foo() {</code>

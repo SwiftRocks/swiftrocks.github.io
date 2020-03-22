@@ -85,10 +85,10 @@
 
 <!--WRITEIT_POST_SHORT_DESCRIPTION=Swift's OptionSet protocol is the bridged version of Objective-C's NS_OPTIONS enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation. Let's see what this protocol is, why OptionSets are preferred over a regular Set in some cases and finally what compiler magics it possesses.-->
 
-<title>How OptionSet works inside the Swift Compiler - SwiftRocks</title>
+<title>How OptionSet works inside the Swift Compiler</title>
 <div class="col-md-12 blog-post"> 
 <div class="post-title"> 
-  <h1>How <code>OptionSet</code> works inside the Swift Compiler</h1> 
+  <h1>How OptionSet works inside the Swift Compiler</h1> 
 </div> 
 <div class="post-info"> 
 December 3rd, 2019
@@ -155,7 +155,7 @@ December 3rd, 2019
 <code>    public static let withoutEscapingSlashes = WritingOptions(rawValue: 1 << 3)</code>
 <code>}</code>
 </pre>
-<h2>How <code>OptionSet</code> is defined in the Standard Library</h2>
+<h2>How OptionSet is defined in the Standard Library</h2>
 <p>Although the <code>OptionSet</code> is used with integers and bitmasking, it can, in theory, be used with anything else as the protocol is just a <code>rawValue</code> and some algebra methods:</p>
 <pre>
 <code>public protocol OptionSet: RawRepresentable, SetAlgebra {</code>
@@ -181,7 +181,7 @@ December 3rd, 2019
 <code>    self = Self(rawValue: self.rawValue & other.rawValue)</code>
 <code>}</code>
 </pre>
-<h2><code>OptionSet</code> Syntax Sugars</h2>
+<h2>OptionSet Syntax Sugars</h2>
 <p>We've seen how to work with <code>OptionSet</code> through its methods, but where does this behavior come from?</p>
 <pre>
 <code>options: [.prettyPrinted, .sortedKeys]</code>

@@ -85,10 +85,10 @@
 
 <!--WRITEIT_POST_SHORT_DESCRIPTION=Even in apps written in full Swift, interfacing with Objective-C is still a very big part of iOS development. Many types and semantics from Objective-C are hidden underneath the code we write today, and understanding where they come from can help you make better code decisions and just better understand the platform in general. This time, we'll take a look at what NSCopying and its companion class NSZone are and what they can do for Swift apps.-->
 
-<title>NSCopying uses in Swift - SwiftRocks</title>
+<title>NSCopying uses in Swift</title>
 <div class="col-md-12 blog-post"> 
 <div class="post-title"> 
-  <h1><code>NSCopying</code> uses in Swift</h1> 
+  <h1>NSCopying uses in Swift</h1> 
 </div> 
 <div class="post-info"> 
 November 5th, 2019
@@ -227,7 +227,7 @@ November 5th, 2019
 <code>// 'NSDefaultMallocZone' is unavailable in Swift: Zone-based memory management is unavailable</code>
 </pre>
 <p>The reason is that the creation of ARC rendered it unnecessary as its memory management algorithms were smart enough to prevent fragmentation. Also, fragmentation wasn't much of an issue in iOS anyway -- allocating in virtual memory is much more flexible than in physical memory, and iPhones have enough physical memory to make this a rare occurrence.</p>
-<h2><code>NSMutableCopying</code></h2>
+<h2>NSMutableCopying</h2>
 <p>For completion purposes, it's important to also mention that Foundation also has a <code>NSMutableCopying</code> protocol that defines a similar <code>mutableCopy()</code> method. The functionality is the exact same as <code>NSCopying</code> -- the difference comes from the fact that it was common in Objective-C to differentiate between immutable and mutable objects. For example, as strings in Objective-C could be defined both as the immutable <code>NSString</code> and the mutable <code>NSMutableString</code>, the <code>NSMutableCopying</code> allowed developers to explicitly create mutable copies of objects. Since <code>let</code> and <code>var</code> accessors made this pattern unnecessary in Swift, <code>NSMutableCopying</code> doesn't have good uses in Swift unless you explicitly create separate mutable versions of your types.</p>
 <h2>Conclusion</h2>
 <p>Many features of iOS rely on legacy Objective-C components. As always, knowing the history of why things work the way they do can allow you to make better choices on the platform. In this case, <code>NSCopying</code> is an important aspect of Objective-C and can still be used not only for Swift-specific uses but also to unlock copy semantics in properties bridged to Objective-C.</p>

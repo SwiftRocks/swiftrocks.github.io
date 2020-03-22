@@ -9,7 +9,7 @@
 
 <!--WRITEIT_POST_SHORT_DESCRIPTION=Some time ago I created a little side project that involved an Arduino-powered servo motor that menacingly pointed at people's faces with the help of CoreML, mimicking the Team Fortress 2 Engineer's Sentry Gun. With iOS 13, I decided to re-write that using the new Socket APIs and SwiftUI.-->
 
-<title>$WRITEIT_POST_NAME - SwiftRocks</title>
+<title>$WRITEIT_POST_NAME</title>
 <div class="col-md-12 blog-post"> 
 <div class="post-title"> 
   <h1>$WRITEIT_POST_NAME</h1> 
@@ -35,7 +35,7 @@ Your browser does not support the video tag.
 <p>  * Assuming that the first found face is our target, we calculate the X/Y angles that our robot should face based on the face's bounds on the screen.</p>
 <p>  * Using sockets, we'll send these angles to a Raspberry Pi which will be running a server and handling the communication with the Arduino-connected servo motor.</p>
 <p>  * While all that happens, we display a HUD with some basic information to the user.</p>
-<h2>Using <code>URLSessionWebSocketTask</code></h2>
+<h2>Using URLSessionWebSocketTask</h2>
 <p>We can start this project by creating a worker class that handles a socket connection to a generic server. Similar to how regular <code>URLSession</code> tasks are created, we can retrieve an instance of a socket task by calling <code>URLSession.webSocketTask()</code> and passing the URL to the socket server:</p>
 <pre>
 <code>lazy var session = URLSession(configuration: .default,</code>

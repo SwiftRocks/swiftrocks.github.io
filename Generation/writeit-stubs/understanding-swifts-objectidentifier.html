@@ -9,10 +9,10 @@
 
 <!--WRITEIT_POST_SHORT_DESCRIPTION=ObjectIdentifier is one of these obscure Swift types that you only see when looking at the answers for very specific problems in StackOverflow, and chances are that you have never really needed to use it. However, ObjectIdentifier plays an important part in Swift and is actually pretty useful as a solution to problems that involve metatypes. Let's take a look at why this type exists and what you can use it for.-->
 
-<title>$WRITEIT_POST_NAME - SwiftRocks</title>
+<title>$WRITEIT_POST_NAME</title>
 <div class="col-md-12 blog-post"> 
 <div class="post-title"> 
-  <h1>Understanding Swift's <code>ObjectIdentifier</code></h1> 
+  <h1>Understanding Swift's ObjectIdentifier</h1> 
 </div> 
 <div class="post-info"> 
 March 24th, 2020
@@ -25,7 +25,7 @@ March 24th, 2020
 <code>// Error: Route.Type does not conform to Hashable</code>
 </pre>
 <p>Metatypes cannot be used as the key to dictionaries because metatypes do not conform <code>Hashable</code>, but you can't make them conform because you also <b>can't</b> extend metatypes! If you search for problems like this on StackOverflow, <code>ObjectIdentifier</code> will be revealed as one of the solutions.</p>
-<h2>What's <code>ObjectIdentifier</code>?</h2>
+<h2>What's ObjectIdentifier?</h2>
 <p><code>ObjectIdentifier</code> is a class defined in the Swift Standard Library that is able to provide an <b>unique identifier to reference types and metatypes.</b> This distinction is important -- value types like structs and enums cannot have unique identifiers because they do no have the concept of "identity" inside the language as we'll understand better shortly.</p>
 <p>It's usage is very simple: By initializing <code>ObjectIdentifier</code> with an <code>AnyObject</code> instance (any <code>class</code> instance) or a metatype, you'll have access to an object that represents an unique identifier to that reference.</p>
 <pre>
@@ -70,7 +70,7 @@ March 24th, 2020
 <code>let metaObject = ObjectIdentifier(MyViewController.self)</code>
 <code>dict[metaObject] = "SwiftRocks!"</code>
 </pre>
-<h2>How <code>ObjectIdentifier</code> works internally</h2>
+<h2>How ObjectIdentifier works internally</h2>
 <p>Internally, <code>ObjectIdentifier</code> is just a wrapper for an object's memory address.</p>
 <pre>
 <code>public struct ObjectIdentifier {</code>
@@ -113,7 +113,7 @@ March 24th, 2020
 <code>  }</code>
 <code>}</code>
 </pre>
-<h2>Example: Using <code>ObjectIdentifier</code> to increase performance</h2>
+<h2>Example: Using ObjectIdentifier to increase performance</h2>
 <p><code>ObjectIdentifier</code> can be used a way to bypass the limitation of metatypes in order to give them <code>Hashable</code> capabilities. If you're working on something that behaves like a plugin architecture, you'll find that being able to create <code>Sets</code> and <code>Dictionaries</code> based on metatypes is useful.</p>
 <p>Here's an example from one of my first apps. In <b>Rapiddo</b>, features were completely modularized. They were developed as <b>mini programs</b> that were registered into the main app and exposed some capabilities. One of these capabilities was called <b>Widget</b>, which represented views that could be displayed in the app's home's feed.</p>
 <pre>

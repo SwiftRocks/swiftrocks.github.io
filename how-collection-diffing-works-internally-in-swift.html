@@ -85,7 +85,7 @@
 
 <!--WRITEIT_POST_SHORT_DESCRIPTION=Ordered Collection Diffing is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in UITableViews. With the addition of this feature, developers can now diff Collections without having to bother with external libraries. Have you wondered what efficiently diffing something looks like? In this article, we'll see and analyze the diffing APIs as well as the diffing algorithm used by the Swift Standard Library.-->
 
-<title>How Collection Diffing works in Swift - SwiftRocks</title>
+<title>How Collection Diffing works in Swift</title>
 <div class="col-md-12 blog-post"> 
 <div class="post-title"> 
   <h1>How Collection Diffing works in Swift</h1> 
@@ -173,11 +173,11 @@ March 18th, 2020
 <code>let patched = patchedLines.joined(separator: "\n")</code>
 <code>print(patched)</code>
 </pre>
-<h2>How <code>applying(_:)</code> works</h2>
+<h2>How applying() works</h2>
 <p>The <code>applying(_:)</code> method works by creating a new, empty <code>Collection</code> instance that gets filled as the changes are iterated. Because the changes are iterated in the specific high removals -> low removals -> low insertions -> high insertions, the algorithm is able to build the final result through ranges instead of individual elements. For example, if you have a 10 character string and the first step is to remove the 5th character, we know right off the bat that the final result will contain the range <code>5...9</code> in that same order, so "removing the 5th character" is equivalent to adding everything that comes after it. The same logic is applied until all the changes are processed. Because of the interaction with ranges, <code>applying(_:)</code> is only available to <code>RangeReplaceableCollections</code>.</p>
 <p>It is possible for this process to fail, for example, when the desired element to be removed doesn't exist, which is possible in cases like the <b>git</b> example due to conflicting information in the data. In these cases, <code>applying(_:)</code> returns <code>nil</code>.</p>
 <p>The actual method is a bit long and hard to read, <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/Diffing.swift#L71">so I'll leave the link to it</a> instead of showing it here.</p>
-<h2>The complex part: How <code>difference(_:)</code> works</h2>
+<h2>The complex part: How difference() works</h2>
 <p>Now that we've seen how the APIs work, we're ready to take a look at what Swift does to generate the final <code>CollectionDifference</code> object.</p>
 <p>As stated before, there are many ways to transform a <code>Collection</code> into another one. For example, to transform <code>a: ABCABBA</code> to <code>b: CBABAC</code>, we could simply remove every single element from <code>a</code> and append the ones from <code>b</code>. Easy peasy!</p>
 <p>However, at a best case of <code>a.count + b.count</code> "moves", that would be very inefficient. One way to find the best way possible to do this change is to transform this into a <b>graph problem</b>. Imagine that we have a <b>matrix</b> where the columns are characters from <code>a</code> and rows are characters from <code>b</code>:</p>
