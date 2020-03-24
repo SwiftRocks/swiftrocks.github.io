@@ -11,8 +11,8 @@
         <title>Useful Global Swift Functions</title>
         <link>https://swiftrocks.com/useful-global-swift-functions.html</link>
         <guid>https://swiftrocks.com/useful-global-swift-functions.html</guid>
-        <pubDate>Tue, 24 Mar 2020 06:18:00 MST</pubDate>
-        <description>Global functions, or functions that can be accessed from anywhere without the scope of a specific type is an old concept that was popular in languages like C and Objective-C, but unrecommended in Swift as we would rather have things that are nicely typed and scoped ("swifty"). For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like zip and dump.</description>
+        <pubDate>Tue, 24 Mar 2020 07:00:00 MST</pubDate>
+        <description>Global functions, or functions that can be accessed from anywhere without the scope of a specific type is an old concept that was popular in languages like C and Objective-C, but unrecommended in Swift as we would rather have things that are nicely typed and scoped ("swifty"). For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like zip() and dump().</description>
     </item>
     <item>
         <title>How Collection Diffing works in Swift</title>

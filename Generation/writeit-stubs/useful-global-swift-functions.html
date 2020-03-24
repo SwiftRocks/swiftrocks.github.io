@@ -7,7 +7,7 @@
 <!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Global functions, or functions that can be accessed from anywhere without the scope of a specific type is an old concept that was popular in languages like C and Objective-C, but unrecommended in Swift as we would rather have things that are nicely typed and scoped ("swifty"). For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like zip and dump.-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Global functions, or functions that can be accessed from anywhere without the scope of a specific type is an old concept that was popular in languages like C and Objective-C, but unrecommended in Swift as we would rather have things that are nicely typed and scoped ("swifty"). For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like zip() and dump().-->
 
 <title>$WRITEIT_POST_NAME</title>
 <div class="col-md-12 blog-post"> 
@@ -18,7 +18,7 @@
 March 24th, 2020
 </div>
 <p><b>Global functions</b>, or functions that can be accessed from anywhere without the scope of a specific type is an old concept that was popular in languages like C and Objective-C, but unrecommended in Swift as we would rather have things that are nicely typed and scoped ("swifty").</p>
-<p>For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like <code>zip</code> and <code>dump</code>.</p>
+<p>For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like <code>zip()</code> and <code>dump()</code>.</p>
 <h2>zip()</h2>
 <p>Perhaps the most known global function, the <code>zip</code> function allows you to take two or more arrays and merge them into a single <code>Sequence</code> of a tuple. This is extremely useful if you need to iterate two things at the same time, as without <code>zip</code> you would have to manually build a <b>for</b> loop and access each index from each array individually. Using <code>zip</code> allows you access elements from all arrays in the more useful <b>for-in</b> fashion.</p>
 <p>For example, if we had a user registration form screen and we would like to update our textFields to render a list of validation results fetched from the backend, we could do something like this:</p>
@@ -194,9 +194,9 @@ March 24th, 2020
 <p><i>(Note that Date already has an implementation of Strideable methods that strides in seconds, so copying this to a project won't work.)</i></p>
 <h2>Other Useful Functions</h2>
 <h3>Math</h3>
-<p><code>max()</code> - Maximum element</p>
-<p><code>min()</code> - Minimum element</p>
-<p><code>abs()</code> - Absolute value of an element</p>
+<p><code>max()</code> - Returns the maximum value of the arguments</p>
+<p><code>min()</code> - Returns the minimum value of the arguments</p>
+<p><code>abs()</code> - Returns the absolute value of the argument (useful in competitive programming questions)</p>
 <h3>Values</h3>
 <p><code>swap()</code> - Swaps the value of two objects. This is not mentioned in its own section in this article because if you need to swap array elements the correct method to use is <code>Array.swapAt()</code>. However, you can still use <code>swap()</code> in other situations where you would need to create a fake "aux" property to hold a value.</p>
 <h2>Conclusion</h2>
