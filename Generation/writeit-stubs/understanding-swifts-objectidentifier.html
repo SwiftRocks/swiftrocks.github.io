@@ -45,7 +45,7 @@ March 31st, 2020
 <code>fooA == fooB // ?</code>
 <code>ObjectIdentifier(fooA) == ObjectIdentifier(fooB) // ?</code>
 </pre>
-<p>If you guessed <code>true</code> and <code>false</code>, you are correct. <code>fooA</code> is equal to <code>fooB</code> because they have the same value, but their <code>ObjectIdentifier</code> counterparts are <b>not</b> equal because they are <b>not</b> the same instance -- they are diferent representations of <code>Foo</code>. What about this one?</p>
+<p>If you guessed <code>true</code> and <code>false</code>, you are correct. <code>fooA</code> is equal to <code>fooB</code> because they have the same value, but their <code>ObjectIdentifier</code> counterparts are <b>not</b> equal because they are <b>not</b> the same instance -- they are different representations of <code>Foo</code>. What about this one?</p>
 <pre>
 <code>let fooC = fooA</code>
 <code>ObjectIdentifier(fooA) == ObjectIdentifier(fooC) // ?</code>
