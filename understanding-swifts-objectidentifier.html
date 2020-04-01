@@ -103,7 +103,7 @@ March 31st, 2020
 <p>Metatypes cannot be used as the key to dictionaries because metatypes do not conform <code>Hashable</code>, but you can't make them conform because you also <b>can't</b> extend metatypes! If you search for problems like this on StackOverflow, <code>ObjectIdentifier</code> will be revealed as one of the solutions.</p>
 <h2>What's ObjectIdentifier?</h2>
 <p><code>ObjectIdentifier</code> is a class defined in the Swift Standard Library that is able to provide an <b>unique identifier to reference types and metatypes.</b> This distinction is important -- value types like structs and enums cannot have unique identifiers because they do no have the concept of "identity" inside the language as we'll understand better shortly.</p>
-<p>It's usage is very simple: By initializing <code>ObjectIdentifier</code> with an <code>AnyObject</code> instance (any <code>class</code> instance) or a metatype, you'll have access to an object that represents an unique identifier to that reference.</p>
+<p>Its usage is very simple: By initializing <code>ObjectIdentifier</code> with an <code>AnyObject</code> instance (any <code>class</code> instance) or a metatype, you'll have access to an object that represents an unique identifier to that reference.</p>
 <pre>
 <code>class Foo: Equatable {</code>
 <code>    let val: Int</code>
