@@ -159,10 +159,13 @@ div.blog-post {
 .blog-post .post-image {
     margin-top: 40px !important;
     margin-bottom: 40px !important;
+    text-align: center;
 }
 
 .blog-post .post-image img {
-    width: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
 }
 
 .blog-post .post-image p {

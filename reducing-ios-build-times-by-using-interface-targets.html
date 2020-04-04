@@ -40,7 +40,7 @@
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style21.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style22.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -97,18 +97,18 @@ January 23rd, 2020
 <p><i>(For the purposes of this article, we ignore the concept of Xcode's incremental build feature as I personally never saw it make a considerable difference in build times compared to the improvements you get by properly modularizing the app. This is geared towards apps that are built on top of monorepo systems that cache builds between CI builds)</i></p>
 <p>When tasked to develop a small project, a developer's first idea will usually be to create a <b>single target</b> that contains absolutely all the code and resources:</p>
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
-  <img src="https://i.imgur.com/Td17sGi.png" alt="" style="height: 200px; width: 125px;">                                
+  <img src="https://i.imgur.com/Td17sGi.png" alt="Big Target">                                
 </div>
 <p>This is how beginners usually develop their first few apps, and how seasoned developers still develop apps that are sufficiently small for this approach to be useful.</p>
 <p>This approach is the easiest one in terms of project maintainability, but the worse one in terms of build times. Because everything is packed together, changing <b>anything</b> results in <b>everything</b> being recompiled, even if they have nothing to do with what's changed. While this not much of a problem for small apps, big ones take massive performance hits with this approach, easily reaching build times of over twenty minutes.</p>
 <p>Because of that, more seasoned developers will often opt for a modularized structure when developing apps. This time, instead of having a single monster target, we divide our code and resources into several smaller ones, which are then linked together either manually inside Xcode, or through a dependency manager like CocoaPods / monorepo build system like Buck (what we personally use at iFood)</p>
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
-  <img src="https://i.imgur.com/M69uv4R.png" alt="" style="height: 200px; width: 400px;">            
+  <img src="https://i.imgur.com/M69uv4R.png" alt="App with some targets">            
 </div>
 <p>In this specific diagram, because the targets have no connection to each other, making changes to a feature will make so that other features <b>do not</b> get recompiled, which provides a massive boost to the app's build time. Hooray!</p>
 <p>Unfortunately, this statement is only true to this specific diagram. As an app grows, it's more likely that you will end with something like this:</p>
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
-  <img src="https://i.imgur.com/7R1dewm.png" alt="" style="height: 500px; width: 400px;">           
+  <img src="https://i.imgur.com/7R1dewm.png" alt="Bad dependency cycle">           
 </div>
 <p>While the previous condition is still true if the changes are made to the targets in the lower end of this graph (<code>AppFeature1</code>, <code>AppFeature2</code>, <code>AppFeature3</code>), it is not true for the rest.</p>
 <p>Take the <code>HTTPClient</code> target for example: Because <b>everyone</b> depends on it, making changes to it will make the <b>entire app need to be recompiled</b>, even if the changes have nothing to do with the targets themselves, like a simple code quality improvement!</p> 
@@ -119,7 +119,7 @@ January 23rd, 2020
 <p>The problems of this diagram are a good representation of how iFood looked like for a long time, and although the modularization itself improved build times in some cases, most of the cases still provided very bad build times.</p>
 <p>In order to achieve the best possible build times, we need to make our dependency graph as <b>horizontal</b> as possible. If everything is independent, everything can be compiled in parallel.</p>
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
-  <img src="https://i.imgur.com/gnne0rL.png" alt="" style="height: 150px; width: 600px;">          
+  <img src="https://i.imgur.com/gnne0rL.png" alt="Horizontal dependency">          
 </div>
 <p>Unfortunately, this is impossible in our case. Because our targets need to navigate between each other's <code>UIViewControllers</code>, they need to be able to reference each other somehow. The same applies to components like <code>HTTPClient</code> -- as they need to somehow have access to it in order to make HTTP requests, they can never be truly independent. ...or can they?</p>
 <p>The true answer is, well, no. However, through dependency injection, there's a technique we can apply to get pretty close to it.</p>
@@ -128,11 +128,11 @@ January 23rd, 2020
 
 <p>Let's focus on the problems caused by the previously mentioned <b>linear dependency</b> of some of the targets: These features depend on the targets of the features they navigate to, but they don't access anything of these targets besides the <code>UIViewController</code> that they are navigating to.</p> 
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
-  <img src="https://i.imgur.com/XAQ4CtN.png" alt="" style="height: 200px; width: 300px;">          
+  <img src="https://i.imgur.com/XAQ4CtN.png" alt="Problem">          
 </div>
 <p>If this problem is caused because the features are depending on more than they need to, what if we divide the navigation aspect of a feature from its actual contents? Having this in mind, instead of a having a massive "feature" target that has everything, we can separate the relevant navigation content into its own "interface" target:</p>
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
-  <img src="https://i.imgur.com/u0sF8SF.png" alt="" style="height: 250px; width: 300px;">          
+  <img src="https://i.imgur.com/u0sF8SF.png" alt="App with interfaces" style="height: 250px; width: 300px;">          
 </div>
 <p>"Interface" targets don't contain any concrete code or dependencies -- they just contain protocols that are used by the targets that depend on it to reference some piece of code that is defined in the real, concrete target.</p>
 <p>For example, assuming that <code>AppFeature1</code> wants to push a <code>UIViewController</code> that lives in <code>AppFeature2</code>, instead of having <codE>AppFeature1</codE> depend on <code>AppFeature2</code> and directly reference such <code>UIViewController</code>, we can have it depend on a hypothetical <code>AppFeature2Interface</code> module that has a protocol that serves no purpose but to expose the existence of that view to <code>AppFeature1</code>:</p>
@@ -212,7 +212,7 @@ January 23rd, 2020
 <p>As a bonus, this structure can be applied to everything that can be injected. Using the previous complete diagram as an example, we could also add an interface to the <code>HTTPClient</code> that contains only the protocol that defines how requests are made. This allows targets to only reference this protocol, while the dependency injector becomes responsible for injecting the actual concrete class into the targets that reference such protocol. In the end, we can end up with the following diagram:</p>
 
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
-  <img src="https://i.imgur.com/6sn22b4.png" alt="" style="height: 250px; width: 700px;">            
+  <img src="https://i.imgur.com/6sn22b4.png" alt="Full app with interfaces">            
 </div>
 <p><i>(Not shown: In our case, everyone depends on something called a <code>RouterServiceInterface</code>, with the main target depending on the concrete <code>RouterService</code>, which dynamically links the interfaces to their actual classes.)</i></p>
 <p>Note how the graph is considerably more <b>horizontal</b> than its counterpart -- even though everyone depends on <code>HTTPClientInterface</code>, changes to the actual <code>HTTPClient</code> will have no repercussions on the other targets, making the app compile considerably faster. With an entire app running on this structure, you should only have bad compilation times if the interfaces themselves are changed -- something that should be a rare occurrence. In general, every target is going to be completely independent of each other, which can be especially useful and productive when developing inside the target's specific scheme in Xcode.</p>
