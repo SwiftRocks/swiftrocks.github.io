@@ -181,8 +181,19 @@ div.blog-post {
 .blog-post code {
     padding-left: 4px !important;
     padding-right: 4px !important;
-    background-color: #eff0f1;
-    color: #303336;
+/*    background-color: #eff0f1;
+    color: #303336;*/
+}
+
+.blog-post b {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #ffffff;
+  /*color: #dbd16e;*/
+  background-color: #656565;
+  /*background-color: #272823;*/
+  font-weight: 400;
+  border-radius: 4px;
 }
 
 .blog-post pre {
