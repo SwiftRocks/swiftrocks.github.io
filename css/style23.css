@@ -27,7 +27,7 @@ b {
 }
 
 p {
-    font-size: 14px;
+    font-size: 15px;
 }
 
 button {
@@ -287,17 +287,23 @@ blockquote {
 }
 
 .share-twitter a {
+  margin-top: 8px;
   display: inline;
-  line-height: 49px;
   color: #fff;
   border: 0 none;
   border-radius: 32px;
   font-size: 20px;
   text-decoration: none;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 18px;
+  padding-right: 18px;
   padding-top: 6px;
   padding-bottom: 6px;
+  width: 100%;
+}
+
+div.footer {
+  border-top: 1px solid #ccc;
+  padding-top: 12px;
 }
 
 .facebook {
