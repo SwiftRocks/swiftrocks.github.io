@@ -142,5 +142,5 @@ January 23rd, 2020
 </div>
 <p><i>(Not shown: In our case, everyone depends on something called a <b>RouterServiceInterface</b>, with the main target depending on the concrete <b>RouterService</b>, which dynamically links the interfaces to their actual classes.)</i></p>
 <p>Note how the graph is considerably more <b>horizontal</b> than its counterpart -- even though everyone depends on <b>HTTPClientInterface</b>, changes to the actual <b>HTTPClient</b> will have no repercussions on the other targets, making the app compile considerably faster. With an entire app running on this structure, you should only have bad compilation times if the interfaces themselves are changed -- something that should be a rare occurrence. In general, every target is going to be completely independent of each other, which can be especially useful and productive when developing inside the target's specific scheme in Xcode.</p>
-<p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
+
 </div>

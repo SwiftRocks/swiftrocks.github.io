@@ -217,10 +217,11 @@ December 3rd, 2019
 <p><a href="https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler.html">The innards of the ExpressibleBy family are covered in detail in my previous article,</a> but as a short explanation, we can say that when the type checker finds a literal being attributed to an explicit type, it checks if it conforms to the related <b>ExpressibleBy</b> protocol and coverts the expression to the designated initializer from the protocol if it does (and throws a compilation error if it does not). For more details, check the linked article.</p>
 <h2>Conclusion</h2>
 <p>The <b>OptionSet</b> protocol itself is hardly used nowadays, but its existence has some history and shows some of the importance of analyzing what you're developing in terms of performance. You can always use a regular <b>Array</b> or <b>Set</b> to define these options, but should you? For these case where you have a limited set of unique options, using a bitmask is considerably quicker and less resource-intensive, something which your user's device will be very grateful for :)</p>
-<p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
+
 <h2>References and Good reads</h2>
 <a href="https://github.com/apple/swift">The Swift Source Code</a><br>
-</div></div>
+</div>
+</div>
                               
                          </div>
 
