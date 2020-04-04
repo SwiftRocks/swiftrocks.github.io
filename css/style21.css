@@ -85,7 +85,7 @@ div.blog-header {
 .blog-header-container {
     position: relative; 
     margin-top: 20px;
-    margin-bottom: 8px !important;
+    margin-bottom: 12px !important;
     margin-left: -15px;
     margin-right: -15px;
 }
