@@ -92,7 +92,7 @@
 <div class="post-info"> 
 December 6, 2018
 </div>
-<p>The <code>@dynamicMemberLookup</code> attribute was introduced in Swift 4.2 to add a certain degree of dynamism into the language similar to what is seen in languages like Python. When applied to a type, properties from this type will be resolved in runtime, meaning that you can call things that don't necessarily exist like they were explicitly defined:</p>
+<p>The <b>@dynamicMemberLookup</b> attribute was introduced in Swift 4.2 to add a certain degree of dynamism into the language similar to what is seen in languages like Python. When applied to a type, properties from this type will be resolved in runtime, meaning that you can call things that don't necessarily exist like they were explicitly defined:</p>
 <pre>
 <code>@dynamicMemberLookup class MyClass {</code>
 <code>    subscript(dynamicMember input: String) -> String {</code>
@@ -104,30 +104,30 @@ December 6, 2018
 <code>MyClass().notFoo // SwiftRocks</code>
 <code>// These properties don't exist, but they can be called because the type is @dynamicMemberLookup.</code>
 </pre>
-<p>As seen in the snippet, usage of this attribute instead forces the type to provide a <code>dynamicMember</code> subscript which receives the "fake" property name as a parameter and acts upon it.</p>
+<p>As seen in the snippet, usage of this attribute instead forces the type to provide a <b>dynamicMember</b> subscript which receives the "fake" property name as a parameter and acts upon it.</p>
 <p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md">The original motivation</a> was that it could be used in interoperability layers with dynamic languages, allowing you to call Python code in Swift like you would in Python itself, for example. Although this attribute doesn't have pure Swift in mind, you can certainly use it for it. I would probably never use it in regular iOS development, but my favorite use case is being able to improve JSON parsing:</p>
 <pre>
 <code>let data: String? = dict["data"] as? String</code>
 <code>//</code>
 <code>let data: String? = dict.data //dynamically search for "data"</code>
 </pre>
-<p>In a similar fashion, <code>@dynamicCallable</code> was added in Swift 5.0 as a follow-up to add the ability to dynamically call a method from a dynamicCallable type:</p>
+<p>In a similar fashion, <b>@dynamicCallable</b> was added in Swift 5.0 as a follow-up to add the ability to dynamically call a method from a dynamicCallable type:</p>
 <pre>
 <code>let myType: MyDynamicType = MyDynamicType()</code>
 <code>myType(someArg2: someVal, someArg2: someVal2)</code>
 </pre>
 <p>I was interested in learning how the attributes worked inside the compiler to know more about how they are able to transform these fake expressions into legit ones, so I've <i>once again</i> reverse-engineered the Swift compiler to find these answers - and used this knowledge to create my own Swift attribute.</p>
 <p><i>Disclaimer: As always, this is a result of my own research and reverse-engineering for the pure purpose of learning something new. As I obviously have nothing to do with the original development of these attributes, some assumptions might not be fully correct. Feel free to correct me if you know how the compiler works!</i></p>
-<p>This article will focus on the internals of <code>@dynamicMemberLookup</code>. <code>@dynamicCallable</code> works a bit differently, but overall follows the same idea.</p>
+<p>This article will focus on the internals of <b>@dynamicMemberLookup</b>. <b>@dynamicCallable</b> works a bit differently, but overall follows the same idea.</p>
 <h2>Attribute Declaration/Parsing</h2>
-<p>A quick repo search shows us that in Swift, all attributes are mainly defined in the <a href="https://github.com/apple/swift/blob/master/include/swift/AST/Attr.def">Attr.def</a> file. Here's the definition of <code>@dynamicMemberLookup</code>:</p>
+<p>A quick repo search shows us that in Swift, all attributes are mainly defined in the <a href="https://github.com/apple/swift/blob/master/include/swift/AST/Attr.def">Attr.def</a> file. Here's the definition of <b>@dynamicMemberLookup</b>:</p>
 <pre>
 <code>SIMPLE_DECL_ATTR(dynamicMemberLookup, DynamicMemberLookup,</code>
 <code>OnNominalType, 9)</code>
 </pre>
-<p>A "simple attribute" is an attribute that holds no data (unlike <code>@available</code> which contains arguments). The first argument here is the name of the attribute in source files, the second one is the name of the attribute to be used inside the compiler (which will resolve to <code>DynamicMemberLookupAttr</code>), the third one defines its scope (in this case, a <code>NominalType</code> refers to the congregate of classes, structs, enums and protocols), and the last one is an unique code used internally to determine a valid attribute.</p>
+<p>A "simple attribute" is an attribute that holds no data (unlike <b>@available</b> which contains arguments). The first argument here is the name of the attribute in source files, the second one is the name of the attribute to be used inside the compiler (which will resolve to <b>DynamicMemberLookupAttr</b>), the third one defines its scope (in this case, a <b>NominalType</b> refers to the congregate of classes, structs, enums and protocols), and the last one is an unique code used internally to determine a valid attribute.</p>
 <p>The first contact the Swift compiler has with attributes is during parsing. After lexical analysis generates the tokenized version of your code, the Parser will step through these tokens in order to generate a basic Abstract Syntax Tree (your code in a tree-like structure) which will later be used to further "understand" your code once typechecking is performed. This process can fail if it finds something it didn't expect - a mistyped keyword, an attribute in the wrong place, and so on. You have certainly seen this before in the shape of a "expected X identifier" error.</p>
-<p>You can tell the compiler to print the Parser's resulting AST by running <code>swiftc -dump-parse</code>, but unfortunately for article purposes that doesn't print a type's attributes (a pull request opportunity?). But the good news is that we can confirm this by looking at the code that parses declaractions. The Parser does a gigantic amount of things, so I'll cheery-pick the relevant backtrace:</p>
+<p>You can tell the compiler to print the Parser's resulting AST by running <b>swiftc -dump-parse</b>, but unfortunately for article purposes that doesn't print a type's attributes (a pull request opportunity?). But the good news is that we can confirm this by looking at the code that parses declaractions. The Parser does a gigantic amount of things, so I'll cheery-pick the relevant backtrace:</p>
 <p><a href="https://github.com/apple/swift/blob/facaad18732fd476c515c8b58dd8ccd964148c54/lib/Parse/ParseStmt.cpp#L387-L391">ParseStmt.cpp:387-391</a> - if the current token represents a declaration, attempt to parse it.</p>
 <pre>
 <code>if isStartOfDecl()</code>
@@ -141,7 +141,7 @@ December 6, 2018
 <code>    //rest of the parsing for a declaration</code>
 <code>}</code>
 </pre>
-<p>What <code>parseDeclAttributeList()</code> does is a <code>do while</code> loop to parse an attribute if the current token is an <code>@</code>, which then calls <a href="https://github.com/apple/swift/blob/facaad18732fd476c515c8b58dd8ccd964148c54/lib/Parse/ParseDecl.cpp#L1692">parseDeclAttribute()</a> to begin parsing the attribute:</p>
+<p>What <b>parseDeclAttributeList()</b> does is a <b>do while</b> loop to parse an attribute if the current token is an <b>@</b>, which then calls <a href="https://github.com/apple/swift/blob/facaad18732fd476c515c8b58dd8ccd964148c54/lib/Parse/ParseDecl.cpp#L1692">parseDeclAttribute()</a> to begin parsing the attribute:</p>
 <pre>
 <code>bool Parser::parseDeclAttribute(DeclAttributes &Attributes, SourceLoc AtLoc)</code>
 <code>    if (Tok.isNot(tok::identifier) &&</code>
@@ -162,28 +162,28 @@ December 6, 2018
 <code>    diagnose(Tok, diag::unknown_attribute, Tok.getText()); // Compilation error for "unknown attribute %@"</code>
 <code>}</code>
 </pre>
-<p>I like this method because we can see how Swift treats renamed attributes - just explicitely check if the current token matches an old name and throw an error stating that it's now called something else. But in short, we're just seeing if the name of our attribute matches an attribute defined at <code>Attr.def</code>, halting compilation if that's not the case. If the attribute exists, <code>parseNewDeclAttribute</code> will consume the token and add it to an attributes list for that AST.</p>
-<p>By running the Swift compiler with the <code>-dump-parse</code> attribute, we'll tell the compiler to start compiling but stop as soon as the parsing step ends. This allows us to confirm that this is indeed where this logic is being executed:</p>
+<p>I like this method because we can see how Swift treats renamed attributes - just explicitely check if the current token matches an old name and throw an error stating that it's now called something else. But in short, we're just seeing if the name of our attribute matches an attribute defined at <b>Attr.def</b>, halting compilation if that's not the case. If the attribute exists, <b>parseNewDeclAttribute</b> will consume the token and add it to an attributes list for that AST.</p>
+<p>By running the Swift compiler with the <b>-dump-parse</b> attribute, we'll tell the compiler to start compiling but stop as soon as the parsing step ends. This allows us to confirm that this is indeed where this logic is being executed:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<code>swiftc -dump-parse attrs.swift</code>
+<b>swiftc -dump-parse attrs.swift</b>
 </pre>
 <pre>
 <code>@swiftRocks class Foo {} // error: unknown attribute 'swiftRocks'</code>
 <code>@availability class Foo {} // error: '@availability' has been renamed to '@available'</code>
 </pre>
-<h2>Intermission: Creating a new <code>@swiftRocks</code> attribute</h2>
+<h2>Intermission: Creating a new <b>@swiftRocks</b> attribute</h2>
 <p>Before seeing how this attribute results in dynamic members, how about using this knowledge to actually make an attribute of our own?</p>
-<p>This brief introduction shows us that the barebones of an attribute aren't that complicated at all, and we can use that information to create a basic <code>@swiftRocks</code> attribute.</p>
-<p>For that, I'll just add an entry for a class attribute in <code>Attr.def</code>:</p>
+<p>This brief introduction shows us that the barebones of an attribute aren't that complicated at all, and we can use that information to create a basic <b>@swiftRocks</b> attribute.</p>
+<p>For that, I'll just add an entry for a class attribute in <b>Attr.def</b>:</p>
 <pre>
 <code>SIMPLE_DECL_ATTR(swiftRocks, SwiftRocks, OnClass, 83)</code>
 </pre>
-<P>Doing so forced me to add my attribute to a few lists and add a <code>visitSwiftRocksAttr()</code> method in TypeCheckAttr.cpp, which I did but left it empty since my attribute does nothing at the moment:</P>
+<P>Doing so forced me to add my attribute to a few lists and add a <b>visitSwiftRocksAttr()</b> method in TypeCheckAttr.cpp, which I did but left it empty since my attribute does nothing at the moment:</P>
 <pre>
 <code>void AttributeChecker::</code>
 <code>visitSwiftRocksAttr(SwiftRocksAttr *attr) {}</code>
 </pre>
-<p>This is enough to make a <code>@swiftRocks</code> type compile, although nothing will happen since there's no logic tied to it. To see something happen, I'll pretend that older Swift versions used this very useful attribute as <code>@rockingSwift</code> by adding a new check at <code>parseDeclAttribute</code>:
+<p>This is enough to make a <b>@swiftRocks</b> type compile, although nothing will happen since there's no logic tied to it. To see something happen, I'll pretend that older Swift versions used this very useful attribute as <b>@rockingSwift</b> by adding a new check at <b>parseDeclAttribute</b>:
 <pre>
 <code>checkInvalidAttrName("rockingSwift", "swiftRocks", DAK_SwiftRocks, diag::attr_renamed);</code>
 </pre>
@@ -193,7 +193,7 @@ December 6, 2018
 </pre>
 <p>We'll get back to it later.</p>
 <h2>Defining/changing behaviour based on attributes</h2>
-<p>After parsing, <code>@dynamicMemberLookup</code> will come to play again during semantic analysis. In order to confirm that your code is legit, the compiler will annotate the AST's nodes with their respective types and confirm that they can do whatever it is that they are doing. Some debugging revealed that the typechecking of a declaration triggers a typechecking call for every attribute it contains - first to confirm that the attribute is on the correct type (in this case, a <code>NominalType</code>), and second in order for you to confirm that the attribute is being used correctly. The latter happens in the same place where I had to create my <code>visitSwiftRocksAttr</code> method, but in <code>visitDynamicMemberLookupAttr</code> instead. In short, this method checks if the type implements one or more valid <code>subscript(dynamicMember)</code>, and throws a compilation error if that's not the case:</p>
+<p>After parsing, <b>@dynamicMemberLookup</b> will come to play again during semantic analysis. In order to confirm that your code is legit, the compiler will annotate the AST's nodes with their respective types and confirm that they can do whatever it is that they are doing. Some debugging revealed that the typechecking of a declaration triggers a typechecking call for every attribute it contains - first to confirm that the attribute is on the correct type (in this case, a <b>NominalType</b>), and second in order for you to confirm that the attribute is being used correctly. The latter happens in the same place where I had to create my <b>visitSwiftRocksAttr</b> method, but in <b>visitDynamicMemberLookupAttr</b> instead. In short, this method checks if the type implements one or more valid <b>subscript(dynamicMember)</b>, and throws a compilation error if that's not the case:</p>
 <pre>
 <code>void AttributeChecker::</code>
 <code>visitDynamicMemberLookupAttr(DynamicMemberLookupAttr *attr) {</code>
@@ -229,7 +229,7 @@ December 6, 2018
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>As far as developing attributes goes, the standard seems to end here. Because attributes can be used for virtually anything, each attribute is developed where it makes sense for it. In <code>@dynamicMemberLookup</code>'s case, this happens during semantic analysis - when the Constraint System fails to resolve our unexistent properties through normal means, checking the existence of this attribute is used as a last resort: (simplified for readability purposes, <a href="https://github.com/apple/swift/blob/1c82d4977d4d58b93a46f3e8022e356862f98d57/lib/Sema/CSSimplify.cpp#L3592">original method here</a>)</p>
+<p>As far as developing attributes goes, the standard seems to end here. Because attributes can be used for virtually anything, each attribute is developed where it makes sense for it. In <b>@dynamicMemberLookup</b>'s case, this happens during semantic analysis - when the Constraint System fails to resolve our unexistent properties through normal means, checking the existence of this attribute is used as a last resort: (simplified for readability purposes, <a href="https://github.com/apple/swift/blob/1c82d4977d4d58b93a46f3e8022e356862f98d57/lib/Sema/CSSimplify.cpp#L3592">original method here</a>)</p>
 <pre>
 <code>MemberLookupResult ConstraintSystem::</code>
 <code>performMemberLookup(...) {</code>
@@ -258,8 +258,8 @@ December 6, 2018
 <code>  }</code>
 <code>}</code>
 </pre>
-<p>By confirming that the fake property comes from a type that uses the attribute (remember that the attribute was added to the declaration's AST), the solver concludes that it's possible to resolve it by overloading it with the type's <code>subscript(dynamicMember:)</code> declaration.</p>
-<p>After the CS resolves the intended return type of the property, the Sema's Solution Application phase will detect the desired overload solution and generate a <code>subscript</code> expression that matches the original definition inside the type. Finally, this expression replaces the original property call. <a href="https://github.com/apple/swift/blob/1c82d4977d4d58b93a46f3e8022e356862f98d57/lib/Sema/CSApply.cpp#L2752">(original file here)</a></p>
+<p>By confirming that the fake property comes from a type that uses the attribute (remember that the attribute was added to the declaration's AST), the solver concludes that it's possible to resolve it by overloading it with the type's <b>subscript(dynamicMember:)</b> declaration.</p>
+<p>After the CS resolves the intended return type of the property, the Sema's Solution Application phase will detect the desired overload solution and generate a <b>subscript</b> expression that matches the original definition inside the type. Finally, this expression replaces the original property call. <a href="https://github.com/apple/swift/blob/1c82d4977d4d58b93a46f3e8022e356862f98d57/lib/Sema/CSApply.cpp#L2752">(original file here)</a></p>
 <pre>
 <code>case OverloadChoiceKind::DynamicMemberLookup: {</code>
 <code>  // Application of a DynamicMemberLookup result turns a member access of</code>
@@ -275,25 +275,25 @@ December 6, 2018
 <code>  return buildSubscript(base, index, ctx.Id_dynamicMember, ...)</code>
 <code>}</code>
 </pre>
-<p>As spoiled by the comment above, this means that <code>@dynamicMemberLookup</code> properties are just syntax sugars for subscript calls! Because our fake properties really don't exist, the compiler swaps them with calls to the subscript method required by the attribute.</p>
-<p>You can confirm this by compiling with the <code>-dump-ast</code> argument. Similar to <code>-dump-parse</code>, this argument will stop the compilation after typechecking is performed, allowing you to see the complete version of the AST. For <code>let foo: String = myType.bar</code>, the result will be something like this:</p>
+<p>As spoiled by the comment above, this means that <b>@dynamicMemberLookup</b> properties are just syntax sugars for subscript calls! Because our fake properties really don't exist, the compiler swaps them with calls to the subscript method required by the attribute.</p>
+<p>You can confirm this by compiling with the <b>-dump-ast</b> argument. Similar to <b>-dump-parse</b>, this argument will stop the compilation after typechecking is performed, allowing you to see the complete version of the AST. For <b>let foo: String = myType.bar</b>, the result will be something like this:</p>
 <pre>
 <code>(pattern_named type='String' 'foo')</code>
 <code> (subscript_expr type='String'</code>
 <code>  (tuple_expr implicit type='(dynamicMember: String)' names=dynamicMember</code>
 <code>   (string_literal_expr implicit type='String' value="bar")))</code>
 </pre>
-<p>...which vaguely means <code>let foo: String = myType[dynamicMember: "bar"]</code>.</p>
-<h2>Bonus: Adding functionality to <code>@swiftRocks</code></h2>
+<p>...which vaguely means <b>let foo: String = myType[dynamicMember: "bar"]</b>.</p>
+<h2>Bonus: Adding functionality to <b>@swiftRocks</b></h2>
 <h3>Adding requirements</h3>
-<p>Now that <code>@dynamicMemberLookup</code> is uncovered, we're ready to make our custom attribute <i>actually</i> do something.</p>
-<p>The first thing I want to change is the checker function I had to add when the attribute was created. I want this attribute to work only in classes that are called <code>ClassThatRocks</code>. If that's not the case, compilation must fail.</p>
-<p>To be able to do that, I added a new identifier called <code>id_ClassThatRocks</code> to the <a href="https://github.com/apple/swift/blob/cc329fee03d6d6a30eb526e4be28bb876bd6ba0f/include/swift/AST/KnownIdentifiers.def">compiler's list of known identifiers</a>, and a "not ClassThatRocks" error to the <a href="https://github.com/apple/swift/blob/f871b0e661bb951b8943d235694f382921aa9994/include/swift/AST/DiagnosticsSema.def">compiler's list of semantic analysis related errors:</a></p>
+<p>Now that <b>@dynamicMemberLookup</b> is uncovered, we're ready to make our custom attribute <i>actually</i> do something.</p>
+<p>The first thing I want to change is the checker function I had to add when the attribute was created. I want this attribute to work only in classes that are called <b>ClassThatRocks</b>. If that's not the case, compilation must fail.</p>
+<p>To be able to do that, I added a new identifier called <b>id_ClassThatRocks</b> to the <a href="https://github.com/apple/swift/blob/cc329fee03d6d6a30eb526e4be28bb876bd6ba0f/include/swift/AST/KnownIdentifiers.def">compiler's list of known identifiers</a>, and a "not ClassThatRocks" error to the <a href="https://github.com/apple/swift/blob/f871b0e661bb951b8943d235694f382921aa9994/include/swift/AST/DiagnosticsSema.def">compiler's list of semantic analysis related errors:</a></p>
 <pre>
 <code>ERROR(invalid_swiftrocks_name,none,</code>
 <code>"@swiftRocks requires %0 to be called 'ClassThatRocks'", (Type))</code>
 </pre>
-<p>With that in place, I just need to compare the declaration's name in <code>visitSwiftRocksAttr()</code>:</p>
+<p>With that in place, I just need to compare the declaration's name in <b>visitSwiftRocksAttr()</b>:</p>
 <pre>
 <code>void AttributeChecker::</code>
 <code>visitSwiftRocksAttr(SwiftRocksAttr *attr) {</code>
@@ -313,8 +313,8 @@ December 6, 2018
 </pre>
 <h3>Adding the actual functionality: Wholesome reminders</h3>
 <p>For the actual use, I've thought that such an incredible attribute should have an equally incredible use: When applied to a type, the compiler will put a warning on all properties that don't have "ThatRocks" in their name, because they are doing a good job and deserve recognition.</p>
-<p>To do this, I'll intercept the typechecker in order to have access to all getter declarations. Given a getter, I can recursively its parents to see if someone has a <code>@swiftRocks</code> attribute and check if the getter's name doesn't contain "ThatRocks" in order to send the coder a friendly warning.</p>
-<p>After a very long time of searching for suitable places for this implementation, I've found that <Code>typeCheckDecl()</code> has all the information I need. It's probably a terrible place to do this, but the members of SwiftRocks unanimously decided that this attribute is more important than coding practices. After another very long time of trying to figure out how to retrieve a getter's "type tree", here's what I ended up with</p>
+<p>To do this, I'll intercept the typechecker in order to have access to all getter declarations. Given a getter, I can recursively its parents to see if someone has a <b>@swiftRocks</b> attribute and check if the getter's name doesn't contain "ThatRocks" in order to send the coder a friendly warning.</p>
+<p>After a very long time of searching for suitable places for this implementation, I've found that <Code>typeCheckDecl()</b> has all the information I need. It's probably a terrible place to do this, but the members of SwiftRocks unanimously decided that this attribute is more important than coding practices. After another very long time of trying to figure out how to retrieve a getter's "type tree", here's what I ended up with</p>
 <pre>
 <code>void TypeChecker::typeCheckDecl(Decl *D) {</code>
 <code>  if (auto AD = dyn_cast&lt;AccessorDecl>(D)) {</code>
@@ -335,8 +335,8 @@ December 6, 2018
 <code>  //removed: rest of the method</code>
 <code>}</code>
 </pre>
-<p>I'll spare you the details of <code>hasSwiftRocksAttribute()</code> because I just copied <code>hasDynamicMemberLookupAttribute()</code> and changed the attribute name, but it checks a type's parents until it find the attribute. <a href="https://github.com/apple/swift/blob/bf2a4712ecafbcaa364579dd762e3f7398331bf9/lib/Sema/CSSimplify.cpp#L3110">Here's the original one if you're curious.</a></p>
-<p>After building the compiler and running the following snippet, all properties of <code>AwesomeClass</code> get their hardwork recognized!</p>
+<p>I'll spare you the details of <b>hasSwiftRocksAttribute()</b> because I just copied <b>hasDynamicMemberLookupAttribute()</b> and changed the attribute name, but it checks a type's parents until it find the attribute. <a href="https://github.com/apple/swift/blob/bf2a4712ecafbcaa364579dd762e3f7398331bf9/lib/Sema/CSSimplify.cpp#L3110">Here's the original one if you're curious.</a></p>
+<p>After building the compiler and running the following snippet, all properties of <b>AwesomeClass</b> get their hardwork recognized!</p>
 <pre>
 <code>@swiftRocks class AwesomeClass {</code>
 <code>    let number: Int = 1  //warning: Property 'number' is doing its best. Consider naming it 'numberThatRocks'.</code>

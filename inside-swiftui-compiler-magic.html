@@ -98,7 +98,7 @@ June 4, 2019
   <img src="https://i.imgur.com/NfE8605.png" alt="">                                    
 </div>
 <p>If that wasn't crazy enough, changes to the code will update a live preview in real time, bringing to Xcode a long requested feature.</p>
-<p>But the part that interests me most is that if you take a look at the SwiftUI examples, you'll see that almost appear to make no sense at all in current Swift -- how the hell can a bunch of seemingly disconnected <code>View</code> properties result in a complete screen?</p>
+<p>But the part that interests me most is that if you take a look at the SwiftUI examples, you'll see that almost appear to make no sense at all in current Swift -- how the hell can a bunch of seemingly disconnected <b>View</b> properties result in a complete screen?</p>
 <pre>
 <code>struct LandmarkList: View {</code>
 <code>    @State var showFavoritesOnly = true</code>
@@ -125,7 +125,7 @@ June 4, 2019
 </pre>
 <p>Having strong support for declarative programming paradigms (where you describe what you want instead of explicitly coding it) was always a goal of Swift, and the release of SwiftUI is finally applying this concept. However, Swift doesn't have these features <i>yet</i>; The reason the previous example works is that SwiftUI is powered by tons of compiler features -- some of them coming in Swift 5.1, and others that still aren't officially part of Swift. As always, I investigated that out.</p>
 <h2>Return-less single expressions</h2>
-<p>You might have noticed that although <code>body</code> returns a <code>View</code>, there's no <code>return</code> statement! Swift 5.1 introduces return-less single expressions, where closures consisting of only one expression are allowed to omit the <code>return</code> statement for visual purposes. The way it works is what you'd expect: when the compiler is parsing a function body and notices it only has a single statement, it injects a <code>return</code> token in the tree. <a href="https://github.com/apple/swift/blob/0dc0b035218ca4412cbebd2a4d61a019b6b71ea0/lib/Parse/ParseDecl.cpp#L5683">Check it out here.</a></p>
+<p>You might have noticed that although <b>body</b> returns a <b>View</b>, there's no <b>return</b> statement! Swift 5.1 introduces return-less single expressions, where closures consisting of only one expression are allowed to omit the <b>return</b> statement for visual purposes. The way it works is what you'd expect: when the compiler is parsing a function body and notices it only has a single statement, it injects a <b>return</b> token in the tree. <a href="https://github.com/apple/swift/blob/0dc0b035218ca4412cbebd2a4d61a019b6b71ea0/lib/Parse/ParseDecl.cpp#L5683">Check it out here.</a></p>
 <pre>
 <code>auto RS = new (Context) ReturnStmt(SourceLoc(), E);</code>
 <code>BS->setElement(0, RS);</code>
@@ -138,9 +138,9 @@ June 4, 2019
 <pre>
 <code>@State var showFavoritesOnly = false</code>
 </pre>
-<p>Because this property is marked with the <code>@State</code> attribute, changing it triggers <code>body</code>, resulting in a new <code>View</code> being drawn in the screen.</p>
+<p>Because this property is marked with the <b>@State</b> attribute, changing it triggers <b>body</b>, resulting in a new <b>View</b> being drawn in the screen.</p>
 <p>This attribute isn't available in Swift itself, but it relates to a compiler feature that is currently under discussion to be added officially into the language: <b>property delegates.</b></p>
-<p>Sometimes, we want to add more complex pieces of logic to a property that doesn't really justify the use of a new type, at least not that in that scope. This can with the <code>get/set/willSet/didSet</code> property observers, like in the classic <code>UserDefaults</code> example:</p>
+<p>Sometimes, we want to add more complex pieces of logic to a property that doesn't really justify the use of a new type, at least not that in that scope. This can with the <b>get/set/willSet/didSet</b> property observers, like in the classic <b>UserDefaults</b> example:</p>
 <pre>
 <code>var isFirstBoot: Bool {</code>
 <code>    get {</code>
@@ -150,7 +150,7 @@ June 4, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>This example is simple enough to work, but it's not difficult to see how bloated this gets if you do something more complex, like manually implementing the <code>lazy</code> logic:</p>
+<p>This example is simple enough to work, but it's not difficult to see how bloated this gets if you do something more complex, like manually implementing the <b>lazy</b> logic:</p>
 <pre>
 <code>private var _foo: Int?</code>
 <code>var lazyFoo: Int {</code>
@@ -164,8 +164,8 @@ June 4, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>In current Swift your only choice would be to wrap this inside a <code>Lazy&lt;T></code> generic type, which visually doesn't fit SwiftUI's declarative programming style. In response, the <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-delegates.md">Property Delegates</a> proposal was created in April 2019. This compiler feature isn't officially added to the language yet, but it's already being used as part of SwiftUI. Its purpose is to do exactly what we have to do in current Swift, but visually <b>abstracting it from the user</b>.</p>
-<p>When creating generic types, you can now add the <code>@propertyDelegate</code> attribute to its declaration to make it <b>usable as an attribute:</b></p>
+<p>In current Swift your only choice would be to wrap this inside a <b>Lazy&lt;T></b> generic type, which visually doesn't fit SwiftUI's declarative programming style. In response, the <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-delegates.md">Property Delegates</a> proposal was created in April 2019. This compiler feature isn't officially added to the language yet, but it's already being used as part of SwiftUI. Its purpose is to do exactly what we have to do in current Swift, but visually <b>abstracting it from the user</b>.</p>
+<p>When creating generic types, you can now add the <b>@propertyDelegate</b> attribute to its declaration to make it <b>usable as an attribute:</b></p>
 <pre>
 <code>@propertyDelegate class UserDefault&lt;T> {</code>
 <code>    let key: String</code>
@@ -180,12 +180,12 @@ June 4, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p><b>Update: It appears that the official Swift 5.1 name for this attribute is going to be <code>@propertyWrapper</code>, but the SwiftUI beta is using <code>@propertyDelegate</code> so I'm using this one.</b></p>
-<p>I can now use <code>isFirstBoot</code> as follows:</p>
+<p><b>Update: It appears that the official Swift 5.1 name for this attribute is going to be <b>@propertyWrapper</b>, but the SwiftUI beta is using <b>@propertyDelegate</b> so I'm using this one.</b></p>
+<p>I can now use <b>isFirstBoot</b> as follows:</p>
 <pre>
 <code>@UserDefault(key: "isFirstBoot", defaultValue: false) var isFirstBoot: Bool</code>
 </pre>
-<p>This allows you to interface with the complex generic type, but visually see nothing but a regular <code>Bool</code> property, As stated, the attribute empowers compiler magic to abstract the creation of the original generic type. Because the full implementation of it deserves an <code>How 'x' Works Internally in Swift</code> article of its own, we'll jump to the interesting parts -- with property delegates, the compiler translates the previous declaration to this:</p>
+<p>This allows you to interface with the complex generic type, but visually see nothing but a regular <b>Bool</b> property, As stated, the attribute empowers compiler magic to abstract the creation of the original generic type. Because the full implementation of it deserves an <b>How 'x' Works Internally in Swift</b> article of its own, we'll jump to the interesting parts -- with property delegates, the compiler translates the previous declaration to this:</p>
 <pre>
 <code>var $isFirstBoot: UserDefaults&lt;Bool> = UserDefaults&lt;Bool>(key: "isFirstBoot", defaultValue: false)</code>
 <code>var isFirstBoot: Bool {</code>
@@ -193,7 +193,7 @@ June 4, 2019
 <code>  set { $isFirstBoot.value = newValue }</code>
 <code>}</code>
 </pre>
-<p>The use of <code>$</code> as a prefix is on purpose; Even though <code>isFirstBoot</code> is a <code>Bool</code>, I might still want to access properties and methods from the more complex generic type. Although the original property is hidden, you can still access it for this purpose. For example, here's an example where <code>UserDefault</code> has a method for returning it to the default value:</p>
+<p>The use of <b>$</b> as a prefix is on purpose; Even though <b>isFirstBoot</b> is a <b>Bool</b>, I might still want to access properties and methods from the more complex generic type. Although the original property is hidden, you can still access it for this purpose. For example, here's an example where <b>UserDefault</b> has a method for returning it to the default value:</p>
 <pre>
 <code>extension UserDefault {</code>
 <code>    func reset() {</code>
@@ -201,11 +201,11 @@ June 4, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Although <code>Bool</code> won't have this property, I can use it from <code>$isFirstBoot</code>:</p>
+<p>Although <b>Bool</b> won't have this property, I can use it from <b>$isFirstBoot</b>:</p>
 <pre>
 <code>$isFirstBoot.reset()</code>
 </pre>
-<p>This is why <code>Toggle(isOn: $showFavoritesOnly)</code> in SwiftUI's example use <code>$</code>: it doesn't want the actual <code>Bool</code>, but the <code>Binding</code> property provided by the <code>State</code> property delegate struct which will be able to trigger a view reload when it changes.</p>
+<p>This is why <b>Toggle(isOn: $showFavoritesOnly)</b> in SwiftUI's example use <b>$</b>: it doesn't want the actual <b>Bool</b>, but the <b>Binding</b> property provided by the <b>State</b> property delegate struct which will be able to trigger a view reload when it changes.</p>
 <pre>
 <code>/// A linked View property that instantiates a persistent state</code>
 <code>/// value of type `Value`, allowing the view to read and update its</code>
@@ -231,7 +231,7 @@ June 4, 2019
 <code>}</code>
 </pre>
 <h2>Function Builders</h2>
-<p>We've seen how single expression don't need to add <code>return</code> statements, but what the hell is going on here?</p>
+<p>We've seen how single expression don't need to add <b>return</b> statements, but what the hell is going on here?</p>
 <pre>
 <code>HStack {</code>
 <code>   Text("Hi")</code>
@@ -243,14 +243,14 @@ June 4, 2019
 <p>The answer to this is perhaps the most groundbreaking change in SwiftUI -- <b>function builders.</b></p>
 <p>The function builders feature pitch was introduced to the Swift community right after SwiftUI was released, allowing Swift to abstract factory patterns into a clean visual declarative expression. All indicates that it'll be part of Swift itself very soon, but for now you can try it as part of SwiftUI.</p>
 <p>Function builders relate to types that, given a closure, can retrieve a sequence of statements and abstract the creation of something more concrete based on them.</p>
-<p><code>HStack</code> can do this because it has the <code>ViewBuilder</code> function builder in its signature:</p>
+<p><b>HStack</b> can do this because it has the <b>ViewBuilder</b> function builder in its signature:</p>
 <pre>
 <code>public init(..., content: @ViewBuilder () -> Content)</code>
 <code>//Note: The official docs won't show the attribute, and I'm not sure why,</code>
 <code>//but you can confirm it has it by adding a normal expression `let a = 1` expression inside of the closure.</code>
 <code>//It will give you a compilation error.</code>
 </pre>
-<p><code>@ViewBuilder</code> translates to the <code>ViewBuilder</code> struct: a <b>function builder</b> that can transform view expressions into actual views. Function builders are determined by the <code>@_functionBuilder</code> attribute (with an underline because we're not supposed to use it manually yet) and a series of methods that determine how expressions should be parsed:</p>
+<p><b>@ViewBuilder</b> translates to the <b>ViewBuilder</b> struct: a <b>function builder</b> that can transform view expressions into actual views. Function builders are determined by the <b>@_functionBuilder</b> attribute (with an underline because we're not supposed to use it manually yet) and a series of methods that determine how expressions should be parsed:</p>
 <pre>
 <code>@_functionBuilder public struct ViewBuilder {</code>
 <code></code>
@@ -269,7 +269,7 @@ June 4, 2019
 <code>   return ViewBuilder.buildBlock(Text("Hi"), Text("Swift"), Text("Rocks"))</code>
 <code>}</code>
 </pre>
-<p>The more complex the block, the more complex the magic'd expression is. The important thing here is that function builders block can <b>only contain content that is understandable by the builder.</b> For example, you can only add an <code>if</code> statement to <code>HStack</code> because it contains the related <code>buildIf()</code> method from the attribute. If you want an example of something that doesn't work, try the following:</p>
+<p>The more complex the block, the more complex the magic'd expression is. The important thing here is that function builders block can <b>only contain content that is understandable by the builder.</b> For example, you can only add an <b>if</b> statement to <b>HStack</b> because it contains the related <b>buildIf()</b> method from the attribute. If you want an example of something that doesn't work, try the following:</p>
 <pre>
 <code>HStack {</code>
 <code>    let a = 1 //Closure containing a declaration cannot be used with function builder 'ViewBuilder'</code>

@@ -17,10 +17,10 @@
 <div class="post-info"> 
 March 18th, 2020
 </div>
-<p><b>Ordered Collection Diffing</b> is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in <code>UITableViews</code>. With the addition of this feature, developers can now diff <code>Collections</code> without having to bother with external libraries.</p>
+<p><b>Ordered Collection Diffing</b> is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in <b>UITableViews</b>. With the addition of this feature, developers can now diff <b>Collections</b> without having to bother with external libraries.</p>
 <p>Have you wondered what efficiently diffing something looks like? In this article, we'll see and analyze the diffing APIs as well as the <b>Myers's Diffing Algorithm</b> used by the Swift Standard Library -- the same used in <b>git</b>.</p>
 <h2>Collection Diffing APIs</h2>
-<p>The diffing APIs are available as an extension for any <code>BidirectionalCollection</code>, with an abstracted helper type for ones whose's elements are <code>Equatable</code>:</p>
+<p>The diffing APIs are available as an extension for any <b>BidirectionalCollection</b>, with an abstracted helper type for ones whose's elements are <b>Equatable</b>:</p>
 <pre>
 <code>extension BidirectionalCollection {</code>
 <code>  public func difference&lt;C: BidirectionalCollection>(</code>
@@ -41,7 +41,7 @@ March 18th, 2020
 <code>  }</code>
 <code>}</code>
 </pre>
-<p>The return type for diffing operations is an <code>CollectionDifference</code> object -- basically an array of "moves" necessary to turn the first collection into the second one. The "moves" are represented as an enum of additions and removals, and the <code>CollectionDifference</code> object holds all of them.</p>
+<p>The return type for diffing operations is an <b>CollectionDifference</b> object -- basically an array of "moves" necessary to turn the first collection into the second one. The "moves" are represented as an enum of additions and removals, and the <b>CollectionDifference</b> object holds all of them.</p>
 <pre>
 <code>public struct CollectionDifference&lt;ChangeElement> {</code>
 <code>  /// A single change to a collection.</code>
@@ -55,13 +55,13 @@ March 18th, 2020
 <code>  public let removals: [Change]</code>
 <code>}</code>
 </pre>
-<p><code>CollectionDifference</code> is a <code>Collection</code> itself, which means that it can be iterated. <b>An important aspect of this is that the iteration will happen in a specific order: First, all the removals from highest to lowest offset, followed by insertions from lowest to highest.</b> This is both for performance reasons (removing elements from the end of an array is faster from the beginning, and adding elements to the front when there are fewer elements is faster than when there's a lot), and for visual reasons as we'll see when the underlying algorithm is inspected.</p>
+<p><b>CollectionDifference</b> is a <b>Collection</b> itself, which means that it can be iterated. <b>An important aspect of this is that the iteration will happen in a specific order: First, all the removals from highest to lowest offset, followed by insertions from lowest to highest.</b> This is both for performance reasons (removing elements from the end of an array is faster from the beginning, and adding elements to the front when there are fewer elements is faster than when there's a lot), and for visual reasons as we'll see when the underlying algorithm is inspected.</p>
 <p>We can see this behavior with a real example. Let's calculate the difference between these two strings:</p>
 <pre>
 <code>let a = "ABCABBA"</code>
 <code>let b = "CBABAC"</code>
 </pre>
-<p>There are tons of ways of transforming <code>a</code> into <code>b</code>, but our interest is doing so in the least amount of steps. When calling <code>difference(_:)</code> and iterating the result, we'll see one of these solutions:</p>
+<p>There are tons of ways of transforming <b>a</b> into <b>b</b>, but our interest is doing so in the least amount of steps. When calling <b>difference(_:)</b> and iterating the result, we'll see one of these solutions:</p>
 <pre>
 <code>let diff = b.difference(from: a)</code>
 <code>diff.forEach { print($0) }</code>
@@ -72,7 +72,7 @@ March 18th, 2020
 <code>// insert(offset: 5, element: "C", associatedWith: nil)</code>
 </pre>
 <p>(We'll leave the explanation of the algorithm itself for the last section because it's a bit complicated.)</p>
-<p>From here, you can use the resulting <code>CollectionDifference</code> object as you see fit, like animating the addition and removal of rows from an <code>UITableView</code>. The neat thing is that Swift provides an <code>applying(_:)</code> method that allows you to directly apply a <code>CollectionDifference</code> object into a <code>Collection</code>:</p>
+<p>From here, you can use the resulting <b>CollectionDifference</b> object as you see fit, like animating the addition and removal of rows from an <b>UITableView</b>. The neat thing is that Swift provides an <b>applying(_:)</b> method that allows you to directly apply a <b>CollectionDifference</b> object into a <b>Collection</b>:</p>
 <pre>
 <code>let newB = a.applying(diff)</code>
 <code>//CBABAC</code>
@@ -98,13 +98,13 @@ March 18th, 2020
 <code>print(patched)</code>
 </pre>
 <h2>How applying() works</h2>
-<p>The <code>applying(_:)</code> method works by creating a new, empty <code>Collection</code> instance that gets filled as the changes are iterated. Because the changes are iterated in the specific high removals -> low removals -> low insertions -> high insertions, the algorithm is able to build the final result through ranges instead of individual elements. For example, if you have a 10 character string and the first step is to remove the 5th character, we know right off the bat that the final result will contain the range <code>5...9</code> in that same order, so "removing the 5th character" is equivalent to adding everything that comes after it. The same logic is applied until all the changes are processed. Because of the interaction with ranges, <code>applying(_:)</code> is only available to <code>RangeReplaceableCollections</code>.</p>
-<p>It is possible for this process to fail, for example, when the desired element to be removed doesn't exist, which is possible in cases like the <b>git</b> example due to conflicting information in the data. In these cases, <code>applying(_:)</code> returns <code>nil</code>.</p>
+<p>The <b>applying(_:)</b> method works by creating a new, empty <b>Collection</b> instance that gets filled as the changes are iterated. Because the changes are iterated in the specific high removals -> low removals -> low insertions -> high insertions, the algorithm is able to build the final result through ranges instead of individual elements. For example, if you have a 10 character string and the first step is to remove the 5th character, we know right off the bat that the final result will contain the range <b>5...9</b> in that same order, so "removing the 5th character" is equivalent to adding everything that comes after it. The same logic is applied until all the changes are processed. Because of the interaction with ranges, <b>applying(_:)</b> is only available to <b>RangeReplaceableCollections</b>.</p>
+<p>It is possible for this process to fail, for example, when the desired element to be removed doesn't exist, which is possible in cases like the <b>git</b> example due to conflicting information in the data. In these cases, <b>applying(_:)</b> returns <b>nil</b>.</p>
 <p>The actual method is a bit long and hard to read, <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/Diffing.swift#L71">so I'll leave the link to it</a> instead of showing it here.</p>
 <h2>The complex part: How difference() works</h2>
-<p>Now that we've seen how the APIs work, we're ready to take a look at what Swift does to generate the final <code>CollectionDifference</code> object.</p>
-<p>As stated before, there are many ways to transform a <code>Collection</code> into another one. For example, to transform <code>a: ABCABBA</code> to <code>b: CBABAC</code>, we could simply remove every single element from <code>a</code> and append the ones from <code>b</code>. Easy peasy!</p>
-<p>However, at a best case of <code>a.count + b.count</code> "moves", that would be very inefficient. One way to find the best way possible to do this change is to transform this into a <b>graph problem</b>. Imagine that we have a <b>matrix</b> where the columns are characters from <code>a</code> and rows are characters from <code>b</code>:</p>
+<p>Now that we've seen how the APIs work, we're ready to take a look at what Swift does to generate the final <b>CollectionDifference</b> object.</p>
+<p>As stated before, there are many ways to transform a <b>Collection</b> into another one. For example, to transform <b>a: ABCABBA</b> to <b>b: CBABAC</b>, we could simply remove every single element from <b>a</b> and append the ones from <b>b</b>. Easy peasy!</p>
+<p>However, at a best case of <b>a.count + b.count</b> "moves", that would be very inefficient. One way to find the best way possible to do this change is to transform this into a <b>graph problem</b>. Imagine that we have a <b>matrix</b> where the columns are characters from <b>a</b> and rows are characters from <b>b</b>:</p>
 <pre>
 <code>  -  A  B  C  A  B  B  A</code>
 <code></code>
@@ -123,7 +123,7 @@ March 18th, 2020
 <code>C</code>
 <code></code>
 </pre>
-<p>In this matrix, the top-left position 0,0 represents the original <code>ABCABBA</code> string, while the bottom-right position represents the final <code>CBABAC</code> string. Moving <b>right</b> in this matrix represents <b>removing</b> an element from the original string, while moving <b>down</b> represents <b>adding</b> an element from the new one. Each of these movements counts as a step, but if the elements from both strings at a specific position <b>match</b> (like the position 1,3 - two Cs), you can <b>diagonally move down and to the right</b> for "free", as no changes are necessary for that position.</p>
+<p>In this matrix, the top-left position 0,0 represents the original <b>ABCABBA</b> string, while the bottom-right position represents the final <b>CBABAC</b> string. Moving <b>right</b> in this matrix represents <b>removing</b> an element from the original string, while moving <b>down</b> represents <b>adding</b> an element from the new one. Each of these movements counts as a step, but if the elements from both strings at a specific position <b>match</b> (like the position 1,3 - two Cs), you can <b>diagonally move down and to the right</b> for "free", as no changes are necessary for that position.</p>
 <p>Given this description, we can transform this problem into another one: <b>How can we reach the bottom right of the matrix in the least amount of steps (a.k.a maximizing the number of diagonal moves)?</b></p>
 <p>If you ever studied graphs you might remember that finding the shortest path between two nodes in an unweighted graph is a classical computer science problem! This problem is solved by the popular graph search algorithm <a href="https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/">Breadth-First Search</a> -- because the graph is unweighted, taking turns on checking the neighbors of each node is guaranteed to discover the shortest path between a source node to a target one. Applying the algorithm in the previous example will show us a path that transforms our string in <b>5</b> moves (remember that diagonal moves do not count as moves):</p>
 <pre>
@@ -144,7 +144,7 @@ March 18th, 2020
 <code>C                      5</code>
 <code></code>                     
 </pre>
-<p>The implementation behind the true diffing algorithms is very similar to this, but with a few (unfortunately, relatively complicated) important twists. Although we're looking for the shortest edit path between two <code>Collections</code>, we're not exactly looking for <b>any</b> short path. Especially for visual applications like <b>git</b>, the overall order of how deletions and insertions are present is important. When you're looking at the merge diff in git, you would expect the diff to be somewhat "intelligent" in terms of knowing what was really added and deleted by your changes instead of randomly saying that things were "added" and "deleted" because it fulfills the shortest path condition.</p>
+<p>The implementation behind the true diffing algorithms is very similar to this, but with a few (unfortunately, relatively complicated) important twists. Although we're looking for the shortest edit path between two <b>Collections</b>, we're not exactly looking for <b>any</b> short path. Especially for visual applications like <b>git</b>, the overall order of how deletions and insertions are present is important. When you're looking at the merge diff in git, you would expect the diff to be somewhat "intelligent" in terms of knowing what was really added and deleted by your changes instead of randomly saying that things were "added" and "deleted" because it fulfills the shortest path condition.</p>
 <pre>
 <code>Good:   class Foo {                  Bad:    class Foo {</code>
 <code>          init(bar: String) {                  init(bar: String) {</code>
@@ -158,7 +158,7 @@ March 18th, 2020
 </pre>
 <p>Diffing algorithms carefully choose the paths that Breadth-First Search is going to traverse in order to provide a meaningful diff.</p>
 <h2>Swift's Diffing Algorithm: Myers's Diffing Algorithm</h2>
-<p>Swift uses Myers's Diffing Algorithm <a href="http://www.xmailserver.org/diff2.pdf">(paper here)</a> as part of the diffing APIs. Given two collections, the result is the <b>Shortest Edit Script</b> that transforms A into B. Much like the abstracted <code>CollectionDifference</code> type, the Shortest Edit Script is a list of additions and removals. In order to provide a good diff, Myers's prefers deleting over inserting, and it differs from Breadth-First Search by prioritizing what seems to be "good" paths instead of blindly switching nodes like the original algorithm.</p>
+<p>Swift uses Myers's Diffing Algorithm <a href="http://www.xmailserver.org/diff2.pdf">(paper here)</a> as part of the diffing APIs. Given two collections, the result is the <b>Shortest Edit Script</b> that transforms A into B. Much like the abstracted <b>CollectionDifference</b> type, the Shortest Edit Script is a list of additions and removals. In order to provide a good diff, Myers's prefers deleting over inserting, and it differs from Breadth-First Search by prioritizing what seems to be "good" paths instead of blindly switching nodes like the original algorithm.</p>
 <p>This is done by adding two additional components to the matrix: How <b>deep</b> we are into the graph (number of moves, in the X-axis), and the <b>ratio</b> of additions versus deletions, which is a value <b>k</b> that increases by one every time we remove a value (moving right), and decreases by one every time we add a value (moving down), in the Y-axis. This is better seen if we shift a graph by 45 degrees (note that this graph doesn't contain the diagonal connections that make the paths shorter):</p>
 <pre>
 <code>    |     0     1     2     3     4     5</code>
@@ -181,7 +181,7 @@ March 18th, 2020
 <code>    |                     \     /     \</code>
 <code>-3  |                       0,3   ...  1,4</code>
 </pre>
-<p>To find the perfect path, the algorithm iterates the possible <b>depth</b> values. For each <b>depth</b>, it iterates the possible <b>k values</b> at that depth (<code>-d...d</code>) and determines the best move it can make at that point for that <b>k value</b>.</p>
+<p>To find the perfect path, the algorithm iterates the possible <b>depth</b> values. For each <b>depth</b>, it iterates the possible <b>k values</b> at that depth (<b>-d...d</b>) and determines the best move it can make at that point for that <b>k value</b>.</p>
 <p>The best move is determined based on a few rules we'll see soon, but the important part here is that this is done based on the decisions made on the previous depth iteration. To make the current iteration not mess with the previous moves, the <b>k values</b> are iterated in steps of 2.</p>
 <pre>
 <code>var result = [KValues]()</code>
@@ -200,7 +200,7 @@ March 18th, 2020
 <code>}</code>
 <code>return backtrackPath(fromKValues: result) // Additions and Deletions</code>
 </pre>
-<p>"Determining" the best move means deciding to go right or down from the positions recorded in the previous depth iteration. We should always move right if <code>k == -d</code> (bottom of the currently "accessible" graph), and always down if <code>k == +d</code> (right edge of the currently "accessible" graph). Otherwise, we should pick the position based on the current adjacent k's best values that leads us to the highest x value -- this way, we prioritize deletion.</p>
+<p>"Determining" the best move means deciding to go right or down from the positions recorded in the previous depth iteration. We should always move right if <b>k == -d</b> (bottom of the currently "accessible" graph), and always down if <b>k == +d</b> (right edge of the currently "accessible" graph). Otherwise, we should pick the position based on the current adjacent k's best values that leads us to the highest x value -- this way, we prioritize deletion.</p>
 <pre>
 <code>let currX: Int</code>
 <code>if k == -d {</code>
@@ -214,7 +214,7 @@ March 18th, 2020
 <code>}</code>
 <code>let currY = currX - k</code>
 </pre>
-<p>This loop is the reason why we need to start the algorithm with the <code>1</code> <b>k value</b> set to 0. This makes sure that the first iteration determines that the "first best move" is to go down to 0,0 -- the beginning of the graph. This allows everything else to proceed as normal.</p>
+<p>This loop is the reason why we need to start the algorithm with the <b>1</b> <b>k value</b> set to 0. This makes sure that the first iteration determines that the "first best move" is to go down to 0,0 -- the beginning of the graph. This allows everything else to proceed as normal.</p>
 <p>Once the best move is found, we try to move diagonally as much as we can to claim our free steps.</p>
 <pre>
 <code>while currX < a.count && currY < b.count {</code>
@@ -232,9 +232,9 @@ March 18th, 2020
 <code>    break outer</code>
 <code>}</code>
 </pre>
-<p>You might wonder how subscripting <code>currentKValues</code> works if k can be negative -- the Standard Library <a href="https://github.com/apple/swift/blob/9de3db97bdbabc503a2445ceb2f6699755aace23/stdlib/public/core/Diffing.swift#L189">created a custom type</a> that translates such negative indexes into positive ones. The idea is to create an array long enough to fit both positive and negative values and treat the indexes inside.</p>
+<p>You might wonder how subscripting <b>currentKValues</b> works if k can be negative -- the Standard Library <a href="https://github.com/apple/swift/blob/9de3db97bdbabc503a2445ceb2f6699755aace23/stdlib/public/core/Diffing.swift#L189">created a custom type</a> that translates such negative indexes into positive ones. The idea is to create an array long enough to fit both positive and negative values and treat the indexes inside.</p>
 <p><a href="https://github.com/apple/swift/blob/9de3db97bdbabc503a2445ceb2f6699755aace23/stdlib/public/core/Diffing.swift#L228">The complete algorithm from Swift can be found here.</a></p>
-<p>The result of this implementation of Myers's is an array representing how far each <b>k value</b> has traveled in the X-axis in a specific depth. To get the actual path, all we have to do is backtrack from the only <b>k value</b> that has reached the maximum depth. This is done through a similar loop: For each current value, move up or to the left based on who has the largest X value in the previous iteration of the original method. Here's how this is implemented in the Standard Library (with <code>_V</code> being their version of my <code>KValues</code> type):</p>
+<p>The result of this implementation of Myers's is an array representing how far each <b>k value</b> has traveled in the X-axis in a specific depth. To get the actual path, all we have to do is backtrack from the only <b>k value</b> that has reached the maximum depth. This is done through a similar loop: For each current value, move up or to the left based on who has the largest X value in the previous iteration of the original method. Here's how this is implemented in the Standard Library (with <b>_V</b> being their version of my <b>KValues</b> type):</p>
 <pre>
 <code>// Backtrack through the trace generated by the Myers descent to produce the changes that make up the diff</code>
 <code>func _formChanges(</code>
@@ -272,7 +272,7 @@ March 18th, 2020
 <code>  return changes</code>
 <code>}</code>
 </pre>
-<p>Now that we have the final <code>CollectionDifference</code> type, we can finally return it and conclude the diffing algorithm. The worst case for Myers's is <code>O(a * b)</code> as it is possible for us to traverse all of the nodes of the graph.</p>
+<p>Now that we have the final <b>CollectionDifference</b> type, we can finally return it and conclude the diffing algorithm. The worst case for Myers's is <b>O(a * b)</b> as it is possible for us to traverse all of the nodes of the graph.</p>
 <h2>Conclusion</h2>
 <p>As always, I like to finish these by saying that knowing what's inside of what you're using allows you to make better decisions in code. Different algorithms are meant for different use-cases, and knowing how to make trade-offs is useful everywhere. Plus, you get to learn cool little pieces of trivia -- did you know that Myers's is one of the merging strategies in <b>git</b>? :)</p>
 <p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>

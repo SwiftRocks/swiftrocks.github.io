@@ -17,19 +17,19 @@
 <div class="post-info"> 
 June 10, 2019
 </div>
-<p><i>Why are SwiftUI's return types <code>some View</code>?</i><br>
+<p><i>Why are SwiftUI's return types <b>some View</b>?</i><br>
 <i>Why can't it just return a regular protocol?</i><br>
 <i>What are Opaque Types?</i></p>
 <p><b>Opaque Return Types</b> is a feature added in Swift 5.1 that is a big part of the new SwiftUI framework's functionality. It comes to finally fix a fundamental problem of the usage of protocols and the design of Swift APIs, opening new possibilities for the creation and usage of public APIs.</p>
 <h2>Building APIs before Swift 5.1</h2>
 <p>To understand what Opaque Types are, let's see what possibilities we have today when building public APIs.</p>
-<p>Let's assume that we have a payments framework that has a method that returns the user's favorite credit card, which is a <code>CreditCard</code> <code>struct</code>:</p>
+<p>Let's assume that we have a payments framework that has a method that returns the user's favorite credit card, which is a <b>CreditCard</b> <b>struct</b>:</p>
 <pre>
 <code>public func favoriteCreditCard() -> CreditCard {</code>
 <code>    return getLastUsedCreditCard()</code>
 <code>}</code>
 </pre>
-<p>This can be fine for internal APIs, but for public frameworks this could be not ideal. The user might not need to have access to the <code>CreditCard</code> type itself -- it could contain information that we don't want the user to be playing with, like how hashing is performed.</p>
+<p>This can be fine for internal APIs, but for public frameworks this could be not ideal. The user might not need to have access to the <b>CreditCard</b> type itself -- it could contain information that we don't want the user to be playing with, like how hashing is performed.</p>
 <p>You can solve these by carefully choosing which methods are public and which ones are private, but what if you want to <b>completely</b> hide the existence of these types?</p>
 <p>Today, you can achieve this with the use of <b>protocols</b>, abstracting the implementation and type details into an unified name:</p>
 <pre>
@@ -40,7 +40,7 @@ June 10, 2019
 <code>    return getLastUsedCreditCard() // () -> CreditCard</code>
 <code>}</code>
 </pre>
-<p>With this, we can even rewrite <code>favoriteCreditCard()</code> into a generic method that can return payment types that are not credit cards:</p>
+<p>With this, we can even rewrite <b>favoriteCreditCard()</b> into a generic method that can return payment types that are not credit cards:</p>
 <pre>
 <code>struct ApplePay: PaymentType { /* ... */ }</code>
 <code></code>
@@ -52,7 +52,7 @@ June 10, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Unfortunately, this usage of protocols has a major issue. Because Swift protocols discard the underlying identity of the type, if your protocol happens to have associated type/Self requirements like ones that inherit from <code>Equatable</code>, you won't be able to do this at all:</p>
+<p>Unfortunately, this usage of protocols has a major issue. Because Swift protocols discard the underlying identity of the type, if your protocol happens to have associated type/Self requirements like ones that inherit from <b>Equatable</b>, you won't be able to do this at all:</p>
 <pre>
 <code>protocol PaymentType: Equatable { /* ... */ }</code>
 <code></code>
@@ -72,56 +72,56 @@ June 10, 2019
 <pre>
 <code>func getHashedCard() -> HashedObject&lt;CreditCard></code>
 </pre>
-<p>Usage of generics can solve this problem, but they can easily make the API harder to deal with. Perhaps the usage of <code>HashedObject</code> is important internally, but the user likely doesn't need to know about it -- it would be much better if this was returned as a simple <code>PaymentType</code> object instead, but the protocol limitations prevent it.</p>
+<p>Usage of generics can solve this problem, but they can easily make the API harder to deal with. Perhaps the usage of <b>HashedObject</b> is important internally, but the user likely doesn't need to know about it -- it would be much better if this was returned as a simple <b>PaymentType</b> object instead, but the protocol limitations prevent it.</p>
 <h2>Opaque Return Types</h2>
-<p>The definite solution for this arrived in Swift 5.1 in the shape of <b>Opaque Return Types</b>. If you have a method that returns a concrete type masked as a protocol — much like our <code>favoriteCreditCard()</code> example that returns a concrete <code>CreditCard</code> type masked as a not-too-useful <code>PaymentType</code> protocol, you can make use of <b>Opaque Return Types</b> by changing the return type to <code>some {type name}</code>:</p>
+<p>The definite solution for this arrived in Swift 5.1 in the shape of <b>Opaque Return Types</b>. If you have a method that returns a concrete type masked as a protocol — much like our <b>favoriteCreditCard()</b> example that returns a concrete <b>CreditCard</b> type masked as a not-too-useful <b>PaymentType</b> protocol, you can make use of <b>Opaque Return Types</b> by changing the return type to <b>some {type name}</b>:</p>
 <pre>
 <code>public func favoriteCreditCard() -> some PaymentType {</code>
 <code>    return getLastUsedCreditCard() // () -> CreditCard</code>
 <code>}</code>
 </pre>
-<p>When this is done, the return type of the method is going to be the actual <code>CreditCard</code> concrete type, but the compiler is going to <b>pretend</b> that it's the protocol instead. This means that while the API's user will see this as a regular protocol, it will have all the capabilities of the concrete type:</p>
+<p>When this is done, the return type of the method is going to be the actual <b>CreditCard</b> concrete type, but the compiler is going to <b>pretend</b> that it's the protocol instead. This means that while the API's user will see this as a regular protocol, it will have all the capabilities of the concrete type:</p>
 <pre>
 <code>let creditCard = favoriteCreditCard() // 'some PaymentType' returning 'CreditCard'</code>
 <code>let anotherCreditCard = mostRecentCreditCard() // 'some PaymentType' returning a 'CreditCard'</code>
 <code></code>
 <code>creditCard == anotherCreditCard // Now works, because two concrete CreditCards can be compared.</code>
 </pre>
-<p>The reason this works is because you're looking at some fancy compiler magic — <b>the return type was <code>CreditCard</code> all along, it's just being hidden from you for coding purposes.</b> This is what <code>favoriteCreditCard()</code> looks like after compiling:</p>
+<p>The reason this works is because you're looking at some fancy compiler magic — <b>the return type was <b>CreditCard</b> all along, it's just being hidden from you for coding purposes.</b> This is what <b>favoriteCreditCard()</b> looks like after compiling:</p>
 <pre>
 <code>let favoriteCreditCardMangledName = "$s3MyApp9favoriteCreditCardQryF"</code>
 <code>public func favoriteCreditCard() -> @_opaqueReturnTypeOf(favoriteCreditCardMangledName, 0) {</code>
 <code>    return getLastUsedCreditCard() // () -> CreditCard</code>
 <code>}</code>
 </pre>
-<p>All references to the <code>some PaymentType</code> return of <code>favoriteCreditCard()</code> are replaced with an internal attribute -- which during execution, will take an identifier and use it to provide <b>the actual return type</b>, <code>CreditCard</code>, stored in the metadata of the method's AST:</p>
+<p>All references to the <b>some PaymentType</b> return of <b>favoriteCreditCard()</b> are replaced with an internal attribute -- which during execution, will take an identifier and use it to provide <b>the actual return type</b>, <b>CreditCard</b>, stored in the metadata of the method's AST:</p>
 <pre>
 <code>// The definition of favoriteCreditCard() contains:</code>
 <code>(opaque_result_decl</code>
 <code>  (opaque_type interface type='(some PaymentType).Type' naming_decl="favoritePaymentType()" underlying:</code>
 <code>    substitution τ_0_0 -> CreditCard)))</code>
 </pre>
-<p>Thus, while in the IDE you'll be prevented from accessing specific <code>CreditCard</code> properties, in <b>runtime</b>, this:</p>
+<p>Thus, while in the IDE you'll be prevented from accessing specific <b>CreditCard</b> properties, in <b>runtime</b>, this:</p>
 <pre>
 <code>public func favoriteCreditCard() -> some PaymentType {</code>
 <code>    return getLastUsedCreditCard() // () -> CreditCard</code>
 <code>}</code>
 </pre>
-<p>Is the same as returning <code>CreditCard</code> directly.</p>
+<p>Is the same as returning <b>CreditCard</b> directly.</p>
 <pre>
 <code>public func favoriteCreditCard() -> CreditCard {</code>
 <code>    return getLastUsedCreditCard() // () -> CreditCard</code>
 <code>}</code>
 </pre>
 <h2>Why is it useful?</h2>
-<p>The purpose of <b>Opaque Return Types</b> is to give API users' the capabilities of a concrete type without having to unnecessarily expose it. Sometimes, knowing the underlying type of a protocol isn't needed, but you need its capabilities to proceed. The PaymentType example might be too simple for it, so let's see how this could be applied to types with several internal helper types like <code>lazy</code> functions:</p>
+<p>The purpose of <b>Opaque Return Types</b> is to give API users' the capabilities of a concrete type without having to unnecessarily expose it. Sometimes, knowing the underlying type of a protocol isn't needed, but you need its capabilities to proceed. The PaymentType example might be too simple for it, so let's see how this could be applied to types with several internal helper types like <b>lazy</b> functions:</p>
 <pre>
 <code>let lazyMap = [1,2,3].map { $0 * 2 }</code>
 <code>let lazyFilter = lazyMap.filter { $0.isMultiple(of: 2) }</code>
 <code>let lazyDrop = lazyFilter.drop { $0 != 2 }</code>
 </pre>
-<p>The type of <code>lazyMap</code> is <code>LazyMapSequence&lt;[Int], Int></code>, the type of <code>lazyFilter</code> is <code>LazyFilterSequence&lt;LazyMapSequence&lt;[Int], Int>></code>, and the type of <code>lazyDrop</code> is <code>LazyDropWhileSequence&lt;LazyFilterSequence&lt;LazyMapSequence&lt;[Int], Int>>></code>!</p>
-<p>Creating a method that returns the base <code>Sequence</code> protocol will prevent that method's user from using the full type's capabilities, but it would also be crazy to create a method that returns this ultra specific generic type -- the user likely doesn't care which inner helper types are composing this object. With opaque return types, you can safely return it as a normal <code>Sequence</code> type while still keeping the original type's capabilities.</p>
+<p>The type of <b>lazyMap</b> is <b>LazyMapSequence&lt;[Int], Int></b>, the type of <b>lazyFilter</b> is <b>LazyFilterSequence&lt;LazyMapSequence&lt;[Int], Int>></b>, and the type of <b>lazyDrop</b> is <b>LazyDropWhileSequence&lt;LazyFilterSequence&lt;LazyMapSequence&lt;[Int], Int>>></b>!</p>
+<p>Creating a method that returns the base <b>Sequence</b> protocol will prevent that method's user from using the full type's capabilities, but it would also be crazy to create a method that returns this ultra specific generic type -- the user likely doesn't care which inner helper types are composing this object. With opaque return types, you can safely return it as a normal <b>Sequence</b> type while still keeping the original type's capabilities.</p>
 <pre>
 <code>func getLazyDrop() -> some Sequence {</code>
 <code>    let lazyMap = [1,2,3].lazy.map { $0 * 2 }</code>
@@ -130,7 +130,7 @@ June 10, 2019
 <code>    return lazyDrop</code>
 <code>}</code>
 </pre>
-<p>This is why SwiftUI screens return <code>some View</code> — you need a concrete object for you to be able to compare, process and position them on the screen, but in most cases, it doesn't matter <b>what</b> the View really is, we just need to know that it is one. In the end, this is a tool meant to make your coding life easier.</p>
+<p>This is why SwiftUI screens return <b>some View</b> — you need a concrete object for you to be able to compare, process and position them on the screen, but in most cases, it doesn't matter <b>what</b> the View really is, we just need to know that it is one. In the end, this is a tool meant to make your coding life easier.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="https://developer.apple.com/videos/play/wwdc2019/402/">WWDC 2019: What's new in Swift</a><br>

@@ -17,19 +17,19 @@
 <div class="post-info"> 
 May 22, 2019
 </div>
-<p>Foundation's <code>NSAutoreleasePool</code> type, later abstracted to the <code>@autoreleasepool</code> block, is a very old concept in iOS development. During the Obj-C era of iOS, usage of this type was important to prevent your app's memory from blowing up in specific cases. As ARC and Swift came around and evolved, very few people still have to manually play around with memory, making seeing it become a rare occurrence.</p>
-<p>Having developed tools that need to allocate enourmous amounts of memory, I asked myself if there's still a case where <code>@autoreleasepool</code> is useful in Swift 5. Here are the answers.</p>
-<h2>What is <code>@autoreleasepool</code>? (Objective-C)</h2>
-<p>In the pre-ARC Obj-C days of manual memory management, <code>retain()</code> and <code>release()</code> had to be used to control the memory flow of an iOS app. As iOS's memory management works based on the retain count of an object, users could use these methods to signal how many times an object is being referenced so it can be safely dealloced if this value ever reaches zero.</p>
-<p>However, consider the following situation where we have a <code>getCoolLabel</code> method that someone can use to get a really cool label:</p>
+<p>Foundation's <b>NSAutoreleasePool</b> type, later abstracted to the <b>@autoreleasepool</b> block, is a very old concept in iOS development. During the Obj-C era of iOS, usage of this type was important to prevent your app's memory from blowing up in specific cases. As ARC and Swift came around and evolved, very few people still have to manually play around with memory, making seeing it become a rare occurrence.</p>
+<p>Having developed tools that need to allocate enourmous amounts of memory, I asked myself if there's still a case where <b>@autoreleasepool</b> is useful in Swift 5. Here are the answers.</p>
+<h2>What is <b>@autoreleasepool</b>? (Objective-C)</h2>
+<p>In the pre-ARC Obj-C days of manual memory management, <b>retain()</b> and <b>release()</b> had to be used to control the memory flow of an iOS app. As iOS's memory management works based on the retain count of an object, users could use these methods to signal how many times an object is being referenced so it can be safely dealloced if this value ever reaches zero.</p>
+<p>However, consider the following situation where we have a <b>getCoolLabel</b> method that someone can use to get a really cool label:</p>
 <pre>
 <code>-(NSString *)getCoolLabel {</code>
 <code>    NSString *label = [[NSString alloc] initWithString:@"SwiftRocks"];</code>
 <code>    return label;</code>
 <code>}</code>
 </pre>
-<p><code>NSString alloc</code> automatically calls <code>retain()</code> to make sure <code>label</code> is able to exist (retain count of 1), and the label is then returned to someone else that wants to reference it, retaining it again (retain count 2) until nobody uses it anymore.</p>
-<p>But there's a huge problem here. After the stack that called <code>getCoolLabel</code> calls <code>release()</code> to signal that it doesn't need it anymore, the retain count won't be 0, but 1. The internal <code>NSString *label</code> that was created to hold is <b>also</b> retaining it, and it needs to be released as well if we want the NSString itself to dealloc. The thing is, as <code>label</code> is unreachable outside of this method, there's no way we can release it:</p>
+<p><b>NSString alloc</b> automatically calls <b>retain()</b> to make sure <b>label</b> is able to exist (retain count of 1), and the label is then returned to someone else that wants to reference it, retaining it again (retain count 2) until nobody uses it anymore.</p>
+<p>But there's a huge problem here. After the stack that called <b>getCoolLabel</b> calls <b>release()</b> to signal that it doesn't need it anymore, the retain count won't be 0, but 1. The internal <b>NSString *label</b> that was created to hold is <b>also</b> retaining it, and it needs to be released as well if we want the NSString itself to dealloc. The thing is, as <b>label</b> is unreachable outside of this method, there's no way we can release it:</p>
 <pre>
 <code>-(NSString *)getCoolLabel {</code>
 <code>    NSString *label = [[NSString alloc] initWithString:@"SwiftRocks"];</code>
@@ -38,15 +38,15 @@ May 22, 2019
 <code>    [label release]; // Oopsie, nope!</code>
 <code>}</code>
 </pre>
-<p>If <code>release()</code> is called before <code>return</code>, the NSString will dealloc before it can be used which will crash the app, and calling after <code>return</code> means it will never be executed, causing a memory leak.</p>
-<p>The solution for this edge case is to use a neat method called <code>autorelease()</code>:</p>
+<p>If <b>release()</b> is called before <b>return</b>, the NSString will dealloc before it can be used which will crash the app, and calling after <b>return</b> means it will never be executed, causing a memory leak.</p>
+<p>The solution for this edge case is to use a neat method called <b>autorelease()</b>:</p>
 <pre>
 <code>-(NSString *)getCoolLabel {</code>
 <code>    NSString *label = [[NSString alloc] initWithString:@"SwiftRocks"];</code>
 <code>    return [label autorelease];</code>
 <code>}</code>
 </pre>
-<p>Instead of instantly reducing the retain count of an object, <code>autorelease()</code> adds the object to a pool of objects that need to be released <b>sometime in the future, but not now.</b> By default, the pool will release these objects at the end of the run loop of the thread being executed, which is more than enough time to cover all usages of <code>getCoolLabel()</code> without causing memory leaks. Great, right?</p>
+<p>Instead of instantly reducing the retain count of an object, <b>autorelease()</b> adds the object to a pool of objects that need to be released <b>sometime in the future, but not now.</b> By default, the pool will release these objects at the end of the run loop of the thread being executed, which is more than enough time to cover all usages of <b>getCoolLabel()</b> without causing memory leaks. Great, right?</p>
 <p>Well, kinda. This will indeed solve your problem in 99% of the times, but consider this:</p>
 <pre>
 <code>-(void)emojifyAllFiles {</code>
@@ -58,12 +58,12 @@ May 22, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Assuming that <code>getFileContents</code> and <code>emojified</code> return autoreleased instances, the app will be holding <b>two million</b> instances of NSStrings <b>at once</b> even though the individual properties could be safely released after their respective loops!</p>
+<p>Assuming that <b>getFileContents</b> and <b>emojified</b> return autoreleased instances, the app will be holding <b>two million</b> instances of NSStrings <b>at once</b> even though the individual properties could be safely released after their respective loops!</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/ztWib4b.png" alt="">                                    
 </div>
-<p>Because <code>autorelease</code> defers the release of these objects, they will only be released after the run loop ends -- which is way after the execution of <code>emojifyAllFiles</code>. If the contents of these files are large, this would cause serious issues if not crash the app entirely.</p>
-<p>The solution to prevent this is the <code>@autoreleasepool</code> block; when used, every autoreleased property defined inside of it will be released <b>exactly at the end of block</b>:</p>
+<p>Because <b>autorelease</b> defers the release of these objects, they will only be released after the run loop ends -- which is way after the execution of <b>emojifyAllFiles</b>. If the contents of these files are large, this would cause serious issues if not crash the app entirely.</p>
+<p>The solution to prevent this is the <b>@autoreleasepool</b> block; when used, every autoreleased property defined inside of it will be released <b>exactly at the end of block</b>:</p>
 <pre>
 <code>-(void)emojifyAllFiles {</code>
 <code>    int numberOfFiles = 1000000;</code>
@@ -76,11 +76,11 @@ May 22, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Instead of waiting until the end of the thread's run loop, the two NSStrings now receive a <code>release</code> message <b>right after</b> <code>writeContents</code> is called, keeping the memory usage stable.</p>
+<p>Instead of waiting until the end of the thread's run loop, the two NSStrings now receive a <b>release</b> message <b>right after</b> <b>writeContents</b> is called, keeping the memory usage stable.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/RoLTwYW.png" alt="">                                    
 </div>
-<p>In fact, "releasing after the thread's run loop" isn't compiler magic, this is simply because the threads themselves are surrounded by <code>@autoreleasepools</code>! You can see this partially in the main.m of any Obj-C project.</p>
+<p>In fact, "releasing after the thread's run loop" isn't compiler magic, this is simply because the threads themselves are surrounded by <b>@autoreleasepools</b>! You can see this partially in the main.m of any Obj-C project.</p>
 <pre>
 <code>int main(int argc, char * argv[]) {</code>
 <code>    @autoreleasepool {</code>
@@ -91,7 +91,7 @@ May 22, 2019
 <p>What about Swift though?</p>
 <h2>Is @autoreleasepool needed in ARC-era Swift?</h2>
 <p>The answer is <b>it depends.</b></p>
-<p>In theory, yes, as the problem shown still exists since <code>autorelease</code> is still a thing, but these problems are harder to come by. The ARC optimizations for Swift evolved a lot in the past few years, and as far as I tested it seems that ARC for Swift is now smart enough to simply never call <code>autorelease</code>, editing your code so that objects call <code>release</code> multiple times instead. The language itself doesn't even appear to have a definition for <code>autorelease</code> outside of the Obj-C bridging -- the one we can use in Swift is in fact the one from Obj-C. This means that for <b>pure Swift objects</b>, <code>@autoreleasepool</code> appears to be useless as nothing is never going to be <code>autoreleased</code>. The following code stays at a stable memory level even though it's looping millions of times.</p>
+<p>In theory, yes, as the problem shown still exists since <b>autorelease</b> is still a thing, but these problems are harder to come by. The ARC optimizations for Swift evolved a lot in the past few years, and as far as I tested it seems that ARC for Swift is now smart enough to simply never call <b>autorelease</b>, editing your code so that objects call <b>release</b> multiple times instead. The language itself doesn't even appear to have a definition for <b>autorelease</b> outside of the Obj-C bridging -- the one we can use in Swift is in fact the one from Obj-C. This means that for <b>pure Swift objects</b>, <b>@autoreleasepool</b> appears to be useless as nothing is never going to be <b>autoreleased</b>. The following code stays at a stable memory level even though it's looping millions of times.</p>
 <pre>
 <code>for _ in 0...9999999 {</code>
 <code>    let obj = getGiantSwiftClass()</code>
@@ -110,7 +110,7 @@ May 22, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Even though we're in Swift, this will result in the same absurd memory spike shown in the Obj-C example! This is because the <code>Data</code> init is a bridge to the original Obj-C <code>[NSData dataWithContentsOfURL]</code> -- which unfortunately still calls <code>autorelease</code> somewhere inside of it. Just like in Obj-C, you can solve this with the Swift version of <code>@autoreleasepool</code>; <code>autoreleasepool</code> without the @:</p>
+<p>Even though we're in Swift, this will result in the same absurd memory spike shown in the Obj-C example! This is because the <b>Data</b> init is a bridge to the original Obj-C <b>[NSData dataWithContentsOfURL]</b> -- which unfortunately still calls <b>autorelease</b> somewhere inside of it. Just like in Obj-C, you can solve this with the Swift version of <b>@autoreleasepool</b>; <b>autoreleasepool</b> without the @:</p>
 <pre>
 <code>autoreleasepool {</code>
 <code>    let url = URL(fileURLWithPath: file)</code>
@@ -119,10 +119,10 @@ May 22, 2019
 </pre>
 <p>The memory usage will now again be at a low, stable level.</p>
 <h2>How to know if a legacy UIKit/Foundation init/method returned an autoreleased instance?</h2>
-<p>Because these frameworks are closed source at Apple, there's no way to look their source code to see where <code>autorelease</code> is used.</p>
-<p>I tried many ways to automate this inside Swift with no success. My attempts included expanding <code>NSData</code> to contain an associated object to a dummy Swift class, but ARC was still smart enough to deinit these objects right after their loops even though the Data object is technically still alive.</p>
-<p>I also tried to create a <code>weak</code> reference to the <code>Data</code> instance hoping that it would be still alive after its loop, but it was too set to <code>nil</code>. This makes me think that it's possible that the <code>Data</code> object is indeed deiniting after the loop and what's autoreleasing in that init is something else entirely, but there's way to confirm this without looking the source code; which we unfortunately can't. I believe that there must be an internal property in <code>NSAutoreleasePool</code> or <code>NSThread</code> that you can inspect autoreleased properties, but for now the only way I found really is to manually look the Allocations instrument.</p>
+<p>Because these frameworks are closed source at Apple, there's no way to look their source code to see where <b>autorelease</b> is used.</p>
+<p>I tried many ways to automate this inside Swift with no success. My attempts included expanding <b>NSData</b> to contain an associated object to a dummy Swift class, but ARC was still smart enough to deinit these objects right after their loops even though the Data object is technically still alive.</p>
+<p>I also tried to create a <b>weak</b> reference to the <b>Data</b> instance hoping that it would be still alive after its loop, but it was too set to <b>nil</b>. This makes me think that it's possible that the <b>Data</b> object is indeed deiniting after the loop and what's autoreleasing in that init is something else entirely, but there's way to confirm this without looking the source code; which we unfortunately can't. I believe that there must be an internal property in <b>NSAutoreleasePool</b> or <b>NSThread</b> that you can inspect autoreleased properties, but for now the only way I found really is to manually look the Allocations instrument.</p>
 <h2>Conclusion</h2>
-<p>To put it short, <code>autoreleasepool</code> is still useful in iOS/Swift development as there are still legacy Obj-C classes in UIKit and Foundation that call <code>autorelease</code>, but you likely don't need to worry about it when dealing with Swift classes due to ARC's optimizations.</p>
+<p>To put it short, <b>autoreleasepool</b> is still useful in iOS/Swift development as there are still legacy Obj-C classes in UIKit and Foundation that call <b>autorelease</b>, but you likely don't need to worry about it when dealing with Swift classes due to ARC's optimizations.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 </div>

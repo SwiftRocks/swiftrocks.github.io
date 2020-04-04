@@ -17,7 +17,7 @@
           <div class="post-info"> 
           August 27, 2018
           </div> 
-          <p>Usage of high-order functions like <code>map</code> and <code>filter</code> are very common in Swift projects, as they are simple algorithms that allow you to convert extensive ideas into simple one-liners. Unfortunately, they don't solve every issue - at least not in their default implementations. High-order functions are <i>eager</i>: they use the closure immediately and return a new array, regardless if you need an early return or only going to use specific elements. When performance is important, you might be cornered into writing specialized helper methods to avoid the <i>eager</i> nature of high-orders:</p>
+          <p>Usage of high-order functions like <b>map</b> and <b>filter</b> are very common in Swift projects, as they are simple algorithms that allow you to convert extensive ideas into simple one-liners. Unfortunately, they don't solve every issue - at least not in their default implementations. High-order functions are <i>eager</i>: they use the closure immediately and return a new array, regardless if you need an early return or only going to use specific elements. When performance is important, you might be cornered into writing specialized helper methods to avoid the <i>eager</i> nature of high-orders:</p>
 <pre>
 <code>let addresses = getFirstThreeAddresses(withIdentifier: "HOME")</code>
 <code>func getFirstThreeAddresses(withIdentifier identifier: String) -> [Address] {</code>
@@ -32,15 +32,15 @@
 <code>    return addresses</code>
 <code>}</code>
 </pre>
-<p>Fortunately, Swift has a way to use high-order functions while still keeping the improved performance of the helper methods - Lazy versions of the Swift Standard Library <code>Sequences</code> and <code>Collections</code> can be accessed through the <code>lazy</code> property.</p>
-<p>These lazy variations work just like their regular counterparts, but with one twist: they have custom implementations of methods like <code>map</code> and <code>filter</code> in order to make them work <b>lazily</b> - meaning that the actual computations will only happen <b>where and when you need them.</b></p>
+<p>Fortunately, Swift has a way to use high-order functions while still keeping the improved performance of the helper methods - Lazy versions of the Swift Standard Library <b>Sequences</b> and <b>Collections</b> can be accessed through the <b>lazy</b> property.</p>
+<p>These lazy variations work just like their regular counterparts, but with one twist: they have custom implementations of methods like <b>map</b> and <b>filter</b> in order to make them work <b>lazily</b> - meaning that the actual computations will only happen <b>where and when you need them.</b></p>
 <pre>
 <code>let allNumbers = Array(1...1000)</code>
 <code>let normalMap = allNumbers.map { $0 * 2 } // The entire Sequence will be mapped, regardless of what you need to do.</code>
 <code>let lazyMap = allNumbers.lazy.map { $0 * 2 } // Nothing happens here.</code>
 <code>print(lazyMap[0]) // Prints 2, but everything else is still untouched!</code>
 </pre>
-<p>While somewhat scary at first, they allow you to reduce most <code>for</code> loops with early returns into one-liners. For example, here's how it compares to other methods when used to find the first element that fulfills a predicate:</p>
+<p>While somewhat scary at first, they allow you to reduce most <b>for</b> loops with early returns into one-liners. For example, here's how it compares to other methods when used to find the first element that fulfills a predicate:</p>
 <pre>
 <code>// allAddresses in an [Address] with 10000 elements, and a "HOME" address is placed at the beginning</code>
 <code>let address = allAddresses.filter { $0.identifier == "HOME" }.first // ~0.15 seconds</code>
@@ -75,8 +75,8 @@
 <code>    offerViews[currentOffer].display(atViewController: self)</code>
 <code>}</code>
 </pre>
-<p>While this solution works, it has a major flaw: I am eagerly mapping the entire offer json into <code>OfferViews</code>, even though there's no guarantee that the user will see any of these offers. This isn't really an issue if <code>offerJson</code> is a small array, but with large data sets, pulling all the offers from a database can quickly become a problem.</p>
-<p>You can map only the necessary <code>OfferViews</code> by moving the parsing logic to <code>displayNextOffer()</code>, but your code quality might become harder to understand since you now have to keep the raw offer data around:</p>
+<p>While this solution works, it has a major flaw: I am eagerly mapping the entire offer json into <b>OfferViews</b>, even though there's no guarantee that the user will see any of these offers. This isn't really an issue if <b>offerJson</b> is a small array, but with large data sets, pulling all the offers from a database can quickly become a problem.</p>
+<p>You can map only the necessary <b>OfferViews</b> by moving the parsing logic to <b>displayNextOffer()</b>, but your code quality might become harder to understand since you now have to keep the raw offer data around:</p>
 <pre>
 <code>let offersJson: [[String: Any]] = //</code>
 <code>var currentOffer = -1</code>
@@ -93,7 +93,7 @@
 <code>    offerView.display(atViewController: self)</code>
 <code>}</code>
 </pre>
-<p>By using <code>lazy</code>, the current <code>offerView</code> will only be mapped when the array position is accessed in <code>displayNextOffer()</code>, keeping the reading quality of the first implementation with the performance of the second one!</p>
+<p>By using <b>lazy</b>, the current <b>offerView</b> will only be mapped when the array position is accessed in <b>displayNextOffer()</b>, keeping the reading quality of the first implementation with the performance of the second one!</p>
 <pre>
 <code>let offerViews = offersJson.lazy.compactMap { database.load(offer: $0) }.map(OfferView.init) // Nothing happens here!</code>
 <code>var currentOffer = -1</code>
@@ -106,10 +106,10 @@
 <code>    offerViews[currentOffer].display(atViewController: self) // Mapping only happens here, for the desired element only.</code>
 <code>}</code>
 </pre>
-<p>Note, however, that Lazy Sequences have no caching. This means that if <code>offerViews[0]</code> is accessed twice, <b>the entire mapping process will also happen twice.</b> If you need to access elements more than once, move them to a regular array.</p>
+<p>Note, however, that Lazy Sequences have no caching. This means that if <b>offerViews[0]</b> is accessed twice, <b>the entire mapping process will also happen twice.</b> If you need to access elements more than once, move them to a regular array.</p>
 <h2>Why this works?</h2>
 <p>While they look like magic when used, the internal implementation of Lazy Sequences aren't as complicated as it looks.</p>
-<p>If we print the type of our second example, we can see that even though our lazily mapped <code>Collection</code> works like a regular <code>Collection</code>, we are dealing with different types:</p>
+<p>If we print the type of our second example, we can see that even though our lazily mapped <b>Collection</b> works like a regular <b>Collection</b>, we are dealing with different types:</p>
 <pre>
 <code>let lazyMap = Array(1...1000).lazy.map { $0 * 2 }</code>
 <code>print(lazyMap) // LazyMapCollection&lt;Array&lt;Int>, Int></code>
@@ -118,7 +118,7 @@
 <code>//In this case, the first generic argument is the inner Collection of the lazy operation, while the second one is the transformation function of the map operation.</code>
 </pre>
 <p>Looking at Swift's source code, we can see that the non-eagerness comes from the fact that these methods don't actually do anything besides return a new type:</p>
-<p>(I'll be using <code>LazySequence</code> code examples instead of <code>LazyCollections</code> ones because they are much simpler in nature. If you don't know how regular <code>Sequences</code> work, <a href="https://developer.apple.com/documentation/swift/sequence">take a look at this Apple page.</a>)</p>
+<p>(I'll be using <b>LazySequence</b> code examples instead of <b>LazyCollections</b> ones because they are much simpler in nature. If you don't know how regular <b>Sequences</b> work, <a href="https://developer.apple.com/documentation/swift/sequence">take a look at this Apple page.</a>)</p>
 <pre>
 <code>extension LazySequenceProtocol {</code>
 <code>    /// Returns a `LazyMapSequence` over this `Sequence`.  The elements of</code>
@@ -130,7 +130,7 @@
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>The magic comes from the internal implementation of these specialized types. If we take a look at <code>LazyMapSequence</code> and <code>LazyFilterSequence</code>, for example, we can see that they are nothing more than regular <code>Sequences</code> that stores an operation and applies their counterpart eager functions only when iterated:</p>
+<p>The magic comes from the internal implementation of these specialized types. If we take a look at <b>LazyMapSequence</b> and <b>LazyFilterSequence</b>, for example, we can see that they are nothing more than regular <b>Sequences</b> that stores an operation and applies their counterpart eager functions only when iterated:</p>
 <pre>
 <code>// _base is the original Sequence</code>
 <code>extension LazyMapSequence.Iterator: IteratorProtocol, Sequence {</code>
@@ -154,7 +154,7 @@
 <code>}</code>
 </pre>
 <h2>LazyCollection Performance Traps</h2>
-<p>If would be nice if the article ended here, but it's important to know that Lazy Sequences have flaws - specifically when the underlying type is a <code>Collection</code>.</p>
+<p>If would be nice if the article ended here, but it's important to know that Lazy Sequences have flaws - specifically when the underlying type is a <b>Collection</b>.</p>
 <p>In the opening example, our method gets the first three addresses that fulfill a certain predicate. By chaining lazy operations together, this can also be reduced to an one-liner:</p>
 <pre>
 <code>let homeAddresses = allAddresses.lazy.filter { $0.identifier == "HOME" }.prefix(3)</code>
@@ -164,8 +164,8 @@
 <code>allAddresses.filter { $0.identifier == "HOME" }.prefix(3) // ~0.11 secs</code>
 <code>Array(allAddresses.lazy.filter { $0.identifier == "HOME" }.prefix(3)) // ~0.22 secs</code>
 </pre>
-<p>Even though the <code>lazy</code> version stops as soon as the three addresses are found, it performs twice as bad as the eager one!</p>
-<p>The unfortunate reason comes from the subtle differences between <code>Sequences</code> and <code>Collections</code>. While prefixing a <code>Sequence</code> is as simple as moving the desired elements to a separate <code>Array</code>, slicing operations on <code>Collections</code> require knowing the <code>end</code> index of the desired slice:</p>
+<p>Even though the <b>lazy</b> version stops as soon as the three addresses are found, it performs twice as bad as the eager one!</p>
+<p>The unfortunate reason comes from the subtle differences between <b>Sequences</b> and <b>Collections</b>. While prefixing a <b>Sequence</b> is as simple as moving the desired elements to a separate <b>Array</b>, slicing operations on <b>Collections</b> require knowing the <b>end</b> index of the desired slice:</p>
 <pre>
 <code>public func prefix(_ maxLength: Int) -> SubSequence {</code>
 <code>    _precondition(maxLength >= 0, "Can't take a prefix of negative length from a collection")</code>
@@ -179,7 +179,7 @@
 <code>    return Slice(base: self, bounds: bounds)</code>
 <code>}</code>
 </pre>
-<p>The problem is that in <code>Collection</code> lingo, an <code>endIndex</code> isn't the index of the last element, but the index <b>after</b> the last element (<code>index(startIndex, offsetBy: maxLength)</code>). For our lazy <code>filter</code>, this means that in order to slice the first three home addresses, we must find <b>four</b> of them - which may not even exist.</p>
+<p>The problem is that in <b>Collection</b> lingo, an <b>endIndex</b> isn't the index of the last element, but the index <b>after</b> the last element (<b>index(startIndex, offsetBy: maxLength)</b>). For our lazy <b>filter</b>, this means that in order to slice the first three home addresses, we must find <b>four</b> of them - which may not even exist.</p>
 <p>The documentation of <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/PrefixWhile.swift#L106">certain lazy types</a> states this issue:</p>
 <pre>
 <code>/// - Note: The performance of accessing `endIndex`, `last`, any methods that</code>
@@ -190,15 +190,15 @@
 <code>///   the documented complexity.</code>
 <code>public struct LazyPrefixWhileCollection&lt;Base: Collection> {</code>
 </pre>
-<p>To make it worse, since a <code>Slice</code> is a mere window to the original <code>Collection</code>, the casting to <code>Array</code> will invoke functions that call the lazy filtered <code>Collection</code>'s <code>count</code> properties - but since the <code>lazy.filter(_:)</code> operation doesn't conform to <code>RandomAccessCollection</code>, <code>count</code> can only be found by iterating the entire <code>Collection</code> - again.</p>
-<p>Due to the Lazy Sequence's lack of caching, this results in the entire filtering/slicing process happening <b>again</b>. Thus, if the fourth element doesn't exist or is too far from the third one, the <code>lazy</code> version will perform twice as worse as the original one.</p>
-<p>The good news is that this can be avoided - if you're not sure your lazy operation will run in reasonable time, you can guarantee it by treating the result as a <code>Sequence</code>. This has the downside of losing the reverse-iteration capabilities of a <code>BidirectionalCollection</code>, but guarantees that forward operations will be fast again.</p>
+<p>To make it worse, since a <b>Slice</b> is a mere window to the original <b>Collection</b>, the casting to <b>Array</b> will invoke functions that call the lazy filtered <b>Collection</b>'s <b>count</b> properties - but since the <b>lazy.filter(_:)</b> operation doesn't conform to <b>RandomAccessCollection</b>, <b>count</b> can only be found by iterating the entire <b>Collection</b> - again.</p>
+<p>Due to the Lazy Sequence's lack of caching, this results in the entire filtering/slicing process happening <b>again</b>. Thus, if the fourth element doesn't exist or is too far from the third one, the <b>lazy</b> version will perform twice as worse as the original one.</p>
+<p>The good news is that this can be avoided - if you're not sure your lazy operation will run in reasonable time, you can guarantee it by treating the result as a <b>Sequence</b>. This has the downside of losing the reverse-iteration capabilities of a <b>BidirectionalCollection</b>, but guarantees that forward operations will be fast again.</p>
 <pre>
 <code>let sequence: AnySequence = allAddresses.lazy.filter { $0.identifier == "HOME" }.prefix(3)</code>
 <code>let result = Array(sequence) // ~0.004 secs!</code>
 </pre>
 <h2>Conclusion</h2>
-<p>Usage of <code>lazy</code> objects can allow you to write high-performance complicated things very quickly - at the cost of requiring some understanding of Swift internals to prevent major issues. Like all features, they have great advantages with equal downsides, and in this case knowledge of the main differences between <code>Sequences</code> and <code>Collections</code> is required to extract the best of them. Once mastered, mapping specific elements becomes very simple and intuitive.</p>
+<p>Usage of <b>lazy</b> objects can allow you to write high-performance complicated things very quickly - at the cost of requiring some understanding of Swift internals to prevent major issues. Like all features, they have great advantages with equal downsides, and in this case knowledge of the main differences between <b>Sequences</b> and <b>Collections</b> is required to extract the best of them. Once mastered, mapping specific elements becomes very simple and intuitive.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/Filter.swift">Filter.swift</a><br>

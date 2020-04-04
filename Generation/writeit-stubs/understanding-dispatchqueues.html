@@ -46,7 +46,7 @@
           <p>A CPU simply cannot do two things at the same time. Things are slightly different for CPUs with multiple cores, but for simplicity, let's assume we only have one CPU: What happens is that it executes something in Safari, then something in Spotify, then something in iOS, then something in Safari again, and so on. The OS will save whatever the CPU was doing for a specific process in memory (in the form of registers and pointers), decide what will be the next process to run, retrieve what it was doing for that process, have the CPU run it for a while, and repeat. This is called a <b>context switch</b> and it happens very, very quickly, giving the impression it can actually run several things at once. (In CPUs with multiple cores the work can be divided between the cores, actually doing several things at once. However, the same principles apply when all the cores are in use.)</p>
           <p>The exact way the OS decides what should be the next process to run is rather complex (read the book at the end of the article if you're interested), but what you should know is that it's possible to dictate manually what's the "priority" of something in our app. (Are iOS's "Quality of Services" starting to making sense now?)</p>
           <h2>What's a Thread?</h2>
-          <p>Instead of the classic concept of a single thread process that starts at a <code>main()</code> function and ends at some <code>exit()</code> a few lines below, a multi-threaded program has more than one point of execution (each of which is being fetched and executed from). Perhaps another way to think of this is that each thread is very much like a separate process, except for one difference: they share the same address space and thus can access the same data.</p>
+          <p>Instead of the classic concept of a single thread process that starts at a <b>main()</b> function and ends at some <b>exit()</b> a few lines below, a multi-threaded program has more than one point of execution (each of which is being fetched and executed from). Perhaps another way to think of this is that each thread is very much like a separate process, except for one difference: they share the same address space and thus can access the same data.</p>
           <pre>        Address space of a multi-threaded process
 |- - - - - - - - - - - - - - - - - - - - - - - - - - |
 |                    Instructions                    |
@@ -63,7 +63,7 @@
 |- - - - - - - - - - - - - - - - - - - - - - - - - - -</pre>
           <p>Just like processes, a CPU cannot run two threads at the same time - they are instead targeted by <b>context switches</b> just like processes. The CPU runs something in Safari's Thread 1 (which is doing some UI updates), then something in Spotify's Thread 3 (which is downloading a song), then something in Safari's Thread 2 (which is pinging a DNS), and so on.</p>
           <h2>iOS: The Main Thread</h2>
-          <p>Your iOS app has several threads. The <b>Main Thread</b> is simply the intial starting point of execution in your app (starting for you at <code>didFinishLaunchingWithOptions</code>). The Main Thread executes a loop every frame (a <code>RunLoop</code>) that draws the current screen if needed, handles UI events such as touches and executes the contents of the <code>DispatchQueue.main</code>. It keeps doing this until the app is terminated. It has extremely high priority - pretty much anything on it gets executed immediatly. That's why you need to route UI code to the Main Thread - by execute some UI-changing code outside of it, your code might start running properly only to suddenly get <b>context switched</b> for several miliseconds because something more important arrived to the OS (like a notification). Your UI updates will then be delayed, giving a bad experience to your users.</p>
+          <p>Your iOS app has several threads. The <b>Main Thread</b> is simply the intial starting point of execution in your app (starting for you at <b>didFinishLaunchingWithOptions</b>). The Main Thread executes a loop every frame (a <b>RunLoop</b>) that draws the current screen if needed, handles UI events such as touches and executes the contents of the <b>DispatchQueue.main</b>. It keeps doing this until the app is terminated. It has extremely high priority - pretty much anything on it gets executed immediatly. That's why you need to route UI code to the Main Thread - by execute some UI-changing code outside of it, your code might start running properly only to suddenly get <b>context switched</b> for several miliseconds because something more important arrived to the OS (like a notification). Your UI updates will then be delayed, giving a bad experience to your users.</p>
           <p>However, you can't simply execute <b>everything</b> on the Main Thread. Since this thread deals with everything related to screen draws / UI updates, if you run a huge task on it, it won't be able to do anything else until it ends. That's why we need several threads (points of execution) to begin with.</p>
 <pre class = "language-swift"><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
     //Button actions are in the Main Thread.
@@ -78,10 +78,10 @@
         //This needs to be run in a different thread.
     }
 }
-</code></pre>
+</b></pre>
           <h2>iOS: Background Threads and DispatchQueues</h2>
-          <p>A background thread is anything that is not the Main Thread. They can run alongside the Main Thread (like they were a different process, but remember the definition of a thread!), dealing with complex tasks without interferring with the Main Thread's UI updates. In iOS, the safest way of spawning a background thread is to use <code>DispatchQueues</code>. However, be aware that DispatchQueues are not threads - they are merely queues of closures that will <b>eventually</b> be forwarded to a relevant thread. A <code>DispatchQueue</code> will automatically create and reuse a pool of threads as it finds necessary, abstracting from you the hassle of spawning threads manually and dealing with potential issues of doing so.</p> 
-          <p>The Main Thread will <b>serially</b> run the contents of <code>DispatchQueue.main</code> (that is, action 2 only happens after action 1 ends), while the contents of <code>DispatchQueue.global(qos:)</code> will <b>concurrently</b> (everything at the same time) run into background thread(s) (if there are several actions) with priority equal to the priority of the selected QoS. If you'd like custom behavior (such as a queue that forwards closures to a background thread, but serially), you can create your own <code>DispatchQueue</code>.</p>
+          <p>A background thread is anything that is not the Main Thread. They can run alongside the Main Thread (like they were a different process, but remember the definition of a thread!), dealing with complex tasks without interferring with the Main Thread's UI updates. In iOS, the safest way of spawning a background thread is to use <b>DispatchQueues</b>. However, be aware that DispatchQueues are not threads - they are merely queues of closures that will <b>eventually</b> be forwarded to a relevant thread. A <b>DispatchQueue</b> will automatically create and reuse a pool of threads as it finds necessary, abstracting from you the hassle of spawning threads manually and dealing with potential issues of doing so.</p> 
+          <p>The Main Thread will <b>serially</b> run the contents of <b>DispatchQueue.main</b> (that is, action 2 only happens after action 1 ends), while the contents of <b>DispatchQueue.global(qos:)</b> will <b>concurrently</b> (everything at the same time) run into background thread(s) (if there are several actions) with priority equal to the priority of the selected QoS. If you'd like custom behavior (such as a queue that forwards closures to a background thread, but serially), you can create your own <b>DispatchQueue</b>.</p>
           <h2>Background Queue Priorities (QoS)</h2>
           <p>By assigning a Quality of Service to an action, you indicate its importance, and the system prioritizes it and schedules it accordingly.</p>
       <p>Because higher priority work is performed more quickly and with more resources than lower priority work, it typically requires more energy than lower priority work. Accurately specifying appropriate QoS classes for the work your app performs ensures that your app is responsive as well as energy efficient.</p>
@@ -100,7 +100,7 @@
         self.timeIntensiveTask()
     }
 }
-</code></pre>
+</b></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/5h5izfu.png" alt=""> 
           </div>
@@ -111,7 +111,7 @@
         self.timeIntensiveTask()
     }
 }
-</code></pre>
+</b></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/13G62Yw.png" alt=""> 
           </div>
@@ -122,7 +122,7 @@
         self.timeIntensiveTask()
     }
 }
-</code></pre>
+</b></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/jPgtDEt.png" alt=""> 
           </div>
@@ -139,7 +139,7 @@
         self.timeIntensiveTask()
     }
 }
-</code></pre>
+</b></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/MeS2Hbv.png" alt=""> 
           </div>
@@ -154,14 +154,14 @@
         self.timeIntensiveTask()
     }
 }
-</code></pre>
+</b></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/9menZsz.png" alt=""> 
           </div>
           <h2>DispatchQueue.sync vs DispatchQueue.async</h2>
-          <p>If the concept of a multi-threaded process wasn't mind-boggling enough, we need to careful with the definition of <code>.async</code> and <code>.sync</code> operations.</p>
-          <p>A common misconception is to think that <code>DispatchQueue.async</code> means executing something in background, and that's not true.</p>
-          <p>What will be the output on <code>actionOne()</code>?</p>
+          <p>If the concept of a multi-threaded process wasn't mind-boggling enough, we need to careful with the definition of <b>.async</b> and <b>.sync</b> operations.</p>
+          <p>A common misconception is to think that <b>DispatchQueue.async</b> means executing something in background, and that's not true.</p>
+          <p>What will be the output on <b>actionOne()</b>?</p>
 <pre class = "language-swift"><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
     DispatchQueue.main.async { [unowned self] in
         print("async started")
@@ -179,28 +179,28 @@ private func timeIntensiveTask() {
         counter += 1
     }
 }
-</code></pre>
+</b></pre>
 <p>The answer will always be:</p>
 <pre class = "language-swift"><code class="language-swift">sync task started
 sync task ended
 async task started
 async task ended
-</code></pre>
-     <p>If you thought the two tasks would start together, just think about the context of this method: we are dispatching a task to the Main Thread, but <code>actionOne</code> is already on the Main Thread! There's no way a thread can run two sequences of instructions at the same time, that's why we have different threads.</p> 
-     <p>The <code>async</code> task will also only execute after the <code>sync</code> task (and never before) because <code>DispatchQueue.main</code> tasks will only start executing at the end of the Main Thread's <code>RunLoop</code> - which is blocked by our sync task. If <code>actionOne</code> happened to be in a different thread or the <code>async</code> task happened to be in a different <code>DispatchQueue</code>, the tasks would start together in an order dependant to how fast the <code>async</code> task would be dispatched.</p>
-     <p>What <code>DispatchQueue.async</code> means is: <b>Make sure this task is eventually executed on thread X (main, or any other global background thread depending on what queue you are using), but I don't care about the details. I'll keep doing my stuff.</b>
-     <p>On the contrary, <code>DispatchQueue.sync</code> means is: <b>Make sure this task is eventually executed on thread X. Please warn me when you do so, because I will also block myself (the calling thread) until this task finishes running.</b>
-     <p>Given that, what do you think will be the output of the following <code>actionOne()</code>?</p>
+</b></pre>
+     <p>If you thought the two tasks would start together, just think about the context of this method: we are dispatching a task to the Main Thread, but <b>actionOne</b> is already on the Main Thread! There's no way a thread can run two sequences of instructions at the same time, that's why we have different threads.</p> 
+     <p>The <b>async</b> task will also only execute after the <b>sync</b> task (and never before) because <b>DispatchQueue.main</b> tasks will only start executing at the end of the Main Thread's <b>RunLoop</b> - which is blocked by our sync task. If <b>actionOne</b> happened to be in a different thread or the <b>async</b> task happened to be in a different <b>DispatchQueue</b>, the tasks would start together in an order dependant to how fast the <b>async</b> task would be dispatched.</p>
+     <p>What <b>DispatchQueue.async</b> means is: <b>Make sure this task is eventually executed on thread X (main, or any other global background thread depending on what queue you are using), but I don't care about the details. I'll keep doing my stuff.</b>
+     <p>On the contrary, <b>DispatchQueue.sync</b> means is: <b>Make sure this task is eventually executed on thread X. Please warn me when you do so, because I will also block myself (the calling thread) until this task finishes running.</b>
+     <p>Given that, what do you think will be the output of the following <b>actionOne()</b>?</p>
 <pre class = "language-swift"><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
     DispatchQueue.main.sync { [unowned self] in
         print("a")
     }
     print("b")
 }
-</code></pre>
-<p>A <code>sync</code> task is forwarded to the queue, and the main thread will freeze until <code>"a"</code> gets printed. The task gets sent to the Main Thread, which is frozen because it's waiting for the task to run. But the task can't run, because the thread is frozen waiting for the task to run, and on and on and on until your app decides to crash. You can't call <code>sync</code> dispatches from the thread itself, it has to come from somewhere else. Nothing will get printed here. As you most likely know, this is called a <b>deadlock</b>.</p>
+</b></pre>
+<p>A <b>sync</b> task is forwarded to the queue, and the main thread will freeze until <b>"a"</b> gets printed. The task gets sent to the Main Thread, which is frozen because it's waiting for the task to run. But the task can't run, because the thread is frozen waiting for the task to run, and on and on and on until your app decides to crash. You can't call <b>sync</b> dispatches from the thread itself, it has to come from somewhere else. Nothing will get printed here. As you most likely know, this is called a <b>deadlock</b>.</p>
 <h2>What else?</h2>
-<p>Hopefully, this is to answer the questions at the beginning of the article. Concurrency is a very wide issue, and in iOS, <code>DispatchQueues</code> are just one way to approach concurrency problems. There's still much more in the shape of <code>Atomicity</code>, <code>OperationQueues</code>, <code>Locks</code>, <code>Semaphores</code>. However, <code>DispatchQueues</code> are the most used concurrency tools in iOS, and when understood, one of the keys to writing efficient multi-threaded code.</p>
+<p>Hopefully, this is to answer the questions at the beginning of the article. Concurrency is a very wide issue, and in iOS, <b>DispatchQueues</b> are just one way to approach concurrency problems. There's still much more in the shape of <b>Atomicity</b>, <b>OperationQueues</b>, <b>Locks</b>, <b>Semaphores</b>. However, <b>DispatchQueues</b> are the most used concurrency tools in iOS, and when understood, one of the keys to writing efficient multi-threaded code.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="http://www.cs.albany.edu/~sdc/CSI500/Fal13/OSTEP/">Operating Systems: Three Easy Pieces</a><br>
