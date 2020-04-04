@@ -1,6 +1,7 @@
 body {
     font-family: -apple-system, system-ui, BlinkMacSystemFont;
     background: #ffffff !important;
+    overflow-wrap: break-word;
 }
 	
 html {
@@ -48,6 +49,7 @@ button {
 .about-fixed {
     margin-top: 24px !important;
     width: 235px;
+    max-width: 100%;
     margin: 0 auto;
 }
 
@@ -81,10 +83,11 @@ div.blog-header {
 }
 
 .blog-header-container {
-    position: relative;
-    margin-left: 15px; 
+    position: relative; 
     margin-top: 20px;
-    margin-bottom: 28px !important;
+    margin-bottom: 8px !important;
+    margin-left: -15px;
+    margin-right: -15px;
 }
 
 .header-text a {
@@ -136,6 +139,21 @@ div.blog-post {
 
 .blog-post .post-title a:hover {
     text-decoration: underline;
+}
+
+.blog-post .post-title-index a {
+    text-decoration: none;
+}
+
+.blog-post .post-title-index a:hover {
+    text-decoration: underline;
+}
+
+.blog-post .post-title-index h2 {
+    color: #000000;
+    font-size: 34px;
+    font-weight: 400;
+    margin-bottom: 5px !important;
 }
 
 .blog-post .post-image {

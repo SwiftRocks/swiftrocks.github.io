@@ -19,17 +19,17 @@ February 20, 2019
 </div>
 <p>Deeplinking is widely used to provide easy access to certain portions of an iOS app. While most of the uses for a deeplink are marketing purposes such as providing shortcuts inside an e-mail or push notification, they can also be used for communicating between different apps and pretty much anything that involves routing to different screens.</p>
 <p>iOS already allows you to add "shortcuts" to an app in the shape of 3D Touch Quick Actions, but they are very limited, hidden from the user, and let's be honest - it's one of these features that nobody remembers. You can also use Siri Extensions, but then you have to deal with Siri, and the regular Siri Shortcuts relies on the Shortcuts app, so it's not something that you can provide to your users. Wouldn't it be great if you could give your users the ability to add shortcuts to things like ordering their favorite coffee in the shape of a home icon - just like the app itself?</p>
-<div class="post-image margin-top-40 margin-bottom-40" style="width: 300px;">
+<div class="post-image margin-top-40 margin-bottom-40" style="width: 300px; max-width: 100%;">
   <img src="https://i.imgur.com/XD134oO.jpg" alt="">                                    
 </div>
 <p>Well, after reverse engineering Apple's Shortcuts app, it turns out that you can! That's exactly what it does when you add a system shortcut to the home screen, and we're going to <b>replicate it</b> in order to <b>give users the ability to add home icons that directly open a specific part of an app.</b></p>
 <p><a href="https://github.com/SwiftRocks/adding-deeplink-shortcuts-to-the-iOS-home-screen">Full project available here.</a></p>
-<div class="post-image margin-top-40 margin-bottom-40" style="width: 300px;">
+<div class="post-image margin-top-40 margin-bottom-40" style="width: 300px; max-width: 100%;">
   <img src="https://cdn-images-1.medium.com/max/1600/1*1FKWtw4MtEdALUh7rJ0gvw.gif" alt="">                                    
 </div>
 <h2>Safari, Raw Data Rendering and PWAs</h2>
 <p>If you've never added an Apple shortcut to your home screen, here's the Shortcuts app equivalent that we're going to replicate:</p>
-<div class="post-image margin-top-40 margin-bottom-40" style="width: 300px;">
+<div class="post-image margin-top-40 margin-bottom-40" style="width: 300px; max-width: 100%;">
   <img src="https://i.imgur.com/OknDMDb.jpg" alt="">                                    
 </div>
 <p>One might think that this is the result of an internal API since Apple has never shared anything in that aspect, but this is actually just a clever use of Safari's PWA features.</p>

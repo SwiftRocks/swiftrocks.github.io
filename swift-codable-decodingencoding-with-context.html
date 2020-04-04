@@ -12,13 +12,13 @@
     <meta name="author" content="Bruno Rocha">
     <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
     <meta name="description" content="The Codable protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like Unbox, Codable has the advantage of being powered by the compiler. One of my favorite features in Unbox was to give a context to the decoding operation. Let's take a look at how we can achieve the same with Codable and how I use to power a type-erased Decodable type.">
-    <meta name="title" content="Swift Codable: Decoding/Encoding With Context">
+    <meta name="title" content="Swift Codable: Decoding / Encoding With Context">
     <meta name="url" content="https://swiftrocks.com/swift-codable-decodingencoding-with-context.html">
     <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
-    <meta property="og:title" content="Swift Codable: Decoding/Encoding With Context"/>
+    <meta property="og:title" content="Swift Codable: Decoding / Encoding With Context"/>
     <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
     <meta property="og:description" content="The Codable protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like Unbox, Codable has the advantage of being powered by the compiler. One of my favorite features in Unbox was to give a context to the decoding operation. Let's take a look at how we can achieve the same with Codable and how I use to power a type-erased Decodable type."/>
     <meta property="og:type" content="website"/>
@@ -26,7 +26,7 @@
 
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockswithtext.png"/>
-    <meta name="twitter:title" content="Swift Codable: Decoding/Encoding With Context"/>
+    <meta name="twitter:title" content="Swift Codable: Decoding / Encoding With Context"/>
     <meta name="twitter:description" content="The Codable protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like Unbox, Codable has the advantage of being powered by the compiler. One of my favorite features in Unbox was to give a context to the decoding operation. Let's take a look at how we can achieve the same with Codable and how I use to power a type-erased Decodable type."/>
     <meta name="twitter:site" content="@rockbruno_"/>
     
@@ -59,23 +59,24 @@
     
   <div id="main"> 
    <div class="container"> 
-    <div class="row"> 
      <!-- Blog Header --> 
-     <div class="blog-header">
+    <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="height: 110px; margin-left: -8px; margin-right: 6px; margin-bottom: -18px;"> 
+           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
-     <a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ffffff; padding-left: 12px; padding-right: 12px; margin-top: 0px; margin-bottom: 12px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; font-weight: 500; background-color: #666666; display: inline-block; border-radius: 32px; margin-left: 46px;">1905 followers</a>
+     <div style="margin-bottom: 6px;">
+<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ffffff; padding-left: 12px; padding-right: 12px; margin-top: 0px; margin-bottom: 12px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; font-weight: 500; background-color: #666666; display: inline-block; border-radius: 32px;">1921 followers</a> <h1 style="font-size: 18px;margin: 10px;margin-left: 0px !important;margin-bottom: 10px !important; display: contents;">Learning about <b>how Swift works</b></h1>
+   </div>
    </div>
      <!-- Blog Post (Right Sidebar) Start --> 
-                 <div class="col-sm-8">
-                    <div class="col-sm-12 page-body">
+                 <div class="col-sm-8 col-xs-12">
+                    <div class="page-body">
                     	<div class="row">
 
-                            <div class="col-sm-12 content-page" id="WRITEIT_DYNAMIC_CONTENT">
-<!--WRITEIT_POST_NAME=Swift Codable: Decoding/Encoding With Context-->
+                            <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
+<!--WRITEIT_POST_NAME=Swift Codable: Decoding / Encoding With Context-->
 <!--WRITEIT_POST_HTML_NAME=swift-codable-decodingencoding-with-context.html-->
 
 <!--Add here the additional properties that you want each page to possess.-->
@@ -85,10 +86,10 @@
 
 <!--WRITEIT_POST_SHORT_DESCRIPTION=The Codable protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like Unbox, Codable has the advantage of being powered by the compiler. One of my favorite features in Unbox was to give a context to the decoding operation. Let's take a look at how we can achieve the same with Codable and how I use to power a type-erased Decodable type.-->
 
-<title>Swift Codable: Decoding/Encoding With Context</title>
+<title>Swift Codable: Decoding / Encoding With Context</title>
 <div class="col-md-12 blog-post"> 
 <div class="post-title"> 
-  <h1>Swift Codable: Decoding/Encoding With Context</h1> 
+  <h1>Swift Codable: Decoding / Encoding With Context</h1> 
 </div> 
 <div class="post-info"> 
 February 5th, 2020
@@ -246,10 +247,10 @@ February 5th, 2020
                   <!-- Blog Post (Right Sidebar) End -->
 
                  <!-- About Me (Left Sidebar) Start -->
-                 <div class="col-sm-4">
+                 <div class="col-sm-4 col-xs-12">
                    <div class="about-fixed">
                      <div class="my-pic">
-                        <img src="images/pic/my-pic-2.jpg" alt="">
+                        <img src="images/pic/my-pic-2.jpg" alt="Bruno Rocha">
                         </div>
                       
                       
