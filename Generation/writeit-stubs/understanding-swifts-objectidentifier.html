@@ -67,7 +67,7 @@ March 31st, 2020
 </pre>
 <p>As mentioned before but not shown, you can also use <b>ObjectIdentifier</b> with metatypes to give them <b>Hashable</b> and <b>Equatable</b> capabilities. This is because metatypes are treated as single global instances of an object's type, and thus hold that concept of "identity".</p>
 <pre>
-<code>let dict = [UIViewController.Type: String]()</code>
+<code>let dict = [ObjectIdentifier: String]()</code>
 <code>let metaObject = ObjectIdentifier(MyViewController.self)</code>
 <code>dict[metaObject] = "SwiftRocks!"</code>
 </pre>
