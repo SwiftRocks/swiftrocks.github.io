@@ -57,7 +57,7 @@
 </pre>
 <p>Now, to get the AST of that, I'll run <b>swiftc</b> with the <b>-dump-ast</b> argument:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<b>swiftc -dump-ast enum.swift</b>
+<code>swiftc -dump-ast enum.swift</code>
 </pre>
 <p>This returns a gigantic tree structure due to all the code generation involved in Swift, but I extracted the part relevant to the declaration of <b>allCases</b>:</p>
 <pre>
@@ -84,16 +84,16 @@
 <p>But before analyzing what this method does, I'm interested in knowing how the compiler got here in the first place.</p>
 <p>By making a fork of the Swift compiler and building it in debug mode, we're able to attach lldb to it, breakpoint this method and call <b>bt</b> to print its backtrace.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<b>lldb -- /swift-fork/build/Ninja-ReleaseAssert+swift-DebugAssert/swift-macosx-x86_64/bin/swiftc -dump-ast enum.swift</b>
+<code>lldb -- /swift-fork/build/Ninja-ReleaseAssert+swift-DebugAssert/swift-macosx-x86_64/bin/swiftc -dump-ast enum.swift</code>
 </pre>
 <p><b><i>(Note)</i></b> Since I researched this all by myself, some assumptions might not be fully correct. Feel free to correct me if you know the Swift compiler!</p>
 <p>If you take a look at the file in question, you'll find that <b>deriveCaseIterable_enum_getter</b> isn't called directly. Instead, it gets passed as a reference from another method called <b>deriveCaseIterable</b>. This means that backtracing won't reveal the information we want - so instead of backtracing it directly, I'll backtrace <b>deriveCaseIterable</b> itself.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="3-4">
-<b>b DerivedConformanceCaseIterable.cpp:82
+<code>b DerivedConformanceCaseIterable.cpp:82
 run
 Process 15104 stopped
 frame #0: 0x0000000101ca809e DerivedConformance::deriveCaseIterable(this=0x00007ffeefbf6d60, requirement=0x000000010d97d838) at DerivedConformanceCaseIterable.cpp:82
-bt</b>
+bt</code>
 </pre>
 <p>The backtrace goes a long way, but if we take the last seven stack nodes, we end up with:</p>
 <pre>

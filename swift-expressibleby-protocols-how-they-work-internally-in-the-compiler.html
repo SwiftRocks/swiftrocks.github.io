@@ -210,7 +210,7 @@ July 17, 2019
 <p>But how can a token become a full type? As with all compiler magic, we can uncover what's going on by intercepting Swift's compilation steps.</p>
 <p>Using the first <b>getURL()</b> method as an example, let's first see how Swift treats ExpressibleBy objects. If we compile the code manually using <b>-emit-sil</b> argument, we can extract the Swift Intermediate Language (SIL) version of the code -- the final compilation step in Swift before LLVM takes the wheel.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<b>swiftc -emit-sil geturl.swift</b>
+<code>swiftc -emit-sil geturl.swift</code>
 </pre>
 <p>The output, which I edited to make it easier to read, looks like this:</p>
 <pre>

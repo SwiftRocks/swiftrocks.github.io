@@ -122,7 +122,7 @@ October 26, 2019
 </pre>
 <p>But unlike back then, with Swift we can actually see what's happening under the hood. <b>for</b> exists inside the compiler for the purpose of getting your code to be parsed correctly, but the final code is actually different. To inspect this, what I like to do is to compile an example file and have Swift dump its final <b>Swift Intermediate Language</b> representation:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<b>swiftc -emit-sil forLoopTest.swift</b>
+<code>swiftc -emit-sil forLoopTest.swift</code>
 </pre>
 <p>If I run this command with an example <b>forLoopTest.swift</b> file that contains an <b>for</b> loop for an array such as the one below, we'll see things like this around the area where the loop was supposed to be defined:</p>
 <pre>

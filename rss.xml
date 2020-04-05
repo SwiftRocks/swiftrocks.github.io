@@ -2120,7 +2120,7 @@ October 26, 2019
 </pre>
 <p>But unlike back then, with Swift we can actually see what's happening under the hood. <b>for</b> exists inside the compiler for the purpose of getting your code to be parsed correctly, but the final code is actually different. To inspect this, what I like to do is to compile an example file and have Swift dump its final <b>Swift Intermediate Language</b> representation:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<b>swiftc -emit-sil forLoopTest.swift</b>
+<code>swiftc -emit-sil forLoopTest.swift</code>
 </pre>
 <p>If I run this command with an example <b>forLoopTest.swift</b> file that contains an <b>for</b> loop for an array such as the one below, we'll see things like this around the area where the loop was supposed to be defined:</p>
 <pre>
@@ -3107,42 +3107,42 @@ August 8, 2019
 <code>} // a breakpoint</code>
 </pre>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="2-2">
-<b>po myProperty</b>
-<b>0</b>
+<code>po myProperty</code>
+<code>0</code>
 </pre>
 <p>However, <b>po</b> is much more powerful than that -- despite the name implying that it prints things, <b>po</b> is an alias for <b>expression --object-description --</b>, an argumented version of the more raw <b>expression</b> (or just <b>e</b>) command that makes the output more swifty:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="2-2">
-<b>e myProperty</b>
-<b>(Int) $R4 = 0 // not very pretty!</b>
+<code>e myProperty</code>
+<code>(Int) $R4 = 0 // not very pretty!</code>
 </pre>
 <p>Because it's an alias, <b>po</b> can do everything that <b>e</b> can. <b>e</b> is meant for <b>evaluating expressions</b>, which can range from printing properties to changing their values and even defining new classes. As a simple use, we can change the value of a property in the code to force a new flow without recompiling the code:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="2-2">
-<b>po myProperty</b>
-<b>0</b>
-<b>po myProperty = 1</b>
-<b>po myProperty</b>
-<b>1</b>
+<code>po myProperty</code>
+<code>0</code>
+<code>po myProperty = 1</code>
+<code>po myProperty</code>
+<code>1</code>
 </pre>
 <p>Besides that, if you write <b>po</b> alone, you'll be able to write a multiline expression like this. We can use this to create completely new methods and classes inside our debugging session:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="2-7">
-<b>po</b>
-<b>Enter expressions, then terminate with an empty line to evaluate:</b>
-<b>1 class $BreakpointUtils {</b>
-<b>2     static var $counter = 0</b>
-<b>3 }</b>
-<b>4 func $increaseCounter() {</b>
-<b>5     $BreakpointUtils.$counter += 1</b>
-<b>6     print("Times I've hit this breakpoint: \($BreakpointUtils.$counter)")</b>
-<b>7 }</b>
-<b>8</b>
+<code>po</code>
+<code>Enter expressions, then terminate with an empty line to evaluate:</b>
+<code>1 class $BreakpointUtils {</code>
+<code>2     static var $counter = 0</code>
+<code>3 }</code>
+<code>4 func $increaseCounter() {</code>
+<code>5     $BreakpointUtils.$counter += 1</code>
+<code>6     print("Times I've hit this breakpoint: \($BreakpointUtils.$counter)")</code>
+<code>7 }</code>
+<code>8</code>
 </pre>
 <p>(Dollar signs are used here to indicate that these properties and methods belong to lldb, and not the actual code.)</p>
 <p>The previous example allows me to call <b>$increaseCounter()</b> directly from lldb, which will add 1 to my "I can't handle this bug anymore" counter.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="2-2">
-<b>po $increaseCounter()</b>
-<b>Times I've hit this breakpoint: 1</b>
-<b>po $increaseCounter()</b>
-<b>Times I've hit this breakpoint: 2</b>
+<code>po $increaseCounter()</code>
+<code>Times I've hit this breakpoint: 1</code>
+<code>po $increaseCounter()</code>
+<code>Times I've hit this breakpoint: 2</code>
 </pre>
 <p>The ability to do this can be combined with lldb's ability to import <b>plugins</b>, which can considerably enhance your debugging experience. A good example of this is <a href="https://github.com/facebook/chisel">Chisel</a>, a tool made by Facebook that contains lots of lldb plugins -- like the <b>border</b> command, which adds a bright border to an <b>UIView</b> so you can quickly locate it on the screen, and they all work through clever usages of <b>e</b>/<b>po</b>.</p>
 <p>You can then use lldb's breakpoint actions to automatically trigger these methods whenever the breakpoint is hit. Combined with <b>po</b>'s property changing abilities, you can create special breakpoints that will alter the app's flow for the test you're trying to do.</p>
@@ -3159,8 +3159,8 @@ August 8, 2019
 <p>This is because <b>po</b> evaluates your code by compiling it, and unfortunately there are still cases where this can go wrong even though the code you're trying to access is correct.</p>
 <p>If you're dealing with something that doesn't need to be evaluated (like a static property instead of a method or closure), you can use the <b>v</b> command (short for <b>frame variable</b>) as an alternative to printing with <b>po</b> to instantly get the contents of an object.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="2-2">
-<b>v myProperty</b>
-<b>(Int) myProperty = 1</b>
+<code>v myProperty</code>
+<code>(Int) myProperty = 1</code>
 </pre>
 <h2><b>disassemble</b> - Breakpointing into memory addresses to change their contents</h2>
 <p><b>Note: The following commands are useful only in extreme cases. You won't learn a new Swift trick here, but you might learn something interesting about software engineering!</b></p>
@@ -3200,9 +3200,9 @@ August 8, 2019
 <p>We need to know a bit of assembly to solve this problem: If my code contains an <b>if</b>, then the resulting assembly of that code is certain to have a jump instruction. in this case, the jump instruction is <b>0x100000da0 <+64>:  jne    0x100000da7</b>, which will jump to the memory address <b>0x100000da7</b> if the <b>r8</b> register (that is set in the previous <b>0x100000d9c <+60>:  test   r8, 0x1</b> instruction) is different than zero (so, true). As I'm not subscribed, <b>r8</b> will certainly be zero, which will prevent that instruction from being triggered.</p>
 <p>To see this happening and to fix it, let's first breakpoint and position the app at the <b>jne</b> instruction:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="2-2">
-<b>b 0x100000da0</b>
-<b>continue</b>
-<b>//Breakpoint hits the specific memory address</b>
+<code>b 0x100000da0</code>
+<code>continue</code>
+<code>//Breakpoint hits the specific memory address</code>
 </pre>
 <p>If I run <b>disassemble</b> again, the little arrow will show that we're at the correct memory address to begin the action.</p>
 <pre>
@@ -3226,9 +3226,9 @@ August 8, 2019
 </pre>
 <p>Because <b>r8</b> is zero the <b>jne</b> instruction will not trigger, making the code output <b>"Not subscribed."</b>. However, this is an easy fix -- we can set <b>r8</b>to something that's not zero by running <b>register write</b> and resume the app:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="2-2">
-<b>register write r8 0x1</b>
-<b>continue</b>
-<b>"Subscribed!"</b>
+<code>register write r8 0x1</code>
+<code>continue</code>
+<code>"Subscribed!"</code>
 </pre>
 <p>In regular day to day iOS development, <b>register write</b> can be used to replace entire objects in the code. If a method is going to return something you don't want, you can create a new object in lldb, get its memory address with <b>e</b> and inject it into the desired register.</p>
 <h3>Approach 2: Changing the instructions themselves</h3>
@@ -3236,14 +3236,14 @@ August 8, 2019
 <p>Just like with registers, lldb provides <b>memory read</b> and <b>memory write</b> to allow you to change the contents of any memory addresses being used by your app. This can be used as an alternative way to change the contents of an property on the fly, but in this case, we can use it to change the <b>instructions themselves.</b></p>
 <p>Two things can be done here: If we want to reverse the logic of that if instruction, we can either change <b>test   r8, 0x1</b> to <b>test   r8, 0x0</b> (so it checks for a <b>false</b> condition instead), or <b>jne    0x100000da7</b> (jump not empty) to <b>je    0x100000da7</b> (jump empty, or <b>if !condition</b>). I find the latter easier, so that's what I'm going to follow. If we read the contents of that instruction, we'll see something like this:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="2-2">
-<b>memory read 0x100000da0</b>
-<b>0x100000da0: 75 05 e9 95 00 00 00 b8 01 00 00 00 89 c7 e8 71</b>
+<code>memory read 0x100000da0</code>
+<code>0x100000da0: 75 05 e9 95 00 00 00 b8 01 00 00 00 89 c7 e8 71</code>
 </pre>
 <p>This looks crazy, but we don't need to understand all of it -- we just need to know that the OPCODE of the instruction corresponds to the two bits in the beginning (75). <a href="http://faydoc.tripod.com/cpu/je.htm">By following this chart</a>, we can see that the OPCODE for <b>je</b> is 74, so if we want to make <b>jne</b> become <b>je</b>, we need to swap the first two bits with 74.</p>
 <p>To do this, we can use <b>memory write</b> to write the exact same contents to that address, but with the first two bits changed to 74.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)">
-<b>memory write 0x100000da0 74 05 e9 95 00 00 00 b8 01 00 00 00 89 c7 e8 71</b>
-<b>dis</b>
+<code>memory write 0x100000da0 74 05 e9 95 00 00 00 b8 01 00 00 00 89 c7 e8 71</code>
+<code>dis</code>
 </pre>
 <pre>
 <code>...</code>
@@ -3402,7 +3402,7 @@ July 17, 2019
 <p>But how can a token become a full type? As with all compiler magic, we can uncover what's going on by intercepting Swift's compilation steps.</p>
 <p>Using the first <b>getURL()</b> method as an example, let's first see how Swift treats ExpressibleBy objects. If we compile the code manually using <b>-emit-sil</b> argument, we can extract the Swift Intermediate Language (SIL) version of the code -- the final compilation step in Swift before LLVM takes the wheel.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<b>swiftc -emit-sil geturl.swift</b>
+<code>swiftc -emit-sil geturl.swift</code>
 </pre>
 <p>The output, which I edited to make it easier to read, looks like this:</p>
 <pre>
@@ -5349,7 +5349,7 @@ December 6, 2018
 <p>I like this method because we can see how Swift treats renamed attributes - just explicitely check if the current token matches an old name and throw an error stating that it's now called something else. But in short, we're just seeing if the name of our attribute matches an attribute defined at <b>Attr.def</b>, halting compilation if that's not the case. If the attribute exists, <b>parseNewDeclAttribute</b> will consume the token and add it to an attributes list for that AST.</p>
 <p>By running the Swift compiler with the <b>-dump-parse</b> attribute, we'll tell the compiler to start compiling but stop as soon as the parsing step ends. This allows us to confirm that this is indeed where this logic is being executed:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<b>swiftc -dump-parse attrs.swift</b>
+<code>swiftc -dump-parse attrs.swift</code>
 </pre>
 <pre>
 <code>@swiftRocks class Foo {} // error: unknown attribute 'swiftRocks'</code>
@@ -5648,7 +5648,7 @@ December 6, 2018
 <code>}</code>
 </pre>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<b>swiftc -emit-sil never.swift</b>
+<code>swiftc -emit-sil never.swift</code>
 </pre>
 <p>After running the command above, the output will contain the following reference to <b>doSomething()</b>:</p>
 <pre>
@@ -6400,7 +6400,7 @@ func play(song: Song) {
 </pre>
 <p>Now, to get the AST of that, I'll run <b>swiftc</b> with the <b>-dump-ast</b> argument:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<b>swiftc -dump-ast enum.swift</b>
+<code>swiftc -dump-ast enum.swift</code>
 </pre>
 <p>This returns a gigantic tree structure due to all the code generation involved in Swift, but I extracted the part relevant to the declaration of <b>allCases</b>:</p>
 <pre>
@@ -6427,16 +6427,16 @@ func play(song: Song) {
 <p>But before analyzing what this method does, I'm interested in knowing how the compiler got here in the first place.</p>
 <p>By making a fork of the Swift compiler and building it in debug mode, we're able to attach lldb to it, breakpoint this method and call <b>bt</b> to print its backtrace.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<b>lldb -- /swift-fork/build/Ninja-ReleaseAssert+swift-DebugAssert/swift-macosx-x86_64/bin/swiftc -dump-ast enum.swift</b>
+<code>lldb -- /swift-fork/build/Ninja-ReleaseAssert+swift-DebugAssert/swift-macosx-x86_64/bin/swiftc -dump-ast enum.swift</code>
 </pre>
 <p><b><i>(Note)</i></b> Since I researched this all by myself, some assumptions might not be fully correct. Feel free to correct me if you know the Swift compiler!</p>
 <p>If you take a look at the file in question, you'll find that <b>deriveCaseIterable_enum_getter</b> isn't called directly. Instead, it gets passed as a reference from another method called <b>deriveCaseIterable</b>. This means that backtracing won't reveal the information we want - so instead of backtracing it directly, I'll backtrace <b>deriveCaseIterable</b> itself.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="3-4">
-<b>b DerivedConformanceCaseIterable.cpp:82
+<code>b DerivedConformanceCaseIterable.cpp:82
 run
 Process 15104 stopped
 frame #0: 0x0000000101ca809e DerivedConformance::deriveCaseIterable(this=0x00007ffeefbf6d60, requirement=0x000000010d97d838) at DerivedConformanceCaseIterable.cpp:82
-bt</b>
+bt</code>
 </pre>
 <p>The backtrace goes a long way, but if we take the last seven stack nodes, we end up with:</p>
 <pre>

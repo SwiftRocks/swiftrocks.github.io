@@ -91,7 +91,7 @@ December 6, 2018
 <p>I like this method because we can see how Swift treats renamed attributes - just explicitely check if the current token matches an old name and throw an error stating that it's now called something else. But in short, we're just seeing if the name of our attribute matches an attribute defined at <b>Attr.def</b>, halting compilation if that's not the case. If the attribute exists, <b>parseNewDeclAttribute</b> will consume the token and add it to an attributes list for that AST.</p>
 <p>By running the Swift compiler with the <b>-dump-parse</b> attribute, we'll tell the compiler to start compiling but stop as soon as the parsing step ends. This allows us to confirm that this is indeed where this logic is being executed:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
-<b>swiftc -dump-parse attrs.swift</b>
+<code>swiftc -dump-parse attrs.swift</code>
 </pre>
 <pre>
 <code>@swiftRocks class Foo {} // error: unknown attribute 'swiftRocks'</code>
