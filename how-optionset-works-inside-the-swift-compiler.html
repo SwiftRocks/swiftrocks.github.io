@@ -13,7 +13,7 @@
     <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
     <meta name="description" content="Swift's OptionSet protocol is the bridged version of Objective-C's NS_OPTIONS enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation. Let's see what this protocol is, why OptionSets are preferred over a regular Set in some cases and finally what compiler magics it possesses.">
     <meta name="title" content="How OptionSet works inside the Swift Compiler">
-    <meta name="url" content="https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler.html">
+    <meta name="url" content="https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler">
     <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
@@ -22,7 +22,7 @@
     <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
     <meta property="og:description" content="Swift's OptionSet protocol is the bridged version of Objective-C's NS_OPTIONS enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation. Let's see what this protocol is, why OptionSets are preferred over a regular Set in some cases and finally what compiler magics it possesses."/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler.html"/>
+    <meta property="og:url" content="https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
@@ -75,7 +75,7 @@
 
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
 <!--WRITEIT_POST_NAME=How OptionSet works inside the Swift Compiler-->
-<!--WRITEIT_POST_HTML_NAME=how-optionset-works-inside-the-swift-compiler.html-->
+<!--WRITEIT_POST_HTML_NAME=how-optionset-works-inside-the-swift-compiler-->
 
 <!--Add here the additional properties that you want each page to possess.-->
 <!--These properties can be used to change content in the template page or in the page itself as shown here.-->
@@ -214,7 +214,7 @@ December 3rd, 2019
 </pre>
 <p><b>SetAlgebra</b> inherits from <b>ExpressibleByArrayLiteral</b>, which allow it to be represented directly as an array. This triggers an <b>insert()</b> call for every element, which for our <b>OptionSet</b> types means that we'll progressively trigger bitwise AND (|) operations, resulting in a final <b>OptionSet</b> that represents the combination of all the options. Hooray!</p>
 <h2>How <b>ExpressibleByArrayLiteral</b> works internally</h2>
-<p><a href="https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler.html">The innards of the ExpressibleBy family are covered in detail in my previous article,</a> but as a short explanation, we can say that when the type checker finds a literal being attributed to an explicit type, it checks if it conforms to the related <b>ExpressibleBy</b> protocol and coverts the expression to the designated initializer from the protocol if it does (and throws a compilation error if it does not). For more details, check the linked article.</p>
+<p><a href="https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler">The innards of the ExpressibleBy family are covered in detail in my previous article,</a> but as a short explanation, we can say that when the type checker finds a literal being attributed to an explicit type, it checks if it conforms to the related <b>ExpressibleBy</b> protocol and coverts the expression to the designated initializer from the protocol if it does (and throws a compilation error if it does not). For more details, check the linked article.</p>
 <h2>Conclusion</h2>
 <p>The <b>OptionSet</b> protocol itself is hardly used nowadays, but its existence has some history and shows some of the importance of analyzing what you're developing in terms of performance. You can always use a regular <b>Array</b> or <b>Set</b> to define these options, but should you? For these case where you have a limited set of unique options, using a bitmask is considerably quicker and less resource-intensive, something which your user's device will be very grateful for :)</p>
 
@@ -231,7 +231,7 @@ December 3rd, 2019
 
                          <div class="share-twitter" style="display: flex; text-align: center;">
 
-<a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Fhow-optionset-works-inside-the-swift-compiler.html&text=How OptionSet works inside the Swift Compiler" target="_blank" class="twitter"><i class="fa fa-twitter"></i> Share this page</a>
+<a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Fhow-optionset-works-inside-the-swift-compiler&text=How OptionSet works inside the Swift Compiler" target="_blank" class="twitter"><i class="fa fa-twitter"></i> Share this page</a>
 </div>
 
                          <div class="share-twitter" style="display: flex; text-align: center;">

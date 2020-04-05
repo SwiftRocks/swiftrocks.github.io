@@ -13,7 +13,7 @@
     <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
     <meta name="description" content="While dividing an app into several targets can improve the build time of an iOS app, the result heavily depends on what is being changed. If you're not careful with how your dependency graph is laid out, you can often have results that are worse< than non-modularized apps. Let's take a look at a technique used at iFood to have big and consistent improvements to the build times of our app.">
     <meta name="title" content="Reducing iOS Build Times by using Interface Targets">
-    <meta name="url" content="https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets.html">
+    <meta name="url" content="https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets">
     <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
@@ -22,7 +22,7 @@
     <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
     <meta property="og:description" content="While dividing an app into several targets can improve the build time of an iOS app, the result heavily depends on what is being changed. If you're not careful with how your dependency graph is laid out, you can often have results that are worse< than non-modularized apps. Let's take a look at a technique used at iFood to have big and consistent improvements to the build times of our app."/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets.html"/>
+    <meta property="og:url" content="https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
@@ -75,7 +75,7 @@
 
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
 <!--WRITEIT_POST_NAME=Reducing iOS Build Times by using Interface Targets-->
-<!--WRITEIT_POST_HTML_NAME=reducing-ios-build-times-by-using-interface-targets.html-->
+<!--WRITEIT_POST_HTML_NAME=reducing-ios-build-times-by-using-interface-targets-->
 
 <!--Add here the additional properties that you want each page to possess.-->
 <!--These properties can be used to change content in the template page or in the page itself as shown here.-->
@@ -162,7 +162,7 @@ January 23rd, 2020
 
 <p>This is because we're missing a key component in this structure: <b>a dependency injector.</b> In an app like this, because there's no way for targets to reference the concrete information from other targets, there needs to be a global system that is capable of returning the (now hidden) concrete information to targets when a certain protocol is given. At iFood, we solved this by creating a dependency injector called <b>RouterService</b> -- here, each feature's target's interface only exposes a series of <b>Route</b> structs, while each feature's concrete target connects these <b>Routes</b> to the related <b>UIViewController</b>.</p>
 
-<p>With this information exposed, iFood's AppDelegate creates an instance of a <b>RouterService</b> which receives every feature's routes and related <b>UIViewControllers</b>. When a feature asks for a specific <b>Route</b> from another feature's interface to be executed, the <b>RouterService</b> automatically locates which <b>UIViewController</b> should be pushed. The process to create something like was detailed in my previous article, <a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift.html">Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift.</a> Here's a simplified example of how the previous example looks like in our app:</p>
+<p>With this information exposed, iFood's AppDelegate creates an instance of a <b>RouterService</b> which receives every feature's routes and related <b>UIViewControllers</b>. When a feature asks for a specific <b>Route</b> from another feature's interface to be executed, the <b>RouterService</b> automatically locates which <b>UIViewController</b> should be pushed. The process to create something like was detailed in my previous article, <a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift">Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift.</a> Here's a simplified example of how the previous example looks like in our app:</p>
 
 <pre>
 <code>// AppFeature2Interface, which depends on RouterServiceInterface</code>
@@ -229,7 +229,7 @@ January 23rd, 2020
 
                          <div class="share-twitter" style="display: flex; text-align: center;">
 
-<a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Freducing-ios-build-times-by-using-interface-targets.html&text=Reducing iOS Build Times by using Interface Targets" target="_blank" class="twitter"><i class="fa fa-twitter"></i> Share this page</a>
+<a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Freducing-ios-build-times-by-using-interface-targets&text=Reducing iOS Build Times by using Interface Targets" target="_blank" class="twitter"><i class="fa fa-twitter"></i> Share this page</a>
 </div>
 
                          <div class="share-twitter" style="display: flex; text-align: center;">

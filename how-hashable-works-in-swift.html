@@ -13,7 +13,7 @@
     <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
     <meta name="description" content="Hashing algorithms are functions that map an arbitrary string to a seemingly "random" output with a fixed length. Commonly associated as a component of Sets and Dictionaries, hashing algorithms are a major component of several branches of computer science, including cryptography. The internal algorithm used to calculate a type's `hashValue` (now `Hasher` in Swift 4.2) and the related compiler features changed several times throughout Swift's releases, ant it was only after Swift 4.2 that a real universal hashing algorithm was added to Swift. To see how this is implemented today, let's take a look at how this looked like throughout the history of Swift.">
     <meta name="title" content="How Hashable works in Swift">
-    <meta name="url" content="https://swiftrocks.com/how-hashable-works-in-swift.html">
+    <meta name="url" content="https://swiftrocks.com/how-hashable-works-in-swift">
     <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
@@ -22,7 +22,7 @@
     <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
     <meta property="og:description" content="Hashing algorithms are functions that map an arbitrary string to a seemingly "random" output with a fixed length. Commonly associated as a component of Sets and Dictionaries, hashing algorithms are a major component of several branches of computer science, including cryptography. The internal algorithm used to calculate a type's `hashValue` (now `Hasher` in Swift 4.2) and the related compiler features changed several times throughout Swift's releases, ant it was only after Swift 4.2 that a real universal hashing algorithm was added to Swift. To see how this is implemented today, let's take a look at how this looked like throughout the history of Swift."/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://swiftrocks.com/how-hashable-works-in-swift.html"/>
+    <meta property="og:url" content="https://swiftrocks.com/how-hashable-works-in-swift"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
@@ -75,7 +75,7 @@
 
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
 <!--WRITEIT_POST_NAME=How Hashable works in Swift-->
-<!--WRITEIT_POST_HTML_NAME=how-hashable-works-in-swift.html-->
+<!--WRITEIT_POST_HTML_NAME=how-hashable-works-in-swift-->
 
 <!--Add here the additional properties that you want each page to possess.-->
 <!--These properties can be used to change content in the template page or in the page itself as shown here.-->
@@ -117,7 +117,7 @@ January 13th, 2020
 <p>As Swift is known to be very user-friendly, changes were definitely expected -- and they came.</p>
 <h2>Swift 4.1: Synthesize Hashable with _mixInt</h2>
 <p>Alongside the changes to synthesize conformance to Equatable types, Swift 4.1 attempted to treat this problem for the first time by synthesizing a custom type's conformance to Hashable as well.</p>
-<p>(We won't talk about how compiler synthesis works because it was already covered in <a href="https://swiftrocks.com/how-caseiterable-works-internally-in-swift.html">How CaseIterable Works Internally in Swift</a>, and Hashable synthesis works pretty much exactly the same as the CaseIterable one. If you want more info on that, check that article out!)</p>
+<p>(We won't talk about how compiler synthesis works because it was already covered in <a href="https://swiftrocks.com/how-caseiterable-works-internally-in-swift">How CaseIterable Works Internally in Swift</a>, and Hashable synthesis works pretty much exactly the same as the CaseIterable one. If you want more info on that, check that article out!)</p>
 <p>With the proposed changes, while the synthetized <b>hashValue</b> would still XOR a type's properties's <b>hashValues</b>, the values that are being XORed would not be the <b>hashValues</b> themselves -- but a "scrambled" version of them, provided by an internal method called <b>_mixInt</b>:</p>
 <pre>
 <code>struct Foo: Hashable {</code>
@@ -290,7 +290,7 @@ January 13th, 2020
 
                          <div class="share-twitter" style="display: flex; text-align: center;">
 
-<a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Fhow-hashable-works-in-swift.html&text=How Hashable works in Swift" target="_blank" class="twitter"><i class="fa fa-twitter"></i> Share this page</a>
+<a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Fhow-hashable-works-in-swift&text=How Hashable works in Swift" target="_blank" class="twitter"><i class="fa fa-twitter"></i> Share this page</a>
 </div>
 
                          <div class="share-twitter" style="display: flex; text-align: center;">
