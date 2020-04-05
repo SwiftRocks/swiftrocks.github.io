@@ -26,12 +26,12 @@ case 80:
 default:
     break
 }
-</b></pre>
+</code></pre>
 <p>Given that, you might think that something like <b>case "eighty"</b> wouldn't compile, after all, <b>"eighty"</b> and <b>80</b> aren't even the same type - and it's indeed what happens if you try it right now:</p>
 <pre class = "language-swift"><code class="language-swift">if case "eighty" = 80 {
     //error: expression pattern of type 'String' cannot match values of type 'Int'
 }
-</b></pre>
+</code></pre>
 <p>But that's not necessarily the case. When developing your projects, you might have noticed that some types have special interactions between each other, such as <b>Ranges</b> and their associated types:</p>
 <pre class = "language-swift"><code class="language-swift">switch 80 {
 case 0...20:
@@ -43,7 +43,7 @@ case 51...100:
 default:
     break
 }
-</b></pre>
+</code></pre>
 <p>The reason for this is the <b>~=</b> <b>pattern matching operator</b>. This operator doesn't see much use in regular projects (you might have seen it before for this exact <i>is number inside range</i> example), but it is used a lot internally in Swift and it's exactly what's used to confirm case statements.</p>
 <p>For most cases, the operator is a simple wrapper for an equality check (like the <b>Int</b> example), but <b>Range</b> has a special implementation for <b>~=</b> when used against its own associated type, allowing it to have this custom behaviour when pattern matching:</p>
 <pre class = "language-swift"><code class="language-swift">extension RangeExpression {
@@ -52,7 +52,7 @@ default:
       return pattern.contains(value)
     }
 }
-</b></pre>
+</code></pre>
 <p>And since <b>~=</b> is available globally, you can overload it in order to write your own pattern matching logic!</p>
 <p>To make <b>"eighty"</b> match <b>80</b>, for example, all you need to do is add a version of the operator that matches <b>String</b> patterns with <b>Int</b> values:</p>
 <pre class = "language-swift"><code class="language-swift">func ~= (pattern: String, value: Int) -> Bool {
@@ -73,7 +73,7 @@ case "not eighty":
 default:
    break
 }
-</b></pre>
+</code></pre>
 <p>Now let's say my app recieved a deep link in the shape of a path string and I need to decide which of my tabBar's <b>UIViewControllers</b> this deep link belongs too - in the form of a <b>AppTab</b> type:</p>
 <pre class = "language-swift"><code class="language-swift">enum AppTab: String {
     case home
@@ -82,7 +82,7 @@ default:
 }
 
 let deepLink = DeepLink(path: "home", parameters: [:])
-</b></pre>
+</code></pre>
 <p>There are several ways to do this, including adding a <b>correspondingTab</b> property to the deep link itself or subclassing the <b>DeepLink</b> type, but with custom pattern matching, this attribution can be one-lined without having to touch the <b>DeepLink</b> type!</p>
 <pre class = "language-swift"><code class="language-swift">func ~= (pattern: AppTab, value: DeepLink) -> Bool {
     return value.path.hasPrefix(pattern.rawValue)
@@ -98,7 +98,7 @@ case .profile:
 default:
     break
 }
-</b></pre>
+</code></pre>
 <p>This allows you to bypass having to map broader types into more specific ones, such as how an <b>Int</b> can be mapped to a <b>WeekDay</b> enum. In this case in particular, your backend would return you the week day either as an <b>Int</b> or a <b>String</b>, and with custom pattern matching you can make use of this broader type while still treating it like it was mapped to the more specific enum type. This can be useful when you want to try concepts without commiting to certain approachs or types:</p>
 <pre class = "language-swift"><code class="language-swift">enum WeekDay: Int {
     case sunday
@@ -120,7 +120,7 @@ func ~= (pattern: WeekDay, value: Int) -> Bool {
 if case .friday? = nextHoliday?.weekDay {
     print("Woohoo!")
 }
-</b></pre>
+</code></pre>
 <p>Creation of custom patterns is a simple way to write cleaner code without too much effort, as you can leverage <b>cases</b> to jump straight to the point without having to add additional properties to your types - while making sure your code doesn't become harder to understand.</p>
 <p>I would love to know if you've ever overloaded <b>~=</b> to do something like this. Feel free to contact me with any suggestions, comments and feedback you might have at my Twitter: <a href="https://twitter.com/rockbruno_">@rockbruno_</a>.</p>
 <h2>References and Good reads</h2>

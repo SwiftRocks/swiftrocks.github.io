@@ -6012,7 +6012,7 @@ createABunchOfEmptyStructs()
 //Moving the stack pointer up by the size of a million EmptyStructs.
 //Adding a million EmptyStructs to the empty addresses created by moving the stack pointer.
 //Moving the stack pointer down by the same amount.
-//Total: ~0.005 seconds</b></pre> 
+//Total: ~0.005 seconds</code></pre> 
           <p>If the contents of your value type are other stack allocated, static size value types, then your value type also is also static sized. That means your value type will also leverage full stack allocation as well as having a performance boost in copying operations.</p> 
           <p>We once asked a candidate why he chose to use a <b>class</b> for something that was clearly immutable and meant to be treated with value semantics. His reasoning was that the object was being constantly sent as a parameter inside methods, and so he was concerned about the potential performance implications of copying that several times.</p>
           <p>Assigning a property to most value types will indeed create a full copy of the object. However, this <b>copy-on-assignment</b> behaviour for fully stack allocated value types is so fast and so cheap that Apple claims it runs in constant time:</p> 
@@ -6034,7 +6034,7 @@ func createABunchOfCopiesOfHugeStruct() {
 createABunchOfCopiesOfHugeStruct() // ~0.0033 secs
 
 //Even if you increase the number of properties tenfold the runtime is unchanged
-//because copying a static sized struct is a constant time operation.</b></pre> 
+//because copying a static sized struct is a constant time operation.</code></pre> 
           <p>Stack Allocation can, however, devour your app's memory if you're dealing with many depths of recursion. Thankfully, Swift has tail recursion optimization, meaning that if you disassemble a method with tail recursion you'll find an iterative version of your algorithm instead.</p> 
           <h2>Heap Allocation</h2>
           <p>But what happens when you need to introduce objects with extendable sizes and <i>"shudders"</i> the concept of <b>pointers</b>?</p> 
@@ -6059,7 +6059,7 @@ createABunchOfEmptyClasses()
 //(Loop ends) Decrementing the reference count of the pointers.
 //The reference count of each class drops to zero, and a request to free their memory addresses is sent.
 //Moving the stack pointer down.
-//Total: ~0.117 secs</b></pre> 
+//Total: ~0.117 secs</code></pre> 
           <p>It would be nice if memory management was as binary as saying that value types go to the stack and reference types go to the heap, but in reality, the life and performance of a value type is heavily defined by its contents.</p> 
           <h3>Heap Allocated Value Types</h3>
           <p>If the size of your value type cannot be determined during compile time (because of a protocol/generic requirement), or if your value type recursively contains / is contained by a reference type (remember that closures are also reference types), then it will require heap allocation. This can range from being not being an issue at all to making your <b>struct</b> perform exponentially <b>worse</b> than it would if it was a <b>class</b> instead.</p>
@@ -6075,7 +6075,7 @@ let copy = emptyStruct //address B
 //Copy on Write
 let array = [1,2,3] //address C
 var notACopy = array //still address C
-notACopy = [4,5,6] //now address D</b></pre>
+notACopy = [4,5,6] //now address D</code></pre>
           <p>Be aware that any value type you create will be <b>copy-on-assignment</b>, but you can code them to have <b>copy-on-write</b> capabilities. This is not a compiler thing, The Standard Library itself does it on the code level and so can you. <a href="https://github.com/apple/swift/blob/master/docs/OptimizationTips.rst#advice-use-copy-on-write-semantics-for-large-values">Here's an example from Apple.</a></p> 
           <h2>Problematic Reference Counting in Value Types With Inner References</h2>
           <p>A fully stack allocated value type will not need reference counting, but a value type with inner references <b>will</b> unfortunately inherit this ability.</p> 
@@ -6105,7 +6105,7 @@ class HugeClass {
     var emptyClass9 = EmptyClass()
     var emptyClass10 = EmptyClass()
 }
-</b></pre> 
+</code></pre> 
           <p>The following snippet will check how long it takes to create a <b>HugeClass</b>, reference it ten million times, add all these references to an array and deallocate everything. Then it will do the same to a <b>struct</b> variant.</p> 
           <pre class="language-swift"><code class="language-swift">func createABunchOfReferencesOfClass() {
     var array = [HugeClass]()
@@ -6127,14 +6127,14 @@ func createABunchOfCopiesOfStruct() {
 
 createABunchOfReferencesOfClass() // ~1.71 seconds
 createABunchOfCopiesOfStruct() // ~5.1 seconds
-</b></pre> 
+</code></pre> 
           <p>Judging from what was previously said it's somewhat expected that the <b>struct</b> version would take longer as it is <b>copy-on-assignment</b>, compared to the <b>class</b> version which is only increasing a reference count value.</p> 
           <p>However, consider what happens when we increase the amount of <b>EmptyClasses</b> inside of each object:</p> 
           <pre class="language-swift"><code class="language-swift">//Each object now contains TWENTY EmptyClasses
 
 createABunchOfReferencesOfClass() // ~1.75 seconds
 createABunchOfCopiesOfStruct() // ~14.5 seconds
-</b></pre> 
+</code></pre> 
           <p>Adding more classes to <b>HugeClass</b> did nothing to the runtime of the algorithm, but <b>HugeDynamicStruct</b>'s version took <b>more than twice</b> as much to run!</p> 
           <p>Since all reference types require reference counting, increasing the amount of properties of a <b>class</b> of <b>classes</b> will not change the runtime of this algorithm, as merely increasing the reference count of the parent reference will be enough to keep it's inner references alive.</p>
           <p>However, value types do not naturally have a reference count. If your value type contains inner references, copying it will require increasing the reference count of it's children instead - not the first, not the second, but literally <b>every single one</b> of them.</p>
@@ -6169,7 +6169,7 @@ CFGetRetainCount(structOfClasses) // Doesn't compile, structs themselves don't h
 CFGetRetainCount(structOfClasses.emptyClass) // 4
 CFGetRetainCount(structOfClasses.emptyClass2) // 4
 CFGetRetainCount(structOfClasses.emptyClass3) // 4
-</b></pre> 
+</code></pre> 
           <p>The more reference types you have inside of a value type, the more reference counting overhead you are going to have when copying it, leading to potentially nasty performance issues.</p> 
           <h2>Avoiding Reference Counting Overhead in Value Types</h2>
           <p>You can improve your app's performance by swapping unnecessary references with proper static size value types.</p> 
@@ -6177,7 +6177,7 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
           <pre class="language-swift"><code class="language-swift">struct DeliveryAddress {
     let identifier: String
     let type: String
-}</b></pre> 
+}</code></pre> 
           <p>If <b>identifier</b> represents an UUID, it can be safely replaced by <b>Foundation</b>'s <b>UUID</b> struct, which is statically sized.</p> 
           <p>In a similar fashion, <b>type</b> could easily be a pre-defined <b>enum</b> instead.</p> 
           <pre class="language-swift"><code class="language-swift">struct DeliveryAddress {
@@ -6187,7 +6187,7 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
     }
     let identifier: UUID
     let type: AddressType
-}</b></pre> 
+}</code></pre> 
           <p>With these changes, this struct is now statically sized. Not only reference counting overhead was eliminated, but it is also a lot more typesafe now.</p> 
           <p>If your value type is more complicated than this (and you have a performance issue), ask yourself if it really shouldn't be a <b>class</b> with <b>copy-on-write</b> capabilities instead.</p> 
           <p>From the Apple Docs:</p> 
@@ -6260,7 +6260,7 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
 print("I'm going to do print some number")
 calculateAndPrintSomething()
 print("Done!")
-</b></pre>
+</code></pre>
 <p>Assuming that <b>calculateAndPrintSomething()</b> isn't used anywhere else, it's clear that the method doesn't need to exist in the compiled binary - it's purpose is purely to make the code easier to read.</p>
 <p>With function inlining, the Swift compiler can remove the overhead of calling an useless method by replacing it with it's contents:</p>
 <pre class = "language-swift"><code class="language-swift">//The compiled binary version of the above example
@@ -6270,7 +6270,7 @@ num *= 10
 num /= 5
 print("My number: \(num)")
 print("Done!")
-</b></pre>
+</code></pre>
 <p>Based on your optimization level, this is done automatically by the Swift compiler - favoring inlining if optimizing for speed (<b>-O</b>), or favoring <b>not</b> inlining if optimizing for binary size (<b>-Osize</b>), since inlining a long method that is called in several places would result in duplicated code, and a larger binary.</p>
 <p>Even though the compiler can make its own inlining decisions, the <b>@inline</b> attribute can be used in Swift to <b>force</b> its decision. It can be used in two ways:</p>
 <p><b>@inline(__always)</b>: Signals the compiler to always inline the method, if possible.</p>
@@ -6295,7 +6295,7 @@ func play(song: Song) {
         //Ask user to subscribe
     }
 }
-</b></pre>
+</code></pre>
 <p>This works great for our code, but look what happens if I disassemble this app and search for the <b>play(_:)</b> method's assembly:</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/3kqUFaF.png" alt="">                                    
@@ -6319,7 +6319,7 @@ func play(song: Song) {
         //Ask user to subscribe
     }
 }
-</b></pre>
+</code></pre>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/JwkToz8.png" alt="">                                    
 </div>
@@ -6646,12 +6646,12 @@ case 80:
 default:
     break
 }
-</b></pre>
+</code></pre>
 <p>Given that, you might think that something like <b>case "eighty"</b> wouldn't compile, after all, <b>"eighty"</b> and <b>80</b> aren't even the same type - and it's indeed what happens if you try it right now:</p>
 <pre class = "language-swift"><code class="language-swift">if case "eighty" = 80 {
     //error: expression pattern of type 'String' cannot match values of type 'Int'
 }
-</b></pre>
+</code></pre>
 <p>But that's not necessarily the case. When developing your projects, you might have noticed that some types have special interactions between each other, such as <b>Ranges</b> and their associated types:</p>
 <pre class = "language-swift"><code class="language-swift">switch 80 {
 case 0...20:
@@ -6663,7 +6663,7 @@ case 51...100:
 default:
     break
 }
-</b></pre>
+</code></pre>
 <p>The reason for this is the <b>~=</b> <b>pattern matching operator</b>. This operator doesn't see much use in regular projects (you might have seen it before for this exact <i>is number inside range</i> example), but it is used a lot internally in Swift and it's exactly what's used to confirm case statements.</p>
 <p>For most cases, the operator is a simple wrapper for an equality check (like the <b>Int</b> example), but <b>Range</b> has a special implementation for <b>~=</b> when used against its own associated type, allowing it to have this custom behaviour when pattern matching:</p>
 <pre class = "language-swift"><code class="language-swift">extension RangeExpression {
@@ -6672,7 +6672,7 @@ default:
       return pattern.contains(value)
     }
 }
-</b></pre>
+</code></pre>
 <p>And since <b>~=</b> is available globally, you can overload it in order to write your own pattern matching logic!</p>
 <p>To make <b>"eighty"</b> match <b>80</b>, for example, all you need to do is add a version of the operator that matches <b>String</b> patterns with <b>Int</b> values:</p>
 <pre class = "language-swift"><code class="language-swift">func ~= (pattern: String, value: Int) -> Bool {
@@ -6693,7 +6693,7 @@ case "not eighty":
 default:
    break
 }
-</b></pre>
+</code></pre>
 <p>Now let's say my app recieved a deep link in the shape of a path string and I need to decide which of my tabBar's <b>UIViewControllers</b> this deep link belongs too - in the form of a <b>AppTab</b> type:</p>
 <pre class = "language-swift"><code class="language-swift">enum AppTab: String {
     case home
@@ -6702,7 +6702,7 @@ default:
 }
 
 let deepLink = DeepLink(path: "home", parameters: [:])
-</b></pre>
+</code></pre>
 <p>There are several ways to do this, including adding a <b>correspondingTab</b> property to the deep link itself or subclassing the <b>DeepLink</b> type, but with custom pattern matching, this attribution can be one-lined without having to touch the <b>DeepLink</b> type!</p>
 <pre class = "language-swift"><code class="language-swift">func ~= (pattern: AppTab, value: DeepLink) -> Bool {
     return value.path.hasPrefix(pattern.rawValue)
@@ -6718,7 +6718,7 @@ case .profile:
 default:
     break
 }
-</b></pre>
+</code></pre>
 <p>This allows you to bypass having to map broader types into more specific ones, such as how an <b>Int</b> can be mapped to a <b>WeekDay</b> enum. In this case in particular, your backend would return you the week day either as an <b>Int</b> or a <b>String</b>, and with custom pattern matching you can make use of this broader type while still treating it like it was mapped to the more specific enum type. This can be useful when you want to try concepts without commiting to certain approachs or types:</p>
 <pre class = "language-swift"><code class="language-swift">enum WeekDay: Int {
     case sunday
@@ -6740,7 +6740,7 @@ func ~= (pattern: WeekDay, value: Int) -> Bool {
 if case .friday? = nextHoliday?.weekDay {
     print("Woohoo!")
 }
-</b></pre>
+</code></pre>
 <p>Creation of custom patterns is a simple way to write cleaner code without too much effort, as you can leverage <b>cases</b> to jump straight to the point without having to add additional properties to your types - while making sure your code doesn't become harder to understand.</p>
 <p>I would love to know if you've ever overloaded <b>~=</b> to do something like this. Feel free to contact me with any suggestions, comments and feedback you might have at my Twitter: <a href="https://twitter.com/rockbruno_">@rockbruno_</a>.</p>
 <h2>References and Good reads</h2>
@@ -7021,7 +7021,7 @@ if case .friday? = nextHoliday?.weekDay {
           <p>In <b>main.swift</b>, type and run the following code:</p>
 <pre class = "language-swift"><code class="language-swift">let line = readLine()
 print("Got something! \(line)")
-</b></pre>
+</code></pre>
 <p>At this point, the program will be frozen. <b>readLine()</b> is a Standard Library method that synchronously reads the standard input and returns a <b>String?</b> once a full line is retrieved or <b>nil</b> if EOF is reached.</p>
 <p>If you type something in Xcode's console, the program's execution will continue and print what you wrote:</p>
 <div class="post-image margin-top-40 margin-bottom-40">
@@ -7031,7 +7031,7 @@ print("Got something! \(line)")
 <pre class = "language-swift"><code class="language-swift">while let line = readLine() {
     print("Got something! \(line)")
 }
-</b></pre>
+</code></pre>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/KLUwiBK.png" alt="">                                    
 </div>
@@ -7047,7 +7047,7 @@ print("Got something! \(line)")
 <h3>Sample Input</h3>
 <pre class = "language-swift"><code class="language-swift">6
 1 2 3 4 10 11
-</b></pre>
+</code></pre>
 <h3>Sample Output</h3>
 <p><b>31</b></p>
 <h2>Solution</h2>
@@ -7061,7 +7061,7 @@ _ = readLine() //Read and drop the array size line.
 let array = readLine()!.components(separatedBy: " ").map { Int($0)! }
 let result = array.reduce(0, +)
 print(result)
-</b></pre>
+</code></pre>
 <h2>Swift tips for Competitive Programming</h2>
 <p>The beauty of competitive programming is that merely solving the problem is not enough - your program must solve it as fast as possible.</p>
 <p>There's a lot to talk about <a href="https://pt.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/big-o-notation">runtime complexity</a>, but this section is supposed to cover Swift tips that are useful when things need to be quick.</p>
@@ -7072,7 +7072,7 @@ print(result)
 1 &- 1
 1 &* 1
 1 &>> 1
-</b></pre>
+</code></pre>
 <h3>Printing is slow</h3>
 <p>The <b>print(_:)</b> method is very slow, and it can be particularly painful when printing things like <b>Arrays</b>. You can gain some performance if you print everything at once.</p>
 <pre class="language-swift"><code class="language-swift">let array = [String](repeating: "A", count: 1000)
@@ -7085,7 +7085,7 @@ for a in array {
 
 let separated = array.joined(separator: " ")
 print(separated) // a lot quicker, even though we're processing the array beforehand
-</b></pre>
+</code></pre>
 <h3>Allocate Array capacities in advance</h3>
 <p>Swift's <b>Arrays</b> have dynamic sizes, meaning that the language automatically allocates more memory space for it as it increases in size. Even if this is quite fast, you can make it even faster if you know the array size in advance by using the <b>Array.reserveCapacity(_:)</b> method. This is useful if you have a problem where the solution is an <b>Array</b> with a specific size.</p>
 <pre class="language-swift"><code class="language-swift">let arraySize = Int(readLine()!)!
@@ -7094,12 +7094,12 @@ array.reserveCapacity(arraySize) //Runtime is slightly slower without manually s
 for i in 0..&lt;arraySize {
     array.append(solve(for: i))
 }
-</b></pre>
+</code></pre>
 <p>Alternatively, you can use the <b>repeating:count:</b> initializer when you need a pre-filled array:</p>
 <pre class="language-swift"><code class="language-swift">let fiveZs = Array(repeating: "Z", count: 5)
 print(fiveZs)
 // Prints "["Z", "Z", "Z", "Z", "Z"]"
-</b></pre>
+</code></pre>
 <h3>Abuse Implicitly Unwrapped Optionals</h3>
 <p>While the dreaded <b>!</b> should be avoided in real applications, safety is not a concern in competitive programming. Since inputs are guaranteed to always be the same, you can completely skip the overhead of unwrapping optionals.</p>
           <h3>Use <b>inout</b> - Dmitry Volevodz</h3> 
@@ -7116,7 +7116,7 @@ print(fiveZs)
 measure {
     timeIntensiveTask()
 }
-</b></pre>
+</code></pre>
 <p>This can be useful when you have multiple approaches and is not sure which one is faster. Be sure to run this with optimizations turned on to properly measure things, as most of the Swift compiler's tricks require it.</p>
 <h2>Swift Algorithm Club</h2>
 <p>Most competitive programming problems will rely on a specific data structure, and since Swift unfortunately has no native support for most of them, that means you'll have to code them yourself.</p>
@@ -7197,7 +7197,7 @@ measure {
   
   	//All the button clicking logic and stuff...
 }
-</b></pre>
+</code></pre>
 <p>You can make this better by moving the views to a different file and adding a reference back to the View Controller, but you'll still have to fill your View Controller with things that are not supposed to be in it, such as constraint code and other forms of view setup - not to mention you now have two different view properties (<b>myView</b> and the native <b>view</b>) in it for no good reason:</p>
 <pre class = "language-swift"><code class="language-swift">final class MyViewController: UIViewController {
     
@@ -7215,7 +7215,7 @@ measure {
     	//We now have both 'view' and 'myView'...
     }
 }
-</b></pre>
+</code></pre>
 <p>Giant View Controllers and View Controllers that know <i>too much</i> are very difficult to maintain and scale. In architectures like MVVM, the View Controller should act mostly as a router between the View itself and the View Model - it's not its job to know how to setup the views or constrain them, it should merely <b>route</b> information back and forth.</p>
 <p>In a View Code project where most of the code are the views themselves, it's very important to have a clear separation of responsibilities between the aspects of your architecture in order to have a maintainable project. You want your actual view code to be completely separate from your View Controller - and fortunately, there is a very simple way to override the original <b>view</b> property of an <b>UIViewController</b>, allowing you to maintain separate files for your views while still making sure your view controller doesn't have to do any kind of view setup.</p>
 <h2>loadView()</h2>
@@ -7232,14 +7232,14 @@ measure {
 		print(view) // a MyView instance
 	}
 }
-</b></pre>
+</code></pre>
 <p>Notice that <b>view</b> will automatically constrain itself to the edges of the View Controller, so no constraints are needed for the outer <b>myView</b>!</p>
 <p>Now, <b>view</b> is a reference to my custom view (<b>MyView</b> in this case). You can build the entire functionality of the view inside its own separate file without the View Controller having to know anything about it. Nice!</p>
 <p>To access the contents of <b>MyView</b>, you can cast <b>view</b> to your custom type:</p>
 <pre class = "language-swift"><code class="language-swift">var myView: MyView {
     return view as! MyView
 }
-</b></pre>
+</code></pre>
 <p>This looks a bit weird, but it's because <b>view</b> will still be defined as an <b>UIView</b> regardless of the type you change it for.</p>
 <p>To avoid duplicating this code across my View Controllers, I like defining this behaviour inside a <b>CustomView</b> protocol with an associated type requirement:</p>
 <pre class = "language-swift"><code class="language-swift">/// The HasCustomView protocol defines a customView property for UIViewControllers to be used in exchange of the regular view property.
@@ -7257,7 +7257,7 @@ extension HasCustomView where Self: UIViewController {
         return customView
     }
 }
-</b></pre>
+</code></pre>
 <p>Which results in:</p>
 <pre class = "language-swift"><code class="language-swift">final class MyViewController: UIViewController, HasCustomView {
 	typealias CustomView = MyView
@@ -7273,7 +7273,7 @@ extension HasCustomView where Self: UIViewController {
     	customView.render() //some MyView method
 	}
 }
-</b></pre>
+</code></pre>
 <p>If defining this <b>CustomView</b> typealias every time is something that would bother you, you can go further and define this behaviour inside a generic class:
 <pre class = "language-swift"><code class="language-swift">class CustomViewController&lt;CustomView: UIView>: UIViewController {
     var customView: CustomView {
@@ -7291,7 +7291,7 @@ final class MyViewController: CustomViewController&lt;MyView> {
 	    customView.delegate = self
     }
 }
-</b></pre>
+</code></pre>
 <p>I personally don't like the generic approach because the compiler doesn't allow generic classes to have extensions with <b>@objc</b> methods, which forbids you from having protocols like <b>UITableViewDataSource</b> in extensions. However, it allows you to skip overriding <b>loadView()</b> unless something special needs to be done (like setting delegates), which really helps keep your View Controllers clean.</p>
 <h2>Conclusion</h2>
 <p>Overriding <b>loadView()</b> is a great way to make a View Code project easier to read and maintain, and I've been using <b>HasCustomView</b> specifically in my last few projects with great results. View coding is something that might not be your thing, but it brings many advantages to the table. Try it out, and see what works better for you.</p>
@@ -7591,20 +7591,21 @@ final class MyViewController: CustomViewController&lt;MyView> {
           <h2>iOS: The Main Thread</h2>
           <p>Your iOS app has several threads. The <b>Main Thread</b> is simply the intial starting point of execution in your app (starting for you at <b>didFinishLaunchingWithOptions</b>). The Main Thread executes a loop every frame (a <b>RunLoop</b>) that draws the current screen if needed, handles UI events such as touches and executes the contents of the <b>DispatchQueue.main</b>. It keeps doing this until the app is terminated. It has extremely high priority - pretty much anything on it gets executed immediatly. That's why you need to route UI code to the Main Thread - by execute some UI-changing code outside of it, your code might start running properly only to suddenly get <b>context switched</b> for several miliseconds because something more important arrived to the OS (like a notification). Your UI updates will then be delayed, giving a bad experience to your users.</p>
           <p>However, you can't simply execute <b>everything</b> on the Main Thread. Since this thread deals with everything related to screen draws / UI updates, if you run a huge task on it, it won't be able to do anything else until it ends. That's why we need several threads (points of execution) to begin with.</p>
-<pre class = "language-swift"><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
-    //Button actions are in the Main Thread.
-    //This takes about 5 seconds to finish
-    var counter = 0
-    for _ in 0..<1000000000 {
-        counter += 1
-        //The screen is totally frozen here. How can I scroll my screen (an UI action)
-        //If I blocked the thread by doing this meaningless thing?
-        //The scroll action is waiting to be run, but it can't because it's also a Main Thread action.
-        //You can't simply context switch actions on the same thread.
-        //This needs to be run in a different thread.
-    }
-}
-</b></pre>
+<pre>
+<code>@IBAction func actionOne(_ sender: Any) {</code>
+<code>    //Button actions are in the Main Thread.</code>
+<code>    //This takes about 5 seconds to finish</code>
+<code>    var counter = 0</code>
+<code>    for _ in 0..<1000000000 {</code>
+<code>        counter += 1</code>
+<code>        //The screen is totally frozen here. How can I scroll my screen (an UI action)</code>
+<code>        //If I blocked the thread by doing this meaningless thing?</code>
+<code>        //The scroll action is waiting to be run, but it can't because it's also a Main Thread action.</code>
+<code>        //You can't simply context switch actions on the same thread.</code>
+<code>        //This needs to be run in a different thread.</code>
+<code>    }</code>
+<code>}</code>
+</pre>
           <h2>iOS: Background Threads and DispatchQueues</h2>
           <p>A background thread is anything that is not the Main Thread. They can run alongside the Main Thread (like they were a different process, but remember the definition of a thread!), dealing with complex tasks without interferring with the Main Thread's UI updates. In iOS, the safest way of spawning a background thread is to use <b>DispatchQueues</b>. However, be aware that DispatchQueues are not threads - they are merely queues of closures that will <b>eventually</b> be forwarded to a relevant thread. A <b>DispatchQueue</b> will automatically create and reuse a pool of threads as it finds necessary, abstracting from you the hassle of spawning threads manually and dealing with potential issues of doing so.</p> 
           <p>The Main Thread will <b>serially</b> run the contents of <b>DispatchQueue.main</b> (that is, action 2 only happens after action 1 ends), while the contents of <b>DispatchQueue.global(qos:)</b> will <b>concurrently</b> (everything at the same time) run into background thread(s) (if there are several actions) with priority equal to the priority of the selected QoS. If you'd like custom behavior (such as a queue that forwards closures to a background thread, but serially), you can create your own <b>DispatchQueue</b>.</p>
@@ -7619,14 +7620,15 @@ final class MyViewController: CustomViewController&lt;MyView> {
       <h2>Visualizing the impact of different QoS levels</h2>
       <p>By using <b>Instruments</b>, we can see how the different QoS levels affect the execution of our code.</p>
       <h2>Heavy task on the Main Thread</h2>
-      <pre class = "language-swift"><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
-    //We already are in the main thread, but we will use a dispatch operation
-    //to see how long it takes for the task to begin.
-    DispatchQueue.main.async { [unowned self] in
-        self.timeIntensiveTask()
-    }
-}
-</b></pre>
+<pre>
+<code>@IBAction func actionOne(_ sender: Any) {</code>
+<code>    //We already are in the main thread, but we will use a dispatch operation</code>
+<code>    //to see how long it takes for the task to begin.</code>
+<code>    DispatchQueue.main.async { [unowned self] in</code>
+<code>        self.timeIntensiveTask()</code>
+<code>    }</code>
+<code>}</code>
+</pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/5h5izfu.png" alt=""> 
           </div>
@@ -7637,7 +7639,7 @@ final class MyViewController: CustomViewController&lt;MyView> {
         self.timeIntensiveTask()
     }
 }
-</b></pre>
+</code></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/13G62Yw.png" alt=""> 
           </div>
@@ -7648,7 +7650,7 @@ final class MyViewController: CustomViewController&lt;MyView> {
         self.timeIntensiveTask()
     }
 }
-</b></pre>
+</code></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/jPgtDEt.png" alt=""> 
           </div>
@@ -7665,7 +7667,7 @@ final class MyViewController: CustomViewController&lt;MyView> {
         self.timeIntensiveTask()
     }
 }
-</b></pre>
+</code></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/MeS2Hbv.png" alt=""> 
           </div>
@@ -7680,7 +7682,7 @@ final class MyViewController: CustomViewController&lt;MyView> {
         self.timeIntensiveTask()
     }
 }
-</b></pre>
+</code></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/9menZsz.png" alt=""> 
           </div>
@@ -7705,13 +7707,13 @@ private func timeIntensiveTask() {
         counter += 1
     }
 }
-</b></pre>
+</code></pre>
 <p>The answer will always be:</p>
 <pre class = "language-swift"><code class="language-swift">sync task started
 sync task ended
 async task started
 async task ended
-</b></pre>
+</code></pre>
      <p>If you thought the two tasks would start together, just think about the context of this method: we are dispatching a task to the Main Thread, but <b>actionOne</b> is already on the Main Thread! There's no way a thread can run two sequences of instructions at the same time, that's why we have different threads.</p> 
      <p>The <b>async</b> task will also only execute after the <b>sync</b> task (and never before) because <b>DispatchQueue.main</b> tasks will only start executing at the end of the Main Thread's <b>RunLoop</b> - which is blocked by our sync task. If <b>actionOne</b> happened to be in a different thread or the <b>async</b> task happened to be in a different <b>DispatchQueue</b>, the tasks would start together in an order dependant to how fast the <b>async</b> task would be dispatched.</p>
      <p>What <b>DispatchQueue.async</b> means is: <b>Make sure this task is eventually executed on thread X (main, or any other global background thread depending on what queue you are using), but I don't care about the details. I'll keep doing my stuff.</b>
@@ -7723,7 +7725,7 @@ async task ended
     }
     print("b")
 }
-</b></pre>
+</code></pre>
 <p>A <b>sync</b> task is forwarded to the queue, and the main thread will freeze until <b>"a"</b> gets printed. The task gets sent to the Main Thread, which is frozen because it's waiting for the task to run. But the task can't run, because the thread is frozen waiting for the task to run, and on and on and on until your app decides to crash. You can't call <b>sync</b> dispatches from the thread itself, it has to come from somewhere else. Nothing will get printed here. As you most likely know, this is called a <b>deadlock</b>.</p>
 <h2>What else?</h2>
 <p>Hopefully, this is to answer the questions at the beginning of the article. Concurrency is a very wide issue, and in iOS, <b>DispatchQueues</b> are just one way to approach concurrency problems. There's still much more in the shape of <b>Atomicity</b>, <b>OperationQueues</b>, <b>Locks</b>, <b>Semaphores</b>. However, <b>DispatchQueues</b> are the most used concurrency tools in iOS, and when understood, one of the keys to writing efficient multi-threaded code.</p>
@@ -7763,7 +7765,7 @@ async task ended
           May 2, 2018
           </div> 
           <p>It's very common to use the <b>weak</b> keyword in order to prevent reference cycles in properties like delegates:</p>
-<pre class = "language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</b></pre>
+<pre class = "language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
 <p>Unfortunately, since it protects you from references being lost, the <b>weak</b> keyword forces the usage of <b>var</b> and an optional type, which can be quite jarring if you're building something like an <b>UIView</b> that is not supposed to be used without a delegate - much less change delegates suddenly:</p>
 <pre class = "language-swift"><code class="language-swift">class HomeView: UIView {
     weak var delegate: HomeViewDelegate?
@@ -7778,9 +7780,9 @@ async task ended
         delegate.homeViewDidUpdate()
     }
 }
-</b></pre>
+</code></pre>
 <p>But <b>weak</b> is not the only way of breaking reference cycles. Just like in capture lists, the <b>unowned</b> keyword can be used in properties to create non-strong references:</p>
-<pre class = "language-swift"><code class="language-swift">unowned let delegate: HomeViewModelDelegate</b></pre>
+<pre class = "language-swift"><code class="language-swift">unowned let delegate: HomeViewModelDelegate</code></pre>
 <p>Unlike <b>weak</b>, <b>unowned</b> references are expected to always have a value. This allows you to not only use non-optional types when declaring them, but also to do so with <b>let</b>, bringing back immutability and making sure your objects won't act in unexpected ways:</p>
 <pre class = "language-swift"><code class="language-swift">class HomeView: UIView {
     private unowned let delegate: HomeViewDelegate
@@ -7796,7 +7798,7 @@ async task ended
         delegate.homeViewDidUpdate()
     }
 }
-</b></pre>
+</code></pre>
 <p>With <b>weak</b>, there's nothing stopping <b>HomeView</b> from being used without a delegate, and a <b>guard</b> is required to unwrap values retrieved from the delegate due to the optional requirement of the keyword. On the other hand, <b>unowned</b> allows you to break reference cycles while still using the reference just like if it was strong.</p>
 <p>However, be aware that <b>unowned</b> properties will work just like the capture list keyword. If you try to access an unowned reference that has already deallocated, your app will crash.</p>
 <p>If your object is guaranteed to never outlive its unowned reference (like a <b>ViewModel</b>, for example), usage of <b>unowned</b> can greatly improve both code quality and performance.</p>
@@ -7856,7 +7858,7 @@ async task ended
           <pre class="command-line language-bash" data-host="MyiPad", data-prompt="cy#", data-output="1-2"><b>ssh root@192.168.1.103
 cycript -p Messenger
 var root = [UIApplication sharedApplication].keyWindow.rootViewController 
-MNModalHostViewController</b></pre> 
+MNModalHostViewController</code></pre> 
                                     <p>The iPad currently has the color selection action sheet opened. If Facebook's engineers are good with naming conventions, this means that following down <b>root</b>'s hierarchy will eventually lead us to a view whose's name might contain some combination of the the words "Color", "Selector", "Chat" and "Bubble". In Cycript, you can see a view's properties by putting a <b>*</b> before it.</p>
                                     <div class="post-image margin-top-40 margin-bottom-40">
                                       <img src="https://i.imgur.com/u4Ne4KF.png" alt="">
@@ -7897,7 +7899,7 @@ MNModalHostViewController</b></pre>
     }
     free(methods);
     return methodsArray;
-}</b></pre>
+}</code></pre>
                                     <div class="post-image margin-top-40 margin-bottom-40">
                                       <img src="https://i.imgur.com/dGGjDkV.png" alt="">
                                       <p>The result of calling <b>printMethods("FBPickerViewItem")</b>. There it is!</p>
@@ -7907,7 +7909,7 @@ MNModalHostViewController</b></pre>
 var _setColor_pointer = {};
 MS.hookMessage(FBPickerItem, @selector(initWithColor:accessibilityTitle:accessibilityHint:isSelected:isSelectable:), function(arg0) { 
     return _setColor_pointer-&gt;call(this,[UIColor blackColor],”a”,”b”,false,true);
-}, _setColor_pointer);</b></pre>
+}, _setColor_pointer);</code></pre>
                                     <p>Basically, our swizzled method calls the original implementation, but with other arguments. In this case, I force the color to be black. If I close the action sheet and open it again, the result is...</p>
                                     <div class="post-image margin-top-40 margin-bottom-40">
                                       <img src="https://i.imgur.com/IWIRUiy.jpg" alt="">

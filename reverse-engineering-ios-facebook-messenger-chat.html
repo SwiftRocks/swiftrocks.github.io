@@ -108,7 +108,7 @@
           <pre class="command-line language-bash" data-host="MyiPad", data-prompt="cy#", data-output="1-2"><b>ssh root@192.168.1.103
 cycript -p Messenger
 var root = [UIApplication sharedApplication].keyWindow.rootViewController 
-MNModalHostViewController</b></pre> 
+MNModalHostViewController</code></pre> 
                                     <p>The iPad currently has the color selection action sheet opened. If Facebook's engineers are good with naming conventions, this means that following down <b>root</b>'s hierarchy will eventually lead us to a view whose's name might contain some combination of the the words "Color", "Selector", "Chat" and "Bubble". In Cycript, you can see a view's properties by putting a <b>*</b> before it.</p>
                                     <div class="post-image margin-top-40 margin-bottom-40">
                                       <img src="https://i.imgur.com/u4Ne4KF.png" alt="">
@@ -149,7 +149,7 @@ MNModalHostViewController</b></pre>
     }
     free(methods);
     return methodsArray;
-}</b></pre>
+}</code></pre>
                                     <div class="post-image margin-top-40 margin-bottom-40">
                                       <img src="https://i.imgur.com/dGGjDkV.png" alt="">
                                       <p>The result of calling <b>printMethods("FBPickerViewItem")</b>. There it is!</p>
@@ -159,7 +159,7 @@ MNModalHostViewController</b></pre>
 var _setColor_pointer = {};
 MS.hookMessage(FBPickerItem, @selector(initWithColor:accessibilityTitle:accessibilityHint:isSelected:isSelectable:), function(arg0) { 
     return _setColor_pointer-&gt;call(this,[UIColor blackColor],”a”,”b”,false,true);
-}, _setColor_pointer);</b></pre>
+}, _setColor_pointer);</code></pre>
                                     <p>Basically, our swizzled method calls the original implementation, but with other arguments. In this case, I force the color to be black. If I close the action sheet and open it again, the result is...</p>
                                     <div class="post-image margin-top-40 margin-bottom-40">
                                       <img src="https://i.imgur.com/IWIRUiy.jpg" alt="">

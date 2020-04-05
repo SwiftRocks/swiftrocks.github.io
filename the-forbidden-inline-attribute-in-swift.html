@@ -107,7 +107,7 @@
 print("I'm going to do print some number")
 calculateAndPrintSomething()
 print("Done!")
-</b></pre>
+</code></pre>
 <p>Assuming that <b>calculateAndPrintSomething()</b> isn't used anywhere else, it's clear that the method doesn't need to exist in the compiled binary - it's purpose is purely to make the code easier to read.</p>
 <p>With function inlining, the Swift compiler can remove the overhead of calling an useless method by replacing it with it's contents:</p>
 <pre class = "language-swift"><code class="language-swift">//The compiled binary version of the above example
@@ -117,7 +117,7 @@ num *= 10
 num /= 5
 print("My number: \(num)")
 print("Done!")
-</b></pre>
+</code></pre>
 <p>Based on your optimization level, this is done automatically by the Swift compiler - favoring inlining if optimizing for speed (<b>-O</b>), or favoring <b>not</b> inlining if optimizing for binary size (<b>-Osize</b>), since inlining a long method that is called in several places would result in duplicated code, and a larger binary.</p>
 <p>Even though the compiler can make its own inlining decisions, the <b>@inline</b> attribute can be used in Swift to <b>force</b> its decision. It can be used in two ways:</p>
 <p><b>@inline(__always)</b>: Signals the compiler to always inline the method, if possible.</p>
@@ -142,7 +142,7 @@ func play(song: Song) {
         //Ask user to subscribe
     }
 }
-</b></pre>
+</code></pre>
 <p>This works great for our code, but look what happens if I disassemble this app and search for the <b>play(_:)</b> method's assembly:</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/3kqUFaF.png" alt="">                                    
@@ -166,7 +166,7 @@ func play(song: Song) {
         //Ask user to subscribe
     }
 }
-</b></pre>
+</code></pre>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/JwkToz8.png" alt="">                                    
 </div>

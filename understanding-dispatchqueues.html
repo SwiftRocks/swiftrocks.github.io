@@ -141,20 +141,21 @@
           <h2>iOS: The Main Thread</h2>
           <p>Your iOS app has several threads. The <b>Main Thread</b> is simply the intial starting point of execution in your app (starting for you at <b>didFinishLaunchingWithOptions</b>). The Main Thread executes a loop every frame (a <b>RunLoop</b>) that draws the current screen if needed, handles UI events such as touches and executes the contents of the <b>DispatchQueue.main</b>. It keeps doing this until the app is terminated. It has extremely high priority - pretty much anything on it gets executed immediatly. That's why you need to route UI code to the Main Thread - by execute some UI-changing code outside of it, your code might start running properly only to suddenly get <b>context switched</b> for several miliseconds because something more important arrived to the OS (like a notification). Your UI updates will then be delayed, giving a bad experience to your users.</p>
           <p>However, you can't simply execute <b>everything</b> on the Main Thread. Since this thread deals with everything related to screen draws / UI updates, if you run a huge task on it, it won't be able to do anything else until it ends. That's why we need several threads (points of execution) to begin with.</p>
-<pre class = "language-swift"><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
-    //Button actions are in the Main Thread.
-    //This takes about 5 seconds to finish
-    var counter = 0
-    for _ in 0..<1000000000 {
-        counter += 1
-        //The screen is totally frozen here. How can I scroll my screen (an UI action)
-        //If I blocked the thread by doing this meaningless thing?
-        //The scroll action is waiting to be run, but it can't because it's also a Main Thread action.
-        //You can't simply context switch actions on the same thread.
-        //This needs to be run in a different thread.
-    }
-}
-</b></pre>
+<pre>
+<code>@IBAction func actionOne(_ sender: Any) {</code>
+<code>    //Button actions are in the Main Thread.</code>
+<code>    //This takes about 5 seconds to finish</code>
+<code>    var counter = 0</code>
+<code>    for _ in 0..<1000000000 {</code>
+<code>        counter += 1</code>
+<code>        //The screen is totally frozen here. How can I scroll my screen (an UI action)</code>
+<code>        //If I blocked the thread by doing this meaningless thing?</code>
+<code>        //The scroll action is waiting to be run, but it can't because it's also a Main Thread action.</code>
+<code>        //You can't simply context switch actions on the same thread.</code>
+<code>        //This needs to be run in a different thread.</code>
+<code>    }</code>
+<code>}</code>
+</pre>
           <h2>iOS: Background Threads and DispatchQueues</h2>
           <p>A background thread is anything that is not the Main Thread. They can run alongside the Main Thread (like they were a different process, but remember the definition of a thread!), dealing with complex tasks without interferring with the Main Thread's UI updates. In iOS, the safest way of spawning a background thread is to use <b>DispatchQueues</b>. However, be aware that DispatchQueues are not threads - they are merely queues of closures that will <b>eventually</b> be forwarded to a relevant thread. A <b>DispatchQueue</b> will automatically create and reuse a pool of threads as it finds necessary, abstracting from you the hassle of spawning threads manually and dealing with potential issues of doing so.</p> 
           <p>The Main Thread will <b>serially</b> run the contents of <b>DispatchQueue.main</b> (that is, action 2 only happens after action 1 ends), while the contents of <b>DispatchQueue.global(qos:)</b> will <b>concurrently</b> (everything at the same time) run into background thread(s) (if there are several actions) with priority equal to the priority of the selected QoS. If you'd like custom behavior (such as a queue that forwards closures to a background thread, but serially), you can create your own <b>DispatchQueue</b>.</p>
@@ -169,14 +170,15 @@
       <h2>Visualizing the impact of different QoS levels</h2>
       <p>By using <b>Instruments</b>, we can see how the different QoS levels affect the execution of our code.</p>
       <h2>Heavy task on the Main Thread</h2>
-      <pre class = "language-swift"><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
-    //We already are in the main thread, but we will use a dispatch operation
-    //to see how long it takes for the task to begin.
-    DispatchQueue.main.async { [unowned self] in
-        self.timeIntensiveTask()
-    }
-}
-</b></pre>
+<pre>
+<code>@IBAction func actionOne(_ sender: Any) {</code>
+<code>    //We already are in the main thread, but we will use a dispatch operation</code>
+<code>    //to see how long it takes for the task to begin.</code>
+<code>    DispatchQueue.main.async { [unowned self] in</code>
+<code>        self.timeIntensiveTask()</code>
+<code>    }</code>
+<code>}</code>
+</pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/5h5izfu.png" alt=""> 
           </div>
@@ -187,7 +189,7 @@
         self.timeIntensiveTask()
     }
 }
-</b></pre>
+</code></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/13G62Yw.png" alt=""> 
           </div>
@@ -198,7 +200,7 @@
         self.timeIntensiveTask()
     }
 }
-</b></pre>
+</code></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/jPgtDEt.png" alt=""> 
           </div>
@@ -215,7 +217,7 @@
         self.timeIntensiveTask()
     }
 }
-</b></pre>
+</code></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/MeS2Hbv.png" alt=""> 
           </div>
@@ -230,7 +232,7 @@
         self.timeIntensiveTask()
     }
 }
-</b></pre>
+</code></pre>
           <div class="post-image margin-top-40 margin-bottom-40"> 
            <img src="https://i.imgur.com/9menZsz.png" alt=""> 
           </div>
@@ -255,13 +257,13 @@ private func timeIntensiveTask() {
         counter += 1
     }
 }
-</b></pre>
+</code></pre>
 <p>The answer will always be:</p>
 <pre class = "language-swift"><code class="language-swift">sync task started
 sync task ended
 async task started
 async task ended
-</b></pre>
+</code></pre>
      <p>If you thought the two tasks would start together, just think about the context of this method: we are dispatching a task to the Main Thread, but <b>actionOne</b> is already on the Main Thread! There's no way a thread can run two sequences of instructions at the same time, that's why we have different threads.</p> 
      <p>The <b>async</b> task will also only execute after the <b>sync</b> task (and never before) because <b>DispatchQueue.main</b> tasks will only start executing at the end of the Main Thread's <b>RunLoop</b> - which is blocked by our sync task. If <b>actionOne</b> happened to be in a different thread or the <b>async</b> task happened to be in a different <b>DispatchQueue</b>, the tasks would start together in an order dependant to how fast the <b>async</b> task would be dispatched.</p>
      <p>What <b>DispatchQueue.async</b> means is: <b>Make sure this task is eventually executed on thread X (main, or any other global background thread depending on what queue you are using), but I don't care about the details. I'll keep doing my stuff.</b>
@@ -273,7 +275,7 @@ async task ended
     }
     print("b")
 }
-</b></pre>
+</code></pre>
 <p>A <b>sync</b> task is forwarded to the queue, and the main thread will freeze until <b>"a"</b> gets printed. The task gets sent to the Main Thread, which is frozen because it's waiting for the task to run. But the task can't run, because the thread is frozen waiting for the task to run, and on and on and on until your app decides to crash. You can't call <b>sync</b> dispatches from the thread itself, it has to come from somewhere else. Nothing will get printed here. As you most likely know, this is called a <b>deadlock</b>.</p>
 <h2>What else?</h2>
 <p>Hopefully, this is to answer the questions at the beginning of the article. Concurrency is a very wide issue, and in iOS, <b>DispatchQueues</b> are just one way to approach concurrency problems. There's still much more in the shape of <b>Atomicity</b>, <b>OperationQueues</b>, <b>Locks</b>, <b>Semaphores</b>. However, <b>DispatchQueues</b> are the most used concurrency tools in iOS, and when understood, one of the keys to writing efficient multi-threaded code.</p>
