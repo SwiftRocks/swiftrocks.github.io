@@ -4603,7 +4603,7 @@ March 1, 2019
 <code>// MyView -> MyViewController -> UIWindow -> UIApplication -> AppDelegate</code>
 </pre>
 <div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/922BVYT.png"" alt="">                                    
+  <img src="https://i.imgur.com/922BVYT.png" alt="The Responder Chain">                                    
 </div>
 <p>In the previous example where the action was handled by the <b>UIViewController</b>, UIKit first sent the action to the <b>UIView</b> first responder - but since it doesn't implement <b>myCustomMethod</b> the view forwarded the action to the next responder - the <b>UIViewController</b> which happened to have that method in its implementation.</p>
 <p>While in most cases the Responder Chain is simply be the order of the subviews, you can customize it to change the general flow order. Besides being able to override the <b>next</b> property to return something else, you can force an <b>UIResponder</b> to become the first responder by calling <b>becomeFirstResponder()</b> and have it go back to its position by calling <b>resignFirstResponder()</b>. This is commonly used in conjunction with <b>UITextField</b> to display a keyboard - <b>UIResponders</b> can define an optional <b>inputView</b> property that only shows up when the responder is the first responder, which is the keyboard in this case.</p>
