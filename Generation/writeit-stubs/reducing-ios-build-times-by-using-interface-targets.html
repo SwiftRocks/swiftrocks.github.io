@@ -1,6 +1,6 @@
 
 <!--WRITEIT_POST_NAME=Reducing iOS Build Times by using Interface Targets-->
-<!--WRITEIT_POST_HTML_NAME=reducing-ios-build-times-by-using-interface-targets.html-->
+<!--WRITEIT_POST_HTML_NAME=reducing-ios-build-times-by-using-interface-targets-->
 
 <!--Add here the additional properties that you want each page to possess.-->
 <!--These properties can be used to change content in the template page or in the page itself as shown here.-->
@@ -87,7 +87,7 @@ January 23rd, 2020
 
 <p>This is because we're missing a key component in this structure: <b>a dependency injector.</b> In an app like this, because there's no way for targets to reference the concrete information from other targets, there needs to be a global system that is capable of returning the (now hidden) concrete information to targets when a certain protocol is given. At iFood, we solved this by creating a dependency injector called <b>RouterService</b> -- here, each feature's target's interface only exposes a series of <b>Route</b> structs, while each feature's concrete target connects these <b>Routes</b> to the related <b>UIViewController</b>.</p>
 
-<p>With this information exposed, iFood's AppDelegate creates an instance of a <b>RouterService</b> which receives every feature's routes and related <b>UIViewControllers</b>. When a feature asks for a specific <b>Route</b> from another feature's interface to be executed, the <b>RouterService</b> automatically locates which <b>UIViewController</b> should be pushed. The process to create something like was detailed in my previous article, <a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift.html">Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift.</a> Here's a simplified example of how the previous example looks like in our app:</p>
+<p>With this information exposed, iFood's AppDelegate creates an instance of a <b>RouterService</b> which receives every feature's routes and related <b>UIViewControllers</b>. When a feature asks for a specific <b>Route</b> from another feature's interface to be executed, the <b>RouterService</b> automatically locates which <b>UIViewController</b> should be pushed. The process to create something like was detailed in my previous article, <a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift">Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift.</a> Here's a simplified example of how the previous example looks like in our app:</p>
 
 <pre>
 <code>// AppFeature2Interface, which depends on RouterServiceInterface</code>

@@ -1,7 +1,7 @@
 
 
 <!--WRITEIT_POST_NAME=How Never Works Internally in Swift-->
-<!--WRITEIT_POST_HTML_NAME=how-never-works-internally-in-swift.html-->
+<!--WRITEIT_POST_HTML_NAME=how-never-works-internally-in-swift-->
 
 <!--Add here the additional properties that you want each page to possess.-->
 <!--These properties can be used to change content in the template page or in the page itself as shown here.-->
@@ -28,7 +28,7 @@
 </pre>
 <p>Deep down, <b>Never</b> is just the revamped "swifty" version of <b>@noreturn</b>: an attribute which provided the exact same functionality but was removed for being too complex due to its nature as an attribute. Connecting this behaviour to a return type allowed the compiler to work better, and certainly ended up looking better for the developer as well.</p>
 <p>Something about <b>Never</b> intrigued me, though. We know that there's nothing in the language itself that allows you to skip return values, so what magic is done in the compiler to allow this?</p>
-<p>Just like in my <a href="https://swiftrocks.com/how-caseiterable-works-internally-in-swift.html">previous article about the innards of CaseIterable</a>, I'm going to dive into the compiler in order to extract and analyze the pieces of code that intercept and change the functionality of methods that return <b>Never</b> in order to learn more about how the Swift compiler works.</p>
+<p>Just like in my <a href="https://swiftrocks.com/how-caseiterable-works-internally-in-swift">previous article about the innards of CaseIterable</a>, I'm going to dive into the compiler in order to extract and analyze the pieces of code that intercept and change the functionality of methods that return <b>Never</b> in order to learn more about how the Swift compiler works.</p>
 <p><i>Disclaimer: As always, this is a result of my own research and reverse-engineering. As I obviously have nothing to do with the original development of <b>Never</b>, some assumptions might be not fully correct. Feel free to correct me if you know how the compiler works!</i></p>
 <h2>Uninhabited Types / Never Patterns</h2>
 <p>Expecting to find complex pieces of code, the implementation of <b>Never</b> in the Standard Library show us something else - the type is nothing but an empty enum:</p>
