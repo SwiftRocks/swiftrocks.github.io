@@ -7855,7 +7855,7 @@ async task ended
                                     </div>
                                     <p>The feature I'll inspect in this article is the chat bubble color selector. It allows you to change the color of a chat (duh) to a few pre-determined colors. But what if I want to use my own custom color instead?</p>
                                     <p><a href= "http://www.cycript.org/">Cycript</a> is a debugger with a twist: you can easily print, create and call Objective-C methods without any of the complexity or pain you might experience while using <b>gdb or lldb</b>. Combined with a jailbroken iPad with OpenSSH installed, you can treat app like it's source code was available right in front of you.</p>
-          <pre class="command-line language-bash" data-host="MyiPad", data-prompt="cy#", data-output="1-2"><b>ssh root@192.168.1.103
+          <pre class="command-line language-bash" data-host="MyiPad", data-prompt="cy#", data-output="1-2"><code>ssh root@192.168.1.103
 cycript -p Messenger
 var root = [UIApplication sharedApplication].keyWindow.rootViewController 
 MNModalHostViewController</code></pre> 
