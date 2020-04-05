@@ -315,7 +315,7 @@ December 6, 2018
 <h3>Adding the actual functionality: Wholesome reminders</h3>
 <p>For the actual use, I've thought that such an incredible attribute should have an equally incredible use: When applied to a type, the compiler will put a warning on all properties that don't have "ThatRocks" in their name, because they are doing a good job and deserve recognition.</p>
 <p>To do this, I'll intercept the typechecker in order to have access to all getter declarations. Given a getter, I can recursively its parents to see if someone has a <b>@swiftRocks</b> attribute and check if the getter's name doesn't contain "ThatRocks" in order to send the coder a friendly warning.</p>
-<p>After a very long time of searching for suitable places for this implementation, I've found that <Code>typeCheckDecl()</b> has all the information I need. It's probably a terrible place to do this, but the members of SwiftRocks unanimously decided that this attribute is more important than coding practices. After another very long time of trying to figure out how to retrieve a getter's "type tree", here's what I ended up with</p>
+<p>After a very long time of searching for suitable places for this implementation, I've found that <b>typeCheckDecl()</b> has all the information I need. It's probably a terrible place to do this, but the members of SwiftRocks unanimously decided that this attribute is more important than coding practices. After another very long time of trying to figure out how to retrieve a getter's "type tree", here's what I ended up with</p>
 <pre>
 <code>void TypeChecker::typeCheckDecl(Decl *D) {</code>
 <code>  if (auto AD = dyn_cast&lt;AccessorDecl>(D)) {</code>
@@ -388,7 +388,7 @@ December 6, 2018
                         </div>
 
                              <div style="text-align: center; display: block;">
-<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ff7900; padding-left: 12px; padding-right: 12px; margin-top: 12px; margin-bottom: -6px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; font-weight: 700; background-color: #ffead5; width: 100%; display: inline-block; border-radius: 32px;"><i class="fa fa-twitter"></i> 1921 followers</a>
+<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ff7900; padding-left: 12px; padding-right: 12px; margin-top: 12px; margin-bottom: -6px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; font-weight: 700; background-color: #ffead5; width: 100%; display: inline-block; border-radius: 32px;"><i class="fa fa-twitter"></i> 1931 followers</a>
    </div>
                       
                       

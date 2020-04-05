@@ -3126,7 +3126,7 @@ August 8, 2019
 <p>Besides that, if you write <b>po</b> alone, you'll be able to write a multiline expression like this. We can use this to create completely new methods and classes inside our debugging session:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="2-7">
 <code>po</code>
-<code>Enter expressions, then terminate with an empty line to evaluate:</b>
+<code>Enter expressions, then terminate with an empty line to evaluate:</code>
 <code>1 class $BreakpointUtils {</code>
 <code>2     static var $counter = 0</code>
 <code>3 }</code>
@@ -5498,7 +5498,7 @@ December 6, 2018
 <h3>Adding the actual functionality: Wholesome reminders</h3>
 <p>For the actual use, I've thought that such an incredible attribute should have an equally incredible use: When applied to a type, the compiler will put a warning on all properties that don't have "ThatRocks" in their name, because they are doing a good job and deserve recognition.</p>
 <p>To do this, I'll intercept the typechecker in order to have access to all getter declarations. Given a getter, I can recursively its parents to see if someone has a <b>@swiftRocks</b> attribute and check if the getter's name doesn't contain "ThatRocks" in order to send the coder a friendly warning.</p>
-<p>After a very long time of searching for suitable places for this implementation, I've found that <Code>typeCheckDecl()</b> has all the information I need. It's probably a terrible place to do this, but the members of SwiftRocks unanimously decided that this attribute is more important than coding practices. After another very long time of trying to figure out how to retrieve a getter's "type tree", here's what I ended up with</p>
+<p>After a very long time of searching for suitable places for this implementation, I've found that <b>typeCheckDecl()</b> has all the information I need. It's probably a terrible place to do this, but the members of SwiftRocks unanimously decided that this attribute is more important than coding practices. After another very long time of trying to figure out how to retrieve a getter's "type tree", here's what I ended up with</p>
 <pre>
 <code>void TypeChecker::typeCheckDecl(Decl *D) {</code>
 <code>  if (auto AD = dyn_cast&lt;AccessorDecl>(D)) {</code>
@@ -7890,7 +7890,7 @@ MNModalHostViewController</code></pre>
                                     </div>
                                     <p>Unfortunately, it turns out that a FBPickerViewItem's properties don't contain anything useful involving chat colors. The actual color information ended up being in it's <b>init</b> method.</p>
                                     <p>Let's pretend I didn't know that. To print a class's methods, we can use of the following snippet:</p>
-          <pre class="language-js"><b>function printMethods(className) {
+          <pre class="language-js"><code>function printMethods(className) {
     var count = new new Type(“I”);
     var methodsArray = []; 
     for(var i = 0; i &lt; *count; i++) {
@@ -7905,7 +7905,7 @@ MNModalHostViewController</code></pre>
                                       <p>The result of calling <b>printMethods("FBPickerViewItem")</b>. There it is!</p>
                                     </div>
                                     <p>In order to intercept the initialization of this class, we can use <a href="http://nshipster.com/method-swizzling/">Method Swizzling</a>. Cydia Substrate can be installed on a jailbroken device to provide helpers specific for this purpose.</p>
-          <pre class="language-js"><b>@import com.saurik.substrate.MS 
+          <pre class="language-js"><code>@import com.saurik.substrate.MS 
 var _setColor_pointer = {};
 MS.hookMessage(FBPickerItem, @selector(initWithColor:accessibilityTitle:accessibilityHint:isSelected:isSelectable:), function(arg0) { 
     return _setColor_pointer-&gt;call(this,[UIColor blackColor],”a”,”b”,false,true);

@@ -140,7 +140,7 @@ MNModalHostViewController</code></pre>
                                     </div>
                                     <p>Unfortunately, it turns out that a FBPickerViewItem's properties don't contain anything useful involving chat colors. The actual color information ended up being in it's <b>init</b> method.</p>
                                     <p>Let's pretend I didn't know that. To print a class's methods, we can use of the following snippet:</p>
-          <pre class="language-js"><b>function printMethods(className) {
+          <pre class="language-js"><code>function printMethods(className) {
     var count = new new Type(“I”);
     var methodsArray = []; 
     for(var i = 0; i &lt; *count; i++) {
@@ -155,7 +155,7 @@ MNModalHostViewController</code></pre>
                                       <p>The result of calling <b>printMethods("FBPickerViewItem")</b>. There it is!</p>
                                     </div>
                                     <p>In order to intercept the initialization of this class, we can use <a href="http://nshipster.com/method-swizzling/">Method Swizzling</a>. Cydia Substrate can be installed on a jailbroken device to provide helpers specific for this purpose.</p>
-          <pre class="language-js"><b>@import com.saurik.substrate.MS 
+          <pre class="language-js"><code>@import com.saurik.substrate.MS 
 var _setColor_pointer = {};
 MS.hookMessage(FBPickerItem, @selector(initWithColor:accessibilityTitle:accessibilityHint:isSelected:isSelectable:), function(arg0) { 
     return _setColor_pointer-&gt;call(this,[UIColor blackColor],”a”,”b”,false,true);
@@ -210,7 +210,7 @@ MS.hookMessage(FBPickerItem, @selector(initWithColor:accessibilityTitle:accessib
                         </div>
 
                              <div style="text-align: center; display: block;">
-<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ff7900; padding-left: 12px; padding-right: 12px; margin-top: 12px; margin-bottom: -6px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; font-weight: 700; background-color: #ffead5; width: 100%; display: inline-block; border-radius: 32px;"><i class="fa fa-twitter"></i> 1921 followers</a>
+<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ff7900; padding-left: 12px; padding-right: 12px; margin-top: 12px; margin-bottom: -6px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; font-weight: 700; background-color: #ffead5; width: 100%; display: inline-block; border-radius: 32px;"><i class="fa fa-twitter"></i> 1931 followers</a>
    </div>
                       
                       
