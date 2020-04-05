@@ -11,19 +11,13 @@
   <loc>https://swiftrocks.com/</loc>
   <lastmod>2018-10-29T12:21:52+00:00</lastmod>
   <priority>1.00</priority>
-</url>
-<url>
+</url><url>
     <loc>https://swiftrocks.com/understanding-swifts-objectidentifier</loc>
     <lastmod>2020-03-31T07:25:00+00:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
     <loc>https://swiftrocks.com/useful-global-swift-functions</loc>
-    <lastmod>2020-03-24T07:25:00+00:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/understanding-swifts-objectidentifier</loc>
     <lastmod>2020-03-24T07:25:00+00:00</lastmod>
     <priority>0.80</priority>
 </url>
@@ -35,6 +29,11 @@
 <url>
     <loc>https://swiftrocks.com/swift-codable-decodingencoding-with-context</loc>
     <lastmod>2020-02-05T07:25:00+00:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets</loc>
+    <lastmod>2020-01-23T06:00:00+00:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
@@ -98,135 +97,128 @@
     <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/understanding-opaque-return-types-in-swift</loc>
-  <lastmod>2019-06-10T18:00:00+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/understanding-opaque-return-types-in-swift</loc>
+    <lastmod>2019-06-10T18:00:00+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/inside-swiftui-compiler-magic</loc>
-  <lastmod>2019-06-04T18:00:00+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/inside-swiftui-compiler-magic</loc>
+    <lastmod>2019-06-04T18:00:00+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/autoreleasepool-in-2019-swift</loc>
-  <lastmod>2019-05-22T18:00:00+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/autoreleasepool-in-2019-swift</loc>
+    <lastmod>2019-05-22T18:00:00+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/code-style-guides-in-swift</loc>
-  <lastmod>2019-05-07T18:00:00+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/code-style-guides-in-swift</loc>
+    <lastmod>2019-05-07T18:00:00+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/blockbased-ui-testing-in-swift</loc>
-  <lastmod>2019-04-20T18:00:00+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/blockbased-ui-testing-in-swift</loc>
+    <lastmod>2019-04-20T18:00:00+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/blockbased-ui-testing-in-swift</loc>
-  <lastmod>2019-04-20T18:00:00+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/understanding-the-ios-responder-chain</loc>
+    <lastmod>2019-03-01T18:00:00+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/understanding-the-ios-responder-chain</loc>
-  <lastmod>2019-03-01T18:00:00+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/use-cases-for-strong-closures-in-swift</loc>
+    <lastmod>2019-02-20T18:00:00+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen</loc>
-  <lastmod>2019-02-20T18:00:00+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen</loc>
+    <lastmod>2019-02-20T18:00:00+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/avoiding-callback-hell-in-swift</loc>
-  <lastmod>2018-12-17T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/avoiding-callback-hell-in-swift</loc>
+    <lastmod>2018-12-17T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift</loc>
-  <lastmod>2018-12-06T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift</loc>
+    <lastmod>2018-12-06T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/how-never-works-internally-in-swift</loc>
-  <lastmod>2018-11-14T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/how-never-works-internally-in-swift</loc>
+    <lastmod>2018-11-14T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/whats-type-and-self-swift-metatypes</loc>
-  <lastmod>2018-10-29T12:23:13+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/whats-type-and-self-swift-metatypes</loc>
+    <lastmod>2018-10-29T12:23:13+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/memory-management-and-performance-of-value-types</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/how-caseiterable-works-internally-in-swift</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/the-forbidden-inline-attribute-in-swift</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/swift-associated-types-with-default-values</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/how-caseiterable-works-internally-in-swift</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/lazy-sequences-in-swift-and-how-they-work</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/detecting-touchid-fingerprint-changes</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/swift-associated-types-with-default-values</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/the-forbidden-inline-attribute-in-swift</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/competitive-programming-with-swift</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/competitive-programming-with-swift</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/unowned-properties-in-swift</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/memory-management-and-performance-of-value-types</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/lazy-sequences-in-swift-and-how-they-work</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/understanding-dispatchqueues</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/understanding-dispatchqueues</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/detecting-touchid-fingerprint-changes</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/unowned-properties-in-swift</loc>
+    <lastmod>2018-10-26T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
+    <loc>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat</loc>
+    <lastmod>2016-11-07T13:42:07+00:00</lastmod>
+    <priority>0.80</priority>
 </url>
-<url>
-  <loc>https://swiftrocks.com/list-of-swift-contributions</loc>
-  <lastmod>2018-10-26T13:42:07+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-
-
 </urlset>
