@@ -48,12 +48,15 @@ button {
 
 .about-fixed {
     margin-top: 24px !important;
-    width: 235px;
-    max-width: 100%;
     margin: 0 auto;
 }
 
+.my-pic {
+    text-align: center;
+}
+
 .my-pic img {
+    max-width: 235px;
     width: 100%;
 }
 
@@ -137,7 +140,16 @@ div.blog-post {
     text-decoration: none;
 }
 
+.next-article a {
+    color: #000000;
+    text-decoration: none;
+}
+
 .blog-post .post-title a:hover {
+    text-decoration: underline;
+}
+
+.next-article a:hover {
     text-decoration: underline;
 }
 
@@ -158,6 +170,21 @@ div.blog-post {
     line-height: 1.1;
     font-family: inherit;
     display: block;
+}
+
+.footer strong {
+    color: #000000;
+    font-size: 34px;
+    font-weight: 400;
+    margin-bottom: 5px !important;
+    line-height: 1.1;
+    font-family: inherit;
+    display: block;
+    margin-top: 8px;
+}
+
+.footer h3 {
+  margin-bottom: 4px !important;
 }
 
 .blog-post .post-image {
@@ -290,24 +317,65 @@ blockquote {
   font-size: 22px;
 }
 
-.share-twitter a {
+div.footer {
+  border-top: 1px solid #ccc;
+  padding-top: 12px;
+}
+
+div.footer-links {
+  display: inline-grid;
+}
+
+.footer-links a {
   margin-top: 8px;
-  display: inline;
-  color: #fff;
   border: 0 none;
-  border-radius: 32px;
+  border-radius: 8px;
   font-size: 20px;
   text-decoration: none;
   padding-left: 18px;
   padding-right: 18px;
   padding-top: 6px;
   padding-bottom: 6px;
-  width: 100%;
 }
 
-div.footer {
-  border-top: 1px solid #ccc;
-  padding-top: 12px;
+.footer-links .share {
+  color: #ffffff;
+  background-color: #1da1f2;
+}
+
+.footer-links .share:hover {
+  color: #1da1f2;
+  background-color: #ffffff;
+}
+
+.footer-links .see-all {
+  color: #ffffff; 
+  background-color: #ff7900;
+}
+
+.footer-links .see-all:hover {
+  color: #ff7900; 
+  background-color: #ffffff;
+}
+
+.footer-links .newsletter {
+  color: #ffffff; 
+  background-color: #4e4e4e;
+}
+
+.footer-links .newsletter:hover {
+  color: #4e4e4e; 
+  background-color: #ffffff;
+}
+
+.footer-links .sponsor {
+  color: #ffffff; 
+  background-color: #ff046d;
+}
+
+.footer-links .sponsor:hover {
+  color: #ff046d; 
+  background-color: #ffffff;
 }
 
 .facebook {
