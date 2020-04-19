@@ -11,24 +11,24 @@
     <!-- SEO -->
     <meta name="author" content="Bruno Rocha">
     <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
-    <meta name="description" content="Learn more about this alternative to weak properties in Swift.">
-    <meta name="title" content="Unowned Properties in Swift">
-    <meta name="url" content="https://swiftrocks.com/unowned-properties-in-swift">
+    <meta name="description" content="Learn about how you can contribute to SwiftRocks.">
+    <meta name="title" content="Sponsor / Advertise at SwiftRocks">
+    <meta name="url" content="https://swiftrocks.com/sponsor-advertise-at-swiftrocks">
     <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
-    <meta property="og:title" content="Unowned Properties in Swift"/>
+    <meta property="og:title" content="Sponsor / Advertise at SwiftRocks"/>
     <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
-    <meta property="og:description" content="Learn more about this alternative to weak properties in Swift."/>
+    <meta property="og:description" content="Learn about how you can contribute to SwiftRocks."/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://swiftrocks.com/unowned-properties-in-swift"/>
+    <meta property="og:url" content="https://swiftrocks.com/sponsor-advertise-at-swiftrocks"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
-    <meta name="twitter:title" content="Unowned Properties in Swift"/>
-    <meta name="twitter:description" content="Learn more about this alternative to weak properties in Swift."/>
+    <meta name="twitter:title" content="Sponsor / Advertise at SwiftRocks"/>
+    <meta name="twitter:description" content="Learn about how you can contribute to SwiftRocks."/>
     <meta name="twitter:site" content="@rockbruno_"/>
     
     <!-- Favicon -->
@@ -57,13 +57,13 @@
 "@type": "BlogPosting",
 "mainEntityOfPage": {
   "@type": "WebPage",
-  "@id": "https://swiftrocks.com/unowned-properties-in-swift"
+  "@id": "https://swiftrocks.com/sponsor-advertise-at-swiftrocks"
 },
 "image": [
   "https://swiftrocks.com/images/bg/swiftrockssocial.png"
 ],
-"datePublished": "2018-10-26T13:42:07+00:00",
-"dateModified": "2020-04-12T14:00:00+02:00",
+"datePublished": "2020-04-19T16:00:00+02:00",
+"dateModified": "2020-04-19T16:00:00+02:00",
 "author": {
   "@type": "Person",
   "name": "Bruno Rocha"
@@ -76,8 +76,8 @@
     "url": "https://swiftrocks.com/images/bg/swiftrockssocial.png"
   }
 },
-"headline": "Unowned Properties in Swift",
-    "abstract": "Learn more about this alternative to weak properties in Swift."
+"headline": "Sponsor / Advertise at SwiftRocks",
+    "abstract": "Learn about how you can contribute to SwiftRocks."
 }
   </script>
     
@@ -104,79 +104,30 @@
                     	<div class="row">
 
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
-<!--WRITEIT_POST_NAME=Unowned Properties in Swift-->
-<!--WRITEIT_POST_HTML_NAME=unowned-properties-in-swift-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00-->
+<!--WRITEIT_POST_NAME=Sponsor / Advertise at SwiftRocks-->
+<!--WRITEIT_POST_HTML_NAME=sponsor-advertise-at-swiftrocks-->
+
+<!--WRITEIT_POST_DONT_RSS=true-->
 
 <!--Add here the additional properties that you want each page to possess.-->
 <!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITE_IT_POST'.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Learn more about this alternative to weak properties in Swift.-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Learn about how you can contribute to SwiftRocks.-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-19T16:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2020-04-19T16:00:00+02:00-->
 
-
-<title>Unowned Properties in Swift</title>
-         <div class="col-md-12 blog-post"> 
-          <div class="post-title"> 
-           <h1>Unowned Properties in Swift</h1> 
-          </div> 
-          <div class="post-info"> 
-          May 2, 2018
-          </div> 
-          <p>It's very common to use the <b>weak</b> keyword in order to prevent reference cycles in properties like delegates:</p>
-<pre class = "language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
-<p>Unfortunately, since it protects you from references being lost, the <b>weak</b> keyword forces the usage of <b>var</b> and an optional type, which can be quite jarring if you're building something like an <b>UIView</b> that is not supposed to be used without a delegate - much less change delegates suddenly:</p>
-<pre class = "language-swift"><code class="language-swift">class HomeView: UIView {
-    weak var delegate: HomeViewDelegate?
-
-    func renderView() {
-        guard let delegate = delegate else {
-            //Timmy: this should never happen!
-            return
-        }
-        let category = delegate.currentlySelectedCategory()
-        categoryView.render(category: category)
-        delegate.homeViewDidUpdate()
-    }
-}
-</code></pre>
-<p>But <b>weak</b> is not the only way of breaking reference cycles. Just like in capture lists, the <b>unowned</b> keyword can be used in properties to create non-strong references:</p>
-<pre class = "language-swift"><code class="language-swift">unowned let delegate: HomeViewModelDelegate</code></pre>
-<p>Unlike <b>weak</b>, <b>unowned</b> references are expected to always have a value. This allows you to not only use non-optional types when declaring them, but also to do so with <b>let</b>, bringing back immutability and making sure your objects won't act in unexpected ways:</p>
-<pre class = "language-swift"><code class="language-swift">class HomeView: UIView {
-    private unowned let delegate: HomeViewDelegate
-
-    init(delegate: HomeViewDelegate) {
-        self.delegate = delegate
-        super.init(frame: .zero)
-    }
-
-    func renderView() {
-        let category = delegate.currentlySelectedCategory()
-        categoryView.render(category: category)
-        delegate.homeViewDidUpdate()
-    }
-}
-</code></pre>
-<p>With <b>weak</b>, there's nothing stopping <b>HomeView</b> from being used without a delegate, and a <b>guard</b> is required to unwrap values retrieved from the delegate due to the optional requirement of the keyword. On the other hand, <b>unowned</b> allows you to break reference cycles while still using the reference just like if it was strong.</p>
-<p>However, be aware that <b>unowned</b> properties will work just like the capture list keyword. If you try to access an unowned reference that has already deallocated, your app will crash.</p>
-<p>If your object is guaranteed to never outlive its unowned reference (like a <b>ViewModel</b>, for example), usage of <b>unowned</b> can greatly improve both code quality and performance.</p>
-<h2>But <b>unowned</b> can crash your app just like implicitly unwrapped optionals. Shouldn't you use <b>weak</b> for everything?</h2>
-<p>Most people rely on <b>weak</b> for everything and frown upon <b>unowned</b> due to its potential crashes, specially on capture lists. This is a safe way to use Swift, but not Apple's intended practice.</p>
-<p>Unlike implicitly unwrapped optionals, which in my opinion are just a lazy way of overcoming architectural problems, <b>unowned</b> references have significant advantages over <b>weak</b> ones: They have better performance, allow immutability, and since they can't be manually set to <b>nil</b>, your code will not accidentally follow unexpected paths. <b>unowned</b> references are perfectly safe - problems will only arise if you misuse the keyword.</p>
-<p>According to Apple, you should always use <b>unowned</b> references when your object can't outlive its reference:</p>
-<blockquote><p>Use an unowned reference only when you are sure that the reference always refers to an instance that has not been deallocated.</p>
-<p>If you try to access the value of an unowned reference after that instance has been deallocated, you’ll get a runtime error.</p>
-<p>If the captured reference will never become nil, it should always be captured as an unowned reference, rather than a weak reference.</p></blockquote>
-<p>In any other cases, you should keep using <b>weak</b> references.</p>
-<h2>What else?</h2>
-<p>The next time you create a delegate or an <b>@escaping</b> closure, think about its context and see if it's possible for it to outlive its reference. If it doesn't, you might find <b>unowned</b> properties an interesting tool to improve your code's quality.</p>
-<p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
-<h2>References and Good reads</h2>
-<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html">Apple Docs: ARC and Keywords</a><br>
-         </div>
+<title>Sponsor / Advertise at SwiftRocks</title>
+<div class="col-md-12 blog-post"> 
+<div class="post-title"> 
+  <h1>Sponsor / Advertise at SwiftRocks</h1> 
+</div>
+<h2>Sponsoring Bruno</h2>
+<p>All of my content is done purely for fun and learning reasons. By choosing to sponsor me, you allow me to dedicate more time for the creation of SwiftRocks blog posts, while also supporting the creation and maintenance of my open source projects -- like SwiftShield and SwiftInfo 😊 If you enjoy my content, <a href="https://github.com/sponsors/rockbruno">you can sponsor me through GitHub Sponsors</a>.</p>
+<h2>Advertising at SwiftRocks</h2>
+<p>If you’re interested in advertising a product or service at SwiftRocks, <a href="mailto:bruno@swiftrocks.com">feel free to contact me</a> for more details. By booking an advertisement slot at SwiftRocks, you'll have your special content uniquely displayed at every single article in SwiftRocks for the duration of the slot.</p>
+</div>
 </div>
                               
                          </div>
@@ -187,7 +138,7 @@
 
 <div class="footer-links">
 
-<a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Funowned-properties-in-swift&text=Unowned Properties in Swift" target="_blank" class="share"><i class="fa fa-twitter"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Share this page</a>
+<a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Fsponsor-advertise-at-swiftrocks&text=Sponsor / Advertise at SwiftRocks" target="_blank" class="share"><i class="fa fa-twitter"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Share this page</a>
 
 <a href="https://swiftrocks.com" class="newsletter"><i class="fa fa-list"></i>‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎See all articles‏‏‎</a>
 

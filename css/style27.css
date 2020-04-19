@@ -323,19 +323,21 @@ div.footer {
 }
 
 div.footer-links {
-  display: inline-grid;
+  display: block;
 }
 
 .footer-links a {
   margin-top: 8px;
   border: 0 none;
   border-radius: 8px;
-  font-size: 20px;
+  font-size: 14px;
   text-decoration: none;
   padding-left: 18px;
   padding-right: 18px;
   padding-top: 6px;
   padding-bottom: 6px;
+  white-space: nowrap;
+  line-height: 38px;
 }
 
 .footer-links .share {
@@ -375,6 +377,33 @@ div.footer-links {
 
 .footer-links .sponsor:hover {
   color: #ff046d; 
+  background-color: #ffffff;
+}
+
+div.about-links {
+  display: grid;
+  width: 100%;
+}
+
+.about-links a {
+  margin-top: 8px;
+  border: 0 none;
+  border-radius: 8px;
+  font-size: 14px;
+  text-decoration: none;
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.about-links .newsletter {
+  color: #ffffff; 
+  background-color: #4e4e4e;
+}
+
+.about-links .newsletter:hover {
+  color: #4e4e4e; 
   background-color: #ffffff;
 }
 
