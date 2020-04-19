@@ -28,6 +28,6 @@
 		var title = item[rand].getElementsByTagName("title")[0].childNodes[0].nodeValue;
 		var link = item[rand].getElementsByTagName("link")[0].childNodes[0].nodeValue;
 
-		document.getElementById("next-article-title").innerHTML = "<a href=\"" + link + "\">" + title + "</a>"
+		document.getElementById("next-article-title").innerHTML = "<a href=\"" + link + "\">" + title + " ‎<i class=\"fa fa-external-link\"></i>‏‏‎</a>"
     });
 })(jQuery);
