@@ -193,7 +193,7 @@ April 25th, 2020
 <code>        setSpecific(key: loggingQueueKey, value: false)</code>
 <code>    }</code>
 <code></code>
-<code>    public static func log(_ block: @noescape () -> Void) {</code>
+<code>    public static func log(_ block: () -> Void) {</code>
 <code>        guard Self.allowsLogging else {</code>
 <code>            return</code>
 <code>        }</code>
