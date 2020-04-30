@@ -65,7 +65,7 @@
   "https://swiftrocks.com/images/bg/swiftrockssocial.png"
 ],
 "datePublished": "2020-04-28T14:00:00+02:00",
-"dateModified": "2020-04-28T14:01:00+02:00",
+"dateModified": "2020-04-30T15:40:00+02:00",
 "author": {
   "@type": "Person",
   "name": "Bruno Rocha"
@@ -115,7 +115,7 @@
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
 <!--WRITEIT_POST_SHORT_DESCRIPTION=DispatchQueue has lots of interesting and undocumented (unfortunately) hidden gems. Let's see how we can use one of these gems to get a method's current DispatchQueue -- a trick that can also be used to send and retrieve information from a DispatchQueue.-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-28T14:01:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-30T15:40:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE=2020-04-28T14:00:00+02:00-->
 
 <title>Discovering which DispatchQueue a method is running on</title>
@@ -127,9 +127,18 @@
 April 25th, 2020
 </div>
 <p>The <b>DispatchQueue</b> class has lots of interesting and undocumented (unfortunately) hidden gems. Let's see how we can use one of these gems to <b>get a method's current DispatchQueue</b> -- a trick that can also be used to <b>send and retrieve information from a DispatchQueue</b>.</p>
-<p>When you have a specific method that can be executed from multiple queues, determining which queue it is running on might be necessary. Personally, I like doing this to prevent code from being dispatched without necessity, but as mentioned, you can also use this trick to <b>change how your method works depending on which queue it's running on</b>.</p>
+<h2>Why is this useful?</h2>
+<p>When you have a specific method that can be executed from multiple queues, determining which queue it is running on can be useful. The reason I personally find this most useful for is <b>performance</b>: Imagine that you have a piece of code like this:</p>
+<pre>
+<code>func doSomething() {</code>
+<code>    queue.async { ... }</code>
+<code>}</code>
+</pre>
+<p>Dispatching code isn't very cheap, and if your queue has a low priority, there's no guarantee that it will be executed instantly. If <b>doSomething</b> is <b>already</b> running in the correct queue, you can detect this and avoid re-dispatching your code. For example, you can use the tricks from this article to prevent calling <b>DispatchQueue.main.async</b> unnecessarily when you need to update an UI element in the main queue. If you're already in the main queue, you can directly execute that piece of UI-updating code.</p>
+<p>Additionally, dispatching anything asynchronously can make you lose your stack trace. If something crashes inside an async queue, you might not be able to be see trace that precedes the execution of the dispatch queue as it might already be out of scope (after all, the code was dispatched asynchronously!). By avoiding unnecessary dispatches, you can have richer stack traces that will make debugging code and crashes easier.</p>
+<p>Lastly, as mentioned, you can also use this trick to <b>change how your method works depending on which queue it's running on</b>. Different queues can have different requirements -- especially lower priority ones. A low priority background thread can, for example, disable some logging features to make it run quicker.</p>
 <h2>Determining if a method is running on a specific DispatchQueue</h2>
-<p>To check if a method is running on a specific queue we can use a hidden gem: The <b>getSpecific</b> and <b>setSpecific</b> methods. <b>DispatchQueues</b> support holding a user info dictionary that behaves similarly to a <b>UserDefaults</b>, which can be retrieved globally without having access to the queue itself. You can use this to "tag" a queue and later determine if a method is running on it by checking if this tag exists in the method's current queue.</p>
+<p>Checking if a method is running on a specific queue can be done through a hidden gem: The <b>getSpecific</b> and <b>setSpecific</b> methods. <b>DispatchQueues</b> support holding a user info dictionary that behaves similarly to a <b>UserDefaults</b>, which can be retrieved globally without having access to the queue itself. You can use this to "tag" a queue and later determine if a method is running on it by checking if this tag exists in the method's current queue.</p>
 <p>To add data to a <b>DispatchQueue</b>'s dictionary, create a <b>DispatchSpecificKey&lt;T></b> instance that matches the type that you want to store and add to the queue by calling <b>setSpecific</b>.</p>
 <p>For example, here's how we can add an arbitrary string value a the queue:</p>
 <pre>
@@ -153,7 +162,6 @@ April 25th, 2020
 <code>doSomething() // Not running on a thread from the 'SwiftRocks' queue.</code>
 <code>queue.sync { doSomething() } // Running on a thread from the 'SwiftRocks' queue.</code>
 </pre>
-<p>One useful use of this is to avoid re-dispatching code that is already running on the desired queue. Besides the performance implications, dispatching something asynchronously makes you lose the current call stack, which is something you don't want to lose in your code crashes.</p>
 <h3>Passing information to a DispatchQueue</h3>
 <p>Storing multiple values that have the same type is slightly trickier, but doable. This is easy in the equivalent Objective-C <b>dispatch_queue_set_specific</b> method as the key value can be anything (just like a regular dictionary), but for some reason, in Swift this was bridged to the immutable <b>DispatchSpecificKey</b> type.</p>
 <p>Since everything is handled by reference, you can store multiple values of the same by creating different instances of <b>DispatchSpecificKey</b>. The downside is that you'll have to make sure that your methods can access the keys.</p>
