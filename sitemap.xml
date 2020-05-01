@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/how-random-numbers-work-in-swift</loc>
+    <lastmod>2020-05-05T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-random-numbers-work-in-swift.html</loc>
+    <lastmod>2020-05-05T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/discovering-which-dispatchqueue-a-method-is-running-on</loc>
     <lastmod>2020-04-30T15:40:00+02:00</lastmod>
     <priority>0.80</priority>
