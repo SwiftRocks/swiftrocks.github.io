@@ -13,7 +13,7 @@
     <!-- SEO -->
     <meta name="author" content="Bruno Rocha">
     <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
-    <meta name="description" content="Lets use a trick to test macros in Swift">
+    <meta name="description" content="Macros are used to bring context to a build. Let's see how we can unit test their presence / absence while still keeping your app's unreachable code uncompiled.">
     <meta name="title" content="Unit Testing Preprocessor Macros in Swift">
     <meta name="url" content="https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift">
     <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
@@ -22,7 +22,7 @@
 
     <meta property="og:title" content="Unit Testing Preprocessor Macros in Swift"/>
     <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
-    <meta property="og:description" content="Lets use a trick to test macros in Swift"/>
+    <meta property="og:description" content="Macros are used to bring context to a build. Let's see how we can unit test their presence / absence while still keeping your app's unreachable code uncompiled."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift"/>
 
@@ -30,7 +30,7 @@
     <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="Unit Testing Preprocessor Macros in Swift"/>
-    <meta name="twitter:description" content="Lets use a trick to test macros in Swift"/>
+    <meta name="twitter:description" content="Macros are used to bring context to a build. Let's see how we can unit test their presence / absence while still keeping your app's unreachable code uncompiled."/>
     <meta name="twitter:site" content="@rockbruno_"/>
     
     <!-- Favicon -->
@@ -79,7 +79,7 @@
   }
 },
 "headline": "Unit Testing Preprocessor Macros in Swift",
-    "abstract": "Lets use a trick to test macros in Swift"
+    "abstract": "Macros are used to bring context to a build. Let's see how we can unit test their presence / absence while still keeping your app's unreachable code uncompiled."
 }
   </script>
     
@@ -114,7 +114,7 @@
 <!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Lets use a trick to test macros in Swift-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Macros are used to bring context to a build. Let's see how we can unit test their presence / absence while still keeping your app's unreachable code uncompiled.-->
 <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-05-05T14:00:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE=2020-05-05T14:00:00+02:00-->
 
@@ -139,9 +139,9 @@ May 5th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Additionally, preprocessor macros have the incredible ability of changing how your code is compiled. As the prefix "pre" implies, the value of a macro is tested <b>before</b> your code is compiled, meaning that everything in the "else" block of a preprocessor macros will <b>not</b> be present in the final binary. For things like debug views and mocked components, this is an amazing feature. As the code in the else block is ignored, a hacker that decompiles your app would not find a single trace that such features even existed.</p>
+<p>Additionally, preprocessor macros have the incredible ability to change how your code is compiled. As the prefix "pre" implies, the value of a macro is tested <b>before</b> your code is compiled, meaning that everything in the "else" block of a preprocessor macros will <b>not</b> be present in the final binary. For things like debug views and mocked components, this is an amazing feature. As the code in the else block is ignored, a hacker that decompiles your app would not find a single trace that such features even existed.</p>
 <h2>Preprocessor Macros Unit Testing Issues</h2>
-<p>However, this same amazing feature also brings amazing problems. Since the code is ignored, you might have witnessed the fact that testing them can be very difficult. Unless you create multiple testing scheme with multiple macro settings (please don't do this), you are not easily able to test how your app behaves depending on the value of the macro -- only the value that your testing scheme is currently using. For example, in the <b>createClient()</b> snippet above, I would able to test that <b>createClient()</b> returns a <b>MockHTTPClient</b> as my testing scheme defines the <b>TESTING</b> macro, but I wouldn't be able to confirm that it returns a <b>URLSessionHTTPClient</b> in other situations.</p>
+<p>However, this same amazing feature also brings amazing problems. Since the code is ignored, you might have witnessed the fact that testing them can be very difficult. Unless you create multiple testing schemes with multiple macro settings (please don't do this), you are not easily able to test how your app behaves depending on the value of the macro -- only the value that your testing scheme is currently using. For example, in the <b>createClient()</b> snippet above, I would able to test that <b>createClient()</b> returns a <b>MockHTTPClient</b> as my testing scheme defines the <b>TESTING</b> macro, but I wouldn't be able to confirm that it returns a <b>URLSessionHTTPClient</b> in other situations.</p>
 <p>This might lead you to other alternatives, like using compiler arguments or a global property instead of the macro directly:</p>
 <pre>
 <code>var isDebugging = false</code>
@@ -159,7 +159,7 @@ May 5th, 2020
 <code>	...</code>
 <code>}</code>
 </pre>
-<p>In this case, it's a lot easier for an unit test to override the value of the macro, as all we have to do is toggle the global <b>isDebugging</b> property. Unfortunately, while this works, you're giving up the macro's ability to erase your code. The usage of <b>if isDebugging</b> in this case tells the compiler that the execution of <b>userDidShakeDevice()</b> is <b>unknown</b> in compile time due to the fact that the value of that boolean can change any time. This would compile the <b>if</b> block even if you're running a non-debug build, allowing hackers to find the <b>pushDebugMenu()</b> method and use it for evil.</p>
+<p>In this case, it's a lot easier for a unit test to override the value of the macro, as all we have to do is toggle the global <b>isDebugging</b> property. Unfortunately, while this works, you're giving up the macro's ability to erase your code. The usage of <b>if isDebugging</b> in this case tells the compiler that the execution of <b>userDidShakeDevice()</b> is <b>unknown</b> in compile time due to the fact that the value of that boolean can change any time. This would compile the <b>if</b> block even if you're running a non-debug build, allowing hackers to find the <b>pushDebugMenu()</b> method and use it for evil.</p>
 <h2>Leveraging Optimization Settings to Unit Test Preprocessor Macros</h2>
 <p>Fortunately, by leveraging the Swift Compiler's ability to ignore unused code, we can mix the best of both worlds and achieve macros that properly erase code and are easily testable at the same time.</p>
 <p>To explain how to achieve this, let's use a real example. In one of the companies I worked for, for bug-finding reasons, employees couldn't install AppStore builds -- only beta ones. This was done by detecting which build you had installed and checking your user's permissions to see if you were allowed to use it. Otherwise, you would get an alert showing you where to download the correct version. The detection part was done like this:</p>
@@ -228,7 +228,7 @@ May 5th, 2020
 <code>} // end sil function '$s3bla16currentBuildTypeAA0cD0Ovg'</code>
 </pre>
 <p>The SIL indicates that when that file is compiled with optimization and the <b>XCODE</b> macro, <b>currentBuildType</b> instantly returns <b>.xcodeBuild</b>. Traces of the other build types in this method have been completely eliminated!</p>
-<p><i>(Note: This method still isn't hacker proof because the other build types are still defined in the enum. Use this as an example of how to unit test macros, but consider the security necessities when implementing the trick shown in this article.)</i></p>
+<p><i>(Note: This method still isn't hacker-proof because the other build types are still defined in the enum. Use this as an example of how to unit test macros, but consider the security necessities when implementing the trick shown in this article.)</i></p>
 <h2>Unit Testing the Macros</h2>
 <p>Finally, to test these macros, we can simply add a property to override its value when the macro isn't present:</p>
 <pre>
