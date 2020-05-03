@@ -372,11 +372,11 @@ div.footer-links {
 
 .footer-links .sponsor {
   color: #ffffff; 
-  background-color: #ff046d;
+  background-color: #ff8e00;
 }
 
 .footer-links .sponsor:hover {
-  color: #ff046d; 
+  color: #ff8e00; 
   background-color: #ffffff;
 }
 
@@ -404,6 +404,16 @@ div.about-links {
 
 .about-links .newsletter:hover {
   color: #4e4e4e; 
+  background-color: #ffffff;
+}
+
+.about-links .sponsor {
+  color: #ffffff; 
+  background-color: #ff8e00;
+}
+
+.about-links .sponsor:hover {
+  color: #ff8e00; 
   background-color: #ffffff;
 }
 
