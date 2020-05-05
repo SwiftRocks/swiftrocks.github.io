@@ -126,28 +126,28 @@ May 5th, 2020
 <p>Finally, to test these macros, we can simply add a property to override its value when the macro isn't present:</p>
 <pre>
 <code>protocol Macro {</code>
-<code>    static var isOverriden: Bool { get set }</code>
+<code>    static var isOverridden: Bool { get set }</code>
 <code>}</code>
 <code></code>
 <code>enum EnterpriseMacro: Macro {</code>
-<code>    static var isOverriden = false</code>
+<code>    static var isOverridden = false</code>
 <code></code>
 <code>    static var active: Bool {</code>
 <code>        #if ENTERPRISE</code>
 <code>        return true</code>
 <code>        #else</code>
-<code>        return isOverriden</code>
+<code>        return isOverridden</code>
 <code>        #endif</code>
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Even though a hacker is able to force <b>isOverriden</b> to be <b>true</b>, nothing would be achieved as the code that ran as the result of the presence of this macro was never compiled.</p>
-<p>Changing <b>isOverriden</b> would only have an effect if we compiled our code without optimizations, which is exactly the case of unit testing targets. We can then use it to safely unit test <b>currentBuildType</b>.</p>
+<p>Even though a hacker is able to force <b>isOverridden</b> to be <b>true</b>, nothing would be achieved as the code that ran as the result of the presence of this macro was never compiled.</p>
+<p>Changing <b>isOverridden</b> would only have an effect if we compiled our code without optimizations, which is exactly the case of unit testing targets. We can then use it to safely unit test <b>currentBuildType</b>.</p>
 <pre>
 <code>func with&lt;T: Macro>(macro: T.Type, block: () -> Void) {</code>
-<code>    macro.isOverriden = true</code>
+<code>    macro.isOverridden = true</code>
 <code>    block()</code>
-<code>    macro.isOverriden = false</code>
+<code>    macro.isOverridden = false</code>
 <code>}</code>
 <code></code>
 <code>final class BuildTests: XCTestCase {</code>
@@ -169,7 +169,7 @@ May 5th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p><i>(Note that because <b>isOverriden</b> only works when a macro isn't present in the build, your testing target should not contain macros whose's presence/absence needs to be tested.)</i></p>
+<p><i>(Note that because <b>isOverridden</b> only works when a macro isn't present in the build, your testing target should not contain macros whose's presence/absence needs to be tested.)</i></p>
 <p>With this setup, we're able to test preprocessor macros while being sure that our final release builds will not contain code that's not meant to be executed. This same trick can be used to test macros in XCUITests.</p>
 <p>As a final note in the topic of security, note that if your intention is to <b>completely</b> get rid of something in runtime, everything needs to be wrapped by macro checks. In this case, if hiding the build types themselves was critical (and not just the logic of what's my current one), we would have to wrap the enum itself in macros, which would make unit testing it like this considerably harder, although still possible.</p>
 </div>
