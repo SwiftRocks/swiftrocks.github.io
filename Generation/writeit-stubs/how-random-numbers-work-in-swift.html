@@ -7,9 +7,9 @@
 <!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Learn how to use Swift's Random API, as well as how it works-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-05-05T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2020-05-05T14:00:00+02:00-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Let's see how to use the new APIs, but most importantly, how they are implemented inside the Swift compiler.-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-05-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2020-05-12T14:00:00+02:00-->
 
 <title>$WRITEIT_POST_NAME</title>
 <div class="col-md-12 blog-post"> 
@@ -17,11 +17,11 @@
   <h1>$WRITEIT_POST_NAME</h1> 
 </div> 
 <div class="post-info"> 
-May 5th, 2020
+May 12th, 2020
 </div>
-<p>Before Swift 4.2, generating random numbers involved using raw C APIs. With the addition of the <b>RandomNumberGenerator</b> protocol in Swift 4.2, developers were graced with an easy way to generate random numbers. Let's see how to use the new APIs, but mostly importantly, <b>how they are implemented inside the Swift compiler</b>.</p>
+<p>Before Swift 4.2, generating random numbers involved using raw C APIs. With the addition of the <b>RandomNumberGenerator</b> protocol in Swift 4.2, developers were graced with an easy way to generate random numbers. Let's see how to use the new APIs, but most importantly, <b>how they are implemented inside the Swift compiler</b>.</p>
 <h2>RandomNumberGenerator</h2>
-<p>Deep down, the generation of random numbers in Swift still works exactly like before. The difference is that Swift 4.2 introduced some nice abstractions on top of it in the form of protocols -- allowing you to create your own randomization algorithms, if you need to.</p>
+<p>Deep down, the generation of random numbers in Swift still works exactly like before. The difference is that Swift 4.2 introduced some nice abstractions on top of it in the form of protocols -- allowing you to create your own randomization algorithms if you need to.</p>
 <p>The generation of random numbers in Swift begins with <b>RandomNumberGenerator</b> -- a protocol that does nothing but generate random <b>UInt64</b> values:</p>
 <pre>
 <code>public protocol RandomNumberGenerator {</code>
@@ -39,7 +39,7 @@ May 5th, 2020
 <code>  }</code>
 <code>}</code>
 </pre>
-<p>The actual random mechanism used differs by platform, but is guaranteed to be type-safe in all of them. For Apple plataforms, the compiler uses <b>arc4random_buf</b> (whoses functionality requires a separate article):</p>
+<p>The actual random mechanism used differs by platform, but is guaranteed to be type-safe in all of them. For Apple platforms, the compiler uses <b>arc4random_buf</b> (whose functionality requires a separate article):</p>
 <pre>
 <code>#if defined(__APPLE__)</code>
 <code></code>
@@ -71,9 +71,9 @@ May 5th, 2020
 <code>    return (generator.next() >> 17) & 1 == 0</code>
 <code>}</code>
 </pre>
-<p>The reason the value is shifted exactly <b>17</b> times is because (some) weak RNGs have better randomness properties in the middle bits over the low/high bits, and the Swift team felt like protecting us from APIs that decided to use these RNGs instead of the default <b>SystemRandomNumberGenerator</b>. Before the PR that implemented this improvement, <b>Bool.random()</b> used to simply return <b>generator.next() % 2 == 0</b>.</p>
+<p>The reason the value is shifted exactly <b>17</b> times is that (some) weak RNGs have better randomness properties in the middle bits over the low/high bits, and the Swift team felt like protecting us from APIs that decided to use these RNGs instead of the default <b>SystemRandomNumberGenerator</b>. Before the PR that implemented this improvement, <b>Bool.random()</b> used to simply return <b>generator.next() % 2 == 0</b>.</p>
 <h3>Int.random() and others</h3>
-<p>The implementation of the random API for other numeric types is similar to <b>Bool</b>, with the difference being how the value is pre/post processed. For example, for <b>..<</b> <b>Int</b> ranges, Swift calculates the distances between the bounds, generates a value, makes sure it's less than <b>upperBound</b> and adds <b>lowerBound</b> to it, resulting in a random value inside the requested range.</p>
+<p>The implementation of the random API for other numeric types is similar to <b>Bool</b>, with the difference being how the value is pre/post-processed. For example, for <b>..<</b> <b>Int</b> ranges, Swift calculates the distances between the bounds, generates a value, makes sure it's less than <b>upperBound</b> and adds <b>lowerBound</b> to it, resulting in a random value inside the requested range.</p>
 <pre>
 <code>// Note: The actual implementation is slightly different than this</code>
 <code>// because it treats compiler edge cases and uses some different types.</code>
@@ -97,7 +97,7 @@ May 5th, 2020
 <code>  return m.high</code>
 <code>}</code>
 </pre>
-<p>A funny aspect of this algorithm is that it can, in theory, take <b>forever</b> to run as it has a <b>while</b> loop that continously discards what it considers to be "low quality" values, but in reality, the odds of it being anything slower than "pretty much instant" are so low that you should never consider this.</p>
+<p>A funny aspect of this algorithm is that it can, in theory, take <b>forever</b> to run as it has a <b>while</b> loop that continuously discards what it considers to be "low quality" values, but in reality, the odds of it being anything slower than "pretty much instant" are so low that you should never consider this.</p>
 <h2>randomElement()</h2>
 <p>To top it off, let's take a look at another API added in Swift 4.2: The <b>randomElement()</b> method for <b>Collections</b>, which returns a random element from the collection:</p>
 <pre>
