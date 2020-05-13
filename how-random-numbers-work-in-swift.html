@@ -158,8 +158,8 @@ May 12th, 2020
 <h2>Swift Random APIs</h2>
 <p>From Swift 4.2, numeric types like <b>Int</b>, <b>Float</b> and <b>Bool</b> can generate random numbers through the new <b>.random(in:)</b> APIs:</p>
 <pre>
-<code>let randomInt = Int.random(in: 1..<5)</code>
-<code>let randomFloat = Float.random(in: 1..<10)</code>
+<code>let randomInt = Int.random(in: 1..&lt;5)</code>
+<code>let randomFloat = Float.random(in: 1..&lt;10)</code>
 <code>let randomBool = Bool.random()</code>
 </pre>
 <p>All of these APIs support taking a <b>RandomNumberGenerator</b> argument, but you're allowed to not provide one, as the compiler is rigged to use <b>SystemRandomNumberGenerator</b> by default. For example, here's how the default API for <b>Bool</b> is defined:</p>
@@ -194,9 +194,9 @@ May 12th, 2020
 <code>) -> T {</code>
 <code>  var random: T = next()</code>
 <code>  var m = random.multipliedFullWidth(by: upperBound)</code>
-<code>  if m.low < upperBound {</code>
+<code>  if m.low &lt; upperBound {</code>
 <code>    let t = (0 &- upperBound) % upperBound</code>
-<code>    while m.low < t {</code>
+<code>    while m.low &lt; t {</code>
 <code>      random = next()</code>
 <code>      m = random.multipliedFullWidth(by: upperBound)</code>
 <code>    }</code>
@@ -217,7 +217,7 @@ May 12th, 2020
 <code>  using generator: inout T</code>
 <code>) -> Element? {</code>
 <code>    guard !isEmpty else { return nil }</code>
-<code>    let random = Int.random(in: 0 ..< count, using: &generator)</code>
+<code>    let random = Int.random(in: 0 ..&lt; count, using: &generator)</code>
 <code>    let idx = index(startIndex, offsetBy: random)</code>
 <code>    return self[idx]</code>
 <code>}</code>
@@ -272,7 +272,7 @@ May 12th, 2020
                         </div>
 
                              <div style="text-align: center; display: block;">
-<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ffffff; padding-left: 12px; padding-right: 12px; margin-top: 12px; margin-bottom: -6px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; background-color: #ff8e00; width: 100%; max-width: 250px; display: inline-block; border-radius: 8px; font-weight: 500;"><i class="fa fa-twitter"></i> 2153 followers</a>
+<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ffffff; padding-left: 12px; padding-right: 12px; margin-top: 12px; margin-bottom: -6px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; background-color: #ff8e00; width: 100%; max-width: 250px; display: inline-block; border-radius: 8px; font-weight: 500;"><i class="fa fa-twitter"></i> 2168 followers</a>
    </div>
                       
                       
