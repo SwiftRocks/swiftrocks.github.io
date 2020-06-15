@@ -30,7 +30,7 @@
   <h1>Benefits of using throwing functions (try) - Swift's most underrated feature?</h1> 
 </div> 
 <div class="post-info"> 
-June 3rd, 2020
+June 15th, 2020
 </div>
 <p>I've always found throwing functions (<code>try/catch</code>, or <code>do/catch</code>) to be a very underrated feature in the Swift community. While many native APIs from iOS rely on it, very few people seem to actually use them in their daily projects. Most people seem to either optionally unwrap them (<code>try?</code>) or use other features like the <code>Result</code> type, and in my opinion, this stems from the fact that unless your entire project is built around throwing, the parts that do use it are somewhat annoying to deal with, and don't look very nice code-wise:</p>
 <pre>
@@ -1848,7 +1848,7 @@ February 5th, 2020
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Reducing iOS Build Times by using Interface Modules-->
 <!--WRITEIT_POST_HTML_NAME=reducing-ios-build-times-by-using-interface-modules-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-15T11:00:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE=2020-01-23T06:00:00+00:00-->
 
 <!--Add here the additional properties that you want each page to possess.-->
