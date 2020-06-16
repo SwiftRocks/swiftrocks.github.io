@@ -140,6 +140,8 @@ March 31st, 2020
 <pre>
 <code>class Foo: Equatable {</code>
 <code>    let val: Int</code>
+<code>    static func == (lhs: Foo, rhs: Foo) -> Bool { lhs.val == rhs.val }</code>
+<code>    init(_ val: Int) { self.val = val }</code>
 <code>}</code>
 <code></code>
 <code>let fooA = Foo(1)</code>
