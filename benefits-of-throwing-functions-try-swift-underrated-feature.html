@@ -156,7 +156,7 @@ June 16th, 2020
 <p>When you use <code>try</code> in a method that is itself <code>throws</code>, you can <b>delegate the treatment of errors to the code that is actually interested in it.</b> This allows you to develop methods that only handle their success cases:</p>
 <pre>
 <code>func getUserProfile() throws {</code>
-<code>    let result = try database.profileSchema</code>
+<code>    let profileSchema = try database.profileSchema</code>
 <code>    return Profile(profileSchema)</code>
 <code>}</code>
 </pre>
@@ -164,7 +164,7 @@ June 16th, 2020
 <pre>
 <code>func migrateDefaultsToDatabase() throws {</code>
 <code>    let oldUserProfile = try defaultsWrapper.profileJSON</code>
-<code>    let converted = try databaseConverter.convertToDatabaseFormat(defaultsWrapper)</code>
+<code>    let converted = try databaseConverter.convertToDatabaseFormat(oldUserProfile)</code>
 <code>    try database.set(converted, to: .profile)</code>
 <code>}</code>
 </pre>
