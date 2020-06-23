@@ -46,7 +46,7 @@ June 23rd, 2020
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/xDsjmiD.png" alt="">                                    
 </div>
-<p>After doing so, Xcode will create a base Widget configuration for a <b>Siri Intents-powered Widget</b>, which we'll not need in this article (but will explain later!). You can erase the intent file and the contents of the Swift file.</p>
+<p>Make sure to uncheck the <b>Include Configuration Intent</b> checkbox, as this involves a feature that will be presented only later in this article! After generating the target, make sure to erase the example code so we can inspect it step by step.</p>
 <p>To define a Widget, all you have to do is create a struct that inherits from <b>Widget</b> and configures its capabilities:</p>
 <pre>
 <code>@main</code>
@@ -65,8 +65,7 @@ June 23rd, 2020
 <p>This code will not compile before we define such capabilities, but this is important as a first step because this is the Widget itself. The <code>WidgetConfiguration</code> return value describes what this widget is and how it's built, but most importantly, how it fetches its content.</p>
 <h2>Types of Widgets</h2>
 <p>The <code>StaticConfiguration</code> <code>WidgetConfiguration</code> defines a Widget that can resolve itself without any input from the user. You could fetch any relevant data in the Widget's parent app and send the result to the Widget module as an "user input", but as you are allowed to make API calls when configuring your Widget, there's no need to do so if there's no contextual information involved in the request.</p>
-<p>On the other hand, you can use the <code>IntentConfiguration</code> <code>WidgetConfiguration</code> to define a Widget that depends on a Siri Intent from the parent app, which allows you to build configurable dynamic widgets. For example, when using intents, a food delivery app can create a widget that displays the delivery status for the user's latest order. This is done by having the app dispatch a Siri Intent (just like when developing Siri Shortcuts), which are automatically picked up by <code>IntentConfiguration</code> and used to update a Widget.</p>
-<p><code>IntentConfiguration</code> is the default scenario provided by Xcode when creating a Widget target, which is why we deleted the initial code. Since all we need to do is parse GitHub's public API, we can use a <code>StaticConfiguration</code> Widget and avoid interacting with the app itself.</p>
+<p>On the other hand, you can use the <code>IntentConfiguration</code> <code>WidgetConfiguration</code> to define a Widget that depends on a Siri Intent from the parent app, which allows you to build configurable dynamic widgets. For example, when using intents, a food delivery app can create a widget that displays the delivery status for the user's latest order. This is done by having the app dispatch a Siri Intent (just like when developing Siri Shortcuts), which are automatically picked up by <code>IntentConfiguration</code> and used to update a Widget. You can create a base <code>IntentConfiguration</code> Widget by checking the intents box when creating the Widget Extension, but since all we need to do is parse GitHub's public API, we can use a <code>StaticConfiguration</code> Widget and avoid interacting with the app itself.</p>
 <h2>TimelineProvider</h2>
 <p>The content displayed by iOS 14's Widgets works similarly to watchOS's complications in the sense that instead of having an extension that is running all the time, you provide, at once, a "timeline" of events that the OS should display throughout the hours, days or even weeks. This is useful for apps like <b>Weather</b> and <b>Calendar</b> where you can "predict" what is going to be displayed in the future as you already have that information.</p>
 <p>In our case, since we are unable to predict Swift's commits, we'll provide a timeline that contains only a single event -- making iOS refresh our Widget in a more regular basis.</p>
@@ -162,7 +161,10 @@ June 23rd, 2020
 <code>}</code>
 </pre>
 <p>The <code>policy</code> property of the timeline is what defines <b>when</b> should iOS attempt to discard this timeline and fetch a new one. Currently, they can be <code>.never</code> (Widgets displaying a static content that never changes), <code>.atEnd</code> (when the last entry in the timeline is displayed), or <code>.after(Date)</code>, which is after a specific amount of time after displaying the timeline for the first time. Since our timeline only has one entry, I decided to use <code>.after</code> to tell iOS that this widget should be reloaded every 5 minutes.</p>
-<p>Note, however, that the Widget API's documentation states that you <b>can't predict when the Widget will be updated.</b> Even though the timeline itself will be indeed fetched again after 5 minutes, there's no guarantee that the iOS will update the view at the same time. From my personal experience when writing this, the view actually took around <b>~20 minutes</b> to update by itself. Forced updates seem to only happen if you interact with the app in a way that alters the timeline, such as updating the intent used by a dynamic Widget.</p>
+<p>Note, however, that the Widget API's documentation states that you <b>can't predict when the Widget will be updated.</b> Even though the timeline itself will be indeed fetched again after 5 minutes, there's no guarantee that the iOS will update the view at the same time. From my personal experience when writing this, the view actually took around <b>~20 minutes</b> to update by itself. The update time is based on a few factors, which includes how often the Widget is seen by the user. If you need to <b>force</b> a Widget to update, you can use the <code>WidgetCenter</code> APIs from your main app to reload all timelines (or a specific one):</p>
+<pre>
+<code>WidgetCenter.shared.reloadAllTimelines()</code>
+</pre>
 <p>While not necessary by our Widget, it's important to mention that timelines and entries have other interesting capabilities. For example, it's possible to set a <b>relevance</b> value to an entry, which will allow iOS to determine how important your Widget is. This is used, for example, to determine the order of Widgets inside a stack:</p>
 <pre>
 <code>struct LastCommit: TimelineEntry {</code>
@@ -229,7 +231,7 @@ June 23rd, 2020
 <code>}</code>
 </pre>
 <p>We've created a static widget that fetches its content from our <code>CommitTimeline</code>, has a <code>PlaceholderView</code> as a placeholder and generates a <code>CommitCheckerWidgetView</code> when an entry is ready to be displayed.</p>
-<p>After running our app and adding the Widget to our home, we're now able to see an auto-updating Swift commit displayer!
+<p>After running our app and adding the Widget to our home, we're now able to see an auto-updating Swift commit displayer!</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/h8bBgyJ.jpg" alt="">                                    
 </div>
