@@ -7,6 +7,238 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>iOS 14 widget tutorial mini apps</title>
+    <link>https://swiftrocks.com/ios-14-widget-tutorial-mini-apps</link>
+    <guid>https://swiftrocks.com/ios-14-widget-tutorial-mini-apps</guid>
+    <pubDate>Tue, 23 Jun 2020 18:10:00 GMT+2</pubDate>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=iOS 14 widget tutorial mini apps-->
+<!--WRITEIT_POST_HTML_NAME=ios-14-widget-tutorial-mini-apps-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI.-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-23T18:10:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2020-06-23T18:10:00+02:00-->
+
+<title>iOS 14 widget tutorial mini apps</title>
+<div class="col-md-12 blog-post"> 
+<div class="post-title"> 
+  <h1>How to create Widgets in iOS 14</h1> 
+</div> 
+<div class="post-info"> 
+June 23rd, 2020
+</div>
+<p>Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI. iOS 14's Widgets come in a variety of shapes (literally), ranging from simple information squares to widgets that can retrieve and display information from its parent app's <b>Siri Intents</b>.</p>
+<p>One trick that has drawn my attention the most however is that having widgets directly in your home means that technically you're now able to make visual "mini apps". If you find yourself doing the same tasks over and over in your job such as checking the number of crashes in a release or the latest release supported by one of your apps, you can create a Widget in iOS 14 that essentially behaves like a super-charged, UI-enabled <b>Siri Shortcut</b>.</p>
+<p>Although you can't interact with a Widget besides touching it (which triggers an app launch), there aren't many limitations in what you can display in them, so you can use them to develop read-only visual apps. In this article, we'll develop a Widget that shows us <b>the latest commit in the Swift repository.</b></p>
+<h2>Developing a "Swift commit tracker" Widget</h2>
+<p>I find myself going to the Swift repo once in a while to see what the community is up to. To make my life easier, how about displaying this information directly on my home screen?</p>
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/7iNmotK.jpg" alt="">                                    
+</div>
+<p>To do something like this, we can make a request to GitHub's public APIs, parse the information and render it to our widget.</p>
+<p>We can start by creating a new iOS project -- the details of the project don't matter as in this tutorial all the code will be inside the Widget's module.</p> 
+<p>With your project created, add a Widget module by going to <b>File -> New -> Target</b> and selecting the <b>Widget Extension</b> target:</p>
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/xDsjmiD.png" alt="">                                    
+</div>
+<p>After doing so, Xcode will create a base Widget configuration for a <b>Siri Intents-powered Widget</b>, which we'll not need in this article (but will explain later!). You can erase the intent file and the contents of the Swift file.</p>
+<p>To define a Widget, all you have to do is create a struct that inherits from <b>Widget</b> and configures its capabilities:</p>
+<pre>
+<code>@main</code>
+<code>struct CommitCheckerWidget: Widget {</code>
+<code>    private let kind: String = "CommitCheckerWidget"</code>
+<code></code>
+<code>    public var body: some WidgetConfiguration {</code>
+<code>        StaticConfiguration(kind: kind, provider: CommitTimeline(), placeholder: PlaceholderView()) { entry in</code>
+<code>            CommitCheckerWidgetView(entry: entry)</code>
+<code>        }</code>
+<code>        .configurationDisplayName("Swift's Latest Commit")</code>
+<code>        .description("Shows the last commit at the Swift repo.")</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>This code will not compile before we define such capabilities, but this is important as a first step because this is the Widget itself. The <code>WidgetConfiguration</code> return value describes what this widget is and how it's built, but most importantly, how it fetches its content.</p>
+<h2>Types of Widgets</h2>
+<p>The <code>StaticConfiguration</code> <code>WidgetConfiguration</code> defines a Widget that can resolve itself without any input from the user. You could fetch any relevant data in the Widget's parent app and send the result to the Widget module as an "user input", but as you are allowed to make API calls when configuring your Widget, there's no need to do so if there's no contextual information involved in the request.</p>
+<p>On the other hand, you can use the <code>IntentConfiguration</code> <code>WidgetConfiguration</code> to define a Widget that depends on a Siri Intent from the parent app, which allows you to build configurable dynamic widgets. For example, when using intents, a food delivery app can create a widget that displays the delivery status for the user's latest order. This is done by having the app dispatch a Siri Intent (just like when developing Siri Shortcuts), which are automatically picked up by <code>IntentConfiguration</code> and used to update a Widget.</p>
+<p><code>IntentConfiguration</code> is the default scenario provided by Xcode when creating a Widget target, which is why we deleted the initial code. Since all we need to do is parse GitHub's public API, we can use a <code>StaticConfiguration</code> Widget and avoid interacting with the app itself.</p>
+<h2>TimelineProvider</h2>
+<p>The content displayed by iOS 14's Widgets works similarly to watchOS's complications in the sense that instead of having an extension that is running all the time, you provide, at once, a "timeline" of events that the OS should display throughout the hours, days or even weeks. This is useful for apps like <b>Weather</b> and <b>Calendar</b> where you can "predict" what is going to be displayed in the future as you already have that information.</p>
+<p>In our case, since we are unable to predict Swift's commits, we'll provide a timeline that contains only a single event -- making iOS refresh our Widget in a more regular basis.</p>
+<p>To create a <code>Timeline</code>, we first need to define a <code>TimelineEntry</code>. A <code>TimelineEntry</code> only requires the <code>Date</code> when this entry is expected to be rendered in the Widget, but it can also contain any additional information that you require. In our case, our entries will contain the <code>Commit</code> that we want to display in the Widget.</p>
+<pre>
+<code>struct Commit {</code>
+<code>    let message: String</code>
+<code>    let author: String</code>
+<code>    let date: String</code>
+<code>}</code>
+<code></code>
+<code>struct LastCommitEntry: TimelineEntry {</code>
+<code>    public let date: Date</code>
+<code>    public let commit: Commit</code>
+<code>}</code>
+</pre>
+<p>But before creating the timeline, we need to be able to fetch such commits. Let's create a <code>CommitLoader</code> class that fetches and parses Swift's latest commit:</p>
+<pre>
+<code>struct Commit {</code>
+<code>    let message: String</code>
+<code>    let author: String</code>
+<code>    let date: String</code>
+<code>}</code>
+<code></code>
+<code>struct CommitLoader {</code>
+<code>    static func fetch(completion: @escaping (Result&lt;Commit, Error>) -> Void) {</code>
+<code>        let branchContentsURL = URL(string: "https://api.github.com/repos/apple/swift/branches/master")!</code>
+<code>        let task = URLSession.shared.dataTask(with: branchContentsURL) { (data, response, error) in</code>
+<code>            guard error == nil else {</code>
+<code>                completion(.failure(error!))</code>
+<code>                return</code>
+<code>            }</code>
+<code>            let commit = getCommitInfo(fromData: data!)</code>
+<code>            completion(.success(commit))</code>
+<code>        }</code>
+<code>        task.resume()</code>
+<code>    }</code>
+<code></code>
+<code>    static func getCommitInfo(fromData data: Foundation.Data) -> Commit {</code>
+<code>        let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]</code>
+<code>        let commitParentJson = json["commit"] as! [String: Any]</code>
+<code>        let commitJson = commitParentJson["commit"] as! [String: Any]</code>
+<code>        let authorJson = commitJson["author"] as! [String: Any]</code>
+<code>        let message = commitJson["message"] as! String</code>
+<code>        let author = authorJson["name"] as! String</code>
+<code>        let date = authorJson["date"] as! String</code>
+<code>        return Commit(message: message, author: author, date: date)</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>When <code>fetch</code> is called, this loader type sends a request to GitHub's public API and parses the latest commit -- giving us the message, author and its timestamp. We can now create a <code>Timeline</code> that fetches the latest commit, adds it as an entry and schedules itself to be updated after a while.</p>
+<pre>
+<code>struct CommitTimeline: TimelineProvider {</code>
+<code>    typealias Entry = LastCommitEntry</code>
+<code>    /* protocol methods implemented below! */</code>
+<code>}</code>
+</pre>
+<p>The <code>TimelineProvider</code> protocol has two methods that we need to implement:</p>
+<h3><code>snapshot()</code> - The fake information of the Widget</h3>
+<p>The <code>snapshot()</code> required method of the <code>TimelineProvider</code> protocol defines how your Widget should be configured when your Widget appears in transient situations, such as the Widget selection screen. This configuration will be used when showing correct information doesn't matter:</p>
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/CpKrwmv.jpg" alt="">                                    
+</div>
+<p>To create a snapshot configuration, all you have to do is create and return a fake entry of your <code>TimelineEntry</code> object.</p>
+<pre>
+<code></code>
+<code>public func snapshot(with context: Context, completion: @escaping (LastCommitEntry) -> ()) {</code>
+<code>    let fakeCommit = Commit(message: "Fixed stuff", author: "John Appleseed", date: "2020-06-23")</code>
+<code>    let entry = LastCommitEntry(date: Date(), commit: fakeCommit)</code>
+<code>    completion(entry)</code>
+<code>}</code>
+<code></code>
+</pre>
+<h3><code>timeline()</code> - The true information of the Widget</h3>
+<p>The <code>timeline()</code> method, however, defines the real information that should be used by your widget. The objective is for you to return a <code>Timeline</code> instance that contains all the entries you want to display, <b>when</b> they are expected to be displayed (the <code>date</code> of the entry) and when the timeline "expires".</p>
+<p>Because our app can't "predict" its future state like a Weather app, it suffices for us to create a timeline with a single entry that should be displayed immediately, which can be done by setting the entry's <code>date</code> to the current <code>Date()</code>:</p>
+<pre>
+<code>public func timeline(with context: Context, completion: @escaping (Timeline&lt;LastCommitEntry>) -> ()) {</code>
+<code>    let currentDate = Date()</code>
+<code>    let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!</code>
+<code></code>
+<code>    CommitLoader.fetch { result in</code>
+<code>        let commit: Commit</code>
+<code>        if case .success(let fetchedCommit) = result {</code>
+<code>            commit = fetchedCommit</code>
+<code>        } else {</code>
+<code>            commit = Commit(message: "Failed to load commits", author: "", date: "")</code>
+<code>        }</code>
+<code>        let entry = LastCommitEntry(date: currentDate, commit: commit)</code>
+<code>        let timeline = Timeline(entries: [entry], policy: .after(refreshDate))</code>
+<code>        completion(timeline)</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>The <code>policy</code> property of the timeline is what defines <b>when</b> should iOS attempt to discard this timeline and fetch a new one. Currently, they can be <code>.never</code> (Widgets displaying a static content that never changes), <code>.atEnd</code> (when the last entry in the timeline is displayed), or <code>.after(Date)</code>, which is after a specific amount of time after displaying the timeline for the first time. Since our timeline only has one entry, I decided to use <code>.after</code> to tell iOS that this widget should be reloaded every 5 minutes.</p>
+<p>Note, however, that the Widget API's documentation states that you <b>can't predict when the Widget will be updated.</b> Even though the timeline itself will be indeed fetched again after 5 minutes, there's no guarantee that the iOS will update the view at the same time. From my personal experience when writing this, the view actually took around <b>~20 minutes</b> to update by itself. Forced updates seem to only happen if you interact with the app in a way that alters the timeline, such as updating the intent used by a dynamic Widget.</p>
+<p>While not necessary by our Widget, it's important to mention that timelines and entries have other interesting capabilities. For example, it's possible to set a <b>relevance</b> value to an entry, which will allow iOS to determine how important your Widget is. This is used, for example, to determine the order of Widgets inside a stack:</p>
+<pre>
+<code>struct LastCommit: TimelineEntry {</code>
+<code>    public let date: Date</code>
+<code>    public let commit: Commit</code>
+<code></code>
+<code>    var relevance: TimelineEntryRelevance? {</code>
+<code>        return TimelineEntryRelevance(score: 10) // 0 - not important | 100 - very important</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<h2>Creating a Widget View</h2>
+<p>Now that our timeline is configured, we can create the Widget's visual components. We need to create <b>two</b> views: A <b>placeholder</b> that is displayed while the timeline is loading, and the actual Widget view that is capable of rendering our timeline entry.</p>
+<pre>
+<code>struct PlaceholderView : View {</code>
+<code>    var body: some View {</code>
+<code>        Text("Loading...")</code>
+<code>    }</code>
+<code>}</code></code>
+<code></code>
+<code>struct CommitCheckerWidgetView : View {</code>
+<code>    let entry: LastCommitEntry</code>
+<code></code>
+<code>    var body: some View {</code>
+<code>        VStack(alignment: .leading, spacing: 4) {</code>
+<code>            Text("apple/swift's Latest Commit")</code>
+<code>                .font(.system(.title3))</code>
+<code>                .foregroundColor(.black)</code>
+<code>            Text(entry.commit.message)</code>
+<code>                .font(.system(.callout))</code>
+<code>                .foregroundColor(.black)</code>
+<code>                .bold()</code>
+<code>            Text("by \(entry.commit.author) at \(entry.commit.date)")</code>
+<code>                .font(.system(.caption))</code>
+<code>                .foregroundColor(.black)</code>
+<code>            Text("Updated at \(Self.format(date:entry.date))")</code>
+<code>                .font(.system(.caption2))</code>
+<code>                .foregroundColor(.black)</code>
+<code>        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)</code>
+<code>            .padding()</code>
+<code>            .background(LinearGradient(gradient: Gradient(colors: [.orange, .yellow]), startPoint: .top, endPoint: .bottom))</code>
+<code>    }</code>
+<code></code>
+<code>    static func format(date: Date) -> String {</code>
+<code>        let formatter = DateFormatter()</code>
+<code>        formatter.dateFormat = "MM-dd-yyyy HH:mm"</code>
+<code>        return formatter.string(from: date)</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>You should be able to compile your code, and now that all components were provided, we can take a second look at our configuration method to see how this is all wrapped together:</p>
+<pre>
+<code>@main</code>
+<code>struct CommitCheckerWidget: Widget {</code>
+<code>    private let kind: String = "CommitCheckerWidget"</code>
+<code></code>
+<code>    public var body: some WidgetConfiguration {</code>
+<code>        StaticConfiguration(kind: kind, provider: CommitTimeline(), placeholder: PlaceholderView()) { entry in</code>
+<code>            CommitCheckerWidgetView(entry: entry)</code>
+<code>        }</code>
+<code>        .configurationDisplayName("Swift's Latest Commit")</code>
+<code>        .description("Shows the last commit at the Swift repo.")</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>We've created a static widget that fetches its content from our <code>CommitTimeline</code>, has a <code>PlaceholderView</code> as a placeholder and generates a <code>CommitCheckerWidgetView</code> when an entry is ready to be displayed.</p>
+<p>After running our app and adding the Widget to our home, we're now able to see an auto-updating Swift commit displayer!
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/h8bBgyJ.jpg" alt="">                                    
+</div>
+<h2>Where to go from here?</h2>
+<p>We managed to create an independent Widget, but as shown, iOS 14's new APIs also support Widgets that are tied to a parent apps' <b>Siri Intents</b>, allowing you to create dynamic Widgets that are configurable by your users. For example, we could use intent-based Widgets to allow the user to configure which repo to watch, directly from the Widget itself. Check out WWDC 2020's sessions for more details!</p>
+</div>
+]]></description>
+</item>
+<item>
     <title>Benefits of using throwing functions (try) - Swift's most underrated feature?</title>
     <link>https://swiftrocks.com/benefits-of-throwing-functions-try-swift-underrated-feature</link>
     <guid>https://swiftrocks.com/benefits-of-throwing-functions-try-swift-underrated-feature</guid>
