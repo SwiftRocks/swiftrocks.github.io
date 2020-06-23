@@ -222,6 +222,146 @@ June 23rd, 2020
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/h8bBgyJ.jpg" alt="">                                    
 </div>
+<h2>Allowing the user to configure which repo / branch to visualize</h2>
+<p>As mentioned before, iOS 14's new APIs also support Widgets that are tied to <b>Siri Intents</b>, allowing you to create dynamic Widgets that are configurable by your users. We can have an intent-based Widget that allows the user to configure which repo to watch, directly from the Widget itself.</p>
+<p>To create an intent-based Widget, we first need a Siri intent. Inside your Widget Extensions, add a <b>SiriKit Intent Definition File</b>.</p>
+<p>To allow the user to see the commits of any repo or branch, let's create a <code>LastCommitIntent</code> that supports the <b>account</b>, <b>repo</b> and <b>branch</b> properties. Make sure to also tick the <b>Intent is eliglible for Widgets</b> box.</p>
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/3HuvF8V.png" alt="">                                    
+</div>
+<p>It's possible to use Widgets with the data of any donated Siri Intent, but the magic lies in not needing to. If the intent has widget capabilities, like the one we created, you're able to set the parameters <b>directly at the Widget</b> as we'll see later on.</p>
+<p>Before upgrading our Widget, let's make sure our code supports fetching commits from other repos. Let's upgrade our timeline entry to support a repo configuration:</p>
+<pre>
+<code>struct RepoBranch {</code>
+<code>    let account: String</code>
+<code>    let repo: String</code>
+<code>    let branch: String</code>
+<code>}</code>
+<code></code>
+<code>struct LastCommit: TimelineEntry {</code>
+<code>    public let date: Date</code>
+<code>    public let commit: Commit</code>
+<code>    public let branch: RepoBranch</code>
+<code>}</code>
+</pre>
+<p>From here, we can upgrade our fetcher's <code>fetch()</code> method to download any branch from any repo:</p>
+<pre>
+<code>static func fetch(account: String, repo: String, branch: String, completion: @escaping (Result<Commit, Error>) -> Void) {</code>
+<code>    let branchContentsURL = URL(string: "https://api.github.com/repos/\(account)/\(repo)/branches/\(branch)")!</code>
+<code>    // ...</code>
+<code>}</code>
+</pre>
+<p>As mentioned before, intents-based Widgets require the usage of <code>IntentConfiguration</code>, whose's only major difference from our previous static approach is that we have to provide the intent which this widget is linked to. Let's update our Widget to use <code>IntentConfiguration</code> and <code>LastCommitIntent</code>:</p>
+<pre>
+<code>@main</code>
+<code>struct CommitCheckerWidget: Widget {</code>
+<code>    private let kind: String = "CommitCheckerWidget"</code>
+<code></code>
+<code>    public var body: some WidgetConfiguration {</code>
+<code>        IntentConfiguration(kind: kind, intent: LastCommitIntent.self, provider: CommitTimeline(), placeholder: PlaceholderView()) { entry in</code>
+<code>            CommitCheckerWidgetView(entry: entry)</code>
+<code>        }</code>
+<code>        .configurationDisplayName("A Repo's Latest Commit")</code>
+<code>        .description("Shows the last commit at the a repo/branch combination.")</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>One additional modification we have to make is updating our timeline to inherit from <code>IntentTimelineProvider</code> instead of <code>TimelineProvider</code>. They work mostly the same way, with the difference being that the intents variant provides access to an instance of our intent, allowing us to grab a hold of any customizations made by our users. In this case, we'll update <code>snapshot()</code> to additionally return a fake repo and our timeline method to fetch the user's repo configuration and fetch the commit using those parameters.</p>
+<pre>
+<code>struct CommitTimeline: IntentTimelineProvider {</code>
+<code>    typealias Entry = LastCommit</code>
+<code>    typealias Intent = LastCommitIntent</code>
+<code></code>
+<code>    public func snapshot(for configuration: LastCommitIntent, with context: Context, completion: @escaping (LastCommit) -> ()) {</code>
+<code>        let fakeCommit = Commit(message: "Fixed stuff", author: "John Appleseed", date: "2020-06-23")</code>
+<code>        let entry = LastCommit(</code>
+<code>            date: Date(),</code>
+<code>            commit: fakeCommit,</code>
+<code>            branch: RepoBranch(</code>
+<code>                account: "apple",</code>
+<code>                repo: "swift",</code>
+<code>                branch: "master"</code>
+<code>            )</code>
+<code>        )</code>
+<code>        completion(entry)</code>
+<code>    }</code>
+<code></code>
+<code>    public func timeline(for configuration: LastCommitIntent, with context: Context, completion: @escaping (Timeline&lt;Entry>) -> ()) {</code>
+<code>        let currentDate = Date()</code>
+<code>        let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!</code>
+<code></code>
+<code>        guard let account = configuration.account,</code>
+<code>              let repo = configuration.repo,</code>
+<code>              let branch = configuration.branch</code>
+<code>        else {</code>
+<code>            let commit = Commit(message: "Failed to load commits", author: "", date: "")</code>
+<code>            let entry = LastCommit(date: currentDate, commit: commit, branch: RepoBranch(</code>
+<code>                account: "???",</code>
+<code>                repo: "???",</code>
+<code>                branch: "???"</code>
+<code>            ))</code>
+<code>            let timeline = Timeline(entries: [entry], policy: .after(refreshDate))</code>
+<code>            completion(timeline)</code>
+<code>            return</code>
+<code>        }</code>
+<code></code>
+<code>        CommitLoader.fetch(account: account, repo: repo, branch: branch) { result in</code>
+<code>            let commit: Commit</code>
+<code>            if case .success(let fetchedCommit) = result {</code>
+<code>                commit = fetchedCommit</code>
+<code>            } else {</code>
+<code>                commit = Commit(message: "Failed to load commits", author: "", date: "")</code>
+<code>            }</code>
+<code>            let entry = LastCommit(date: currentDate, commit: commit, branch: RepoBranch(</code>
+<code>                account: account,</code>
+<code>                repo: repo,</code>
+<code>                branch: branch</code>
+<code>            ))</code>
+<code>            let timeline = Timeline(entries: [entry], policy: .after(refreshDate))</code>
+<code>            completion(timeline)</code>
+<code>        }</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>While this code works, our view still has "apple/swift" hardcoded into it. Let's update it to use the new parameters the entry now possesses:</p>
+<pre>
+<code>struct RepoBranchCheckerEntryView : View {</code>
+<code>    var entry: Provider.Entry</code>
+<code></code>
+<code>    var body: some View {</code>
+<code>        VStack(alignment: .leading, spacing: 4) {</code>
+<code>            Text("\(entry.branch.account)/\(entry.branch.repo)'s \(entry.branch.branch) Latest Commit")</code>
+<code>                .font(.system(.title3))</code>
+<code>                .foregroundColor(.black)</code>
+<code>            Text("\(entry.commit.message)")</code>
+<code>                .font(.system(.callout))</code>
+<code>                .foregroundColor(.black)</code>
+<code>                .bold()</code>
+<code>            Text("by \(entry.commit.author) at \(entry.commit.date)")</code>
+<code>                .font(.system(.caption))</code>
+<code>                .foregroundColor(.black)</code>
+<code>            Text("Updated at \(Self.format(date:entry.date))")</code>
+<code>                .font(.system(.caption2))</code>
+<code>                .foregroundColor(.black)</code>
+<code>        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)</code>
+<code>            .padding()</code>
+<code>            .background(LinearGradient(gradient: Gradient(colors: [.orange, .yellow]), startPoint: .top, endPoint: .bottom))</code>
+<code>    }</code>
+<code></code>
+<code>    static func format(date: Date) -> String {</code>
+<code>        let formatter = DateFormatter()</code>
+<code>        formatter.dateFormat = "MM-dd-yyyy HH:mm"</code>
+<code>        return formatter.string(from: date)</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>Now, run your app and check the Widget. The repo configuration you see will be determined by the default value you added in the intents file, but if you long press your Widget and click the <b>Edit</b> button, you will now be able to customize the intent's parameters and change the repo that is fetched!</p>
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/NvMfu2e.jpg" alt="">                                    
+</div>
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/mu8tBgl.jpg" alt="">                                    
+</div>
 <h2>Where to go from here?</h2>
-<p>We managed to create an independent Widget, but as shown, iOS 14's new APIs also support Widgets that are tied to a parent apps' <b>Siri Intents</b>, allowing you to create dynamic Widgets that are configurable by your users. For example, we could use intent-based Widgets to allow the user to configure which repo to watch, directly from the Widget itself. As there are still WWDC 2020's sessions to be released on this topic, you can expect this article to be updated with more information soon!</p>
+<p>There are further customizations you can do Widgets, including rendering different info depending on the container size of the Widget, locking the possible Widget sizes and more. Check WWDC 2020's sessions for more information on Widgets.</p>
 </div>
