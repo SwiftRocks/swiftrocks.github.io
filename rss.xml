@@ -7,12 +7,12 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
-    <title>How to create Widgets in iOS 14</title>
+    <title>How to create Widgets in iOS 14 in Swift</title>
     <link>https://swiftrocks.com/ios-14-widget-tutorial-mini-apps</link>
     <guid>https://swiftrocks.com/ios-14-widget-tutorial-mini-apps</guid>
     <pubDate>Tue, 23 Jun 2020 18:10:00 GMT+2</pubDate>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=How to create Widgets in iOS 14-->
+<!--WRITEIT_POST_NAME=How to create Widgets in iOS 14 in Swift-->
 <!--WRITEIT_POST_HTML_NAME=ios-14-widget-tutorial-mini-apps-->
 
 <!--Add here the additional properties that you want each page to possess.-->
@@ -21,13 +21,13 @@
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
 <!--WRITEIT_POST_SHORT_DESCRIPTION=Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI.-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-23T18:18:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-24T13:40:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE=2020-06-23T18:10:00+02:00-->
 
-<title>How to create Widgets in iOS 14</title>
+<title>How to create Widgets in iOS 14 in Swift</title>
 <div class="col-md-12 blog-post"> 
 <div class="post-title"> 
-  <h1>How to create Widgets in iOS 14</h1> 
+  <h1>How to create Widgets in iOS 14 in Swift</h1> 
 </div> 
 <div class="post-info"> 
 June 23rd, 2020
