@@ -380,6 +380,30 @@ June 23rd, 2020
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/mu8tBgl.jpg" alt="">                                    
 </div>
+<h2>Supporting Multiple Widgets</h2>
+<p>It's possible to make your app provide <b>multiple</b> choices of Widgets by creating a <code>WidgetBundle</code> that returns the <code>WidgetConfiguration</code> of one or more Widgets. To do so, you need to remove the <code>@main</code> declaration of your main Widget's configuration and instead add it to a new bundle struct:</p>
+<pre>
+<code>@main</code>
+<code>struct SwiftWidgetsBundle: WidgetBundle {</code>
+<code>    @WidgetBundleBuilder</code>
+<code>    var body: some Widget {</code>
+<code>        RepoBranchChecker()</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>You can then support multiple Widgets by simply adding more configurations to this bundle:</p>
+<pre>
+<code>@main</code>
+<code>struct SwiftWidgetsBundle: WidgetBundle {</code>
+<code>    @WidgetBundleBuilder</code>
+<code>    var body: some Widget {</code>
+<code>        RepoBranchChecker()</code>
+<code>        CommitNumberChecker()</code>
+<code>        AppleOpenSourceProjectsChecker()</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>With this in place, when trying to add a Widget from your app, you'll be able to see the additional Widget options by swiping.</p>
 <h2>Where to go from here?</h2>
 <p>There are further customizations you can do Widgets, including rendering different info depending on the container size of the Widget, locking the possible Widget sizes and more. Check WWDC 2020's sessions for more information on Widgets.</p>
 </div>
