@@ -8,7 +8,7 @@
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
 <!--WRITEIT_POST_SHORT_DESCRIPTION=Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI.-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-24T13:40:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-25T13:50:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE=2020-06-23T18:10:00+02:00-->
 
 <title>$WRITEIT_POST_NAME</title>
@@ -21,7 +21,7 @@ June 23rd, 2020
 </div>
 <p>Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI. iOS 14's Widgets come in a variety of shapes (literally), ranging from simple information squares to widgets that can retrieve and display information from its parent app's <b>Siri Intents</b>.</p>
 <p>One trick that has drawn my attention the most however is that having widgets directly in your home means that technically you're now able to make visual "mini apps". If you find yourself doing the same tasks over and over in your job such as checking the number of crashes in a release or the latest release supported by one of your apps, you can create a Widget in iOS 14 that essentially behaves like a super-charged, UI-enabled <b>Siri Shortcut</b>.</p>
-<p>Although you can't interact with a Widget besides touching it (which triggers an app launch), there aren't many limitations in what you can display in them, so you can use them to develop read-only visual apps. In this article, we'll develop a Widget that shows us <b>the latest commit in the Swift repository.</b></p>
+<p>Although you can't interact with a Widget besides touching it (which triggers a deep link to your app), there aren't many limitations in what you can display in them, so you can use them to develop read-only visual apps. In this article, we'll develop a Widget that shows us <b>the latest commit in the Swift repository.</b></p>
 <h2>Developing a "Swift commit tracker" Widget</h2>
 <p>I find myself going to the Swift repo once in a while to see what the community is up to. To make my life easier, how about displaying this information directly on my home screen?</p>
 <div class="post-image margin-top-40 margin-bottom-40">
@@ -202,6 +202,9 @@ June 23rd, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
+<h3>Interacting with a Widget View</h2>
+<p>Optionally, you can detect taps in your Widget and redirect them to a deeplink. This is unfortunately the only interaction you're allowed to have in your widget, so no scrolling or other forms of interaction are possible.</p>
+<p>A deeplink interaction can be added to any <code>View</code> by using the <code>.widgetURL(myDeeplink)</code> method. You can use this to send the user to a specific of your app when a specific part of the widget is tapped. Note that since widgets are small, you shouldn't pack a ton of actions into a single Widget.</p>
 <p>You should be able to compile your code, and now that all components were provided, we can take a second look at our configuration method to see how this is all wrapped together:</p>
 <pre>
 <code>@main</code>
