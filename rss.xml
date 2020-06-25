@@ -217,7 +217,22 @@ June 23rd, 2020
 </pre>
 <h3>Interacting with a Widget View</h2>
 <p>Optionally, you can detect taps in your Widget and redirect them to a deeplink. This is unfortunately the only interaction you're allowed to have in your widget, so no scrolling or other forms of interaction are possible.</p>
-<p>A deeplink interaction can be added to any <code>View</code> by using the <code>.widgetURL(myDeeplink)</code> method. You can use this to send the user to a specific of your app when a specific part of the widget is tapped. Note that since widgets are small, you shouldn't pack a ton of actions into a single Widget.</p>
+<p>You can configure which deeplink is triggered when your Widget is tapped through the <code>.widgetURL(myDeeplink)</code> method, but you can also make different parts of the widget trigger different deeplinks by using a <code>Link</code>. Note that since widgets are small, you shouldn't pack a ton of actions into a single Widget.</p>
+<p>Here's an example of a Widget View that redirects to the app's home screen when tapped, but also contains two labels that redirect to different parts of the app when tapped.</p>
+<pre>
+<code>var body: some View {</code>
+<code>    VStack {</code>
+<code>        Link(destination: homeDeepLink) {</code>
+<code>            Text("Home")</code>
+<code>        }</code>
+<code>        Link(destination: settingsDeepLink) {</code>
+<code>            Text("Settings")</code>
+<code>        }</code>
+<code>    }.widgetURL(homeDeeplink)</code>
+<code>}</code>
+</pre>
+<p>If you don't provide a <code>widgetURL</code>, your app will simply open when tapped.</p>
+<h2>Seeing the Widget in action</h2>
 <p>You should be able to compile your code, and now that all components were provided, we can take a second look at our configuration method to see how this is all wrapped together:</p>
 <pre>
 <code>@main</code>
