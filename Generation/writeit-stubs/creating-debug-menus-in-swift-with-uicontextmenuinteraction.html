@@ -8,8 +8,8 @@
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
 <!--WRITEIT_POST_SHORT_DESCRIPTION=Debug menus in iOS are an effective way to make your debugging day more productive. Let's see how we can use UIContextMenuInteraction to create debug-only menus.-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2020-06-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-30T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2020-06-30T14:00:00+02:00-->
 
 <title>$WRITEIT_POST_NAME</title>
 <div class="col-md-12 blog-post"> 
@@ -17,10 +17,10 @@
   <h1>$WRITEIT_POST_NAME</h1> 
 </div> 
 <div class="post-info"> 
-DateHere
+June 30th, 2020
 </div>
 <p>Debug menus in iOS are a very effective way to make your day more productive as a developer. If you find yourself doing the same debugging tasks over and over, such as printing backend responses, skipping to specific view controllers or copying user identifiers, it's nice to have special developer menus in your app that automatically handles these tasks for you.</p>
-<p>iOS 13 introduced <code>UIContextMenuInteraction</code> -- a new context menu API that replaces the older (and much harder to use) peek-and-pop menus. When a <code>UIView</code> with a registered interaction is pressed, a menu containing actions and an optional preview will show up. It works similarly to an <code>UIAlertController</code>, but nicer to look at and much easier to implement!</p>
+<p>iOS 13 introduced <code>UIContextMenuInteraction</code> -- a new context menu API that replaces the older (and much harder to use) peek-and-pop menus. When a <code>UIView</code> with a registered interaction is pressed, a menu containing actions and an optional preview will show up. It works similarly to an <code>UIAlertController</code>, but nicer to look at and much easier to implement! New in iOS 14, we can even add asynchronously resolved actions to it.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/iJ9FXS6.png" alt="Context Menu">                                    
 </div>
@@ -91,7 +91,7 @@ DateHere
 <p>I chose to create <code>DebugMenuInteraction</code> -- a special <code>UIContextMenuInteraction</code> that handles its own delegate, exposing a <code>DebugMenuInteractionDelegate</code> instead to retrieve the list of debugging actions.</p>
 <pre>
 <code>public protocol DebugMenuInteractionDelegate: AnyObject {</code>
-<code>    func debugActions() -> [UIAction]</code>
+<code>    func debugActions() -> [UIMenuElement]</code>
 <code>}</code>
 <code></code>
 <code>public final class DebugMenuInteraction: UIContextMenuInteraction {</code>
@@ -107,7 +107,7 @@ DateHere
 <code>                identifier: nil,</code>
 <code>                previewProvider: nil</code>
 <code>            ) { [weak self] _ in</code>
-<code>                let actions: [UIAction] = self?.delegate?.debugActions() ?? []</code>
+<code>                let actions = self?.delegate?.debugActions() ?? []</code>
 <code>                return UIMenu(title: "Debug Actions", children: actions)</code>
 <code>            }</code>
 <code>        }</code>
@@ -162,5 +162,19 @@ DateHere
 </pre>
 <p>Since the extension itself is able to determine if we're running a debug build, calls to <code>addDebugMenuInteraction()</code> can be kept in production code as the compiler will automatically optimize it out of the build.</p>
 <p>With these abstractions, the final result is the same, but the code is now easier to maintain and evolve as supporting different views is just a matter of extending them to conform to the new delegate.</p>
+<h2>iOS 14 - Asynchronous actions with <code>UIDeferredMenuElement</code></h2>
+<p>The arrival of iOS 14 introduced the possibility of creating menu elements that are resolved asynchronously. If your debug actions involves some data that requires an API call, you can use the new APIs to create async actions that are automatically displayed in the <code>UIContextMenuInteraction</code> with a special loading UI:</p>
+<pre>
+<code>func serverInformation() -> UIMenuElement {</code>
+<code>    return UIDeferredMenuElement { completion in</code>
+<code>        // an Async task that fetches some information about a server:</code>
+<code>        completion([printServerInformationAction(serverInfo)])</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>The completion type of the deferred action is an array of <code>UIMenuElements</code>, meaning that you can a single action can be resolved to multiple entries in the debug menu. When displayed, you'll get a nice loading screen that is replaced with the real actions once the completion handler is called.</p>
+<div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/05piylJ.png" alt="Context Menu Async">                                    
+</div>
 <p>If you're interested in creating debug menus, the code we created here <a href="https://github.com/rockbruno/DebugActions">is available in SPM and CocoaPods as the DebugActions library.</a></p>
 </div>
