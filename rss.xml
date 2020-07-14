@@ -51,7 +51,7 @@ July 14th, 2020
 <code>+ (instancetype)sharedInstance;</code>
 <code>@end</code>
 </pre>
-<p>By default this will be converted to a <code>sharedInstance()</code> method in Swift, but in Swift standards this would look as a computed property instead.</p>
+<p>By default this will be converted to a <code>sharedInstance()</code> method in Swift, but in Swift standards, this would look better as a computed property instead.</p>
 <p>To customize how it'll be translated, let's add the attribute to the Objective-C definition:</p>
 <pre>
 <code>@interface SRMyClass : NSObject</code>
@@ -62,7 +62,7 @@ July 14th, 2020
 <pre>
 <code>let instance = SRMyClass.__sharedInstance()</code>
 </pre>
-<p>The reason for this is precisely to indicate that this method shouldn't be used as is. In fact, if you try to implement this example you'll notice that while you <b>can</b> use it, it will <b>not</b> show in code completion at all. The intention, instead, is for you to <b>abstract</b> this special method into what you actually want this to look like in Swift. In the case of our singleton example, if we want it to become a computed property, we should define that property in our Swift code and implement it by calling the exposed unrefined method:</p>
+<p>The reason for this is precisely to indicate that this method shouldn't be used as-is. In fact, if you try to implement this example you'll notice that while you <b>can</b> use it, it will <b>not</b> show in code completion at all. The intention, instead, is for you to <b>abstract</b> this special method into what you actually want this to look like in Swift. In the case of our singleton example, if we want it to become a computed property, we should define that property in our Swift code and implement it by calling the exposed unrefined method:</p>
 <pre>
 <code>extension SRMyClass {</code>
 <code>    var shared: SRMySingleton {</code>
@@ -99,7 +99,7 @@ July 14th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Unfortunately you can't redefine <b>entire</b> types with <code>NS_REFINED_FOR_SWIFT</code> as only methods, properties and initializers are supported, but in my experience that's enough to give legacy code a good Swift experience.</p>
+<p>Unfortunately you can't redefine <b>entire</b> types with <code>NS_REFINED_FOR_SWIFT</code> as only methods, properties and initializers are supported, but in my experience, that's enough to give legacy code a good Swift experience.</p>
 </div>
 ]]></description>
 </item>
