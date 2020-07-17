@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <script src="https://use.fontawesome.com/afd448ce82.js"></script>
+    
+    <!-- Meta Tag -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO -->
+    <meta name="author" content="Bruno Rocha">
+    <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
+    <meta name="description" content="In this article, we'll see how Swift determines the entry point of an app, the different attributes used to alter this behavior in iOS, how they work internally, and what Swift 5.3's new @main attribute brings to the table.">
+    <meta name="title" content="Entry Points in Swift: How @main and @UIApplicationMain work internally">
+    <meta name="url" content="https://swiftrocks.com/entry-points-swift-uiapplicationmain-main">
+    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="copyright" content="Bruno Rocha">
+    <meta name="robots" content="index,follow">
+
+    <meta property="og:title" content="Entry Points in Swift: How @main and @UIApplicationMain work internally"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:description" content="In this article, we'll see how Swift determines the entry point of an app, the different attributes used to alter this behavior in iOS, how they work internally, and what Swift 5.3's new @main attribute brings to the table."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://swiftrocks.com/entry-points-swift-uiapplicationmain-main"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
+    <meta name="twitter:title" content="Entry Points in Swift: How @main and @UIApplicationMain work internally"/>
+    <meta name="twitter:description" content="In this article, we'll see how Swift determines the entry point of an app, the different attributes used to alter this behavior in iOS, how they work internally, and what Swift 5.3's new @main attribute brings to the table."/>
+    <meta name="twitter:site" content="@rockbruno_"/>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
+    <link rel="mask-icon" href="images/favicon/favicon-2.ico">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    
+  <!-- All CSS Plugins --> 
+  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+    <!-- Prism CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
+  <!-- Main CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/style29.css"> 
+  <!-- PT Sans --> 
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    
+    <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <script type="application/ld+json">
+  {
+"@context": "https://schema.org",
+"@type": "BlogPosting",
+"mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://swiftrocks.com/entry-points-swift-uiapplicationmain-main"
+},
+"image": [
+  "https://swiftrocks.com/images/bg/swiftrockssocial.png"
+],
+"datePublished": "2020-07-21T14:00:00+02:00",
+"dateModified": "2020-07-21T14:00:00+02:00",
+"author": {
+  "@type": "Person",
+  "name": "Bruno Rocha"
+},
+ "publisher": {
+  "@type": "Organization",
+  "name": "SwiftRocks",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://swiftrocks.com/images/bg/swiftrockssocial.png"
+  }
+},
+"headline": "Entry Points in Swift: How @main and @UIApplicationMain work internally",
+    "abstract": "In this article, we'll see how Swift determines the entry point of an app, the different attributes used to alter this behavior in iOS, how they work internally, and what Swift 5.3's new @main attribute brings to the table."
+}
+  </script>
+    
+
+  </head>
+
+ <body>
+      
+    
+    
+  <div id="main"> 
+   <div class="container"> 
+     <!-- Blog Header --> 
+    <div class="blog-header col-xs-12">
+     <div class="blog-header-container">
+         <a href="https://swiftrocks.com">
+           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+         </a> 
+     </div>
+   </div>
+     <!-- Blog Post (Right Sidebar) Start --> 
+                 <div class="col-sm-9 col-xs-12">
+                    <div class="page-body">
+                    	<div class="row">
+
+                            <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
+<!--WRITEIT_POST_NAME=Entry Points in Swift: How @main and @UIApplicationMain work internally-->
+<!--WRITEIT_POST_HTML_NAME=entry-points-swift-uiapplicationmain-main-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, we'll see how Swift determines the entry point of an app, the different attributes used to alter this behavior in iOS, how they work internally, and what Swift 5.3's new @main attribute brings to the table.-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-07-21T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2020-07-21T14:00:00+02:00-->
+
+<title>Entry Points in Swift: How @main and @UIApplicationMain work internally</title>
+<div class="col-md-12 blog-post"> 
+<div class="post-title"> 
+  <h1>Entry Points in Swift: How <code>@main</code> and <code>@UIApplicationMain</code> work internally</h1> 
+</div> 
+<div class="post-info"> 
+July 21st, 2020
+</div>
+<p>In this article, we'll see how Swift determines the entry point of an app, the different attributes used to alter this behavior in iOS, how they work internally, and what Swift 5.3's new <code>@main</code> attribute brings to the table.</p>
+<h2>How Swift Scripts Work</h2>
+<p>When executing Swift code from the command line, by default, the code will be read from top to bottom just like any other scripting language. While Swift scripts support everything you'd have in any other context, they have the additional advantage of being able to write expressions in a <b>global scope</b>:</p>
+<pre>
+<code>print("Hello")</code>
+<code></code>
+<code>struct MyStruct {</code>
+<code>    func foo() {}</code>
+<code>}</code>
+<code></code>
+<code>MyStruct().foo()</code>
+</pre>
+<p>In an iOS app, by default, doing so would result in the <code>Expressions are not allowed at the top level</code> error, but in a scripted world where you want to execute something as possible, there's no point in preventing this behavior.</p>
+<p>Deep down, the ability to call code globally is just a cool syntax sugar. What is really happening is that Swift is abstracting your global code inside a fake <code>main</code> C function:</p>
+<pre>
+<code>func main(argc: Int32, argv: UnsafeMutablePointer&lt;UnsafeMutablePointer&lt;Int8>?>) -> Int32 {</code>
+<code>    print("Hello")</code>
+<code></code>
+<code>    struct MyStruct {</code>
+<code>        func foo() {}</code>
+<code>    }</code>
+<code></code>
+<code>    MyStruct().foo()</code>
+<code>}</code>
+</pre>
+<p>Swift uses clang internally to compile and provide interoperability with C/C++/Objective-C, so it's natural that the starting point of a script/app mimicks it as well. You can check this with <code>swiftc (file) -emit-sil</code>, which will print Swift's Intermediate Language representation of your code after optimizing and generating any additional code it needs. In this case, we'll see a definition for a <code>main</code> function and our script's contents inside of it.</p>
+<pre>
+<code>sil @main</code>
+<code>// a bunch of stuff that defines your top-level code!</code>
+</pre>
+<p>Interestingly enough, it's not possible for you to "steal" and define your own main function in that context. The generated main function is literally symbolized as <code>main</code>, while anything you define will internally have its symbol <b>mangled</b> (an unique identifier for your function or class, based on the context where it was defined), like <code>s4MyApp4mainCACycfc</code>.</p>
+<p>This is what happens when your Swift script/binary only contains one file, but what if it contains <b>multiple</b> files?</p>
+<p>In this case, as we can't have multiple starting points, we must designate one of them as the <b>main</b> one. Like before, the main file will be the entry point of the app and gain access to global expressions, but now, as expected, any additional file will have to follow your usual Swift rules. In Swift, designating the main file is just a matter of naming it <code>main.swift</code>.</p>
+<pre>
+<code>swiftc main.swift anotherFile.swift</code>
+</pre>
+<h2><code>@UIApplicationMain</code> -- When the entry point needs to be controlled</h2>
+<p>But not all kinds of programs fit into this top-bottom code execution format -- for example, in iOS, the execution of the app relies on running and maintaining an <code>UIApplication</code> instance, a process that is the same for every single iOS app. This initial process of booting an <code>UIApplication</code> is abstracted by UIKit, and there's no reason for you as an user to have to worry about it, specially considering that this is the very first thing your app should do. For this reason, you could argue that handling this responsability to the user could even have <b>negative</b> consequences. Imagine accidentally shipping a version where your app doesn't boot at all!</p>
+<p>To prevent this issue from happening, Apple thought that if UIKit is responsible for providing the code necessary to boot an iOS app, then it should probably <b>get its hands dirty and do it itself</b>. The Swift compiler then started supporting two new special attributes: <code>@UIApplicationMain</code> and <code>@NSApplicationMain</code> (for macOS).</p>
+<p>These attributes are magical, but they don't deviate from what we already know. Their purpose is to <b>automatically generate an entry point</b>, and internally, what happens is that the presence of these attributes will result in a fake <code>main</code> function being added to your binary:</p>
+<pre>
+<code>func main(argc: Int32, argv: UnsafeMutablePointer&lt;UnsafeMutablePointer&lt;Int8>?>) -> Int32 {</code>
+<code>    return UIApplicationMain(argc, argv, nil, ClassName)</code>
+<code>}</code>
+</pre>
+<p>The content of the function depends on the attribute you used, but as you can expect, it simply initializes your iOS app.</p>
+<p>You might know <code>UIApplicationMain()</code> if you ever needed to use a subclass of an <code>UIApplication</code> in your app -- this is the function that bootstraps an iOS app, and you can use the third and fourth arguments to change the classes you want to use as your <code>UIApplication</code> and <code>UIApplicationDelegate</code>. This means that there's nothing special about the <code>@UIApplicationMain</code> attribute, and you can reproduce what the compiler is doing by removing it and creating your own <code>main.swift</code> file. This is a legit technique to fine-tune the initialization of your app, which you can use to run code before your app launches (literally).</p>
+<pre>
+<code>UIHooks.swizzleEverything()</code>
+<code>UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, "AppDelegate")</code>
+</pre>
+<p>As a fake <code>main</code> function is emitted as a result of using the <code>@UIApplicationMain</code> attribute, you can't have <b>both</b> the attribute and a <code>main.swift</code> file. Trying to use both will result in a duplicated symbol error, and in some situations the compiler will even give you a specific <code>attribute cannot be used in a module that contains top-level code</code> error.</p>
+<h2>Swift 5.3 and <code>@main</code></h2>
+<p>Many years later, it was realized that UIKit was not the only framework that benefitted from controlling the entry point. Many frameworks for Swift CLI tools involve some sort of initial setup, and so it would be great if the language provided a standard way to replicating what was currently hardcoded as <code>@UIApplicationMain</code>. Finally, in Swift 5.3, the <code>@main</code> attribute was added to allow developers to control this behavior.</p>
+<pre>
+<code>@main struct MyScript {</code>
+<code>    static func main() throws {</code>
+<code>    	print("SwiftRocks!")</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p><code>@main</code> works similarly to a protocol -- when added, you must define a <code>main()</code> method that will serve as the entry point for your Swift code. Apart from that, <code>@main</code> works precisely like <code>@UIApplicationMain</code>. The fake <code>main</code> function is still emitted, but instead of returning the hardcoded UIKit behavior, it executes the function that you defined as a result of adding the attribute to a type. As seen in WWDC 2020, the new <code>@main</code> attribute is used by SwiftUI and the new Widgets extension to abstract the definition of their entry points.</p>
+<p>One particularly interesting use of it is in Apple's <b>swift-argument-parser</b> library, which is a tool for creating commands and arguments for CLI tools. Before Swift 5.3, you had to manually initialize your tool by calling its main command's <code>main()</code> method from the library, but now, you can simply attach the new attribute to mark it as the starting point.</p>
+<p>Before:</p>
+<pre>
+<code>struct Repeat: ParsableCommand {</code>
+<code>    @Argument(help: "The phrase to repeat.")</code>
+<code>    var phrase: String</code>
+<code></code>
+<code>    mutating func run() throws {</code>
+<code>        for _ in 1...5 {</code>
+<code>            print(phrase)</code>
+<code>        }</code>
+<code>    }</code>
+<code>}</code>
+<code></code>
+<code>Repeat.main()</code>
+</pre>
+<p>Post Swift 5.3:</p>
+<pre>
+<code>@main struct Repeat: ParsableCommand {</code>
+<code>    @Argument(help: "The phrase to repeat.")</code>
+<code>    var phrase: String</code>
+<code></code>
+<code>    mutating func run() throws {</code>
+<code>        for _ in 1...5 {</code>
+<code>            print(phrase)</code>
+<code>        }</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>Because of this addition, using <code>@UIApplicationMain</code> is now officially deprecated as Apple allows you to use the new <code>@main</code> attribute in your AppDelegates (except in the second Xcode 12 beta, where the feature was temporarily disabled).</p>
+</div>
+</div>
+                              
+                         </div>
+
+  <div class="footer">
+
+<div class="footer-links" style="margin-bottom: 4px;">
+<a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Fentry-points-swift-uiapplicationmain-main&text=Entry Points in Swift: How @main and @UIApplicationMain work internally" target="_blank" class="share" style="font-size: 18px;"><i class="fa fa-twitter"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Share this page</a>
+</div>
+
+<div class="footer-links">
+
+<a href="https://swiftrocks.com" class="newsletter"><i class="fa fa-list"></i>‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎See all articles‏‏‎</a>
+
+<a href="sponsor-advertise-at-swiftrocks" class="sponsor"><i class="fa fa-heart"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Sponsor</a>
+
+<a href="https://bit.ly/2IY5F4Y" class="newsletter"><i class="fa fa-newspaper-o"></i>‏‏‎ ‎‏‏‎ ‎Subscribe to Newsletter</i></a>
+
+</div>
+
+    <p style="margin-top: 24px;">If you want to see more Swift / iOS content like this, follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
+
+      <div class="next-article">
+    <h3 style="margin-top: 24px;">You may also like</h3>
+<strong id="next-article-title"></strong>
+<!-- <p id="next-article-description"></p> -->
+</div>
+
+<p style="margin-top: 8px; color: #8d8d8d;">Copyright © 2016-2020 SwiftRocks. All Rights Reserved. These pages were generated using <a href="https://github.com/rockbruno/writeit">WriteIt</a>.</p>
+
+</div>
+                        
+                           
+                         </div>
+                     
+                     
+                  </div>
+                  <!-- Blog Post (Right Sidebar) End -->
+
+                 <!-- About Me (Left Sidebar) Start -->
+                 <div class="col-sm-3 col-xs-12">
+                   <div class="about-fixed">
+                     <div class="my-pic">
+                        <img src="images/pic/my-pic-2.jpg" alt="Bruno Rocha">
+                        </div>
+
+                             <div style="text-align: center; display: block;">
+<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ffffff; padding-left: 12px; padding-right: 12px; margin-top: 12px; margin-bottom: -6px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; background-color: #ff8e00; width: 100%; max-width: 250px; display: inline-block; border-radius: 8px; font-weight: 500;"><i class="fa fa-twitter"></i> 2615 followers</a>
+   </div>
+                      
+                      
+                      
+                      <div class="my-detail">
+                        <h3 class="separator">About</h3>
+        			    <b>Bruno Rocha</b><span> is a Software Engineer at Spotify and is the developer of open sources libraries like <a href="https://github.com/rockbruno/SwiftInfo">SwiftInfo</a> and <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>.</span>
+
+<div class="about-links" style="margin-top: 4px;">
+
+<a href="https://bit.ly/2IY5F4Y" class="newsletter"><i class="fa fa-newspaper-o"></i>‏‏‎ ‎‏‏‎ ‎Subscribe to Newsletter</i></a>
+
+<a href="sponsor-advertise-at-swiftrocks" class="sponsor"><i class="fa fa-heart"></i>‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Sponsor / Advertise</a>
+
+<a href="https://open.spotify.com/show/6sOFIDT8ELXygixjYBTAb2?si=uWw7mmiRR2ioBkhl8PR6Mw" class="newsletter"><i class="fa fa-microphone"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎ ‎Podcast (pt-BR)</a>
+
+<a href="mailto:bruno@swiftrocks.com" class="newsletter"><i class="fa fa-envelope"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Contact</a>
+
+</div>
+                        <h3 class="separator">RSS / Social</h3>
+                        <div class="social-icon">
+                         <a href="rss.xml" target="_blank" class="rss"><i class="fa fa-rss"></i></a>
+                         <a href="https://twitter.com/rockbruno_" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+                         <a href="https://github.com/rockbruno" target="_blank" class="github"><i class="fa fa-github"></i></a>
+                         <a href="https://www.linkedin.com/in/bruno-rocha-45786a98/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- About Me (Left Sidebar) End -->
+                
+            </div>
+         </div>
+      </div>
+    
+    
+    <!-- All Javascript Plugins  -->
+  <script type="text/javascript" src="js/jquery.min.js"></script> 
+  <script type="text/javascript" src="js/plugin2.js"></script> 
+  <script type="text/javascript" src="js/prism2.js"></script> 
+    <!-- Main Javascript File  -->
+    <script type="text/javascript" src="js/scripts7.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-130406165-1');
+</script>
+
+   </body>
+ </html>

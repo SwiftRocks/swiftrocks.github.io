@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/entry-points-swift-uiapplicationmain-main</loc>
+    <lastmod>2020-07-21T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/entry-points-swift-uiapplicationmain-main.html</loc>
+    <lastmod>2020-07-21T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/adapting-objectivec-apis-for-swift-using-nsrefinedforswift</loc>
     <lastmod>2020-07-14T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
