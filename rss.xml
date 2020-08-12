@@ -88,11 +88,12 @@ August 11th, 2020
 <code>service.generateAssertion(keyIdentifier, clientDataHash: hash) { assertion, error in</code>
 <code>    guard error == nil else { return }</code>
 <code>    let assertionString = assertion?.base64EncodedString()</code>
-<code>    // Send the encrypted assertion to your server.</code>
-<code>    // The server will unencrypt it, validate it, grab your request and process it.</code>
+<code>    // Send the signed assertion to your server.</code>
+<code>    // The server will validate it, grab your request and process it.</code>
 <code>}</code>
 </pre>
 <p>Just like before, your backend must support the usage of an one-time token to prevent replay attacks. This time, since the request itself is our <code>clientDataHash</code>, we're adding the token inside the JSON. There's no restriction on the number of assertions that you can make with a given key, but still, you typically should reserve that for requests made at sensitive moments of your app such as the download of premium content.</p>
+<p>In this case, your additional protection comes from the fact that the request is hashed and usable only once. Because the entire request is signed by your private key, a hacker can't simply intercept your requests and use them to craft their own. They must figure out where the parameters of your request are coming from and manually attempt to sign it, something that will take slightly more skill than simply attaching a proxy. As mentioned in the beginning, it's not impossible to break this protection, just harder.</p>
 <h2>Testing and rolling out your implementation</h2>
 <p>The App Attest service records metrics that you can't reset. To prevent that, apps not in a production environment will use a sandboxed version of it. If you instead want to test in the production environment, you should add the <b>com.apple.developer.devicecheck.appattest-environment</b> entitlement to your app and set its value to <b>production</b>.</p>
 <p>If you have a large user base, Apple recommends you to gradually roll this feature as requests to <code>attestKey</code> are rate limited. After carefully rolling it out for existing users, you can guarantee that it will only be called for new users.</p>
