@@ -217,15 +217,15 @@ div.blog-post {
 }
 
 .blog-post b {
-  padding: 2px 4px;
-  font-size: 100%;
-  color: #4e4e4e;
+  /*padding: 2px 4px;*/
+  /*font-size: 100%;*/
+  /*color: #4e4e4e;*/
   /*font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;*/
   /*color: #dbd16e;*/
-  background-color: #f5f5f5;
+  /*background-color: #f5f5f5;*/
   /*background-color: #272823;*/
-  font-weight: 700;
-  border-radius: 4px;
+  /*font-weight: 700;*/
+  /*border-radius: 4px;*/
 }
 
 .blog-post pre {
