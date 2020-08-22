@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <script src="https://use.fontawesome.com/afd448ce82.js"></script>
+    
+    <!-- Meta Tag -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO -->
+    <meta name="author" content="Bruno Rocha">
+    <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
+    <meta name="description" content="In this article, I'll show you a memory management trick that can be used in any object that applies the <b>Observer</b> pattern to create better and safer APIs.">
+    <meta name="title" content="Improving Observer Pattern APIs in Swift With Weak References">
+    <meta name="url" content="https://swiftrocks.com/weak-dictionary-keys">
+    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="copyright" content="Bruno Rocha">
+    <meta name="robots" content="index,follow">
+
+    <meta property="og:title" content="Improving Observer Pattern APIs in Swift With Weak References"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:description" content="In this article, I'll show you a memory management trick that can be used in any object that applies the <b>Observer</b> pattern to create better and safer APIs."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://swiftrocks.com/weak-dictionary-keys"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
+    <meta name="twitter:title" content="Improving Observer Pattern APIs in Swift With Weak References"/>
+    <meta name="twitter:description" content="In this article, I'll show you a memory management trick that can be used in any object that applies the <b>Observer</b> pattern to create better and safer APIs."/>
+    <meta name="twitter:site" content="@rockbruno_"/>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
+    <link rel="mask-icon" href="images/favicon/favicon-2.ico">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    
+  <!-- All CSS Plugins --> 
+  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+    <!-- Prism CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
+  <!-- Main CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/style29.css"> 
+  <!-- PT Sans --> 
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    
+    <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <script type="application/ld+json">
+  {
+"@context": "https://schema.org",
+"@type": "BlogPosting",
+"mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://swiftrocks.com/weak-dictionary-keys"
+},
+"image": [
+  "https://swiftrocks.com/images/bg/swiftrockssocial.png"
+],
+"datePublished": "2020-08-25T14:00:00+02:00",
+"dateModified": "2020-08-25T14:00:00+02:00",
+"author": {
+  "@type": "Person",
+  "name": "Bruno Rocha"
+},
+ "publisher": {
+  "@type": "Organization",
+  "name": "SwiftRocks",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://swiftrocks.com/images/bg/swiftrockssocial.png"
+  }
+},
+"headline": "Improving Observer Pattern APIs in Swift With Weak References",
+    "abstract": "In this article, I'll show you a memory management trick that can be used in any object that applies the <b>Observer</b> pattern to create better and safer APIs."
+}
+  </script>
+    
+
+  </head>
+
+ <body>
+      
+    
+    
+  <div id="main"> 
+   <div class="container"> 
+     <!-- Blog Header --> 
+    <div class="blog-header col-xs-12">
+     <div class="blog-header-container">
+         <a href="https://swiftrocks.com">
+           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+         </a> 
+     </div>
+   </div>
+     <!-- Blog Post (Right Sidebar) Start --> 
+                 <div class="col-sm-9 col-xs-12">
+                    <div class="page-body">
+                    	<div class="row">
+
+                            <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
+<!--WRITEIT_POST_NAME=Improving Observer Pattern APIs in Swift With Weak References-->
+<!--WRITEIT_POST_HTML_NAME=weak-dictionary-keys-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, I'll show you a memory management trick that can be used in any object that applies the <b>Observer</b> pattern to create better and safer APIs.-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-08-25T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2020-08-25T14:00:00+02:00-->
+
+<title>Improving Observer Pattern APIs in Swift With Weak References</title>
+<div class="col-md-12 blog-post"> 
+<div class="post-title"> 
+  <h1>Improving Observer Pattern APIs in Swift With Weak References</h1> 
+</div> 
+<div class="post-info"> 
+August 25th, 2020
+</div>
+<p>In this article, I'll show you a memory management trick that can be used in any object that applies the <b>Observer</b> pattern to create better and safer APIs.</p>
+<h2>Context: The Observer Pattern</h2>
+<p>Even if you don't know what the <b>Observer</b> pattern is, there's a good chance that you applied it somewhere in the past. This design pattern is used to create APIs that notify one or more subjects about changes in a certain object, with the <code>NotificationCenter</code> being the most popular use of this pattern in iOS.</p>
+<p>One simple way to reproduce what the <code>NotificationCenter</code> does is to create a dictionary that maps a string (a notification) to an array of closures. Whenever that notification is "posted", all of the closures are executed.</p>
+<pre>
+<code>final class NotificationCenter {</code>
+<code></code>
+<code>    var notifications = [String: [() -> Void]]()</code>
+<code></code>
+<code>    func register(_ closure: @escaping () -> Void, forNotification string: String) {</code>
+<code>        notifications[string, default: []].append(closure)</code>
+<code>    }</code>
+<code></code>
+<code>    func post(notification: String) {</code>
+<code>        notifications[notification]?.forEach { $0() }</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>However, the point of this article is not to attempt to reproduce the <code>NotificationCenter</code>, but to show you <b>what</b> this implementation implies. You must be aware that whenever you're using the basic Swift dictionaries, arrays or sets, <b>all keys and values are retained!</b> Additionally, if you remember <b>closures are reference types</b>, so they are retained as well and can outlive their owners.</p>
+<p>What this means is that you'll see that while this implementation works, it's going to be a huge memory issue. Because it's retaining the closures, they will never be unregistered. The notifications will attempt to execute them even if the object that registered it is <b>long gone</b>.</p>
+<p>If you're been working with iOS for a long time, you might remember that iOS's own <code>NotificationCenter</code> had this issue! Prior to iOS 9, every observer had to be unregistered when being deallocated, because if you didn't, it would attempt to execute it when it shouldn't and crash your app.</p>
+<pre>
+<code>deinit {</code>
+<code>    NotificationCenter.default.removeObserver(self, ...)</code>
+<code>}</code>
+</pre>
+<p>In the case of our implementation, we could replicate this by adding the concept of "owners" to our closures, so that we are able to remove them if someone wishes to be unregistered. Fortunately, not only we don't need to go this far, but it's good if we don't. If you're developing an API, its usability should be one of your main priorities. In this case, let's take a look at how we can create an observer API that <b>is</b> memory safe while also <b>not having</b> to manually unregister the observers. The problem shown above that <code>NotificationCenter</code> had was fixed in iOS 9 (removing observers became an automatic process) when Apple started applying the same concept.</p>
+<h2>Weak Collections</h2>
+<p>As I've shown before in my <a href="https://swiftrocks.com/weak-dictionary-values-in-swift">Weak Dictionary Values</a> article, <code>Foundation</code> offers a series of lower level Obj-C collection types that are more powerful than our basic Swift ones. Two of them specificcally are <code>NSMapTable</code> and <code>NSHashTable</code>, which are Obj-C versions of <code>Dictionary</code> and <code>Set</code>, respectively.</p>
+<p>Both of them allow a higher range of memory management options, which include weakily retaining both values and keys. If instead of using a base Swift dictionary we used a weak-keyed <code>NSMapTable</code> to hold our observers, our fake notification center would automatically unregister the closures whenever the related observers are deallocated. That's because in these collections, if either the key or the type is deallocated, the entire entry is evicted from the collection</p>
+<p>Creating weakified collections is just a matter of using the correct initializer. A dictionary with weak keys can be initialized with <code>NSMapTable.weakToStrongObjects()</code>, while one with weak values can be initialized with <code>NSMapTable.strongToWeakObjects()</code>. If we want our fake notification center's closures to be automatically unregistered if the object that registered them was deallocated, we can create a weak-keyed dictionary that maps an object to an array of closures:</p>
+<pre>
+<code>var observers = NSMapTable&lt;AnyObject, NSHashTable&lt;ClosureBox>>.weakToStrongObjects()</code>
+</pre>
+<p>Because the keys are weak, the closures will automatically be evicted from the dictionary if the key ceases to exist.</p>
+<p>Note that <code>NSMapTable</code> is an Obj-C API, so all keys and values must be class objects. That's why we have to use a <code>NSHashTable</code> instead of a regular <code>Set</code> or <code>[ClosureBox]</code>. But as you'll see later on, this will prove to be a much better choice than its Swift counterparts.</p>
+<p>You can make Obj-C types like <code>NSMapTable</code> be able to hold Swift structs by creating a generic <code>Box</code> wrapper type. Here, we do it to be able to represent a closure as a class object (<code>ClosureBox</code>) in order to be able to store it inside the <code>NSHashTable</code>.</p>
+<pre>
+<code>final class Box&lt;T> {</code>
+<code>    let obj: T</code>
+<code>    init(obj: T) {</code>
+<code>        self.obj = obj</code>
+<code>    }</code>
+<code>}</code>
+<code></code>
+<code>typealias ClosureBox = Box<() -> Void></code>
+<code></code>
+<code>final class NotificationCenter {</code>
+<code></code>
+<code></code>
+<code>    var observers = NSMapTable&lt;AnyObject, NSHashTable&lt;ClosureBox>>.weakToStrongObjects()</code>
+<code>    var notifications = [String: [ClosureBox]]()</code>
+<code></code>
+<code>    func register(_ closure: @escaping () -> Void, notification string: String, forObserver observer: AnyObject) {</code>
+<code>        if observers.object(forKey: observer) == nil {</code>
+<code>            observers.setObject(NSHashTable(), forKey: observer)</code>
+<code>        }</code>
+<code></code>
+<code>        let box = ClosureBox(obj: closure)</code>
+<code>        observers.object(forKey: observer)?.add(box)</code>
+<code>        notifications[string, default: []].append(box)</code>
+<code>    }</code>
+<code></code>
+<code>    func post(notification string: String) {</code>
+<code>        let boxes = notifications[string]</code>
+<code>        boxes?.forEach { $0.obj() }</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>However, this implementation is still broken! Even though deallocating our observers would in fact cause the closures to be evicted from <code>observers</code>, they are still being retaining in the Swift dictionary that we're using to store the notifications themselves.</p>
+<p>To improve this, let's do the inverse of what we just did. If our closures are being retained by the observers' dictionary, there's no point in retaining them <b>again</b> in the notifications' one. It's fine for the array of boxes itself to be retained strongly, but the boxes themselves can use weak references. We can achieve this by swapping our <code>[ClosureBox]</code> value with another <code>NSHashTable</code>, but this time, one that <b>weakily</b> reference its contents. If our "boxes" are weak references, the act of them being evicted from the observers' dictionary will cause them to be deallocated, which in turn would cause them to be evicted from the notifications' one as well. Ding ding ding!</p>
+<pre>
+<code>final class NotificationCenter {</code>
+<code></code>
+<code></code>
+<code>    var observers = NSMapTable&lt;AnyObject, NSHashTable&lt;ClosureBox>>.weakToStrongObjects()</code>
+<code>    var notifications = [String: NSHashTable&lt;ClosureBox>]()</code>
+<code></code>
+<code>    func register(_ closure: @escaping () -> Void, notification string: String, forObserver observer: AnyObject) {</code>
+<code>        if observers.object(forKey: observer) == nil {</code>
+<code>            observers.setObject(NSHashTable(), forKey: observer)</code>
+<code>        }</code>
+<code></code>
+<code>        let box = ClosureBox(obj: closure)</code>
+<code>        observers.object(forKey: observer)?.add(box)</code>
+<code>        // The default value should be a weak NSHashTable.</code>
+<code>        notifications[string, default: NSHashTable.weakObjects()].add(box)</code>
+<code>    }</code>
+<code></code>
+<code>    func post(notification string: String) {</code>
+<code>        let boxes = notifications[string]</code>
+<code>        boxes?.allObjects.forEach { $0.obj() }</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<h2>Unit Testing Weak Observers and Reference Cycles</h2>
+<p>We can unit test that this notification center's posting logic works by doing something like this:</p>
+<pre>
+<code>func test_observerIsDeallocated2() {</code>
+<code>    let center = NotificationCenter()</code>
+<code>    let notification = "myNotification"</code>
+<code>    var timesExecuted = 0</code>
+<code></code>
+<code>    let observer = UIView()</code>
+<code></code>
+<code>    center.register({</code>
+<code>        timesExecuted += 1</code>
+<code>    }, notification: notification, forObserver: observer)</code>
+<code></code>
+<code>    center.post(notification: notification)</code>
+<code>    XCTAssertEqual(timesExecuted, 1)</code>
+<code>    center.post(notification: notification)</code>
+<code>    XCTAssertEqual(timesExecuted, 2)</code>
+<code>    center.post(notification: "otherNotification")</code>
+<code>    // Won't be executed as we never registered that notification</code>
+<code>    XCTAssertEqual(timesExecuted, 2)</code>
+<code>    center.post(notification: notification)</code>
+<code>    XCTAssertEqual(timesExecuted, 3)</code>
+<code>}</code>
+</pre>
+<p>However, we are mostly interested in seeing if the automatic unregistration is working. To test that the observers are being evicted and the closures are being deallocated, we can use an <code>autoreleasepool</code>. As described in my <a href="https://swiftrocks.com/autoreleasepool-in-2019-swift">autoreleasepool article</a>, you can use a pool whenever you want something to deallocate something as soon as possible:</p>
+<pre>
+<code>func test_observerIsDeallocated() {</code>
+<code>    let center = NotificationCenter()</code>
+<code>    let notification = "myNotification"</code>
+<code>    var timesExecuted = 0</code>
+<code></code>
+<code>    autoreleasepool {</code>
+<code>        var observer: UIView! = UIView()</code>
+<code></code>
+<code>        center.register({</code>
+<code>            timesExecuted += 1</code>
+<code>        }, notification: notification, forObserver: observer)</code>
+<code></code>
+<code>        center.post(notification: notification)</code>
+<code>        XCTAssertEqual(timesExecuted, 1)</code>
+<code>        center.post(notification: notification)</code>
+<code>        XCTAssertEqual(timesExecuted, 2)</code>
+<code>        center.post(notification: "otherNotification")</code>
+<code>        XCTAssertEqual(timesExecuted, 2)</code>
+<code></code>
+<code>        observer = nil</code>
+<code>    }</code>
+<code></code>
+<code>   center.post(notification: notification)</code>
+<code>   XCTAssertEqual(timesExecuted, 2)</code>
+<code>}</code>
+</pre>
+<p>Try removing the pool and running this test to see what happens! The test will fail, and the reason is because objects aren't deallocated as soon as they go out of scope in iOS (that will usually happen at the end of a <code>RunLoop</code>). In this case, the pool is simply a way to force it to deallocate immeditally for unit testing purposes. This same trick can be applied to unit test any type of reference cycle situation :)</p>
+</div>
+</div>
+                              
+                         </div>
+
+  <div class="footer">
+
+<div class="footer-links" style="margin-bottom: 4px;">
+<a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Fweak-dictionary-keys&text=Improving Observer Pattern APIs in Swift With Weak References" target="_blank" class="share" style="font-size: 18px;"><i class="fa fa-twitter"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Share this page</a>
+</div>
+
+<div class="footer-links">
+
+<a href="https://swiftrocks.com" class="newsletter"><i class="fa fa-list"></i>‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎See all articles‏‏‎</a>
+
+<a href="sponsor-advertise-at-swiftrocks" class="sponsor"><i class="fa fa-heart"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Sponsor</a>
+
+<a href="https://bit.ly/2IY5F4Y" class="newsletter"><i class="fa fa-newspaper-o"></i>‏‏‎ ‎‏‏‎ ‎Subscribe to Newsletter</i></a>
+
+</div>
+
+    <p style="margin-top: 24px;">If you want to see more Swift / iOS content like this, follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
+
+      <div class="next-article">
+    <h3 style="margin-top: 24px;">You may also like</h3>
+<strong id="next-article-title"></strong>
+<!-- <p id="next-article-description"></p> -->
+</div>
+
+<p style="margin-top: 8px; color: #8d8d8d;">Copyright © 2016-2020 SwiftRocks. All Rights Reserved. These pages were generated using <a href="https://github.com/rockbruno/writeit">WriteIt</a>.</p>
+
+</div>
+                        
+                           
+                         </div>
+                     
+                     
+                  </div>
+                  <!-- Blog Post (Right Sidebar) End -->
+
+                 <!-- About Me (Left Sidebar) Start -->
+                 <div class="col-sm-3 col-xs-12">
+                   <div class="about-fixed">
+                     <div class="my-pic">
+                        <img src="images/pic/my-pic-2.jpg" alt="Bruno Rocha">
+                        </div>
+
+                             <div style="text-align: center; display: block;">
+<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ffffff; padding-left: 12px; padding-right: 12px; margin-top: 12px; margin-bottom: -6px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; background-color: #ff8e00; width: 100%; max-width: 250px; display: inline-block; border-radius: 8px; font-weight: 500;"><i class="fa fa-twitter"></i> 2890 followers</a>
+   </div>
+                      
+                      
+                      
+                      <div class="my-detail">
+                        <h3 class="separator">About</h3>
+        			    <b>Bruno Rocha</b><span> is a Software Engineer at Spotify and is the developer of open sources libraries like <a href="https://github.com/rockbruno/SwiftInfo">SwiftInfo</a> and <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>.</span>
+
+<div class="about-links" style="margin-top: 4px;">
+
+<a href="https://bit.ly/2IY5F4Y" class="newsletter"><i class="fa fa-newspaper-o"></i>‏‏‎ ‎‏‏‎ ‎Subscribe to Newsletter</i></a>
+
+<a href="sponsor-advertise-at-swiftrocks" class="sponsor"><i class="fa fa-heart"></i>‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Sponsor / Advertise</a>
+
+<a href="https://open.spotify.com/show/6sOFIDT8ELXygixjYBTAb2?si=uWw7mmiRR2ioBkhl8PR6Mw" class="newsletter"><i class="fa fa-microphone"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎ ‎Podcast (pt-BR)</a>
+
+<a href="mailto:bruno@swiftrocks.com" class="newsletter"><i class="fa fa-envelope"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Contact</a>
+
+</div>
+                        <h3 class="separator">RSS / Social</h3>
+                        <div class="social-icon">
+                         <a href="rss.xml" target="_blank" class="rss"><i class="fa fa-rss"></i></a>
+                         <a href="https://twitter.com/rockbruno_" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+                         <a href="https://github.com/rockbruno" target="_blank" class="github"><i class="fa fa-github"></i></a>
+                         <a href="https://www.linkedin.com/in/bruno-rocha-45786a98/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- About Me (Left Sidebar) End -->
+                
+            </div>
+         </div>
+      </div>
+    
+    
+    <!-- All Javascript Plugins  -->
+  <script type="text/javascript" src="js/jquery.min.js"></script> 
+  <script type="text/javascript" src="js/plugin2.js"></script> 
+  <script type="text/javascript" src="js/prism2.js"></script> 
+    <!-- Main Javascript File  -->
+    <script type="text/javascript" src="js/scripts7.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-130406165-1');
+</script>
+
+   </body>
+ </html>
