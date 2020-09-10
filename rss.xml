@@ -7,6 +7,211 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>UI Testing Deeplinks and Universal Links in iOS</title>
+    <link>https://swiftrocks.com/ui-testing-deeplinks-and-universal-links-in-ios</link>
+    <guid>https://swiftrocks.com/ui-testing-deeplinks-and-universal-links-in-ios</guid>
+    <pubDate>Tue, 15 Sep 2020 14:00:00 GMT+2</pubDate>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=UI Testing Deeplinks and Universal Links in iOS-->
+<!--WRITEIT_POST_HTML_NAME=ui-testing-deeplinks-and-universal-links-in-ios-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Did you know it's possible to terminate your app in the middle of an XCUITest and launch it again from somewhere else? Let's see how to use this trick to test that deeplinks and universal links are properly launching our app when executed from Safari or iMessage.-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-09-15T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2020-09-15T14:00:00+02:00-->
+
+<title>UI Testing Deeplinks and Universal Links in iOS</title>
+<div class="col-md-12 blog-post"> 
+<div class="post-title"> 
+  <h1>UI Testing Deeplinks and Universal Links in iOS</h1> 
+</div> 
+<div class="post-info"> 
+September 15th, 2020
+</div>
+<p>Did you know it's possible to terminate your app in the <i>middle</i> of an XCUITest and launch it again from somewhere else? Let's see how to use this trick to test that deeplinks and universal links are properly launching our app when executed from Safari or iMessage.</p>
+<p>It's tricky to test iOS features because while you can write unit tests to guarantee that your abstraction of it works, you can't really unit test that iOS will correctly call what you think will be called. In the case of deeplinks, what iOS does differs depending on what's the current state of your app (closed or in background) and which delegates you support (AppDelegate versus SceneDelegates), which commonly leads to very confusing bug reports in the point of view of the developer who isn't aware of this fact.</p>
+<p>But unless you're for some reason not supporting iOS 11 in 2020, you can perfectly test "app launch" related features and any other AppDelegate/SceneDelegate related feature through UI Tests. This is because it was in iOS 11 where XCUI started supporting the ability to <b>launch and control system apps</b>. Today, we can make a test that boots Safari, types an URL and deeplinks back to our app. We can even terminate our app (which doesn't stop the test!) to check that our app behaves correctly if it's <i>launched</i> from said deeplink!</p>
+<h2>UI Testing Deeplinks (from a backgrounded app)</h2>
+<p>To begin, let's UI test a Safari deeplink when our app is already running in the background.</p>
+<p>Launching other apps in the middle of a UI test is similar to launching our own, with the simple difference that you pass a different bundle identifier instead. In the case of Safari, the bundle identifier is <code>"com.apple.mobilesafari"</code>:</p>
+<pre>
+<code>func testDeeplinkFromSafari() {</code>
+<code>    let app = XCUIApplication()</code>
+<code>    app.launch()</code>
+<code>    let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")</code>
+<code>    safari.launch()</code>
+<code>}</code>
+</pre>
+<p>If you run this, you'll get a simple test that launches your app and switches to Safari right after.</p>
+<p>Now, to deeplink back to our app, we can control Safari just like we would in a regular UI test. In this case, we can grab a hold of the address bar, type our link and press the "go" button. If everything works correctly Safari will deeplink back to our app, allowing us to assert that the deeplink logic in our app is working as expected.</p>
+<pre>
+<code>func testDeeplinkFromSafari() {</code>
+<code>    // Launch our app</code>
+<code>    let app = XCUIApplication()</code>
+<code>    app.launch()</code>
+<code>    // Launch Safari and deeplink back to our app</code>
+<code>    openFromSafari("swiftrocks://profile")</code>
+<code>    // Make sure Safari properly switched back to our app before asserting</code>
+<code>    XCTAssert(app.wait(for: .runningForeground, timeout: 5))</code>
+<code>    // Assert that the deeplink worked by checking if we're in the "Profile" screen</code>
+<code>    XCTAssertTrue(app.navigationBars["Profile"].exists)</code>
+<code>}</code>
+<code></code>
+<code>private func openFromSafari(_ urlString: String) {</code>
+<code>    let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")</code>
+<code>    safari.launch()</code>
+<code>    // Make sure Safari is really running before asserting</code>
+<code>    XCTAssert(safari.wait(for: .runningForeground, timeout: 5))</code>
+<code>    // Type the deeplink and execute it</code>
+<code>    let firstLaunchContinueButton = safari.buttons["Continue"]</code>
+<code>    if firstLaunchContinueButton.exists {</code>
+<code>        firstLaunchContinueButton.tap()</code>
+<code>    }</code>
+<code>    safari.buttons["URL"].tap()</code>
+<code>    let keyboardTutorialButton = safari.buttons["Continue"]</code>
+<code>    if keyboardTutorialButton.exists {</code>
+<code>        keyboardTutorialButton.tap()</code>
+<code>    }</code>
+<code>    safari.typeText(urlString)</code>
+<code>    safari.buttons["Go"].tap()</code>
+<code>    _ = confirmationButton.waitForExistence(timeout: 2)</code>
+<code>    if confirmationButton.exists {</code>
+<code>        confirmationButton.tap()</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>It's good to add the additional <code>wait(for: .runningForeground)</code> assertion for safety as that makes the test check that the app switching actually worked before attempting to assert anything else. If it fails for some reason, you'll know it was because the app failed to switch instead of something not being present in the UI of your app.</p>
+<p>You may also notice that there's some additional logic in our Safari handling; Safari sometimes shows a "What's new" screen, which we treat by first finding and tapping the <code>"Continue"</code> button, if it exists, which can also happen when opening the keyboard for the same time. Additionally, when executing deeplinks you might sometimes get a "Open in X?" confirmation, which is treated by finding and tapping the <code>"Open"</code> button.</p>
+<h2>UI Testing Deeplinks (that launches the app / from a killed app)</h2>
+<p>The issue I faced that prompted me to write this article is that iOS processes deeplinks differently according to the current state of the app. For example, in SceneDelegates, deeplinks will trigger your <code>scene(_:openURLContexts:)</code> method, but if the app is <b>launched</b> as a result of the deeplink, no method is called. Instead, you need to access it from the <code>urlContexts</code> property of your scene. Thus, when UI testing, you also need to have a test that operates on an app that is <b>not</b> running.</p>
+<p>One may think that a UI test would fail if your app terminates, but that's actually not the case! You can make a test that terminates and reboots an app as much as you like by using these special methods from <code>XCUIApplication</code>:</p>
+<pre>
+<code>app.launch() // Launches the app (or reboots it/launches it again)</code>
+<code>app.terminate() // Terminates the app (which does not stops the test!)</code>
+<code>app.actviate() // Puts the app in the foreground, if it was backgrounded</code>
+</pre>
+<p>As mentioned, if you terminate the app, you're free to launch it again in the same test. It's not necessary to reassign your <code>XCUIApplication</code> instance -- all assertions will work normally as if the app was never terminated in the first place.</p>
+<p>Thus, to test that our deeplinks work correctly when the app <b>isn't</b> launched, we can simply close the app before opening Safari. It's not necessary to launch it again, as that will happen naturally as iOS attempts to open our deeplink.</p>
+<pre>
+<code>func testDeeplinkFromSafari_fromBackgroundedApp() {</code>
+<code>    openSafariDeeplink(terminateFirst: false)</code>
+<code>}</code>
+<code></code>
+<code>func testDeeplinkFromSafari_thatLaunchesTheApp() {</code>
+<code>    openSafariDeeplink(terminateFirst: true)</code>
+<code>}</code>
+<code></code>
+<code>func openSafariDeeplink(terminateFirst: Bool) {</code>
+<code>    let app = XCUIApplication()</code>
+<code>    app.launch()</code>
+<code></code>
+<code>    if terminateFirst {</code>
+<code>        app.terminate()</code>
+<code>    }</code>
+<code></code>
+<code>    // Launch Safari and deeplink back to our app</code>
+<code>    openFromSafari("swiftrocks://profile")</code>
+<code>    // Make sure Safari properly switched back to our app before asserting</code>
+<code>    XCTAssert(app.wait(for: .runningForeground, timeout: 5))</code>
+<code>    // Assert that the deeplink worked by checking if we're in the "Profile" screen</code>
+<code>    XCTAssertTrue(app.navigationBars["Profile"].exists)</code>
+<code>}</code>
+</pre>
+<p>An alternative for this is to simply never call <code>app.launch()</code>, but personally I had mixed results with it. Launching the app also installs it, so never launching it resulted in flaky tests. Launching and terminating it however works 100% of the time.</p>
+<h2>UI Testing Universal Links (from a backgrounded app)</h2>
+<p>The testing process of universal links is very similar to the deeplinks' one, with an important difference: for some <i>god knows why</i> reason, universal links don't work in the simulator's Safari. It's unclear if that's on purpose or if it's really a bug, but while universal links work fine on your device's Safari, they will not work on the simulator's one.</p>
+<p>This means we unfortunately can't use our Safari wrapper for them, but luckily you can still test universal links by using the <b>Messages</b> app. We can then test our universal links by opening the Messages app, clicking on a contact, sending them a universal link and tapping the newly sent message's link bubble to trigger it.</p>
+<p>To launch Messages, we use the bundle identifier <code>"com.apple.MobileSMS"</code>.</p>
+<pre>
+<code>private func openFromMessages(_ urlString: String) {</code>
+<code>    let messages = XCUIApplication(bundleIdentifier: "com.apple.MobileSMS")</code>
+<code>    messages.launch()</code>
+<code>    XCTAssert(messages.wait(for: .runningForeground, timeout: 5))</code>
+<code></code>
+<code>    // Dismiss "What's New" if needed</code>
+<code>    let continueButton = messages.buttons["Continue"]</code>
+<code>    if continueButton.exists {</code>
+<code>        continueButton.tap()</code>
+<code>    }</code>
+<code>    // Dismiss iOS 13's "New Messages" if needed</code>
+<code>    let cancelButton = messages.navigationBars.buttons["Cancel"]</code>
+<code>    if cancelButton.exists {</code>
+<code>        cancelButton.tap()</code>
+<code>    }</code>
+<code></code>
+<code>    // Open the first available chat</code>
+<code>    let chat = messages.cells.firstMatch</code>
+<code>    XCTAssertTrue(chat.waitForExistence(timeout: 5))</code>
+<code>    chat.tap()</code>
+<code>    // Tap the text field</code>
+<code>    messages.textFields["iMessage"].tap()</code>
+<code></code>
+<code>    // Dismiss Keyboard tutorial if needed</code>
+<code>    let keyboardTutorialButton = messages.buttons["Continue"]</code>
+<code>    if keyboardTutorialButton.exists {</code>
+<code>        keyboardTutorialButton.tap()</code>
+<code>    }</code>
+<code></code>
+<code>    messages.typeText("Link: \(urlString)")</code>
+<code>    messages.buttons["sendButton"].tap()</code>
+<code></code>
+<code>    let bubble = messages.links.firstMatch</code>
+<code>    XCTAssertTrue(bubble.waitForExistence(timeout: 5))</code>
+<code>    sleep(3)</code>
+<code>    bubble.tap()</code>
+<code>}</code>
+</pre>
+<p>The logic to open a link from Messages is a little longer because it sometimes takes a couple more taps before being able to click our link. In this case, we may need to dismiss up to three 3 onboarding screens before being able to send a message. Additionally, before tapping the link, we <code>sleep(3)</code> to give iOS enough time to load our app's metadata. If you don't wait, sometimes iOS will fail to properly open your app.</p>
+<p>The result, however, is the same from when we tested deeplinks in Safari. When you call this method, iOS will switch to Messages and attempt to switch back to your app via your universal link.</p>
+<pre>
+<code>func testUniversalLinkFromMessages() {</code>
+<code>    // Launch our app</code>
+<code>    let app = XCUIApplication()</code>
+<code>    app.launch()</code>
+<code>    // Launch Messages and univesal link back to our app</code>
+<code>    openFromMessages("https://swiftrocks.com/profile")</code>
+<code>    // Make sure Messages properly switched back to our app before asserting</code>
+<code>    XCTAssert(app.wait(for: .runningForeground, timeout: 5))</code>
+<code>    // Assert that the universal link worked by checking if we're in the "Profile" screen</code>
+<code>    XCTAssertTrue(app.navigationBars["Profile"].exists)</code>
+<code>}</code>
+</pre>
+<h2>UI Testing Universal Links (that launches the app / from a killed app)</h2>
+<p>Like with deeplinks, iOS's behavior differs slightly when launching your app as a result of tapping a universal link. When using SceneDelegates for example, you need to instead fetch them from a scene's <code>userActivities</code> property.</p>
+<p>To confirm that our app can properly handle this, we can use the same trick we used for the deeplinks and terminate our app before executing the test.</p>
+<pre>
+<code>func testUniversalLinkFromMessages_fromBackgroundedApp() {</code>
+<code>    openMessagesUniversalLink(terminateFirst: false)</code>
+<code>}</code>
+<code></code>
+<code>func testUniversalLinkFromMessages_thatLaunchesTheApp() {</code>
+<code>    openMessagesUniversalLink(terminateFirst: true)</code>
+<code>}</code>
+<code></code>
+<code>func openMessagesUniversalLink(terminateFirst: Bool) {</code>
+<code>    let app = XCUIApplication()</code>
+<code>    app.launch()</code>
+<code></code>
+<code>    if terminateFirst {</code>
+<code>        app.terminate()</code>
+<code>    }</code>
+<code></code>
+<code>    // Launch Messages and univesal link back to our app</code>
+<code>    openFromMessages("https://swiftrocks.com/profile")</code>
+<code>    // Make sure Messages properly switched back to our app before asserting</code>
+<code>    XCTAssert(app.wait(for: .runningForeground, timeout: 5))</code>
+<code>    // Assert that the universal link worked by checking if we're in the "Profile" screen</code>
+<code>    XCTAssertTrue(app.navigationBars["Profile"].exists)</code>
+<code>}</code>
+</pre>
+</div>
+]]></description>
+</item>
+<item>
     <title>Improving Observer Pattern APIs in Swift With Weak Collections</title>
     <link>https://swiftrocks.com/improving-observer-pattern-apis-in-swift-with-weak-collections</link>
     <guid>https://swiftrocks.com/improving-observer-pattern-apis-in-swift-with-weak-collections</guid>
