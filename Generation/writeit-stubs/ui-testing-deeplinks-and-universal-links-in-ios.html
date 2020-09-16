@@ -79,7 +79,7 @@ September 15th, 2020
 <pre>
 <code>app.launch() // Launches the app (or reboots it/launches it again)</code>
 <code>app.terminate() // Terminates the app (which does not stops the test!)</code>
-<code>app.actviate() // Puts the app in the foreground, if it was backgrounded</code>
+<code>app.activate() // Puts the app in the foreground, if it was backgrounded</code>
 </pre>
 <p>As mentioned, if you terminate the app, you're free to launch it again in the same test. It's not necessary to reassign your <code>XCUIApplication</code> instance -- all assertions will work normally as if the app was never terminated in the first place.</p>
 <p>Thus, to test that our deeplinks work correctly when the app <b>isn't</b> launched, we can simply close the app before opening Safari. It's not necessary to launch it again, as that will happen naturally as iOS attempts to open our deeplink.</p>
