@@ -16,18 +16,18 @@
     <meta name="description" content="We use API availability checks all the time, but have you wondered how the Swift compiler handles this? In this article, we'll take a deep dive on how the #availability condition works, how the Swift compiler is able to know if a specific symbol for usage and what the code you wrote looks like after being optimized.">
     <meta name="title" content="How Swift API Availability Works Internally">
     <meta name="url" content="https://swiftrocks.com/how-availability-works-internally-in-swift">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/how-availability-works-internally-in-swift.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="How Swift API Availability Works Internally"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/how-availability-works-internally-in-swift.png"/>
     <meta property="og:description" content="We use API availability checks all the time, but have you wondered how the Swift compiler handles this? In this article, we'll take a deep dive on how the #availability condition works, how the Swift compiler is able to know if a specific symbol for usage and what the code you wrote looks like after being optimized."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/how-availability-works-internally-in-swift"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/how-availability-works-internally-in-swift.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="How Swift API Availability Works Internally"/>
     <meta name="twitter:description" content="We use API availability checks all the time, but have you wondered how the Swift compiler handles this? In this article, we'll take a deep dive on how the #availability condition works, how the Swift compiler is able to know if a specific symbol for usage and what the code you wrote looks like after being optimized."/>
@@ -312,8 +312,10 @@ September 29th, 2020
 <code>// function_ref _stdlib_isOSVersionAtLeast(_:_:_:)</code>
 <code>%5 = function_ref @$ss26_stdlib_isOSVersionAtLeastyBi1_Bw_BwBwtF</code>
 </pre>
-<h2>References and Good Reads</h2>
-<p><a href="https://github.com/apple/swift/blob/9af806e8fd93df3499b1811deae7729176879cb0/lib/Sema/TypeCheckAvailability.cpp#L400">TypeCheckAvailability.cpp</a></p>
+<h2>References and Good reads</h2>
+<a href="https://github.com/apple/swift">The Swift Source Code</a><br>
+<a href="https://github.com/apple/swift/blob/9af806e8fd93df3499b1811deae7729176879cb0/lib/Sema/TypeCheckAvailability.cpp#L400">TypeCheckAvailability.cpp</a><br>
+<a href="https://github.com/apple/swift-evolution/pull/1184">SE-NNNN: Unavailability Condition</a><br>
 </div>
 </div>
                               
