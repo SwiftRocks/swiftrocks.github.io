@@ -7,20 +7,26 @@ body {
   --bg-color: #ffffff;
   --text-color: #000000;
   --detail-color: #4e4e4e;
-  --code-color: #ff7800;
+  --strong-color: #f38d03;
+  --code-bg-color: #fff;
   --generic-button-bg-color: #4e4e4e;
 }
 
 body.dark-theme {
-  --bg-color: #191919;
-  --text-color: #ffffff;
-  --detail-color: #d2d2d2;
-  --code-color: #ff7800;
+  --bg-color: #18191a;
+  --text-color: #e2e4e9;
+  --detail-color: #b0b3b8;
+  --strong-color: #f38d03;
+  --code-bg-color: #000000;
   --generic-button-bg-color: #222;
 }
 
 body {
   background: var(--bg-color);
+}
+
+::selection {
+  background: #ffdcae;
 }
 
 .detail {
@@ -37,7 +43,7 @@ html {
 }
 
 a {
-    color: #ff7800;
+    color: var(--strong-color);
     text-decoration: underline;
 }
 
@@ -232,10 +238,12 @@ div.blog-post {
     font-weight: 600;
 }
 
-.blog-post code {
+code {
     padding-left: 4px !important;
     padding-right: 4px !important;
-    color: var(--code-color);
+    color: var(--strong-color);
+    background-color: var(--code-bg-color);
+    font-weight: bold;
 }
 
 .blog-post pre {
@@ -253,7 +261,7 @@ div.blog-post {
 .blog-post .post-info {
     font-size: 11px;
     padding: 0px 0px 20px 0px;
-    color: var(--text-color);
+    color: var(--detail-color);
 }
 
 p {
@@ -268,7 +276,7 @@ p {
 /* Blockquote */
 
 .post-quote {
-    background: #ff7800;
+    background: var(--strong-color);
     color: #f6f8f8;
     width: 70%;
     border-radius: 50px;
@@ -301,7 +309,7 @@ p {
 
 blockquote {
     font-style: italic;
-    border-left: 5px solid #ff7800;
+    border-left: 5px solid var(--strong-color);
 }
 
 .social-icon {
@@ -366,11 +374,11 @@ div.footer-links {
 
 .footer-links .see-all {
   color: #ffffff; 
-  background-color: #ff7900;
+  background-color: var(--strong-color);
 }
 
 .footer-links .see-all:hover {
-  color: #ff7900; 
+  color: var(--strong-color); 
   background-color: #ffffff;
 }
 

@@ -65,7 +65,7 @@ September 29th, 2020
 <h2>How Availability works in the Swift Compiler</h2>
 <p>In the compiler, the availability of symbols is treated during the type-checking phase.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/xbVOfbq.png" alt="">                                    
+  <img src="https://i.imgur.com/xbVOfbq.png" alt="" style="background-color: #fff;">                                    
 </div>
 <p>If you haven't read my previous articles or need a refresher, the type-checking phase is when the compiler wants to determine if what you coded semantically correct. At this stage, the compiler has a basic <b>Abstract Syntax Tree</b> of your code that it knows to be correct in terms of structure, but it needs to know if what you're doing is actually possible. For example, does the type you're referencing actually contains the method you're calling? Are the return types correct?</p>
 <h3>Type Refinement Contexts for AST nodes</h3>
