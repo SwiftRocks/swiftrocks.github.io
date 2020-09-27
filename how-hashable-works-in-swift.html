@@ -126,13 +126,13 @@
 <div class="post-info"> 
 January 13th, 2020
 </div>
-<p>Hashing algorithms are functions that map an arbitrary string to a seemingly "random" output with a fixed length. Commonly associated as a component of <b>Sets</b> and <b>Dictionaries</b>, hashing algorithms are a major component of several branches of computer science, including cryptography.</p>
-<p>In Swift, the <b>Hashable</b> protocol is the main component used to provide hashing capabilities to custom types. It is most commonly used to allow types to be used as the key of <b>Dictionaries</b> and <b>Sets</b>, but it also gives you access to `Sequence` helper methods like `contains(_:)`.</p>
-<p>The way it works is that <b>Hashable</b> exposes a <b>hashValue</b> property (now <b>Hasher</b> in Swift 4.2), which is an <b>Int</b> that represents a not-guaranteed-but-hopefully-most-of-the-times <b>unique</b> number that represents the contents of that type. In the case of <b>Dictionaries</b>, this number is used to calculate where in memory a key's value should be stored to later allow you to retrieve that same value in constant time. As the implementations of the protocol aren't the scope of this article, <a href="https://www.youtube.com/watch?v=shs0KM3wKv8">here's a video on hash tables</a> if you need more information on this.</p>
-<p>The internal algorithm used to calculate a type's <b>hashValue</b> (now <b>Hasher</b> in Swift 4.2) and the related compiler features changed several times throughout Swift's releases, and it was only after Swift 4.2 that a real universal hashing algorithm was added to Swift. To see how this is implemented today, let's take a look at how this looked like throughout the history of Swift.</p>
+<p>Hashing algorithms are functions that map an arbitrary string to a seemingly "random" output with a fixed length. Commonly associated as a component of <code>Sets</code> and <code>Dictionaries</code>, hashing algorithms are a major component of several branches of computer science, including cryptography.</p>
+<p>In Swift, the <code>Hashable</code> protocol is the main component used to provide hashing capabilities to custom types. It is most commonly used to allow types to be used as the key of <code>Dictionaries</code> and <code>Sets</code>, but it also gives you access to `Sequence` helper methods like `contains(_:)`.</p>
+<p>The way it works is that <code>Hashable</code> exposes a <code>hashValue</code> property (now <code>Hasher</code> in Swift 4.2), which is an <code>Int</code> that represents a not-guaranteed-but-hopefully-most-of-the-times <b>unique</b> number that represents the contents of that type. In the case of <code>Dictionaries</code>, this number is used to calculate where in memory a key's value should be stored to later allow you to retrieve that same value in constant time. As the implementations of the protocol aren't the scope of this article, <a href="https://www.youtube.com/watch?v=shs0KM3wKv8">here's a video on hash tables</a> if you need more information on this.</p>
+<p>The internal algorithm used to calculate a type's <code>hashValue</code> (now <code>Hasher</code> in Swift 4.2) and the related compiler features changed several times throughout Swift's releases, and it was only after Swift 4.2 that a real universal hashing algorithm was added to Swift. To see how this is implemented today, let's take a look at how this looked like throughout the history of Swift.</p>
 <h2>Swift 4.0 and below - A lawless world</h2>
-<p>Throughout the history of Swift up until Swift 4.0, the internal implementation of a <b>Int's</b> <b>hashValue</b> simply returned their own value, while <b>Strings</b> alternated between using the MurmurHash2 algorithm (Swift 3.0 and below) and SipHash1-3 (Swift 4.0 forward).</p>
-<p>Although <b>Strings</b> were doing fine in terms of algorithms, adding <b>Hashable</b> conformance to custom types in that period of time was usually an annoyance. If you were around that time, then you probably remember that Apple's recommended way to implement <b>hashValue</b> was to XOR all properties together:</p>
+<p>Throughout the history of Swift up until Swift 4.0, the internal implementation of a <code>Int's</code> <code>hashValue</code> simply returned their own value, while <code>Strings</code> alternated between using the MurmurHash2 algorithm (Swift 3.0 and below) and SipHash1-3 (Swift 4.0 forward).</p>
+<p>Although <code>Strings</code> were doing fine in terms of algorithms, adding <code>Hashable</code> conformance to custom types in that period of time was usually an annoyance. If you were around that time, then you probably remember that Apple's recommended way to implement <code>hashValue</code> was to XOR all properties together:</p>
 <pre>
 <code>struct Foo: Hashable {</code>
 <code>    let someProperty: String</code>
@@ -152,7 +152,7 @@ January 13th, 2020
 <h2>Swift 4.1: Synthesize Hashable with _mixInt</h2>
 <p>Alongside the changes to synthesize conformance to Equatable types, Swift 4.1 attempted to treat this problem for the first time by synthesizing a custom type's conformance to Hashable as well.</p>
 <p>(We won't talk about how compiler synthesis works because it was already covered in <a href="https://swiftrocks.com/how-caseiterable-works-internally-in-swift">How CaseIterable Works Internally in Swift</a>, and Hashable synthesis works pretty much exactly the same as the CaseIterable one. If you want more info on that, check that article out!)</p>
-<p>With the proposed changes, while the synthetized <b>hashValue</b> would still XOR a type's properties's <b>hashValues</b>, the values that are being XORed would not be the <b>hashValues</b> themselves -- but a "scrambled" version of them, provided by an internal method called <b>_mixInt</b>:</p>
+<p>With the proposed changes, while the synthetized <code>hashValue</code> would still XOR a type's properties's <code>hashValues</code>, the values that are being XORed would not be the <code>hashValues</code> themselves -- but a "scrambled" version of them, provided by an internal method called <code>_mixInt</code>:</p>
 <pre>
 <code>struct Foo: Hashable {</code>
 <code>    let someProperty: String</code>
@@ -167,7 +167,7 @@ January 13th, 2020
 <code>/////////////////////////////////////</code>
 <code>}</code>
 </pre>
-<p>The implementation of <b>_mixInt</b> progressively multiplies and shifts the original integer's bits based on a randomly picked hardcoded value. Because most of the original value's bit information will be lost during the shifting steps, this will make the resulting value appear to be completely random, which is a very important trait of a hashing algorithm.</p>
+<p>The implementation of <code>_mixInt</code> progressively multiplies and shifts the original integer's bits based on a randomly picked hardcoded value. Because most of the original value's bit information will be lost during the shifting steps, this will make the resulting value appear to be completely random, which is a very important trait of a hashing algorithm.</p>
 <pre>
 <code>static func hash16Bytes(_ low: UInt64, _ high: UInt64) -> UInt64 {</code>
 <code>  let mul: UInt64 = 0x9ddfea08eb382d69</code>
@@ -180,10 +180,10 @@ January 13th, 2020
 <code>}</code>
 </pre>
 <p>If this looks like a bunch of gibberish to you, welcome to hashing algorithms! In fact, as having pseudorandom results is an important quality of good hashing algorithms, you'll see that most hashing algorithms are based on even weirder non-sense. It's exactly what they are supposed to do!</p>
-<p>Although <b>_mixInt</b> is an implementation of its own, its behavior was inspired by a widely-used hashing algorithm called MurmurHash -- which works in a similar fashion of progressively multiplying, shifting and XORing values, although in a more complex way.</p>
-<p>While this is better than simply XORing properties, this approach still had some flaws. First of all, while <b>_mixInt</b> ticked a few boxes of what defines a good hashing algorithm, like having <i>avalanche behavior</i> (minor changes in the input have catastrophic, pseudorandom effects in the output), it was never intended to be used to combine hash values.</p>
-<p>A second problem is that <b>_mixInt</b> was private, so manual implementations of <b>Hashable</b> were still flawed in the same ways of the past Swift versions.</p>
-<p>As a third problem, another issue is that just like MurmurHash, <b>_mixInt</b> is an <b>unsafe</b> algorithm. <i>But whoah! Why would they add something unsafe to the language?</i></p>
+<p>Although <code>_mixInt</code> is an implementation of its own, its behavior was inspired by a widely-used hashing algorithm called MurmurHash -- which works in a similar fashion of progressively multiplying, shifting and XORing values, although in a more complex way.</p>
+<p>While this is better than simply XORing properties, this approach still had some flaws. First of all, while <code>_mixInt</code> ticked a few boxes of what defines a good hashing algorithm, like having <i>avalanche behavior</i> (minor changes in the input have catastrophic, pseudorandom effects in the output), it was never intended to be used to combine hash values.</p>
+<p>A second problem is that <code>_mixInt</code> was private, so manual implementations of <code>Hashable</code> were still flawed in the same ways of the past Swift versions.</p>
+<p>As a third problem, another issue is that just like MurmurHash, <code>_mixInt</code> is an <b>unsafe</b> algorithm. <i>But whoah! Why would they add something unsafe to the language?</i></p>
 <p>Don't worry! In the world of hashing algorithms, this term is not necessarily a bad thing. Before continuing on why this is bad in this specific case, let's understand what this means.</p>
 <h3>What makes a hashing algorithm "safe"?</h3>
 <p>In the world of hashing algorithms, safety is measured by how viable an algorithm is in the context of cryptography. This is measured by how well the algorithms fit some key requirements, like:</p>
@@ -193,11 +193,11 @@ January 13th, 2020
 - Hashes from different inputs should have no concrete relation to each other, even if the inputs have clear similarities (non-malleability)<br>
 - The algorithm should be fast, but slow enough so that brute-forcing your way through the previous requirements is unfeasible.</p>
 <p>An example of an algorithm that fits most of these boxes is SHA, which is today's standard for checking the integrity of files.</p>
-<p>Because Swift needs hashing for the purposes of efficiently storing values in <b>Dictionaries</b> and <b>Sets</b>, having strong cryptographic abilities is simply not important here. Instead, hashing algorithms for purposes like Swift's tend to focus more on speed (as there isn't much to be brute-forced) and good distribution of values in order to minimize (but for performance reasons, not completely avoid) collisions.</p>
-<p>Unfortunately, the lack of cryptographic abilities makes unsafe algorithms susceptible to some attacks. In Swift's case, <b>_mixInt</b> was weak to hash flooding: An attack where someone purposively feeds inputs that they know will produce the same final index in a hash table in order to cause as many collisions as possible, in an attempt to bring down the service that is hosting this hash table.</p>
-<p>Unsafe algorithms are supposed to be used in environments where the lack of safety isn't a problem, which is not 100% true for hash tables. Fortunately, the solution to these problems came in Swift 4.2 with the addition of <b>Hasher</b>.</p>
+<p>Because Swift needs hashing for the purposes of efficiently storing values in <code>Dictionaries</code> and <code>Sets</code>, having strong cryptographic abilities is simply not important here. Instead, hashing algorithms for purposes like Swift's tend to focus more on speed (as there isn't much to be brute-forced) and good distribution of values in order to minimize (but for performance reasons, not completely avoid) collisions.</p>
+<p>Unfortunately, the lack of cryptographic abilities makes unsafe algorithms susceptible to some attacks. In Swift's case, <code>_mixInt</code> was weak to hash flooding: An attack where someone purposively feeds inputs that they know will produce the same final index in a hash table in order to cause as many collisions as possible, in an attempt to bring down the service that is hosting this hash table.</p>
+<p>Unsafe algorithms are supposed to be used in environments where the lack of safety isn't a problem, which is not 100% true for hash tables. Fortunately, the solution to these problems came in Swift 4.2 with the addition of <code>Hasher</code>.</p>
 <h2>Swift 4.2 - Hasher brings SipHash-1-3 for everyone</h2>
-<p>As part of <b>Hashable's</b> revamp in Swift 4.2, The <b>Hasher</b> type was added as a public API to abstract the process of creating <b>hashValues</b> from the user. Now, instead of manually providing a <b>hashValue</b>, the property was replaced by <b>Hashable's</b> new <b>hash(into:)</b> method which receives a reference to a <b>Hasher</b> instance.</p>
+<p>As part of <code>Hashable's</code> revamp in Swift 4.2, The <code>Hasher</code> type was added as a public API to abstract the process of creating <code>hashValues</code> from the user. Now, instead of manually providing a <code>hashValue</code>, the property was replaced by <code>Hashable's</code> new <code>hash(into:)</code> method which receives a reference to a <code>Hasher</code> instance.</p>
 <pre>
 <code>struct Foo: Hashable {</code>
 <code>    let someProperty: String</code>
@@ -214,9 +214,9 @@ January 13th, 2020
 <code></code>
 <code>}</code>
 </pre>
-<p>Because <b>Hasher</b> abstracts the hashing process, this means that manual implementations don't have to hope that XORing things together was good enough -- you can now just send everything to <b>Hasher</b> and let it handle the rest with its internal algorithms.</p>
-<p>The addition of <b>Hasher</b> also meant that Swift now officially had a universal hashing algorithm, as everything in the Standard Library (including <b>Ints</b> and <b>Strings</b>) was modified to exclusively use <b>Hasher</b> when building hash values.</p>
-<p>This algorithm is SipHash -- which at first glance might not look too different from <b>_mixInt</b> as things are still based on random values and operations:</p>
+<p>Because <code>Hasher</code> abstracts the hashing process, this means that manual implementations don't have to hope that XORing things together was good enough -- you can now just send everything to <code>Hasher</code> and let it handle the rest with its internal algorithms.</p>
+<p>The addition of <code>Hasher</code> also meant that Swift now officially had a universal hashing algorithm, as everything in the Standard Library (including <code>Ints</code> and <code>Strings</code>) was modified to exclusively use <code>Hasher</code> when building hash values.</p>
+<p>This algorithm is SipHash -- which at first glance might not look too different from <code>_mixInt</code> as things are still based on random values and operations:</p>
 <pre>
 <code>extension Hasher {</code>
 <code>  // FIXME: Remove @usableFromInline and @frozen once Hasher is resilient.</code>
@@ -271,7 +271,7 @@ January 13th, 2020
 </pre>
 <p>However, there is a fundamental difference between the two.</p>
 <p>While algorithms like MurmurHash only need the input to produce the output, SipHash is a <b>keyed hash function</b> which also requires an arbitrary secret key value to perform the hashing. Hashing equal values with different keys will produce completely different results, which means that attackers cannot perform hash flooding attacks against SipHash-powered systems without knowing the key that's being used.</p>
-<p>For safety, in Swift, SipHash's key is <b>randomly generated during runtime.</b> This is why Apple tells you to never save/compare <b>hashValues</b> of a property between sessions: The same property will have different hash values in different executions of an app because SipHash's key will be different:</p>
+<p>For safety, in Swift, SipHash's key is <b>randomly generated during runtime.</b> This is why Apple tells you to never save/compare <code>hashValues</code> of a property between sessions: The same property will have different hash values in different executions of an app because SipHash's key will be different:</p>
 <pre>
 <code>static swift::_SwiftHashingParameters initializeHashingParameters() {</code>
 <code>  auto determinism = getenv("SWIFT_DETERMINISTIC_HASHING");</code>
@@ -284,7 +284,7 @@ January 13th, 2020
 <code>  return { seed0, seed1, false };</code>
 <code>}</code>
 </pre>
-<p>As shown in the previous code, if you require deterministic hash values for the purposes of unit testing, Swift allows you to disable random seeding by adding <b>SWIFT_DETERMINISTIC_HASHING</b> as an environment variable. Note that there's no guarantee that the values will be the same between different Swift releases, so ideally you should never use it.</p>
+<p>As shown in the previous code, if you require deterministic hash values for the purposes of unit testing, Swift allows you to disable random seeding by adding <code>SWIFT_DETERMINISTIC_HASHING</code> as an environment variable. Note that there's no guarantee that the values will be the same between different Swift releases, so ideally you should never use it.</p>
 <p>SipHash will also hash an input multiple times before producing the final output, which is determined by the numbers in the name of the algorithm. In our case, Swift uses SipHash-1-3, which means that there's one round of hashing per message block, with three finalization rounds. This makes SipHash slightly slower than your average unsafe algorithm, which alongside its keyed hash properties allows SipHash to be considered a <b>safe</b> hashing algorithm.</p>
 <pre>
 <code>extension Hasher._State {</code>

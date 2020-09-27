@@ -20,9 +20,9 @@
 March 24th, 2020
 </div>
 <p><b>Global functions</b>, or functions that can be accessed from anywhere without the scope of a specific type is an old concept that was popular in languages like C and Objective-C, but unrecommended in Swift as we would rather have things that are nicely typed and scoped ("swifty").</p>
-<p>For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like <b>zip()</b> and <b>dump()</b>.</p>
+<p>For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like <code>zip()</code> and <code>dump()</code>.</p>
 <h2>zip()</h2>
-<p>Perhaps the most known global function, the <b>zip</b> function allows you to take two or more arrays and merge them into a single <b>Sequence</b> of a tuple. This is extremely useful if you need to iterate two things at the same time, as without <b>zip</b> you would have to manually build a <b>for</b> loop and access each index from each array individually. Using <b>zip</b> allows you access elements from all arrays in the more useful <b>for-in</b> fashion.</p>
+<p>Perhaps the most known global function, the <code>zip</code> function allows you to take two or more arrays and merge them into a single <code>Sequence</code> of a tuple. This is extremely useful if you need to iterate two things at the same time, as without <code>zip</code> you would have to manually build a <b>for</b> loop and access each index from each array individually. Using <code>zip</code> allows you access elements from all arrays in the more useful <b>for-in</b> fashion.</p>
 <p>For example, if we had a user registration form screen and we would like to update our textFields to render a list of validation results fetched from the backend, we could do something like this:</p>
 <pre>
 <code>func present(validationResults: [FieldValidationResult],</code>
@@ -34,7 +34,7 @@ March 24th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>With <b>zip</b>, we can remove all the manual indexing.</p>
+<p>With <code>zip</code>, we can remove all the manual indexing.</p>
 <pre>
 <code>func present(validationResults: [FieldValidationResult],</code>
 <code>             inTextFields textFields: [MyTextField]) {</code>
@@ -43,9 +43,9 @@ March 24th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>The return type of <b>zip</b> is a <b>Zip2Sequence</b> object that conforms to <b>Sequence</b>, and so all other sequence-related methods are applicable to it, including transforming it to a real array.</p>
+<p>The return type of <code>zip</code> is a <code>Zip2Sequence</code> object that conforms to <code>Sequence</code>, and so all other sequence-related methods are applicable to it, including transforming it to a real array.</p>
 <h2>dump()</h2>
-<p>The <b>dump</b> function is a neat alternative to printing objects. While printing objects is just a syntax sugar for a type's <b>description</b> or <b>debugDescription</b> property, <b>dump</b> is a supercharged version of <b>Mirror(reflecting:)</b> that prints the contents of an object using reflection, which will usually result in considerably more info, including the hierarchy of the object.</p>
+<p>The <code>dump</code> function is a neat alternative to printing objects. While printing objects is just a syntax sugar for a type's <code>description</code> or <code>debugDescription</code> property, <code>dump</code> is a supercharged version of <code>Mirror(reflecting:)</code> that prints the contents of an object using reflection, which will usually result in considerably more info, including the hierarchy of the object.</p>
 <pre>
 <code>class Foo: NSObject {</code>
 <code>    let bar: String = "bar"</code>
@@ -61,8 +61,8 @@ March 24th, 2020
 <code>//    - bar: "bar"</code>
 </pre>
 <h2>sequence()</h2>
-<p>The global <b>sequence()</b> function is a bit obscure, but it's a very cool function that lets you write recursive functions in a nicer syntax.</p>
-<p>Let's pretend that we're changing the background color of a subview and all of its parents. Perhaps you would build a <b>while</b> loop like this:</p>
+<p>The global <code>sequence()</code> function is a bit obscure, but it's a very cool function that lets you write recursive functions in a nicer syntax.</p>
+<p>Let's pretend that we're changing the background color of a subview and all of its parents. Perhaps you would build a <code>while</code> loop like this:</p>
 <pre>
 <code>var currentView: UIView? = self</code>
 <code>while currentView != nil {</code>
@@ -70,15 +70,15 @@ March 24th, 2020
 <code>    currentView = currentView?.superview</code>
 <code>}</code>
 </pre>
-<p>This is the best use case for <b>sequence()</b>, as the purpose of this function is to give you a <b>Sequence</b> that applies a specific closure over and over. As the recursive aspect of this method (<b>currentView = currentView?.superview</b>) is always the same, we can use <b>sequence()</b> to turn it into a simple <b>for</b> loop:</p>
+<p>This is the best use case for <code>sequence()</code>, as the purpose of this function is to give you a <code>Sequence</code> that applies a specific closure over and over. As the recursive aspect of this method (<code>currentView = currentView?.superview</code>) is always the same, we can use <code>sequence()</code> to turn it into a simple <code>for</code> loop:</p>
 <pre>
 <code>for view in sequence(first: self, next: { $0.superview } ) {</code>
 <code>    view.backgroundColor = .green</code>
 <code>}</code>
 </pre>
-<p>The way this works is that <b>sequence()</b> returns a custom <b>UnfoldFirstSequence</b> type, a simple wrapper for a <b>Sequence</b> that keeps applying the closure over and over in its <b>next()</b> function.</p>
+<p>The way this works is that <code>sequence()</code> returns a custom <code>UnfoldFirstSequence</code> type, a simple wrapper for a <code>Sequence</code> that keeps applying the closure over and over in its <code>next()</code> function.</p>
 <h2>isKnownUniquelyReferenced()</h2>
-<p>The <b>isKnownUniquelyReferenced</b> function receives a <b>class</b> object and returns a boolean that indicates if the object is being reference only one time, with the purpose of  enabling you to implement <b>value semantics</b> to <b>reference types</b>. Although structs are value types themselves, the contents inside of it might not be. You might know that putting a class inside a struct doesn't mean it will be copied on assignment:</p>
+<p>The <code>isKnownUniquelyReferenced</code> function receives a <code>class</code> object and returns a boolean that indicates if the object is being reference only one time, with the purpose of  enabling you to implement <b>value semantics</b> to <b>reference types</b>. Although structs are value types themselves, the contents inside of it might not be. You might know that putting a class inside a struct doesn't mean it will be copied on assignment:</p>
 <pre>
 <code>class Foo: NSObject {</code>
 <code>    var bar: String = "bar"</code>
@@ -105,7 +105,7 @@ March 24th, 2020
 <code>print(fooHolder2.foo.bar)</code>
 <code>// bar2</code>
 </pre>
-<p>In this example, although <b>fooHolder2</b> and its underlying number are separate entities from the original holder, the underlying class is still shared between them. To fix this, we can use <b>isKnownUniquelyReferenced</b> to detect when this property is being accessed and create a new instance of the class if necessary:</p>
+<p>In this example, although <code>fooHolder2</code> and its underlying number are separate entities from the original holder, the underlying class is still shared between them. To fix this, we can use <code>isKnownUniquelyReferenced</code> to detect when this property is being accessed and create a new instance of the class if necessary:</p>
 <pre>
 <code>struct FooHolder {</code>
 <code>    private var _foo: Foo = Foo()</code>
@@ -130,7 +130,7 @@ March 24th, 2020
 </pre>
 <p>You might be interested to know that this is exactly how the Swift Standard Library enables <b>copy-on-write</b> semantics to Arrays and Strings -- <a href="https://swiftrocks.com/memory-management-and-performance-of-value-types">something that I've mentioned in my article about the memory management of value types.</a></p>
 <h2>repeatElement()</h2>
-<p>The <b>repeatElement()</b> does exactly what it says. Given an object and a number, the result is a <b>Sequence</b> that can be iterated to give you that object that specific amount of times.</p>
+<p>The <code>repeatElement()</code> does exactly what it says. Given an object and a number, the result is a <code>Sequence</code> that can be iterated to give you that object that specific amount of times.</p>
 <pre>
 <code>let repeated: Repeated&lt;String> = repeatElement("SwiftRocks", count: 3)</code>
 <code>for value in repeated {</code>
@@ -140,32 +140,32 @@ March 24th, 2020
 <code>//SwiftRocks</code>
 <code>//SwiftRocks</code>
 </pre>
-<p>Repeating elements is a common operation in Swift, especially to fill in gaps in <b>Strings</b> and <b>Arrays</b>. in fact, most of these types even have a specific initializer for this:</p>
+<p>Repeating elements is a common operation in Swift, especially to fill in gaps in <code>Strings</code> and <code>Arrays</code>. in fact, most of these types even have a specific initializer for this:</p>
 <pre>
 <code>let array = [Int](repeating: 0, count: 10)</code>
 </pre>
-<p><b>So why would you use repeatElement?</b> The reason is performance. The return type of <b>repeatElement()</b> is a <b>Repeated&lt;T></b> <b>Sequence</b> type, similar to <b>Zip2Sequence</b> in terms that it does nothing besides provide this "repeating" functionality. Let's say you would like to replace a specific section of the array of numbers with another number; one way to achieve this would be to use <b>replaceSubrange</b> with another array:</p>
+<p><b>So why would you use repeatElement?</b> The reason is performance. The return type of <code>repeatElement()</code> is a <code>Repeated&lt;T></code> <code>Sequence</code> type, similar to <code>Zip2Sequence</code> in terms that it does nothing besides provide this "repeating" functionality. Let's say you would like to replace a specific section of the array of numbers with another number; one way to achieve this would be to use <code>replaceSubrange</code> with another array:</p>
 <pre>
 <code>array.replaceSubrange(2...7, with: [Int](repeating: 1, count: 6))</code>
 <code>print(array)</code>
 <code>// [0, 0, 1, 1, 1, 1, 1, 1, 0, 0]</code>
 </pre>
-<p>While this works, the usage of <b>[Int](repeating:)</b> comes with all the overhead of having to initialize array buffers that will serve no purpose here. If you <b>only</b> need the repeating functionality, then using <b>repeatElement</b> will perform much better.</p>
+<p>While this works, the usage of <code>[Int](repeating:)</code> comes with all the overhead of having to initialize array buffers that will serve no purpose here. If you <b>only</b> need the repeating functionality, then using <code>repeatElement</code> will perform much better.</p>
 <pre>
 <code>array.replaceSubrange(2...7, with: repeatElement(1, count: 6))</code>
 </pre>
 <h2>stride()</h2>
-<p>Also fairly popular, the <b>stride()</b> function was added to Swift as a way to create for loops that could skip certain elements, as the equivalent C-style way to do so was removed from the language:</p>
+<p>Also fairly popular, the <code>stride()</code> function was added to Swift as a way to create for loops that could skip certain elements, as the equivalent C-style way to do so was removed from the language:</p>
 <pre>
 <code>for (int i = 0; i < 10; i += 2) { ... }</code>
 </pre>
-<p>Now, you can use <b>stride()</b> to achieve the same behavior:</p>
+<p>Now, you can use <code>stride()</code> to achieve the same behavior:</p>
 <pre>
 <code>for i in stride(from: 0, to: 10, by: 2) {</code>
 <code>    // from 0 to 9, skipping odd numbers.</code>
 <code>}</code>
 </pre>
-<p>The arguments for <b>stride()</b> are arguments that conform to the <b>Strideable</b> protocol, which represents objects that can represent the concept of distances. For example, here's how we could add the concept of "day difference" in <b>Date</b> objects to that they can be used in <b>stride()</b>:</p>
+<p>The arguments for <code>stride()</code> are arguments that conform to the <code>Strideable</code> protocol, which represents objects that can represent the concept of distances. For example, here's how we could add the concept of "day difference" in <code>Date</code> objects to that they can be used in <code>stride()</code>:</p>
 <pre>
 <code>extension Date: Strideable {</code>
 <code>    func advanced(by n: Int) -> Date {</code>
@@ -196,11 +196,11 @@ March 24th, 2020
 <p><i>(Note that Date already has an implementation of Strideable methods that strides in seconds, so copying this to a project won't work.)</i></p>
 <h2>Other Useful Functions</h2>
 <h3>Math</h3>
-<p><b>max()</b> - Returns the maximum value of the arguments</p>
-<p><b>min()</b> - Returns the minimum value of the arguments</p>
-<p><b>abs()</b> - Returns the absolute value of the argument (useful in competitive programming questions)</p>
+<p><code>max()</code> - Returns the maximum value of the arguments</p>
+<p><code>min()</code> - Returns the minimum value of the arguments</p>
+<p><code>abs()</code> - Returns the absolute value of the argument (useful in competitive programming questions)</p>
 <h3>Values</h3>
-<p><b>swap()</b> - Swaps the value of two objects. This is not mentioned in its own section in this article because if you need to swap array elements the correct method to use is <b>Array.swapAt()</b>. However, you can still use <b>swap()</b> in other situations where you would need to create a fake "aux" property to hold a value.</p>
+<p><code>swap()</code> - Swaps the value of two objects. This is not mentioned in its own section in this article because if you need to swap array elements the correct method to use is <code>Array.swapAt()</code>. However, you can still use <code>swap()</code> in other situations where you would need to create a fake "aux" property to hold a value.</p>
 <h2>Conclusion</h2>
 <p>As we can see, although none of these methods are necessary to make things happen, using them allows you write code that is easier to maintain and some times even more performant than old school solutions.</p>
 

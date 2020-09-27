@@ -20,23 +20,23 @@
 October 26, 2019
 </div>
 <p>One of my favorite things about Swift is that almost every compiler feature is built on top of actual classes and protocols of the language. This means that if you see a native type that has some special magical property (like SwiftUI's declarative syntax, which was covered in another post here in SwiftRocks), it's likely that you can reproduce that behavior in your custom types.</p>
-<p>In this article, I'll cover one of my favorite syntax sugars in the language: the protocols and the internal compiler behavior that allow you to write <b>for</b> loops. You might have heard already of the <b>Sequence</b> family of protocols, and here, we'll see how the compiler uses them as the building blocks for <b>for</b> loops.</p>
+<p>In this article, I'll cover one of my favorite syntax sugars in the language: the protocols and the internal compiler behavior that allow you to write <code>for</code> loops. You might have heard already of the <code>Sequence</code> family of protocols, and here, we'll see how the compiler uses them as the building blocks for <code>for</code> loops.</p>
 <pre>
 <code>for i in 0..&lt;10 {</code>
 <code>    print("Wait, this is not a hardcoded language thing?")</code>
 <code>}</code>
 </pre>
-<p>In most languages, the ability to iterate simple data types like integers in <b>for</b> statements is often hardcoded into the compiler. This was no different in the first few versions of Swift where the standard was to use old C-style loops:</p>
+<p>In most languages, the ability to iterate simple data types like integers in <code>for</code> statements is often hardcoded into the compiler. This was no different in the first few versions of Swift where the standard was to use old C-style loops:</p>
 <pre>
 <code>// Swift 1.2</code>
 <code>for var i = 0; i &lt; 10; i++ {</code>
 <code>    print(i)</code>
 <code>}</code>
 </pre>
-<p><b>for in</b> style loops came along with the <b>Range</b> type, and the release of Swift 3 officially removed the old C-style loops from the language and forced everyone to use the <b>for in</b> loops that we are all used to. Now, <b>for</b> loops in Swift are based on <b>actual protocols</b> that you can inherit to add <b>for in</b> capabilities to <b>anything</b> you create that can be represented as such. As expected, this means that the ability to use ranges as the parameter of a loop isn't because ranges are treated differently in the compiler -- but because ranges conform to specific public protocols.</p>
+<p><code>for in</code> style loops came along with the <code>Range</code> type, and the release of Swift 3 officially removed the old C-style loops from the language and forced everyone to use the <code>for in</code> loops that we are all used to. Now, <code>for</code> loops in Swift are based on <b>actual protocols</b> that you can inherit to add <code>for in</code> capabilities to <b>anything</b> you create that can be represented as such. As expected, this means that the ability to use ranges as the parameter of a loop isn't because ranges are treated differently in the compiler -- but because ranges conform to specific public protocols.</p>
 <h2>IteratorProtocol</h2>
-<p>The base of how iteration in general works in Swift is the <b>IteratorProtocol</b> type -- a very simple protocol that only takes two components: An <b>associatedtype</b> that represents what's being iterated, and a <b>next</b> property that returns the "next" element on the iteration (or nil if it's over).</p>
-<p>A basic example of something that can be implemented as an <b>IteratorProtocol</b> is a countdown timer that keeps reducing a value until it reaches zero:</p>
+<p>The base of how iteration in general works in Swift is the <code>IteratorProtocol</code> type -- a very simple protocol that only takes two components: An <code>associatedtype</code> that represents what's being iterated, and a <code>next</code> property that returns the "next" element on the iteration (or nil if it's over).</p>
+<p>A basic example of something that can be implemented as an <code>IteratorProtocol</code> is a countdown timer that keeps reducing a value until it reaches zero:</p>
 <pre>
 <code>struct CountdownIterator: IteratorProtocol {</code>
 <code>    typealias Element = Int</code>
@@ -68,7 +68,7 @@ October 26, 2019
 </pre>
 <p>Iterators are said to be <b>destructive</b> because you can't access a specific value more than once -- you need to go from the beginning to the end in a linear fashion and you can only do it. If you need to access a value again, you need to create another iterator and repeat the process.</p>
 <h2>Sequence</h2>
-<p>In terms of iteration, the <b>Sequence</b> protocol is what we interact with the most. In short, a <b>Sequence</b> is simply a more high level abstraction of a <b>IteratorProtocol</b> type that provides additional functionality on top of the regular iteration process. While Swift allows you to create <b>Sequences</b> that are also <b>IteratorProtocols</b>, the existence of this protocol allows you to separate the definition of the type itself from the logic that handles its iteration. To use it, all you have to do is create a <b>makeIterator()</b> type that returns an <b>IteratorProtocol</b>:</p>
+<p>In terms of iteration, the <code>Sequence</code> protocol is what we interact with the most. In short, a <code>Sequence</code> is simply a more high level abstraction of a <code>IteratorProtocol</code> type that provides additional functionality on top of the regular iteration process. While Swift allows you to create <code>Sequences</code> that are also <code>IteratorProtocols</code>, the existence of this protocol allows you to separate the definition of the type itself from the logic that handles its iteration. To use it, all you have to do is create a <code>makeIterator()</code> type that returns an <code>IteratorProtocol</code>:</p>
 <pre>
 <code>struct Countdown: Sequence {</code>
 <code>    typealias Iterator = CountdownIterator</code>
@@ -84,8 +84,8 @@ October 26, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>The implementation requirements of the <b>Sequence</b> protocol might make it look  useless, but don't judge a book by its cover -- it actually contains tons of required methods, but they are all implemented for you in the standard library. <b>Sequence</b> contains pre-definitions for <b>lots</b> of the commonly used sequence-based algorithms, including <b>map</b>, <b>filter</b> and <b>reduce</b>!</p>
-<p>Even though <b>IteratorProtocol</b> is the type that defines how the iteration happens, <b>Sequence</b> is the type that provides the additional properties and methods that make these iterations useful in the first place:</p>
+<p>The implementation requirements of the <code>Sequence</code> protocol might make it look  useless, but don't judge a book by its cover -- it actually contains tons of required methods, but they are all implemented for you in the standard library. <code>Sequence</code> contains pre-definitions for <b>lots</b> of the commonly used sequence-based algorithms, including <code>map</code>, <code>filter</code> and <code>reduce</code>!</p>
+<p>Even though <code>IteratorProtocol</code> is the type that defines how the iteration happens, <code>Sequence</code> is the type that provides the additional properties and methods that make these iterations useful in the first place:</p>
 <pre>
 <code>let countdown = Countdown(count: 3)</code>
 <code>countdown.map { $0 * $0 }</code>
@@ -94,7 +94,7 @@ October 26, 2019
 <code>countdown.sorted()</code>
 <code>countdown.forEach { print($0) }</code>
 </pre>
-<p>Just like in <b>IteratorProtocol</b>, we can create an iterator and linearly retrieve values from it. This is how all these properties and methods work -- for example, this is how we could implement a clone of <b>map()</b>:</p>
+<p>Just like in <code>IteratorProtocol</code>, we can create an iterator and linearly retrieve values from it. This is how all these properties and methods work -- for example, this is how we could implement a clone of <code>map()</code>:</p>
 <pre>
 <code>extension Sequence {</code>
 <code>    func map&lt;T>(_ transform: (Iterator.Element) throws -> T) rethrows -> [T] {</code>
@@ -107,25 +107,25 @@ October 26, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>But this isn't all -- the greatest property of <b>Sequences</b> and the reason this article was conceived is that <b>Sequences</b> <b>are deeply tied to the Swift compiler in the form of for loops.</b> Like mentioned before, the reason you can use ranges in loops is not because ranges are special, but simply because ranges are <b>Sequences</b>. Because our example <b>Countdown</b> type is a <b>Sequence</b>, it can also be used inside a <b>for</b> loop!</p>
+<p>But this isn't all -- the greatest property of <code>Sequences</code> and the reason this article was conceived is that <code>Sequences</code> <b>are deeply tied to the Swift compiler in the form of for loops.</b> Like mentioned before, the reason you can use ranges in loops is not because ranges are special, but simply because ranges are <code>Sequences</code>. Because our example <code>Countdown</code> type is a <code>Sequence</code>, it can also be used inside a <code>for</code> loop!</p>
 <pre>
 <code>for duration in Countdown(count: 3) {</code>
 <code>    print(duration)</code>
 <code>}</code>
 </pre>
-<p>As one would expect, this will work with any type that conforms to <b>Sequence</b>.</p>
+<p>As one would expect, this will work with any type that conforms to <code>Sequence</code>.</p>
 <h2>How for loops work internally in Swift</h2>
-<p>Interestingly, this behavior isn't new to iOS -- old-timers may remember that you could unlock for-each style loops in Objective-C in a similar fashion by making objects inherit from <b>NSFastEnumerator</b>:</p>
+<p>Interestingly, this behavior isn't new to iOS -- old-timers may remember that you could unlock for-each style loops in Objective-C in a similar fashion by making objects inherit from <code>NSFastEnumerator</code>:</p>
 <pre>
 <code>for (id object in objectThatConformsToFastEnumerator) {</code>
 <code>    NSLog(@"%@", object);</code>
 <code>}</code>
 </pre>
-<p>But unlike back then, with Swift we can actually see what's happening under the hood. <b>for</b> exists inside the compiler for the purpose of getting your code to be parsed correctly, but the final code is actually different. To inspect this, what I like to do is to compile an example file and have Swift dump its final <b>Swift Intermediate Language</b> representation:</p>
+<p>But unlike back then, with Swift we can actually see what's happening under the hood. <code>for</code> exists inside the compiler for the purpose of getting your code to be parsed correctly, but the final code is actually different. To inspect this, what I like to do is to compile an example file and have Swift dump its final <b>Swift Intermediate Language</b> representation:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
 <code>swiftc -emit-sil forLoopTest.swift</code>
 </pre>
-<p>If I run this command with an example <b>forLoopTest.swift</b> file that contains an <b>for</b> loop for an array such as the one below, we'll see things like this around the area where the loop was supposed to be defined:</p>
+<p>If I run this command with an example <code>forLoopTest.swift</code> file that contains an <code>for</code> loop for an array such as the one below, we'll see things like this around the area where the loop was supposed to be defined:</p>
 <pre>
 <code>let array = [1,2,3]</code>
 <code>for num in array {</code>
@@ -139,8 +139,8 @@ October 26, 2019
 <code>%40 = function_ref ...</code>
 <code>switch_enum %43 : $Optional&lt;Int>, case #some!enumelt.1: bb3, case #none!enumelt: bb2</code>
 </pre>
-<p>This shows us that <b>for</b> loops don't really exist -- they are simply a form of syntax sugar to allows you to effortlessly iterate an <b>IteratorProtocol</b> without having to actually extract the iterator!</p>
-<p>We can get more details by seeing Swift's source code, more specifically the classes that handle the <b>semantic analysis</b> of the code. In this case, the magic happens after the compiler type-checks the loop: <a href="https://github.com/apple/swift/blob/3bd45c81357dc03dc54ee57c567230b147d3a8c8/lib/Sema/TypeCheckStmt.cpp#L716">If we analyze the code from the type-checker</a>, we can see that if the loop represents valid code that iterates a <b>Sequence</b>, it injects a new property called <b>${loopName}$generator</b> that fetches the sequence's iterator, then fetches the iterator's <b>Element</b> type and then finally moves our original closure into a new loop that loops the iterator's <b>next()</b> property.</p>
+<p>This shows us that <code>for</code> loops don't really exist -- they are simply a form of syntax sugar to allows you to effortlessly iterate an <code>IteratorProtocol</code> without having to actually extract the iterator!</p>
+<p>We can get more details by seeing Swift's source code, more specifically the classes that handle the <b>semantic analysis</b> of the code. In this case, the magic happens after the compiler type-checks the loop: <a href="https://github.com/apple/swift/blob/3bd45c81357dc03dc54ee57c567230b147d3a8c8/lib/Sema/TypeCheckStmt.cpp#L716">If we analyze the code from the type-checker</a>, we can see that if the loop represents valid code that iterates a <code>Sequence</code>, it injects a new property called <code>${loopName}$generator</code> that fetches the sequence's iterator, then fetches the iterator's <code>Element</code> type and then finally moves our original closure into a new loop that loops the iterator's <code>next()</code> property.</p>
 <p>For example, if we compile the previous loop example, the final result will be something comparable (but not exactly) to this:</p>
 <pre>
 <code>let array = [1,2,3]</code>
@@ -149,15 +149,15 @@ October 26, 2019
 <code>    print(num)</code>
 <code>}</code>
 </pre>
-<p>The Swift compiler uses the <b>$</b> prefix for internal compiler synthesized properties. Because it needs to inject actual code, it uses a symbol that is impossible to be used in regular code to make sure we won't have namespacing issues. Interestingly, you can actually interact with some of these internal properties as part of the new <b>property wrappers</b> feature.</p>
+<p>The Swift compiler uses the <code>$</code> prefix for internal compiler synthesized properties. Because it needs to inject actual code, it uses a symbol that is impossible to be used in regular code to make sure we won't have namespacing issues. Interestingly, you can actually interact with some of these internal properties as part of the new <b>property wrappers</b> feature.</p>
 <h2>What about Collections?</h2>
-<p>When studying more about Swift's collection types, <b>IteratorProtocol</b>, <b>Sequence</b> and <b>Collection</b> are often mentioned together, and you might have noticed that the generated SIL for our example mentions <b>Collections</b> as it uses an array. If the syntax sugar is linked to <b>Sequences</b> only, how do collections work?</p>
-<p>We can say that a <b>Collection</b> is simply a more jacked-up version of a <b>Sequence</b>. In fact, all <b>Collections</b> are also <b>Sequences</b>:</p>
+<p>When studying more about Swift's collection types, <code>IteratorProtocol</code>, <code>Sequence</code> and <code>Collection</code> are often mentioned together, and you might have noticed that the generated SIL for our example mentions <code>Collections</code> as it uses an array. If the syntax sugar is linked to <code>Sequences</code> only, how do collections work?</p>
+<p>We can say that a <code>Collection</code> is simply a more jacked-up version of a <code>Sequence</code>. In fact, all <code>Collections</code> are also <code>Sequences</code>:</p>
 <pre>
 <code>public protocol Collection: Sequence { ... }</code>
 </pre>
-<p>Unlike regular <b>Sequences</b>, <b>Collections</b> allow you to access elements multiple times, iterate them in reverse order (in the case of <b>BidirectionalCollections</b>) and even access specific elements directly through subscripts (in the case of <b>RandomAccessCollections</b> like <b>Array&lt;></b>)</p>
-<p>Unlike <b>Sequences</b>, <b>Collections</b> do not need to provide an <b>IteratorProtocol</b>. By default, Swift provides the <b>IndexingIterator</b> struct: an <b>IteratorProtocol</b> that takes a collection and simply traverses the indexes that are defined as part of the <b>Collection</b> protocol. As all <b>Collections</b> are <b>Sequences</b>, they can also benefit from having syntax sugar loops.</p>
+<p>Unlike regular <code>Sequences</code>, <code>Collections</code> allow you to access elements multiple times, iterate them in reverse order (in the case of <code>BidirectionalCollections</code>) and even access specific elements directly through subscripts (in the case of <code>RandomAccessCollections</code> like <code>Array&lt;></code>)</p>
+<p>Unlike <code>Sequences</code>, <code>Collections</code> do not need to provide an <code>IteratorProtocol</code>. By default, Swift provides the <code>IndexingIterator</code> struct: an <code>IteratorProtocol</code> that takes a collection and simply traverses the indexes that are defined as part of the <code>Collection</code> protocol. As all <code>Collections</code> are <code>Sequences</code>, they can also benefit from having syntax sugar loops.</p>
 <p>---</p>
 
 <h2>References and Good reads</h2>

@@ -1558,8 +1558,7 @@
                                     <div class="post-info">
                                       March 31st, 2020
                                     </div>  
-<p><b>ObjectIdentifier</b> is one of these obscure Swift types that you only see when looking at the answers for very specific problems in StackOverflow, and chances are that you have never really needed to use it. However, <b>ObjectIdentifier</b> plays an important part in Swift and is actually pretty useful as a solution to problems that involve metatypes. Let's take a look at why this type exists and what you can use it for.</p>
-                                    
+<p><code>ObjectIdentifier</code> is one of these obscure Swift types that you only see when looking at the answers for very specific problems in StackOverflow, and chances are that you have never really needed to use it. However, <code>ObjectIdentifier</code> plays an important part in Swift and is actually pretty useful as a solution to problems that involve metatypes. Let's take a look at why this type exists and what you can use it for.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1572,8 +1571,7 @@
                                       March 24th, 2020
                                     </div>  
 <p><b>Global functions</b>, or functions that can be accessed from anywhere without the scope of a specific type is an old concept that was popular in languages like C and Objective-C, but unrecommended in Swift as we would rather have things that are nicely typed and scoped ("swifty").</p>
-<p>For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like <b>zip()</b> and <b>dump()</b>.</p>
-                                    
+<p>For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like <code>zip()</code> and <code>dump()</code>.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1585,7 +1583,7 @@
                                     <div class="post-info">
                                       March 18th, 2020
                                     </div>  
-<p><b>Ordered Collection Diffing</b> is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in <b>UITableViews</b>. With the addition of this feature, developers can now diff <b>Collections</b> without having to bother with external libraries.</p>
+<p><b>Ordered Collection Diffing</b> is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in <code>UITableViews</code>. With the addition of this feature, developers can now diff <code>Collections</code> without having to bother with external libraries.</p>
 <p>Have you wondered what efficiently diffing something looks like? In this article, we'll see and analyze the diffing APIs as well as the <b>Myers's Diffing Algorithm</b> used by the Swift Standard Library -- the same used in <b>git</b>.</p>
                                     
                                 </div>
@@ -1626,9 +1624,8 @@
                                     <div class="post-info">
                                       January 13th, 2020
                                     </div>  
-<p>Hashing algorithms are functions that map an arbitrary string to a seemingly "random" output with a fixed length. Commonly associated as a component of <b>Sets</b> and <b>Dictionaries</b>, hashing algorithms are a major component of several branches of computer science, including cryptography.</p>
-<p>The internal algorithm used to calculate a type's <b>hashValue</b> (now <b>Hasher</b> in Swift 4.2) and the related compiler features changed several times throughout Swift's releases, and it was only after Swift 4.2 that a real universal hashing algorithm was added to Swift. To see how this is implemented today, let's take a look at how this looked like throughout the history of Swift.</p>
-                                    
+<p>Hashing algorithms are functions that map an arbitrary string to a seemingly "random" output with a fixed length. Commonly associated as a component of <code>Sets</code> and <code>Dictionaries</code>, hashing algorithms are a major component of several branches of computer science, including cryptography.</p>
+<p>The internal algorithm used to calculate a type's <code>hashValue</code> (now <code>Hasher</code> in Swift 4.2) and the related compiler features changed several times throughout Swift's releases, and it was only after Swift 4.2 that a real universal hashing algorithm was added to Swift. To see how this is implemented today, let's take a look at how this looked like throughout the history of Swift.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1654,8 +1651,7 @@
                                     <div class="post-info">
                                       December 23rd, 2019
                                     </div>  
-<p><b>CollectionOfOne</b> is a type inside the Swift Standard Library that defines a <b>collection of a single element.</b> While this sounds a bit weird, there's a good reason for this to exist. Let's check out why.</p>
-                                    
+<p><code>CollectionOfOne</code> is a type inside the Swift Standard Library that defines a <b>collection of a single element.</b> While this sounds a bit weird, there's a good reason for this to exist. Let's check out why.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1667,8 +1663,7 @@
                                     <div class="post-info">
                                       December 3rd, 2019
                                     </div>  
-<p>Swift's <b>OptionSet</b> protocol is the bridged version of Objective-C's <b>NS_OPTIONS</b> enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation. Let's see what this protocol is, why <b>OptionSets</b> are preferred over a regular <b>Set</b> in some cases and finally what compiler magics it possesses.</p>
-                                    
+<p>Swift's <code>OptionSet</code> protocol is the bridged version of Objective-C's <code>NS_OPTIONS</code> enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation. Let's see what this protocol is, why <code>OptionSets</code> are preferred over a regular <code>Set</code> in some cases and finally what compiler magics it possesses.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1680,22 +1675,20 @@
                                     <div class="post-info">
                                       November 5th, 2019
                                     </div>  
-<p>Even in apps written in full Swift, interfacing with Objective-C is still a very big part of iOS development. Many types and semantics from Objective-C are hidden underneath the code we write today, and understanding where they come from can help you make better code decisions and just better understand the platform in general. This time, we'll take a look at what <b>NSCopying</b> and its companion class <b>NSZone</b> are and what they can do for Swift apps.</p>
-                                    
+<p>Even in apps written in full Swift, interfacing with Objective-C is still a very big part of iOS development. Many types and semantics from Objective-C are hidden underneath the code we write today, and understanding where they come from can help you make better code decisions and just better understand the platform in general. This time, we'll take a look at what <code>NSCopying</code> and its companion class <code>NSZone</code> are and what they can do for Swift apps.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
       <!-- Blog Post Start -->
                                 <div class="col-xs-12 blog-post">
                                     <div class="post-title-index">
-                                      <a href="swift-sequence-inside-the-compiler-how-for-loops-work"><strong>Swift's Sequence Inside The Compiler: How <b>for</b> loops work internally</strong></a>
+                                      <a href="https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work"><strong>Swift's Sequence Inside The Compiler: How <code>for</code> loops work internally</strong></a>
                                     </div>  
                                     <div class="post-info">
                                       October 26th, 2019
                                     </div>  
 <p>One of my favorite things about Swift is that almost every compiler feature is built on top of actual classes and protocols of the language. This means that if you see a native type that has some special magical property (like SwiftUI's declarative syntax, which was covered in another post here in SwiftRocks), it's likely that you can reproduce that behavior in your custom types.</p>
-<p>In this article, I'll cover one of my favorite syntax sugars in the language: the protocols and the internal compiler behavior that allow you to write <b>for</b> loops. You might have heard already of the <b>Sequence</b> family of protocols, and here, we'll see how the compiler uses them as the building blocks for <b>for</b> loops.</p>
-                                    
+<p>In this article, I'll cover one of my favorite syntax sugars in the language: the protocols and the internal compiler behavior that allow you to write <code>for</code> loops. You might have heard already of the <code>Sequence</code> family of protocols, and here, we'll see how the compiler uses them as the building blocks for <code>for</code> loops.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1707,7 +1700,7 @@
                                     <div class="post-info">
                                       October 16th, 2019
                                     </div>  
-<p>iOS 13 marks the release of long-waited features like Dark Mode, but it also brought some needed changes on less popular aspects. Prior to iOS 13, creating socket connections required coding very low-level network interactions which made libraries like Starscream and Socket.io the go-to solution for sockets in iOS. Now with iOS 13, a new native <b>URLSessionWebSocketTask</b> class is available to finally make creating and managing socket connections easier for developers.</p>
+<p>iOS 13 marks the release of long-waited features like Dark Mode, but it also brought some needed changes on less popular aspects. Prior to iOS 13, creating socket connections required coding very low-level network interactions which made libraries like Starscream and Socket.io the go-to solution for sockets in iOS. Now with iOS 13, a new native <code>URLSessionWebSocketTask</code> class is available to finally make creating and managing socket connections easier for developers.</p>
 <p><a href="https://twitter.com/rockbruno_/status/993152346841669632">Some time ago I created a little side project that involved an Arduino-powered servo motor that menacingly pointed at people's faces with the help of CoreML, mimicking the Team Fortress 2 Engineer's Sentry Gun.</a> With iOS 13, I decided to re-write that using the new Socket APIs and SwiftUI.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
 <video style="width: 100%; height: auto;" controls>
@@ -1727,8 +1720,7 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       September 30th, 2019
                                     </div>  
-<p><b>SIMD Vector Types</b> is a feature added in Swift 5 that exposes Apple's <b>&lt;simd/simd.h></b> module to Swift, allowing you to calculate multiple results with a single instruction. Let's see how that works.</p>
-                                    
+<p><b>SIMD Vector Types</b> is a feature added in Swift 5 that exposes Apple's <code>&lt;simd/simd.h></code> module to Swift, allowing you to calculate multiple results with a single instruction. Let's see how that works.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1740,8 +1732,7 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       September 4th, 2019
                                     </div>  
-<p>Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin <b>sort()</b> method. However, knowing the properties of the sorting algorithm built into your language is important if you want to prevent unwanted behaviors and nasty edge cases.</p>
-                                    
+<p>Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin <code>sort()</code> method. However, knowing the properties of the sorting algorithm built into your language is important if you want to prevent unwanted behaviors and nasty edge cases.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1765,8 +1756,7 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       July 17th, 2019
                                     </div>  
-<p><b>ExpressibleBy</b> represents a series of protocols in the Swift Standard library that allows you to instantiate objects directly from token literals, like a string, a number, a floating-point and so on, if the object can be "expressed" like that. Let's see how the compiler applies this magic.</p>
-                                    
+<p><code>ExpressibleBy</code> represents a series of protocols in the Swift Standard library that allows you to instantiate objects directly from token literals, like a string, a number, a floating-point and so on, if the object can be "expressed" like that. Let's see how the compiler applies this magic.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1790,8 +1780,7 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       June 10th, 2019
                                     </div>  
-<p>Opaque Return Types is a feature added in Swift 5.1 that is a big part of the new SwiftUI framework's functionality. It comes to finally fix a fundamental problem of the usage of protocols and the design of Swift APIs, opening new possibilities for the creation and usage of public APIs. Let's see the compiler magic behind it and why SwiftUI uses it to return the <b>some View</b> type.</p>
-                                    
+<p>Opaque Return Types is a feature added in Swift 5.1 that is a big part of the new SwiftUI framework's functionality. It comes to finally fix a fundamental problem of the usage of protocols and the design of Swift APIs, opening new possibilities for the creation and usage of public APIs. Let's see the compiler magic behind it and why SwiftUI uses it to return the <code>some View</code> type.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1817,9 +1806,8 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       May 22nd, 2019
                                     </div>  
-<p>Foundation's <b>NSAutoreleasePool</b> type, later abstracted to the <b>@autoreleasepool</b> block, is a very old concept in iOS development. During the Obj-C era of iOS, usage of this type was important to prevent your app's memory from blowing up in specific cases. As ARC and Swift came around and evolved, very few people still have to manually play around with memory, making seeing it become a rare occurrence.</p>
-<p>Having developed tools that need to allocate enourmous amounts of memory, I asked myself if there's still a case where <b>@autoreleasepool</b> is useful in Swift 5. Here are the answers.</p>
-                                    
+<p>Foundation's <code>NSAutoreleasePool</code> type, later abstracted to the <code>@autoreleasepool</code> block, is a very old concept in iOS development. During the Obj-C era of iOS, usage of this type was important to prevent your app's memory from blowing up in specific cases. As ARC and Swift came around and evolved, very few people still have to manually play around with memory, making seeing it become a rare occurrence.</p>
+<p>Having developed tools that need to allocate enourmous amounts of memory, I asked myself if there's still a case where <code>@autoreleasepool</code> is useful in Swift 5. Here are the answers.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1858,9 +1846,8 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       March 1st, 2019
                                     </div>  
-<p>In iOS, the <b>Responder Chain</b> is the name given to an UIKit-generated linked list of <b>UIResponder</b> objects and is the foundation for everything regarding events (like touch and motion) in iOS.</p>
-<p>The Responder Chain is something that you constantly deal with in the world of iOS development, and although you rarely have to directly deal with it outside of <b>UITextField</b> keyboard shenanigans, knowledge of how it works allows you to solve event-related problems in very easy/creative ways - you can even build architectures that rely on Responder Chains.</p>
-                                    
+<p>In iOS, the <b>Responder Chain</b> is the name given to an UIKit-generated linked list of <code>UIResponder</code> objects, and is the foundation for everything regarding events (like touch and motion) in iOS.</p>
+<p>The Responder Chain is something that you constantly deal with in the world of iOS development, and although you rarely have to directly deal with it outside of <code>UITextField</code> keyboard shenanigans, knowledge of how it works allows you to solve event-related problems in very easy/creative ways - you can even build architectures that rely on Responder Chains.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1899,8 +1886,7 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       December 6th, 2018
                                     </div>  
-          <p>The <b>@dynamicMemberLookup</b> attribute was introduced in Swift 4.2 to add a certain degree of dynamism into the language similar to what is seen in languages like Python. I was interested in learning how the attributes worked inside the compiler to know more about how this attribute is able to transform fake expressions into legit ones, so I've <i>once again</i> reverse-engineered the Swift compiler to find these answers - and used this knowledge to create a brand new <b>@swiftRocks</b> attribute.</p>
-                                    
+          <p>The <code>@dynamicMemberLookup</code> attribute was introduced in Swift 4.2 to add a certain degree of dynamism into the language similar to what is seen in languages like Python. I was interested in learning how the attributes worked inside the compiler to know more about how this attribute is able to transform fake expressions into legit ones, so I've <i>once again</i> reverse-engineered the Swift compiler to find these answers - and used this knowledge to create a brand new <code>@swiftRocks</code> attribute.</p>
                                 </div>
                                 <!-- Blog Post End -->
  <!-- Blog Post Start -->
@@ -1911,8 +1897,7 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       November 14th, 2018
                                     </div>  
-          <p>Added in Swift 3, the <b>Never</b> type allows you to define a method that is guaranteed to crash your app. Although we rarely write methods that use this type directly, we do interact with it constantly given that it is the return type of all forced-crash methods like <b>fatalError()</b>. The advantage this type brings is that a method that calls another <b>Never</b>-returning method does not need to provide a return value, after all, a crash is certain to happen. I investigated how that works.</p>
-                                    
+          <p>Added in Swift 3, the <code>Never</code> type allows you to define a method that is guaranteed to crash your app. Although we rarely write methods that use this type directly, we do interact with it constantly given that it is the return type of all forced-crash methods like <code>fatalError()</code>. The advantage this type brings is that a method that calls another <code>Never</code>-returning method does not need to provide a return value, after all, a crash is certain to happen. I investigated how that works.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1952,8 +1937,7 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       September 21st, 2018
                                     </div>  
-          <p><b>CaseIterable</b> is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum. But this protocol is special: The requirements are automatically filled by the compiler. I investigated how that works - and as a bonus, modified it to also provide a <b>first</b> property.</p>
-                                    
+          <p><code>CaseIterable</code> is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum. But this protocol is special: The requirements are automatically filled by the compiler. I investigated how that works - and as a bonus, modified it to also provide a <code>first</code> property.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1978,8 +1962,7 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       August 27th, 2018
                                     </div>  
-          <p>Usage of high-order functions like <b>map</b> and <b>filter</b> are very common in Swift projects, as they are simple algorithms that allow you to convert extensive ideas into simple one-liners. Unfortunately, they don't solve every issue - at least not in their default implementations. High-order functions are <i>eager</i>: they use the closure immediately and return a new array, regardless if you need an early return or only going to use specific elements.</p>
-                                    
+          <p>Usage of high-order functions like <code>map</code> and <code>filter</code> are very common in Swift projects, as they are simple algorithms that allow you to convert extensive ideas into simple one-liners. Unfortunately, they don't solve every issue - at least not in their default implementations. High-order functions are <i>eager</i>: they use the closure immediately and return a new array, regardless if you need an early return or only going to use specific elements.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -1991,8 +1974,7 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       August 8th, 2018
                                     </div>  
-          <p>Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like <b>switch</b> cases. While regular <b>switch</b> cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of <b>switches</b> to result in really cool and short lines of code. One thing that interests me in particular is that pattern matching can be used for a wide variety of things.</p>
-                                    
+          <p>Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like <code>switch</code> cases. While regular <code>switch</code> cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of <code>switches</code> to result in really cool and short lines of code. One thing that interests me in particular is that pattern matching can be used for a wide variety of things.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -2031,8 +2013,7 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       May 26th, 2018
                                     </div>  
-          <p>The <b>@inline</b> attribute is one of those obscure things in Swift - it's nowhere to be found in Apple's docs, doesn't help you write cleaner code and has no purpose but to help the compiler make optimization decisions, but it's related to a pretty important aspect of your app's performance.</p>
-                                    
+          <p>The <code>@inline</codE> attribute is one of those obscure things in Swift - it's nowhere to be found in Apple's docs, doesn't help you write cleaner code and has no purpose but to help the compiler make optimization decisions, but it's related to a pretty important aspect of your app's performance.</p>
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -2057,9 +2038,8 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       May 2nd, 2018
                                     </div>  
-          <p>It's very common to use the <b>weak</b> keyword in order to prevent reference cycles in properties like delegates.</p>
-          <p>Unfortunately, since it protects you from references being lost, it forces the usage of <b>var</b> and an optional type, which can be quite jarring if you're building something like an <b>UIView</b> that is not supposed to be used without a delegate - much less change delegates suddenly. The <b>unowned</b> keyword allows you to overcome these issues.</p> 
-                                    
+          <p>It's very common to use the <code>weak</code> keyword in order to prevent reference cycles in properties like delegates.</p>
+          <p>Unfortunately, since it protects you from references being lost, it forces the usage of <code>var</code> and an optional type, which can be quite jarring if you're building something like an <code>UIView</code> that is not supposed to be used without a delegate - much less change delegates suddenly. The <code>unowned</code> keyword allows you to overcome these issues.</p> 
                                 </div>
                                 <!-- Blog Post End -->
 
@@ -2071,7 +2051,7 @@ Your browser does not support the video tag.
                                     <div class="post-info">
                                       April 13th, 2018
                                     </div>  
-          <p>It's very likely that you asked yourself at least once in your iOS career what's the difference between a <b>struct</b> and a <b>class</b>. While realistically the choice between using one or another always boils down to <i>value semantics</i> versus <i>reference semantics</i>, the performance differences between the two are expressive and can heavily favor one or another depending on the contents of your object, specially when dealing with value types.</p> 
+          <p>It's very likely that you asked yourself at least once in your iOS career what's the difference between a <code>struct</code> and a <code>class</code>. While realistically the choice between using one or another always boils down to <i>value semantics</i> versus <i>reference semantics</i>, the performance differences between the two are expressive and can heavily favor one or another depending on the contents of your object, specially when dealing with value types.</p> 
           <p>Some people might say that knowledge of memory architecture is irrelevant for application level developers, and I agree <i>partially</i>. Knowing how to save a few bits here and there will make no visible difference on newer iPhones, and premature optimization is a highly shunned practice.</p> 
           <p>However, both reference and value types can severely slow down your app when misused, and such knowledge will define whether or not you can fix the problem efficiently.</p> 
                                     

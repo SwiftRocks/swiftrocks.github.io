@@ -36,7 +36,7 @@ April 20, 2019
 <code>}</code>
 </pre>
 <p>Exploration methods start by moving to the relevant screen of the method (assuming that the app is already in a position to do so). After it's confirmed that the relevant screen is working, the app is moved back to where it was before the exploration started.</p>
-<p>To confirm that a screen change happened, I like to use this <b>waitForExistence()</b> helper in a view controller's root <b>view</b> property:</p>
+<p>To confirm that a screen change happened, I like to use this <code>waitForExistence()</code> helper in a view controller's root <code>view</code> property:</p>
 <pre>
 <code>extension XCUIElement {</code>
 <code>    func waitForExistence(_ description: String? = nil, timeout: TimeInterval = 0.2) {</code>
@@ -88,7 +88,7 @@ April 20, 2019
 <p>One of the things that bothers me the most in programming is when the tests are so complicated that they end up becoming a burden. Developing tests with a defined structure like this makes them a lot easier to maintain and expand from.</p>
 <h2>Extra: Typesafe Mocks</h2>
 <p>Although the block structure helps with the development of the tests themselves, we still need to make sure the app can properly navigate the screens and understand when an alternate flow is required.</p>
-<p>As spoiled by the previous example, the way we chose to handle the latter is by using <b>MockFlags</b>, which is a simple enum created to represent launch arguments:</p>
+<p>As spoiled by the previous example, the way we chose to handle the latter is by using <code>MockFlags</code>, which is a simple enum created to represent launch arguments:</p>
 <pre>
 <code>public protocol MockFlag {</code>
 <code>    var value: String { get }</code>
@@ -121,7 +121,7 @@ April 20, 2019
 <code>    return CommandLine.arguments.contains(mockFlag.value)</code>
 <code>}</code>
 </pre>
-<p>By running <b>app.add(theFlagIWantToTest)</b> before launching the UI test, the desired flag becomes available for inspection during runtime as a launch argument. The tough part is how you efficiently react to these flags, but developing a system that can do this well is very beneficial to the evolution of your project.</p>
+<p>By running <code>app.add(theFlagIWantToTest)</code> before launching the UI test, the desired flag becomes available for inspection during runtime as a launch argument. The tough part is how you efficiently react to these flags, but developing a system that can do this well is very beneficial to the evolution of your project.</p>
 <p>The way I like to do this is by using <b>protocols</b> in all important components of the app. Every one of these components, such as clients and persistence modules, are initialized once in the app's launch and propagated through the app -- but when the app is in the Unit/UI test environment, different, mocked versions of them are created instead. This is the usual stuff, but the catch here is that since everything is done with protocols, the app itself is completely isolated from the environment peculiarities. This prevents the tests from making the project's maintenance harder.</p>
 <p>Here's a basic example of how a client is mocked in this structure:</p>
 <pre>
@@ -143,7 +143,7 @@ April 20, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>To make the mocks typesafe, we created a <b>Mockable</b> protocol that allows anything to expose a mocked version of itself based on the available <b>MockFlags</b>. This way, we don't have to deal with HTTP stub libraries and raw json strings that need to be replaced every now and then, and changes in the app's models will make so the mocks have to be updated in compile time as well. The mocked client ends up being simply a class that retrieves these <b>Mockable</b> <b>HTTPRequest's</b> properties.</p>
+<p>To make the mocks typesafe, we created a <code>Mockable</code> protocol that allows anything to expose a mocked version of itself based on the available <code>MockFlags</code>. This way, we don't have to deal with HTTP stub libraries and raw json strings that need to be replaced every now and then, and changes in the app's models will make so the mocks have to be updated in compile time as well. The mocked client ends up being simply a class that retrieves these <code>Mockable</code> <code>HTTPRequest's</code> properties.</p>
 <pre>
 <code>protocol Mockable {</code>
 <code>    associatedtype MockValue</code>
@@ -161,7 +161,7 @@ April 20, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>To start the logic that propagates the mocked components forward, I like to use the <b>factory</b> pattern to hide the decision that results in their creation. In the case of the client, we allow the <b>AppDelegate</b> to create and retain these components before injecting them to the app's first screen.</p>
+<p>To start the logic that propagates the mocked components forward, I like to use the <b>factory</b> pattern to hide the decision that results in their creation. In the case of the client, we allow the <code>AppDelegate</code> to create and retain these components before injecting them to the app's first screen.</p>
 <pre>
 <code>func isTestEnvironment() -> Bool {</code>
 <code>    return has(MockFlags.Environment.isUITest) || has(MockFlags.Environment.isUnitTest)</code>

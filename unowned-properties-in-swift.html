@@ -127,9 +127,9 @@
           <div class="post-info"> 
           May 2, 2018
           </div> 
-          <p>It's very common to use the <b>weak</b> keyword in order to prevent reference cycles in properties like delegates:</p>
+          <p>It's very common to use the <code>weak</code> keyword in order to prevent reference cycles in properties like delegates:</p>
 <pre class = "language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
-<p>Unfortunately, since it protects you from references being lost, the <b>weak</b> keyword forces the usage of <b>var</b> and an optional type, which can be quite jarring if you're building something like an <b>UIView</b> that is not supposed to be used without a delegate - much less change delegates suddenly:</p>
+<p>Unfortunately, since it protects you from references being lost, the <code>weak</code> keyword forces the usage of <code>var</code> and an optional type, which can be quite jarring if you're building something like an <code>UIView</code> that is not supposed to be used without a delegate - much less change delegates suddenly:</p>
 <pre class = "language-swift"><code class="language-swift">class HomeView: UIView {
     weak var delegate: HomeViewDelegate?
 
@@ -144,9 +144,9 @@
     }
 }
 </code></pre>
-<p>But <b>weak</b> is not the only way of breaking reference cycles. Just like in capture lists, the <b>unowned</b> keyword can be used in properties to create non-strong references:</p>
+<p>But <code>weak</code> is not the only way of breaking reference cycles. Just like in capture lists, the <code>unowned</code> keyword can be used in properties to create non-strong references:</p>
 <pre class = "language-swift"><code class="language-swift">unowned let delegate: HomeViewModelDelegate</code></pre>
-<p>Unlike <b>weak</b>, <b>unowned</b> references are expected to always have a value. This allows you to not only use non-optional types when declaring them, but also to do so with <b>let</b>, bringing back immutability and making sure your objects won't act in unexpected ways:</p>
+<p>Unlike <code>weak</code>, <code>unowned</code> references are expected to always have a value. This allows you to not only use non-optional types when declaring them, but also to do so with <code>let</code>, bringing back immutability and making sure your objects won't act in unexpected ways:</p>
 <pre class = "language-swift"><code class="language-swift">class HomeView: UIView {
     private unowned let delegate: HomeViewDelegate
 
@@ -162,19 +162,19 @@
     }
 }
 </code></pre>
-<p>With <b>weak</b>, there's nothing stopping <b>HomeView</b> from being used without a delegate, and a <b>guard</b> is required to unwrap values retrieved from the delegate due to the optional requirement of the keyword. On the other hand, <b>unowned</b> allows you to break reference cycles while still using the reference just like if it was strong.</p>
-<p>However, be aware that <b>unowned</b> properties will work just like the capture list keyword. If you try to access an unowned reference that has already deallocated, your app will crash.</p>
-<p>If your object is guaranteed to never outlive its unowned reference (like a <b>ViewModel</b>, for example), usage of <b>unowned</b> can greatly improve both code quality and performance.</p>
-<h2>But <b>unowned</b> can crash your app just like implicitly unwrapped optionals. Shouldn't you use <b>weak</b> for everything?</h2>
-<p>Most people rely on <b>weak</b> for everything and frown upon <b>unowned</b> due to its potential crashes, specially on capture lists. This is a safe way to use Swift, but not Apple's intended practice.</p>
-<p>Unlike implicitly unwrapped optionals, which in my opinion are just a lazy way of overcoming architectural problems, <b>unowned</b> references have significant advantages over <b>weak</b> ones: They have better performance, allow immutability, and since they can't be manually set to <b>nil</b>, your code will not accidentally follow unexpected paths. <b>unowned</b> references are perfectly safe - problems will only arise if you misuse the keyword.</p>
-<p>According to Apple, you should always use <b>unowned</b> references when your object can't outlive its reference:</p>
+<p>With <code>weak</code>, there's nothing stopping <code>HomeView</code> from being used without a delegate, and a <code>guard</code> is required to unwrap values retrieved from the delegate due to the optional requirement of the keyword. On the other hand, <code>unowned</code> allows you to break reference cycles while still using the reference just like if it was strong.</p>
+<p>However, be aware that <code>unowned</code> properties will work just like the capture list keyword. If you try to access an unowned reference that has already deallocated, your app will crash.</p>
+<p>If your object is guaranteed to never outlive its unowned reference (like a <code>ViewModel</code>, for example), usage of <code>unowned</code> can greatly improve both code quality and performance.</p>
+<h2>But <code>unowned</code> can crash your app just like implicitly unwrapped optionals. Shouldn't you use <code>weak</code> for everything?</h2>
+<p>Most people rely on <code>weak</code> for everything and frown upon <code>unowned</code> due to its potential crashes, specially on capture lists. This is a safe way to use Swift, but not Apple's intended practice.</p>
+<p>Unlike implicitly unwrapped optionals, which in my opinion are just a lazy way of overcoming architectural problems, <code>unowned</code> references have significant advantages over <code>weak</code> ones: They have better performance, allow immutability, and since they can't be manually set to <code>nil</code>, your code will not accidentally follow unexpected paths. <code>unowned</code> references are perfectly safe - problems will only arise if you misuse the keyword.</p>
+<p>According to Apple, you should always use <code>unowned</code> references when your object can't outlive its reference:</p>
 <blockquote><p>Use an unowned reference only when you are sure that the reference always refers to an instance that has not been deallocated.</p>
 <p>If you try to access the value of an unowned reference after that instance has been deallocated, you’ll get a runtime error.</p>
 <p>If the captured reference will never become nil, it should always be captured as an unowned reference, rather than a weak reference.</p></blockquote>
-<p>In any other cases, you should keep using <b>weak</b> references.</p>
+<p>In any other cases, you should keep using <code>weak</code> references.</p>
 <h2>What else?</h2>
-<p>The next time you create a delegate or an <b>@escaping</b> closure, think about its context and see if it's possible for it to outlive its reference. If it doesn't, you might find <b>unowned</b> properties an interesting tool to improve your code's quality.</p>
+<p>The next time you create a delegate or an <code>@escaping</code> closure, think about its context and see if it's possible for it to outlive its reference. If it doesn't, you might find <code>unowned</code> properties an interesting tool to improve your code's quality.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html">Apple Docs: ARC and Keywords</a><br>

@@ -169,7 +169,7 @@ December 17, 2018
 <p>They are difficult to read, nearly impossible to review but unfortunately super easy to write, cementing their place as the bane of junior developers.</p>
 <p>Fortunately for us, Swift offers several options to avoid this behavior. With a bit of patience and a proper style guide, you can prevent this sort of mistake from affecting your productivity. I'll use this article to share how I personally avoid them, and hopefully this will help you come up with your own solutions.</p>
 <h2>Condition hells: Favor using guard instead of if</h2>
-<p>Pyramids of conditions are very common, and fortunately the easier to deal with. <b>guard</b> is on my top 10 features in Swift for a good reason - although it works basically as an inverted <b>if</b> statement, it gives you a great advantage in terms of code quality. Besides providing a way for you to give an early return to a method, it allows you to put the "good" outcome of a method in the same indentation as the method itself, making your method's intent far easier to be understood by your colleague. The improvement is not difficult to spot in a chain of <b>if</b> statement:</p>
+<p>Pyramids of conditions are very common, and fortunately the easier to deal with. <code>guard</code> is on my top 10 features in Swift for a good reason - although it works basically as an inverted <code>if</code> statement, it gives you a great advantage in terms of code quality. Besides providing a way for you to give an early return to a method, it allows you to put the "good" outcome of a method in the same indentation as the method itself, making your method's intent far easier to be understood by your colleague. The improvement is not difficult to spot in a chain of <code>if</code> statement:</p>
 <pre>
 <code>func foo() {</code>
 <code>    if a {</code>
@@ -201,7 +201,7 @@ December 17, 2018
 <code>    //Good outcome</code>
 <code>}</code>
 </pre>
-<p>If you embrace the mindset of putting the good outcome of your method as close as possible to the method's indentation and the bad outcomes as far as possible from it, you'll find your code to be significantly easier to read as a mere glance at the end of the method will be enough for someone to understand what it's supposed to do. Use <b>guards</b> to isolate things that are not supposed to happen and restrict the usage of <b>ifs</b> to things that aren't necessary for the good outcome to happen, like changing the color of a cell based on a property's value.</p>
+<p>If you embrace the mindset of putting the good outcome of your method as close as possible to the method's indentation and the bad outcomes as far as possible from it, you'll find your code to be significantly easier to read as a mere glance at the end of the method will be enough for someone to understand what it's supposed to do. Use <code>guards</code> to isolate things that are not supposed to happen and restrict the usage of <code>ifs</code> to things that aren't necessary for the good outcome to happen, like changing the color of a cell based on a property's value.</p>
 <pre>
 <code>func updatePromotions(animated: Bool = true) {</code>
 <code>    guard isUserLogged else {</code>
@@ -232,7 +232,7 @@ December 17, 2018
 <code>    print(error) //if it fails</code>
 <code>}</code>
 </pre>
-<p>The <b>Promise</b> type can receive closures that determine how to proceed depending on the result of resolving the value, represented by <b>then(completion:)</b> and <b>catch(completion:)</b> in this case. If you're wondering why this helps with callback hells, it's because <b>then</b> handlers can optionally receive <b>another promise</b>, creating a limitless straight flow of operations:</p>
+<p>The <code>Promise</code> type can receive closures that determine how to proceed depending on the result of resolving the value, represented by <code>then(completion:)</code> and <code>catch(completion:)</code> in this case. If you're wondering why this helps with callback hells, it's because <code>then</code> handlers can optionally receive <b>another promise</b>, creating a limitless straight flow of operations:</p>
 <pre>
 <code>func perform&lt;T: Request>(request: T) -> Promise&lt;T.Response></code>
 <code>    return Promise { promise in</code>
@@ -253,12 +253,12 @@ December 17, 2018
 <code>    print("Finished")</code>
 <code>}</code>
 </pre>
-<p>By making your async operations return <b>Promise</b> types instead of receiving completion handlers, you will be able to chain any amount of them together into a nice straight line of code. They are specially great when your operations depend on things returned by previous operations as more powerful Promise implementations will contain several options for transforming values as well.</p>
+<p>By making your async operations return <code>Promise</code> types instead of receiving completion handlers, you will be able to chain any amount of them together into a nice straight line of code. They are specially great when your operations depend on things returned by previous operations as more powerful Promise implementations will contain several options for transforming values as well.</p>
 <p>I personally use <a href="https://github.com/mxcl/PromiseKit">PromiseKit</a> as it contains tons of features, <a href="https://github.com/khanlou/Promise">but there are lightweight libraries around the web</a> and you could certainly <a href="https://www.swiftbysundell.com/posts/under-the-hood-of-futures-and-promises-in-swift">develop a simple Promise implementation yourself.</a></p>
 <p>You'll see people recommending things like RxSwift for this purpose as well - I would personally not do so because I think that anything that holds your entire project hostage is a death sentence in the long term (as in, every single thing you do has to take RxSwift's architecture in mind in order to work), but that's my personal opinion and you can definitely use it if you know what you're doing.</p>
-<h3>"I don't want to add more code!": <b>OperationQueue</b></h3>
-<p>If Promises aren't your thing because you'd rather solve things the Apple way, you can use <b>Foundation</b>'s native solutions for managing sequential operations.</p>
-<p><b>OperationQueue</b> is Apple's abstraction of <b>DispatchQueue</b> that contains additional features to better support synchronizing and canceling operations. If your operations don't rely on data from previous operations, the <b>Operation</b> family of classes will do the trick. For synchronous operations, this is just a matter of queuing your custom operations:</p>
+<h3>"I don't want to add more code!": <code>OperationQueue</code></h3>
+<p>If Promises aren't your thing because you'd rather solve things the Apple way, you can use <code>Foundation</code>'s native solutions for managing sequential operations.</p>
+<p><code>OperationQueue</code> is Apple's abstraction of <code>DispatchQueue</code> that contains additional features to better support synchronizing and canceling operations. If your operations don't rely on data from previous operations, the <code>Operation</code> family of classes will do the trick. For synchronous operations, this is just a matter of queuing your custom operations:</p>
 <pre>
 <code>let queue = OperationQueue()</code>
 <code>queue.maxConcurrentOperationCount = 1</code>
@@ -275,8 +275,8 @@ December 17, 2018
 <code>}</code>
 <code></code>
 </pre>
-<p>However, things are trickier for asynchronous operations. To make the queue wait for your operation to truly finish, you'll either have to use thread-blocking mechanisms such as <b>DispatchGroups</b> or <a href="https://gist.github.com/Sorix/57bc3295dc001434fe08acbb053ed2bc">create/use a custom AsynchronousOperation type</a> that manages an <b>Operation</b>'s states for this purpose.</p>
-<p>If you need an operation to pass data to another one, you'll find no clean solution with <b>OperationQueue</b> as there's no guarantee that an operation's <b>completionBlock</b> will be called before the next one starts running. There a few hacks to achieve them through - you can wrap all your needed data in an external reference type that is accessible by all operations:</p>
+<p>However, things are trickier for asynchronous operations. To make the queue wait for your operation to truly finish, you'll either have to use thread-blocking mechanisms such as <code>DispatchGroups</code> or <a href="https://gist.github.com/Sorix/57bc3295dc001434fe08acbb053ed2bc">create/use a custom AsynchronousOperation type</a> that manages an <code>Operation</code>'s states for this purpose.</p>
+<p>If you need an operation to pass data to another one, you'll find no clean solution with <code>OperationQueue</code> as there's no guarantee that an operation's <code>completionBlock</code> will be called before the next one starts running. There a few hacks to achieve them through - you can wrap all your needed data in an external reference type that is accessible by all operations:</p>
 <pre>
 <code>func doLotsOfStuff(completion: (() -> Void)?) {</code>
 <code>    let data = NeededOperationData()</code>
@@ -307,7 +307,7 @@ December 17, 2018
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>I dislike having to deal with optional properties everywhere, so I personally wouldn't use <b>OperationQueue</b> if my operations depended on data fetched by other operations.</p>
+<p>I dislike having to deal with optional properties everywhere, so I personally wouldn't use <code>OperationQueue</code> if my operations depended on data fetched by other operations.</p>
 <h3>"Foundation sucks!": Use high-order functions</h3>
 <p>If you want to do this without using additional data structures, you can treat callback hell with nothing but pure Swift by applying better coding practices and some principles from functional programming. Because closures are types, they can be passed as arguments to methods - normally as completion handlers. The thing is that Swift methods are just glorified closures, so you can pass <b>an entire method as a closure argument</b>. This exact concept can be used to reduce the amount of nested closures in a method:</p>
 <pre>
@@ -361,17 +361,17 @@ December 17, 2018
 <code>}</code>
 </pre>
 <p>Although the callback hell still exists here, we at least have something that's readable now.</p>
-<p>To reduce the amount of nested closures, analyze how this method works. Can you see the pattern in <b>applySepiaFilterAndUpload()</b>? The key to solving the nesting problem here is how each step works: every method here works in the exact same way. <b>downloadPicture</b> receives an <b>URL</b> and provides a <b>Data</b> completion, <b>applySepiaFilter</b> receives a <b>Data</b> and provides another <b>Data</b> completion, and <b>uploadUserPicture</b> receives a <b>Data</b> and provides a <b>User</b> completion. If you turn these types into generics, you'll end up with:</p>
+<p>To reduce the amount of nested closures, analyze how this method works. Can you see the pattern in <code>applySepiaFilterAndUpload()</code>? The key to solving the nesting problem here is how each step works: every method here works in the exact same way. <code>downloadPicture</code> receives an <code>URL</code> and provides a <code>Data</code> completion, <code>applySepiaFilter</code> receives a <code>Data</code> and provides another <code>Data</code> completion, and <code>uploadUserPicture</code> receives a <code>Data</code> and provides a <code>User</code> completion. If you turn these types into generics, you'll end up with:</p>
 <pre>
 <code>downloadPicture    = (T, (U -> Void)) -> Void</code>
 <code>applySepiaFilter   = (U, (V -> Void)) -> Void</code>
 <code>uploadUserPicture  = (V, (W -> Void)) -> Void</code>
 </pre>
-<p>Because these async operations have the exact same structure and clearly depend on each other, we can completely remove the necessity of having closures by adapting these methods to recieve the next one as an argument. This would be trivial to do if each method had an explicit return type, but since we're dealing with completion handlers we need to write a little helper to achieve this effect. First, I'll define this shared behaviour as an <b>Operation</b> alias (with optionals so nobody's forced to do anything):</p>
+<p>Because these async operations have the exact same structure and clearly depend on each other, we can completely remove the necessity of having closures by adapting these methods to recieve the next one as an argument. This would be trivial to do if each method had an explicit return type, but since we're dealing with completion handlers we need to write a little helper to achieve this effect. First, I'll define this shared behaviour as an <code>Operation</code> alias (with optionals so nobody's forced to do anything):</p>
 <pre>
 <code>public typealias Operation&lt;T, U> = ((T, ((U) -> Void)?) -> Void)?</code>
 </pre>
-<p>With that, we can define a method that "merges" two operations into one as long as they have matching parameters - making <b>(T, (U -> Void)) -> Void</b> + <b>(U, (V -> Void)) -> Void</b> become <b>(T, (V -> Void)) -> Void</b>:</p>
+<p>With that, we can define a method that "merges" two operations into one as long as they have matching parameters - making <code>(T, (U -> Void)) -> Void</code> + <code>(U, (V -> Void)) -> Void</code> become <code>(T, (V -> Void)) -> Void</code>:</p>
 <pre>
 <code>func merge&lt;T, U, V>(_ lhs: Operation&lt;T, U>, to rhs: Operation&lt;U, V>) -> Operation&lt;T, V> {</code>
 <code>    return { (input, completion) in</code>
@@ -381,15 +381,15 @@ December 17, 2018
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>This method returns a <b>new closure</b> that performs the first operation method with a given input, uses its output to execute the second one and finally executes a given completion for the second operation's result. If all our methods follow the <b>Operation</b> structure, we can use <b>merge()</b> to progressively merge all steps into a single operation. We can't really escape the nesting in this helper, but this allows us to rewrite our main method without them:</p>
+<p>This method returns a <b>new closure</b> that performs the first operation method with a given input, uses its output to execute the second one and finally executes a given completion for the second operation's result. If all our methods follow the <code>Operation</code> structure, we can use <code>merge()</code> to progressively merge all steps into a single operation. We can't really escape the nesting in this helper, but this allows us to rewrite our main method without them:</p>
 <pre>
 <code>func applySepiaFilterAndUpload(picUrl: URL, completion: ((User) -> Void)?) {</code>
 <code>    let job = merge(merge(downloadPicture, to: applySephiaFilter), to: uploadUserPicture)</code>
 <code>    job?(picUrl, completion)</code>
 <code>}</code>
 </pre>
-<p>Because the signature of our operations match <b>merge()</b>'s closure arguments, we can skip having to define closures by passing the methods' signatures as the arguments. In the end, <b>job</b> becomes an unified method that takes an <b>URL</b>, executes all operations in order and then finally the executes the method's completion handler with the result of the last operation. That's just like the first version, but with no nesting at all!</p>
-<p>Now, if you're thinking <i>"but that looks terrible!"</i>, you're absolutely right. Because we can only merge two operations at a time, we need to call <b>merge()</b> several times which will result in something that's probably harder to read than the original callback hell. There's a way to fix this though - we can define an operator for <b>merge()</b>'s behavior:</i>
+<p>Because the signature of our operations match <code>merge()</code>'s closure arguments, we can skip having to define closures by passing the methods' signatures as the arguments. In the end, <code>job</code> becomes an unified method that takes an <code>URL</code>, executes all operations in order and then finally the executes the method's completion handler with the result of the last operation. That's just like the first version, but with no nesting at all!</p>
+<p>Now, if you're thinking <i>"but that looks terrible!"</i>, you're absolutely right. Because we can only merge two operations at a time, we need to call <code>merge()</code> several times which will result in something that's probably harder to read than the original callback hell. There's a way to fix this though - we can define an operator for <code>merge()</code>'s behavior:</i>
 <pre>
 <code>infix operator >>->>: LogicalConjunctionPrecedence // Precedence of &&</code>
 <code></code>
@@ -397,7 +397,7 @@ December 17, 2018
 <code>    return merge(lhs, rhs)</code>
 <code>}</code>
 </pre>
-<p>By using <b>&&</b>'s precedence, operations will be progressively merged all the way from the left. With that in place, we can now rewrite our workflow as a nice straight line of operations.</p>
+<p>By using <code>&&</code>'s precedence, operations will be progressively merged all the way from the left. With that in place, we can now rewrite our workflow as a nice straight line of operations.</p>
 <pre>
 <code>func applySepiaFilterAndUpload(picUrl: URL, completion: ((User) -> Void)?) {</code>
 <code>    let job = downloadPicture >>->> applySepiaFilter >>->> uploadUserPicture</code>

@@ -126,7 +126,7 @@
 <div class="post-info"> 
 September 4, 2019
 </div>
-<p>Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin <b>sort()</b> method. However, knowing the properties of the sorting algorithm built into your language is important if you want to prevent unwanted behaviors and nasty edge cases.</p>
+<p>Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin <code>sort()</code> method. However, knowing the properties of the sorting algorithm built into your language is important if you want to prevent unwanted behaviors and nasty edge cases.</p>
 <p>When analyzing sorting algorithms, you'll want to search for two properties:</p>
 <h2>1 - Sorting Stability</h2>
 <p>The <b>stability</b> of a sorting algorithm represents the ability of the algorithm to <b>maintain the original order of equal elements after sorting</b>. An <b>unstable</b> sorting algorithm has no guarantees that the order of equal elements in the unsorted array will stay the same after sorting, while a <b>stable</b> one guarantees that they will stay the same.</p>
@@ -153,7 +153,7 @@ September 4, 2019
 <code>    Music(name: "Too Swift", popularityValue: 5),</code>
 <code>]</code>
 </pre>
-<p>If we sort <b>songs</b> using Quicksort, we'll get the following result:</p>
+<p>If we sort <code>songs</code> using Quicksort, we'll get the following result:</p>
 <pre>
 <code>extension Array where Element: Equatable & Comparable {</code>
 <code>    func quicksort(comparison: ((Element, Element) -> Bool)) -> [Element] {</code>
@@ -193,7 +193,7 @@ September 4, 2019
 <pre>
 <code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code>
 </pre>
-<p>Although <b>"Swift boi"</b> was placed before <b>"Too Swift"</b> in the original array, Quicksort changed their positions!</p>
+<p>Although <code>"Swift boi"</code> was placed before <code>"Too Swift"</code> in the original array, Quicksort changed their positions!</p>
 <p>That's not too bad though as we never actually used the unsorted version of the array. However, consider what happens if we re-sort the array multiple times:</p>
 <pre>
 <code>songs = songs.quicksort {</code>
@@ -277,12 +277,12 @@ September 4, 2019
 </pre>
 <h2>2 - Time/Space Complexity</h2>
 <p>The second important thing to be aware of is how much additional memory the algorithm takes to run and what are best/worst cases for the algorithm.</p>
-<p>My favorite example of this is <b>Counting Sort</b>: where an array is sorted by simply counting the occurrences of each element number of elements and then laying them out in order. If the difference between each value is small, say <b>[3,1,4,2,5]</b>, this algorithm can sort arrays in runtimes very close to <b>O(n)</b> -- but if the difference is big, like <b>[1,1000000000]</b>, Counting Sort will take an enormous amount of time to run even if the array is small.</p>
+<p>My favorite example of this is <b>Counting Sort</b>: where an array is sorted by simply counting the occurrences of each element number of elements and then laying them out in order. If the difference between each value is small, say <code>[3,1,4,2,5]</code>, this algorithm can sort arrays in runtimes very close to <b>O(n)</b> -- but if the difference is big, like <code>[1,1000000000]</code>, Counting Sort will take an enormous amount of time to run even if the array is small.</p>
 <p>Likewise, the famous Quick Sort is highly regarded for being a fast and in-place O(n log n) algorithm in average, but it has a terrible worst case of O(n2) if the pivot is always the highest/smallest element in the partition. If you're dealing with large amounts of data or a constrained environment, there will be a specific sorting algorithm that best fits your needs.</p>
 <h2>Pre-Swift 5 Algorithm: Introsort</h2>
-<p>Before Swift 5, Swift's sorting algorithm was a hybrid algorithm called <b>Introsort</b>, which mixes the strengths of <b>Quicksort</b>, <b>Heapsort</b> and <b>Insertion Sort</b> into a single algorithm to guarantee a worse case of O(n log n).</p>
+<p>Before Swift 5, Swift's sorting algorithm was a hybrid algorithm called <b>Introsort</b>, which mixes the strengths of <code>Quicksort</code>, <code>Heapsort</code> and <code>Insertion Sort</code> into a single algorithm to guarantee a worse case of O(n log n).</p>
 <p>The idea behind Introsort is straightforward: First, if you have <b>less than 20 elements</b> in the partition being sorted, Insertion Sort is used. Although this algorithm has a worst case of O(n2), it also has a best case of O(n). Compared to the general O(n log n) algorithms, Insertion Sort will always perform better in small inputs.</p>
-<p>If the array is not small, Quicksort will be used. This will bring our best case to O(n log n), but also maintain the worst case of O(n2). However, Introsort can avoid it -- if the recursion tree for Quicksort gets too deep, the partition switches to Heapsort. In this case, "too deep" is considered as <b>2 * floor(log2(array.count))</b>.</p>
+<p>If the array is not small, Quicksort will be used. This will bring our best case to O(n log n), but also maintain the worst case of O(n2). However, Introsort can avoid it -- if the recursion tree for Quicksort gets too deep, the partition switches to Heapsort. In this case, "too deep" is considered as <code>2 * floor(log2(array.count))</code>.</p>
 <pre>
 <code>internal mutating func _introSortImpl(within range: Range&lt;Index>,</code>
 <code>                                      by areInIncreasingOrder: (Element, Element) throws -> Bool,</code>
@@ -309,8 +309,8 @@ September 4, 2019
 <code>}</code>
 </pre>
 <p>Introsort greedily attempts to pick the best algorithm for the given situation, backing up to a different option when the previous choice goes wrong. It has a best case of O(n) and worst case of O(n log n), making it a decent one-size-fits-all algorithm.</p>
-<p>In terms of memory usage, it will perform slightly worse than the usual sorting algorithm. Although the three algorithms can sort inplace, Introsort's implementation in Swift was recursive. Since Swift doesn't guarantee that tail recursion calls will be optimized, running the builtin <b>sort()</b> pre-Swift 5 was not the best option if keeping memory usage low was important.</p>
-<p>The biggest thing to note is that Introsort was <b>unstable</b>. Although Insertion Sort is stable, the default implementation of Quicksort and Heapsort are not. If the order of equal elements was important, using <b>sort()</b> pre-Swift 5 was also not a good idea.</p>
+<p>In terms of memory usage, it will perform slightly worse than the usual sorting algorithm. Although the three algorithms can sort inplace, Introsort's implementation in Swift was recursive. Since Swift doesn't guarantee that tail recursion calls will be optimized, running the builtin <code>sort()</code> pre-Swift 5 was not the best option if keeping memory usage low was important.</p>
+<p>The biggest thing to note is that Introsort was <b>unstable</b>. Although Insertion Sort is stable, the default implementation of Quicksort and Heapsort are not. If the order of equal elements was important, using <code>sort()</code> pre-Swift 5 was also not a good idea.</p>
 <h2>After Swift 5 - Timsort</h2>
 <p>Multiple threads surfaced between 2015 and 2018 about adding a stable sorting algorithm to Swift that didn't rely on recursion, but promising discussions first showed up only in the beginning of 2018. In October 2018, <a href="https://github.com/apple/swift/pull/19717">a pull request was finally merged</a> to change Introsort to a modified version of <b>Timsort.</b></p>
 <p>Timsort is a hybrid algorithm like Introsort, but with different approaches. It works by dividing an array into smaller sections, sorting these smaller sections with Insertion Sort, and then merging these sections together with Merge Sort. Because both Insertion Sort and Mergesort are stable, Timsort is <b>stable</b>, and while it also has a worst case of O(n log n) and non-constant space complexity, it tends to be considerably quicker than the more naive algorithms in real world scenarios. The reason why Timsort can be so fast is that although the description sounds simple enough, in reality each of these steps are highly tuned for efficiency.</p>

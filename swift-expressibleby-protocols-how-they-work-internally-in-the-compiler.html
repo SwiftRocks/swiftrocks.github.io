@@ -126,13 +126,13 @@
 <div class="post-info"> 
 July 17, 2019
 </div>
-<p><b>ExpressibleBy</b> represents a series of protocols in the Swift Standard library that allows you to instantiate objects directly from token literals, like a string, a number, a floating-point and so on, if the object can be "expressed" like that. For example, here's the regular way of creating an URL in Swift:</p>
+<p><code>ExpressibleBy</code> represents a series of protocols in the Swift Standard library that allows you to instantiate objects directly from token literals, like a string, a number, a floating-point and so on, if the object can be "expressed" like that. For example, here's the regular way of creating an URL in Swift:</p>
 <pre>
 <code>func getURL() -> URL</code>
 <code>    return URL(string: "https://swiftrocks.com")!</code>
 <code>}</code>
 </pre>
-<p>However, to prevent having to use this initializer everytime, you could say that it's possible to represent an URL directly from its URL string using <b>ExpressibleByStringLiteral</b>:</p>
+<p>However, to prevent having to use this initializer everytime, you could say that it's possible to represent an URL directly from its URL string using <code>ExpressibleByStringLiteral</code>:</p>
 <pre>
 <code>extension URL: ExpressibleByStringLiteral {</code>
 <code>    public init(extendedGraphemeClusterLiteral value: String) {</code>
@@ -144,23 +144,23 @@ July 17, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>This allows us to refactor <b>getURL()</b> to create an URL using nothing else but a string token:</p>
+<p>This allows us to refactor <code>getURL()</code> to create an URL using nothing else but a string token:</p>
 <pre>
 <code>func getURL() -> URL</code>
 <code>    return "https://swiftrocks.com"</code>
 <code>}</code>
 </pre>
-<p>The standard library contains the following <b>ExpressibleBy</b> protocols:</p>
-<p>* <b>ExpressibleByNilLiteral</b>: Expressible by <b>nil</b>.<br>
-* <b>ExpressibleByIntegerLiteral</b>: Expressible by a number token like <b>10</b>.<br>
-* <b>ExpressibleByFloatLiteral</b>: Expressible by a floating-point token like <b>2.5</b>.<br>
-* <b>ExpressibleByBooleanLiteral</b>: Expressible by <b>true/false</b>.<br>
-* <b>ExpressibleByUnicodeScalarLiteral</b>: Expressible from a single unicode scalar. Usage examples of this are <b>Character</b> and <b>String</b>.<br>
-* <b>ExpressibleByExtendedGraphemeClusterLiteral</b>: Similar to UnicodeScalar, but consists of a chain of scalars (a grapheme cluster) instead of a single one.<br>
-* <b>ExpressibleByStringLiteral</b>: Expressible by a string token like <b>"SwiftRocks"</b>.<br>
-* <b>ExpressibleByArrayLiteral</b>: Expressible by an array token like <b>[1,2,3]</b>.<br>
-* <b>ExpressibleByDictionaryLiteral</b>: Expressible by a dictionary token like <b>["name": "SwiftRocks"]</b>.<br></p>
-<p>To make it short, you can use these protocols to hide unnecessary implementation details and possibly ugly initializers of your more complex types. An example use case is how Apple's SourceKit-LSP uses them to represent arbitrary arguments -- because the <b>Any</b> type does not conform to <b>Codable</b>, a <b>CommandArgumentType</b> enum is used to represent unknown arguments:</p>
+<p>The standard library contains the following <code>ExpressibleBy</code> protocols:</p>
+<p>* <code>ExpressibleByNilLiteral</code>: Expressible by <code>nil</code>.<br>
+* <code>ExpressibleByIntegerLiteral</code>: Expressible by a number token like <code>10</code>.<br>
+* <code>ExpressibleByFloatLiteral</code>: Expressible by a floating-point token like <code>2.5</code>.<br>
+* <code>ExpressibleByBooleanLiteral</code>: Expressible by <code>true/false</code>.<br>
+* <code>ExpressibleByUnicodeScalarLiteral</code>: Expressible from a single unicode scalar. Usage examples of this are <code>Character</code> and <code>String</code>.<br>
+* <code>ExpressibleByExtendedGraphemeClusterLiteral</code>: Similar to UnicodeScalar, but consists of a chain of scalars (a grapheme cluster) instead of a single one.<br>
+* <code>ExpressibleByStringLiteral</code>: Expressible by a string token like <code>"SwiftRocks"</code>.<br>
+* <code>ExpressibleByArrayLiteral</code>: Expressible by an array token like <code>[1,2,3]</code>.<br>
+* <code>ExpressibleByDictionaryLiteral</code>: Expressible by a dictionary token like <code>["name": "SwiftRocks"]</code>.<br></p>
+<p>To make it short, you can use these protocols to hide unnecessary implementation details and possibly ugly initializers of your more complex types. An example use case is how Apple's SourceKit-LSP uses them to represent arbitrary arguments -- because the <code>Any</code> type does not conform to <code>Codable</code>, a <code>CommandArgumentType</code> enum is used to represent unknown arguments:</p>
 <pre>
 <code>public enum CommandArgumentType: Hashable, ResponseType {</code>
 <code>  case null</code>
@@ -181,7 +181,7 @@ July 17, 2019
 <code>                        "args": .array([.string("file://a.swift"), .string("open")])])</code>
 <code>}</code>
 </pre>
-<p>Fortunately, we can use <b>ExpressibleBy</b> to provide better looking alternatives to the enum:</p>
+<p>Fortunately, we can use <code>ExpressibleBy</code> to provide better looking alternatives to the enum:</p>
 <pre>
 <code>extension CommandArgumentType: ExpressibleByNilLiteral {</code>
 <code>  public init(nilLiteral _: ()) {</code>
@@ -230,7 +230,7 @@ July 17, 2019
 <code>  }</code>
 <code>}</code>
 </pre>
-<p>Which allows us to rewrite <b>getCommandArguments()</b> with easier to read tokens.</p>
+<p>Which allows us to rewrite <code>getCommandArguments()</code> with easier to read tokens.</p>
 <pre>
 <code>func getCommandArguments() -> CommandArgumentType {</code>
 <code>    return ["line": 2,</code>
@@ -241,7 +241,7 @@ July 17, 2019
 </pre>
 <h2>How it works internally</h2>
 <p>But how can a token become a full type? As with all compiler magic, we can uncover what's going on by intercepting Swift's compilation steps.</p>
-<p>Using the first <b>getURL()</b> method as an example, let's first see how Swift treats ExpressibleBy objects. If we compile the code manually using <b>-emit-sil</b> argument, we can extract the Swift Intermediate Language (SIL) version of the code -- the final compilation step in Swift before LLVM takes the wheel.</p>
+<p>Using the first <code>getURL()</code> method as an example, let's first see how Swift treats ExpressibleBy objects. If we compile the code manually using <code>-emit-sil</code> argument, we can extract the Swift Intermediate Language (SIL) version of the code -- the final compilation step in Swift before LLVM takes the wheel.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
 <code>swiftc -emit-sil geturl.swift</code>
 </pre>
@@ -259,12 +259,12 @@ bb0(%0 : $*URL):</code>
 <code>} // end sil function '$s3bla6getURL10Foundation0C0VyF'</code>
 </pre>
 <p>Here's what the method is doing:</p>
-<p>1: Create a <b>string_literal</b> token<br>
-2: Create a <b>String</b> type from the literal<br>
-3: Call <b>URL.init(stringLiteral:)</b> with the <b>String</b><br>
+<p>1: Create a <code>string_literal</code> token<br>
+2: Create a <code>String</code> type from the literal<br>
+3: Call <code>URL.init(stringLiteral:)</code> with the <code>String</code><br>
 4: Return the URL</p>
-<p>As one would expect, the compiler achieves this magic by replacing the <b>String</b> line of code with the relevant <b>ExpressibleBy</b> initializer. Hooray for compiler magic!</p>
-<p>Now, to locate where this happens in the compiler, we can <b>grep</b> the Swift source for mentions of "ExpressibleBy", which will point us to several places inside <a href="https://github.com/apple/swift/blob/master/lib/Sema/CSApply.cpp#L1866">CSApply.cpp</a>. In short, all usages of literals get converted to their ExpressibleBy equivalent, including the "expressibles that are literals themselves" (for example, an <b>Int</b> is itself an <b>ExpressibleByIntegerLiteral</b>). When Swift's type-checker reaches a literal, it gets a hold of an instance of the relevant protocol type and the name of the initializer, which can be determined from the literal we're looking at:</p>
+<p>As one would expect, the compiler achieves this magic by replacing the <code>String</code> line of code with the relevant <code>ExpressibleBy</code> initializer. Hooray for compiler magic!</p>
+<p>Now, to locate where this happens in the compiler, we can <code>grep</code> the Swift source for mentions of "ExpressibleBy", which will point us to several places inside <a href="https://github.com/apple/swift/blob/master/lib/Sema/CSApply.cpp#L1866">CSApply.cpp</a>. In short, all usages of literals get converted to their ExpressibleBy equivalent, including the "expressibles that are literals themselves" (for example, an <code>Int</code> is itself an <code>ExpressibleByIntegerLiteral</code>). When Swift's type-checker reaches a literal, it gets a hold of an instance of the relevant protocol type and the name of the initializer, which can be determined from the literal we're looking at:</p>
 <pre>
 <code>Expr *visitNilLiteralExpr(NilLiteralExpr *expr) {</code>
 <code>  auto type = simplifyType(cs.getType(expr));</code></code>
@@ -276,7 +276,7 @@ bb0(%0 : $*URL):</code>
 <code> //...</code>
 <code>}</code>
 </pre>
-<p>With that info in hand, the type-checker calls <b>convertLiteralInPlace</b> to <a href="https://github.com/apple/swift/blob/master/lib/Sema/CSApply.cpp#L6679">replace the full expression with the equivalent ExpressibleBy initializer.</a> The method itself does a lot of stuff, but there's something interesting to note here: If we take a look at <a href="https://github.com/apple/swift/blob/1f9b86666f51bcdf0af0c8fff70bffb01126c7f6/include/swift/AST/KnownProtocols.def#L85">KnownProtocols.def</a>, we can see that all literals have default types:</p>
+<p>With that info in hand, the type-checker calls <code>convertLiteralInPlace</code> to <a href="https://github.com/apple/swift/blob/master/lib/Sema/CSApply.cpp#L6679">replace the full expression with the equivalent ExpressibleBy initializer.</a> The method itself does a lot of stuff, but there's something interesting to note here: If we take a look at <a href="https://github.com/apple/swift/blob/1f9b86666f51bcdf0af0c8fff70bffb01126c7f6/include/swift/AST/KnownProtocols.def#L85">KnownProtocols.def</a>, we can see that all literals have default types:</p>
 <pre>
 <code>EXPRESSIBLE_BY_LITERAL_PROTOCOL(ExpressibleByArrayLiteral, "Array", false)</code>
 <code>EXPRESSIBLE_BY_LITERAL_PROTOCOL(ExpressibleByBooleanLiteral, "BooleanLiteralType", true)</code>
@@ -289,13 +289,13 @@ bb0(%0 : $*URL):</code>
 <code>EXPRESSIBLE_BY_LITERAL_PROTOCOL(ExpressibleByNilLiteral, nullptr, false)</code>
 <code>EXPRESSIBLE_BY_LITERAL_PROTOCOL(ExpressibleByUnicodeScalarLiteral, "UnicodeScalarType", true)</code>
 </pre>
-<p>This means that if the expression has no type or has a type that doesn't conform to the protocol, the literal's true type will be assigned to the default's type conformance instead. For example, if I removed the conformance for <b>getURL()</b>, the SIL code will reveal that the internal <b>String</b> initializer is used instead:</p>
+<p>This means that if the expression has no type or has a type that doesn't conform to the protocol, the literal's true type will be assigned to the default's type conformance instead. For example, if I removed the conformance for <code>getURL()</code>, the SIL code will reveal that the internal <code>String</code> initializer is used instead:</p>
 <pre>
 <code>func getURL() -> URL {</code>
 <code>    return String.init(_builtinStringLiteral: "https://swiftrocks.com")</code>
 <code>}</code>
 </pre>
-<p>This not only allows you to write untyped expressions like <b>let foo = "bar"</b>, but it also serves for UI reasons - thanks to that, in a later pass the previous <b>getURL()</b> example will result in our user-friendly <b>Cannot convert value of type 'String' to specified type 'URL'</b> compilation error.</p>
+<p>This not only allows you to write untyped expressions like <code>let foo = "bar"</code>, but it also serves for UI reasons - thanks to that, in a later pass the previous <code>getURL()</code> example will result in our user-friendly <code>Cannot convert value of type 'String' to specified type 'URL'</code> compilation error.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="https://github.com/apple/swift">The Swift Source Code</a><br>
