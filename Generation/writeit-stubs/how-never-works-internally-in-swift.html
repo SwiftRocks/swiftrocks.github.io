@@ -88,7 +88,7 @@
 <h3>Swift Intermediate Language</h3>
 <p>In short, SIL is the middle-ground between your .swift files and the LLVM IR, basically acting as your Swift files translated to a "language" that contains high-level semantic information of what's happening behind the scenes. This allows the compiler to diagnose compilation errors and perform early optimizations while still allowing it to seamlessly generate the final LLVM IR necessary to let LLVM handle the rest of the compilation.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/xbVOfbq.png"" alt="">                                    
+  <img src="https://i.imgur.com/xbVOfbq.png" alt="" style="background-color: #fff">                                    
 </div>
 <p>Inspecting the SIL version of a method that returns <b>Never</b> should reveal us an optimized version of it, with hopefully an indicator of how the type works behind the scenes. I'm going to compile the following snippet - with an explicit return statement just to see how the SIL version reacts to it:</p>
 <pre>

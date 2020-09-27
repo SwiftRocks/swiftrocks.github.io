@@ -47,6 +47,10 @@ a {
     text-decoration: underline;
 }
 
+.blog-post i {
+    color: var(--detail-color);
+}
+
 a:hover,
 a:focus,
 a:active {
