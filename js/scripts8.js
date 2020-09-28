@@ -29,5 +29,15 @@
 		var link = item[rand].getElementsByTagName("link")[0].childNodes[0].nodeValue;
 
 		document.getElementById("next-article-title").innerHTML = "<a href=\"" + link + "\">" + title + " ‎<i class=\"fa fa-external-link\"></i>‏‏‎</a>"
+
+		const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+		if (prefersDarkScheme.matches) {
+  			document.body.classList.add("dark-theme");
+            document.getElementById("logo").src = "images/bg/swiftrockswithtextdarkmode.png"
+		} else {
+  			document.body.classList.remove("dark-theme");
+            document.getElementById("logo").src = "images/bg/swiftrockswithtext.png"
+		} 
     });
 })(jQuery);

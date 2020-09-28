@@ -29,17 +29,17 @@
           <div class="post-image margin-top-40 margin-bottom-40">
             <img src="https://i.imgur.com/MyAl2I0.png" alt="">                                    
           </div>
-          <p>Be aware that a Command Line Tool is not a Cocoa app, so you'll have no access to things like <b>UIKit</b>! The core frameworks like <b>Foundation</b> are all you have here.</p>
-          <p>In <b>main.swift</b>, type and run the following code:</p>
+          <p>Be aware that a Command Line Tool is not a Cocoa app, so you'll have no access to things like <code>UIKit</code>! The core frameworks like <code>Foundation</code> are all you have here.</p>
+          <p>In <code>main.swift</code>, type and run the following code:</p>
 <pre class = "language-swift"><code class="language-swift">let line = readLine()
 print("Got something! \(line)")
 </code></pre>
-<p>At this point, the program will be frozen. <b>readLine()</b> is a Standard Library method that synchronously reads the standard input and returns a <b>String?</b> once a full line is retrieved or <b>nil</b> if EOF is reached.</p>
+<p>At this point, the program will be frozen. <code>readLine()</code> is a Standard Library method that synchronously reads the standard input and returns a <code>String?</code> once a full line is retrieved or <code>nil</code> if EOF is reached.</p>
 <p>If you type something in Xcode's console, the program's execution will continue and print what you wrote:</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/U5IwGnn.png" alt="">                                    
 </div>
-<p>However, a competitive programming problem will likely have several hundred lines of input. You can use a <b>while</b> loop to make your code run until the input ends:</p>
+<p>However, a competitive programming problem will likely have several hundred lines of input. You can use a <code>while</code> loop to make your code run until the input ends:</p>
 <pre class = "language-swift"><code class="language-swift">while let line = readLine() {
     print("Got something! \(line)")
 }
@@ -53,7 +53,7 @@ print("Got something! \(line)")
 <p>Given an array of integers, find the sum of its elements.</p>
 <h3>Input Format</h3>
 <p>The first line contains an integer, denoting the size of the array.</p>
-<p>The second line contains <b>n</b> space-separated integers representing the array's elements.</p>
+<p>The second line contains <code>n</code> space-separated integers representing the array's elements.</p>
 <h3>Output Format</h3>
 <p>Print the sum of the array's elements as a single integer.</p>
 <h3>Sample Input</h3>
@@ -61,9 +61,9 @@ print("Got something! \(line)")
 1 2 3 4 10 11
 </code></pre>
 <h3>Sample Output</h3>
-<p><b>31</b></p>
+<p><code>31</code></p>
 <h2>Solution</h2>
-<p>Every problem has multiple possible solutions. For this one, we can harness the power of <b>reduce</b>:</p>
+<p>Every problem has multiple possible solutions. For this one, we can harness the power of <code>reduce</code>:</p>
 <pre class = "language-swift"><code class="language-swift">import Foundation
 
 _ = readLine() //Read and drop the array size line.
@@ -86,7 +86,7 @@ print(result)
 1 &>> 1
 </code></pre>
 <h3>Printing is slow</h3>
-<p>The <b>print(_:)</b> method is very slow, and it can be particularly painful when printing things like <b>Arrays</b>. You can gain some performance if you print everything at once.</p>
+<p>The <code>print(_:)</code> method is very slow, and it can be particularly painful when printing things like <code>Arrays</code>. You can gain some performance if you print everything at once.</p>
 <pre class="language-swift"><code class="language-swift">let array = [String](repeating: "A", count: 1000)
 
 for a in array {
@@ -99,7 +99,7 @@ let separated = array.joined(separator: " ")
 print(separated) // a lot quicker, even though we're processing the array beforehand
 </code></pre>
 <h3>Allocate Array capacities in advance</h3>
-<p>Swift's <b>Arrays</b> have dynamic sizes, meaning that the language automatically allocates more memory space for it as it increases in size. Even if this is quite fast, you can make it even faster if you know the array size in advance by using the <b>Array.reserveCapacity(_:)</b> method. This is useful if you have a problem where the solution is an <b>Array</b> with a specific size.</p>
+<p>Swift's <code>Arrays</code> have dynamic sizes, meaning that the language automatically allocates more memory space for it as it increases in size. Even if this is quite fast, you can make it even faster if you know the array size in advance by using the <code>Array.reserveCapacity(_:)</code> method. This is useful if you have a problem where the solution is an <code>Array</code> with a specific size.</p>
 <pre class="language-swift"><code class="language-swift">let arraySize = Int(readLine()!)!
 var array = [Int]()
 array.reserveCapacity(arraySize) //Runtime is slightly slower without manually setting the array's capacity.
@@ -107,15 +107,15 @@ for i in 0..&lt;arraySize {
     array.append(solve(for: i))
 }
 </code></pre>
-<p>Alternatively, you can use the <b>repeating:count:</b> initializer when you need a pre-filled array:</p>
+<p>Alternatively, you can use the <code>repeating:count:</code> initializer when you need a pre-filled array:</p>
 <pre class="language-swift"><code class="language-swift">let fiveZs = Array(repeating: "Z", count: 5)
 print(fiveZs)
 // Prints "["Z", "Z", "Z", "Z", "Z"]"
 </code></pre>
 <h3>Abuse Implicitly Unwrapped Optionals</h3>
-<p>While the dreaded <b>!</b> should be avoided in real applications, safety is not a concern in competitive programming. Since inputs are guaranteed to always be the same, you can completely skip the overhead of unwrapping optionals.</p>
-          <h3>Use <b>inout</b> - Dmitry Volevodz</h3> 
-          <p>Using <b>inout</b> arguments can be really useful when passing data around recursive functions, and I was able to confirm that <b>inout</b> arguments are even faster to create than regular ones when passing around value types with inner reference types.</p>
+<p>While the dreaded <code>!</code> should be avoided in real applications, safety is not a concern in competitive programming. Since inputs are guaranteed to always be the same, you can completely skip the overhead of unwrapping optionals.</p>
+          <h3>Use <code>inout</code> - Dmitry Volevodz</h3> 
+          <p>Using <code>inout</code> arguments can be really useful when passing data around recursive functions, and I was able to confirm that <code>inout</code> arguments are even faster to create than regular ones when passing around value types with inner reference types.</p>
           <h3>Subtract Dates to measure performance - Rodrigo Carvalho</h3> 
           <p>The following snippet will measure how long it takes to run something:</p>
           <pre class="language-swift"><code class="language-swift">func measure(function: () -> Void) {

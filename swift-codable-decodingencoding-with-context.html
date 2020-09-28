@@ -16,18 +16,18 @@
     <meta name="description" content="The Codable protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like Unbox, Codable has the advantage of being powered by the compiler. One of my favorite features in Unbox was to give a context to the decoding operation. Let's take a look at how we can achieve the same with Codable and how I use to power a type-erased Decodable type.">
     <meta name="title" content="Swift Codable: Decoding / Encoding With Context">
     <meta name="url" content="https://swiftrocks.com/swift-codable-decodingencoding-with-context">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/swift-codable-decodingencoding-with-context.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="Swift Codable: Decoding / Encoding With Context"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/swift-codable-decodingencoding-with-context.png"/>
     <meta property="og:description" content="The Codable protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like Unbox, Codable has the advantage of being powered by the compiler. One of my favorite features in Unbox was to give a context to the decoding operation. Let's take a look at how we can achieve the same with Codable and how I use to power a type-erased Decodable type."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/swift-codable-decodingencoding-with-context"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/swift-codable-decodingencoding-with-context.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="Swift Codable: Decoding / Encoding With Context"/>
     <meta name="twitter:description" content="The Codable protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like Unbox, Codable has the advantage of being powered by the compiler. One of my favorite features in Unbox was to give a context to the decoding operation. Let's take a look at how we can achieve the same with Codable and how I use to power a type-erased Decodable type."/>
@@ -39,11 +39,11 @@
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
     
   <!-- All CSS Plugins --> 
-  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+  <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style30.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style31.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -96,7 +96,7 @@
     <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
    </div>
@@ -126,10 +126,10 @@
 <div class="post-info"> 
 February 5th, 2020
 </div>
-<p>The <b>Codable</b> protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like <b>Unbox</b>, <b>Codable</b> has the advantage of being powered by the compiler.</p>
-<p>One of my favorite features in <b>Unbox</b> was to give a <b>context</b> to the decoding operation. Let's take a look at how we can achieve the same with <b>Codable</b>.</p>
+<p>The <code>Codable</code> protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like <code>Unbox</code>, <code>Codable</code> has the advantage of being powered by the compiler.</p>
+<p>One of my favorite features in <code>Unbox</code> was to give a <b>context</b> to the decoding operation. Let's take a look at how we can achieve the same with <code>Codable</code>.</p>
 <h2>Example 1: Giving different values to the same property</h2>
-<p>Decoding with "context" refers to the ability to change how types are decoded depending on what's going on in your app. Let's say that our app is sending a request asking for information regarding a header that should be displayed on the screen, with our app locally storing an additional <b>textColor</b> property into the model:</p>
+<p>Decoding with "context" refers to the ability to change how types are decoded depending on what's going on in your app. Let's say that our app is sending a request asking for information regarding a header that should be displayed on the screen, with our app locally storing an additional <code>textColor</code> property into the model:</p>
 <pre>
 <code>struct HeaderInformation: Decodable {</code>
 <code>    let title: String</code>
@@ -139,13 +139,13 @@ February 5th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Now, imagine the following situation: What if we want <b>textColor</b> to be <b>different</b> depending on which screen such header is being presented? For example, displaying headers on the app's home could have a green text, while headers at the profile screen could be blue.</p>
-<p>There are multiple ways to achieve this, but let's focus on <b>Codable</b>. <b>Codable</b> allows you to provide context to a <b>JSONDecoder</b>/<b>JSONEncoder</b> through their <b>userInfo</b> property:</p>
+<p>Now, imagine the following situation: What if we want <code>textColor</code> to be <b>different</b> depending on which screen such header is being presented? For example, displaying headers on the app's home could have a green text, while headers at the profile screen could be blue.</p>
+<p>There are multiple ways to achieve this, but let's focus on <code>Codable</code>. <code>Codable</code> allows you to provide context to a <code>JSONDecoder</code>/<code>JSONEncoder</code> through their <code>userInfo</code> property:</p>
 <pre>
 <code>/// Contextual user-provided information for use during decoding.</code>
 <code>open var userInfo: [CodingUserInfoKey : Any]</code>
 </pre>
-<p>The <b>CodingUserInfoKey</b> is a <b>RawRepresentable</b> string enum, so you can add pretty much anything to <b>userInfo</b>. When this is done, the same <b>userInfo</b> values will be accessible as part of the inner <b>Decoder</b>/<b>Encoder</b> instance:</p>
+<p>The <code>CodingUserInfoKey</code> is a <code>RawRepresentable</code> string enum, so you can add pretty much anything to <code>userInfo</code>. When this is done, the same <code>userInfo</code> values will be accessible as part of the inner <code>Decoder</code>/<code>Encoder</code> instance:</p>
 <pre>
 <code>struct HeaderInformation: Decodable {</code>
 <code>    let title: String</code>
@@ -165,7 +165,7 @@ February 5th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>To make this work, simply fill the <b>userInfo</b> dictionary before decoding the data.</p>
+<p>To make this work, simply fill the <code>userInfo</code> dictionary before decoding the data.</p>
 <pre>
 <code>let decoder = JSONDecoder()</code>
 <code></code>
@@ -173,7 +173,7 @@ February 5th, 2020
 <code></code>
 <code>let headerInfo = decoder.decode(HeaderInformation.self, from: data)</code>
 </pre>
-<p><b>CodingUserInfoKey</b> requires force-unwrapping because it is <b>RawRepresentable</b>, but doing so will never result in a crash. To hide it, I like to abstract it inside an extension that takes a regular <b>String</b> instead:</p>
+<p><code>CodingUserInfoKey</code> requires force-unwrapping because it is <code>RawRepresentable</code>, but doing so will never result in a crash. To hide it, I like to abstract it inside an extension that takes a regular <code>String</code> instead:</p>
 <pre>
 <code>extension Decoder {</code>
 <code>    func getContext(forKey key: String) -> Any? {</code>
@@ -189,7 +189,7 @@ February 5th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>We can now use the type's own <b>CodingKeys</b> as the userInfo key, resulting in the following improvements:</p>
+<p>We can now use the type's own <code>CodingKeys</code> as the userInfo key, resulting in the following improvements:</p>
 <pre>
 <code>let key = HeaderInformation.CodingKeys.textColor.stringValue</code>
 <code>decoder.set(context: UIColor.red, forKey: key)</code>
@@ -197,7 +197,7 @@ February 5th, 2020
 <code>textColor = decoder.getContext(forKey: CodingKeys.textColor.stringValue)</code>
 </pre>
 <h2>Example 2: Powering modularized type-erased structs</h2>
-<p>One cool example of how I use <b>Codable</b> contexts is how <b>AnyRoute</b> works in <a href="https://github.com/rockbruno/RouterService">the RouterService library:</a></p>
+<p>One cool example of how I use <code>Codable</code> contexts is how <code>AnyRoute</code> works in <a href="https://github.com/rockbruno/RouterService">the RouterService library:</a></p>
 <pre>
 <code>/// A type-erased container for a `Route`, used for route decoding purposes.</code>
 <code>public struct AnyRoute {</code>
@@ -207,10 +207,10 @@ February 5th, 2020
 </pre>
 <p>In short, we have the following environment:</p>
 <p>- Apps can define their own "routes", which are structs used to navigate between screens.</p>
-<p>- These routes are registered into a <b>RouterService</b> instance, which receives said routes and pushes the related view controllers.</p>
+<p>- These routes are registered into a <code>RouterService</code> instance, which receives said routes and pushes the related view controllers.</p>
 <p>- Routes can be decoded from a specific string format, allowing your backend to dictate which screen the app should navigate to.</p>
-<p>The latter is done through <b>AnyRoute</b> -- an erased <b>Route</b> type that knows how to decode such string format into the actual <b>Route</b> type defined by the app. The problem is: <b>because AnyRoute is defined inside the RouterService library, it has no access to the app's Routes. How can it decode the correct Route type?</b></p>
-<p>This can be achieved by using <b>Codable</b>'s context features. Because <b>Routes</b> have to be registered in the main <b>RouterService</b> instance, we can inject it into the decoding operation and have it determine which <b>Route</b> should be decoded:</p>
+<p>The latter is done through <code>AnyRoute</code> -- an erased <code>Route</code> type that knows how to decode such string format into the actual <code>Route</code> type defined by the app. The problem is: <b>because AnyRoute is defined inside the RouterService library, it has no access to the app's Routes. How can it decode the correct Route type?</b></p>
+<p>This can be achieved by using <code>Codable</code>'s context features. Because <code>Routes</code> have to be registered in the main <code>RouterService</code> instance, we can inject it into the decoding operation and have it determine which <code>Route</code> should be decoded:</p>
 <pre>
 <code>extension AnyRoute: Decodable {</code>
 <code>    static var contextUserInfoKey: CodingUserInfoKey {</code>
@@ -236,7 +236,7 @@ February 5th, 2020
 <code>    func decodeAnyRoute(fromDecoder decoder: Decoder) throws -> (Route, String)</code>
 <code>}</code>
 </pre>
-<p>Assuming that <b>RouterService</b> was injected into the <b>JSONDecoder</b>, the decoding operation will be deferred to it:</p>
+<p>Assuming that <code>RouterService</code> was injected into the <code>JSONDecoder</code>, the decoding operation will be deferred to it:</p>
 <pre>
 <code>extension RouterService: RouterServiceAnyRouteDecodingProtocol {</code>
 <code>    public func decodeAnyRoute(fromDecoder decoder: Decoder) throws -> (Route, String) {</code>
@@ -265,10 +265,8 @@ February 5th, 2020
 <code>    }</code>
 <code>}</code>
 </pre> 
-<p>This decentralized behavior is especially important for modular apps (which is <b>RouterService</b>'s use case), as different targets can reference and decode <b>AnyRoutes</b> without having access to the app's real <b>Routes</b>.</p>
-
-</div>
-</div>
+<p>This decentralized behavior is especially important for modular apps (which is <code>RouterService</code>'s use case), as different targets can reference and decode <code>AnyRoutes</code> without having access to the app's real <code>Routes</code>.</p>
+</div></div>
                               
                          </div>
 
@@ -358,7 +356,7 @@ February 5th, 2020
   <script type="text/javascript" src="js/plugin2.js"></script> 
   <script type="text/javascript" src="js/prism2.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts7.js"></script>
+    <script type="text/javascript" src="js/scripts8.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>

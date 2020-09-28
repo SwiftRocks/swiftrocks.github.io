@@ -16,18 +16,18 @@
     <meta name="description" content="With Swift being a very type-safe and namespaced language, you'll find that certain tasks are really hard to complete if at some point you can't determine the types that are being handled - mostly when generics are involved. Using an automatic dependency injector as an example, let's see how generic arguments and closures can be "erased" to trick the compiler into compiling code that it would otherwise claim to be impossible (when it's clearly not!). While this isn't your usual SwiftRocks-compiler-feature-deconstruction article, we'll take an exciting look at how the treatment of methods/closures as properties can be used in this context to bypass one of the Swift Compiler's most annoying compilation errors.">
     <meta name="title" content="Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift">
     <meta name="url" content="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/using-type-erasure-to-build-a-dependency-injector-in-swift.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/using-type-erasure-to-build-a-dependency-injector-in-swift.png"/>
     <meta property="og:description" content="With Swift being a very type-safe and namespaced language, you'll find that certain tasks are really hard to complete if at some point you can't determine the types that are being handled - mostly when generics are involved. Using an automatic dependency injector as an example, let's see how generic arguments and closures can be "erased" to trick the compiler into compiling code that it would otherwise claim to be impossible (when it's clearly not!). While this isn't your usual SwiftRocks-compiler-feature-deconstruction article, we'll take an exciting look at how the treatment of methods/closures as properties can be used in this context to bypass one of the Swift Compiler's most annoying compilation errors."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/using-type-erasure-to-build-a-dependency-injector-in-swift.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift"/>
     <meta name="twitter:description" content="With Swift being a very type-safe and namespaced language, you'll find that certain tasks are really hard to complete if at some point you can't determine the types that are being handled - mostly when generics are involved. Using an automatic dependency injector as an example, let's see how generic arguments and closures can be "erased" to trick the compiler into compiling code that it would otherwise claim to be impossible (when it's clearly not!). While this isn't your usual SwiftRocks-compiler-feature-deconstruction article, we'll take an exciting look at how the treatment of methods/closures as properties can be used in this context to bypass one of the Swift Compiler's most annoying compilation errors."/>
@@ -39,11 +39,11 @@
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
     
   <!-- All CSS Plugins --> 
-  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+  <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style30.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style31.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -96,7 +96,7 @@
     <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
    </div>
@@ -130,7 +130,7 @@ January 2nd, 2020
 <p>While this isn't your usual SwiftRocks-compiler-feature-deconstruction article, we'll take an exciting look at how the treatment of methods/closures as properties can be used in this context to bypass one of the Swift Compiler's most annoying compilation errors.</p>
 <h2>For Context: What's Type Erasure?</h2>
 <p>In programming languages with support for generics, <b>Type Erasure</b> is the process of abstracting constrained, generic types inside an <b>unconstrained non-generic type</b> that can be passed around freely.</p>
-<p>If you don't know why that's necessary, consider that we have a <b>Shape</b> protocol and a few shapes:</p>
+<p>If you don't know why that's necessary, consider that we have a <code>Shape</code> protocol and a few shapes:</p>
 <pre>
 <code>protocol Shape {}</code>
 <code></code>
@@ -144,20 +144,20 @@ January 2nd, 2020
 <code>    userShapes.append(shape)</code>
 <code>}</code>
 </pre>
-<p>In Swift, this will work perfectly if there are no constraints on the <b>Shape</b> protocol, but what if it contained <b>Self</b> requirements -- like the presence of a method that checks if a shape is bigger than another shape of the same type?</p>
+<p>In Swift, this will work perfectly if there are no constraints on the <code>Shape</code> protocol, but what if it contained <code>Self</code> requirements -- like the presence of a method that checks if a shape is bigger than another shape of the same type?</p>
 <pre>
 <code>protocol Shape {</code>
 <code>    func isBigger(thanShape shape: Self) -> Bool</code>
 <code>}</code>
 </pre>
-<p>If that was the case, our approach to storing shapes would fall apart as the compiler is now unable to represent <b>Shape</b> without knowing the underlying type:</p> 
+<p>If that was the case, our approach to storing shapes would fall apart as the compiler is now unable to represent <code>Shape</code> without knowing the underlying type:</p> 
 <pre>
 <code>var userShapes = [Shape]() // Can't do!</code>
 <code>// Error: Protocol 'Shape' can only be used as a generic constraint</code>
 <code>// because it has Self or associated type requirements</code>
 </pre>
 <p>While that's great for type safety, that's a bummer for our little Shapes app. Even though the presence of the underlying type is necessary to access their inner methods, they shouldn't be necessary to store them.</p>
-<p>To fix this, we could store it as an <b>[Any]</b> array, but then we would be unable to cast it back to the original type, unless we tried all possibilities of Shapes. Yikes!</p>
+<p>To fix this, we could store it as an <code>[Any]</code> array, but then we would be unable to cast it back to the original type, unless we tried all possibilities of Shapes. Yikes!</p>
 <pre>
 <code>var userShapes = [Any]()</code>
 <code>func userDidCreate&lt;T: Shape>(shape: T) {</code>
@@ -168,10 +168,10 @@ January 2nd, 2020
 <p>The same problem surfaces if the protocol contained generic constraints or associated types.</p>
 <h3>Does the compiler really care about this?</h3>
 <p>There are multiple efficient ways to solve this problem, but before going into that, it's interesting to know why these errors exist -- is this really a problem for the compiler?</p>
-<p>The answer is not really -- these errors only exist inside your IDE as a means to prevent you from making silly code mistakes. Think of access control properties like <b>public</b> and <b>private</b>: They are good examples of concepts that have absolute no impact on the final binary -- in the end, everything is accessible from everywhere, but inside your IDE, the compiler forces access control conventions to be followed so at the very least you are able to write code that is used the way you intended it to be used.</p>
-<p>The issue here with generic constraints is similar -- the compiler <b>does</b> know what the underlying type of a <b>Shape</b> is in runtime, but because Swift is very type-safe, for safety reasons, if it can't be determined in compile time, it can't be done in the IDE. This is the complete opposite of Objective-C, where you could easily do whatever you wanted for the (very big) cost of compile-time safety.</p>
+<p>The answer is not really -- these errors only exist inside your IDE as a means to prevent you from making silly code mistakes. Think of access control properties like <code>public</code> and <code>private</code>: They are good examples of concepts that have absolute no impact on the final binary -- in the end, everything is accessible from everywhere, but inside your IDE, the compiler forces access control conventions to be followed so at the very least you are able to write code that is used the way you intended it to be used.</p>
+<p>The issue here with generic constraints is similar -- the compiler <b>does</b> know what the underlying type of a <code>Shape</code> is in runtime, but because Swift is very type-safe, for safety reasons, if it can't be determined in compile time, it can't be done in the IDE. This is the complete opposite of Objective-C, where you could easily do whatever you wanted for the (very big) cost of compile-time safety.</p>
 <h3>Type Erasing with Closures</h3>
-<p>To bypass this problem, we can use the concept of Type Erasure. Instead of representing our stored shapes as <b>Any</b>, we abstract our constrained, boring <b>Shape</b> into an <b>AnyShape</b> type that has no constraints:</p>
+<p>To bypass this problem, we can use the concept of Type Erasure. Instead of representing our stored shapes as <code>Any</code>, we abstract our constrained, boring <code>Shape</code> into an <code>AnyShape</code> type that has no constraints:</p>
 <pre>
 <code>class AnyShape {</code>
 <code>    let value: Any</code>
@@ -181,8 +181,8 @@ January 2nd, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p><i>Isn't this the same as defining the array as an <b>[Any]</b>?</i></p>
-<p>In this case, yes. But consider what would happen if we needed to call our <b>isBigger(_:)</b> method from the array of shapes: With type erasure, we can abuse the fact that our <b>init</b> method is <b>already constrained</b> to create <b>unconstrained abstracted versions of them, as closure properties!</b>:</p>
+<p><i>Isn't this the same as defining the array as an <code>[Any]</code>?</i></p>
+<p>In this case, yes. But consider what would happen if we needed to call our <code>isBigger(_:)</code> method from the array of shapes: With type erasure, we can abuse the fact that our <code>init</code> method is <b>already constrained</b> to create <b>unconstrained abstracted versions of them, as closure properties!</b>:</p>
 <pre>
 <code>class AnyShape {</code>
 <code>    let value: Any</code>
@@ -196,7 +196,7 @@ January 2nd, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Even though the <b>Shape</b> protocol is still constrained, putting one inside a <b>AnyShape</b> class will allow you to freely move it around in contexts where knowing the underlying type is unnecessary.</p>
+<p>Even though the <code>Shape</code> protocol is still constrained, putting one inside a <code>AnyShape</code> class will allow you to freely move it around in contexts where knowing the underlying type is unnecessary.</p>
 <pre>
 <code>var userShapes = [AnyShape]()</code>
 <code>func userDidCreate&lt;T: Shape>(shape: T)</code>
@@ -208,12 +208,12 @@ January 2nd, 2020
 <code>}</code>
 </pre>
 <h3>Isn't doing this unsafe because of the force-unwrapping?</h3>
-<p>Because type erasure with closures often relies on force casting into the proper generic type, doing this is indeed unsafe. In fact, one of the ways to solve this problem would be to simply treat everything as <b>Any</b> instead of putting constraints into the protocol in the first place, but this would be a bad choice for clear reasons -- Swift's enforces type safety precisely so your code works properly and is predictable.</p>
-<p>Because type erasure relies on <b>Any</b>, you'll want to restrict its usage to places where the underlying type is predictable. Type erasures often only have the initializer exposed -- all usage is controlled internally to guarantee the force-unwraps will never fail. In the previous snippet for example, it would be assumed that the <b>AnyShapes</b> from <b>sortSimilarShapes</b> are all abstractions of the same type.</p>
+<p>Because type erasure with closures often relies on force casting into the proper generic type, doing this is indeed unsafe. In fact, one of the ways to solve this problem would be to simply treat everything as <code>Any</code> instead of putting constraints into the protocol in the first place, but this would be a bad choice for clear reasons -- Swift's enforces type safety precisely so your code works properly and is predictable.</p>
+<p>Because type erasure relies on <code>Any</code>, you'll want to restrict its usage to places where the underlying type is predictable. Type erasures often only have the initializer exposed -- all usage is controlled internally to guarantee the force-unwraps will never fail. In the previous snippet for example, it would be assumed that the <code>AnyShapes</code> from <code>sortSimilarShapes</code> are all abstractions of the same type.</p>
 <h2>Using Type Erasure To Build a Dependency Injector</h2>
 <p>Using these concepts, let's see how we can build a <b>dependency injector that can automatically fetch a feature's initializer and instantiate it with the relevant arguments.</b></p>
-<p>To do so, we need an environment where this would be useful in first place. Dependency injectors are often used with routing mechanisms, allowing one <b>UIViewController</b> to push another one without having to explicitly instantiate and push it. In practice, this allows you to create apps where any screen can be pushed from anywhere without having to manually route dependencies forward or rely on singletons as the <b>UIViewController</b> still has a regular initializer -- but a dependency injector completely abstracts the process of calling it.</p>
-<p>Let's assume that we have the concept of a <b>Feature</b>: A protocol that contains an <b>associatedtype</b> that answers what are the dependencies of this <b>Feature</b> and a <b>build(_:)</b> method that receives such dependencies and generates the <b>UIViewController</b> related to this feature:</p>
+<p>To do so, we need an environment where this would be useful in first place. Dependency injectors are often used with routing mechanisms, allowing one <code>UIViewController</code> to push another one without having to explicitly instantiate and push it. In practice, this allows you to create apps where any screen can be pushed from anywhere without having to manually route dependencies forward or rely on singletons as the <code>UIViewController</code> still has a regular initializer -- but a dependency injector completely abstracts the process of calling it.</p>
+<p>Let's assume that we have the concept of a <code>Feature</code>: A protocol that contains an <code>associatedtype</code> that answers what are the dependencies of this <code>Feature</code> and a <code>build(_:)</code> method that receives such dependencies and generates the <code>UIViewController</code> related to this feature:</p>
 <pre>
 <code>public protocol Feature {</code>
 <code>    associatedtype Dependencies</code>
@@ -244,16 +244,16 @@ January 2nd, 2020
 <code>    navigationController?.pushViewController(feature, animated: true)</code>
 <code>}</code>
 </pre>
-<p>But <b>what if I want to start FeatureOne from somewhere that doesn't have access to these dependencies?</b> We could definitely use singletons, but our app would then take a massive hit in terms of testability. The ideal solution is to use this exact same structure, but abstract the process of initializing a feature's <b>UIViewController</b>.</p>
+<p>But <b>what if I want to start FeatureOne from somewhere that doesn't have access to these dependencies?</b> We could definitely use singletons, but our app would then take a massive hit in terms of testability. The ideal solution is to use this exact same structure, but abstract the process of initializing a feature's <code>UIViewController</code>.</p>
 <h3>Preparing the environment: Registering Dependencies</h3>
-<p>To abstract a <b>Feature's</b> initializer, we first need to be able to generate its dependencies. For this, we'll create a <b>Dependency</b> protocol:</p>
+<p>To abstract a <code>Feature's</code> initializer, we first need to be able to generate its dependencies. For this, we'll create a <code>Dependency</code> protocol:</p>
 <pre>
 <code>protocol Dependency {}</code>
 <code></code>
 <code>extension HTTPClient: Dependency</code>
 <code>extension Persistence: Dependency</code>
 </pre>
-<p>In order to call a <b>Feature's</b> <b>Dependencies</b> struct's initializer, we need to have access to instances of these dependencies. Some dependency injectors allow you to determine how these instances are generated, but for simplicity, let's assume that we have one global instance that is reused for all features. A common way to store these global instances is through the use of a <b>Store</b> class that handles a dependency dictionary: since we're building a dependency injector for the purposes of managing our app's flow, let's assume that we have a <b>RouterService</b> class that is able to register <b>Dependencies</b> into a <b>Store</b>:</p>
+<p>In order to call a <code>Feature's</code> <code>Dependencies</code> struct's initializer, we need to have access to instances of these dependencies. Some dependency injectors allow you to determine how these instances are generated, but for simplicity, let's assume that we have one global instance that is reused for all features. A common way to store these global instances is through the use of a <code>Store</code> class that handles a dependency dictionary: since we're building a dependency injector for the purposes of managing our app's flow, let's assume that we have a <code>RouterService</code> class that is able to register <code>Dependencies</code> into a <code>Store</code>:</p>
 <pre>
 <code>public final class RouterService: Dependency {</code>
 <code></code>
@@ -311,9 +311,9 @@ January 2nd, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Now, how can we route from <b>SplashViewController</b> to <b>FeatureOne</b> without having direct access to its dependencies?</p>
+<p>Now, how can we route from <code>SplashViewController</code> to <code>FeatureOne</code> without having direct access to its dependencies?</p>
 <h3>Type Erasing Initializers</h3>
-<p>Ideally, we want our <b>RouterService</b> to have a <b>navigate(_:)</b> method that can handle this only by having the desired <b>Feature</b>'s type:</p>
+<p>Ideally, we want our <code>RouterService</code> to have a <code>navigate(_:)</code> method that can handle this only by having the desired <code>Feature</code>'s type:</p>
 <pre>
 <code>func navigate&lt;T: Feature>(</code>
 <code>    toFeature: T.Type,</code>
@@ -324,22 +324,22 @@ January 2nd, 2020
 <code>    viewController.navigationController?.pushViewController(viewController, animated: true)</code>
 <code>}</code>
 </pre>
-<p>While the last two lines are straight-forward, we have a massive problem: because we're dealing with an <b>associatedtype</b> inside a generic method, we simply don't know what that <b>Feature's</b> <b>Dependencies</b> struct is. If we don't know exactly what the dependencies are, because of the generic constraints, we won't be able to create an instance of it.</p>
-<p>However, from the beginning of the article, we've seen that <b>we can use type erasure to abstract constrained types into unconstrained ones -- even generic closures!</b> With this concept, we can abstract the Dependencies's constrained initializer into a closure that receives our <b>RouterService's</b> plain <b>Store</b> instead.</p>
-<p>Let's take another look at the initializer of <b>FeatureOne's</b> <b>Dependencies:</b>
+<p>While the last two lines are straight-forward, we have a massive problem: because we're dealing with an <code>associatedtype</code> inside a generic method, we simply don't know what that <code>Feature's</code> <code>Dependencies</code> struct is. If we don't know exactly what the dependencies are, because of the generic constraints, we won't be able to create an instance of it.</p>
+<p>However, from the beginning of the article, we've seen that <b>we can use type erasure to abstract constrained types into unconstrained ones -- even generic closures!</b> With this concept, we can abstract the Dependencies's constrained initializer into a closure that receives our <code>RouterService's</code> plain <code>Store</code> instead.</p>
+<p>Let's take another look at the initializer of <code>FeatureOne's</code> <code>Dependencies:</code>
 <pre>
 <code>struct Dependencies {</code>
 <code>    let client: HTTPClient</code>
 <code>    let persistence: Persistence</code>
 <code>}</code>
 </pre>
-<p>In Swift, <b>closures are types</b>, and <b>initializers/methods are closures.</b> This means that in practice, <b>FeatureOne.Dependencies(client:persistence:)</b> <b>can be stored and used as a</b> <b>(HTTPClient, Persistence) -> FeatureOne.Dependencies</b> <b>closure</b>.</p>
+<p>In Swift, <b>closures are types</b>, and <b>initializers/methods are closures.</b> This means that in practice, <code>FeatureOne.Dependencies(client:persistence:)</code> <b>can be stored and used as a</b> <code>(HTTPClient, Persistence) -> FeatureOne.Dependencies</code> <b>closure</b>.</p>
 <pre>
 <code>let initializer = FeatureOne.Dependencies.init</code>
 <code>// (HTTPClient, Persistence) -> FeatureOne.Dependencies</code>
 </pre>
-<p>Which, in generic terms, can be treated as a <b>(T, U) -> V</b> closure.</p>
-<p>To type erase this into something our <b>RouteService</b> understands, we can abstract this closure into an unconstrained <b>(Store) -> Any</b> closure where the type erasure fetches the registered instances of <b>T</b> and <b>U</b> and uses them to create <b>V</b> (as <b>Any</b>). We can call this <b>AnyInitializer</b>:</p>
+<p>Which, in generic terms, can be treated as a <code>(T, U) -> V</code> closure.</p>
+<p>To type erase this into something our <code>RouteService</code> understands, we can abstract this closure into an unconstrained <code>(Store) -> Any</code> closure where the type erasure fetches the registered instances of <code>T</code> and <code>U</code> and uses them to create <code>V</code> (as <code>Any</code>). We can call this <code>AnyInitializer</code>:</p>
 <pre>
 <code>public final class AnyInitializer {</code>
 <code></code>
@@ -355,13 +355,13 @@ January 2nd, 2020
 <code></code>
 <code>}</code>
 </pre>
-<p>Assuming that we have access to a <b>Store</b> that has the proper dependencies registered, we can now <b>generate instances</b> of any dependency initializer that fulfills the <b>(T, U) -> V</b> constraint!</p>
+<p>Assuming that we have access to a <code>Store</code> that has the proper dependencies registered, we can now <b>generate instances</b> of any dependency initializer that fulfills the <code>(T, U) -> V</code> constraint!</p>
 <pre>
 <code>let erasedInit = AnyInitializer(FeatureOne.Dependencies.init)</code>
 <code>let dependencies = erasedInit(routerService.store) as! FeatureOne.Dependencies</code>
 </pre>
 <p>But what if it <b>doesn't</b> fulfill the constraint? For example, a feature with <b>three</b> dependencies would need an additional generic argument, and a feature with <b>no</b> dependencies would only need the generic argument that represents the final result.</p>
-<p><b>Unfortunately, Swift doesn't support variadic generics.</b> This means that <b>AnyInitializer</b> needs to support multiple initializers with varied sizes:</p>
+<p><b>Unfortunately, Swift doesn't support variadic generics.</b> This means that <code>AnyInitializer</code> needs to support multiple initializers with varied sizes:</p>
 <pre>
 <code>public final class AnyInitializer {</code>
 <code></code>
@@ -399,8 +399,8 @@ January 2nd, 2020
 <code>}</code>
 </pre>
 <p>While this looks weird, <a href="https://twitter.com/rockbruno_/status/1194225536949792769">you may be interested to know that this is exactly how Apple handles SwiftUI's subviews.</a> Unfortunately, this is a problem with the Swift language itself.</p>
-<h3>Finishing Touches: Retrieving <b>AnyInitializer</b></h3>
-<p>To complete our <b>RouterService's</b> <b>navigate(_:)</b> method, we need to be able to retrieve a <b>Feature's</b> <b>Dependencies</b> <b>AnyInitializer</b>. We can do so by adding it to the <b>Feature</b> protocol:</p>
+<h3>Finishing Touches: Retrieving <code>AnyInitializer</code></h3>
+<p>To complete our <code>RouterService's</code> <code>navigate(_:)</code> method, we need to be able to retrieve a <code>Feature's</code> <code>Dependencies</code> <code>AnyInitializer</code>. We can do so by adding it to the <code>Feature</code> protocol:</p>
 <pre>
 <code>public protocol Feature {</code>
 <code>    associatedtype Dependencies</code>
@@ -408,13 +408,13 @@ January 2nd, 2020
 <code>    static func build(dependencies: Dependencies) -> UIViewController</code>
 <code>}</code>
 </pre>
-<p>To implement it, our <b>FeatureOne</b> simply needs to pass around its <b>Dependencies</b> initializer:</p>
+<p>To implement it, our <code>FeatureOne</code> simply needs to pass around its <code>Dependencies</code> initializer:</p>
 <pre>
 <code>static var dependenciesInitializer: AnyInitializer {</code>
 <code>    return AnyInitializer(Dependencies.init)</code>
 <code>}</code>
 </pre>
-<p>...which finally allows our <b>navigate(_:)</b> method to access it, passing its inner <b>Store</b> as an argument.</p>
+<p>...which finally allows our <code>navigate(_:)</code> method to access it, passing its inner <code>Store</code> as an argument.</p>
 <pre>
 <code>func navigate&lt;T: Feature>(</code>
 <code>    toFeature: T.Type,</code>
@@ -425,13 +425,13 @@ January 2nd, 2020
 <code>    viewController.navigationController?.pushViewController(viewController, animated: true)</code>
 <code>}</code>
 </pre>
-<p>With the <b>RouterService</b> added as one of the Feature's argument, the relevant <b>UIViewController</b> can now push any other <b>Feature</b> without needing to have direct access to their dependencies.</p>
+<p>With the <code>RouterService</code> added as one of the Feature's argument, the relevant <code>UIViewController</code> can now push any other <code>Feature</code> without needing to have direct access to their dependencies.</p>
 <pre>
 <code>routerService.navigate(toFeature: AnotherFeature.self, fromView: self)</code>
 </pre>
-<p>As a nice complement, because <b>AnyInitializer</b> is constrained to <b>Dependency</b> arguments, you are guaranteed to never have misconfigured features as the compiler would fail to build otherwise.</p>
+<p>As a nice complement, because <code>AnyInitializer</code> is constrained to <code>Dependency</code> arguments, you are guaranteed to never have misconfigured features as the compiler would fail to build otherwise.</p>
 <h2>Conclusion: Where to go from here?</h2>
-<p>The shown <b>RouterService</b> and its related components is a very simplified version of a navigation framework being tested at iFood. This can be evolved into a structure (which we use) that relies on Codable <b>Routes</b> and <b>RouteHandlers</b> instead of directly invoking features, allowing you to have a very smart deep link structure where your backend can dictate where the app's flow should go to.</p>
+<p>The shown <code>RouterService</code> and its related components is a very simplified version of a navigation framework being tested at iFood. This can be evolved into a structure (which we use) that relies on Codable <code>Routes</code> and <code>RouteHandlers</code> instead of directly invoking features, allowing you to have a very smart deep link structure where your backend can dictate where the app's flow should go to.</p>
 <p>Type Erasures are a very nice way to temporarily tell the compiler to "stop" type-checking your code. This allows you to conceive all sorts of complex structures without giving up type safety -- as long as you are careful with where they are used.</p>
 
 </div>
@@ -525,7 +525,7 @@ January 2nd, 2020
   <script type="text/javascript" src="js/plugin2.js"></script> 
   <script type="text/javascript" src="js/prism2.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts7.js"></script>
+    <script type="text/javascript" src="js/scripts8.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>

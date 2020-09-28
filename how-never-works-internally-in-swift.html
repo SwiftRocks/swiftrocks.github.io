@@ -16,18 +16,18 @@
     <meta name="description" content="Added in Swift 3, the Never type allows you to define a method that is guaranteed to crash your app.">
     <meta name="title" content="How Never Works Internally in Swift">
     <meta name="url" content="https://swiftrocks.com/how-never-works-internally-in-swift">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/how-never-works-internally-in-swift.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="How Never Works Internally in Swift"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/how-never-works-internally-in-swift.png"/>
     <meta property="og:description" content="Added in Swift 3, the Never type allows you to define a method that is guaranteed to crash your app."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/how-never-works-internally-in-swift"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/how-never-works-internally-in-swift.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="How Never Works Internally in Swift"/>
     <meta name="twitter:description" content="Added in Swift 3, the Never type allows you to define a method that is guaranteed to crash your app."/>
@@ -39,11 +39,11 @@
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
     
   <!-- All CSS Plugins --> 
-  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+  <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style30.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style31.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -96,7 +96,7 @@
     <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
    </div>
@@ -127,7 +127,7 @@
           <div class="post-info"> 
           November 14, 2018
           </div>
-          <p>Added in Swift 3, the <b>Never</b> type allows you to define a method that is guaranteed to crash your app. Although we rarely write methods that use this type directly, we do interact with it constantly given that it is the return type of forced-crash methods like <b>fatalError()</b>. The advantage this type brings is that a method that calls another <b>Never</b>-returning method does not need to provide a return value, after all, a crash is certain to happen:</p>
+          <p>Added in Swift 3, the <code>Never</code> type allows you to define a method that is guaranteed to crash your app. Although we rarely write methods that use this type directly, we do interact with it constantly given that it is the return type of forced-crash methods like <code>fatalError()</code>. The advantage this type brings is that a method that calls another <code>Never</code>-returning method does not need to provide a return value, after all, a crash is certain to happen:</p>
 <pre>
 <code>func getSomeNumber() -> Int</code>
 <code>    fatalError()</code>
@@ -135,17 +135,17 @@
 <code>    //because fatalError() returns 'Never'.</code>
 <code>}</code>
 </pre>
-<p>Deep down, <b>Never</b> is just the revamped "swifty" version of <b>@noreturn</b>: an attribute which provided the exact same functionality but was removed for being too complex due to its nature as an attribute. Connecting this behaviour to a return type allowed the compiler to work better, and certainly ended up looking better for the developer as well.</p>
-<p>Something about <b>Never</b> intrigued me, though. We know that there's nothing in the language itself that allows you to skip return values, so what magic is done in the compiler to allow this?</p>
-<p>Just like in my <a href="https://swiftrocks.com/how-caseiterable-works-internally-in-swift">previous article about the innards of CaseIterable</a>, I'm going to dive into the compiler in order to extract and analyze the pieces of code that intercept and change the functionality of methods that return <b>Never</b> in order to learn more about how the Swift compiler works.</p>
-<p><i>Disclaimer: As always, this is a result of my own research and reverse-engineering. As I obviously have nothing to do with the original development of <b>Never</b>, some assumptions might be not fully correct. Feel free to correct me if you know how the compiler works!</i></p>
+<p>Deep down, <code>Never</code> is just the revamped "swifty" version of <code>@noreturn</code>: an attribute which provided the exact same functionality but was removed for being too complex due to its nature as an attribute. Connecting this behaviour to a return type allowed the compiler to work better, and certainly ended up looking better for the developer as well.</p>
+<p>Something about <code>Never</code> intrigued me, though. We know that there's nothing in the language itself that allows you to skip return values, so what magic is done in the compiler to allow this?</p>
+<p>Just like in my <a href="https://swiftrocks.com/how-caseiterable-works-internally-in-swift">previous article about the innards of CaseIterable</a>, I'm going to dive into the compiler in order to extract and analyze the pieces of code that intercept and change the functionality of methods that return <code>Never</code> in order to learn more about how the Swift compiler works.</p>
+<p><i>Disclaimer: As always, this is a result of my own research and reverse-engineering. As I obviously have nothing to do with the original development of <code>Never</code>, some assumptions might be not fully correct. Feel free to correct me if you know how the compiler works!</i></p>
 <h2>Uninhabited Types / Never Patterns</h2>
-<p>Expecting to find complex pieces of code, the implementation of <b>Never</b> in the Standard Library show us something else - the type is nothing but an empty enum:</p>
+<p>Expecting to find complex pieces of code, the implementation of <code>Never</code> in the Standard Library show us something else - the type is nothing but an empty enum:</p>
 <pre>
 <code>public enum Never {}</code>
 </pre>
-<p>Although that certainly looks weird, it is correct in its theory. When <b>Never</b> got implemented, Swift also added the concept of <b>uninhabited types</b> to its lingo - a type with no value, often used to represent the unexistant result of something that will never happen. Because an enum with no cases can't be instantiated in any way, it becomes perfect to represent this concept. But if the type itself doesn't do anything, where is the magic done?</p>
-<p>A quick search for <b>"never typecheck"</b> in the Swift repo reveals a method called <b>isNoReturnFunction()</b>, which searches for the presence of an uninhabited type return:</p>
+<p>Although that certainly looks weird, it is correct in its theory. When <code>Never</code> got implemented, Swift also added the concept of <b>uninhabited types</b> to its lingo - a type with no value, often used to represent the unexistant result of something that will never happen. Because an enum with no cases can't be instantiated in any way, it becomes perfect to represent this concept. But if the type itself doesn't do anything, where is the magic done?</p>
+<p>A quick search for <code>"never typecheck"</code> in the Swift repo reveals a method called <code>isNoReturnFunction()</code>, which searches for the presence of an uninhabited type return:</p>
 <pre>
 <code>bool SILFunctionType::isNoReturnFunction() const {</code>
 <code>    for (unsigned i = 0, e = getNumResults(); i < e; ++i) {</code>
@@ -155,7 +155,7 @@
 <code>    return false;</code>
 <code>}</code>
 </pre>
-<p>The implementation of the mentioned <b>isUninhabited()</b> itself just checks if we're dealing with an empty enum:</p>
+<p>The implementation of the mentioned <code>isUninhabited()</code> itself just checks if we're dealing with an empty enum:</p>
 <pre>
 <code>bool TypeBase::isUninhabited() {</code>
 <code>    // Empty enum declarations are uninhabited</code>
@@ -166,7 +166,7 @@
 <code>    return false;</code>
 <code>}</code>
 </pre>
-<p>Because <b>Never</b> has no actual code, I expected the compiler to directly identify and change it somehow, but what this shows is that <b>Never</b> <b>really</b> is just an empty enum - the behaviour we see has nothing to do with the type itself, but with the concept of an uninhabited type. This means that you don't need <b>Never</b> at all to ignore return statements:</p>
+<p>Because <code>Never</code> has no actual code, I expected the compiler to directly identify and change it somehow, but what this shows is that <code>Never</code> <b>really</b> is just an empty enum - the behaviour we see has nothing to do with the type itself, but with the concept of an uninhabited type. This means that you don't need <code>Never</code> at all to ignore return statements:</p>
 <pre>
 <code>enum Crash {}</code>
 <code></code>
@@ -179,25 +179,25 @@
 <code>    logAndCrash() //Compiles!</code>
 <code>}</code>
 </pre>
-<p>In fact, because the compiler doesn't know the difference, my <b>Crash</b> type will even throw errors that mention <b>Never</b>:</p>
+<p>In fact, because the compiler doesn't know the difference, my <code>Crash</code> type will even throw errors that mention <code>Never</code>:</p>
 <pre>
 <code>func logAndCrash() -> Crash {</code>
 <code>    //Function with uninhabited return type 'Crash'</code>
 <code>    //is missing call to another never-returning function on all paths</code>
 <code>}</code>
 </pre>
-<p>For completeness, the very first commit of <b>Never</b> was indeed using the type itself to generate this behaviour, but it was later changed to work with all uninhabited types due to multiple bugs that a <b>Never</b>-only solution was causing.</p>
+<p>For completeness, the very first commit of <code>Never</code> was indeed using the type itself to generate this behaviour, but it was later changed to work with all uninhabited types due to multiple bugs that a <code>Never</code>-only solution was causing.</p>
 <p>That's a great start, but I still have two major questions:</p>
 <p>First, where are these methods used?</p>
 <p>Second, if all never-returning methods need to return another never-returning method, don't we have an infinite recursion? Because the app is guaranteed to crash, <b>someone</b> down the line will have to not return something. Who makes this decision?</p>
 <h2>SIL generation of Never-returning methods</h2>
-<p>The first question can be answered by inspecting what Swift does to your code during the compile process. To make it straight-forward, the secrets of <b>Never</b> are hidden into a source file's SIL representation.</p>
+<p>The first question can be answered by inspecting what Swift does to your code during the compile process. To make it straight-forward, the secrets of <code>Never</code> are hidden into a source file's SIL representation.</p>
 <h3>Swift Intermediate Language</h3>
 <p>In short, SIL is the middle-ground between your .swift files and the LLVM IR, basically acting as your Swift files translated to a "language" that contains high-level semantic information of what's happening behind the scenes. This allows the compiler to diagnose compilation errors and perform early optimizations while still allowing it to seamlessly generate the final LLVM IR necessary to let LLVM handle the rest of the compilation.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/xbVOfbq.png"" alt="">                                    
+  <img src="https://i.imgur.com/xbVOfbq.png" alt="" style="background-color: #fff">                                    
 </div>
-<p>Inspecting the SIL version of a method that returns <b>Never</b> should reveal us an optimized version of it, with hopefully an indicator of how the type works behind the scenes. I'm going to compile the following snippet - with an explicit return statement just to see how the SIL version reacts to it:</p>
+<p>Inspecting the SIL version of a method that returns <code>Never</code> should reveal us an optimized version of it, with hopefully an indicator of how the type works behind the scenes. I'm going to compile the following snippet - with an explicit return statement just to see how the SIL version reacts to it:</p>
 <pre>
 <code>@inline(never) func crash() -> Never {</code>
 <code>    fatalError()</code>
@@ -213,7 +213,7 @@
 <pre class="command-line language-bash" data-host="SwiftRocks">
 <code>swiftc -emit-sil never.swift</code>
 </pre>
-<p>After running the command above, the output will contain the following reference to <b>doSomething()</b>:</p>
+<p>After running the command above, the output will contain the following reference to <code>doSomething()</code>:</p>
 <pre>
 <code>// doSomething()</code>
 <code>sil hidden @$S5never11doSomethingSiyF : $@convention(thin) () -> Int {</code>
@@ -225,13 +225,13 @@
 <code>} // end sil function '$S5never11doSomethingSiyF'</code>
 </pre>
 <p>SIL is not very easy to read, but it thankfully comes with a few comments that helps us understand what's going on. The first thing we can notice here is the beauty of optimizations: all the unreachable number code I added there is completely gone!</p> 
-<p>Besides that, we can see that an <b>unreachable</b> statement was added right after the call to <b>crash()</b>. Normal methods would show a return statement, so this was clearly added by the whatever logic handles <b>Never</b>.</p>
-<p>A quick search into the Swift repo revealed that <b>unreachable</b> relates to <b>UnreachableInst</b>, a type that is injected and later used when the compiler needs to make decisions when it comes to code that will never succeed, or even be executed in this case.</p>
+<p>Besides that, we can see that an <code>unreachable</code> statement was added right after the call to <code>crash()</code>. Normal methods would show a return statement, so this was clearly added by the whatever logic handles <code>Never</code>.</p>
+<p>A quick search into the Swift repo revealed that <code>unreachable</code> relates to <code>UnreachableInst</code>, a type that is injected and later used when the compiler needs to make decisions when it comes to code that will never succeed, or even be executed in this case.</p>
 <pre>
 <code>TERMINATOR(UnreachableInst, unreachable,</code>
 <code>           TermInst, None, DoesNotRelease)</code>
 </pre>
-<p>However, this type is not exclusively used by <b>Never</b>, so more investigation is needed: After attaching lldb to the command used above and creating a breakpoint for <b>UnreachableInst</b>'s init, a call inside <b>simplifyBlocksWithCallsToNoReturn()</b> is revealed: a method defined inside <b>DiagnoseUnreachable.cpp</b>, whose's backtrace revealed it to be one of the mandatory optimization passes before attempting to generate the final LLVM IR. (take a look at my CaseIterable article for details on how to manually use lldb!)</p>
+<p>However, this type is not exclusively used by <code>Never</code>, so more investigation is needed: After attaching lldb to the command used above and creating a breakpoint for <code>UnreachableInst</code>'s init, a call inside <code>simplifyBlocksWithCallsToNoReturn()</code> is revealed: a method defined inside <code>DiagnoseUnreachable.cpp</code>, whose's backtrace revealed it to be one of the mandatory optimization passes before attempting to generate the final LLVM IR. (take a look at my CaseIterable article for details on how to manually use lldb!)</p>
 <p><a href="https://github.com/apple/swift/blob/ad8cd1423398124f7dea0441395ba9c42ed6a0d6/lib/SILOptimizer/Mandatory/DiagnoseUnreachable.cpp#L473">The actual method is quite large</a>, so I've pseudo-coded it:</p>
 <pre>
 <code>static bool simplifyBlocksWithCallsToNoReturn(SILBasicBlock &amp;BB,</code>
@@ -242,8 +242,8 @@
 <code>}</code>
 </pre>
 <p>This does exactly what we've seen in the snippet, but still doesn't answer the first question! Why is this enough to stop requiring return values?</p>
-<p>The answer is another mandatory optimization pass file named <b>DataflowDiagnostics.cpp</b>: the responsible for throwing unreachable-related compilation errors such as "missing return", "guard body missing return" and the "never method must call another never-method" from the previous examples.</p>
-<p>One of the methods inside this file is called <b>diagnoseMissingReturn()</b>, which throws the "missing return" error: (note the call to <b>isNoReturnFunction()</b> to throw the different <b>Never</b> error!)</p>
+<p>The answer is another mandatory optimization pass file named <code>DataflowDiagnostics.cpp</code>: the responsible for throwing unreachable-related compilation errors such as "missing return", "guard body missing return" and the "never method must call another never-method" from the previous examples.</p>
+<p>One of the methods inside this file is called <code>diagnoseMissingReturn()</code>, which throws the "missing return" error: (note the call to <code>isNoReturnFunction()</code> to throw the different <code>Never</code> error!)</p>
 <pre>
 <code>static void diagnoseMissingReturn(const UnreachableInst *UI,</code>
 <code>                                  ASTContext &amp;Context) {</code>
@@ -258,7 +258,7 @@
 <code>             FLoc.isASTNode&amp;ClosureExpr>() ? 1 : 0);</code>
 <code>}</code>
 </pre>
-<p>The decision to call <b>diagnoseMissingReturn()</b> is handled by <b>diagnoseUnreachable()</b>, which checks if the relevant <b>UnreachableInst</b> points to an actual position in the code (when you're really missing a return, so throw an error) or was injected by the compiler (like returning <b>Never</b>, so do nothing), which is exactly our case. Remember that the previous optimization removed everything after the <b>Never</b> call, so we only have the injected one at this point:</p>
+<p>The decision to call <code>diagnoseMissingReturn()</code> is handled by <code>diagnoseUnreachable()</code>, which checks if the relevant <code>UnreachableInst</code> points to an actual position in the code (when you're really missing a return, so throw an error) or was injected by the compiler (like returning <code>Never</code>, so do nothing), which is exactly our case. Remember that the previous optimization removed everything after the <code>Never</code> call, so we only have the injected one at this point:</p>
 <pre>
 <code>static void diagnoseUnreachable(const SILInstruction *I,</code>
 <code>                                ASTContext &amp;Context) {</code>
@@ -292,10 +292,10 @@
 <code>  }</code>
 <code>}</code>
 </pre>
-<p>In summary, <b>Never</b>'s behaviour is defined in the optimization passes - after <b>DiagnoseUnreachable.cpp</b> detects and marks the instruction after a never call as unreachable, <b>DataflowDiagnostics.cpp</b> sees that this specific unreachable statement was injected by the compiler itself, avoids throwing a "missing return" compilation error and lets the compilation continue.</p>
-<h2>Internals of <b>fatalError()</b></h2>
-<p>Although the main functionality is now uncovered, something still bugs me: we've seen that creating a <b>Never</b> returning method will result in a compilation error if it doesn't call another <b>Never</b> method. Isn't this an infinite loop? Where is this loop broken?</p>
-<p>To get the answer for that, we can inspect the contents of <b>fatalError()</b> and start going up its backtrace. Here's how <b>fatalError()</b> is defined:</p>
+<p>In summary, <code>Never</code>'s behaviour is defined in the optimization passes - after <code>DiagnoseUnreachable.cpp</code> detects and marks the instruction after a never call as unreachable, <code>DataflowDiagnostics.cpp</code> sees that this specific unreachable statement was injected by the compiler itself, avoids throwing a "missing return" compilation error and lets the compilation continue.</p>
+<h2>Internals of <code>fatalError()</code></h2>
+<p>Although the main functionality is now uncovered, something still bugs me: we've seen that creating a <code>Never</code> returning method will result in a compilation error if it doesn't call another <code>Never</code> method. Isn't this an infinite loop? Where is this loop broken?</p>
+<p>To get the answer for that, we can inspect the contents of <code>fatalError()</code> and start going up its backtrace. Here's how <code>fatalError()</code> is defined:</p>
 <pre>
 <code>public func fatalError(</code>
 <code>  _ message: @autoclosure () -> String = String(),</code>
@@ -305,7 +305,7 @@
 <code>    flags: _fatalErrorFlags())</code>
 <code>}</code>
 </pre>
-<p>This will compile correctly, since <b>_assertionFailure</b> also returns <b>Never</b>. Going up the backtrace, we'll see that it has the following implementation:</p>
+<p>This will compile correctly, since <code>_assertionFailure</code> also returns <code>Never</code>. Going up the backtrace, we'll see that it has the following implementation:</p>
 <pre>
 <code>internal func _assertionFailure(</code>
 <code>  _ prefix: StaticString, _ message: StaticString,</code>
@@ -316,11 +316,11 @@
 <code>  Builtin.int_trap()</code>
 <code>}</code>
 </pre>
-<p>Now, <b>Builtin.int_trap()</b> also returns <b>Never</b>, so this too will compile correctly. Going up the backtrace, we'll see that <b>int_trap()</b> is defined as... uhhh....</p>
-<p>Actually, there's no definition for this method! <b>Builtin</b> is not a normal framework - it seems to be generated inside the compiler as a way to allow Swift code to directly access LLVM functions. It appears to be all done <a href="https://github.com/apple/swift/blob/4fb4cb058d5d81f5fc3f8aaeb0adec2b933c5511/lib/AST/Builtins.cpp">in Builtins.cpp</a> by parsing <a href="https://github.com/apple/swift-llvm/blob/e9e59b13f33aadfb02075c373d52506b261a26ac/include/llvm/IR/Intrinsics.td#L835">a table all the way from the swift-llvm repository</a> and generating "pre-compiled" Swift methods from them. In this case, <b>int_trap()</b> is parsed as a <b>Never</b> returning method that calls <a href="https://llvm.org/docs/LangRef.html#llvm-trap-intrinsic">llvm.trap()</a>, a function that adds an instruction to blow up your app.</p>
+<p>Now, <code>Builtin.int_trap()</code> also returns <code>Never</code>, so this too will compile correctly. Going up the backtrace, we'll see that <code>int_trap()</code> is defined as... uhhh....</p>
+<p>Actually, there's no definition for this method! <code>Builtin</code> is not a normal framework - it seems to be generated inside the compiler as a way to allow Swift code to directly access LLVM functions. It appears to be all done <a href="https://github.com/apple/swift/blob/4fb4cb058d5d81f5fc3f8aaeb0adec2b933c5511/lib/AST/Builtins.cpp">in Builtins.cpp</a> by parsing <a href="https://github.com/apple/swift-llvm/blob/e9e59b13f33aadfb02075c373d52506b261a26ac/include/llvm/IR/Intrinsics.td#L835">a table all the way from the swift-llvm repository</a> and generating "pre-compiled" Swift methods from them. In this case, <code>int_trap()</code> is parsed as a <code>Never</code> returning method that calls <a href="https://llvm.org/docs/LangRef.html#llvm-trap-intrinsic">llvm.trap()</a>, a function that adds an instruction to blow up your app.</p>
 <p>So how does the infinite loop stops? The answer seems to be that it simply does not. Because the final call of the chain is inside a "pre-compiled framework" in a sense, diagnostics do not seem to affect it, allowing the app to compile correctly.</p>
 <h2>Conclusion</h2>
-<p>That was quite the ride, but I hope that you found this useful. As I mentioned in previous articles, compilers are scary monsters, but knowing the internals of a language can really help you write efficient code. In this case, spelunking <b>Never</b> was interesting to see how each optimization pass complements each other when it comes to finding problems or changing the behaviour of a piece of code.</p>
+<p>That was quite the ride, but I hope that you found this useful. As I mentioned in previous articles, compilers are scary monsters, but knowing the internals of a language can really help you write efficient code. In this case, spelunking <code>Never</code> was interesting to see how each optimization pass complements each other when it comes to finding problems or changing the behaviour of a piece of code.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="https://github.com/apple/swift">The Swift Source Code</a><br>
@@ -419,7 +419,7 @@
   <script type="text/javascript" src="js/plugin2.js"></script> 
   <script type="text/javascript" src="js/prism2.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts7.js"></script>
+    <script type="text/javascript" src="js/scripts8.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>

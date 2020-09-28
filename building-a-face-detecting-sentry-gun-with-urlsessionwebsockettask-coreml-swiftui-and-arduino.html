@@ -16,18 +16,18 @@
     <meta name="description" content="Some time ago I created a little side project that involved an Arduino-powered servo motor that menacingly pointed at people's faces with the help of CoreML, mimicking the Team Fortress 2 Engineer's Sentry Gun. With iOS 13, I decided to re-write that using the new Socket APIs and SwiftUI.">
     <meta name="title" content="Building a Face Detecting Robot with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino">
     <meta name="url" content="https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="Building a Face Detecting Robot with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.png"/>
     <meta property="og:description" content="Some time ago I created a little side project that involved an Arduino-powered servo motor that menacingly pointed at people's faces with the help of CoreML, mimicking the Team Fortress 2 Engineer's Sentry Gun. With iOS 13, I decided to re-write that using the new Socket APIs and SwiftUI."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="Building a Face Detecting Robot with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino"/>
     <meta name="twitter:description" content="Some time ago I created a little side project that involved an Arduino-powered servo motor that menacingly pointed at people's faces with the help of CoreML, mimicking the Team Fortress 2 Engineer's Sentry Gun. With iOS 13, I decided to re-write that using the new Socket APIs and SwiftUI."/>
@@ -39,11 +39,11 @@
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
     
   <!-- All CSS Plugins --> 
-  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+  <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style30.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style31.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -96,7 +96,7 @@
     <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
    </div>
@@ -126,7 +126,7 @@
 <div class="post-info"> 
 October 16, 2019
 </div>
-<p>iOS 13 marks the release of long-waited features like Dark Mode, but it also brought some needed changes on less popular aspects. Prior to iOS 13, creating socket connections required coding very low-level network interactions which made libraries like Starscream and Socket.io the go-to solution for sockets in iOS. Now with iOS 13, a new native <b>URLSessionWebSocketTask</b> class is available to finally make creating and managing socket connections easier for developers.</p>
+<p>iOS 13 marks the release of long-waited features like Dark Mode, but it also brought some needed changes on less popular aspects. Prior to iOS 13, creating socket connections required coding very low-level network interactions which made libraries like Starscream and Socket.io the go-to solution for sockets in iOS. Now with iOS 13, a new native <code>URLSessionWebSocketTask</code> class is available to finally make creating and managing socket connections easier for developers.</p>
 <p><a href="https://twitter.com/rockbruno_/status/993152346841669632">Some time ago I created a little side project that involved an Arduino-powered servo motor that menacingly pointed at people's faces with the help of CoreML, mimicking the Team Fortress 2 Engineer's Sentry Gun.</a> With iOS 13, I decided to re-write that using the new Socket APIs and SwiftUI.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
 <video style="width: 100%; height: auto;" controls>
@@ -139,13 +139,13 @@ Your browser does not support the video tag.
 <p>Since this project has several components, lets detail what needs to be done. To build a face tracking murder robot, we'll need an iOS app that does the following:</p>
 <p>  * The app opens the user's camera.</p>
 <p>  * Each time the camera's frame is updated, we capture its output.</p>
-<p>  * The output is routed to Vision's <b>VNDetectFaceRectanglesRequest</b>.</p>
+<p>  * The output is routed to Vision's <code>VNDetectFaceRectanglesRequest</code>.</p>
 <p>  * From the results, we draw rectangles on the screen to show where faces were detected.</p>
 <p>  * Assuming that the first found face is our target, we calculate the X/Y angles that our robot should face based on the face's bounds on the screen.</p>
 <p>  * Using sockets, we'll send these angles to a Raspberry Pi which will be running a server and handling the communication with the Arduino-connected servo motor.</p>
 <p>  * While all that happens, we display a HUD with some basic information to the user.</p>
 <h2>Using URLSessionWebSocketTask</h2>
-<p>We can start this project by creating a worker class that handles a socket connection to a generic server. Similar to how regular <b>URLSession</b> tasks are created, we can retrieve an instance of a socket task by calling <b>URLSession.webSocketTask()</b> and passing the URL to the socket server:</p>
+<p>We can start this project by creating a worker class that handles a socket connection to a generic server. Similar to how regular <code>URLSession</code> tasks are created, we can retrieve an instance of a socket task by calling <code>URLSession.webSocketTask()</code> and passing the URL to the socket server:</p>
 <pre>
 <code>lazy var session = URLSession(configuration: .default,</code>
 <code>                              delegate: self,</code>
@@ -157,7 +157,7 @@ Your browser does not support the video tag.
 <code>    return session.webSocketTask(with: url)</code>
 <code>}()</code>
 </pre>
-<p>Although receiving messages from the socket isn't necessary for this project, covering it is important: <b>URLSessionWebSocketTask</b> supports receiving and sending messages in both <b>Data</b> and <b>String</b> formats, and calling <b>receive</b> will allow the client to receive a message from the server:</p>
+<p>Although receiving messages from the socket isn't necessary for this project, covering it is important: <code>URLSessionWebSocketTask</code> supports receiving and sending messages in both <code>Data</code> and <code>String</code> formats, and calling <code>receive</code> will allow the client to receive a message from the server:</p>
 <pre>
 <code>func receive() {</code>
 <code>    webSocketTask.receive { result in</code>
@@ -175,8 +175,8 @@ Your browser does not support the video tag.
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>An important aspect here is that unlike other Socket solutions for iOS, <b>receive</b> <b>isn't permanent -- once you receive a message, you'll need to call this method again to receive more messages.</b> This is a very weird design decision considering that the point of sockets is to continuously receive and send messages, but it's how it works in iOS 13.</p>
-<p>In a similar fashion, sending messages can be done by calling the <b>send</b> method:</p>
+<p>An important aspect here is that unlike other Socket solutions for iOS, <code>receive</code> <b>isn't permanent -- once you receive a message, you'll need to call this method again to receive more messages.</b> This is a very weird design decision considering that the point of sockets is to continuously receive and send messages, but it's how it works in iOS 13.</p>
+<p>In a similar fashion, sending messages can be done by calling the <code>send</code> method:</p>
 <pre>
 <code>webSocketTask.send(.string("I love sockets!")) { error in</code>
 <code>    if let error = error {</code>
@@ -185,10 +185,10 @@ Your browser does not support the video tag.
 <code>}</code>
 </pre>
 <h2>Connecting to URLSessionWebSocketTask servers</h2>
-<p>Similar to how regular tasks are started, socket tasks can be initiated by calling the <b>resume()</b> method from the task. After the connection is made, the process of receiving and sending messages will start, and updates to the socket's connection will be posted via the <b>URLSessionWebSocketDelegate</b> type. That's a lot easier than pre-iOS 13 socket solutions!</p>
-<p><b>An important server-side aspect of </b><b>URLSessionWebSocketTask</b><b> that is not documented is that Apple expects socket servers to conform to the</b> <a href="https://tools.ietf.org/html/rfc6455">RFC 6455 - Web Socket Protocol</a>. While Starscream and Socket.io allow you to play with sockets in iOS with simple generic Python servers, using <b>URLSessionWebSocketTask</b> will require you to build a server that is capable of handling the protocol's handshakes and data patterns. If the server doesn't conform to RFC 6455, iOS will simply never connect to the server. <a href="https://gist.github.com/rich20bb/4190781">This is an example of a Python server that works with it, which you can use to test the new socket APIs.</a></p>
+<p>Similar to how regular tasks are started, socket tasks can be initiated by calling the <code>resume()</code> method from the task. After the connection is made, the process of receiving and sending messages will start, and updates to the socket's connection will be posted via the <code>URLSessionWebSocketDelegate</code> type. That's a lot easier than pre-iOS 13 socket solutions!</p>
+<p><b>An important server-side aspect of </b><code>URLSessionWebSocketTask</code><b> that is not documented is that Apple expects socket servers to conform to the</b> <a href="https://tools.ietf.org/html/rfc6455">RFC 6455 - Web Socket Protocol</a>. While Starscream and Socket.io allow you to play with sockets in iOS with simple generic Python servers, using <code>URLSessionWebSocketTask</code> will require you to build a server that is capable of handling the protocol's handshakes and data patterns. If the server doesn't conform to RFC 6455, iOS will simply never connect to the server. <a href="https://gist.github.com/rich20bb/4190781">This is an example of a Python server that works with it, which you can use to test the new socket APIs.</a></p>
 <h2>SocketWorker</h2>
-<p>Now that we know how to use iOS 13's new socket class we can build a simple wrapper class to use it. Because we're going to build our UI with SwiftUI, my worker class will inherit from <b>ObservableObject</b> and define a publisher to allow me to route the socket's connection information back to the views. Here's the almost final version of the <b>SocketWorker</b> (sending messages will be added later):</p>
+<p>Now that we know how to use iOS 13's new socket class we can build a simple wrapper class to use it. Because we're going to build our UI with SwiftUI, my worker class will inherit from <code>ObservableObject</code> and define a publisher to allow me to route the socket's connection information back to the views. Here's the almost final version of the <code>SocketWorker</code> (sending messages will be added later):</p>
 <pre>
 <code>final class SocketWorker: NSObject, ObservableObject {</code>
 <code>    lazy var session = URLSession(configuration: .default,</code>
@@ -276,8 +276,8 @@ Your browser does not support the video tag.
 <code>}</code>
 </pre>
 <h2>TargetDataViewModel</h2>
-<p>To allow our <b>DataView</b> to receive the camera's targeting information, we'll create an observable <b>TargetDataViewModel</b> that will be responsible for storing and routing the user's UI strings as well as the actual data that will be sent to the socket.</p>
-<p>Processing the socket data will work by receiving a face's <b>CGRect</b>; based on the face's frame on the screen, we can calculate the X and Y angles that the Arduino's servo motor should be aiming at. In this case since I only have one servo, only the X angle will be sent to the socket. You can send anything to the socket, and for simplicity, I've decided to follow the <b>X{angle}.</b> format. This means that if the servo needs to aim at 90 degrees, the socket will receive a message containing <b>X90.</b>. The dot at the end serves as an "end of command" token, which makes things easier on the Arduino side. If there's no visible face on the screen, we'll send <b>L</b> to the socket (as in, target lost). We'll make this communication work through delegates so we can send this data back to <b>SocketWorker</b>:</p>
+<p>To allow our <code>DataView</code> to receive the camera's targeting information, we'll create an observable <code>TargetDataViewModel</code> that will be responsible for storing and routing the user's UI strings as well as the actual data that will be sent to the socket.</p>
+<p>Processing the socket data will work by receiving a face's <code>CGRect</code>; based on the face's frame on the screen, we can calculate the X and Y angles that the Arduino's servo motor should be aiming at. In this case since I only have one servo, only the X angle will be sent to the socket. You can send anything to the socket, and for simplicity, I've decided to follow the <code>X{angle}.</code> format. This means that if the servo needs to aim at 90 degrees, the socket will receive a message containing <code>X90.</code>. The dot at the end serves as an "end of command" token, which makes things easier on the Arduino side. If there's no visible face on the screen, we'll send <code>L</code> to the socket (as in, target lost). We'll make this communication work through delegates so we can send this data back to <code>SocketWorker</code>:</p>
 <pre>
 <code>protocol TargetDataViewModelDelegate: AnyObject {</code>
 <code>    func targetDataDidChange(_ data: String)</code>
@@ -330,7 +330,7 @@ Your browser does not support the video tag.
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>With the view model in place, we can finish <b>SocketWorker</b> by making it send the target's information to the socket:</p>
+<p>With the view model in place, we can finish <code>SocketWorker</code> by making it send the target's information to the socket:</p>
 <pre>
 <code>extension SocketWorker: TargetDataViewModelDelegate {</code>
 <code>    func targetDataDidChange(_ data: String) {</code>
@@ -348,8 +348,8 @@ Your browser does not support the video tag.
 <code>}</code>
 </pre>
 <h2>Showing the user's camera on the screen</h2>
-<p>Getting access to a device's camera with SwiftUI has a small problem. Although we can easily do it in UIKit using <b>AVCaptureVideoPreviewLayer</b>, the concept of layers doesn't really exist in SwiftUI, so we can't use this layer in normal SwiftUI views. Fortunately, Apple allows you to create bridges between UIKit and SwiftUI so that no functionality is lost.</p>
-<p>In order to display a camera, we'll need to build an old-fashioned UIKit <b>CameraViewController</b> and bridge it to SwiftUI using the <b>UIViewControllerRepresentable</b> protocol. We'll also route our data view model to this view controller so it can update it based on the camera's output:</p>
+<p>Getting access to a device's camera with SwiftUI has a small problem. Although we can easily do it in UIKit using <code>AVCaptureVideoPreviewLayer</code>, the concept of layers doesn't really exist in SwiftUI, so we can't use this layer in normal SwiftUI views. Fortunately, Apple allows you to create bridges between UIKit and SwiftUI so that no functionality is lost.</p>
+<p>In order to display a camera, we'll need to build an old-fashioned UIKit <code>CameraViewController</code> and bridge it to SwiftUI using the <code>UIViewControllerRepresentable</code> protocol. We'll also route our data view model to this view controller so it can update it based on the camera's output:</p>
 <pre>
 <code>struct CameraViewWrapper: UIViewControllerRepresentable {</code>
 <code></code>
@@ -404,8 +404,8 @@ Your browser does not support the video tag.
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>I will skip the definition of <b>CameraView</b> because the code is massive and there's nothing special about it -- we just add a camera layer to the screen and start recording once the view controller appears. We also define a <b>CameraViewDelegate</b> so that our face detection events can be routed back to our view model. <a href="https://github.com/rockbruno/NSSentryGun">You can see the code for it in the NSSentryGun repo.</a></p>
-<p>Now with the actual face detection being all that's left, we can wrap everything up into our app's main <b>ContentView</b>!</p>
+<p>I will skip the definition of <code>CameraView</code> because the code is massive and there's nothing special about it -- we just add a camera layer to the screen and start recording once the view controller appears. We also define a <code>CameraViewDelegate</code> so that our face detection events can be routed back to our view model. <a href="https://github.com/rockbruno/NSSentryGun">You can see the code for it in the NSSentryGun repo.</a></p>
+<p>Now with the actual face detection being all that's left, we can wrap everything up into our app's main <code>ContentView</code>!</p>
 <pre>
 <code>struct ContentView: View {</code>
 <code></code>
@@ -460,8 +460,8 @@ Your browser does not support the video tag.
   <img src="https://i.imgur.com/lNh5OBu.jpg" alt="" style="max-width: 100%">>                               
 </div>
 <h2>Detecting faces in images with CoreML</h2>
-<p>After the release of CoreML, every iOS release adds new capabilities to the built-in <b>Vision</b> framework. In this case, the ability to detect faces in an image can be easily done by performing the <Code>VNDetectFaceRectanglesRequest</Code> request with the camera's output as a parameter.</p>
-<p>The result of this request is a <b>[VNFaceObservation]</b> array that contains the bounding box of every face detected in the image. We can use this result to draw rectangles around the detected faces and use these rectangles as the input for our previously made <b>TargetDataViewModel</b>. Before defining the request itself, lets first handle the response code inside <b>CameraView</b>:</p>
+<p>After the release of CoreML, every iOS release adds new capabilities to the built-in <code>Vision</code> framework. In this case, the ability to detect faces in an image can be easily done by performing the <Code>VNDetectFaceRectanglesRequest</Code> request with the camera's output as a parameter.</p>
+<p>The result of this request is a <code>[VNFaceObservation]</code> array that contains the bounding box of every face detected in the image. We can use this result to draw rectangles around the detected faces and use these rectangles as the input for our previously made <code>TargetDataViewModel</code>. Before defining the request itself, lets first handle the response code inside <code>CameraView</code>:</p>
 <pre>
 <code>func handleFaces(request: VNRequest, error: Error?) {</code>
 <code>    DispatchQueue.main.async { [unowned self] in</code>
@@ -495,7 +495,7 @@ Your browser does not support the video tag.
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>(The <b>boundingBox</b> property contains values from zero to one with the y-axis going up from the bottom, so this method also needs to handle scaling and reversing the y-axis for the box to match the camera's bounds.)</p>
+<p>(The <code>boundingBox</code> property contains values from zero to one with the y-axis going up from the bottom, so this method also needs to handle scaling and reversing the y-axis for the box to match the camera's bounds.)</p>
 <p>After processing the face's rectangle, we sort them by total area and draw them on the screen. We'll consider the rectangle with the biggest area as our target.</p>
 <pre>
 <code>func drawFaceBox(index: Int, frame: CGRect) {</code>
@@ -513,7 +513,7 @@ Your browser does not support the video tag.
 <code>    layer.insertSublayer(mask, at: 1)</code>
 <code>}</code>
 </pre>
-<p>To perform the request, we need access to the camera's image buffer. This can be done by setting our <b>CameraView</b> as the layer's <b>AVCaptureVideoDataOutput</b> delegate, which has a method containing the camera's buffer. We can then convert the buffer into Vision's expected <b>CVImageBuffer</b> input and finally perform the request:</p>
+<p>To perform the request, we need access to the camera's image buffer. This can be done by setting our <code>CameraView</code> as the layer's <code>AVCaptureVideoDataOutput</code> delegate, which has a method containing the camera's buffer. We can then convert the buffer into Vision's expected <code>CVImageBuffer</code> input and finally perform the request:</p>
 <pre>
 <code>extension CameraView: AVCaptureVideoDataOutputSampleBufferDelegate {</code>
 <code>    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {</code>
@@ -545,18 +545,18 @@ Your browser does not support the video tag.
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/kQtDmQ5.jpg" alt="" style="max-width: 100%">                               
 </div>
-<p>And because we're using <b>ObservableObjects</b>, the processing that happens inside <b>TargetDataViewModel</b> will be published back to the <b>SocketWorker</b>, which will finally send our target's information to the server.</p>
+<p>And because we're using <code>ObservableObjects</code>, the processing that happens inside <code>TargetDataViewModel</code> will be published back to the <code>SocketWorker</code>, which will finally send our target's information to the server.</p>
 <div class="post-image">
   <img src="https://i.imgur.com/AJZyMyE.png" alt="" style="max-width: 100%">                               
 </div>
 <h2>Beyond iOS: Making an Arduino receive this information</h2>
 <p>As stated at the beginning of the article I won't go too deep on the components that aren't iOS related, but if you're wondering how sending the information to a socket results in a servo motor being moved, we'll use this section to talk more about it.</p>
-<p>Arduinos can communicate with other devices through its serial port, which is connected as a USB device on the other end. With the Arduino connected to your server (I used a Raspberry Pi for the video in the introduction, but simply running the server script on your Mac works as well), you can use Python's <b>serial</b> library to open a connection with the Arduino:</p>
+<p>Arduinos can communicate with other devices through its serial port, which is connected as a USB device on the other end. With the Arduino connected to your server (I used a Raspberry Pi for the video in the introduction, but simply running the server script on your Mac works as well), you can use Python's <code>serial</code> library to open a connection with the Arduino:</p>
 <pre>
 <code>import serial</code>
 <code>ser = serial.Serial('/dev/cu.usbmodem1412401', 9600)</code>
 </pre>
-<p>In this case, <b>/dev/cu.usbmodem1412401</b> is the name of the port where my Arduino is connected, and 9600 is the baud rate expected by the Arduino.</p>
+<p>In this case, <code>/dev/cu.usbmodem1412401</code> is the name of the port where my Arduino is connected, and 9600 is the baud rate expected by the Arduino.</p>
 <p>When the server receives data from the iOS app, we can write it into the serial port:</p>
 <pre>
 <code>while True:</code>
@@ -638,7 +638,7 @@ Your browser does not support the video tag.
 <code>  }</code>
 <code>}</code>
 </pre>
-<p>To make it short, Arduino will enter a "scan mode" that makes the servo wiggle back and forth if an <b>L</b> is received from the server. This goes on until an <b>X</b> is received -- when this happens, the Arduino then parses the numeric component of the command and sets it as the servo's angle. All that's left now is to attach a Nerf gun to it and make it actually shoot intruders!</p>
+<p>To make it short, Arduino will enter a "scan mode" that makes the servo wiggle back and forth if an <code>L</code> is received from the server. This goes on until an <code>X</code> is received -- when this happens, the Arduino then parses the numeric component of the command and sets it as the servo's angle. All that's left now is to attach a Nerf gun to it and make it actually shoot intruders!</p>
 <h2>Conclusion</h2>
 <p>The introduction of the new URLSessionWebSocketTask finally solves a major pain point in developing networking applications for iOS, and I hope this article sparks some ideas for new side projects for you. Creating side projects is a cool way to learn new technologies -- I first did this project to know more about Raspberry Pis, and this article was a chance for me to have my first interaction with SwiftUI and Combine after Xcode 11's release.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
@@ -737,7 +737,7 @@ Your browser does not support the video tag.
   <script type="text/javascript" src="js/plugin2.js"></script> 
   <script type="text/javascript" src="js/prism2.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts7.js"></script>
+    <script type="text/javascript" src="js/scripts8.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>

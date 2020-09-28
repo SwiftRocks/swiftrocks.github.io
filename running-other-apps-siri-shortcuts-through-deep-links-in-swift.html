@@ -16,18 +16,18 @@
     <meta name="description" content="Siri Shortcuts are definitely my favorite iOS 12 feature. Ever since SiriKit first came out I was very disappointed that you couldn't use it for your own custom commands, but the new Shortcuts app solves this problem. Not only it allows you to create your custom commands, but it also provides a very intuitive UI to allow even non-devs to automate tons of kinds of workflows in their iPhones.">
     <meta name="title" content="Running Other Apps' Siri Shortcuts Through Deep Links in Swift">
     <meta name="url" content="https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/running-other-apps-siri-shortcuts-through-deep-links-in-swift.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="Running Other Apps' Siri Shortcuts Through Deep Links in Swift"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/running-other-apps-siri-shortcuts-through-deep-links-in-swift.png"/>
     <meta property="og:description" content="Siri Shortcuts are definitely my favorite iOS 12 feature. Ever since SiriKit first came out I was very disappointed that you couldn't use it for your own custom commands, but the new Shortcuts app solves this problem. Not only it allows you to create your custom commands, but it also provides a very intuitive UI to allow even non-devs to automate tons of kinds of workflows in their iPhones."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/running-other-apps-siri-shortcuts-through-deep-links-in-swift.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="Running Other Apps' Siri Shortcuts Through Deep Links in Swift"/>
     <meta name="twitter:description" content="Siri Shortcuts are definitely my favorite iOS 12 feature. Ever since SiriKit first came out I was very disappointed that you couldn't use it for your own custom commands, but the new Shortcuts app solves this problem. Not only it allows you to create your custom commands, but it also provides a very intuitive UI to allow even non-devs to automate tons of kinds of workflows in their iPhones."/>
@@ -39,11 +39,11 @@
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
     
   <!-- All CSS Plugins --> 
-  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+  <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style30.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style31.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -96,7 +96,7 @@
     <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
    </div>
@@ -128,10 +128,10 @@
           </div> 
           <p>Siri Shortcuts are definitely my favorite iOS 12 feature. Ever since SiriKit first came out I was very disappointed that you couldn't use it for your own custom commands, but the new Shortcuts app solves this problem. Not only it allows you to create your custom commands, but it also provides a very intuitive UI to allow even non-devs to automate tons of kinds of workflows in their iPhones.</p>
           <p>We've all seen how to create a workflow and make your app expose custom actions, but one thing that I haven't seen people mention is that the Shortcuts app exposes several deep links for opening and running shortcuts - meaning that you can make an app that runs other apps' Siri Shortcuts. <a href="https://twitter.com/rockbruno_/status/1052625467147083777">I used this to make an app run my "Take Picture" shortcut every time I tapped my AirPods.</a></p>
-          <p>The URL Scheme for the Shortcuts app is <b>shortcuts://</b>, and you can test all of them by typing them into Safari.</p>
+          <p>The URL Scheme for the Shortcuts app is <code>shortcuts://</code>, and you can test all of them by typing them into Safari.</p>
           <h2>Running a specific Shortcut</h2>
-          <p><b>shortcuts://run-shortcut?name=[name]&amp;input=[input]</b></p>
-          <p>For this deep link, <b>name</b> is the URL-encoded name of the shortcut you're trying to run, and <b>input</b> is the string input of the shortcut, if applicable. (You can type <b>clipboard</b> as the input to use the clipboard's contents!)</p>
+          <p><code>shortcuts://run-shortcut?name=[name]&amp;input=[input]</code></p>
+          <p>For this deep link, <code>name</code> is the URL-encoded name of the shortcut you're trying to run, and <code>input</code> is the string input of the shortcut, if applicable. (You can type <code>clipboard</code> as the input to use the clipboard's contents!)</p>
           <p>To run my "Take Picture" shortcut, we just have to tell iOS to open this deep link:</p>
 <pre>
 <code>let shortcut = URL(string: "shortcuts://run-shortcut?name=Take%20Picture")!</code>
@@ -140,29 +140,29 @@
 <p><img class="margin-top-40 margin-bottom-40" src="https://i.imgur.com/MS6hRNW.gif"></img></p><br>
 		  <h2>Returning to your app after a Shortcut ends</h2>
 		  <p>Running the shortcut is great, but you might have noticed that the deep link has to open the Shortcuts app in order to work. How can we return to our app after the shortcut ends?</p>
-		  <p>Luckily for us, the Shortcuts app supports the <b>x-callback-url</b> standard, which is a standardized way for you to send data to other apps through URLs and get something back - in the shape of another URL. It looks like this:</p>
-		  <p><b>shortcuts://x-callback-url/run-shortcut?name=[name]&amp;x-success=[url]</b></p>
-		  <p>When the <b>[name]</b> shortcut succeeds, the Shortcuts app will automatically try to open the URL passed to the <b>x-success</b> argument. This can be any url, and we can use this to return to our app by registering a URL scheme of our own. Assuming that our app is listening to a <b>myapp://</b> URL scheme, we can make the Shortcuts app route back to our app by running:</p>
+		  <p>Luckily for us, the Shortcuts app supports the <code>x-callback-url</code> standard, which is a standardized way for you to send data to other apps through URLs and get something back - in the shape of another URL. It looks like this:</p>
+		  <p><code>shortcuts://x-callback-url/run-shortcut?name=[name]&amp;x-success=[url]</code></p>
+		  <p>When the <code>[name]</code> shortcut succeeds, the Shortcuts app will automatically try to open the URL passed to the <code>x-success</code> argument. This can be any url, and we can use this to return to our app by registering a URL scheme of our own. Assuming that our app is listening to a <code>myapp://</code> URL scheme, we can make the Shortcuts app route back to our app by running:</p>
 <pre><code>let shortcut = URL(string: "shortcuts://x-callback-url/run-shortcut?name=Take%20Picture&amp;x-success=myapp://")!</code>
 <code>UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)</code>
 </pre>
 <p><img class="margin-top-40 margin-bottom-40" src="https://i.imgur.com/WLbQrLD.gif"></img></p><br>
-		  <p>Besides <b>x-success</b>, <b>x-cancel</b> and <b>x-error</b> can be used to treat interruptions and errors, respectively.</p>
+		  <p>Besides <code>x-success</code>, <code>x-cancel</code> and <code>x-error</code> can be used to treat interruptions and errors, respectively.</p>
 		  <h2>Other Deep Links</h2>
 		  <h3>Import a shortcut</h3>
-		  <p><b>shortcuts://import-shortcut?url=[url]&amp;name=[name]</b></p>
-		  <p>For this specific shortcut, <b>url</b> is the URL for a <b>.shortcut</b> file, and <b>name</b> is the name of the shortcut to be imported. You can also pass <b>&amp;silent=true</b> to this deep link to prevent the shortcuts app from opening the imported shortcut.</p>
-		  <p>This deep link also supports <b>x-callback-url</b>.</p>
+		  <p><code>shortcuts://import-shortcut?url=[url]&amp;name=[name]</code></p>
+		  <p>For this specific shortcut, <code>url</code> is the URL for a <code>.shortcut</code> file, and <code>name</code> is the name of the shortcut to be imported. You can also pass <code>&amp;silent=true</code> to this deep link to prevent the shortcuts app from opening the imported shortcut.</p>
+		  <p>This deep link also supports <code>x-callback-url</code>.</p>
 		  <h3>Open (not run) a specific shortcut</h3>
-		  <p><b>shortcuts://open-shortcut?name=[name]</b></p>
+		  <p><code>shortcuts://open-shortcut?name=[name]</code></p>
 		  <h3>Open the Shortcuts app</h3>
-		  <p><b>shortcuts://</b></p>
+		  <p><code>shortcuts://</code></p>
 		  <h3>Open the Create Shortcut screen</h3>
-		  <p><b>shortcuts://create-shortcut</b></p>
+		  <p><code>shortcuts://create-shortcut</code></p>
 		  <h3>Open the Shortcuts Gallery</h3>
-		  <p><b>shortcuts://gallery</b></p>
+		  <p><code>shortcuts://gallery</code></p>
 		  <h3>Search the Shortcuts Gallery</h3>
-		  <p><b>shortcuts://gallery/search?query=[query]</b></p>
+		  <p><code>shortcuts://gallery/search?query=[query]</code></p>
 <h2>Conclusion</h2>
 <p>Because there's no way for you to retrieve a list of the user's shortcuts, there are probably not many uses for these deep links in regular apps - but they can be very useful for personal automation projects like my AirPods camera trick. What are you planning to do?</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
@@ -260,7 +260,7 @@
   <script type="text/javascript" src="js/plugin2.js"></script> 
   <script type="text/javascript" src="js/prism2.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts7.js"></script>
+    <script type="text/javascript" src="js/scripts8.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>

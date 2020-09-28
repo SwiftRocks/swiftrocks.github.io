@@ -16,18 +16,18 @@
     <meta name="description" content="Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like switch cases. While regular switch cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of switches to result in really cool and short lines of code.">
     <meta name="title" content="Writing Custom Pattern Matching in Swift">
     <meta name="url" content="https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/writing-custom-pattern-matching-rules-in-swift.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="Writing Custom Pattern Matching in Swift"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/writing-custom-pattern-matching-rules-in-swift.png"/>
     <meta property="og:description" content="Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like switch cases. While regular switch cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of switches to result in really cool and short lines of code."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/writing-custom-pattern-matching-rules-in-swift.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="Writing Custom Pattern Matching in Swift"/>
     <meta name="twitter:description" content="Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like switch cases. While regular switch cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of switches to result in really cool and short lines of code."/>
@@ -39,11 +39,11 @@
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
     
   <!-- All CSS Plugins --> 
-  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+  <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style30.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style31.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -96,7 +96,7 @@
     <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
    </div>
@@ -124,7 +124,7 @@
            <h1>Writing Custom Pattern Matching in Swift</h1> 
           </div> 
           <div class="post-info">August 8, 2018</div> 
-          <p>Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like <b>switch</b> cases. While regular <b>switch</b> cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of <b>switches</b> to result in really cool and short lines of code. One thing that interests me in particular is that pattern matching can be used for a wide variety of things.</p>
+          <p>Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like <code>switch</code> cases. While regular <code>switch</code> cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of <code>switches</code> to result in really cool and short lines of code. One thing that interests me in particular is that pattern matching can be used for a wide variety of things.</p>
 <p>At first glance, it's easy to see pattern matching as simple equality checks:</p>
 <pre class = "language-swift"><code class="language-swift">switch 80 {
 case 100:
@@ -135,12 +135,12 @@ default:
     break
 }
 </code></pre>
-<p>Given that, you might think that something like <b>case "eighty"</b> wouldn't compile, after all, <b>"eighty"</b> and <b>80</b> aren't even the same type - and it's indeed what happens if you try it right now:</p>
+<p>Given that, you might think that something like <code>case "eighty"</code> wouldn't compile, after all, <code>"eighty"</code> and <code>80</code> aren't even the same type - and it's indeed what happens if you try it right now:</p>
 <pre class = "language-swift"><code class="language-swift">if case "eighty" = 80 {
     //error: expression pattern of type 'String' cannot match values of type 'Int'
 }
 </code></pre>
-<p>But that's not necessarily the case. When developing your projects, you might have noticed that some types have special interactions between each other, such as <b>Ranges</b> and their associated types:</p>
+<p>But that's not necessarily the case. When developing your projects, you might have noticed that some types have special interactions between each other, such as <code>Ranges</code> and their associated types:</p>
 <pre class = "language-swift"><code class="language-swift">switch 80 {
 case 0...20:
 	break
@@ -152,8 +152,8 @@ default:
     break
 }
 </code></pre>
-<p>The reason for this is the <b>~=</b> <b>pattern matching operator</b>. This operator doesn't see much use in regular projects (you might have seen it before for this exact <i>is number inside range</i> example), but it is used a lot internally in Swift and it's exactly what's used to confirm case statements.</p>
-<p>For most cases, the operator is a simple wrapper for an equality check (like the <b>Int</b> example), but <b>Range</b> has a special implementation for <b>~=</b> when used against its own associated type, allowing it to have this custom behaviour when pattern matching:</p>
+<p>The reason for this is the <code>~=</code> <b>pattern matching operator</b>. This operator doesn't see much use in regular projects (you might have seen it before for this exact <i>is number inside range</i> example), but it is used a lot internally in Swift and it's exactly what's used to confirm case statements.</p>
+<p>For most cases, the operator is a simple wrapper for an equality check (like the <code>Int</code> example), but <code>Range</code> has a special implementation for <code>~=</code> when used against its own associated type, allowing it to have this custom behaviour when pattern matching:</p>
 <pre class = "language-swift"><code class="language-swift">extension RangeExpression {
     @inlinable
     public static func ~= (pattern: Self, value: Bound) -> Bool {
@@ -161,8 +161,8 @@ default:
     }
 }
 </code></pre>
-<p>And since <b>~=</b> is available globally, you can overload it in order to write your own pattern matching logic!</p>
-<p>To make <b>"eighty"</b> match <b>80</b>, for example, all you need to do is add a version of the operator that matches <b>String</b> patterns with <b>Int</b> values:</p>
+<p>And since <code>~=</code> is available globally, you can overload it in order to write your own pattern matching logic!</p>
+<p>To make <code>"eighty"</code> match <code>80</code>, for example, all you need to do is add a version of the operator that matches <code>String</code> patterns with <code>Int</code> values:</p>
 <pre class = "language-swift"><code class="language-swift">func ~= (pattern: String, value: Int) -> Bool {
     if pattern == "eighty" {
         return value == 80
@@ -182,7 +182,7 @@ default:
    break
 }
 </code></pre>
-<p>Now let's say my app recieved a deep link in the shape of a path string and I need to decide which of my tabBar's <b>UIViewControllers</b> this deep link belongs too - in the form of a <b>AppTab</b> type:</p>
+<p>Now let's say my app recieved a deep link in the shape of a path string and I need to decide which of my tabBar's <code>UIViewControllers</code> this deep link belongs too - in the form of a <code>AppTab</code> type:</p>
 <pre class = "language-swift"><code class="language-swift">enum AppTab: String {
     case home
     case orderHistory
@@ -191,7 +191,7 @@ default:
 
 let deepLink = DeepLink(path: "home", parameters: [:])
 </code></pre>
-<p>There are several ways to do this, including adding a <b>correspondingTab</b> property to the deep link itself or subclassing the <b>DeepLink</b> type, but with custom pattern matching, this attribution can be one-lined without having to touch the <b>DeepLink</b> type!</p>
+<p>There are several ways to do this, including adding a <code>correspondingTab</code> property to the deep link itself or subclassing the <code>DeepLink</code> type, but with custom pattern matching, this attribution can be one-lined without having to touch the <code>DeepLink</code> type!</p>
 <pre class = "language-swift"><code class="language-swift">func ~= (pattern: AppTab, value: DeepLink) -> Bool {
     return value.path.hasPrefix(pattern.rawValue)
 }
@@ -207,7 +207,7 @@ default:
     break
 }
 </code></pre>
-<p>This allows you to bypass having to map broader types into more specific ones, such as how an <b>Int</b> can be mapped to a <b>WeekDay</b> enum. In this case in particular, your backend would return you the week day either as an <b>Int</b> or a <b>String</b>, and with custom pattern matching you can make use of this broader type while still treating it like it was mapped to the more specific enum type. This can be useful when you want to try concepts without commiting to certain approachs or types:</p>
+<p>This allows you to bypass having to map broader types into more specific ones, such as how an <code>Int</code> can be mapped to a <code>WeekDay</code> enum. In this case in particular, your backend would return you the week day either as an <code>Int</code> or a <code>String</code>, and with custom pattern matching you can make use of this broader type while still treating it like it was mapped to the more specific enum type. This can be useful when you want to try concepts without commiting to certain approachs or types:</p>
 <pre class = "language-swift"><code class="language-swift">enum WeekDay: Int {
     case sunday
     case monday
@@ -229,8 +229,7 @@ if case .friday? = nextHoliday?.weekDay {
     print("Woohoo!")
 }
 </code></pre>
-<p>Creation of custom patterns is a simple way to write cleaner code without too much effort, as you can leverage <b>cases</b> to jump straight to the point without having to add additional properties to your types - while making sure your code doesn't become harder to understand.</p>
-<p>I would love to know if you've ever overloaded <b>~=</b> to do something like this. Feel free to contact me with any suggestions, comments and feedback you might have at my Twitter: <a href="https://twitter.com/rockbruno_">@rockbruno_</a>.</p>
+<p>Creation of custom patterns is a simple way to write cleaner code without too much effort, as you can leverage <code>cases</code> to jump straight to the point without having to add additional properties to your types - while making sure your code doesn't become harder to understand.</p>
 <h2>References and Good reads</h2>
 <a href="https://docs.swift.org/swift-book/ReferenceManual/Patterns.html">Apple Docs: Patterns</a><br>
          </div>
@@ -324,7 +323,7 @@ if case .friday? = nextHoliday?.weekDay {
   <script type="text/javascript" src="js/plugin2.js"></script> 
   <script type="text/javascript" src="js/prism2.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts7.js"></script>
+    <script type="text/javascript" src="js/scripts8.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>

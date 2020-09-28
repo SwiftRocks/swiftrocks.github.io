@@ -16,18 +16,18 @@
     <meta name="description" content="While dividing an app into several modules can improve the build time of an iOS app, the result heavily depends on what is being changed. If you're not careful with how your dependency graph is laid out, you can often have results that are worse< than non-modularized apps. Let's take a look at a technique used at iFood to have big and consistent improvements to the build times of our app.">
     <meta name="title" content="Reducing iOS Build Times by using Interface Modules">
     <meta name="url" content="https://swiftrocks.com/reducing-ios-build-times-by-using-interface-modules">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/reducing-ios-build-times-by-using-interface-modules.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="Reducing iOS Build Times by using Interface Modules"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/reducing-ios-build-times-by-using-interface-modules.png"/>
     <meta property="og:description" content="While dividing an app into several modules can improve the build time of an iOS app, the result heavily depends on what is being changed. If you're not careful with how your dependency graph is laid out, you can often have results that are worse< than non-modularized apps. Let's take a look at a technique used at iFood to have big and consistent improvements to the build times of our app."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/reducing-ios-build-times-by-using-interface-modules"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/reducing-ios-build-times-by-using-interface-modules.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="Reducing iOS Build Times by using Interface Modules"/>
     <meta name="twitter:description" content="While dividing an app into several modules can improve the build time of an iOS app, the result heavily depends on what is being changed. If you're not careful with how your dependency graph is laid out, you can often have results that are worse< than non-modularized apps. Let's take a look at a technique used at iFood to have big and consistent improvements to the build times of our app."/>
@@ -39,11 +39,11 @@
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
     
   <!-- All CSS Plugins --> 
-  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+  <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style30.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style31.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -96,7 +96,7 @@
     <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
    </div>
@@ -145,23 +145,23 @@ January 23rd, 2020
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
   <img src="https://i.imgur.com/7R1dewm.png" alt="Bad dependency cycle">           
 </div>
-<p>While the previous condition is still true if the changes are made to the modules in the lower end of this graph (<b>AppFeature1</b>, <b>AppFeature2</b>, <b>AppFeature3</b>), it is not true for the rest.</p>
-<p>Take the <b>HTTPClient</b> module for example: Because <b>everyone</b> depends on it, making changes to it will make the <b>entire app need to be recompiled</b>, even if the changes have nothing to do with the modules themselves, like a simple code quality improvement!</p> 
-<p>Another common problem of this approach is how <b>AppFeature1</b> is structured: It has a dependency on <b>AppFeature4</b>, which on its turn has a dependency on <b>AppFeature5</b>. An example of how this can happen is if these features represent <b>UIViewControllers</b> -- making so a module needs to import another one for a view to be able to be pushed. This <b>linear dependency</b> between these modules has three major problems:</p>
+<p>While the previous condition is still true if the changes are made to the modules in the lower end of this graph (<code>AppFeature1</code>, <code>AppFeature2</code>, <code>AppFeature3</code>), it is not true for the rest.</p>
+<p>Take the <code>HTTPClient</code> module for example: Because <b>everyone</b> depends on it, making changes to it will make the <b>entire app need to be recompiled</b>, even if the changes have nothing to do with the modules themselves, like a simple code quality improvement!</p> 
+<p>Another common problem of this approach is how <code>AppFeature1</code> is structured: It has a dependency on <code>AppFeature4</code>, which on its turn has a dependency on <code>AppFeature5</code>. An example of how this can happen is if these features represent <code>UIViewControllers</code> -- making so a module needs to import another one for a view to be able to be pushed. This <b>linear dependency</b> between these modules has three major problems:</p>
 <p>- Because the dependency is linear, you are unable to compile them in parallel, which is a major performance problem.</p>
-<p>- Changing <b>AppFeature5</b> will recompile <b>AppFeature4</b> and <b>AppFeature1</b> even if the changes have nothing to do with them, just because they depend on it!</p>
+<p>- Changing <code>AppFeature5</code> will recompile <code>AppFeature4</code> and <code>AppFeature1</code> even if the changes have nothing to do with them, just because they depend on it!</p>
 <p>- Finally, the fact that they completely depend on each other is overkill. They are dependencies only for the purpose of being able to navigate between each other -- they don't need access to anything else of the respective modules. This makes the previous problem even more critical as these features will be recompiled for no reason almost 100% of the time!</p>
 <p>The problems of this diagram are a good representation of how iFood looked like for a long time, and although the modularization itself improved build times in some cases, most of the cases still provided very bad build times.</p>
 <p>In order to achieve the best possible build times, we need to make our dependency graph as <b>horizontal</b> as possible. If everything is independent, everything can be compiled in parallel.</p>
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
   <img src="https://i.imgur.com/gnne0rL.png" alt="Horizontal dependency">          
 </div>
-<p>Unfortunately, this is impossible in our case. Because our modules need to navigate between each other's <b>UIViewControllers</b>, they need to be able to reference each other somehow. The same applies to components like <b>HTTPClient</b> -- as they need to somehow have access to it in order to make HTTP requests, they can never be truly independent. ...or can they?</p>
+<p>Unfortunately, this is impossible in our case. Because our modules need to navigate between each other's <code>UIViewControllers</code>, they need to be able to reference each other somehow. The same applies to components like <code>HTTPClient</code> -- as they need to somehow have access to it in order to make HTTP requests, they can never be truly independent. ...or can they?</p>
 <p>The true answer is, well, no. However, through dependency injection, there's a technique we can apply to get pretty close to it.</p>
 
 <h2>"Interface" modules: Never depend on concrete modules</h2>
 
-<p>Let's focus on the problems caused by the previously mentioned <b>linear dependency</b> of some of the modules: These features depend on the modules of the features they navigate to, but they don't access anything of these modules besides the <b>UIViewController</b> that they are navigating to.</p> 
+<p>Let's focus on the problems caused by the previously mentioned <b>linear dependency</b> of some of the modules: These features depend on the modules of the features they navigate to, but they don't access anything of these modules besides the <code>UIViewController</code> that they are navigating to.</p> 
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
   <img src="https://i.imgur.com/XAQ4CtN.png" alt="Problem">          
 </div>
@@ -170,33 +170,33 @@ January 23rd, 2020
   <img src="https://i.imgur.com/u0sF8SF.png" alt="App with interfaces" style="height: 250px; width: 300px;">          
 </div>
 <p>"Interface" modules don't contain any concrete code or dependencies -- they just contain protocols that are used by the modules that depend on it to reference some piece of code that is defined in the real, concrete module.</p>
-<p>For example, assuming that <b>AppFeature1</b> wants to push a <b>UIViewController</b> that lives in <b>AppFeature2</b>, instead of having <b>AppFeature1</b> depend on <b>AppFeature2</b> and directly reference such <b>UIViewController</b>, we can have it depend on a hypothetical <b>AppFeature2Interface</b> module that has a protocol that serves no purpose but to expose the existence of that view to <b>AppFeature1</b>:</p>
+<p>For example, assuming that <code>AppFeature1</code> wants to push a <code>UIViewController</code> that lives in <code>AppFeature2</code>, instead of having <codE>AppFeature1</codE> depend on <code>AppFeature2</code> and directly reference such <code>UIViewController</code>, we can have it depend on a hypothetical <code>AppFeature2Interface</code> module that has a protocol that serves no purpose but to expose the existence of that view to <code>AppFeature1</code>:</p>
 
 <pre>
 <code>protocol Feature2ViewProtocol {}</code>
 </pre>
 
-<p><b>AppFeature2</b> can then implement this protocol into the related, concrete <b>UIViewController</b>:</p>
+<p><code>AppFeature2</code> can then implement this protocol into the related, concrete <code>UIViewController</code>:</p>
 
 <pre>
 <code>import AppFeature2Interface</code>
 <code>class Feature2ViewController: UIViewController, Feature2ViewProtocol</code>
 </pre>
 
-<p>With this setup, <b>AppFeature1</b> can now reference <b>AppFeature2's</b> <b>UIViewController</b> without actually importing it:</p>
+<p>With this setup, <code>AppFeature1</code> can now reference <code>AppFeature2's</code> <code>UIViewController</code> without actually importing it:</p>
 
 <pre>
 <code>import AppFeature2Interface</code>
 <code>let viewTypeToBePushed = Feature2ViewProtocol.self</code>
 </pre>
 
-<p>While <b>AppFeature1</b> still imports the interface itself, its size is considerably smaller than the actual feature's module, while the final result (getting a view to be pushed) is the same. <b>AppFeature1</b> now imports only what it really needs, making so it will only be recompiled by changes that actually affect it.</b>
+<p>While <code>AppFeature1</code> still imports the interface itself, its size is considerably smaller than the actual feature's module, while the final result (getting a view to be pushed) is the same. <code>AppFeature1</code> now imports only what it really needs, making so it will only be recompiled by changes that actually affect it.</code>
 
-<p>However, there's a small catch. You might notice that this example doesn't make sense: While <b>AppFeature1</b> has access to the protocol that references <b>AppFeature2's</b> <b>UIViewController</b>, it can't actually push it. If we only have access to the bare <b>protocol</b>, we are unable to create an instance of the concrete <b>class</b> that only exists in <b>AppFeature2</b>.</p>
+<p>However, there's a small catch. You might notice that this example doesn't make sense: While <code>AppFeature1</code> has access to the protocol that references <code>AppFeature2's</code> <code>UIViewController</code>, it can't actually push it. If we only have access to the bare <code>protocol</code>, we are unable to create an instance of the concrete <code>class</code> that only exists in <code>AppFeature2</code>.</p>
 
-<p>This is because we're missing a key component in this structure: <b>a dependency injector.</b> In an app like this, because there's no way for modules to reference the concrete information from other modules, there needs to be a global system that is capable of returning the (now hidden) concrete information to modules when a certain protocol is given. At iFood, we solved this by creating a dependency injector called <b>RouterService</b> -- here, each feature's module's interface only exposes a series of <b>Route</b> structs, while each feature's concrete module connects these <b>Routes</b> to the related <b>UIViewController</b>.</p>
+<p>This is because we're missing a key component in this structure: <b>a dependency injector.</b> In an app like this, because there's no way for modules to reference the concrete information from other modules, there needs to be a global system that is capable of returning the (now hidden) concrete information to modules when a certain protocol is given. At iFood, we solved this by creating a dependency injector called <code>RouterService</code> -- here, each feature's module's interface only exposes a series of <code>Route</code> structs, while each feature's concrete module connects these <code>Routes</code> to the related <code>UIViewController</code>.</p>
 
-<p>With this information exposed, iFood's AppDelegate creates an instance of a <b>RouterService</b> which receives every feature's routes and related <b>UIViewControllers</b>. When a feature asks for a specific <b>Route</b> from another feature's interface to be executed, the <b>RouterService</b> automatically locates which <b>UIViewController</b> should be pushed. The process to create something like was detailed in my previous article, <a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift">Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift.</a> Here's a simplified example of how the previous example looks like in our app:</p>
+<p>With this information exposed, iFood's AppDelegate creates an instance of a <code>RouterService</code> which receives every feature's routes and related <code>UIViewControllers</code>. When a feature asks for a specific <code>Route</code> from another feature's interface to be executed, the <code>RouterService</code> automatically locates which <code>UIViewController</code> should be pushed. The process to create something like was detailed in my previous article, <a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift">Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift.</a> Here's a simplified example of how the previous example looks like in our app:</p>
 
 <pre>
 <code>// AppFeature2Interface, which depends on RouterServiceInterface</code>
@@ -242,18 +242,16 @@ January 23rd, 2020
 <code>}</code>
 </pre>
 
-<p>In terms of build time, because <b>AppFeature1</b> doesn't depend on <b>AppFeature2</b> anymore, changes to <b>AppFeature2</b> will <b>not</b> recompile <b>AppFeature1</b>. If you had multiple modules depending on each other, an app that runs entirely on this structure will provide a massive boost in build performance!</p>
+<p>In terms of build time, because <code>AppFeature1</code> doesn't depend on <code>AppFeature2</code> anymore, changes to <code>AppFeature2</code> will <b>not</b> recompile <code>AppFeature1</code>. If you had multiple modules depending on each other, an app that runs entirely on this structure will provide a massive boost in build performance!</p>
 
-<p>As a bonus, this structure can be applied to everything that can be injected. Using the previous complete diagram as an example, we could also add an interface to the <b>HTTPClient</b> that contains only the protocol that defines how requests are made. This allows modules to only reference this protocol, while the dependency injector becomes responsible for injecting the actual concrete class into the modules that reference such protocol. In the end, we can end up with the following diagram:</p>
+<p>As a bonus, this structure can be applied to everything that can be injected. Using the previous complete diagram as an example, we could also add an interface to the <code>HTTPClient</code> that contains only the protocol that defines how requests are made. This allows modules to only reference this protocol, while the dependency injector becomes responsible for injecting the actual concrete class into the modules that reference such protocol. In the end, we can end up with the following diagram:</p>
 
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
   <img src="https://i.imgur.com/6sn22b4.png" alt="Full app with interfaces">            
 </div>
-<p><i>(Not shown: In our case, everyone depends on something called a <b>RouterServiceInterface</b>, with the main module depending on the concrete <b>RouterService</b>, which dynamically links the interfaces to their actual classes.)</i></p>
-<p>Note how the graph is considerably more <b>horizontal</b> than its counterpart -- even though everyone depends on <b>HTTPClientInterface</b>, changes to the actual <b>HTTPClient</b> will have no repercussions on the other modules, making the app compile considerably faster. With an entire app running on this structure, you should only have bad compilation times if the interfaces themselves are changed -- something that should be a rare occurrence. In general, every module is going to be completely independent of each other, which can be especially useful and productive when developing inside the module's specific scheme in Xcode.</p>
-
-</div>
-</div>
+<p><i>(Not shown: In our case, everyone depends on something called a <code>RouterServiceInterface</code>, with the main module depending on the concrete <code>RouterService</code>, which dynamically links the interfaces to their actual classes.)</i></p>
+<p>Note how the graph is considerably more <b>horizontal</b> than its counterpart -- even though everyone depends on <code>HTTPClientInterface</code>, changes to the actual <code>HTTPClient</code> will have no repercussions on the other modules, making the app compile considerably faster. With an entire app running on this structure, you should only have bad compilation times if the interfaces themselves are changed -- something that should be a rare occurrence. In general, every module is going to be completely independent of each other, which can be especially useful and productive when developing inside the module's specific scheme in Xcode.</p>
+</div></div>
                               
                          </div>
 
@@ -343,7 +341,7 @@ January 23rd, 2020
   <script type="text/javascript" src="js/plugin2.js"></script> 
   <script type="text/javascript" src="js/prism2.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts7.js"></script>
+    <script type="text/javascript" src="js/scripts8.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>

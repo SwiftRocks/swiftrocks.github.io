@@ -16,18 +16,18 @@
     <meta name="description" content="Swift's OptionSet protocol is the bridged version of Objective-C's NS_OPTIONS enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation. Let's see what this protocol is, why OptionSets are preferred over a regular Set in some cases and finally what compiler magics it possesses.">
     <meta name="title" content="How OptionSet works inside the Swift Compiler">
     <meta name="url" content="https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/how-optionset-works-inside-the-swift-compiler.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="How OptionSet works inside the Swift Compiler"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/how-optionset-works-inside-the-swift-compiler.png"/>
     <meta property="og:description" content="Swift's OptionSet protocol is the bridged version of Objective-C's NS_OPTIONS enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation. Let's see what this protocol is, why OptionSets are preferred over a regular Set in some cases and finally what compiler magics it possesses."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/how-optionset-works-inside-the-swift-compiler.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="How OptionSet works inside the Swift Compiler"/>
     <meta name="twitter:description" content="Swift's OptionSet protocol is the bridged version of Objective-C's NS_OPTIONS enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation. Let's see what this protocol is, why OptionSets are preferred over a regular Set in some cases and finally what compiler magics it possesses."/>
@@ -39,11 +39,11 @@
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
     
   <!-- All CSS Plugins --> 
-  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+  <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style30.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style31.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -96,7 +96,7 @@
     <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
    </div>
@@ -126,17 +126,17 @@
 <div class="post-info"> 
 December 3rd, 2019
 </div>
-<p>Swift's <b>OptionSet</b> protocol is the bridged version of Objective-C's <b>NS_OPTIONS</b> enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation.</p>
-<p>If for example we were developing a JSON serializer, it would be nice if we allowed the user to control how certain aspects of the serialization process happened, such as if the keys are sorted or if indentation should be applied to the final JSON. In fact, this is how <b>Foundation's</b> <b>JSONSerialization</b> works:</p>
+<p>Swift's <code>OptionSet</code> protocol is the bridged version of Objective-C's <code>NS_OPTIONS</code> enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation.</p>
+<p>If for example we were developing a JSON serializer, it would be nice if we allowed the user to control how certain aspects of the serialization process happened, such as if the keys are sorted or if indentation should be applied to the final JSON. In fact, this is how <code>Foundation's</code> <code>JSONSerialization</code> works:</p>
 <pre>
 <code>try JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted, .sortedKeys])</code>
 </pre>
-<p>From a "list" of options (the quotes will make sense later!), the <b>OptionSet</b> protocol contains a <b>contains(_:)</b> method to see if a specific option is inside the "list". Having several options passed together means that all these options should be considered, and passing no options can be done through an empty array.</p>
-<p>But despite the looks, the <b>options</b> parameter <b>is not an array</b> but a <b>WritingOptions</b> <b>struct</b> that conforms to the <b>OptionSet</b> protocol. How the hell does it behaves like a <b>Set</b> even though it is not?!</p>
-<p>If you've been following this blog, you'll know that the answer is a bunch of Swift compiler magic. Let's see what this protocol is, why <b>OptionSets</b> are preferred over a regular <b>Set</b> in this case, and finally what magic is done to provide the final behavior.</p>
-<h2>Context: Objective-C's <b>NS_OPTIONS</b></h2>
-<p>Before analyzing the Swift compiler code that allows a regular <b>struct</b> to behave like a <b>Set</b>, let's see where <b>OptionSet</b> came from.</p>
-<p>The Objective-C equivalent of <b>OptionSet</b> was the <b>NS_OPTIONS</b> macro, a glorified enum that allowed the same option-mixing gimmick. With it, you can define your options just like an integer enum, like these hypothetical options for browsing SwiftRocks articles:</p>
+<p>From a "list" of options (the quotes will make sense later!), the <code>OptionSet</code> protocol contains a <code>contains(_:)</code> method to see if a specific option is inside the "list". Having several options passed together means that all these options should be considered, and passing no options can be done through an empty array.</p>
+<p>But despite the looks, the <code>options</code> parameter <b>is not an array</b> but a <code>WritingOptions</code> <b>struct</b> that conforms to the <code>OptionSet</code> protocol. How the hell does it behaves like a <code>Set</code> even though it is not?!</p>
+<p>If you've been following this blog, you'll know that the answer is a bunch of Swift compiler magic. Let's see what this protocol is, why <code>OptionSets</code> are preferred over a regular <code>Set</code> in this case, and finally what magic is done to provide the final behavior.</p>
+<h2>Context: Objective-C's <code>NS_OPTIONS</code></h2>
+<p>Before analyzing the Swift compiler code that allows a regular <code>struct</code> to behave like a <code>Set</code>, let's see where <code>OptionSet</code> came from.</p>
+<p>The Objective-C equivalent of <code>OptionSet</code> was the <code>NS_OPTIONS</code> macro, a glorified enum that allowed the same option-mixing gimmick. With it, you can define your options just like an integer enum, like these hypothetical options for browsing SwiftRocks articles:</p>
 <pre>
 <code>typedef NS_OPTIONS(NSUInteger, SwiftRocksOptions) {</code>
 <code>    DarkMode     = 1 << 0,</code>
@@ -168,9 +168,9 @@ December 3rd, 2019
 <code>(options & SwiftRocksOptionsNoImages)     != 0 // true</code>
 </pre>
 <p>Option bitmasking is a very clever use of the binary representation of a number. While unrelated to the article, I like to mention that doing option bitmasks like this is also used as the (current) most efficient solution to the famous Traveling Salesman problem.</p>
-<h2>How <b>NS_OPTIONS</b> is bridged to <b>OptionSet</b></h2>
-<p>In Swift, you don't have to create enums and manually generate these masks. The <b>OptionSet</b> protocol abstracts the process of creating such bitmasks. Hooray!</p>
-<p>But what about things that come from Objective-C? If the Clang importer section of the compiler detects a <b>NS_OPTIONS</b> macro, it will convert it to a <b>struct</b> that inherits from <Code>OptionSet</Code>. <b>OptionSet</b> itself inherits from <b>RawRepresentable</b>, so the enum elements are converted into <b>static let</b> properties that take a <b>rawValue</b>. Here's an example of a converted <b>JSONSerialization.WritingOptions</b>:</p>
+<h2>How <code>NS_OPTIONS</code> is bridged to <code>OptionSet</code></h2>
+<p>In Swift, you don't have to create enums and manually generate these masks. The <code>OptionSet</code> protocol abstracts the process of creating such bitmasks. Hooray!</p>
+<p>But what about things that come from Objective-C? If the Clang importer section of the compiler detects a <code>NS_OPTIONS</code> macro, it will convert it to a <code>struct</code> that inherits from <Code>OptionSet</Code>. <code>OptionSet</code> itself inherits from <code>RawRepresentable</code>, so the enum elements are converted into <code>static let</code> properties that take a <code>rawValue</code>. Here's an example of a converted <code>JSONSerialization.WritingOptions</code>:</p>
 <pre>
 <code>public struct WritingOptions: OptionSet {</code>
 <code></code>
@@ -189,7 +189,7 @@ December 3rd, 2019
 <code>}</code>
 </pre>
 <h2>How OptionSet is defined in the Standard Library</h2>
-<p>Although the <b>OptionSet</b> is used with integers and bitmasking, it can, in theory, be used with anything else as the protocol is just a <b>rawValue</b> and some algebra methods:</p>
+<p>Although the <code>OptionSet</code> is used with integers and bitmasking, it can, in theory, be used with anything else as the protocol is just a <code>rawValue</code> and some algebra methods:</p>
 <pre>
 <code>public protocol OptionSet: RawRepresentable, SetAlgebra {</code>
 <code>    associatedtype Element = Self // from SetAlgebra</code>
@@ -204,7 +204,7 @@ December 3rd, 2019
 <code>    public mutating func remove(_ member: Self.Element) -> Self.Element?</code>
 <code>    public mutating func update(with newMember: Self.Element) -> Self.Element?</code>
 </pre>
-<p>However, implementing these methods isn't required -- if the <b>rawValue</b> type is a number that isn't a floating-point, you'll get default implementations in the form of the bitmasking techniques seen before!</p>
+<p>However, implementing these methods isn't required -- if the <code>rawValue</code> type is a number that isn't a floating-point, you'll get default implementations in the form of the bitmasking techniques seen before!</p>
 <pre>
 <code>public mutating func formUnion(_ other: Self) {</code>
 <code>    self = Self(rawValue: self.rawValue | other.rawValue)</code>
@@ -215,13 +215,13 @@ December 3rd, 2019
 <code>}</code>
 </pre>
 <h2>OptionSet Syntax Sugars</h2>
-<p>We've seen how to work with <b>OptionSet</b> through its methods, but where does this behavior come from?</p>
+<p>We've seen how to work with <code>OptionSet</code> through its methods, but where does this behavior come from?</p>
 <pre>
 <code>options: [.prettyPrinted, .sortedKeys]</code>
 </pre>
 <p>Even though the options argument is the struct itself, we're sending an array of them to the type -- and it works.</p>
-<p>Interestingly enough this syntax sugar has nothing to do with <b>OptionSet</b> itself. IT comes from an inner protocol of which it inherits from: <b>SetAlgebra</b>.</p>
-<p>The <b>SetAlgebra</b> protocol is the backbone for mathematical set operations in the Standard Library and is used by types like <b>Set</b> and <b>OptionSet</b>:</p>
+<p>Interestingly enough this syntax sugar has nothing to do with <code>OptionSet</code> itself. IT comes from an inner protocol of which it inherits from: <code>SetAlgebra</code>.</p>
+<p>The <code>SetAlgebra</code> protocol is the backbone for mathematical set operations in the Standard Library and is used by types like <code>Set</code> and <code>OptionSet</code>:</p>
 <pre>
 <code>public protocol SetAlgebra: Equatable {</code>
 <code>    associatedtype Element</code>
@@ -232,7 +232,7 @@ December 3rd, 2019
 <code>    public func contains(_ member: Self) -> Bool</code>
 <code>    ...</code>
 </pre>
-<p>(This looks very similar to <b>OptionSet</b> itself, and is because <b>OptionSet</b> can be seen as just a light abstraction of <b>SetAlgebra</b> that provides the bitmasking features through a rawValue.)</p>
+<p>(This looks very similar to <code>OptionSet</code> itself, and is because <code>OptionSet</code> can be seen as just a light abstraction of <code>SetAlgebra</code> that provides the bitmasking features through a rawValue.)</p>
 <p>The magic comes from this little extension:</p>
 <pre>
 <code>extension SetAlgebra: ExpressibleByArrayLiteral {</code>
@@ -246,12 +246,11 @@ December 3rd, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p><b>SetAlgebra</b> inherits from <b>ExpressibleByArrayLiteral</b>, which allow it to be represented directly as an array. This triggers an <b>insert()</b> call for every element, which for our <b>OptionSet</b> types means that we'll progressively trigger bitwise AND (|) operations, resulting in a final <b>OptionSet</b> that represents the combination of all the options. Hooray!</p>
-<h2>How <b>ExpressibleByArrayLiteral</b> works internally</h2>
-<p><a href="https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler">The innards of the ExpressibleBy family are covered in detail in my previous article,</a> but as a short explanation, we can say that when the type checker finds a literal being attributed to an explicit type, it checks if it conforms to the related <b>ExpressibleBy</b> protocol and coverts the expression to the designated initializer from the protocol if it does (and throws a compilation error if it does not). For more details, check the linked article.</p>
+<p><code>SetAlgebra</code> inherits from <code>ExpressibleByArrayLiteral</code>, which allow it to be represented directly as an array. This triggers an <code>insert()</code> call for every element, which for our <code>OptionSet</code> types means that we'll progressively trigger bitwise AND (|) operations, resulting in a final <code>OptionSet</code> that represents the combination of all the options. Hooray!</p>
+<h2>How <code>ExpressibleByArrayLiteral</code> works internally</h2>
+<p><a href="https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler">The innards of the ExpressibleBy family are covered in detail in my previous article,</a> but as a short explanation, we can say that when the type checker finds a literal being attributed to an explicit type, it checks if it conforms to the related <code>ExpressibleBy</code> protocol and coverts the expression to the designated initializer from the protocol if it does (and throws a compilation error if it does not). For more details, check the linked article.</p>
 <h2>Conclusion</h2>
-<p>The <b>OptionSet</b> protocol itself is hardly used nowadays, but its existence has some history and shows some of the importance of analyzing what you're developing in terms of performance. You can always use a regular <b>Array</b> or <b>Set</b> to define these options, but should you? For these case where you have a limited set of unique options, using a bitmask is considerably quicker and less resource-intensive, something which your user's device will be very grateful for :)</p>
-
+<p>The <code>OptionSet</code> protocol itself is hardly used nowadays, but its existence has some history and shows some of the importance of analyzing what you're developing in terms of performance. You can always use a regular <b>Array</b> or <b>Set</b> to define these options, but should you? For these case where you have a limited set of unique options, using a bitmask is considerably quicker and less resource-intensive, something which your user's device will be very grateful for :)</p>
 <h2>References and Good reads</h2>
 <a href="https://github.com/apple/swift">The Swift Source Code</a><br>
 </div>
@@ -345,7 +344,7 @@ December 3rd, 2019
   <script type="text/javascript" src="js/plugin2.js"></script> 
   <script type="text/javascript" src="js/prism2.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts7.js"></script>
+    <script type="text/javascript" src="js/scripts8.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>

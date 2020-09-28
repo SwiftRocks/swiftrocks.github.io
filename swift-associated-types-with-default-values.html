@@ -16,18 +16,18 @@
     <meta name="description" content="I was browsing the Swift forums when I stumbled across a discussion regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value.">
     <meta name="title" content="Swift Associated Types With Default Values">
     <meta name="url" content="https://swiftrocks.com/swift-associated-types-with-default-values">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/swift-associated-types-with-default-values.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="Swift Associated Types With Default Values"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/swift-associated-types-with-default-values.png"/>
     <meta property="og:description" content="I was browsing the Swift forums when I stumbled across a discussion regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/swift-associated-types-with-default-values"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/swift-associated-types-with-default-values.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="Swift Associated Types With Default Values"/>
     <meta name="twitter:description" content="I was browsing the Swift forums when I stumbled across a discussion regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value."/>
@@ -39,11 +39,11 @@
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
     
   <!-- All CSS Plugins --> 
-  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+  <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style30.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style31.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -96,7 +96,7 @@
     <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
    </div>
@@ -167,7 +167,7 @@
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>This structure works very well for my current project because defining <b>path</b> and the <b>Value</b> type is all a request needs to do in order to work, and if <b>Value</b> conforms to <b>Unboxable</b>, the object is even retrieved automatically. This works perfectly for requests such as this one that retrieves an user:</p>
+<p>This structure works very well for my current project because defining <code>path</code> and the <code>Value</code> type is all a request needs to do in order to work, and if <code>Value</code> conforms to <code>Unboxable</code>, the object is even retrieved automatically. This works perfectly for requests such as this one that retrieves an user:</p>
 <pre>
 <code>struct UserRequest: HTTPRequest {</code>
 <code>    typealias Value = User // is Unboxable</code>
@@ -175,8 +175,8 @@
 <code>}</code>
 </pre>
 <p>But that implementation is not perfect: Using associated types like that means that I can't test an endpoint without defining a fully fledgled response type to it.</p>
-<p>Worse: What if I don't <i>need</i> my request to return something meaningful? Perhaps I don't care about the response, perhaps I just need to cache some <b>Data</b> on the device, or a plain dictionary is enough. For all these cases, I have to explicitly set <b>Value</b> to something and code a custom <b>serialize()</b> method.</p>
-<p>If that situation was common, I would simply not use associated types for my requests. Luckily, the existence of default values for associated types solve this problem entirely. Now, I can solve it by making all <b>HTTPRequest</b> objects return a <b>Data</b> object by default:</p>
+<p>Worse: What if I don't <i>need</i> my request to return something meaningful? Perhaps I don't care about the response, perhaps I just need to cache some <code>Data</code> on the device, or a plain dictionary is enough. For all these cases, I have to explicitly set <code>Value</code> to something and code a custom <code>serialize()</code> method.</p>
+<p>If that situation was common, I would simply not use associated types for my requests. Luckily, the existence of default values for associated types solve this problem entirely. Now, I can solve it by making all <code>HTTPRequest</code> objects return a <code>Data</code> object by default:</p>
 <pre>
 <code>/// The representation of a HTTPClient's request.</code>
 <code>public protocol HTTPRequest {</code>
@@ -201,7 +201,7 @@
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Plain requests can now work purely with a <b>path</b> property (and return a plain <b>Data</b> object) while still allowing the regular requests to provide their custom responses.</p>
+<p>Plain requests can now work purely with a <code>path</code> property (and return a plain <code>Data</code> object) while still allowing the regular requests to provide their custom responses.</p>
 <pre>
 <code>struct ABTestDataRequest: HTTPRequest {</code>
 <code>    let path: String = "v1/abtest"</code>
@@ -301,7 +301,7 @@
   <script type="text/javascript" src="js/plugin2.js"></script> 
   <script type="text/javascript" src="js/prism2.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts7.js"></script>
+    <script type="text/javascript" src="js/scripts8.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>

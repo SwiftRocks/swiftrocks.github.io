@@ -23,12 +23,12 @@ March 1, 2019
 <i>What on earth is this "first responder" thing when I'm dealing with UITextFields?<br></i>
 <i>Why do UIViews subclass things like UIResponder?<br></i>
 <i>What's the point of these?<br><br></i>
-<p>In iOS, the <b>Responder Chain</b> is the name given to an UIKit-generated linked list of <b>UIResponder</b> objects and is the foundation for everything regarding events (like touch and motion) in iOS.</p>
-<p>The Responder Chain is something that you constantly deal with in the world of iOS development, and although you rarely have to directly deal with it outside of <b>UITextField</b> keyboard shenanigans, knowledge of how it works allows you to solve event-related problems in very easy/creative ways - you can even build architectures that rely on Responder Chains.</p>
+<p>In iOS, the <b>Responder Chain</b> is the name given to an UIKit-generated linked list of <code>UIResponder</code> objects, and is the foundation for everything regarding events (like touch and motion) in iOS.</p>
+<p>The Responder Chain is something that you constantly deal with in the world of iOS development, and although you rarely have to directly deal with it outside of <code>UITextField</code> keyboard shenanigans, knowledge of how it works allows you to solve event-related problems in very easy/creative ways - you can even build architectures that rely on Responder Chains.</p>
 <h2>UIResponder, UIEvent and UIControl</h2>
-<p>In short, <b>UIResponder</b> instances represents objects that can handle and respond to arbitrary events. Many things in iOS are <b>UIResponders</b>, including <b>UIView</b>, <b>UIViewController</b>, <b>UIWindow</b>, <b>UIApplication</b> and <b>UIApplicationDelegate</b>.</p>
-<p>In turn, an <b>UIEvent</b> represents a single UIKit event that contains a type (touch, motion, remote-control and press) and an optional sub-type (like a specific device motion shake). When a system event like a screen touched is detected, UIKit internally creates <b>UIEvent</b> instances and dispatches it to the system event queue by calling <b>UIApplication.shared.sendEvent()</b>. When the event is retrieved from the queue, UIKit internally determines the first <b>UIResponder</b> capable of handling the event and sends it to the selected one. The selection process differs depending on the event type - while touch events go directly to the touched view itself, other event types will be dispatched to the so-called <b>first responder</b>.</p>
-<p>In order to handle system events, <b>UIResponder</b> subclasses can register themselves as capable of handling specific <b>UIEvent</b> types by overriding the methods specific to that type:</p>
+<p>In short, <code>UIResponder</code> instances represents objects that can handle and respond to arbitrary events. Many things in iOS are <code>UIResponders</code>, including <code>UIView</code>, <code>UIViewController</code>, <code>UIWindow</code>, <code>UIApplication</code> and <code>UIApplicationDelegate</code>.</p>
+<p>In turn, an <code>UIEvent</code> represents a single UIKit event that contains a type (touch, motion, remote-control and press) and an optional sub-type (like a specific device motion shake). When a system event like a screen touched is detected, UIKit internally creates <code>UIEvent</code> instances and dispatches it to the system event queue by calling <code>UIApplication.shared.sendEvent()</code>. When the event is retrieved from the queue, UIKit internally determines the first <code>UIResponder</code> capable of handling the event and sends it to the selected one. The selection process differs depending on the event type - while touch events go directly to the touched view itself, other event types will be dispatched to the so called <b>first responder</b>.</p>
+<p>In order to handle system events, <code>UIResponder</code> subclasses can register themselves as capable of handling specific <code>UIEvent</code> types by overriding the methods specific to that type:</p>
 <pre>
 <code>open func touchesBegan(_ touches: Set&lt;UITouch>, with event: UIEvent?)</code>
 <code>open func touchesMoved(_ touches: Set&lt;UITouch>, with event: UIEvent?)</code>
@@ -43,14 +43,14 @@ March 1, 2019
 <code>open func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?)</code>
 <code>open func remoteControlReceived(with event: UIEvent?)</code>
 </pre>
-<p>In a way, you can see <b>UIEvents</b> as notifications on steroids. But although <b>UIEvents</b> can be subclassed and <b>sendEvent</b> can be manually called, they aren't really meant to be played with - at least not through normal means. Because you can't create custom types, dispatching custom events is problematic as it's likely that your event will be incorrectly "handled" by an unintended responder. Still, there are ways for you to play with them - besides system events, <b>UIResponders</b> can also respond to arbitrary "actions" in the form of <b>Selectors</b>.</p>
-<p>The ability to do so was created to give macOS apps an easy way to respond to "menu" actions like select/copy/paste, as the existence of multiple windows in macOS makes simple delegation patterns are difficult to apply. In any case, they're also available for iOS and can be used for custom actions - which is exactly how <b>UIControls</b> like <b>UIButton</b> can dispatch actions after being touched. Consider the following button:</p>
+<p>In a way, you can see <code>UIEvents</code> as notifications on steroids. But although <code>UIEvents</code> can be subclassed and <code>sendEvent</code> can be manually called, they aren't really meant to played with - at least not through normal means. Because you can't create custom types, dispatching custom events is problematic as it's likely that your event will be incorrectly "handled" by an unintended responder. Still, there are ways for you to play with them - besides system events, <code>UIResponders</code> can also respond to arbitrary "actions" in the form of <code>Selectors</code>.</p>
+<p>The ability to do so was created to give macOS apps an easy way to respond to "menu" actions like select/copy/paste, as the existence of multiple windows in macOS makes simple delegation patterns are difficult to apply. In any case, they're also available for iOS and can be used for custom actions - which is exactly how <code>UIControls</code> like <code>UIButton</code> can dispatch actions after being touched. Consider the following button:</p>
 <pre>
 <code>let button = UIButton(type: .system)</code>
 <code>button.addTarget(myView, action: #selector(myMethod), for: .touchUpInside)</code>
 </pre>
-<p>Although <b>UIResponders</b> can fully detect touch events, handling them isn't an easy task. How do you differentiate between different types of touches?</p>
-<p>That's where <b>UIControl</b> excels - these subclasses of <b>UIView</b> abstract the process of handling touch events and expose the ability to assign actions to specific touch events.</p>
+<p>Although <code>UIResponders</code> can fully detect touch events, handling them isn't an easy task. How do you differ between different types of touches?</p>
+<p>That's where <code>UIControl</code> excels - these subclasses of <code>UIView</code> abstract the process of handling touch events and expose the ability to assign actions to specific touch events.</p>
 <p>Internally, touching this button results in the following:</p>
 <pre>
 <code>let event = UIEvent(...) //An UIKit-generated touch event containing the touch position and properties.</code>
@@ -59,7 +59,7 @@ March 1, 2019
 <code>//Because an UIControl was selected, directly invoke its target:</code>
 <code>UIApplication.shared.sendAction(#selector(myMethod), to: myView, from: button, for: event)</code>
 </pre>
-<p>When a specific target is sent to <b>sendAction</b>, UIKit will directly attempt to call the desired selector at the desired target (crashing the app if it doesn't implement it) - but what if the target is <b>nil</b>?</p>
+<p>When a specific target is sent to <code>sendAction</code>, UIKit will directly attempt to call the desired selector at the desired target (crashing the app if it doesn't implement it) - but what if the target is <code>nil</code>?</p>
 <pre>
 <code>final class MyViewController: UIViewController {</code>
 <code>    @objc func myCustomMethod() {</code>
@@ -71,8 +71,8 @@ March 1, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>If you run this, you'll see that even though the action was sent from a plain <b>UIView</b> with no target, <b>MyViewController's</b> <b>myCustomMethod</b> will be triggered!</p>
-<p>When no target is specified, UIKit will search for an <b>UIResponder</b> capable of handling this action just like in the plain <b>UIEvent</b> example. In this case, being able to handle an action relates to the following <b>UIResponder</b> method:</p>
+<p>If you run this, you'll see that even though the action was sent from a plain <code>UIView</code> with no target, <code>MyViewController's</code> <code>myCustomMethod</code> will be triggered!</p>
+<p>When no target is specified, UIKit will search for an <code>UIResponder</code> capable of handling this action just like in the plain <code>UIEvent</code> example. In this case, being able to handle an action relates to the following <code>UIResponder</code> method:</p>
 <pre>
 <code>open func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool</code>
 </pre>
@@ -82,14 +82,14 @@ March 1, 2019
 <code>func myCustomMethod(sender: Any?)</code>
 <code>func myCustomMethod(sender: Any?, event: UIEvent?)</code>
 </pre>
-<p>Now, what if the responder doesn't implement the method? In this case, UIKit uses the following <b>UIResponder</b> method to determine how to proceed:</p>
+<p>Now, what if the responder doesn't implement the method? In this case, UIKit uses the following <code>UIResponder</code> method to determine how to proceed:</p>
 <pre>
 <code>open func target(forAction action: Selector, withSender sender: Any?) -> Any?</code>
 </pre>
-<p>By default, this will return <b>another</b> <b>UIResponder</b> that <i>may or may not</i> be able to handle the desired action. This repeats until the action is handled or the app runs out of choices. But how do the responders know who to route actions to?</p>
+<p>By default, this will return <b>another</b> <code>UIResponder</code> that <i>may or may not</i> be able to handle the desired action. This repeats until the action is handled or the app runs out of choices. But how does the responders know who to route actions to?</p>
 <h2>The Responder Chain</h2>
-<p>As mentioned in the beginning, UIKit handles this by dynamically managing a linked list of <b>UIResponders</b>. The so-called <b>first responder</b> is simply the root element of the list, and if a responder can't handle a specific action/event, the action is recursively sent to the next responder of the list until someone can handle the action or the list ends.</p>
-<p>Although inspecting the actual first responder is protected by a private <b>firstResponder</b> property in <b>UIWindow</b>, you can check the Responder Chain for any given responder by checking the <b>next</b> property:</p>
+<p>As mentioned in the beginning, UIKit handles this by dynamically managing a linked list of <code>UIResponders</code>. The so called <b>first responder</b> is simply the root element of the list, and if a responder can't handle a specific action/event, the action is recursively sent to the next responder of the list until someone can handle the action or the list ends.</p>
+<p>Although inspecting the actual first responder is protected by a private <code>firstResponder</code> property in <code>UIWindow</code>, you can check the Responder Chain for any given responder by checking the <code>next</code> property:</p>
 <pre>
 <code>extension UIResponder {</code>
 <code>    func responderChain() -> String {</code>
@@ -106,11 +106,11 @@ March 1, 2019
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/922BVYT.png" alt="The Responder Chain">                                    
 </div>
-<p>In the previous example where the action was handled by the <b>UIViewController</b>, UIKit first sent the action to the <b>UIView</b> first responder - but since it doesn't implement <b>myCustomMethod</b> the view forwarded the action to the next responder - the <b>UIViewController</b> which happened to have that method in its implementation.</p>
-<p>While in most cases the Responder Chain is simply the order of the subviews, you can customize it to change the general flow order. Besides being able to override the <b>next</b> property to return something else, you can force an <b>UIResponder</b> to become the first responder by calling <b>becomeFirstResponder()</b> and have it go back to its position by calling <b>resignFirstResponder()</b>. This is commonly used in conjunction with <b>UITextField</b> to display a keyboard - <b>UIResponders</b> can define an optional <b>inputView</b> property that only shows up when the responder is the first responder, which is the keyboard in this case.</p>
+<p>In the previous example where the action was handled by the <code>UIViewController</code>, UIKit first sent the action to the <code>UIView</code> first responder - but since it doesn't implement <code>myCustomMethod</code> the view forwarded the action to the next responder - the <code>UIViewController</code> which happened to have that method in its implementation.</p>
+<p>While in most cases the Responder Chain is simply be the order of the subviews, you can customize it to change the general flow order. Besides being able to override the <code>next</code> property to return something else, you can force an <code>UIResponder</code> to become the first responder by calling <code>becomeFirstResponder()</code> and have it go back to its position by calling <code>resignFirstResponder()</code>. This is commonly used in conjunction with <code>UITextField</code> to display a keyboard - <code>UIResponders</code> can define an optional <code>inputView</code> property that only shows up when the responder is the first responder, which is the keyboard in this case.</p>
 <h2>Responder Chain Custom Uses</h2>
 <p>Although the Responder Chain is fully handled by UIKit, you can use it in your favor to solve communication/delegation issues.</p>
-<p>In a way, you can see <b>UIResponder</b> actions as single-use notifications. Consider an app where almost every view supports a "blink" action for the purpose of helping the user navigate in a tutorial. How would it make sure that only the current "active" view blinks when this action is triggered? Possible solutions include making every single view inherit a delegate or use a plain notification that everyone needs to ignore except the <b>"currentActiveView"</b>, but responder actions allow you to cleanly achieve this with zero delegates and minimal coding:</p>
+<p>In a way, you can see <code>UIResponder</code> actions as single-use notifications. Consider an app where almost every view supports a "blink" action for the purpose of helping the user navigate in a tutorial. How would make sure that only the current "active" view blinks when this action is triggered? Possible solutions include making every single view inherit a delegate or use a plain notification that everyone needs to ignore except the <code>"currentActiveView"</code>, but responder actions allow you to cleanly achieve this with zero delegates and minimal coding:</p>
 <pre>
 <code>final class BlinkableView: UIView {</code>
 <code>    override var canBecomeFirstResponder: Bool {</code>
@@ -194,12 +194,12 @@ March 1, 2019
 <code>let newVC = NewViewController()</code>
 <code>UIApplication.shared.push(vc: newVC)</code>
 </pre>
-<p>The way this works is that each <b>CoordenableViewController</b> holds a reference to its original next responder (the window), but overrides <b>next</b> to point to the <b>Coordinator</b> instead, which in turn points the window at its next responder.</p>
+<p>The way this works is that each <code>CoordenableViewController</code> holds a reference to its original next responder (the window), but overrides <code>next</code> to point to the <code>Coordinator</code> instead, which in turn points the window at its next responder.</p>
 <pre>
 <code>// MyView -> MyViewController -> **Coordinator** -> UIWindow -> UIApplication -> AppDelegate</code>
 </pre>
-<p>This allows the <b>Coordinator</b> to receive system events, and by defining a new <b>PushScreenEvent</b> that contains info about a new view controller, we can dispatch a <b>pushNewScreen</b> action that is handled by these <b>Coordinators</b> to push new screens.</p>
-<p>With this structure, <b>UIApplication.shared.push(vc: newVC)</b> can be called from <b>anywhere</b> in the app without needing a single delegate or singleton as UIKit will make sure that only the current <b>Coordinator</b> is notified of this action, thanks to the Responder Chain.</p>
+<p>This allows the <code>Coordinator</code> to receive system events, and by defining a new <code>PushScreenEvent</code> that contains info about a new view controller, we can dispatch a <code>pushNewScreen</code> action that is handled by these <code>Coordinators</code> to push new screens.</p>
+<p>With this structure, <code>UIApplication.shared.push(vc: newVC)</code> can be called from <b>anywhere</b> in the app without needing a single delegate or singleton as UIKit will make sure that only the current <code>Coordinator</code> is notified of this action, thanks to the Responder Chain.</p>
 <p>The examples shown here were highly theoretical, but I hope this helped you understand the purpose and uses of the Responder Chain.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

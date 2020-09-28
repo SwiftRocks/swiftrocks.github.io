@@ -16,18 +16,18 @@
     <meta name="description" content="CollectionOfOne is a type inside the Swift Standard Library that defines a <b>collection of a single element.</b> While this sounds a bit weird, there's a good reason for this to exist. Let's check out why.">
     <meta name="title" content="Faster Array Operations With CollectionOfOne in Swift">
     <meta name="url" content="https://swiftrocks.com/faster-swift-array-operations-with-collectionofone">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/faster-swift-array-operations-with-collectionofone.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="Faster Array Operations With CollectionOfOne in Swift"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/faster-swift-array-operations-with-collectionofone.png"/>
     <meta property="og:description" content="CollectionOfOne is a type inside the Swift Standard Library that defines a <b>collection of a single element.</b> While this sounds a bit weird, there's a good reason for this to exist. Let's check out why."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/faster-swift-array-operations-with-collectionofone"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/faster-swift-array-operations-with-collectionofone.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="Faster Array Operations With CollectionOfOne in Swift"/>
     <meta name="twitter:description" content="CollectionOfOne is a type inside the Swift Standard Library that defines a <b>collection of a single element.</b> While this sounds a bit weird, there's a good reason for this to exist. Let's check out why."/>
@@ -39,11 +39,11 @@
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
     
   <!-- All CSS Plugins --> 
-  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+  <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style30.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style31.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -96,7 +96,7 @@
     <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
    </div>
@@ -126,26 +126,26 @@
 <div class="post-info"> 
 December 23rd, 2019
 </div>
-<p><b>CollectionOfOne</b> is a type inside the Swift Standard Library that defines a <b>collection of a single element.</b> While this sounds a bit weird, there's a good reason for this to exist. Let's check out why.</p>
+<p><code>CollectionOfOne</code> is a type inside the Swift Standard Library that defines a <b>collection of a single element.</b> While this sounds a bit weird, there's a good reason for this to exist. Let's check out why.</p>
 <h2>Operating on single elements</h2>
 <p>Personally, I am guilty of creating single-element arrays to make simple operations like this:</p>
 <pre>
 <code>someArray += [someElement]</code>
 </pre>
-<p>I used to do things like this for readability reasons (as you may or may not agree that this looks better than an <b>append()</b> call in some cases), but it turns out <b>this is bad</b> for multiple reasons. Here's what happens internally when you do something like this:</p>
-<p>* The compiler translates the array literal into <b>Array's</b> <b>ExpressibleByArrayLiteral</b> initializer.</p>
+<p>I used to do things like this for readability reasons (as you may or may not agree that this looks better than an <code>append()</code> call in some cases), but it turns out <b>this is bad</b> for multiple reasons. Here's what happens internally when you do something like this:</p>
+<p>* The compiler translates the array literal into <code>Array's</code> <code>ExpressibleByArrayLiteral</code> initializer.</p>
 <p>* The array initializer will create a buffer to hold the single element.</p>
 <p>* The single element is copied into that buffer.</p>
-<p>* += is a wrapper for <b>appendContents(of:)</b>, which first increases the buffer's capacity based on the number of elements being added.</p>
+<p>* += is a wrapper for <code>appendContents(of:)</code>, which first increases the buffer's capacity based on the number of elements being added.</p>
 <p>* Finally, the elements are copied from their original buffer to the one of the array they're being added to.</p>
-<p>That's an enormous amount of stuff for something as simple as dealing with a single element! We're creating the entire stack for an array structure just for a simple <b>append()</b> when all we needed to do was get a hold of the single element and copy it into the original buffer.</p>
+<p>That's an enormous amount of stuff for something as simple as dealing with a single element! We're creating the entire stack for an array structure just for a simple <code>append()</code> when all we needed to do was get a hold of the single element and copy it into the original buffer.</p>
 <p>Usually, this sort of innocent mistake is optimized by the compiler, but in this case, even with higher optimization levels, the <b>compiler does not appear to know how to optimize the array allocation part out of single-element operations.</b> If we extract the SIL out of that line of code, we'll get multiple references for array allocations:</p>
 <pre>
 <code>// function_ref _allocateUninitializedArray&lt;A>(_:)</code>
 </pre>
 <h2>CollectionOfOne - Collections, but not really</h2>
-<p>To treat cases like this where the operation relies on a collection but you're only dealing with one element, the <b>CollectionOfOne</b> type can be used to efficiently represent these elements without having to worry about anything else that would normally come from the <b>Collection</b> protocol.</p>
-<p>The way this works is straight-forward: the <b>CollectionOfOne</b> type implements <b>Collection</b>, meaning that it's able to respond to iterations and more. But instead of implementing these things with buffers like in an <b>Array</b>, the <b>CollectionOfOne</b> type simply holds a reference to the element:</p>
+<p>To treat cases like this where the operation relies on a collection but you're only dealing with one element, the <code>CollectionOfOne</code> type can be used to efficiently represent these elements without having to worry about anything else that would normally come from the <code>Collection</code> protocol.</p>
+<p>The way this works is straight-forward: the <code>CollectionOfOne</code> type implements <code>Collection</code>, meaning that it's able to respond to iterations and more. But instead of implementing these things with buffers like in an <code>Array</code>, the <code>CollectionOfOne</code> type simply holds a reference to the element:</p>
 <pre>
 <code>@frozen // trivial-implementation</code>
 <code>public struct CollectionOfOne&lt;Element> {</code>
@@ -193,27 +193,26 @@ December 23rd, 2019
 <code>  return 1</code>
 <code>}</code>
 </pre>
-<p>This makes <b>CollectionOfOne</b> a very efficient way to represent a single element. If we modify the original example to use <b>CollectionOfOne</b>, we can give our app a small performance boost.</p>
+<p>This makes <code>CollectionOfOne</code> a very efficient way to represent a single element. If we modify the original example to use <code>CollectionOfOne</code>, we can give our app a small performance boost.</p>
 <pre>
 <code>// Adding 10 million elements</code>
 <code>someArray += [someElement]                // 8 seconds</code>
 <code>someArray += CollectionOfOne(someElement) // 6.9 seconds</code>
 </pre>
-<p><b>Note:</b> Adding to an array was used as the example because I believe it's the most common way of reaching this problem, but this is actually a bad use case of <b>CollectionOfOne</b>. In this case, the best performance you can get is by using <b>append()</b> directly as that'll ensure the element is directly copied into the array's buffer without any overhead.</p>
+<p><b>Note:</b> Adding to an array was used as the example because I believe it's the most common way of reaching this problem, but this is actually a bad use case of <code>CollectionOfOne</code>. In this case, the best performance you can get is by using <code>append()</code> directly as that'll ensure the element is directly copied into the array's buffer without any overhead.</p>
 <pre>
 <code>someArray.append(someElement) // 4.9 seconds</code>
 </pre>
-<p>The cases where using <b>CollectionOfOne</b> is the best approach possible is when you are forced to operate on <b>Collections</b>. In the Standard Library for example, <b>CollectionOfOne</b> is used to insert elements in specific positions of an <b>Array</b>:</p>
+<p>The cases where using <code>CollectionOfOne</code> is the best approach possible is when you are forced to operate on <code>Collections</code>. In the Standard Library for example, <code>CollectionOfOne</code> is used to insert elements in specific positions of an <code>Array</code>:</p>
 <pre>
 <code>public mutating func insert(_ newElement: __owned Element, at i: Int) {</code>
 <code>  _checkIndex(i)</code>
 <code>  self.replaceSubrange(i..&lt;i, with: CollectionOfOne(newElement))</code>
 <code>}</code>
 </pre>
-<p>Because <b>replaceSubrange</b> replaces a <b>Collection</b> with another one, cases where the replacement is only a single element can greatly benefit from using <b>CollectionOfOne</b>.</p>
+<p>Because <code>replaceSubrange</code> replaces a <code>Collection</code> with another one, cases where the replacement is only a single element can greatly benefit from using <code>CollectionOfOne</code>.</p>
 <h2>Conclusion</h2>
-<p>When the performance gain isn't very high, I believe you should always value readability and maintainability over the gain. However, its always a good idea to understand the possible options and their trade-offs. Even if you never use <b>CollectionOfOne</b> directly, knowing of its existence and why it exists may help you make better decisions in the future.</p>
-
+<p>When the performance gain isn't very high, I believe you should always value readability and maintainability over the gain. However, its always a good idea to understand the possible options and their trade-offs. Even if you never use <code>CollectionOfOne</code> directly, knowing of its existence and why it exists may help you make better decisions in the future.</p>
 <h2>References and Good Reads</h2>
 <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/Array.swift">Array.swift</a><br>
 <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/CollectionOfOne.swift">CollectionOfOne.swift</a><br>
@@ -309,7 +308,7 @@ December 23rd, 2019
   <script type="text/javascript" src="js/plugin2.js"></script> 
   <script type="text/javascript" src="js/prism2.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts7.js"></script>
+    <script type="text/javascript" src="js/scripts8.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>

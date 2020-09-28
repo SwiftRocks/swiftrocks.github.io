@@ -19,10 +19,10 @@
 <div class="post-info"> 
 June 26, 2019
 </div>
-<p>Foundation has a huge amount of classes that makes iOS development easier but we only interact with a few of them, like <b>Data</b> and <b>URLSession</b>. As these types related to things that are used daily, they end up being more popular than other ones. But what about the other ones?</p>
+<p>Foundation has a huge amount of classes that makes iOS development easier but we only interact with a few of them, like <code>Data</code> and <code>URLSession</code>. As these types related to things that are used daily, they end up being more popular than other ones. But what about the other ones?</p>
 <p>There's a bunch of Foundation types are <b>so situational</b> that people doubt they even existed in first place. In fact, they are so rarely mentioned as the solutions to problems that people end up making code to mimic things that already exist in the language. But they exist, and although they are old most of these types are still very useful. Let's see a few of them.</p>
 <h2>NSScanner</h2>
-<p><b>NSScanner</b> can progressively extract numbers and strings from a base string similarly to how <b>scanf</b> works in C:</p>
+<p><code>NSScanner</code> can progressively extract numbers and strings from a base string similarly to how <code>scanf</code> works in C:</p>
 <pre>
 <code>public func extractIntsFrom(string: String) -> [Int] {</code>
 <code>    var result: [Int] = []</code>
@@ -42,7 +42,7 @@ June 26, 2019
 <code>let ints = extractIntsFrom(string: string)</code>
 <code>// [1, 337, 700]</code>
 </pre>
-<p>It has many variations like <b>scanString</b>, <b>scanDouble</b> and <b>scanHexInt</b>, and can be configured to scan at specific locations in a string and to take case sensitivity in consideration. This is a more direct solution for searching occurrences of a string when you're looking for specific patterns (like being a number) instead of a concrete match.</p>
+<p>It has many variations like <code>scanString</code>, <code>scanDouble</code> and <code>scanHexInt</code>, and can be configured to scan at specific locations in a string and to take case sensitivity in consideration. This is a more direct solution for searching occurrences of a string when you're looking for specific patterns (like being a number) instead of a concrete match.</p>
 <p>The fact that it comes from OBJ-C means that it isn't very Swifty (given away here by the use of pointers to a dummy object), but you can wrap it up in an extension to make it better to the end user.</p>
 <h2>NSCountedSet</h2>
 <p>There are many problems in computer science that requires you to keep track of the quantity of a certain element, like the classic anagram interview problem:</p>
@@ -64,7 +64,7 @@ June 26, 2019
 <code>    return dict.isEmpty</code>
 <code>}</code>
 </pre>
-<p>This is easy to solve with dictionaries with <b>Int</b> values, but we don't need to, because that's exactly what <b>NSCountedSet</b> does.</p>
+<p>This is easy to solve with dictionaries with <code>Int</code> values, but we don't need to, because that's exactly what <code>NSCountedSet</code> does.</p>
 <pre>
 <code>func isAnagram(_ first: String, _ second: String) -> Bool {</code>
 <code>    guard first.count == second.count else {</code>
@@ -77,10 +77,10 @@ June 26, 2019
 <code>    return countedSet.count == 0</code>
 <code>}</code>
 </pre>
-<p>Elements can be repeatedly added to the set with <b>countedSet.add(element)</b> and have their counts inspected with <b>countedSet.count(element)</b>. If the count reaches zero, the element is removed from the set.</p>
+<p>Elements can be repeatedly added to the set with <code>countedSet.add(element)</code> and have their counts inspected with <code>countedSet.count(element)</code>. If the count reaches zero, the element is removed from the set.</p>
 <h2>CFBinaryHeap</h2>
-<p>The Swift Standard Library has a notorious lack of data structures, but you can find Tree and Heap implementations in Foundation in the shape of <b>CFTree</b> and <b>CFBinaryHeap</b>. Heaps are a very efficient way to implement priority queue structures, and since they're very extensive to code, <b>CFBinaryHeap</b> can save you some time.</p>
-<p>I'm adding it to the list because it's obscure and cool, but I have to say that it's unfortunately very hard to use. <b>CFBinaryHeap</b> is a C CoreFoundation class that isn't bridged to Foundation, so you won't be able to use without managing tons of pointers. Your best bet would be to write or use a wrapper like <a href="https://github.com/matthewcheok/MCBinaryHeap">MCBinaryHeap</a>.</p>
+<p>The Swift Standard Library has a notorious lack of data structures, but you can find Tree and Heap implementations in Foundation in the shape of <code>CFTree</code> and <code>CFBinaryHeap</code>. Heaps are a very efficient way to implement priority queue structures, and since they're very extensive to code, <code>CFBinaryHeap</code> can save you some time.</p>
+<p>I'm adding it to the list because it's obscure and cool, but I have to say that it's unfortunately very hard to use. <code>CFBinaryHeap</code> is a C CoreFoundation class that isn't bridged to Foundation, so you won't be able to use without managing tons of pointers. Your best bet would be to write or use a wrapper like <a href="https://github.com/matthewcheok/MCBinaryHeap">MCBinaryHeap</a>.</p>
 <pre>
 <code>let array = [8,3,5,4,1]</code>
 <code>let heap = MCBinaryHeap(array: array)</code>
@@ -92,8 +92,8 @@ June 26, 2019
 </pre>
 <p>Priority queues are popular in graph searching problems, and can be used to bring efficiency to anything where you need to keep track of the smallest or largest elements in an unordered array.</p>
 <h2>NSCache</h2>
-<p><b>NSCache</b> is a collection type that works similarly to a dictionary, but it has two important key differences. First, it <b>does not</b> copy the key objects that are put into it, and second, it <b>automatically removes entries</b> from itself it the system is running out of memory.</p>
-<p>The actual policies for removing entries are cryptic, but if you have objects that expensive to create, usage of <b>NSCache</b> can be a very system friendly alternative to regular dictionary caches. Here's how it can be used for caching <b>UIImages</b>:</p>
+<p><code>NSCache</code> is a collection type that works similarly to a dictionary, but it has two important key differences. First, it <b>does not</b> copy the key objects that are put into it, and second, it <b>automatically removes entries</b> from itself it the system is running out of memory.</p>
+<p>The actual policies for removing entries are cryptic, but if you have objects that expensive to create, usage of <code>NSCache</code> can be a very system friendly alternative to regular dictionary caches. Here's how it can be used for caching <code>UIImages</code>:</p>
 <pre>
 <code>final class ImageDownloader {</code>
 <code>    let client: HTTPClient</code>
@@ -122,7 +122,7 @@ June 26, 2019
 <code>}</code>
 </pre>
 <h2>NSOrderedSet</h2>
-<p>Sets are great for keeping track of elements when duplication doesn't matter, but because set access is O(1), there's no guarantee that they will be ordered when you do so. As the name implies, <b>NSOrderedSet</b> works like a regular <b>Set</b> with the exception that the elements are <b>ordered</b>.</p>
+<p>Sets are great for keeping track of elements when duplication doesn't matter, but because set access is O(1), there's no guarantee that they will be ordered when you do so. As the name implies, <code>NSOrderedSet</code> works like a regular <code>Set</code> with the exception that the elements are <b>ordered</b>.</p>
 <pre>
 <code>let set = NSMutableOrderedSet()</code>
 <code>set.add(1)</code>
@@ -138,7 +138,7 @@ June 26, 2019
 <code>    // 1, 4, 6</code>
 <code>}</code>
 </pre>
-<p>Because this is an old type you'll notice that there's no generics in it -- all operations are based on the <b>Any</b> type. This isn't very Swifty, so you'll probably want to wrap it in a Swift type:</p>
+<p>Because this is an old type you'll notice that there's no generics in it -- all operations are based on the <code>Any</code> type. This isn't very Swifty, so you'll probably want to wrap it in a Swift type:</p>
 <pre>
 <code>class OrderedSet&lt;T: Hashable>: Sequence {</code>
 <code>    private let _set = NSMutableOrderedSet()</code>
@@ -158,7 +158,7 @@ June 26, 2019
 <code>}</code>
 </pre>
 <h2>NSByteCountFormatter</h2>
-<p>There are tons of obscure formatters in Foundation, but I specifically like a few of them. <b>ByteCountFormatter</b> formats byte counts into human readable file size formats. Useful if your apps downloads content as you don't need to calculate these values manually.</p>
+<p>There are tons of obscure formatters in Foundation, but I specifically like a few of them. <code>ByteCountFormatter</code> formats byte counts into human readable file size formats. Useful if your apps downloads content as you don't need to calculate these values manually.</p>
 <pre>
 <code>let bytes = 1024 * 1024</code>
 <code>let formatter = ByteCountFormatter()</code>
@@ -168,7 +168,7 @@ June 26, 2019
 <code>// 1 MB</code>
 </pre>
 <h2>NSDataDetector</h2>
-<p><b>NSDataDetector</b> is similar to <b>NSScanner</b>, with the difference that it extracts <b>contextual</b> data from strings like phone numbers, addresses and links.</p>
+<p><code>NSDataDetector</code> is similar to <code>NSScanner</code>, with the difference that it extracts <b>contextual</b> data from strings like phone numbers, addresses and links.</p>
 <pre>
 <code>let string = "I write for https://swiftrocks.com and my phone is 555-111-111."</code>
 <code>let range = NSRange(0..&lt;string.count)</code>
@@ -189,7 +189,7 @@ June 26, 2019
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>The downside is that it relies on Foundation's regex API, once again, because it's old. This is again not very Swifty, but <b>NSDataDetector</b> is still a very solid type if you need to extract such information.</p>
+<p>The downside is that it relies on Foundation's regex API, once again, because it's old. This is again not very Swifty, but <code>NSDataDetector</code> is still a very solid type if you need to extract such information.</p>
 <h2>Conclusion</h2>
 <p>There are tons of useful types in Foundation that we don't hear much of. Knowing them can help you prevent writing unnecessary code.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>

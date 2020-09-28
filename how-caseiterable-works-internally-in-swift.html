@@ -16,18 +16,18 @@
     <meta name="description" content="CaseIterable is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum.">
     <meta name="title" content="How CaseIterable Works Internally in Swift">
     <meta name="url" content="https://swiftrocks.com/how-caseiterable-works-internally-in-swift">
-    <meta name="image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/how-caseiterable-works-internally-in-swift.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
     <meta property="og:title" content="How CaseIterable Works Internally in Swift"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/how-caseiterable-works-internally-in-swift.png"/>
     <meta property="og:description" content="CaseIterable is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/how-caseiterable-works-internally-in-swift"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/bg/swiftrockssocial.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/how-caseiterable-works-internally-in-swift.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
     <meta name="twitter:title" content="How CaseIterable Works Internally in Swift"/>
     <meta name="twitter:description" content="CaseIterable is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum."/>
@@ -39,11 +39,11 @@
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
     
   <!-- All CSS Plugins --> 
-  <link rel="stylesheet" type="text/css" href="css/plugin2.css"> 
+  <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
     <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism2.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style30.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style31.css"> 
   <!-- PT Sans --> 
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
@@ -96,7 +96,7 @@
     <div class="blog-header col-xs-12">
      <div class="blog-header-container">
          <a href="https://swiftrocks.com">
-           <img src="images/bg/swiftrockswithtext.png" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
+           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
          </a> 
      </div>
    </div>
@@ -126,8 +126,8 @@
           <div class="post-info"> 
           September 21, 2018
           </div>
-          <p><b>CaseIterable</b> is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum.</p>
-          <p>If we take a look at how <b>CaseIterable</b> is implemented in the Standard Library, we can see that the protocol is just what one would expect it to be: a simple definition of an array of cases.</p>
+          <p><code>CaseIterable</code> is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum.</p>
+          <p>If we take a look at how <code>CaseIterable</code> is implemented in the Standard Library, we can see that the protocol is just what one would expect it to be: a simple definition of an array of cases.</p>
 <pre>
 <code>public protocol CaseIterable {</code>
 <code>    /// A type that can represent a collection of all values of this type.</code>
@@ -137,7 +137,7 @@
 <code>    static var allCases: AllCases { get }</code>
 <code>}</code>
 </pre>
-<p>But this article isn't about the Swift aspect of this protocol. As you probably know, this protocol is special: you don’t need to define and fill the <b>allCases</b> type - <b>the compiler does it for you.</b></p>
+<p>But this article isn't about the Swift aspect of this protocol. As you probably know, this protocol is special: you don’t need to define and fill the <code>allCases</code> type - <b>the compiler does it for you.</b></p>
 <pre>
 <code>enum MyEnum: CaseIterable {</code>
 <code>    case foo</code>
@@ -150,24 +150,28 @@
 <code> // </code>
 <code>}</code>
 </pre>
-<p>This behaviour isn’t new - the same concept is applied in many other protocols like <b>RawRepresentable</b> and <b>Codable</b> (and now also <b>Equatable</b>/<b>Hashable</b>), but I had never really researched how this was done. Since I've been studying compilers lately to be able to fix <a href="https://github.com/rockbruno/swiftshield">SwiftShield's</a> edge cases, I took this opportunity to jump into Swift's source code, learn something and show you how it's done.</p>
+<p>This behaviour isn’t new - the same concept is applied in many other protocols like <code>RawRepresentable</code> and <code>Codable</code> (and now also <code>Equatable</code>/<code>Hashable</code>), but I had never really researched how this was done. Since I've been studying compilers lately to be able to fix <a href="https://github.com/rockbruno/swiftshield">SwiftShield's</a> edge cases, I took this opportunity to jump into Swift's source code, learn something and show you how it's done.</p>
 <h2>Retrieving a .swift file's Abstract Syntax Tree</h2>
 <p>In order to find out how Swift's generated code is generated, we need to know what this generated code <i>actually</i> looks like.</p>
 <p>You can reverse engineer the resulting binary, but it would be painfully hard to understand what the assembly means. Another option is to fork the Swift compiler and attach lldb to it, but you would need to know what to breakpoint in the first place - which I have no idea.</p>
-<p>Luckily, the Swift compiler in your Xcode's toolchain offers several arguments that allow you to extract human-readable files that represent "processed" versions of Swift source files, and one of these options allow you to retrieve the <b>Abstract Syntax Tree (AST)</b> of a file.  </p>
-<p>Although the AST is just the contents of your file written as a tree-like structure, the AST returned by the Swift compiler will contain all the optimizations and overall magic done to your file. This allows us to see what an enum with <b>CaseIterable</b> looks like after compiling.  </p>
-<p>First, I'll create a basic enum at some file named <b>enum.swift</b>:</p>
+<p>Luckily, the Swift compiler in your Xcode's toolchain offers several arguments that allow you to extract human-readable files that represent "processed" versions of Swift source files, and one of these options allow you to retrieve the <b>Abstract Syntax Tree (AST)</b> of a file.
+
+</p>
+<p>Although the AST is just the contents of your file written as a tree-like structure, the AST returned by the Swift compiler will contain all the optimizations and overall magic done to your file. This allows us to see what an enum with <code>CaseIterable</code> looks like after compiling.
+
+</p>
+<p>First, I'll create a basic enum at some file named <code>enum.swift</code>:</p>
 <pre>
 <code>enum MyEnum: CaseIterable {</code>
 <code>    case foo</code>
 <code>    case bar</code>
 <code>}</code>
 </pre>
-<p>Now, to get the AST of that, I'll run <b>swiftc</b> with the <b>-dump-ast</b> argument:</p>
+<p>Now, to get the AST of that, I'll run <code>swiftc</code> with the <code>-dump-ast</code> argument:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
 <code>swiftc -dump-ast enum.swift</code>
 </pre>
-<p>This returns a gigantic tree structure due to all the code generation involved in Swift, but I extracted the part relevant to the declaration of <b>allCases</b>:</p>
+<p>This returns a gigantic tree structure due to all the code generation involved in Swift, but I extracted the part relevant to the declaration of <code>allCases</code>:</p>
 <pre>
 <code>(var_decl implicit "allCases" type='[MyEnum]' interface type='[MyEnum]' access=internal type storage_kind=computed</code>
 <code>  (accessor_decl implicit 'anonname=0x7fa86f015c28' interface type='(MyEnum.Type) -> () -> [MyEnum]' access=internal type getter_for=allCases</code>
@@ -184,18 +188,20 @@
 <code>            (declref_expr implicit type='(MyEnum.Type) -> MyEnum' decl=moduletest.(file).MyEnum.bar@/Users/bruno.rocha/Desktop/moduletest.swift:3:10 function_ref=double)</code>
 <code>            (type_expr implicit type='MyEnum.Type' typerepr='&lt;&lt;NULL>>')))))))</code>
 </pre>
-<p>ASTs are very verbose, but the names help us understand what this actually means. We have a declaration of an <b>allCases</b> property (<b>var_decl</b>), which (<b>brace_stmt</b>) returns (<b>return_stmt</b>) a <b>MyEnum</b> array (<b>array_expr</b>) containing <b>.foo</b> (defined by the <b>dot_syntax_call_expr</b> of implicit type <b>MyEnum</b> followed by the <b>declref_expr</b> reference of <b>MyEnum.foo</b>) and <b>.bar</b> (same as before).</p>
-<p>  Verbosity aside, this is the same as the <b>return [.foo, .bar]</b> shown above. But where is this code injection happening?</p>
+<p>ASTs are very verbose, but the names help us understand what this actually means. We have a declaration of an <code>allCases</code> property (<code>var_decl</code>), which (<code>brace_stmt</code>) returns (<code>return_stmt</code>) a <code>MyEnum</code> array (<code>array_expr</code>) containing <code>.foo</code> (defined by the <code>dot_syntax_call_expr</code> of implicit type <code>MyEnum</code> followed by the <code>declref_expr</code> reference of <code>MyEnum.foo</code>) and <code>.bar</code> (same as before).</p>
+<p>
+
+Verbosity aside, this is the same as the <code>return [.foo, .bar]</code> shown above. But where is this code injection happening?</p>
 <h2>Debugging the Swift Compiler</h2>
-<p>Since <b>CaseIterable</b> is a relatively simple protocol, we can likely uncover its internals by searching the <a href="https://github.com/apple/swift">open source Swift repository</a> on GitHub. I did this and got only about 2 pages of references - most being unit tests.</p>
-<p>One of the results is a reference to the actual thing: A suspicious method named <b>deriveCaseIterable_enum_getter</b> in a file named <a href="https://github.com/apple/swift/blob/537954fb9338951ce94dbe8549bbc7f0e2b1395f/lib/Sema/DerivedConformanceCaseIterable.cpp#L43">DerivedConformanceCaseIterable.cpp</a> that takes a property's body and appends some content to it. Bingo!</p>
+<p>Since <code>CaseIterable</code> is a relatively simple protocol, we can likely uncover its internals by searching the <a href="https://github.com/apple/swift">open source Swift repository</a> on GitHub. I did this and got only about 2 pages of references - most being unit tests.</p>
+<p>One of the results is a reference to the actual thing: A suspicious method named <code>deriveCaseIterable_enum_getter</code> in a file named <a href="https://github.com/apple/swift/blob/537954fb9338951ce94dbe8549bbc7f0e2b1395f/lib/Sema/DerivedConformanceCaseIterable.cpp#L43">DerivedConformanceCaseIterable.cpp</a> that takes a property's body and appends some content to it. Bingo!</p>
 <p>But before analyzing what this method does, I'm interested in knowing how the compiler got here in the first place.</p>
-<p>By making a fork of the Swift compiler and building it in debug mode, we're able to attach lldb to it, breakpoint this method and call <b>bt</b> to print its backtrace.</p>
+<p>By making a fork of the Swift compiler and building it in debug mode, we're able to attach lldb to it, breakpoint this method and call <code>bt</code> to print its backtrace.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
 <code>lldb -- /swift-fork/build/Ninja-ReleaseAssert+swift-DebugAssert/swift-macosx-x86_64/bin/swiftc -dump-ast enum.swift</code>
 </pre>
 <p><b><i>(Note)</i></b> Since I researched this all by myself, some assumptions might not be fully correct. Feel free to correct me if you know the Swift compiler!</p>
-<p>If you take a look at the file in question, you'll find that <b>deriveCaseIterable_enum_getter</b> isn't called directly. Instead, it gets passed as a reference from another method called <b>deriveCaseIterable</b>. This means that backtracing won't reveal the information we want - so instead of backtracing it directly, I'll backtrace <b>deriveCaseIterable</b> itself.</p>
+<p>If you take a look at the file in question, you'll find that <code>deriveCaseIterable_enum_getter</code> isn't called directly. Instead, it gets passed as a reference from another method called <code>deriveCaseIterable</code>. This means that backtracing won't reveal the information we want - so instead of backtracing it directly, I'll backtrace <code>deriveCaseIterable</code> itself.</p>
 <pre class="command-line language-bash" data-host="SwiftRocks", data-prompt="(lldb)", data-output="3-4">
 <code>b DerivedConformanceCaseIterable.cpp:82
 run
@@ -214,33 +220,33 @@ bt</code>
 <code>TypeChecker::checkConformancesInContext(this=0x00007ffeefbf95f0, dc=0x000000010c8d9730, idc=0x000000010c8d9790) at TypeCheckProtocol.cpp:4720</code>
 </pre>
 <p>After a quick inspection at each of these symbol's files, we can see that after parsing the file's structure, the compiler starts running a couple workflows to determine if all protocols and conditions are being conformed correctly (take a look at the files from the backtrace to see them yourself!).</p>
-<p>At <b>checkConformancesInContext</b>, the compiler has access to a context (our enum's declaraction). It extracts an array of conformances from it (<b>CaseIterable.allCases</b> in this case) and calls <b>checkAllConformances</b>.</p>
-<p><b>checkAllConformances</b> loops the array of conformances and calls <b>checkIndividualConformance</b> for each of them. If the requirements are not being satisfied, compilation warnings/errors are dispatched.</p>
-<p><b>checkIndividualConformance</b> seems to make superficial checks to the conformance, such as checking if it's using a <b>class</b> protocol outside a <b>class</b>, or if it's an OBJ-C object trying to conform to a Swift protocol. If the compiler is still incapable of confirming the requirements (because we're literally missing an entire property), <b>checkConformance</b> is called.</p>
-<p><b>checkConformance</b> will attempt to validate a protocol through a few procedures. This is where my subpar knowledge of compilers leaves me hanging, but I was able to grasp the meaning of the procedure that matters to us: <b>resolveWitnessViaDerivation</b>. This is where requirements try to be confirmed by injecting the relevant missing code.</p>
+<p>At <code>checkConformancesInContext</code>, the compiler has access to a context (our enum's declaraction). It extracts an array of conformances from it (<code>CaseIterable.allCases</code> in this case) and calls <code>checkAllConformances</code>.</p>
+<p><code>checkAllConformances</code> loops the array of conformances and calls <code>checkIndividualConformance</code> for each of them. If the requirements are not being satisfied, compilation warnings/errors are dispatched.</p>
+<p><code>checkIndividualConformance</code> seems to make superficial checks to the conformance, such as checking if it's using a <code>class</code> protocol outside a <code>class</code>, or if it's an OBJ-C object trying to conform to a Swift protocol. If the compiler is still incapable of confirming the requirements (because we're literally missing an entire property), <code>checkConformance</code> is called.</p>
+<p><code>checkConformance</code> will attempt to validate a protocol through a few procedures. This is where my subpar knowledge of compilers leaves me hanging, but I was able to grasp the meaning of the procedure that matters to us: <code>resolveWitnessViaDerivation</code>. This is where requirements try to be confirmed by injecting the relevant missing code.</p>
 <h2>Deriving Protocols</h2>
-<p>But before <b>resolveWitnessViaDerivation</b> is called, two important methods that are not in the backtrace are called: <b>getDerivableRequirement</b> and <b>derivesProtocolRequirement</b>. <a href="https://github.com/apple/swift/blob/eb75ad80dcfdc21e7ee1954d2c66c2c11fdee04d/lib/Sema/DerivedConformances.cpp#L140">You can see them here.</a></p>
-<p><b>getDerivableRequirement</b> determines if a certain requirement even supports this kind of code generation in first place. If the name of the requirement matches a requirement in a known protocol, we proceed:</p>
+<p>But before <code>resolveWitnessViaDerivation</code> is called, two important methods that are not in the backtrace are called: <code>getDerivableRequirement</code> and <code>derivesProtocolRequirement</code>. <a href="https://github.com/apple/swift/blob/eb75ad80dcfdc21e7ee1954d2c66c2c11fdee04d/lib/Sema/DerivedConformances.cpp#L140">You can see them here.</a></p>
+<p><code>getDerivableRequirement</code> determines if a certain requirement even supports this kind of code generation in first place. If the name of the requirement matches a requirement in a known protocol, we proceed:</p>
 <pre>
 <code>// CaseIterable.allValues</code>
 <code>    if (name.isSimpleName(ctx.Id_allCases))</code>
 <code>        return getRequirement(KnownProtocolKind::CaseIterable);</code>
 </pre>
-<p>The <b>getRequirement</b> from the return statement then calls <b>derivesProtocolRequirement</b>, which will try to match the requirement with the protocol's own set of rules.</p>
-<p>For the "<b>CaseIterable</b> inside enums" feature, the rules are:</p>
+<p>The <code>getRequirement</code> from the return statement then calls <code>derivesProtocolRequirement</code>, which will try to match the requirement with the protocol's own set of rules.</p>
+<p>For the "<code>CaseIterable</code> inside enums" feature, the rules are:</p>
 <pre>
 <code>case KnownProtocolKind::CaseIterable:</code>
 <code>    return !enumDecl->hasPotentiallyUnavailableCaseValue()</code>
 <code>           && enumDecl->hasOnlyCasesWithoutAssociatedValues();</code>
 </pre>
-<p>To be honest, I'm not really sure what an <b>PotentiallyUnavailableCaseValue</b> refers to <i>(Update: Łukasz Grzywacz discovered that this is checking for cases inside <b>#available</b> conditions!)</i>, but the second condition is something we know: The derivation will only work if your cases don't contain associated values, as the compiler can't possibly know which value you want to be there. That's not the case for <b>MyEnum</b>, so we're good!</p>
-<p>With the derivation being possible, we head back to the backtrace as <b>deriveProtocolRequirement</b> gets called. The compiler will now attempt to generate the remaining code.</p>
-<p>The same object/protocol name matching happens in this method, but in order to actually perform the code generation. For <b>CaseIterable</b>, this results in <b>deriveCaseIterable</b> being called.</p>
+<p>To be honest, I'm not really sure what an <code>PotentiallyUnavailableCaseValue</code> refers to <i>(Update: Łukasz Grzywacz discovered that this is checking for cases inside <code>#available</code> conditions!)</i>, but the second condition is something we know: The derivation will only work if your cases don't contain associated values, as the compiler can't possibly know which value you want to be there. That's not the case for <code>MyEnum</code>, so we're good!</p>
+<p>With the derivation being possible, we head back to the backtrace as <code>deriveProtocolRequirement</code> gets called. The compiler will now attempt to generate the remaining code.</p>
+<p>The same object/protocol name matching happens in this method, but in order to actually perform the code generation. For <code>CaseIterable</code>, this results in <code>deriveCaseIterable</code> being called.</p>
 <pre>
 <code>case KnownProtocolKind::CaseIterable:</code>
 <code>    return derived.deriveCaseIterable(Requirement);</code>
 </pre>
-<p><b>deriveCaseIterable</b> performs a few more checks, like seeing if protocol was added in an extension (which is a no-no for derivation). If all goes well, it defines an empty <b>allCases</b> property and finally calls the method that fills it: the <b>deriveCaseIterable_enum_getter</b> that we first saw.</p>
+<p><code>deriveCaseIterable</code> performs a few more checks, like seeing if protocol was added in an extension (which is a no-no for derivation). If all goes well, it defines an empty <code>allCases</code> property and finally calls the method that fills it: the <code>deriveCaseIterable_enum_getter</code> that we first saw.</p>
 <pre>
 <code>auto *returnTy = computeAllCasesType(Nominal); // [MyEnum]</code>
 <code></code>
@@ -254,7 +260,7 @@ bt</code>
 <code>// Set the getter's body.</code>
 <code>getterDecl->setBodySynthesizer(&deriveCaseIterable_enum_getter);</code>
 </pre>
-<p>This is the definition of <b>deriveCaseIterable_enum_getter</b>:</p>
+<p>This is the definition of <code>deriveCaseIterable_enum_getter</code>:</p>
 <pre>
 <code>void deriveCaseIterable_enum_getter(AbstractFunctionDecl *funcDecl) {</code>
 <code>    auto *parentDC = funcDecl->getDeclContext();</code>
@@ -276,11 +282,11 @@ bt</code>
 <code>    funcDecl->setBody(body);</code>
 <code>}</code>
 </pre>
-<p>The interesting thing about this method is that it is a lot less complicated than a non-compiler person like me would expect. Because we're in the middle of the compilation, the compiler has access to a mutable version of our AST seen above and a direct reference to the node that represents the main declaration of our CaseIterable-semi-conformant enum. To add <b>allCases</b> to it, we just literally write it in AST form and append it to the enum's node.</p>
-<p>Although C++ isn't the easiest language to understand, you can see that this is just iterating the enum's cases and creating a return statement as a bunch of expressions that match the expressions of the AST we've seen above. The parameter <b>funcDecl</b> is the empty body of <b>allClasses</b> - which was generated by <b>deriveCaseIterable</b>. After the expression is generated, it gets applied to the body.</p>
+<p>The interesting thing about this method is that it is a lot less complicated than a non-compiler person like me would expect. Because we're in the middle of the compilation, the compiler has access to a mutable version of our AST seen above and a direct reference to the node that represents the main declaration of our CaseIterable-semi-conformant enum. To add <code>allCases</code> to it, we just literally write it in AST form and append it to the enum's node.</p>
+<p>Although C++ isn't the easiest language to understand, you can see that this is just iterating the enum's cases and creating a return statement as a bunch of expressions that match the expressions of the AST we've seen above. The parameter <code>funcDecl</code> is the empty body of <code>allClasses</code> - which was generated by <code>deriveCaseIterable</code>. After the expression is generated, it gets applied to the body.</p>
 <h2>Fun time: Adding more properties to CaseIterable</h2>
-<p>Now that we've figured out how it works, how about adding our own properties to it? I think my fake <b>CaseIterable</b> would benefit from having a <b>first</b> property that returned the first defined case.</p>
-<p>From the Standard Library's point of view, this is pretty straight-forward as we just need to define a new static <b>var</b>:</p>
+<p>Now that we've figured out how it works, how about adding our own properties to it? I think my fake <code>CaseIterable</code> would benefit from having a <code>first</code> property that returned the first defined case.</p>
+<p>From the Standard Library's point of view, this is pretty straight-forward as we just need to define a new static <code>var</code>:</p>
 <pre>
 <code>public protocol CaseIterable {</code>
 <code>    /// A type that can represent a collection of all values of this type.</code>
@@ -293,8 +299,8 @@ bt</code>
 <code>    static var first: Self { get }</code>
 <code>}</code>
 </pre>
-<p>But the users of this protocol don't need to fill the <b>first</b> property if it's being used on an enum, so I want this property to be derived by the compiler as well.</p>
-<p>To do this, I'll first clone the <b>deriveCaseIterable_enum_getter</b> method that generates the case array and modify it so the expression returns the first case instead of the array:</p>
+<p>But the users of this protocol don't need to fill the <code>first</code> property if it's being used on an enum, so I want this property to be derived by the compiler as well.</p>
+<p>To do this, I'll first clone the <code>deriveCaseIterable_enum_getter</code> method that generates the case array and modify it so the expression returns the first case instead of the array:</p>
 <pre>
 <code>void deriveCaseIterable_first(AbstractFunctionDecl *funcDecl) {</code>
 <code>    auto *parentDC = funcDecl->getDeclContext();</code>
@@ -312,7 +318,7 @@ bt</code>
 <code>    funcDecl->setBody(body);</code>
 <code>}</code>
 </pre>
-<p>With that done, we now need to make this method get called. We've seen previously that <b>deriveCaseIterable_enum_getter</b> gets called by <b>deriveCaseIterable()</b> - if we inspect the contents of that method, we'll find that it's able to detect the name of the parameter being checked:</p>
+<p>With that done, we now need to make this method get called. We've seen previously that <code>deriveCaseIterable_enum_getter</code> gets called by <code>deriveCaseIterable()</code> - if we inspect the contents of that method, we'll find that it's able to detect the name of the parameter being checked:</p>
 <pre>
 <code>ValueDecl *DerivedConformance::deriveCaseIterable(ValueDecl *requirement) {</code>
 <code>    // Deleted to make stuff shorter: Some pre-checks</code>
@@ -328,10 +334,10 @@ bt</code>
 <code>    getterDecl->setBodySynthesizer(&deriveCaseIterable_enum_getter);</code>
 <code>}</code>
 </pre>
-<p>After searching a bit, I've found that the <b>Id_allCases</b> property comes from a file named <a href="https://github.com/apple/swift/blob/cc329fee03d6d6a30eb526e4be28bb876bd6ba0f/include/swift/AST/KnownIdentifiers.def">KnownIdentifiers.def</a>. I've edited it to add a new <b>Id_first</b> property for our feature. I've also added <b>Id_first</b> to the <b>getDerivableRequirement()</b> method mentioned above so the compiler knows that this property can be derived.</p>
-<p>For this feature to work, we need to keep the old <b>allCases</b> logic but add an <b>else</b> block to treat the new <b>first</b> requirement.</p>
-<p>After creating a block for <b>first</b>, we need to change <b>returnTy</b> to be <b>MyEnum</b> instead of <b>[MyEnum]</b> and have <b>declareDerivedProperty()</b> use <b>Id_first</b> as the property name instead of <b>Id_allCases</b>, and finally, have <b>setBodySynthesizer</b> use the new method.</p>
-<p>To make <b>returnTy</b> be <b>MyEnum</b>, I just looked up how <b>computeAllCasesType()</b> was retrieving the enum's type, which ended up being by calling <b>Nominal->getDeclaredInterfaceType();</b>.</p>
+<p>After searching a bit, I've found that the <code>Id_allCases</code> property comes from a file named <a href="https://github.com/apple/swift/blob/cc329fee03d6d6a30eb526e4be28bb876bd6ba0f/include/swift/AST/KnownIdentifiers.def">KnownIdentifiers.def</a>. I've edited it to add a new <code>Id_first</code> property for our feature. I've also added <code>Id_first</code> to the <code>getDerivableRequirement()</code> method mentioned above so the compiler knows that this property can be derived.</p>
+<p>For this feature to work, we need to keep the old <code>allCases</code> logic but add an <code>else</code> block to treat the new <code>first</code> requirement.</p>
+<p>After creating a block for <code>first</code>, we need to change <code>returnTy</code> to be <code>MyEnum</code> instead of <code>[MyEnum]</code> and have <code>declareDerivedProperty()</code> use <code>Id_first</code> as the property name instead of <code>Id_allCases</code>, and finally, have <code>setBodySynthesizer</code> use the new method.</p>
+<p>To make <code>returnTy</code> be <code>MyEnum</code>, I just looked up how <code>computeAllCasesType()</code> was retrieving the enum's type, which ended up being by calling <code>Nominal->getDeclaredInterfaceType();</code>.</p>
 <p>After some coding, the final method looks like this: <a href="https://gist.github.com/rockbruno/410a4ce94383b27f6d48aaaeb12b0b4b">(You can see the full version here.)</a></p>
 <pre>
 <code>ValueDecl *DerivedConformance::deriveCaseIterable(ValueDecl *requirement) {</code>
@@ -360,7 +366,7 @@ bt</code>
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>After building the compiler, we can get a <b>CaseIterable</b> enum's first case without explicitely defining it!</p>
+<p>After building the compiler, we can get a <code>CaseIterable</code> enum's first case without explicitely defining it!</p>
 <pre>
 <code>enum MyEnum: CaseIterable {</code>
 <code>    case foo</code>
@@ -374,9 +380,8 @@ bt</code>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="https://github.com/apple/swift">The Swift Source Code</a><br><br>
-<p>Update: People were curious on how <b>first</b> acts if the enum has no cases: It crashes! We can fix it by adding a new rule to <b>derivesProtocolRequirement</b> that returns false if the requirement is <b>first</b> and the enum is empty - which would make the compiler return a <b>does not conform to CaseIterable</b> error in that case.</p>
-         </div>
-</div>
+<p>Update: People were curious on how <code>first</code> acts if the enum has no cases: It crashes! We can fix it by adding a new rule to <code>derivesProtocolRequirement</code> that returns false if the requirement is <code>first</code> and the enum is empty - which would make the compiler return a <code>does not conform to CaseIterable</code> error in that case.</p>
+         </div></div>
                               
                          </div>
 
@@ -466,7 +471,7 @@ bt</code>
   <script type="text/javascript" src="js/plugin2.js"></script> 
   <script type="text/javascript" src="js/prism2.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts7.js"></script>
+    <script type="text/javascript" src="js/scripts8.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>
