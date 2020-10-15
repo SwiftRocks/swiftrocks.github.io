@@ -7532,7 +7532,7 @@ December 17, 2018
 <pre>
 <code>infix operator >>->>: LogicalConjunctionPrecedence // Precedence of &&</code>
 <code></code>
-<code>func >>->><T, U, V>(lhs: Operation<T, U>, rhs: Operation<U, V>) -> Operation<T, V> {</code>
+<code>func >>->>&lt;T, U, V>(lhs: Operation&lt;T, U>, rhs: Operation&lt;U, V>) -> Operation&lt;T, V> {</code>
 <code>    return merge(lhs, rhs)</code>
 <code>}</code>
 </pre>
