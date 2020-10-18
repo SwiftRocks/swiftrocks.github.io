@@ -127,7 +127,7 @@
 June 26, 2019
 </div>
 <p>The <code>Foundation</code> provides you a lot of the bread-and-butter needed for your daily iOS development, ranging from structures like <code>Data</code> all the way to complete APIs like <code>URLSession</code>. But as it turns out, we only use a fraction of what <code>Foundation</code> offers.</p>
-<p>There's a bunch of Foundation types are <b>so situational</b> that people doubt they even existed in first place! In fact, they are so rarely mentioned as solutions to daily problems that developers may end up coding things that may <i>already</i> exist in these SDKs. But they do exist -- and although some of them are really old, most of these types are still very useful. Let's take a look at some of them!</p>
+<p>There's a bunch of Foundation types that are <b>so situational</b> that people doubt they even existed in the first place! In fact, they are so rarely mentioned as solutions to daily problems that developers may end up coding things that may <i>already</i> exist in these SDKs. But they do exist -- and although some of them are really old, most of these types are still very useful. Let's take a look at some of them!</p>
 <h2>NSScanner</h2>
 <p><code>NSScanner</code> can progressively extract numbers and strings from a base string, similarly to how <code>scanf</code> works in C:</p>
 <pre>
@@ -254,7 +254,7 @@ June 26, 2019
 </pre>
 <p>Like <code>NSCountedSet</code>, <code>NSOrderedSet</code> is a great tool when you want to have array-like functionality without allowing duplicate elements in it.</p>
 <h2>NSByteCountFormatter</h2>
-<p>There are tons of obscure formatters in Foundation, but <code>ByteCountFormatter</code> is one I especifically like. It formats byte counts into human readable file size formats, which is useful if your app downloads content as you don't need to calculate these values manually.</p>
+<p>There are tons of obscure formatters in Foundation, but <code>ByteCountFormatter</code> is one I specifically like. It formats byte counts into human readable file size formats, which is useful if your app downloads content as you don't need to calculate these values manually.</p>
 <pre>
 <code>let bytes = 1024 * 1024</code>
 <code>let formatter = ByteCountFormatter()</code>
@@ -298,7 +298,7 @@ June 26, 2019
 <code>heap?.popMinimumObject() // 5</code>
 <code>heap?.popMinimumObject() // 8</code>
 </pre>
-<p>Priority queues are popular in graph searching problems, and can be used to bring efficiency to anything where you need to keep track of the smallest or largest elements in an unordered array. It might take a while for you to find an use-case for priority queues or graph algorithms in general, but once you do, you'll realize that anything else would have been a giant performance issue. One example where I have personally applied graph algorithms in Swift is to resolve the dependencies of our app's dependency injection system for features.</p>
+<p>Priority queues are popular in graph searching problems and can be used to bring efficiency to anything where you need to keep track of the smallest or largest elements in an unordered array. It might take a while for you to find a use-case for priority queues or graph algorithms in general, but once you do, you'll realize that anything else would have been a giant performance issue. One example where I have personally applied graph algorithms in Swift is to resolve the dependencies of our app's dependency injection system for features.</p>
 <p>There are tons of useful types in Foundation and UIKit that we don't hear much of, but knowing them can help you prevent writing unnecessary code. Have fun with these types!</p>
 <h2>References and Good reads</h2>
 <a href="https://developer.apple.com/documentation/foundation/nsscanner">NSScanner</a><br>
