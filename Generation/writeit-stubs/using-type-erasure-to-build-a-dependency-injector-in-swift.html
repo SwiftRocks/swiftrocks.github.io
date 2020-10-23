@@ -79,12 +79,12 @@ January 2nd, 2020
 <pre>
 <code>class AnyShape {</code>
 <code>    let value: Any</code>
-<code>    let isBigger: (Any) -> Bool</code>
+<code>    let isBigger: (AnyShape) -> Bool</code>
 <code></code>
 <code>    init&lt;T: Shape>(_ shape: T) {</code>
 <code>        self.value = shape</code>
 <code>        self.isBigger = { any in</code>
-<code>            return shape.isBigger(thanShape: any as! T)</code>
+<code>            return shape.isBigger(thanShape: any.value as! T)</code>
 <code>        }</code>
 <code>    }</code>
 <code>}</code>
