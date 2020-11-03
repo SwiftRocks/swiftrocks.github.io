@@ -1185,7 +1185,7 @@ June 23rd, 2020
 <code></code>
 <code>struct CommitLoader {</code>
 <code>    static func fetch(completion: @escaping (Result&lt;Commit, Error>) -> Void) {</code>
-<code>        let branchContentsURL = URL(string: "https://api.github.com/repos/apple/swift/branches/master")!</code>
+<code>        let branchContentsURL = URL(string: "https://api.github.com/repos/apple/swift/branches/main")!</code>
 <code>        let task = URLSession.shared.dataTask(with: branchContentsURL) { (data, response, error) in</code>
 <code>            guard error == nil else {</code>
 <code>                completion(.failure(error!))</code>
@@ -1404,7 +1404,7 @@ June 23rd, 2020
 <code>            branch: RepoBranch(</code>
 <code>                account: "apple",</code>
 <code>                repo: "swift",</code>
-<code>                branch: "master"</code>
+<code>                branch: "main"</code>
 <code>            )</code>
 <code>        )</code>
 <code>        completion(entry)</code>
