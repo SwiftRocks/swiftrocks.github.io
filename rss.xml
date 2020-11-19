@@ -7,6 +7,213 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>DispatchSource: Detecting changes in files and folders in Swift</title>
+    <link>https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift</link>
+    <guid>https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift</guid>
+    <pubDate>Tue, 24 Nov 2020 13:00:00 GMT+1</pubDate>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=DispatchSource: Detecting changes in files and folders in Swift-->
+<!--WRITEIT_POST_HTML_NAME=dispatchsource-detecting-changes-in-files-and-folders-in-swift-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=The DispatchSource family of types from GCD contains a series of objects that are capable of monitoring OS-related events. In this article, we'll see how to use DispatchSource to monitor a log file and create a debug-only view that shows the app's latest logs.-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-11-24T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2020-11-24T14:00:00+02:00-->
+
+<title>DispatchSource: Detecting changes in files and folders in Swift</title>
+<div class="col-md-12 blog-post"> 
+<div class="post-title"> 
+  <h1>DispatchSource: Detecting changes in files and folders in Swift</h1> 
+</div> 
+<div class="post-info">
+November 24th, 2020
+</div>
+<p>The <code>DispatchSource</code> family of types from GCD contains a series of objects that are capable of monitoring OS-related events. In this article, we'll see how to use <code>DispatchSource</code> to monitor a log file and create a debug-only view that shows the app's latest logs.</p>
+<h2>Context: File logging in Swift</h2>
+<p>While every app will print debug logs to the developer console, it's good practice to save these logs somewhere. While <code>OSLog</code> automatically saves your logs to the system, I find that maintaining your own log file (like <code>MyApp-2020-11-24T14:23:42.log</code>) is an additional good practice. If your app receives a bug report from an external beta tester, you may find retrieving and inspecting your own log file easier than teaching that user how to extract and send their <code>OSLogs</code>. For example, if you have your own log files, you can add a debug gesture that automatically dumps these logs somewhere.</p>
+<p>Regardless of how you generate these logs, you can save them in two main ways. The most common way to write a file is to write all of the contents at once using <code>String.write(to:)</code>:</p>
+<pre>
+<code>var logs = ["Logged in!", "Logged out!"]</code>
+<code>logs.joined(separator: "\n").write(to: logsPath, atomically: false, encoding: .utf8)</code>
+</pre>
+<p>This is fine if you're writing all your logs at once when your app is going to close, but if you plan to continuously add content to a file, you should use <code>FileHandler</code>:</p>
+<pre>
+<code>let fileHandler = try FileHandle(forWritingTo: logsPath)</code>
+<code></code>
+<code>func addToFile(log: String) throws {</code>
+<code>    fileHandler.seekToEndOfFile() // Move the cursor to the end of the file</code>
+<code>    fileHandler.write(log.data(using: .utf8)!)</code>
+<code>}</code>
+</pre>
+<p>In the end, the difference between these two methods is that the first one is overwriting the file, while the second one is more similar to a text editor in terms that you're <i>modifying</i> an existing file.</p>
+<h2>Monitoring file changes</h2>
+<p>Monitoring changes in the file system is done by attaching a <code>DispatchSource</code> object to the file/folder in question and registering which events we'd like to be notified of. Note though that a <code>DispatchSource</code> is not necessarily restricted to file system events -- they are capable of monitoring many types of OS-related events, which include timers, processes, UNIX signals and more things that are meant to be used in macOS instead of iOS itself.</p> 
+<p>In this article, however, we're only going to monitor file events. To show how the process works, we are going to detect changes in a log file and display these changes in the app's UI.</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/OsWGXW5.png" alt="Debug Log View" style="height: 500px">
+</div>
+<p>If you have something akin to an internal employee beta of your app, a feature like this can be very useful. If someone finds a bug, they can open this feature and potentially determine the cause of the issue on the fly without needing a developer to boot Xcode and run an actual debug build.</p>
+<p>The first step to monitor file changes is to abstract all of it. Let's start with a new <code>FileMonitor</code> class:</p>
+<pre>
+<code>final class FileMonitor {</code>
+<code></code>
+<code>    let url: URL</code>
+<code>    let fileHandle: FileHandle</code>
+<code>    let source: DispatchSourceFileSystemObject</code>
+<code></code>
+<code>    init(url: URL) throws {</code>
+<code>        self.url = url</code>
+<code>        ...</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>To create a <code>DispatchSource</code> that monitors the file system, we'll call the <code>makeFileSystemObjectSource</code> factory to get a new <code>DispatchSourceFileSystemObject</code>:</p>
+<pre>
+<code>source = DispatchSource.makeFileSystemObjectSource(</code>
+<code>    fileDescriptor: ...,</code>
+<code>    eventMask: ...,</code>
+<code>    queue: ...</code>
+<code>)</code>
+</pre>
+<p>To fill these arguments, let's describe what each of them represents.</p>
+<p><code>fileDescriptor</code> is an <code>Int32</code> that represents a file descriptor pointing to the file/folder we want to monitor. Sounds crazy right? Don't worry! The same <code>FileHandle</code> type used to write the logs can provide this information.</p>
+<p>For <code>eventMask</code>, we should pass the event types that we want to be notified of. The enum of possibilities includes many cases like <code>.rename</code>, <code>.delete</code>, <code>.write</code> and <code>.extend</code>, and for monitoring <b>changes</b> in files, the correct one to use depends on how you're writing to that file. If you're <i>overwriting</i> the file by calling <code>String.write(to:)</code>, you should use <code>.write</code>, but if you're <i>modifying</i> the file with <code>FileHandle</code>, you should use <code>.extend</code> instead. For this tutorial, we'll use the latter.</p>
+<p>Finally, the <code>queue</code> argument is the dispatch queue in which the events should be dispatched. For simplicity, we'll use the main queue.</p>
+<pre>
+<code>self.fileHandle = try FileHandle(forReadingFrom: url)</code>
+<code></code>
+<code>source = DispatchSource.makeFileSystemObjectSource(</code>
+<code>    fileDescriptor: fileHandle.fileDescriptor,</code>
+<code>    eventMask: .extend,</code>
+<code>    queue: DispatchQueue.main</code>
+<code>)</code>
+</pre>
+<p>In order to receive event notifications, we must pass an <code>eventHandler</code> to the dispatch source. This might seem weird since you'd normally use a delegate object for this, but the reason it works like this is probably that this is a very old Objective-C API.</p>
+<pre>
+<code>source.setEventHandler {</code>
+<code>    let event = self.source.data</code>
+<code>    self.process(event: event)</code>
+<code>}</code>
+</pre>
+<p>When the event handler is triggered, the <code>data</code> property of the dispatch source will contain the set of events that were dispatched.</p>
+<p>Additionally, we must provide a way to safely shutdown the dispatch source. We do this by assigning a <code>cancelHandler</code> that closes the <code>FileHandle</code> whenever the source is canceled, and by adding a <code>deinit</code> call to our class that cancels it.</p>
+<pre>
+<code>    //init()...</code>
+<code>    source.setCancelHandler {</code>
+<code>        try? self.fileHandle.close()</code>
+<code>    }</code>
+<code>}</code>
+</code>
+<code>deinit {</code>
+<code>    source.cancel()</code>
+<code>}</code>
+</pre>
+<p>To process the events, we'll use the following method:</p>
+<pre>
+<code>func process(event: DispatchSource.FileSystemEvent) {</code>
+<code>    guard event.contains(.extend) else {</code>
+<code>        return</code>
+<code>    }</code>
+<code>    let newData = self.fileHandle.readDataToEndOfFile()</code>
+<code>    let string = String(data: newData, encoding: .utf8)!</code>
+<code>    print("Detected: \(string)")</code>
+<code>}</code>
+</pre>
+<p>When <code>readDataToEndOfFile()</code> is called, the file handle will return everything between the column it's currently pointing at and the end of the file. This also makes it point to the end of the file, making it a great way of fetching the changes in the file. When another event is received, the file handle will already be positioned to read the newest changes.</p>
+<p>If the concept of pointers here makes you confused, think of <code>FileHandle</code> like a cursor in a text editor. When we call <code>readDataToEndOfFile()</code>, we're copying everything that was added and moving the cursor to the end of it.</p>
+<p>While the <code>guard</code> is going to be useless for this example, it's important to notice that <code>FileSystemEvent</code> is an <code>OptionSet</code>. As you can monitor and receive multiple event types to/from your dispatch source, the idea is that you should always check which events were received so you can call the correct logic for it.</p>
+<p>To test all of this, we need to set up two final things. First, as we're not interested in reading what's <i>already</i> logged, we should move the file handler's pointer to the end of the file as soon as we create it. Finally, to wrap it up, we can start the dispatch source by calling <code>source.resume()</code>.</p>
+<pre>
+<code>fileHandle.seekToEndOfFile()</code>
+<code>source.resume()</code>
+</pre>
+<p>Here's a simple <code>ViewController</code> that you can use to test this:</p>
+<pre>
+<code>class ViewController: UIViewController {</code>
+<code></code>
+<code>    // Make sure to edit this path to your real Desktop.</code>
+<code>    static let logPath = URL(fileURLWithPath: "/Users/swiftrocks/Desktop/logTester.log")</code>
+<code></code>
+<code>    override func viewDidLoad() {</code>
+<code>        // Create the file</code>
+<code>        try! "".write(to: Self.logPath, atomically: true, encoding: .utf8)</code>
+<code></code>
+<code>        // Monitor the file</code>
+<code>        let monitor = try! FileMonitor(url: ViewController.logPath)</code>
+<code></code>
+<code>        // Write something to the file</code>
+<code>        let fileHandle = try! FileHandle(forWritingTo: Self.logPath)</code>
+<code>        fileHandle.seekToEndOfFile() // Make sure we're writing at the end of the file!</code>
+<code>        fileHandle.write("Woo! SwiftRocks.".data(using: .utf8)!)</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>After running this app, you should see <code>"Detected: Woo! SwiftRocks."</code> in the console, plus anything else you add to that file later on!</p></code>
+<h2>Why doesn't it work when I edit the file in an editor?</h2>
+<p>If you try to test this by opening a text editor, adding some text and saving the file, you'll see that it may not work. The reason is that editors like Xcode don't actually modify the file -- instead, they act on copies of it. When you save it, they <i>delete</i> the original file and replace it with the copy they were maintaining. You can confirm that this is the case by registering events like <code>.delete</code> and <code>.link</code> to your dispatch source and see how they get triggered when you save the file. If you're doing this for a macOS app, one way to support text editors would be to register these cases and cancel/reboot the dispatch source when a new file is linked.</p>
+<h2>Wrapping up: Getting it ready for our debug feature</h2>
+<p>Because making our monitor print what was just logged to a file makes no sense, we can modify our <code>FileMonitor</code> to work with a delegate. Here's the full <code>FileMonitor</code>:</p>
+<pre>
+<code>protocol FileMonitorDelegate: AnyObject {</code>
+<code>    func didReceive(changes: String)</code>
+<code>}</code>
+<code></code>
+<code>final class FileMonitor {</code>
+<code></code>
+<code>    let url: URL</code>
+<code></code>
+<code>    let fileHandle: FileHandle</code>
+<code>    let source: DispatchSourceFileSystemObject</code>
+<code></code>
+<code>    weak var delegate: FileMonitorDelegate?</code>
+<code></code>
+<code>    init(url: URL) throws {</code>
+<code>        self.url = url</code>
+<code>        self.fileHandle = try FileHandle(forReadingFrom: url)</code>
+<code></code>
+<code>        source = DispatchSource.makeFileSystemObjectSource(</code>
+<code>            fileDescriptor: fileHandle.fileDescriptor,</code>
+<code>            eventMask: .extend,</code>
+<code>            queue: DispatchQueue.main</code>
+<code>        )</code>
+<code></code>
+<code>        source.setEventHandler {</code>
+<code>            let event = self.source.data</code>
+<code>            self.process(event: event)</code>
+<code>        }</code>
+<code></code>
+<code>        source.setCancelHandler {</code>
+<code>            try? self.fileHandle.close()</code>
+<code>        }</code>
+<code></code>
+<code>        fileHandle.seekToEndOfFile()</code>
+<code>        source.resume()</code>
+<code>    }</code>
+<code></code>
+<code>    deinit {</code>
+<code>        source.cancel()</code>
+<code>    }</code>
+<code></code>
+<code>    func process(event: DispatchSource.FileSystemEvent) {</code>
+<code>        guard event.contains(.extend) else {</code>
+<code>            return</code>
+<code>        }</code>
+<code>        let newData = self.fileHandle.readDataToEndOfFile()</code>
+<code>        let string = String(data: newData, encoding: .utf8)!</code>
+<code>        self.delegate?.didReceive(changes: string)</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>From here, creating a view that displays the latest logs like in the example picture is just a matter of creating a new <code>FileMonitor</code> and setting the feature as the delegate.</p>
+<p>You can make a feature like this without file logging/monitoring, but adding it to the mix would allow you to isolate the feature's logic from the actual logging mechanics. For something that's meant to be only used when debugging, that can be very nice in terms of architecture.</p>
+</div>
+]]></description>
+</item>
+<item>
     <title>How Swift API Availability Works Internally</title>
     <link>https://swiftrocks.com/how-availability-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-availability-works-internally-in-swift</guid>

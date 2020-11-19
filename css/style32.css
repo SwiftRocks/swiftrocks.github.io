@@ -25,6 +25,10 @@ body {
   background: var(--bg-color);
 }
 
+.default-bg-color {
+  background: #474748;
+}
+
 ::selection {
   background: #ffdcae;
 }

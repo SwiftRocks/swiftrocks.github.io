@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift</loc>
+    <lastmod>2020-11-24T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift.html</loc>
+    <lastmod>2020-11-24T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/useful-obscure-foundation-types-in-swift</loc>
     <lastmod>2020-10-18T18:00:00+02:00</lastmod>
     <priority>0.80</priority>

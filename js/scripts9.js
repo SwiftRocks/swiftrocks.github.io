@@ -38,6 +38,8 @@
 		} else {
   			document.body.classList.remove("dark-theme");
             document.getElementById("logo").src = "images/bg/swiftrockswithtext.png"
-		} 
+		}
+
+        document.body.classList.remove("default-bg-color"); 
     });
 })(jQuery);
