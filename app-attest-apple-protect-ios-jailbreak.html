@@ -178,7 +178,7 @@ August 11th, 2020
 <pre>
 <code>let challenge = getSessionId().data(using: .utf8)!</code>
 <code>let requestJSON = "{ 'requestedPremiumLevel': 300, 'sessionId': '\(challenge)' }".data(using: .utf8)!</code>
-<code>let hash = Data(SHA256.hash(data: challenge))</code>
+<code>let hash = Data(SHA256.hash(data: requestJSON))</code>
 <code>service.generateAssertion(keyIdentifier, clientDataHash: hash) { assertion, error in</code>
 <code>    guard error == nil else { return }</code>
 <code>    let assertionString = assertion?.base64EncodedString()</code>
@@ -244,7 +244,7 @@ August 11th, 2020
                         </div>
 
                              <div style="text-align: center; display: block;">
-<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ffffff; padding-left: 12px; padding-right: 12px; margin-top: 12px; margin-bottom: -6px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; background-color: #ff8e00; width: 100%; max-width: 250px; display: inline-block; border-radius: 8px; font-weight: 500;"><i class="fa fa-twitter"></i> 3159 followers</a>
+<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ffffff; padding-left: 12px; padding-right: 12px; margin-top: 12px; margin-bottom: -6px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; background-color: #ff8e00; width: 100%; max-width: 250px; display: inline-block; border-radius: 8px; font-weight: 500;"><i class="fa fa-twitter"></i> 3255 followers</a>
    </div>
                       
                       

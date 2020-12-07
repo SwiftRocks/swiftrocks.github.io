@@ -881,7 +881,7 @@ August 11th, 2020
 <pre>
 <code>let challenge = getSessionId().data(using: .utf8)!</code>
 <code>let requestJSON = "{ 'requestedPremiumLevel': 300, 'sessionId': '\(challenge)' }".data(using: .utf8)!</code>
-<code>let hash = Data(SHA256.hash(data: challenge))</code>
+<code>let hash = Data(SHA256.hash(data: requestJSON))</code>
 <code>service.generateAssertion(keyIdentifier, clientDataHash: hash) { assertion, error in</code>
 <code>    guard error == nil else { return }</code>
 <code>    let assertionString = assertion?.base64EncodedString()</code>
