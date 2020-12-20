@@ -1,0 +1,84 @@
+
+<!--WRITEIT_POST_NAME=Understanding @inlinable in Swift-->
+<!--WRITEIT_POST_HTML_NAME=understanding-inlinable-in-swift-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=The @inlinable attribute in one of Swift's lesser-known attributes. Like others of its kind, its purpose is to enable a specific set of micro-optimizations that you can use to increase the performance of your application.-->
+
+<!--DateFormat example: 2020-04-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-12-22T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2020-12-22T14:00:00+02:00-->
+
+<title>$WRITEIT_POST_NAME</title>
+<div class="col-md-12 blog-post"> 
+<div class="post-title"> 
+  <h1>Understanding <code>@inlinable</code> in Swift</h1> 
+</div> 
+<div class="post-info">
+December 22nd, 2020
+</div>
+<p>The <code>@inlinable</code> attribute in one of Swift's lesser-known attributes. Like others of its kind, its purpose is to enable a specific set of micro-optimizations that you can use to increase the performance of your application. Let's take a look at how this one works.</p>
+<h2>Inline expansion in Swift with <code>@inline</code></h2>
+<p>Perhaps the most important thing to note is that although <code>@inlinable</code> is related to code inlining, it's <b>not</b> the same as the <code>@inline</code> attribute <a href="https://swiftrocks.com/the-forbidden-inline-attribute-in-swift">we already covered here in SwiftRocks.</a> But to avoid you from having to read two articles, we'll go through the concepts again before introducing <code>@inlinable</code>.</p>
+<p>In programming, <b>inline expansion</b>, also called inlining, is a compiler optimization technique that replaces a method call with the body of the said method.</p>
+<p>The action of calling a method is hardly free. As we covered back in SwiftRocks's article about memory allocation, a lot of orchestration is done to transmit, store and mutate the state of your application when it desires to push a new stack trace to a thread. While for one side having a stack trace makes your debugging life easier, you might wonder if it's necessary to do this every time. If a method is too simple, the overhead of calling it might be seen as something not only unnecessary but also harmful for the overall performance of the app:</p>
+<pre>
+<code>func printPlusOne(_ num: Int) {</code>
+<code>    print("My number: \(num + 1)")</code>
+<code>}</code>
+<code></code>
+<code>print("I'm going to print some numbers!")</code>
+<code>printPlusOne(5)</code>
+<code>printPlusOne(6)</code>
+<code>printPlusOne(7)</code>
+<code>print("Done!")</code>
+</pre>
+<p>A method like <code>printPlusOne</code> is too simple to justify a complete definition in the application's binary. We define it in code for clarity reasons, but when pushing this app for release it would arguably be better to get rid of it and replace everyone that is calling it with the full implementation, like this:</p>
+<pre>
+<code>print("I'm going to print some number!")</code>
+<code>print("My number: \(5 + 1)")</code>
+<code>print("My number: \(6 + 1)")</code>
+<code>print("My number: \(7 + 1)")</code>
+<code>print("Done!")</code>
+</pre>
+<p>This removed method-calling overhead may increase the performance of the app with the trade-off of slightly increasing the overall binary size, depending on how large the inlined methods are. This process is done automatically by the Swift compiler, with variable degrees of aggressiveness depending on which optimization level you are building for. As we covered in <a href="https://swiftrocks.com/the-forbidden-inline-attribute-in-swift">The Forbidden @inline Attribute in Swift</a>, the <code>@inline</code> attribute can be used to ignore the optimization level and force the compiler to follow a particular direction, and that the act of inlining can also be useful for obfuscation purposes.</p>
+<h2>What is the purpose of <code>@inlinable</code>?</h2>
+<p>One important aspect of most optimizations like inlining is that they are mostly done internally. While you can be confident that a module you're developing will be properly optimized, things are a lot more complicated when we're dealing with calls made from <b>other</b> modules.</p>
+<p>Compiler optimizations happen because the compiler has the full picture of what's being compiled, but when you're building a framework the compiler cannot possibly know <i>how</i> the importers are going to it. As a result, while the internal code of the framework will be optimized, the public interface will most likely end up intact.</p>
+<p>A first thought may be "well, we could tell the compiler what sources composed that framework so that it could regain the full picture and apply more optimizations to the call sites", but this gets complicated when you realize that the importer of the said framework is linking something that is <b>already</b> compiled. All this information on source files is gone, and you may not even have them in the first place if this is a third-party framework!</p>
+<p>However, this is not an impossible problem. In fact, while compilers have different solutions for this problem, they mostly follow this same idea of <i>supercharging</i> a module's public interface to contain additional information that the compiler can use at link time to further optimize the pieces of code in where a framework is being used, which includes, but is not exclusive to, inlining.</p>
+<p>In practice though, you may notice that this could seriously get out of hand. If we start adding information from every single method to the public interface, not only the framework would massively jump in size but most of that would probably go to waste! As we don't know how the framework is going to be used, doing so in a discriminatory manner would be a terrible mistake.</p>
+<p>Instead of gambling, Swift instead lets you make this decision for yourself. Introduced in Swift 4.2, the <code>@inlinable</code> attribute allows you to enable cross-module inlining for a particular method. When this is done, the implementation of the method will be exposed as part of the module's public interface, allowing the compiler to further optimize calls made from different modules.</p>
+<pre>
+<code>@inlinable func printPlusOne(_ num: Int) {</code>
+<code>    print("My number: \(num + 1)")</code>
+<code>}</code>
+</pre>
+<p>If the inlinable method happens to be calling other methods internally, the compiler will ask you to <b>also</b> expose these methods. This can be done either by also making them <code>@inlinable</code> or by marking them with <code>@usableFromInline</code>, which indicates that although the method is being used <i>from</i> an inlined method, it <i>itself</i> is not really supposed to be inlined.</p>
+<pre>
+<code>@inlinable func myMethod() {</code>
+<code>    myMethodHelper()</code>
+<code>}</code>
+<code></code>
+<code>// Used within an inlinable method, but not inlinable itself</code>
+<code>@usableFromInline internal func myMethodHelper() {</code>
+<code>    // ...</code>
+<code>}</code>
+</pre>
+<p>The largest benefit of <code>@inlinable</code> lies in how much overhead certain methods might have. Even though the overhead of most methods can be negligible, some methods can be quite expensive, specifically if they contain generics and closures:</p>
+<pre>
+<code>@inlinable public func allEqual&lt;T>(_ seq: T) -> Bool where T : Sequence, T.Element : Equatable {</code>
+<code> // ...</code>
+<code>}</code>
+</pre>
+<p>The compiler already applies multiple optimizations to prevent generics from being a problem in general, but as we mentioned, these don't apply when the code is being called from a separate module. For cases like that, using <code>@inlinable</code> can give you interesting performance boosts at the cost of an increased framework binary size.</p>
+<p>On the other hand, <code>@inlinable</code> can be a massive problem depending on what you're building. If the implementation of an <code>@inlinable</code> method changes, the modules that import it will not be able to make use of the modifications unless they are recompiled. Normally you would be able to update a framework by simply replacing the binary, but because the implementation of some methods got inlined, the app will keep running the old behavior even if you're linking to the new version. Because of this, apps with the <b>library evolution</b> setting enabled may find themselves unable to play around with <code>@inlinable</code> as this can break the ABI stability of your framework.</p>
+<h2>Should I use <code>@inlinable</code>, or even <code>@inline</code>?</h2>
+<p>Unless you're building a framework with ABI/API stability, these attributes should be perfectly safe to use. Still, I would strongly suggest for you to <b>not</b> use them unless you know what you're doing. They are built to be used in very special cases that most applications will never experience, so unless you really have to, it may be better for you to see these as nothing more than a piece of cool Swift trivia you read at SwiftRocks.</p>
+<h2>References and Good Reads</h2>
+<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0193-cross-module-inlining-and-specialization.md">SE-0193: Cross-module inlining and specialization</a><br>
+</div>
