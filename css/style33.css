@@ -25,12 +25,9 @@ body {
   background: var(--bg-color);
 }
 
-.default-bg-color {
-  background: #474748;
-}
-
-::selection {
-  background: #ffdcae;
+.hidden {
+  display:none;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .detail {

@@ -40,6 +40,6 @@
             document.getElementById("logo").src = "images/bg/swiftrockswithtext.png"
 		}
 
-        document.body.classList.remove("default-bg-color"); 
+        document.body.classList.remove("hidden"); 
     });
 })(jQuery);
