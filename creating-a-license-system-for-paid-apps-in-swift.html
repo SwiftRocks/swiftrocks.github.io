@@ -231,7 +231,7 @@ April 6th, 2021
 <pre>
 <code>func sign(userName: String, withKey privateKey: SecKey) throws -> String {</code>
 <code>    let data = userName.data(using: .utf8)!</code>
-<code>    let error: Unmanaged&lt;CFError>?</code>
+<code>    var error: Unmanaged&lt;CFError>?</code>
 <code>    guard let signature = SecKeyCreateSignature(</code>
 <code>            privateKey,</code>
 <code>            .rsaSignatureMessagePKCS1v15SHA512,</code>
@@ -240,7 +240,7 @@ April 6th, 2021
 <code>    ) as Data? else {</code>
 <code>        throw error!.takeRetainedValue() as Error</code>
 <code>    }</code>
-<code>    return signature.base64EncodedString()!</code>
+<code>    return signature.base64EncodedString()</code>
 <code>}</code>
 </pre>
 <p>This method takes an algorithm, and you might notice that there are several options. They simply represent different encryption methods, and in this case we'll want to select <code>.rsaSignatureMessagePKCS1v15SHA512</code>. What this long name means is that we'll take a <b>message</b> (the user's name, in this case), create a digest using <b>SHA-512</b> (our hashing algorithm of choice for this article) and encrypt it with an RSA asymmetric key (the one we just created) that follows the basic definitions of the Public Key Cryptography Standards.</p>
