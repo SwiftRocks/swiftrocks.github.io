@@ -149,7 +149,7 @@ April 6th, 2021
 <code>// User purchases a license through a website</code>
 <code></code>
 <code>let digest = SHA512(userName)</code>
-<code>let userSignature: String = encrypt(hash, withKey: privateKey)</code>
+<code>let userSignature: String = encrypt(digest, withKey: privateKey)</code>
 <code>return userSignature // Send the signature to the user</code>
 <code></code>
 <code>//--- App ---</code>
@@ -218,7 +218,7 @@ April 6th, 2021
 <code></code>
 <code>    var error: Unmanaged&lt;CFError>?</code>
 <code>    guard let privateKey = SecKeyCreateWithData(</code>
-<code>        privateKeyData as CFData,</code>
+<code>        data as CFData,</code>
 <code>        options as CFDictionary,</code>
 <code>        &error</code>
 <code>    ) else {</code>
