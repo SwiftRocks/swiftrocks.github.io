@@ -154,7 +154,7 @@ May 11th, 2021
 <code>    }</code>
 <code>}</code>
 <code></code>
-<code>logLifecycle() // Crash!</code>
+<code>logLifecycle() // No crash!</code>
 </pre>
 <p>If the thread entering the critical section <b>already</b> owns the lock, then we can safely enter the critical section again. The only requirement is that multiple lock calls need to be followed by multiple unlock calls, and due to the additional thread checks, recursive locks are slightly slower than the normal <code>NSLock</code>.</p>
 <div class="post-image">
