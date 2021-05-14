@@ -84,6 +84,7 @@ May 11th, 2021
 <p>Recursively attempting to enter the serial <code>DispatchQueue</code> will result in two threads simultaneously waiting on each other, making the app freeze forever. This is the classic <b>deadlock</b>.</p>
 <p>There are ways to fix this, including using the <code>DispatchQueue.getSpecific</code> API I mentioned here at SwiftRocks some time ago, but a <code>DispatchQueue</code> is still not the best tool for this case. For synchronous execution, we can have better performance by using an old-fashioned mutex.</p>
 <h2>os_unfair_lock</h2>
+<p><b>Note: @tclementdev has kindly shared with me that's not a good idea to use this lock in Swift because the ampersand in Swift actually copies the lock instead of referencing it, and this can cause an infinite number of problems. I'll keep this section because I think it's interesting knowledge, but I'll spoil a bit and say that this is not the solution to the problem and you should probably not use it.</b></p>
 <p>The <code>os_unfair_lock</code> mutex (mutual exclusion) lock is currently the fastest lock in iOS. If your intention is to simply prevent two threads from accessing some piece of code at the same time (called a <i>critical section</i>) like in our <code>EventQueue</code> example, then this lock will get the job done with great performance.</p>
 <pre>
 <code>var lock = os_unfair_lock_s()</code>
