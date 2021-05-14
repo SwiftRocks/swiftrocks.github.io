@@ -6,6 +6,7 @@ body {
 body {
   --bg-color: #ffffff;
   --text-color: #000000;
+  --bold-color: #000000;
   --detail-color: #4e4e4e;
   --strong-color: #f38d03;
   --code-bg-color: #fff;
@@ -15,6 +16,7 @@ body {
 body.dark-theme {
   --bg-color: #18191a;
   --text-color: #e2e4e9;
+  --bold-color: #ffffff;
   --detail-color: #b0b3b8;
   --strong-color: #f38d03;
   --code-bg-color: #000000;
@@ -48,8 +50,8 @@ a {
     text-decoration: underline;
 }
 
-.blog-post i {
-    color: var(--detail-color);
+ul {
+  color: var(--text-color);
 }
 
 a:hover,
@@ -61,7 +63,7 @@ a:active {
 
 b {
     font-weight: 700;
-    color: var(--text-color);
+    color: var(--bold-color);
 }
 
 button {
@@ -313,7 +315,7 @@ p {
 }
 
 blockquote {
-    font-style: italic;
+    color: var(--text-color);
     border-left: 5px solid var(--strong-color);
 }
 
