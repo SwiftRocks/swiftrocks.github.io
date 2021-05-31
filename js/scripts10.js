@@ -38,8 +38,26 @@
 		} else {
   			document.body.classList.remove("dark-theme");
             document.getElementById("logo").src = "images/bg/swiftrockswithtext.png"
-		}
+		} 
 
-        document.body.classList.remove("hidden"); 
+        ///
+        var showSponsor = false;
+        /// missing link
+        ///
+        var sponsorIcon = "https://i.imgur.com/tw7D4YJ.jpg"
+        var sponsorText = "example"
+        var sponsorLink = "https://swiftrocks.com"
+
+        const sponsorDivId = "sponsor-article-ad-auto"
+        const sponsorDivs = document.getElementsByClassName(sponsorDivId)
+
+        for (var i = 0; i<sponsorDivs.length; i++) {
+            if (showSponsor) {
+                sponsorDivs[i].innerHTML = "<a href=\""+sponsorLink+"\"><span></span></a><div class=\"sponsor-article-ad-auto-header\">SPONSOR</div><text><b>Essential Developer</b></text><div class=\"sponsor-article-ad-auto-inner\"><img src=\""+sponsorIcon+"\" alt=\"Sponsor icon\"><div class=\"sponsor-article-ad-auto-text\"><p>"+sponsorText+"</p></div></div>"
+                sponsorDivs[i].classList.remove("hidden");
+            }
+        }
+
+        document.body.classList.remove("hidden");
     });
 })(jQuery);
