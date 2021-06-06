@@ -42,8 +42,8 @@
 
         ///
         var showSponsor = false;
-        /// missing link
         ///
+        var sponsorTitle = "Title"
         var sponsorIcon = "https://i.imgur.com/tw7D4YJ.jpg"
         var sponsorText = "example"
         var sponsorLink = "https://swiftrocks.com"
@@ -53,7 +53,7 @@
 
         for (var i = 0; i<sponsorDivs.length; i++) {
             if (showSponsor) {
-                sponsorDivs[i].innerHTML = "<a href=\""+sponsorLink+"\"><span></span></a><div class=\"sponsor-article-ad-auto-header\">SPONSOR</div><text><b>Essential Developer</b></text><div class=\"sponsor-article-ad-auto-inner\"><img src=\""+sponsorIcon+"\" alt=\"Sponsor icon\"><div class=\"sponsor-article-ad-auto-text\"><p>"+sponsorText+"</p></div></div>"
+                sponsorDivs[i].innerHTML = "<a href=\""+sponsorLink+"\" target=\"_blank\"><span></span></a><div class=\"sponsor-article-ad-auto-header\">SPONSOR</div><text><b>"+sponsorTitle+"</b></text><div class=\"sponsor-article-ad-auto-inner\"><img src=\""+sponsorIcon+"\" alt=\"Sponsor icon\"><div class=\"sponsor-article-ad-auto-text\"><p>"+sponsorText+"</p></div></div>"
                 sponsorDivs[i].classList.remove("hidden");
             }
         }

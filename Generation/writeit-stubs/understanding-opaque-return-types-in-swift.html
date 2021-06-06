@@ -22,6 +22,7 @@ June 10, 2019
 <p><i>Why are SwiftUI's return types <code>some View</code>?</i><br>
 <i>Why can't it just return a regular protocol?</i><br>
 <i>What are Opaque Types?</i></p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><b>Opaque Return Types</b> is a feature added in Swift 5.1 that is a big part of the new SwiftUI framework's functionality. It comes to finally fix a fundamental problem of the usage of protocols and the design of Swift APIs, opening new possibilities for the creation and usage of public APIs.</p>
 <h2>Building APIs before Swift 5.1</h2>
 <p>To understand what Opaque Types are, let's see what possibilities we have today when building public APIs.</p>
@@ -132,6 +133,7 @@ June 10, 2019
 <code>    return lazyDrop</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>This is why SwiftUI screens return <code>some View</code> — you need a concrete object for you to be able to compare, process and position them on the screen, but in most cases, it doesn't matter <b>what</b> the View really is, we just need to know that it is one. In the end, this is a tool meant to make your coding life easier.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

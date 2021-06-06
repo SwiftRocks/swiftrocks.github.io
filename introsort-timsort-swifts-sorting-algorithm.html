@@ -128,6 +128,7 @@
 September 4, 2019
 </div>
 <p>Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin <code>sort()</code> method. However, knowing the properties of the sorting algorithm built into your language is important if you want to prevent unwanted behaviors and nasty edge cases.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>When analyzing sorting algorithms, you'll want to search for two properties:</p>
 <h2>1 - Sorting Stability</h2>
 <p>The <b>stability</b> of a sorting algorithm represents the ability of the algorithm to <b>maintain the original order of equal elements after sorting</b>. An <b>unstable</b> sorting algorithm has no guarantees that the order of equal elements in the unsorted array will stay the same after sorting, while a <b>stable</b> one guarantees that they will stay the same.</p>
@@ -355,6 +356,7 @@ September 4, 2019
 <p>The galloping process can be aborted if the binary search process "loses" to the regular comparison process. <a href="https://bugs.python.org/file4451/timsort.txt">You can see all the optimizations that are done in the Timsort description.</a> Finally, after all runs were found, the remaining runs in the stack are progressively merged together until the entire array is sorted.</p>
 <p>The major differences in Swift is that the compiler's implementation of Timsort doesn't use galloping, and it attempts to collapse runs based on the last four runs instead of the last three. Still, it outperforms Introsort in pretty much every scenario.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Timsort is one of the fastest sorting algorithms for real world problems. Knowing what algorithm your language uses can help you optimize your code by making better decisions based on what data you're handling.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

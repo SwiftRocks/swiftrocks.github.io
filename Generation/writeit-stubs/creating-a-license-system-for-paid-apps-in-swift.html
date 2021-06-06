@@ -22,6 +22,7 @@
 April 6th, 2021
 </div>
 <p>The easiest way is to create a paid macOS app is to simply put a price tag in the App Store, but it's a common practice nowadays to provide a free download that can later be upgraded to a pro version. In this article, we'll use our knowledge of serial numbers and asymmetric cryptography to create license files that cannot be reverse-engineered and use them to activate an app's premium features.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The safest way to include a "pro" version in your app is to have a backend that is capable of providing content to premium users, but not every app falls into this category. If what you're developing is an offline productivity tool, then you might not have a backend at all. The easiest alternative is this case is to add an in-app purchase for the pro version, but for macOS apps, you might want to not use the App Store at all. In these cases, you'll have to ship your own licensing system that is capable of validating and upgrading an instance of the app.</p>
 <p>A simple way to achieve this is to provide serial numbers -- a system in which a user of the app can purchase one of these numbers and input it into the app to unlock its premium features. But how do you know the code is <b>legitimate</b>? Is it possible to confirm that the code was 100%, without a shadow of a doubt, provided by you, and not faked by someone who reverse-engineered the logic?</p>
 <h2>Serial numbers in the past</h2>
@@ -250,6 +251,7 @@ April 6th, 2021
 <code>  "signature": "rFT++9NEzcCsoxy0V8RRd7VOyO2aKfAQR0Cfwl1uLlbxp2ibRmZBRaAVWkCRw0YLOoNSb/VYkJVW++y04k+KWSq+X7QJcKpRfflZvyJCQczt8EVbYAcJrVSLyTpFVscxviwsuSFkVKsVzlJrfob/3+7YDg4hnTlBd1fvntzqUNomC0mzmyAuWcZs+EwVzHyQ7aGCnbn3tgbDq4W9TsKRjfEJBQOYrKX0WvWNpRUl5ScU5LL5wxE1Pt76CZUtBynrDlJHbRf0pNbWAdToFLUz6gJ+OqzeoUt/26ieEykfG0kwhLHKd8+N67nNWb3HuF5CiRkUoqC9nynKs4mUGmup0w=="</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>We can now safely activate our app's premium features for these users.</p>
 <h2>Conclusion</h2>
 <p>As a final note, remember what was said in regards to the meaning of <i>uncrackable</i> in this context. Unless your app is serving 100% of its content from a backend, it's impossible to make it uncrackable. In this case, a hacker could simply edit the assembly of the app to invert the <code>if</code> that activates the premium features. Like a physical lock, security measures in macOS apps are simply deterrents, and you should keep that in mind when implementing features like this.</p>

@@ -129,6 +129,7 @@ March 31st, 2020
 </div>
 <p><code>ObjectIdentifier</code> is one of these obscure Swift types that you only see when looking at the answers for very specific problems in StackOverflow, and chances are that you have never really needed to use it. However, <code>ObjectIdentifier</code> plays an important part in Swift and is actually pretty useful as a solution to problems that involve metatypes. Let's take a look at why this type exists and what you can use it for.</p>
 <h2>Where you might have seen it</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>If you're like me, your first contact with <code>ObjectIdentifier</code> might have involved trying to use metatypes as the key for a dictionary:</p>
 <pre>
 <code>let routes = [Route.Type: String]</code>
@@ -250,6 +251,7 @@ March 31st, 2020
 <code>}</code>
 </pre>
 <p>Unfortunately, since it was possible for some mini programs to contain hundreds of widgets, this method was a big performance problem. The best solution is for <code>supportedWidgets</code> to be a <code>Set</code> to allow us to answer this question in constant time, but we can't have a <code>Set</code> of metatypes because they are not <code>Hashable</code>.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The solution? We can extend <code>MiniProgram</code> to pre-process our widget array into <code>Set&lt;ObjectIdentifier></code> and search from there.</p>
 <pre>
 <code>extension MiniProgram {</code>

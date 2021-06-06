@@ -128,6 +128,7 @@
 December 3rd, 2019
 </div>
 <p>Swift's <code>OptionSet</code> protocol is the bridged version of Objective-C's <code>NS_OPTIONS</code> enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>If for example we were developing a JSON serializer, it would be nice if we allowed the user to control how certain aspects of the serialization process happened, such as if the keys are sorted or if indentation should be applied to the final JSON. In fact, this is how <code>Foundation's</code> <code>JSONSerialization</code> works:</p>
 <pre>
 <code>try JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted, .sortedKeys])</code>
@@ -249,6 +250,7 @@ December 3rd, 2019
 </pre>
 <p><code>SetAlgebra</code> inherits from <code>ExpressibleByArrayLiteral</code>, which allow it to be represented directly as an array. This triggers an <code>insert()</code> call for every element, which for our <code>OptionSet</code> types means that we'll progressively trigger bitwise AND (|) operations, resulting in a final <code>OptionSet</code> that represents the combination of all the options. Hooray!</p>
 <h2>How <code>ExpressibleByArrayLiteral</code> works internally</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><a href="https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler">The innards of the ExpressibleBy family are covered in detail in my previous article,</a> but as a short explanation, we can say that when the type checker finds a literal being attributed to an explicit type, it checks if it conforms to the related <code>ExpressibleBy</code> protocol and coverts the expression to the designated initializer from the protocol if it does (and throws a compilation error if it does not). For more details, check the linked article.</p>
 <h2>Conclusion</h2>
 <p>The <code>OptionSet</code> protocol itself is hardly used nowadays, but its existence has some history and shows some of the importance of analyzing what you're developing in terms of performance. You can always use a regular <b>Array</b> or <b>Set</b> to define these options, but should you? For these case where you have a limited set of unique options, using a bitmask is considerably quicker and less resource-intensive, something which your user's device will be very grateful for :)</p>

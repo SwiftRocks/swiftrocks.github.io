@@ -21,6 +21,7 @@
           September 16, 2018
           </div>
     	  <p>I was browsing the Swift forums when I stumbled across a <a href="https://forums.swift.org/t/a-question-about-associatedtype-in-protocols/16168">discussion</a> regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
     	  <p>I've shown associated types in action before <a href="https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview">in my article about loadView()</a> - they are a great tool to define generic behaviour inside protocols in the shape of a specific type. As the feature implies, setting a default value for an associated type will allow the children of the protocol to skip having to define a typealias for the type, unless they specifically want to use a different type.</p>
     	  <p>This is the regular way to define a associated type:</p>
     	  <pre>
@@ -94,6 +95,7 @@
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Plain requests can now work purely with a <code>path</code> property (and return a plain <code>Data</code> object) while still allowing the regular requests to provide their custom responses.</p>
 <pre>
 <code>struct ABTestDataRequest: HTTPRequest {</code>

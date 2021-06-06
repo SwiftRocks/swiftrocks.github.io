@@ -129,6 +129,7 @@ September 30, 2019
 </div>
 <p><b>SIMD Vector Types</b> is a feature added in Swift 5 that exposes Apple's <code>&lt;simd/simd.h></code> module to Swift, allowing you to calculate multiple results with a single instruction.</p>
 <h2>What's SIMD?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>SIMD stands for <b>Single Instruction, Multiple Data</b>, a hardware instruction that can be used once to perform multiple operations <b>at once.</b> There's nothing you can do with SIMD that you can't do without it, but in the world of graphical applications where handling multiple values in the shape of vectors and matrices is important, usage of SIMD types can provide big performance boosts over calculating values normally.</p>
 <p>Let's assume that we are handling the position of a character in a game that currently sits in the vector <code>x: 2 | y: 4</code>, and an explosion needs to apply some knockback to it.</p>
 <p>If we assume that the knockback multiplies the character's position by two, we'll need to do two operations to end up with <code>x: 4| y: 8</code>:</p>
@@ -191,6 +192,7 @@ September 30, 2019
 <code>character .== knockback // SIMDMask&lt;SIMD2&lt;Int32>>(false, true)</code>
 </pre>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Although the monstrous performance benefits can be only seen in the world of graphical applications, many problems can benefit from SIMD by being vectorized. Even when working with consumer applications, being careful about memory and CPU usage can bring big benefits to the user experience while teaching you more about software engineering.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

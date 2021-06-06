@@ -31,6 +31,7 @@ December 6, 2018
 <code>MyClass().notFoo // SwiftRocks</code>
 <code>// These properties don't exist, but they can be called because the type is @dynamicMemberLookup.</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>As seen in the snippet, usage of this attribute instead forces the type to provide a <code>dynamicMember</code> subscript which receives the "fake" property name as a parameter and acts upon it.</p>
 <p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md">The original motivation</a> was that it could be used in interoperability layers with dynamic languages, allowing you to call Python code in Swift like you would in Python itself, for example. Although this attribute doesn't have pure Swift in mind, you can certainly use it for it. I would probably never use it in regular iOS development, but my favorite use case is being able to improve JSON parsing:</p>
 <pre>
@@ -271,6 +272,7 @@ December 6, 2018
 <code>}</code>
 </pre>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I enjoy researching these features because they tell you a lot about how the language works. In this case, we can see that attributes have infinite possibilities - from stupid name checks to making properties pop from thin air. One might argue that they aren't "swifty" compared to the rest of the language, but they'll likely continue to be an integral part of the language for years to come.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

@@ -133,6 +133,7 @@ July 14th, 2020
 <code>// becomes:</code>
 <code>let data: Data = try data(for: row)</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>For most cases, this does the trick. While I'm not a fan of how the naming can end up sometimes, there are attributes that you can use to finetune the final result, like <code>NS_SWIFT_NAME(customName)</code> to use a customized name or <code>NS_SWIFT_NOTHROW</code> to disable the <b>error pointer -> throws</b> conversion.</p>
 <p>However, what if you want that Objective-C API to become something <b>completely</b> different? One example of a common architectural difference between the languages is the usage of methods versus properties -- most things in Objective-C are methods, while Swift will advise you to use <b>computed properties</b> for things that are computed but yet don't involve actually processing data. The compiler isn't <b>that</b> smart, so by default you'll end up with methods even if they are better defined as something else in Swift:</p>
 <pre>
@@ -186,6 +187,7 @@ July 14th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><code>NS_REFINED_FOR_SWIFT</code> is also a great way to enforce type-safety in places where it wouldn't be applicable in Objective-C. In Swift, you can easily abstract unsafe <code>id</code> (<code>Any</code> / <code>AnyObject</code>) Objective-C methods, for example, under generics.</p>
 <pre>
 <code>public extension SRPersistance {</code>

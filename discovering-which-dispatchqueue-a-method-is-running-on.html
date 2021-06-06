@@ -129,6 +129,7 @@ April 25th, 2020
 </div>
 <p>The <b>DispatchQueue</b> class has lots of interesting and undocumented (unfortunately) hidden gems. Let's see how we can use one of these gems to <b>get a method's current DispatchQueue</b> -- a trick that can also be used to <b>send and retrieve information from a DispatchQueue</b>.</p>
 <h2>Why is this useful?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>When you have a specific method that can be executed from multiple queues, determining which queue it is running on can be useful. The reason I personally find this most useful for is <b>performance</b>: Imagine that you have a piece of code like this:</p>
 <pre>
 <code>func doSomething() {</code>
@@ -178,6 +179,7 @@ April 25th, 2020
 <code>    DispatchQueue.getSpecific(key: recommendedRetryAmount)</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>This is very useful if you need to create a set of "rules" that a method should follow that differs depending on the queue that it is running on. For example, like in the previous snippet, a background queue with a lower priority can have a shorter network retry amount than a user-facing one, and as another example, we could disable logging features for queues that are performance-critical:</p>
 <pre>
 <code>public let loggingQueueKey = DispatchSpecificKey&lt;Bool>()</code>

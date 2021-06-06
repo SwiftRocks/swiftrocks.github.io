@@ -129,6 +129,7 @@ January 23rd, 2020
 </div>
 <p>While dividing an app into several modules can improve the build time of an iOS app, the result heavily depends on what is being changed. If you're not careful with how your dependency graph is laid out, you can often have results that are <b>worse</b> than non-modularized apps. Let's take a look at a technique used at iFood to have big and consistent improvements to the build times of our app.</p>
 <h2>Context: The process to modularize an app</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Before jumping into the actual techniques, let's add some context to this so we have a better idea of <b>why</b> they are necessary.</p>
 <p><i>(For the purposes of this article, we ignore the concept of Xcode's incremental build feature as I personally never saw it make a considerable difference in build times compared to the improvements you get by properly modularizing the app. This is geared towards apps that are built on top of monorepo systems that cache builds between CI builds)</i></p>
 <p>When tasked to develop a small project, a developer's first idea will usually be to create a <b>single module</b> that contains absolutely all the code and resources:</p>
@@ -250,6 +251,7 @@ January 23rd, 2020
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
   <img src="https://i.imgur.com/6sn22b4.png" alt="Full app with interfaces">            
 </div>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><i>(Not shown: In our case, everyone depends on something called a <code>RouterServiceInterface</code>, with the main module depending on the concrete <code>RouterService</code>, which dynamically links the interfaces to their actual classes.)</i></p>
 <p>Note how the graph is considerably more <b>horizontal</b> than its counterpart -- even though everyone depends on <code>HTTPClientInterface</code>, changes to the actual <code>HTTPClient</code> will have no repercussions on the other modules, making the app compile considerably faster. With an entire app running on this structure, you should only have bad compilation times if the interfaces themselves are changed -- something that should be a rare occurrence. In general, every module is going to be completely independent of each other, which can be especially useful and productive when developing inside the module's specific scheme in Xcode.</p>
 </div></div>

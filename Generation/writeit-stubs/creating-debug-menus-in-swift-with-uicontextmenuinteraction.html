@@ -20,6 +20,7 @@
 June 30th, 2020
 </div>
 <p>Debug menus in iOS are a very effective way to make your day more productive as a developer. If you find yourself doing the same debugging tasks over and over, such as printing backend responses, skipping to specific view controllers or copying user identifiers, it's nice to have special developer menus in your app that automatically handles these tasks for you.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>iOS 13 introduced <code>UIContextMenuInteraction</code> -- a new context menu API that replaces the older (and much harder to use) peek-and-pop menus. When a <code>UIView</code> with a registered interaction is pressed, a menu containing actions and an optional preview will show up. It works similarly to an <code>UIAlertController</code>, but nicer to look at and much easier to implement! New in iOS 14, we can even add asynchronously resolved actions to it.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/iJ9FXS6.png" alt="Context Menu">                                    
@@ -172,6 +173,7 @@ June 30th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The completion type of the deferred action is an array of <code>UIMenuElements</code>, meaning that you can a single action can be resolved to multiple entries in the debug menu. When displayed, you'll get a nice loading screen that is replaced with the real actions once the completion handler is called.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/05piylJ.png" alt="Context Menu Async">                                    

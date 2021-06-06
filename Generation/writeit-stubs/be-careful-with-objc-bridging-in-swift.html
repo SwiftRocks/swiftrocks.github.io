@@ -22,6 +22,7 @@
 March 2nd, 2021
 </div>
 <p>Bridging to/from Objective-C is an important part of Swift development due to the Obj-C history of Apple's platforms. Unfortunately, there are some hidden caveats that could lead to bizarre situations that would be impossible in a pure Swift environment. When dealing with Objective-C types, it's useful to check if they don't have a history of being <i>too different</i> from their Swift counterparts.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The reason for the carefulness is because bridging can be completely hidden from you. As you might know, Swift developers can use the <code>as</code> upcast operator to convert a type to one of the superclasses or protocols that it inherits from:</p>
 <pre>
 <code>let myViewController = MyViewController()</code>
@@ -111,6 +112,7 @@ March 2nd, 2021
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>If you don't convert the type to <code>AnyObject</code>, the very same protocol may give you two different results depending on how your method was called (for example, an argument provided in Swift versus in Obj-C). This is the most common source of bridging issues, as a similar case existed with <code>NSString</code> a few versions ago where a method had different implementations when compared to <code>String</code>, which caused issues in cases where a Swift string was automatically converted to an <code>NSString</code>.</p>
 <h2>Conclusion</h2>
 <p>I personally think that using <code>as</code> as a syntax sugar for bridging was not the best idea. From the developer's point of view it's clear that <code>string._bridgeToObjectiveC()</code> may cause the object to change, while <code>as</code> indicates the opposite. <code>_ObjectiveCBridgeable</code> is a public protocol, but it's not supported for general use. In general, be aware of custom types implementing it, and pay extra attention when you're upcasting to make sure you're not bridging types when you didn't mean to.</p>

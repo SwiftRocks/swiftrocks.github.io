@@ -128,6 +128,7 @@
 January 2nd, 2020
 </div>
 <p>With Swift being a very type-safe and namespaced language, you'll find that certain tasks are really hard to complete if at some point you can't determine the types that are being handled -- mostly when generics are involved. Using an automatic dependency injector as an example, let's see how generic arguments and closures can be "erased" to trick the compiler into compiling code that it would otherwise claim to be impossible (when it's clearly not!).</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>While this isn't your usual SwiftRocks-compiler-feature-deconstruction article, we'll take an exciting look at how the treatment of methods/closures as properties can be used in this context to bypass one of the Swift Compiler's most annoying compilation errors.</p>
 <h2>For Context: What's Type Erasure?</h2>
 <p>In programming languages with support for generics, <b>Type Erasure</b> is the process of abstracting constrained, generic types inside an <b>unconstrained non-generic type</b> that can be passed around freely.</p>
@@ -432,6 +433,7 @@ January 2nd, 2020
 </pre>
 <p>As a nice complement, because <code>AnyInitializer</code> is constrained to <code>Dependency</code> arguments, you are guaranteed to never have misconfigured features as the compiler would fail to build otherwise.</p>
 <h2>Conclusion: Where to go from here?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The shown <code>RouterService</code> and its related components is a very simplified version of a navigation framework being tested at iFood. This can be evolved into a structure (which we use) that relies on Codable <code>Routes</code> and <code>RouteHandlers</code> instead of directly invoking features, allowing you to have a very smart deep link structure where your backend can dictate where the app's flow should go to.</p>
 <p>Type Erasures are a very nice way to temporarily tell the compiler to "stop" type-checking your code. This allows you to conceive all sorts of complex structures without giving up type safety -- as long as you are careful with where they are used.</p>
 

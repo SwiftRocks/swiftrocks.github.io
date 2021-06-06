@@ -20,6 +20,7 @@
 August 25th, 2020
 </div>
 <p>Even if you don't know what the <b>Observer</b> pattern is, there's a good chance that you applied it somewhere in the past. This design pattern is used to create APIs that notify one or more subjects about changes in a certain object, with the <code>NotificationCenter</code> being the most popular use of this pattern in iOS.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>One simple way to reproduce what the <code>NotificationCenter</code> does is to create a dictionary that maps a string (a notification) to an array of closures. Whenever that notification is "posted", all of the closures are executed.</p>
 <pre>
 <code>final class NotificationCenter {</code>
@@ -150,6 +151,7 @@ August 25th, 2020
 <code>    XCTAssertNil(pusher.feature(forUrl: swiftRocksUrl))</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>You'll see that this test will pass, but if you're not sure why, try removing the pool to see what happens. The test will fail, and the reason is that objects aren't deallocated as soon as they go out of scope in iOS (that will usually happen at the end of a <code>RunLoop</code>). In this case, the pool is simply a way to force it to deallocate immediately for unit testing purposes. This same trick can be applied to unit test any type of reference cycle situation :)</p>
 <h2>Conclusion: Final considerations for Weak Collections</h2>
 <p>Weak Collections are a great way to build better APIs, but you must be aware of their possible limitations. While types like <code>NSHashTable</code> and <code>NSPointerArray</code> are all-around great tools, you may see that <code>NSMapTable</code>'s documentation tells you to be careful with <code>weakToStrongObjects()</code>. In that configuration, although the values are ejected from the table as expected, they still may be held in memory for a larger period of time. That's why this article didn't attempt to fully reproduce the NotificationCenter, as <a href="https://forums.swift.org/t/why-is-this-unreferenced-object-refusing-to-deallocate/39604?u=rockbruno">it took me a while to realize that doing so would require a pretty ugly workaround.</a> However, you'll find that <code>NSHashTable</code> is good to go under any configuration.</p>
