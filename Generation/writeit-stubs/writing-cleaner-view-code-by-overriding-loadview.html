@@ -21,6 +21,7 @@
           July 23, 2018
           </div> 
           <p>The choice between using Storyboards and writing views programmatically is very subjetive. Having dealt with both in the past, I personally vouch for writing projects entirely through view code as it allows multiple people to work in the same class without nasty conflicts, and easier code reviews.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>When starting with the practice of writing views programatically, a common problem people face is <i>where</i> to put the code in the first place. If you follow the regular storyboard approach of putting everything view related in your view controller, it's very easy to end up with a giant god class:</p>
 <pre class = "language-swift"><code class="language-swift">final class MyViewController: UIViewController {
     private let myButton: UIButton = {
@@ -157,6 +158,7 @@ final class MyViewController: CustomViewController&lt;MyView> {
 </code></pre>
 <p>I personally don't like the generic approach because the compiler doesn't allow generic classes to have extensions with <code>@objc</code> methods, which forbids you from having protocols like <code>UITableViewDataSource</code> in extensions. However, it allows you to skip overriding <code>loadView()</code> unless something special needs to be done (like setting delegates), which really helps keep your View Controllers clean.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Overriding <code>loadView()</code> is a great way to make a View Code project easier to read and maintain, and I've been using <code>HasCustomView</code> specifically in my last few projects with great results. View coding is something that might not be your thing, but it brings many advantages to the table. Try it out, and see what works better for you.</p>
 <p>Let me know if you have other ways of defining views in a project without storyboards, along with any other questions, comments or feedback you might have.</p>
 <h2>References and Good reads</h2>

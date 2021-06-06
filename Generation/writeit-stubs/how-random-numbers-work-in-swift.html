@@ -21,6 +21,7 @@ May 12th, 2020
 </div>
 <p>Before Swift 4.2, generating random numbers involved using raw C APIs. With the addition of the <b>RandomNumberGenerator</b> protocol in Swift 4.2, developers were graced with an easy way to generate random numbers. Let's see how to use the new APIs, but most importantly, <b>how they are implemented inside the Swift compiler</b>.</p>
 <h2>RandomNumberGenerator</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Deep down, the generation of random numbers in Swift still works exactly like before. The difference is that Swift 4.2 introduced some nice abstractions on top of it in the form of protocols -- allowing you to create your own randomization algorithms if you need to.</p>
 <p>The generation of random numbers in Swift begins with <b>RandomNumberGenerator</b> -- a protocol that does nothing but generate random <b>UInt64</b> values:</p>
 <pre>
@@ -104,6 +105,7 @@ May 12th, 2020
 <code>let string = ["Swift", "Rocks", "by", "Bruno", "Rocha"].randomElement()</code>
 <code>// Bruno</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><b>randomElement()</b> is defined as a <b>Collection</b> extension, and simply grabs a random index through the <b>Int.random(in:)</b> method that we spelunked previously.</p>
 <pre>
 <code>public func randomElement&lt;T: RandomNumberGenerator>(</code>

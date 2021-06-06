@@ -129,6 +129,7 @@ November 24th, 2020
 </div>
 <p>The <code>DispatchSource</code> family of types from GCD contains a series of objects that are capable of monitoring OS-related events. In this article, we'll see how to use <code>DispatchSource</code> to monitor a log file and create a debug-only view that shows the app's latest logs.</p>
 <h2>Context: File logging in Swift</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>While every app will print debug logs to the developer console, it's good practice to save these logs somewhere. While <code>OSLog</code> automatically saves your logs to the system, I find that maintaining your own log file (like <code>MyApp-2020-11-24T14:23:42.log</code>) is an additional good practice. If your app receives a bug report from an external beta tester, you may find retrieving and inspecting your own log file easier than teaching that user how to extract and send their <code>OSLogs</code>. For example, if you have your own log files, you can add a debug gesture that automatically dumps these logs somewhere.</p>
 <p>Regardless of how you generate these logs, you can save them in two main ways. The most common way to write a file is to write all of the contents at once using <code>String.write(to:)</code>:</p>
 <pre>
@@ -303,6 +304,7 @@ November 24th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>From here, creating a view that displays the latest logs like in the example picture is just a matter of creating a new <code>FileMonitor</code> and setting the feature as the delegate.</p>
 <p>You can make a feature like this without file logging/monitoring, but adding it to the mix would allow you to isolate the feature's logic from the actual logging mechanics. For something that's meant to be only used when debugging, that can be very nice in terms of architecture.</p>
 </div>

@@ -20,6 +20,7 @@
 March 18th, 2020
 </div>
 <p><b>Ordered Collection Diffing</b> is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in <code>UITableViews</code>. With the addition of this feature, developers can now diff <code>Collections</code> without having to bother with external libraries.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Have you wondered what efficiently diffing something looks like? In this article, we'll see and analyze the diffing APIs as well as the <b>Myers's Diffing Algorithm</b> used by the Swift Standard Library -- the same used in <b>git</b>.</p>
 <h2>Collection Diffing APIs</h2>
 <p>The diffing APIs are available as an extension for any <code>BidirectionalCollection</code>, with an abstracted helper type for ones whose's elements are <code>Equatable</code>:</p>
@@ -274,6 +275,7 @@ March 18th, 2020
 <code>  return changes</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Now that we have the final <code>CollectionDifference</code> type, we can finally return it and conclude the diffing algorithm. The worst case for Myers's is <code>O(a * b)</code> as it is possible for us to traverse all of the nodes of the graph.</p>
 <h2>Conclusion</h2>
 <p>As always, I like to finish these by saying that knowing what's inside of what you're using allows you to make better decisions in code. Different algorithms are meant for different use-cases, and knowing how to make trade-offs is useful everywhere. Plus, you get to learn cool little pieces of trivia -- did you know that Myers's is one of the merging strategies in <b>git</b>? :)</p>

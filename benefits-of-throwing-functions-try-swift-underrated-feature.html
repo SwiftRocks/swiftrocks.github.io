@@ -137,6 +137,7 @@ June 16th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I've personally avoided this feature a lot for these reasons in favor of things like <b>Promises</b> or the new <code>Result&lt;></code> type, but even then, I still felt that my way of handling errors wasn't good. In fact, I was often falling into the same pitfalls, just in different ways. When I recently refactored one of my open-source CLI tools, I noticed that parts of it would not only look better if they used throwing functions instead, but they also would be considerably easier to unit test. I decided to try it out by refactoring that tool to use this feature, but to avoid falling into that same pit, I made the <b>entire</b> tool rely on it.</p> 
 <p>The results exceeded all of my expectations. With about ~80% of code coverage, the tool is now very easy to maintain and evolve thanks to the benefits of throwing functions. In this article, I've separated some of the benefits of this feature that have drawn my attention the most and shared some of my thoughts on why you should give it a second chance.</p>
 <h2>Throwing functions clean your code by allowing you to focus on what matters</h2>
@@ -249,6 +250,7 @@ June 16th, 2020
 <code>let contents = try result.get()</code>
 </pre>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Using throwing functions has been extremely beneficial in my new project, but as I said in the beginning, you might find that most of these benefits only apply if your project is <b>completely</b> using them to handle errors. Still, even if you don't have a full project, you can use <code>Result</code>'s special initializers to treat the gaps and benefit from cleaner methods and more durable unit tests.</p>
 <p>The project in question is <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>. Make sure to check it out (especially the test cases!) to see how these benefits are translated to code.</p>
 </div>

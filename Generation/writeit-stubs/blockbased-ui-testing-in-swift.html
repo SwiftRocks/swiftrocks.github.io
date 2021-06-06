@@ -21,6 +21,7 @@ April 20, 2019
 </div>
 <p>When deadlines are tight and the product faces considerable changes, it's common for developers to make concessions in the project's quality to make sure it gets shipped in time. This leads to release anxiety - that stressful feeling where you're unsure if you're shipping something that actually works. As a result, teams resort to heavy amounts of manual testing, staying overtime to make sure nothing fell apart and an unhappy environment in general. <i>Avoiding Release Anxiety</i> is a series of posts where I show the things I do to develop durable Swift apps that allow me and my team to sleep worry-free at night.</p>
 <h2>Resilient UI Tests</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I feel that UI Tests are very underrated by the community when compared to other forms of testing, but they're my favorite. When the subject is making sure that a feature works, my opinion is that users don't care if a button isn't the right color or if a font is slightly off -- they only care if it does what it should do. UI Testing is the closest you can get to the actual user experience, so if the UI Tests are working, it's likely that the user's experience in these flows will work as well. As a complement to the usual unit tests, I make sure to always write UI tests that navigate through all variations of the important flows of the app to reduce stress in release days.</p>
 <p>With that said, how can you effectively write and maintain these tests if your app has several screens and variations of them?</p>
 <p>I deal with this by implementing something that I call block-based testing. Instead of putting all the test logic directly in the test method, I instead divide each step of the navigation into its own "exploration" method. Here's an example:</p>
@@ -229,6 +230,7 @@ April 20, 2019
 </pre>
 <p>The downside of this approach is that the initializers tend to get really big when a screen has tons of responsibilities, which can be a bit jarring. There are several alternatives to dependency injection out there that don't hurt the testability of the classes, but that's a topic for another blog post.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>With everything setup, we're able to create not just UI but also Unit Tests while still being able to scale our project stress-free. By separating the test necessities from the project itself, we can develop conditions for tests without hurting the project's quality. After creating exploration methods and developing UI Tests for important flows that snap these methods together, we can rely on a resilient test suite that allows us to safely release new versions of our apps.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 </div>

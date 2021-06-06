@@ -20,6 +20,7 @@
                                       <span>January 10, 2018</span>
                                     </div>
                                     <p>By default, <b>LAContext's</b> <b>evaluatePolicy</b> method will consider any registered fingerprint/face valid - even if they were added after your app was installed.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
                                     <p>If your app contains sensitive data (like a bank or marketplace app would), you probably don't want this "feature". If someone with bad intentions gets a hold of your user's unlocked phone and adds new fingerprints, he could efforteslly pretend to be the original user - and your TouchID/FaceID enabled app would never notice the difference.</p>
                                     <p>To detect hardware biometry changes, we can compare the value of one of <b>LAContext's</b> properties: <b>evaluatedPolicyDomainState</b>.</p>
                                     <p>From Apple's documentation:</p>
@@ -40,6 +41,7 @@
                   <p>But what if the biometry data changes legitimally, like upgrading to an iPhone X? TouchID data will become FaceID data, changing <b>evaluatedPolicyDomainState</b>'s value.</p>
                   <p>You could store all your data on the Keychain to prevent it from being backed up, but it turns out that <b>LAContext</b> contains several interesting properties.</p>
                   <p>One of them is <b>biometryType</b>, which indicates which biometry system (TouchID/FaceID/none) is enabled at the user's device.</p> 
+<div class="sponsor-article-ad-auto hidden"></div>
                   <p>Like <b>evaluatedPolicyDomainState</b>, it starts at nil, requiring a canEvaluatePolicy or evaluatePolicy call to be filled. I personally use this property to change messages and errors, but it can be used to detect system changes as well.</p>
                   <p>Due to possible stability issues, one could consider this a premature security measure. Because of that, consider if your app really needs this sort of protection - or even should have TouchID/FaceID support in first place.</p>
                                 </div>

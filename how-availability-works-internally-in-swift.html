@@ -128,6 +128,7 @@
 September 29th, 2020
 </div>
 <p>We use API availability checks all the time to provide fallbacks for users running older iOS versions, but have you wondered <b>how the Swift compiler handles this?</b> In this article, we'll take a deep dive on how the <code>#availability</code> condition works, how the Swift compiler is able to know if a specific symbol is available for usage and what the code you wrote looks like after being optimized.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I have recently authored an <a href="https://github.com/apple/swift-evolution/pull/1184">evolution proposal</a> to add a new <code>#unavailable</code> attribute to Swift, and while I haven't needed to do any meaningful work on Swift's availability system to implement it, this gave me the opportunity to learn a little more about things work deep down. Here's a deep dive on Swift's availability system!</p>
 <h2>Why are <code>#available</code> checks necessary?</h2>
 <p>While the reason <i>why</i> API availability checks are needed might be obvious, let's take a practical look at it for educational purposes before seeing how it works deep down.</p>
@@ -304,6 +305,7 @@ September 29th, 2020
 <code>  return vers;</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>If you'd like to see this happening in practice, you can ask the compiler to emit the Swift Intermediate Language for a certain code like this:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
 <code>swiftc -emit-sil myFile.swift</code>

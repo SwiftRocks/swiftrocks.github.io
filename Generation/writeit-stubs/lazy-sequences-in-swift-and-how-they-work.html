@@ -34,6 +34,7 @@
 <code>    return addresses</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Fortunately, Swift has a way to use high-order functions while still keeping the improved performance of the helper methods - Lazy versions of the Swift Standard Library <code>Sequences</code> and <code>Collections</code> can be accessed through the <code>lazy</code> property.</p>
 <p>These lazy variations work just like their regular counterparts, but with one twist: they have custom implementations of methods like <code>map</code> and <code>filter</code> in order to make them work <b>lazily</b> - meaning that the actual computations will only happen <b>where and when you need them.</b></p>
 <pre>
@@ -200,6 +201,7 @@
 <code>let result = Array(sequence) // ~0.004 secs!</code>
 </pre>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Usage of <code>lazy</code> objects can allow you to write high-performance complicated things very quickly - at the cost of requiring some understanding of Swift internals to prevent major issues. Like all features, they have great advantages with equal downsides, and in this case knowledge of the main differences between <code>Sequences</code> and <code>Collections</code> is required to extract the best of them. Once mastered, mapping specific elements becomes very simple and intuitive.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

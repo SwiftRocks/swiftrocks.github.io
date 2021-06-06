@@ -128,6 +128,7 @@
             April 13, 2018 
           </div> 
           <p>It's very likely that you asked yourself at least once in your iOS career what's the difference between a <code>struct</code> and a <code>class</code>. While realistically the choice between using one or another always boils down to <i>value semantics</i> versus <i>reference semantics</i>, the performance differences between the two are expressive and can heavily favor one or another depending on the contents of your object, specially when dealing with value types.</p> 
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>Some people might say that knowledge of memory architecture is irrelevant for application level developers, and I agree <i>partially</i>. Knowing how to save a few bits here and there will make no visible difference on newer iPhones, and premature optimization is a highly shunned practice.</p> 
           <p>However, both reference and value types can severely slow down your app when misused, and such knowledge will define whether or not you can fix the problem efficiently.</p> 
           <p>To understand the deeper differences between the two, let's look back at the address space of a process: (single thread for simplicity)</p> 
@@ -357,6 +358,7 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
           </blockquote> 
           <h2>What else?</h2>
           <p>Even though the examples shown here are extremely exaggerated, small mistakes can and will add up quick enough to cause you trouble in the future. Remember: People want to have a good time with apps, and most of them won't accept anything less than a silky smooth 60 fps experience. Waits/freezes are so universally hated that <a href="https://www.thinkwithgoogle.com/data-gallery/detail/mobile-site-abandonment-three-second-load/">53% of visits are abandoned if a mobile site takes longer than 3 seconds to load,</a> and you should keep that in mind when your app starts displaying random hiccups/slowdowns, specially when scrolling content.</p> 
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>Performance depends on several factors, and choosing between <code>structs</code> and <code>classes</code> are just one of them. If you are interested in this topic, I largely recommend watching the WWDC videos about Method Dispatching and Witness Tables.</p> 
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
           <h2>References and Good reads</h2>

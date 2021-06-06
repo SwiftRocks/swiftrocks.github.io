@@ -23,6 +23,7 @@ May 11th, 2021
 </div>
 <p>Concurrency is the entry point for the most complicated and bizarre bugs a programmer will ever experience. Because we at the application level have no real control over the threads and the hardware, there's no real way of creating unit tests that guarantee your systems behave correctly when used by multiple threads at the same time. In this article, I'll share my favorite methods of ensuring thread safety, as well as analyzing the performance of the different mechanisms.</p>
 <h2>What is Thread Safety?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I personally define thread safety as a class's ability to ensure "correctness" when multiple threads attempt to use it at the same time. If different threads accessing some piece of shared state at very specific moments at the same time cannot result in your class ending up in an unexpected/broken state, then your code is thread-safe. If that's not the case, you can use the OS's synchronization APIs to orchestrate <i>when</i> the threads can access that information, making so your class's shared state is always correct and predictable.</p>
 <h2>Thread Safety costs</h2>
 <p>Before going further, it's good to be aware that any form of synchronization comes with a performance hit, and this hit can sometimes be quite noticeable. On the other hand, I'd argue that this trade-off is always worth it. The worst issues I had to debug were always related to code that is not thread-safe, and because we cannot unit-test for it, you never know what kind of bizarre situation you'll get.</p>
@@ -198,6 +199,7 @@ May 11th, 2021
 <code>}</code>
 </pre>
 <p>This lets you be notified of the result in a <code>DispatchQueue</code> instead of blocking the thread, which can be extremely useful if you don't need the result synchronously.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Because of the group mechanism, you'll find groups to be usually slower than plain semaphores:</p>
 <div class="post-image">
   <img src="https://i.imgur.com/V1S7N2y.png" alt="Alt">                                    

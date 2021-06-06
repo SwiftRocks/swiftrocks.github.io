@@ -25,6 +25,7 @@ July 17, 2019
 <code>    return URL(string: "https://swiftrocks.com")!</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>However, to prevent having to use this initializer everytime, you could say that it's possible to represent an URL directly from its URL string using <code>ExpressibleByStringLiteral</code>:</p>
 <pre>
 <code>extension URL: ExpressibleByStringLiteral {</code>
@@ -188,6 +189,7 @@ bb0(%0 : $*URL):</code>
 <code>    return String.init(_builtinStringLiteral: "https://swiftrocks.com")</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>This not only allows you to write untyped expressions like <code>let foo = "bar"</code>, but it also serves for UI reasons - thanks to that, in a later pass the previous <code>getURL()</code> example will result in our user-friendly <code>Cannot convert value of type 'String' to specified type 'URL'</code> compilation error.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

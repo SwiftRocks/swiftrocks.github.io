@@ -20,6 +20,7 @@
 January 13th, 2020
 </div>
 <p>Hashing algorithms are functions that map an arbitrary string to a seemingly "random" output with a fixed length. Commonly associated as a component of <code>Sets</code> and <code>Dictionaries</code>, hashing algorithms are a major component of several branches of computer science, including cryptography.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>In Swift, the <code>Hashable</code> protocol is the main component used to provide hashing capabilities to custom types. It is most commonly used to allow types to be used as the key of <code>Dictionaries</code> and <code>Sets</code>, but it also gives you access to `Sequence` helper methods like `contains(_:)`.</p>
 <p>The way it works is that <code>Hashable</code> exposes a <code>hashValue</code> property (now <code>Hasher</code> in Swift 4.2), which is an <code>Int</code> that represents a not-guaranteed-but-hopefully-most-of-the-times <b>unique</b> number that represents the contents of that type. In the case of <code>Dictionaries</code>, this number is used to calculate where in memory a key's value should be stored to later allow you to retrieve that same value in constant time. As the implementations of the protocol aren't the scope of this article, <a href="https://www.youtube.com/watch?v=shs0KM3wKv8">here's a video on hash tables</a> if you need more information on this.</p>
 <p>The internal algorithm used to calculate a type's <code>hashValue</code> (now <code>Hasher</code> in Swift 4.2) and the related compiler features changed several times throughout Swift's releases, and it was only after Swift 4.2 that a real universal hashing algorithm was added to Swift. To see how this is implemented today, let's take a look at how this looked like throughout the history of Swift.</p>
@@ -178,6 +179,7 @@ January 13th, 2020
 <code>}</code>
 </pre>
 <p>As shown in the previous code, if you require deterministic hash values for the purposes of unit testing, Swift allows you to disable random seeding by adding <code>SWIFT_DETERMINISTIC_HASHING</code> as an environment variable. Note that there's no guarantee that the values will be the same between different Swift releases, so ideally you should never use it.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>SipHash will also hash an input multiple times before producing the final output, which is determined by the numbers in the name of the algorithm. In our case, Swift uses SipHash-1-3, which means that there's one round of hashing per message block, with three finalization rounds. This makes SipHash slightly slower than your average unsafe algorithm, which alongside its keyed hash properties allows SipHash to be considered a <b>safe</b> hashing algorithm.</p>
 <pre>
 <code>extension Hasher._State {</code>

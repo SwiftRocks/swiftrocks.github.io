@@ -132,6 +132,7 @@ March 1, 2019
 <i>Why do UIViews subclass things like UIResponder?<br></i>
 <i>What's the point of these?<br><br></i>
 <p>In iOS, the <b>Responder Chain</b> is the name given to an UIKit-generated linked list of <code>UIResponder</code> objects, and is the foundation for everything regarding events (like touch and motion) in iOS.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The Responder Chain is something that you constantly deal with in the world of iOS development, and although you rarely have to directly deal with it outside of <code>UITextField</code> keyboard shenanigans, knowledge of how it works allows you to solve event-related problems in very easy/creative ways - you can even build architectures that rely on Responder Chains.</p>
 <h2>UIResponder, UIEvent and UIControl</h2>
 <p>In short, <code>UIResponder</code> instances represents objects that can handle and respond to arbitrary events. Many things in iOS are <code>UIResponders</code>, including <code>UIView</code>, <code>UIViewController</code>, <code>UIWindow</code>, <code>UIApplication</code> and <code>UIApplicationDelegate</code>.</p>
@@ -308,6 +309,7 @@ March 1, 2019
 </pre>
 <p>This allows the <code>Coordinator</code> to receive system events, and by defining a new <code>PushScreenEvent</code> that contains info about a new view controller, we can dispatch a <code>pushNewScreen</code> action that is handled by these <code>Coordinators</code> to push new screens.</p>
 <p>With this structure, <code>UIApplication.shared.push(vc: newVC)</code> can be called from <b>anywhere</b> in the app without needing a single delegate or singleton as UIKit will make sure that only the current <code>Coordinator</code> is notified of this action, thanks to the Responder Chain.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The examples shown here were highly theoretical, but I hope this helped you understand the purpose and uses of the Responder Chain.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

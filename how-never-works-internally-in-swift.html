@@ -136,6 +136,7 @@
 <code>    //because fatalError() returns 'Never'.</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Deep down, <code>Never</code> is just the revamped "swifty" version of <code>@noreturn</code>: an attribute which provided the exact same functionality but was removed for being too complex due to its nature as an attribute. Connecting this behaviour to a return type allowed the compiler to work better, and certainly ended up looking better for the developer as well.</p>
 <p>Something about <code>Never</code> intrigued me, though. We know that there's nothing in the language itself that allows you to skip return values, so what magic is done in the compiler to allow this?</p>
 <p>Just like in my <a href="https://swiftrocks.com/how-caseiterable-works-internally-in-swift">previous article about the innards of CaseIterable</a>, I'm going to dive into the compiler in order to extract and analyze the pieces of code that intercept and change the functionality of methods that return <code>Never</code> in order to learn more about how the Swift compiler works.</p>
@@ -321,6 +322,7 @@
 <p>Actually, there's no definition for this method! <code>Builtin</code> is not a normal framework - it seems to be generated inside the compiler as a way to allow Swift code to directly access LLVM functions. It appears to be all done <a href="https://github.com/apple/swift/blob/4fb4cb058d5d81f5fc3f8aaeb0adec2b933c5511/lib/AST/Builtins.cpp">in Builtins.cpp</a> by parsing <a href="https://github.com/apple/swift-llvm/blob/e9e59b13f33aadfb02075c373d52506b261a26ac/include/llvm/IR/Intrinsics.td#L835">a table all the way from the swift-llvm repository</a> and generating "pre-compiled" Swift methods from them. In this case, <code>int_trap()</code> is parsed as a <code>Never</code> returning method that calls <a href="https://llvm.org/docs/LangRef.html#llvm-trap-intrinsic">llvm.trap()</a>, a function that adds an instruction to blow up your app.</p>
 <p>So how does the infinite loop stops? The answer seems to be that it simply does not. Because the final call of the chain is inside a "pre-compiled framework" in a sense, diagnostics do not seem to affect it, allowing the app to compile correctly.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>That was quite the ride, but I hope that you found this useful. As I mentioned in previous articles, compilers are scary monsters, but knowing the internals of a language can really help you write efficient code. In this case, spelunking <code>Never</code> was interesting to see how each optimization pass complements each other when it comes to finding problems or changing the behaviour of a piece of code.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

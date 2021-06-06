@@ -129,6 +129,7 @@
           May 26, 2018
           </div>
           <p>The <code>@inline</code> attribute is one of those obscure things in Swift - it's nowhere to be found in Apple's docs, doesn't help you write cleaner code and has no purpose but to help the compiler make optimization decisions, but it's related to a pretty important aspect of your app's performance.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>In programming, <b>function inlining</b> is a compiler optimization technique that removes the overhead of calling certain methods by directly replacing calls to them with the method's contents, basically pretending that the method never existed in first place. This provides a great performance boost.</p>
           <p>For example, consider the following code:</p>
           <pre class = "language-swift"><code class="language-swift">func calculateAndPrintSomething() {
@@ -209,6 +210,7 @@ func play(song: Song) {
 <p>Be aware that using <code>@inline(__always)</code> doesn't guarantee that the compiler will actually inline your method. The rules for it are unknown, and there are some cases where inlining is impossible, such as when dynamic dispatching can't be avoided.</p>
 <h2>What else?</h2>
 <p>Since <code>@inline</code> is not officially supported, you should really never use it in a real project and use this article only for the sake of learning something new.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>However, I found it to be very useful and hope Apple decides to officially support it some day. If you are interested in more obscure Swift things, check out <a href="https://github.com/apple/swift">Swift's Source Code.</a></p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

@@ -128,6 +128,7 @@
 February 5th, 2020
 </div>
 <p>The <code>Codable</code> protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like <code>Unbox</code>, <code>Codable</code> has the advantage of being powered by the compiler.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>One of my favorite features in <code>Unbox</code> was to give a <b>context</b> to the decoding operation. Let's take a look at how we can achieve the same with <code>Codable</code>.</p>
 <h2>Example 1: Giving different values to the same property</h2>
 <p>Decoding with "context" refers to the ability to change how types are decoded depending on what's going on in your app. Let's say that our app is sending a request asking for information regarding a header that should be displayed on the screen, with our app locally storing an additional <code>textColor</code> property into the model:</p>
@@ -237,6 +238,7 @@ February 5th, 2020
 <code>    func decodeAnyRoute(fromDecoder decoder: Decoder) throws -> (Route, String)</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Assuming that <code>RouterService</code> was injected into the <code>JSONDecoder</code>, the decoding operation will be deferred to it:</p>
 <pre>
 <code>extension RouterService: RouterServiceAnyRouteDecodingProtocol {</code>

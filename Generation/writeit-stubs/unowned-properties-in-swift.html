@@ -22,6 +22,7 @@
           </div> 
           <p>It's very common to use the <code>weak</code> keyword in order to prevent reference cycles in properties like delegates:</p>
 <pre class = "language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Unfortunately, since it protects you from references being lost, the <code>weak</code> keyword forces the usage of <code>var</code> and an optional type, which can be quite jarring if you're building something like an <code>UIView</code> that is not supposed to be used without a delegate - much less change delegates suddenly:</p>
 <pre class = "language-swift"><code class="language-swift">class HomeView: UIView {
     weak var delegate: HomeViewDelegate?
@@ -67,6 +68,7 @@
 <p>If the captured reference will never become nil, it should always be captured as an unowned reference, rather than a weak reference.</p></blockquote>
 <p>In any other cases, you should keep using <code>weak</code> references.</p>
 <h2>What else?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The next time you create a delegate or an <code>@escaping</code> closure, think about its context and see if it's possible for it to outlive its reference. If it doesn't, you might find <code>unowned</code> properties an interesting tool to improve your code's quality.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

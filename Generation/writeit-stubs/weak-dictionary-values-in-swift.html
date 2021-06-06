@@ -20,6 +20,7 @@
 April 14th, 2020
 </div>
 <p>When dealing with dictionaries and arrays in Swift, it's very important to know that any reference types used as a key or value will be <b>retained by default.</b> Let's see some interesting cases where this behavior is problematic, and how we can use types like <code>NSMapTable</code>, <code>NSHashTable</code> and <code>NSPointerArray</code> to create weak collections that perform better than their Swift counterparts.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>To visualize why the default memory management behavior of Swift dictionaries can sometimes be bad for you, let's attempt to build a system that uses dictionaries to store instances of some arbitrary types. We can use <a href="https://github.com/rockbruno/RouterService">RouterService's</a> dependency management system as an example:</p>
 <pre>
 <code>protocol Dependency: AnyObject {</code>
@@ -175,6 +176,7 @@ s lifecycle.</p>
 </pre>
 <h2>NSPointerArray</h2>
 <p>Once again, <code>NSPointerArray</code> is very similar to <code>NSMapTable</code>, but with the difference being that it represents a plain array instead.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Unfortunately, unlike the other types, <code>NSPointerArray</code> doesn't support adding/retrieving objects directly. To use it, you must convert to and from raw pointer types.</p>
 <pre>
 <code>let dependency = MockDependency()</code>

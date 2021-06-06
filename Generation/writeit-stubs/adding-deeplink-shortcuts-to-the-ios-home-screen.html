@@ -20,6 +20,7 @@
 February 20, 2019
 </div>
 <p>Deeplinking is widely used to provide easy access to certain portions of an iOS app. While most of the uses for a deeplink are marketing purposes such as providing shortcuts inside an e-mail or push notification, they can also be used for communicating between different apps and pretty much anything that involves routing to different screens.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>iOS already allows you to add "shortcuts" to an app in the shape of 3D Touch Quick Actions, but they are very limited, hidden from the user, and let's be honest - it's one of these features that nobody remembers. You can also use Siri Extensions, but then you have to deal with Siri, and the regular Siri Shortcuts relies on the Shortcuts app, so it's not something that you can provide to your users. Wouldn't it be great if you could give your users the ability to add shortcuts to things like ordering their favorite coffee in the shape of a home icon - just like the app itself?</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/XD134oO.jpg" alt="iOS home screen">
@@ -168,6 +169,7 @@ February 20, 2019
 <p>Now, while this works, it certainly doesn't look anything like the Shortcuts example! I didn't go too far in the looks department since I'm not a designer, but because this is essentially a PWA page you can infuse it with PWA properties in order to add things like home icons and splash screens.</p>
 <p>You can find this info in the Apple docs, but you can use <code>apple-touch-icon</code> and <code>apple-touch-startup-image</code> tags to link to images in order to add this sort of content, as well as using some html tricks to make your pages look neater. You can see the example project or the decoded Shortcut to see how to achieve this, but the Shortcuts app uses the localhost server to provide images while the example project encodes an asset and provides the raw data.</p>
 <p>To display the pretty instructions, the Shortcuts app generates an image on the fly. When it boots in PWA mode, it fetches the image from the local server and adds it to the body just like the previous <code>SwiftRocks!</code> example. It also has a fake version of the splash screen encoded into the html to make the transition between the page and the app smoother. In the end you're dealing with a HTML page, so anything goes!</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>In conclusion, if you have an app that contains important features, you can use this trick as an alternative to allow your users to create icons that go straight to them directly from their home screen.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

@@ -126,6 +126,7 @@
           </div> 
           <div class="post-info">August 8, 2018</div> 
           <p>Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like <code>switch</code> cases. While regular <code>switch</code> cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of <code>switches</code> to result in really cool and short lines of code. One thing that interests me in particular is that pattern matching can be used for a wide variety of things.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>At first glance, it's easy to see pattern matching as simple equality checks:</p>
 <pre class = "language-swift"><code class="language-swift">switch 80 {
 case 100:
@@ -208,6 +209,7 @@ default:
     break
 }
 </code></pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>This allows you to bypass having to map broader types into more specific ones, such as how an <code>Int</code> can be mapped to a <code>WeekDay</code> enum. In this case in particular, your backend would return you the week day either as an <code>Int</code> or a <code>String</code>, and with custom pattern matching you can make use of this broader type while still treating it like it was mapped to the more specific enum type. This can be useful when you want to try concepts without commiting to certain approachs or types:</p>
 <pre class = "language-swift"><code class="language-swift">enum WeekDay: Int {
     case sunday

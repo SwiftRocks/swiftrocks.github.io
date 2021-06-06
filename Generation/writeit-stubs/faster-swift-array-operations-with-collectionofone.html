@@ -21,6 +21,7 @@ December 23rd, 2019
 </div>
 <p><code>CollectionOfOne</code> is a type inside the Swift Standard Library that defines a <b>collection of a single element.</b> While this sounds a bit weird, there's a good reason for this to exist. Let's check out why.</p>
 <h2>Operating on single elements</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Personally, I am guilty of creating single-element arrays to make simple operations like this:</p>
 <pre>
 <code>someArray += [someElement]</code>
@@ -103,6 +104,7 @@ December 23rd, 2019
 <code>  self.replaceSubrange(i..&lt;i, with: CollectionOfOne(newElement))</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Because <code>replaceSubrange</code> replaces a <code>Collection</code> with another one, cases where the replacement is only a single element can greatly benefit from using <code>CollectionOfOne</code>.</p>
 <h2>Conclusion</h2>
 <p>When the performance gain isn't very high, I believe you should always value readability and maintainability over the gain. However, its always a good idea to understand the possible options and their trade-offs. Even if you never use <code>CollectionOfOne</code> directly, knowing of its existence and why it exists may help you make better decisions in the future.</p>

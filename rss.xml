@@ -34,6 +34,7 @@
 May 18th, 2021
 </div>
 <p>I've been meaning to write an article about computer science fundamentals and how it can improve a programmer's career for a long time, but I always had trouble finding a good way of introducing this topic. The reason I'd like to talk about this is first that, well, I really like this field and I feel that most of my programming ability today is a result of having studied this, but also because this topic has been a constant source of frustration for me, and I've been hoping I could address that.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The reason? There's a part of the tech community that absolutely <i>despises</i> this topic, especially when it shows up in interview processes. To be specific, this part of the community is <b>really</b> against the fact that large companies like Google and Apple base their interview processes around a person's knowledge of programming theory, to the point where they actively fight against this practice. This has since evolved in a way where mentioning theory at all in certain places is met with severe backlash, immediately turning it into a holy war.</p>
 <p>What do I think about this? Well, I was actually one of these people at one point. I too had my share of bashing this practice, but as my career progressed and I started learning more about programming in general I started to realize that not only things weren't so black and white, but also that there was an important reason for them to be doing that. Today I think that people misunderstand the purpose of this field, especially on <b>why</b> these companies are choosing to give it importance.</p>
 <p>Everyone is free to study and specialize in what they want, but I think we as a community should be really careful when we advocate that others should be <i>against</i> something. I honestly believe that these misunderstandings can hurt the careers of those who believe in them and limit what we can achieve as a tech community, and I would like to give you a different point of view as an attempt to give you the full picture and resolve this misunderstanding.</p>
@@ -96,6 +97,7 @@ May 18th, 2021
 <p>Just like how music theory applies to all instruments, the fundamentals apply to all platforms. A reason why these companies focus on them is that it essentially proves that you can work with anything -- even if you never worked with a different platform, knowing the fundamentals will likely make it very easy for you to pick them up. A generalist might not know some random trivia about <code>UITableView</code> APIs that a specialist would, but they don't need to because this is the programming equivalent of the musician who can learn how to play a song by just listening to it. It's easy for a generalist to learn programming languages and platforms -- what's difficult to learn are programming skills you need to have to use these languages and platforms, which is exactly what the fundamentals prepare you for.</p>
 <p>This is why these companies choose to focus on this topic -- while in a regular company you can prove your ability by answering questions about a specific platform, in the larger companies' world of generalists it's your understanding of programming as a concept that proves you're the type of programmer they need.</p>
 <p>It sucks to be rejected from a dream company, <i>especially</i> when their process is stressful and difficult, but you must understand what you're getting yourself into -- top-tier companies that have amazing salaries, benefits, free food, off-sites and all have <b>thousands</b> of people applying for the same role. What makes you think you're so good that these companies should drop thousands of candidates and hire you with no questions asked? Are you really sure you have absolutely <b>no room</b> for improvement as a programmer?</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I can't help but point out that when people express discontent with interviews they almost always do so from an emotional point of view, almost like a coping mechanism where they blame the company to hide the possibility that there is something that they could improve. I certainly am one to know how that feels -- I got rejected from many companies before landing my current job, and I definitely blamed them too at first when it happened. However, you can't let this overwhelm you because this is simply how the game works -- <i>of course</i> their process is going to be extremely difficult and specific, just look at how many people you're competing with!</p>
 <p>If your goal is to work for one of these companies, I think it's really important for you to ground yourself emotionally and consider that there might be many areas you'll need to study to be able to compete for a role. Although this is daunting, it can also be beneficial to you -- considering this possibility will give you a better vision of where you want to go in your career, which could very well be that these companies don't actually suit the roles you want to have. If they do suit it, then consider how important these areas are for them and how they could also benefit you. You're capable, but are you the <i>type</i> of capable they're looking for? They're asking for something that you might not know. What are you willing to do to reach your goals?</p>
 </div>]]></description>
@@ -130,6 +132,7 @@ May 11th, 2021
 </div>
 <p>Concurrency is the entry point for the most complicated and bizarre bugs a programmer will ever experience. Because we at the application level have no real control over the threads and the hardware, there's no real way of creating unit tests that guarantee your systems behave correctly when used by multiple threads at the same time. In this article, I'll share my favorite methods of ensuring thread safety, as well as analyzing the performance of the different mechanisms.</p>
 <h2>What is Thread Safety?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I personally define thread safety as a class's ability to ensure "correctness" when multiple threads attempt to use it at the same time. If different threads accessing some piece of shared state at very specific moments at the same time cannot result in your class ending up in an unexpected/broken state, then your code is thread-safe. If that's not the case, you can use the OS's synchronization APIs to orchestrate <i>when</i> the threads can access that information, making so your class's shared state is always correct and predictable.</p>
 <h2>Thread Safety costs</h2>
 <p>Before going further, it's good to be aware that any form of synchronization comes with a performance hit, and this hit can sometimes be quite noticeable. On the other hand, I'd argue that this trade-off is always worth it. The worst issues I had to debug were always related to code that is not thread-safe, and because we cannot unit-test for it, you never know what kind of bizarre situation you'll get.</p>
@@ -305,6 +308,7 @@ May 11th, 2021
 <code>}</code>
 </pre>
 <p>This lets you be notified of the result in a <code>DispatchQueue</code> instead of blocking the thread, which can be extremely useful if you don't need the result synchronously.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Because of the group mechanism, you'll find groups to be usually slower than plain semaphores:</p>
 <div class="post-image">
   <img src="https://i.imgur.com/V1S7N2y.png" alt="Alt">                                    
@@ -342,6 +346,7 @@ May 11th, 2021
 April 6th, 2021
 </div>
 <p>The easiest way is to create a paid macOS app is to simply put a price tag in the App Store, but it's a common practice nowadays to provide a free download that can later be upgraded to a pro version. In this article, we'll use our knowledge of serial numbers and asymmetric cryptography to create license files that cannot be reverse-engineered and use them to activate an app's premium features.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The safest way to include a "pro" version in your app is to have a backend that is capable of providing content to premium users, but not every app falls into this category. If what you're developing is an offline productivity tool, then you might not have a backend at all. The easiest alternative is this case is to add an in-app purchase for the pro version, but for macOS apps, you might want to not use the App Store at all. In these cases, you'll have to ship your own licensing system that is capable of validating and upgrading an instance of the app.</p>
 <p>A simple way to achieve this is to provide serial numbers -- a system in which a user of the app can purchase one of these numbers and input it into the app to unlock its premium features. But how do you know the code is <b>legitimate</b>? Is it possible to confirm that the code was 100%, without a shadow of a doubt, provided by you, and not faked by someone who reverse-engineered the logic?</p>
 <h2>Serial numbers in the past</h2>
@@ -570,6 +575,7 @@ April 6th, 2021
 <code>  "signature": "rFT++9NEzcCsoxy0V8RRd7VOyO2aKfAQR0Cfwl1uLlbxp2ibRmZBRaAVWkCRw0YLOoNSb/VYkJVW++y04k+KWSq+X7QJcKpRfflZvyJCQczt8EVbYAcJrVSLyTpFVscxviwsuSFkVKsVzlJrfob/3+7YDg4hnTlBd1fvntzqUNomC0mzmyAuWcZs+EwVzHyQ7aGCnbn3tgbDq4W9TsKRjfEJBQOYrKX0WvWNpRUl5ScU5LL5wxE1Pt76CZUtBynrDlJHbRf0pNbWAdToFLUz6gJ+OqzeoUt/26ieEykfG0kwhLHKd8+N67nNWb3HuF5CiRkUoqC9nynKs4mUGmup0w=="</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>We can now safely activate our app's premium features for these users.</p>
 <h2>Conclusion</h2>
 <p>As a final note, remember what was said in regards to the meaning of <i>uncrackable</i> in this context. Unless your app is serving 100% of its content from a backend, it's impossible to make it uncrackable. In this case, a hacker could simply edit the assembly of the app to invert the <code>if</code> that activates the premium features. Like a physical lock, security measures in macOS apps are simply deterrents, and you should keep that in mind when implementing features like this.</p>
@@ -605,6 +611,7 @@ April 6th, 2021
 March 2nd, 2021
 </div>
 <p>Bridging to/from Objective-C is an important part of Swift development due to the Obj-C history of Apple's platforms. Unfortunately, there are some hidden caveats that could lead to bizarre situations that would be impossible in a pure Swift environment. When dealing with Objective-C types, it's useful to check if they don't have a history of being <i>too different</i> from their Swift counterparts.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The reason for the carefulness is because bridging can be completely hidden from you. As you might know, Swift developers can use the <code>as</code> upcast operator to convert a type to one of the superclasses or protocols that it inherits from:</p>
 <pre>
 <code>let myViewController = MyViewController()</code>
@@ -694,6 +701,7 @@ March 2nd, 2021
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>If you don't convert the type to <code>AnyObject</code>, the very same protocol may give you two different results depending on how your method was called (for example, an argument provided in Swift versus in Obj-C). This is the most common source of bridging issues, as a similar case existed with <code>NSString</code> a few versions ago where a method had different implementations when compared to <code>String</code>, which caused issues in cases where a Swift string was automatically converted to an <code>NSString</code>.</p>
 <h2>Conclusion</h2>
 <p>I personally think that using <code>as</code> as a syntax sugar for bridging was not the best idea. From the developer's point of view it's clear that <code>string._bridgeToObjectiveC()</code> may cause the object to change, while <code>as</code> indicates the opposite. <code>_ObjectiveCBridgeable</code> is a public protocol, but it's not supported for general use. In general, be aware of custom types implementing it, and pay extra attention when you're upcasting to make sure you're not bridging types when you didn't mean to.</p>
@@ -730,6 +738,7 @@ December 22nd, 2020
 </div>
 <p>The <code>@inlinable</code> attribute is one of Swift's lesser-known attributes. Like others of its kind, its purpose is to enable a specific set of micro-optimizations that you can use to increase the performance of your application. Let's take a look at how this one works.</p>
 <h2>Inline expansion in Swift with <code>@inline</code></h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Perhaps the most important thing to note is that although <code>@inlinable</code> is related to code inlining, it's <b>not</b> the same as the <code>@inline</code> attribute <a href="https://swiftrocks.com/the-forbidden-inline-attribute-in-swift">we already covered here at SwiftRocks.</a> But to avoid you from having to read two articles, we'll go through the concepts again before introducing <code>@inlinable</code>.</p>
 <p>In programming, <b>inline expansion</b>, also called inlining, is a compiler optimization technique that replaces a method call with the body of the said method.</p>
 <p>The action of calling a method is hardly free. As we covered back in SwiftRocks's article about memory allocation, a lot of orchestration is done to transmit, store and mutate the state of your application when it desires to push a new stack trace to a thread. While for one side having a stack trace makes your debugging life easier, you might wonder if it's necessary to do this every time. If a method is too simple, the overhead of calling it might be seen as something not only unnecessary but also harmful for the overall performance of the app:</p>
@@ -783,6 +792,7 @@ December 22nd, 2020
 <code>}</code>
 </pre>
 <p>The compiler already applies multiple optimizations to prevent generics from being a problem in general, but as we mentioned, these don't apply when the code is being called from a separate module. For cases like that, using <code>@inlinable</code> can give you interesting performance boosts at the cost of an increased framework binary size.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>On the other hand, <code>@inlinable</code> can be a massive problem depending on what you're building. If the implementation of an <code>@inlinable</code> method changes, the modules that import it will not be able to make use of the modifications unless they are recompiled. Normally you would be able to update a framework by simply replacing the binary, but because the implementation of some methods got inlined, the app will keep running the old behavior even if you're linking to the new version. Because of this, apps with the <b>library evolution</b> setting enabled may find themselves unable to play around with <code>@inlinable</code> as this can break the ABI stability of your framework.</p>
 <h2>Should I use <code>@inlinable</code>, or even <code>@inline</code>?</h2>
 <p>Unless you're building a framework with ABI/API stability, these attributes should be perfectly safe to use. Still, I would strongly suggest for you to <b>not</b> use them unless you know what you're doing. They are built to be used in very special cases that most applications will never experience, so unless you really have to, it may be better for you to see these as nothing more than a piece of cool Swift trivia you read at SwiftRocks.</p>
@@ -819,6 +829,7 @@ November 24th, 2020
 </div>
 <p>The <code>DispatchSource</code> family of types from GCD contains a series of objects that are capable of monitoring OS-related events. In this article, we'll see how to use <code>DispatchSource</code> to monitor a log file and create a debug-only view that shows the app's latest logs.</p>
 <h2>Context: File logging in Swift</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>While every app will print debug logs to the developer console, it's good practice to save these logs somewhere. While <code>OSLog</code> automatically saves your logs to the system, I find that maintaining your own log file (like <code>MyApp-2020-11-24T14:23:42.log</code>) is an additional good practice. If your app receives a bug report from an external beta tester, you may find retrieving and inspecting your own log file easier than teaching that user how to extract and send their <code>OSLogs</code>. For example, if you have your own log files, you can add a debug gesture that automatically dumps these logs somewhere.</p>
 <p>Regardless of how you generate these logs, you can save them in two main ways. The most common way to write a file is to write all of the contents at once using <code>String.write(to:)</code>:</p>
 <pre>
@@ -993,6 +1004,7 @@ November 24th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>From here, creating a view that displays the latest logs like in the example picture is just a matter of creating a new <code>FileMonitor</code> and setting the feature as the delegate.</p>
 <p>You can make a feature like this without file logging/monitoring, but adding it to the mix would allow you to isolate the feature's logic from the actual logging mechanics. For something that's meant to be only used when debugging, that can be very nice in terms of architecture.</p>
 </div>
@@ -1025,6 +1037,7 @@ November 24th, 2020
 September 29th, 2020
 </div>
 <p>We use API availability checks all the time to provide fallbacks for users running older iOS versions, but have you wondered <b>how the Swift compiler handles this?</b> In this article, we'll take a deep dive on how the <code>#availability</code> condition works, how the Swift compiler is able to know if a specific symbol is available for usage and what the code you wrote looks like after being optimized.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I have recently authored an <a href="https://github.com/apple/swift-evolution/pull/1184">evolution proposal</a> to add a new <code>#unavailable</code> attribute to Swift, and while I haven't needed to do any meaningful work on Swift's availability system to implement it, this gave me the opportunity to learn a little more about things work deep down. Here's a deep dive on Swift's availability system!</p>
 <h2>Why are <code>#available</code> checks necessary?</h2>
 <p>While the reason <i>why</i> API availability checks are needed might be obvious, let's take a practical look at it for educational purposes before seeing how it works deep down.</p>
@@ -1201,6 +1214,7 @@ September 29th, 2020
 <code>  return vers;</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>If you'd like to see this happening in practice, you can ask the compiler to emit the Swift Intermediate Language for a certain code like this:</p>
 <pre class="command-line language-bash" data-host="SwiftRocks">
 <code>swiftc -emit-sil myFile.swift</code>
@@ -1244,6 +1258,7 @@ September 29th, 2020
 September 15th, 2020
 </div>
 <p>Did you know it's possible to terminate your app in the <i>middle</i> of an XCUITest and launch it again from somewhere else? Let's see how to use this trick to test that deeplinks and universal links are properly launching our app when executed from Safari or iMessage.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>It's tricky to test iOS features because while you can write unit tests to guarantee that your abstraction of it works, you can't really unit test that iOS will correctly call what you think will be called. In the case of deeplinks, what iOS does differs depending on what's the current state of your app (closed or in background) and which delegates you support (AppDelegate versus SceneDelegates), which commonly leads to very confusing bug reports in the point of view of the developer who isn't aware of this fact.</p>
 <p>But unless you're for some reason not supporting iOS 11 in 2020, you can perfectly test "app launch" related features and any other AppDelegate/SceneDelegate related feature through UI Tests. This is because it was in iOS 11 where XCUI started supporting the ability to <b>launch and control system apps</b>. Today, we can make a test that boots Safari, types an URL and deeplinks back to our app. We can even terminate our app (which doesn't stop the test!) to check that our app behaves correctly if it's <i>launched</i> from said deeplink!</p>
 <h2>UI Testing Deeplinks (from a backgrounded app)</h2>
@@ -1392,6 +1407,7 @@ September 15th, 2020
 <code>}</code>
 </pre>
 <h2>UI Testing Universal Links (that launches the app / from a killed app)</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Like with deeplinks, iOS's behavior differs slightly when launching your app as a result of tapping a universal link. When using SceneDelegates for example, you need to instead fetch them from a scene's <code>userActivities</code> property.</p>
 <p>To confirm that our app can properly handle this, we can use the same trick we used for the deeplinks and terminate our app before executing the test.</p>
 <pre>
@@ -1449,6 +1465,7 @@ September 15th, 2020
 August 25th, 2020
 </div>
 <p>Even if you don't know what the <b>Observer</b> pattern is, there's a good chance that you applied it somewhere in the past. This design pattern is used to create APIs that notify one or more subjects about changes in a certain object, with the <code>NotificationCenter</code> being the most popular use of this pattern in iOS.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>One simple way to reproduce what the <code>NotificationCenter</code> does is to create a dictionary that maps a string (a notification) to an array of closures. Whenever that notification is "posted", all of the closures are executed.</p>
 <pre>
 <code>final class NotificationCenter {</code>
@@ -1579,6 +1596,7 @@ August 25th, 2020
 <code>    XCTAssertNil(pusher.feature(forUrl: swiftRocksUrl))</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>You'll see that this test will pass, but if you're not sure why, try removing the pool to see what happens. The test will fail, and the reason is that objects aren't deallocated as soon as they go out of scope in iOS (that will usually happen at the end of a <code>RunLoop</code>). In this case, the pool is simply a way to force it to deallocate immediately for unit testing purposes. This same trick can be applied to unit test any type of reference cycle situation :)</p>
 <h2>Conclusion: Final considerations for Weak Collections</h2>
 <p>Weak Collections are a great way to build better APIs, but you must be aware of their possible limitations. While types like <code>NSHashTable</code> and <code>NSPointerArray</code> are all-around great tools, you may see that <code>NSMapTable</code>'s documentation tells you to be careful with <code>weakToStrongObjects()</code>. In that configuration, although the values are ejected from the table as expected, they still may be held in memory for a larger period of time. That's why this article didn't attempt to fully reproduce the NotificationCenter, as <a href="https://forums.swift.org/t/why-is-this-unreferenced-object-refusing-to-deallocate/39604?u=rockbruno">it took me a while to realize that doing so would require a pretty ugly workaround.</a> However, you'll find that <code>NSHashTable</code> is good to go under any configuration.</p>
@@ -1615,6 +1633,7 @@ August 25th, 2020
 August 11th, 2020
 </div>
 <p>When jailbreaking of iOS devices first became popular, it was very common for iOS developers to try to defend their apps from users that altered their devices to enable piracy. There were many ways of doing that, which included checking for the existence of <b>Cydia</b>, checking if the app could read files outside its sandbox, crashing the app if it detects a debugger and more.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>As time has shown, these "defensive" measures were and still are a really <b>bad</b> idea. If an attacker has physical access to the device, there's <b>no way</b> you can trust your app's logic. It was and still is trivial for hackers to "pretend" their devices were not jailbroken and effectively bypass these measures, and besides, having a jailbroken device doesn't mean the user wants to pirate content -- some people just want to have cooler looking home screens.</p>
 <p>As (possibly) a response to jailbreaking become popular again in recent times, Apple has released their own measure to this problem. In iOS 14, the new <b>App Attest</b> APIs provide you a way to sign server requests as an attempt to prove to your server that they came from an <b>uncompromised</b> version of your app.</p>
 <p>It's important to know that <b>App Attest is not a "is this device jailbroken?" check</b>, as that has been proven over and over to be impossible to pinpoint. Instead, it aims to <b>protect server requests</b> in order to make it harder for hackers to create compromised versions of your app that unlock premium features or inserts features like cheats. Note the word <b>harder</b>: as jailbreakers have physical access to their devices, nothing will <b>completely</b> safe-guard you from fraud in this case.</p>
@@ -1678,6 +1697,7 @@ August 11th, 2020
 <p>In this case, your additional protection comes from the fact that the request is hashed and usable only once. Because the entire request is signed by your private key, a hacker can't simply intercept your requests and use them to craft their own. They must figure out where the parameters of your request are coming from and manually attempt to sign it, something that will take slightly more skill than simply attaching a proxy. As mentioned in the beginning, it's not impossible to break this protection, just harder.</p>
 <h2>Testing and rolling out your implementation</h2>
 <p>The App Attest service records metrics that you can't reset. To prevent that, apps not in a production environment will use a sandboxed version of it. If you instead want to test in the production environment, you should add the <b>com.apple.developer.devicecheck.appattest-environment</b> entitlement to your app and set its value to <b>production</b>.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>If you have a large user base, Apple recommends you to gradually roll this feature as requests to <code>attestKey</code> are rate limited. After carefully rolling it out for existing users, you can guarantee that it will only be called for new users.</p>
 <h2>Conclusion</h2>
 <p>By implementing this in your client and in your backend, it should become harder for hackers to create compromised versions of your app. However, be aware of the word <b>harder</b> -- it doesn't mean impossible! As mentioned before, there's no sure way for you to detect if a user has a jailbroken device, and even fewer ways to prevent them from attacking your app. As with most security measures, the intention of App Attest is instead to make this process <b>difficult enough</b> so that only a very skilled and dedicated hacker would be able to find a way to break into your app -- someone much harder to come by.</p>
@@ -1714,6 +1734,7 @@ July 21st, 2020
 </div>
 <p>In this article, we'll see how Swift determines the entry point of an app, the different attributes used to alter this behavior in iOS, how they work internally, and what Swift 5.3's new <code>@main</code> attribute brings to the table.</p>
 <h2>How Swift Scripts Work</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>When executing Swift code from the command line, by default, the code will be read from top to bottom just like any other scripting language. While Swift scripts support everything you'd have in any other context, they have the additional advantage of being able to write expressions in a <b>global scope</b>:</p>
 <pre>
 <code>print("Hello")</code>
@@ -1790,6 +1811,7 @@ July 21st, 2020
 <code></code>
 <code>Repeat.main()</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Post Swift 5.3:</p>
 <pre>
 <code>@main struct Repeat: ParsableCommand {</code>
@@ -1839,6 +1861,7 @@ July 14th, 2020
 <code>// becomes:</code>
 <code>let data: Data = try data(for: row)</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>For most cases, this does the trick. While I'm not a fan of how the naming can end up sometimes, there are attributes that you can use to finetune the final result, like <code>NS_SWIFT_NAME(customName)</code> to use a customized name or <code>NS_SWIFT_NOTHROW</code> to disable the <b>error pointer -> throws</b> conversion.</p>
 <p>However, what if you want that Objective-C API to become something <b>completely</b> different? One example of a common architectural difference between the languages is the usage of methods versus properties -- most things in Objective-C are methods, while Swift will advise you to use <b>computed properties</b> for things that are computed but yet don't involve actually processing data. The compiler isn't <b>that</b> smart, so by default you'll end up with methods even if they are better defined as something else in Swift:</p>
 <pre>
@@ -1892,6 +1915,7 @@ July 14th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><code>NS_REFINED_FOR_SWIFT</code> is also a great way to enforce type-safety in places where it wouldn't be applicable in Objective-C. In Swift, you can easily abstract unsafe <code>id</code> (<code>Any</code> / <code>AnyObject</code>) Objective-C methods, for example, under generics.</p>
 <pre>
 <code>public extension SRPersistance {</code>
@@ -1931,6 +1955,7 @@ July 14th, 2020
 June 30th, 2020
 </div>
 <p>Debug menus in iOS are a very effective way to make your day more productive as a developer. If you find yourself doing the same debugging tasks over and over, such as printing backend responses, skipping to specific view controllers or copying user identifiers, it's nice to have special developer menus in your app that automatically handles these tasks for you.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>iOS 13 introduced <code>UIContextMenuInteraction</code> -- a new context menu API that replaces the older (and much harder to use) peek-and-pop menus. When a <code>UIView</code> with a registered interaction is pressed, a menu containing actions and an optional preview will show up. It works similarly to an <code>UIAlertController</code>, but nicer to look at and much easier to implement! New in iOS 14, we can even add asynchronously resolved actions to it.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/iJ9FXS6.png" alt="Context Menu">                                    
@@ -2083,6 +2108,7 @@ June 30th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The completion type of the deferred action is an array of <code>UIMenuElements</code>, meaning that you can a single action can be resolved to multiple entries in the debug menu. When displayed, you'll get a nice loading screen that is replaced with the real actions once the completion handler is called.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/05piylJ.png" alt="Context Menu Async">                                    
@@ -2118,6 +2144,7 @@ June 30th, 2020
 June 23rd, 2020
 </div>
 <p>Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI. iOS 14's Widgets come in a variety of shapes (literally), ranging from simple information squares to widgets that can retrieve and display information from its parent app's <b>Siri Intents</b>.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>One trick that has drawn my attention the most however is that having widgets directly in your home means that technically you're now able to make visual "mini apps". If you find yourself doing the same tasks over and over in your job such as checking the number of crashes in a release or the latest release supported by one of your apps, you can create a Widget in iOS 14 that essentially behaves like a super-charged, UI-enabled <b>Siri Shortcut</b>.</p>
 <p>Although you can't interact with a Widget besides touching it (which triggers a deep link to your app), there aren't many limitations in what you can display in them, so you can use them to develop read-only visual apps. In this article, we'll develop a Widget that shows us <b>the latest commit in the Swift repository.</b></p>
 <h2>Developing a "Swift commit tracker" Widget</h2>
@@ -2501,6 +2528,7 @@ June 23rd, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>With this in place, when trying to add a Widget from your app, you'll be able to see the additional Widget options by swiping.</p>
 <h2>Where to go from here?</h2>
 <p>There are further customizations you can do Widgets, including rendering different info depending on the container size of the Widget, locking the possible Widget sizes and more. Check WWDC 2020's sessions for more information on Widgets.</p>
@@ -2543,6 +2571,7 @@ June 16th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I've personally avoided this feature a lot for these reasons in favor of things like <b>Promises</b> or the new <code>Result&lt;></code> type, but even then, I still felt that my way of handling errors wasn't good. In fact, I was often falling into the same pitfalls, just in different ways. When I recently refactored one of my open-source CLI tools, I noticed that parts of it would not only look better if they used throwing functions instead, but they also would be considerably easier to unit test. I decided to try it out by refactoring that tool to use this feature, but to avoid falling into that same pit, I made the <b>entire</b> tool rely on it.</p> 
 <p>The results exceeded all of my expectations. With about ~80% of code coverage, the tool is now very easy to maintain and evolve thanks to the benefits of throwing functions. In this article, I've separated some of the benefits of this feature that have drawn my attention the most and shared some of my thoughts on why you should give it a second chance.</p>
 <h2>Throwing functions clean your code by allowing you to focus on what matters</h2>
@@ -2655,6 +2684,7 @@ June 16th, 2020
 <code>let contents = try result.get()</code>
 </pre>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Using throwing functions has been extremely beneficial in my new project, but as I said in the beginning, you might find that most of these benefits only apply if your project is <b>completely</b> using them to handle errors. Still, even if you don't have a full project, you can use <code>Result</code>'s special initializers to treat the gaps and benefit from cleaner methods and more durable unit tests.</p>
 <p>The project in question is <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>. Make sure to check it out (especially the test cases!) to see how these benefits are translated to code.</p>
 </div>
@@ -2688,6 +2718,7 @@ May 12th, 2020
 </div>
 <p>Before Swift 4.2, generating random numbers involved using raw C APIs. With the addition of the <b>RandomNumberGenerator</b> protocol in Swift 4.2, developers were graced with an easy way to generate random numbers. Let's see how to use the new APIs, but most importantly, <b>how they are implemented inside the Swift compiler</b>.</p>
 <h2>RandomNumberGenerator</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Deep down, the generation of random numbers in Swift still works exactly like before. The difference is that Swift 4.2 introduced some nice abstractions on top of it in the form of protocols -- allowing you to create your own randomization algorithms if you need to.</p>
 <p>The generation of random numbers in Swift begins with <b>RandomNumberGenerator</b> -- a protocol that does nothing but generate random <b>UInt64</b> values:</p>
 <pre>
@@ -2771,6 +2802,7 @@ May 12th, 2020
 <code>let string = ["Swift", "Rocks", "by", "Bruno", "Rocha"].randomElement()</code>
 <code>// Bruno</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><b>randomElement()</b> is defined as a <b>Collection</b> extension, and simply grabs a random index through the <b>Int.random(in:)</b> method that we spelunked previously.</p>
 <pre>
 <code>public func randomElement&lt;T: RandomNumberGenerator>(</code>
@@ -2820,6 +2852,7 @@ March 1, 2019
 <i>Why do UIViews subclass things like UIResponder?<br></i>
 <i>What's the point of these?<br><br></i>
 <p>In iOS, the <b>Responder Chain</b> is the name given to an UIKit-generated linked list of <code>UIResponder</code> objects, and is the foundation for everything regarding events (like touch and motion) in iOS.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The Responder Chain is something that you constantly deal with in the world of iOS development, and although you rarely have to directly deal with it outside of <code>UITextField</code> keyboard shenanigans, knowledge of how it works allows you to solve event-related problems in very easy/creative ways - you can even build architectures that rely on Responder Chains.</p>
 <h2>UIResponder, UIEvent and UIControl</h2>
 <p>In short, <code>UIResponder</code> instances represents objects that can handle and respond to arbitrary events. Many things in iOS are <code>UIResponders</code>, including <code>UIView</code>, <code>UIViewController</code>, <code>UIWindow</code>, <code>UIApplication</code> and <code>UIApplicationDelegate</code>.</p>
@@ -2996,6 +3029,7 @@ March 1, 2019
 </pre>
 <p>This allows the <code>Coordinator</code> to receive system events, and by defining a new <code>PushScreenEvent</code> that contains info about a new view controller, we can dispatch a <code>pushNewScreen</code> action that is handled by these <code>Coordinators</code> to push new screens.</p>
 <p>With this structure, <code>UIApplication.shared.push(vc: newVC)</code> can be called from <b>anywhere</b> in the app without needing a single delegate or singleton as UIKit will make sure that only the current <code>Coordinator</code> is notified of this action, thanks to the Responder Chain.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The examples shown here were highly theoretical, but I hope this helped you understand the purpose and uses of the Responder Chain.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -3033,6 +3067,7 @@ March 1, 2019
 May 5th, 2020
 </div>
 <p><b>Preprocessor macros</b> are used to bring context to a build, allowing you to transform how your app is compiled depending on why it's being built.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>In iOS, preprocessors are popularly used to determine which scheme was used to build an app. This allows you to build things such as <b>debug views</b> which are only visible in debug builds, additional logging for non-AppStore builds, and more. My favorite use of macros is using the Factory pattern to return mocked components for XCUITests:</p> 
 <pre>
 <code>enum HTTPClientFactory {</code>
@@ -3183,6 +3218,7 @@ May 5th, 2020
 <code>}</code>
 </pre>
 <p><i>(Note that because <b>isOverridden</b> only works when a macro isn't present in the build, your testing target should not contain macros whose's presence/absence needs to be tested.)</i></p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>With this setup, we're able to test preprocessor macros while being sure that our final release builds will not contain code that's not meant to be executed. This same trick can be used to test macros in XCUITests.</p>
 <p>As a final note in the topic of security, note that if your intention is to <b>completely</b> get rid of something in runtime, everything needs to be wrapped by macro checks. In this case, if hiding the build types themselves was critical (and not just the logic of what's my current one), we would have to wrap the enum itself in macros, which would make unit testing it like this considerably harder, although still possible.</p>
 </div>
@@ -3216,6 +3252,7 @@ April 25th, 2020
 </div>
 <p>The <b>DispatchQueue</b> class has lots of interesting and undocumented (unfortunately) hidden gems. Let's see how we can use one of these gems to <b>get a method's current DispatchQueue</b> -- a trick that can also be used to <b>send and retrieve information from a DispatchQueue</b>.</p>
 <h2>Why is this useful?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>When you have a specific method that can be executed from multiple queues, determining which queue it is running on can be useful. The reason I personally find this most useful for is <b>performance</b>: Imagine that you have a piece of code like this:</p>
 <pre>
 <code>func doSomething() {</code>
@@ -3265,6 +3302,7 @@ April 25th, 2020
 <code>    DispatchQueue.getSpecific(key: recommendedRetryAmount)</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>This is very useful if you need to create a set of "rules" that a method should follow that differs depending on the queue that it is running on. For example, like in the previous snippet, a background queue with a lower priority can have a shorter network retry amount than a user-facing one, and as another example, we could disable logging features for queues that are performance-critical:</p>
 <pre>
 <code>public let loggingQueueKey = DispatchSpecificKey&lt;Bool>()</code>
@@ -3328,6 +3366,7 @@ April 25th, 2020
 April 14th, 2020
 </div>
 <p>When dealing with dictionaries and arrays in Swift, it's very important to know that any reference types used as a key or value will be <b>retained by default.</b> Let's see some interesting cases where this behavior is problematic, and how we can use types like <code>NSMapTable</code>, <code>NSHashTable</code> and <code>NSPointerArray</code> to create weak collections that perform better than their Swift counterparts.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>To visualize why the default memory management behavior of Swift dictionaries can sometimes be bad for you, let's attempt to build a system that uses dictionaries to store instances of some arbitrary types. We can use <a href="https://github.com/rockbruno/RouterService">RouterService's</a> dependency management system as an example:</p>
 <pre>
 <code>protocol Dependency: AnyObject {</code>
@@ -3483,6 +3522,7 @@ s lifecycle.</p>
 </pre>
 <h2>NSPointerArray</h2>
 <p>Once again, <code>NSPointerArray</code> is very similar to <code>NSMapTable</code>, but with the difference being that it represents a plain array instead.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Unfortunately, unlike the other types, <code>NSPointerArray</code> doesn't support adding/retrieving objects directly. To use it, you must convert to and from raw pointer types.</p>
 <pre>
 <code>let dependency = MockDependency()</code>
@@ -3530,6 +3570,7 @@ s lifecycle.</p>
 DateHere
 </div>
 <p>I've been meaning to write an article about computer science fundamentals and how it can improve a programmer's career for a long time, but I always had trouble finding a good way of introducing this topic. The reason I'd like to talk about this is first because, well, I really like this field and I feel that most of my programming ability today is a result of having studied this, but also because this topic has been a constant source of frustration for me, and I've been hoping I could address that.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The reason? There's a part of the tech community that absolutely <i>despises</i> this topic, especially when it shows up in interview processes. To be specific, a group of people, mostly composed of mobile developers, are <b>really</b> against the fact that large companies like Google and Apple base their interview processes around a person's knowledge of programming theory, to the point where they actively fight against this practice. This has since evolved in a way where mentioning theory at all in certain places is met with severe backlash, immediately turning it into a holy war kind of situation where you should be ashamed for even thinking of bringing this cursed knowledge to the table. This frustrates me because as someone who enjoys studying theory, I can see that people seriously misunderstand the purpose on this field, especially on the <b>why</b> these companies are choosing to give it importance.</p> 
 <p>Everyone is free to study and specialize in what they want, but I think we as a community should be really careful when we advocate that others should be <i>against</i> something. I honestly believe that these misunderstandings can hurt the careers of those who believe on them and limit what we can achieve as tech community, and I would like to attempt to resolve this misunderstanding.</p>
 <p>In this article, we'll introduce the field of algorithms and data structures in a neutral way, show how this knowledge is applied in practice using an analogy, and finally use all of that to clarify <b>why</b> large companies like Google and Apple are so focused on it. I hope that this will give you the tools to make your own conclusions about this topic, allowing you to not only understand why they do what they do, but also to help you determine if this is something you should be studying to achieve your goals.</p>
@@ -3589,6 +3630,7 @@ DateHere
 <p>I'd say that the reason why this happens is the nature of these companies -- while a smaller company is trying to solve a small scale problem that has likely been done before, top-tier companies have to deal with enourmous problems that nobody has ever faced, which often requires them to be masters in multiple platforms. It's not interesting for a company like Google to hire someone who dedicated their life to understand all about UIKit in iOS -- their problem is not that they don't know which UIKit APIs to use, is that the APIs they need <b>don't exist at all</b>. These problems are not solvable by platform experts, but by people who understand computer science theory and can craft new and efficient solutions.</p>
 <p>Just like how music theory apply to all instruments, the fundamentals apply to all platforms. A reason why these companies focus on them is because it essentially proves that you can work with anything -- even if you never worked with a different platform, knowing the fundamentals will likely make it very easy for you to pick them up. A generalist might not know some random trivia about <code>UITableView</code> APIs that a specialist would, but they don't need to, because this is the programming equivalent of the musician who can learn how to play a song by just listening to it. It's easy for a generalist to learn programming languages and platforms -- what's difficult to learn are programming skills you need to have to use these languages and platforms.</p>
 <p>This is why these companies choose to focus on this topic -- while in smaller companies you can prove your ability by answering questions about a specific platform, in the larger companies' world of generalists it's your understanding of programming as a concept that proves you're the type of engineer they're looking for.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I think this is ultimately what people who are frustrated with interviews have trouble seeing: <b>the role you want might not be what a company is looking for.</b> I can't help but point out that people who express discontent with interviews almost always do so from an emotional point of view -- almost like the companies should be delighted to have the opportunity to interview them, and that they are so good that they have no need to demonstrate their programming abilities. What is especially puzzling to me is when this is directed towards top-tier companies that have amazing salaries, benefits, free food, off-sites and all -- these are companies that have <b>thousands</b> of people applying for the same role, what makes you think you're so good that these companies should drop thousands of candidates and hire you with no questions asked? Are you really sure you have absolutely <b>no room</b> for improvement as a programmer?</p>
 <p>It's perfectly fine to not want to get yourself deep into engineering and focus your career on a more specific and higher-level use-case, but if you do so, I think it's really important to drop your pride and manage your expectations of which companies you'll be able to work with. You're good, but are you the <i>type</i> of good these companies are looking for? They're asking for a skill set that you might not have. What are you willing to do to reach your goals?</p>
 </div>]]></description>
@@ -3621,6 +3663,7 @@ March 31st, 2020
 </div>
 <p><code>ObjectIdentifier</code> is one of these obscure Swift types that you only see when looking at the answers for very specific problems in StackOverflow, and chances are that you have never really needed to use it. However, <code>ObjectIdentifier</code> plays an important part in Swift and is actually pretty useful as a solution to problems that involve metatypes. Let's take a look at why this type exists and what you can use it for.</p>
 <h2>Where you might have seen it</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>If you're like me, your first contact with <code>ObjectIdentifier</code> might have involved trying to use metatypes as the key for a dictionary:</p>
 <pre>
 <code>let routes = [Route.Type: String]</code>
@@ -3742,6 +3785,7 @@ March 31st, 2020
 <code>}</code>
 </pre>
 <p>Unfortunately, since it was possible for some mini programs to contain hundreds of widgets, this method was a big performance problem. The best solution is for <code>supportedWidgets</code> to be a <code>Set</code> to allow us to answer this question in constant time, but we can't have a <code>Set</code> of metatypes because they are not <code>Hashable</code>.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The solution? We can extend <code>MiniProgram</code> to pre-process our widget array into <code>Set&lt;ObjectIdentifier></code> and search from there.</p>
 <pre>
 <code>extension MiniProgram {</code>
@@ -3785,6 +3829,7 @@ March 31st, 2020
 March 24th, 2020
 </div>
 <p><b>Global functions</b>, or functions that can be accessed from anywhere without the scope of a specific type is an old concept that was popular in languages like C and Objective-C, but unrecommended in Swift as we would rather have things that are nicely typed and scoped ("swifty").</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like <code>zip()</code> and <code>dump()</code>.</p>
 <h2>zip()</h2>
 <p>Perhaps the most known global function, the <code>zip</code> function allows you to take two or more arrays and merge them into a single <code>Sequence</code> of a tuple. This is extremely useful if you need to iterate two things at the same time, as without <code>zip</code> you would have to manually build a <b>for</b> loop and access each index from each array individually. Using <code>zip</code> allows you access elements from all arrays in the more useful <b>for-in</b> fashion.</p>
@@ -3965,6 +4010,7 @@ March 24th, 2020
 <p><code>min()</code> - Returns the minimum value of the arguments</p>
 <p><code>abs()</code> - Returns the absolute value of the argument (useful in competitive programming questions)</p>
 <h3>Values</h3>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><code>swap()</code> - Swaps the value of two objects. This is not mentioned in its own section in this article because if you need to swap array elements the correct method to use is <code>Array.swapAt()</code>. However, you can still use <code>swap()</code> in other situations where you would need to create a fake "aux" property to hold a value.</p>
 <h2>Conclusion</h2>
 <p>As we can see, although none of these methods are necessary to make things happen, using them allows you write code that is easier to maintain and some times even more performant than old school solutions.</p>
@@ -3999,6 +4045,7 @@ March 24th, 2020
 March 18th, 2020
 </div>
 <p><b>Ordered Collection Diffing</b> is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in <code>UITableViews</code>. With the addition of this feature, developers can now diff <code>Collections</code> without having to bother with external libraries.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Have you wondered what efficiently diffing something looks like? In this article, we'll see and analyze the diffing APIs as well as the <b>Myers's Diffing Algorithm</b> used by the Swift Standard Library -- the same used in <b>git</b>.</p>
 <h2>Collection Diffing APIs</h2>
 <p>The diffing APIs are available as an extension for any <code>BidirectionalCollection</code>, with an abstracted helper type for ones whose's elements are <code>Equatable</code>:</p>
@@ -4253,6 +4300,7 @@ March 18th, 2020
 <code>  return changes</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Now that we have the final <code>CollectionDifference</code> type, we can finally return it and conclude the diffing algorithm. The worst case for Myers's is <code>O(a * b)</code> as it is possible for us to traverse all of the nodes of the graph.</p>
 <h2>Conclusion</h2>
 <p>As always, I like to finish these by saying that knowing what's inside of what you're using allows you to make better decisions in code. Different algorithms are meant for different use-cases, and knowing how to make trade-offs is useful everywhere. Plus, you get to learn cool little pieces of trivia -- did you know that Myers's is one of the merging strategies in <b>git</b>? :)</p>
@@ -4292,6 +4340,7 @@ March 18th, 2020
 February 5th, 2020
 </div>
 <p>The <code>Codable</code> protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like <code>Unbox</code>, <code>Codable</code> has the advantage of being powered by the compiler.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>One of my favorite features in <code>Unbox</code> was to give a <b>context</b> to the decoding operation. Let's take a look at how we can achieve the same with <code>Codable</code>.</p>
 <h2>Example 1: Giving different values to the same property</h2>
 <p>Decoding with "context" refers to the ability to change how types are decoded depending on what's going on in your app. Let's say that our app is sending a request asking for information regarding a header that should be displayed on the screen, with our app locally storing an additional <code>textColor</code> property into the model:</p>
@@ -4401,6 +4450,7 @@ February 5th, 2020
 <code>    func decodeAnyRoute(fromDecoder decoder: Decoder) throws -> (Route, String)</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Assuming that <code>RouterService</code> was injected into the <code>JSONDecoder</code>, the decoding operation will be deferred to it:</p>
 <pre>
 <code>extension RouterService: RouterServiceAnyRouteDecodingProtocol {</code>
@@ -4461,6 +4511,7 @@ January 23rd, 2020
 </div>
 <p>While dividing an app into several modules can improve the build time of an iOS app, the result heavily depends on what is being changed. If you're not careful with how your dependency graph is laid out, you can often have results that are <b>worse</b> than non-modularized apps. Let's take a look at a technique used at iFood to have big and consistent improvements to the build times of our app.</p>
 <h2>Context: The process to modularize an app</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Before jumping into the actual techniques, let's add some context to this so we have a better idea of <b>why</b> they are necessary.</p>
 <p><i>(For the purposes of this article, we ignore the concept of Xcode's incremental build feature as I personally never saw it make a considerable difference in build times compared to the improvements you get by properly modularizing the app. This is geared towards apps that are built on top of monorepo systems that cache builds between CI builds)</i></p>
 <p>When tasked to develop a small project, a developer's first idea will usually be to create a <b>single module</b> that contains absolutely all the code and resources:</p>
@@ -4582,6 +4633,7 @@ January 23rd, 2020
 <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;">
   <img src="https://i.imgur.com/6sn22b4.png" alt="Full app with interfaces">            
 </div>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><i>(Not shown: In our case, everyone depends on something called a <code>RouterServiceInterface</code>, with the main module depending on the concrete <code>RouterService</code>, which dynamically links the interfaces to their actual classes.)</i></p>
 <p>Note how the graph is considerably more <b>horizontal</b> than its counterpart -- even though everyone depends on <code>HTTPClientInterface</code>, changes to the actual <code>HTTPClient</code> will have no repercussions on the other modules, making the app compile considerably faster. With an entire app running on this structure, you should only have bad compilation times if the interfaces themselves are changed -- something that should be a rare occurrence. In general, every module is going to be completely independent of each other, which can be especially useful and productive when developing inside the module's specific scheme in Xcode.</p>
 </div>]]></description>
@@ -4613,6 +4665,7 @@ January 23rd, 2020
 January 13th, 2020
 </div>
 <p>Hashing algorithms are functions that map an arbitrary string to a seemingly "random" output with a fixed length. Commonly associated as a component of <code>Sets</code> and <code>Dictionaries</code>, hashing algorithms are a major component of several branches of computer science, including cryptography.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>In Swift, the <code>Hashable</code> protocol is the main component used to provide hashing capabilities to custom types. It is most commonly used to allow types to be used as the key of <code>Dictionaries</code> and <code>Sets</code>, but it also gives you access to `Sequence` helper methods like `contains(_:)`.</p>
 <p>The way it works is that <code>Hashable</code> exposes a <code>hashValue</code> property (now <code>Hasher</code> in Swift 4.2), which is an <code>Int</code> that represents a not-guaranteed-but-hopefully-most-of-the-times <b>unique</b> number that represents the contents of that type. In the case of <code>Dictionaries</code>, this number is used to calculate where in memory a key's value should be stored to later allow you to retrieve that same value in constant time. As the implementations of the protocol aren't the scope of this article, <a href="https://www.youtube.com/watch?v=shs0KM3wKv8">here's a video on hash tables</a> if you need more information on this.</p>
 <p>The internal algorithm used to calculate a type's <code>hashValue</code> (now <code>Hasher</code> in Swift 4.2) and the related compiler features changed several times throughout Swift's releases, and it was only after Swift 4.2 that a real universal hashing algorithm was added to Swift. To see how this is implemented today, let's take a look at how this looked like throughout the history of Swift.</p>
@@ -4771,6 +4824,7 @@ January 13th, 2020
 <code>}</code>
 </pre>
 <p>As shown in the previous code, if you require deterministic hash values for the purposes of unit testing, Swift allows you to disable random seeding by adding <code>SWIFT_DETERMINISTIC_HASHING</code> as an environment variable. Note that there's no guarantee that the values will be the same between different Swift releases, so ideally you should never use it.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>SipHash will also hash an input multiple times before producing the final output, which is determined by the numbers in the name of the algorithm. In our case, Swift uses SipHash-1-3, which means that there's one round of hashing per message block, with three finalization rounds. This makes SipHash slightly slower than your average unsafe algorithm, which alongside its keyed hash properties allows SipHash to be considered a <b>safe</b> hashing algorithm.</p>
 <pre>
 <code>extension Hasher._State {</code>
@@ -4829,6 +4883,7 @@ January 13th, 2020
 January 2nd, 2020
 </div>
 <p>With Swift being a very type-safe and namespaced language, you'll find that certain tasks are really hard to complete if at some point you can't determine the types that are being handled -- mostly when generics are involved. Using an automatic dependency injector as an example, let's see how generic arguments and closures can be "erased" to trick the compiler into compiling code that it would otherwise claim to be impossible (when it's clearly not!).</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>While this isn't your usual SwiftRocks-compiler-feature-deconstruction article, we'll take an exciting look at how the treatment of methods/closures as properties can be used in this context to bypass one of the Swift Compiler's most annoying compilation errors.</p>
 <h2>For Context: What's Type Erasure?</h2>
 <p>In programming languages with support for generics, <b>Type Erasure</b> is the process of abstracting constrained, generic types inside an <b>unconstrained non-generic type</b> that can be passed around freely.</p>
@@ -5133,6 +5188,7 @@ January 2nd, 2020
 </pre>
 <p>As a nice complement, because <code>AnyInitializer</code> is constrained to <code>Dependency</code> arguments, you are guaranteed to never have misconfigured features as the compiler would fail to build otherwise.</p>
 <h2>Conclusion: Where to go from here?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The shown <code>RouterService</code> and its related components is a very simplified version of a navigation framework being tested at iFood. This can be evolved into a structure (which we use) that relies on Codable <code>Routes</code> and <code>RouteHandlers</code> instead of directly invoking features, allowing you to have a very smart deep link structure where your backend can dictate where the app's flow should go to.</p>
 <p>Type Erasures are a very nice way to temporarily tell the compiler to "stop" type-checking your code. This allows you to conceive all sorts of complex structures without giving up type safety -- as long as you are careful with where they are used.</p>
 
@@ -5167,6 +5223,7 @@ December 23rd, 2019
 </div>
 <p><code>CollectionOfOne</code> is a type inside the Swift Standard Library that defines a <b>collection of a single element.</b> While this sounds a bit weird, there's a good reason for this to exist. Let's check out why.</p>
 <h2>Operating on single elements</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Personally, I am guilty of creating single-element arrays to make simple operations like this:</p>
 <pre>
 <code>someArray += [someElement]</code>
@@ -5249,6 +5306,7 @@ December 23rd, 2019
 <code>  self.replaceSubrange(i..&lt;i, with: CollectionOfOne(newElement))</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Because <code>replaceSubrange</code> replaces a <code>Collection</code> with another one, cases where the replacement is only a single element can greatly benefit from using <code>CollectionOfOne</code>.</p>
 <h2>Conclusion</h2>
 <p>When the performance gain isn't very high, I believe you should always value readability and maintainability over the gain. However, its always a good idea to understand the possible options and their trade-offs. Even if you never use <code>CollectionOfOne</code> directly, knowing of its existence and why it exists may help you make better decisions in the future.</p>
@@ -5286,6 +5344,7 @@ December 23rd, 2019
 December 3rd, 2019
 </div>
 <p>Swift's <code>OptionSet</code> protocol is the bridged version of Objective-C's <code>NS_OPTIONS</code> enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>If for example we were developing a JSON serializer, it would be nice if we allowed the user to control how certain aspects of the serialization process happened, such as if the keys are sorted or if indentation should be applied to the final JSON. In fact, this is how <code>Foundation's</code> <code>JSONSerialization</code> works:</p>
 <pre>
 <code>try JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted, .sortedKeys])</code>
@@ -5407,6 +5466,7 @@ December 3rd, 2019
 </pre>
 <p><code>SetAlgebra</code> inherits from <code>ExpressibleByArrayLiteral</code>, which allow it to be represented directly as an array. This triggers an <code>insert()</code> call for every element, which for our <code>OptionSet</code> types means that we'll progressively trigger bitwise AND (|) operations, resulting in a final <code>OptionSet</code> that represents the combination of all the options. Hooray!</p>
 <h2>How <code>ExpressibleByArrayLiteral</code> works internally</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><a href="https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler">The innards of the ExpressibleBy family are covered in detail in my previous article,</a> but as a short explanation, we can say that when the type checker finds a literal being attributed to an explicit type, it checks if it conforms to the related <code>ExpressibleBy</code> protocol and coverts the expression to the designated initializer from the protocol if it does (and throws a compilation error if it does not). For more details, check the linked article.</p>
 <h2>Conclusion</h2>
 <p>The <code>OptionSet</code> protocol itself is hardly used nowadays, but its existence has some history and shows some of the importance of analyzing what you're developing in terms of performance. You can always use a regular <b>Array</b> or <b>Set</b> to define these options, but should you? For these case where you have a limited set of unique options, using a bitmask is considerably quicker and less resource-intensive, something which your user's device will be very grateful for :)</p>
@@ -5443,6 +5503,7 @@ November 5th, 2019
 </div>
 <p>Even in apps written in full Swift, interfacing with Objective-C is still a very big part of iOS development. Many types and semantics from Objective-C are hidden underneath the code we write today, and understanding where they come from can help you make better code decisions and just better understand the platform in general. This time, we'll take a look at what <code>NSCopying</code> and its companion class <code>NSZone</code> are and what they can do for Swift apps.</p>
 <h2>Context: How copying objects worked in Objective-C</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Objective-C is notable for its weird syntax and for being completely dynamic, but the superset of C was very clever in the way its problems were solved. I mentioned in previous articles that one of my favorite things in Swift is that many compiler features are tied to actual protocols inside the language, and this is the case for Objective-C as well.</p>
 <p>In Objective-C, everything was an <b>object.</b> To support the language's dynamic features, objects provided type information to the run time by subclassing <code>NSObject</code>. Subclassing it also provided multiple helper methods like equality methods like <code>isEqual</code>, message routing methods like <code>respondsToSelector</code>, memory management methods like <code>retain/release</code> and type helper methods like <code>isKindOfClass</code>. <code>NSObject</code> is still used to this day in Swift -- many old iOS delegate protocols require the receiver to be an object as they need to check which methods the object can respond to.</p>
 <p>An important aspect of the language was that in Objective-C, <b>every object is a reference type</b>. Because the language is insanely dynamic, there's no way to know if the object you're creating in compile time is actually going to look like that in runtime. Everything can be changed in runtime, and because of that, allocating objects on the stack was simply not possible. Everything has to work through shared pointers and dynamic heap allocations, similar to how <code>classes</code> behave in Swift.</p>
@@ -5578,6 +5639,7 @@ November 5th, 2019
 <h2>NSMutableCopying</h2>
 <p>For completion purposes, it's important to also mention that Foundation also has a <code>NSMutableCopying</code> protocol that defines a similar <code>mutableCopy()</code> method. The functionality is the exact same as <code>NSCopying</code> -- the difference comes from the fact that it was common in Objective-C to differentiate between immutable and mutable objects. For example, as strings in Objective-C could be defined both as the immutable <code>NSString</code> and the mutable <code>NSMutableString</code>, the <code>NSMutableCopying</code> allowed developers to explicitly create mutable copies of objects. Since <code>let</code> and <code>var</code> accessors made this pattern unnecessary in Swift, <code>NSMutableCopying</code> doesn't have good uses in Swift unless you explicitly create separate mutable versions of your types.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Many features of iOS rely on legacy Objective-C components. As always, knowing the history of why things work the way they do can allow you to make better choices on the platform. In this case, <code>NSCopying</code> is an important aspect of Objective-C and can still be used not only for Swift-specific uses but also to unlock copy semantics in properties bridged to Objective-C.</p>
 <p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
 </div>]]></description>
@@ -5609,6 +5671,7 @@ November 5th, 2019
 October 26, 2019
 </div>
 <p>One of my favorite things about Swift is that almost every compiler feature is built on top of actual classes and protocols of the language. This means that if you see a native type that has some special magical property (like SwiftUI's declarative syntax, which was covered in another post here in SwiftRocks), it's likely that you can reproduce that behavior in your custom types.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>In this article, I'll cover one of my favorite syntax sugars in the language: the protocols and the internal compiler behavior that allow you to write <code>for</code> loops. You might have heard already of the <code>Sequence</code> family of protocols, and here, we'll see how the compiler uses them as the building blocks for <code>for</code> loops.</p>
 <pre>
 <code>for i in 0..&lt;10 {</code>
@@ -5746,6 +5809,7 @@ October 26, 2019
 <code>public protocol Collection: Sequence { ... }</code>
 </pre>
 <p>Unlike regular <code>Sequences</code>, <code>Collections</code> allow you to access elements multiple times, iterate them in reverse order (in the case of <code>BidirectionalCollections</code>) and even access specific elements directly through subscripts (in the case of <code>RandomAccessCollections</code> like <code>Array&lt;></code>)</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Unlike <code>Sequences</code>, <code>Collections</code> do not need to provide an <code>IteratorProtocol</code>. By default, Swift provides the <code>IndexingIterator</code> struct: an <code>IteratorProtocol</code> that takes a collection and simply traverses the indexes that are defined as part of the <code>Collection</code> protocol. As all <code>Collections</code> are <code>Sequences</code>, they can also benefit from having syntax sugar loops.</p>
 <p>---</p>
 
@@ -5781,6 +5845,7 @@ October 26, 2019
 October 16, 2019
 </div>
 <p>iOS 13 marks the release of long-waited features like Dark Mode, but it also brought some needed changes on less popular aspects. Prior to iOS 13, creating socket connections required coding very low-level network interactions which made libraries like Starscream and Socket.io the go-to solution for sockets in iOS. Now with iOS 13, a new native <code>URLSessionWebSocketTask</code> class is available to finally make creating and managing socket connections easier for developers.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><a href="https://twitter.com/rockbruno_/status/993152346841669632">Some time ago I created a little side project that involved an Arduino-powered servo motor that menacingly pointed at people's faces with the help of CoreML, mimicking the Team Fortress 2 Engineer's Sentry Gun.</a> With iOS 13, I decided to re-write that using the new Socket APIs and SwiftUI.</p>
 <div class="post-image margin-top-40 margin-bottom-40">
 <video style="width: 100%; height: auto;" controls>
@@ -6294,6 +6359,7 @@ Your browser does not support the video tag.
 </pre>
 <p>To make it short, Arduino will enter a "scan mode" that makes the servo wiggle back and forth if an <code>L</code> is received from the server. This goes on until an <code>X</code> is received -- when this happens, the Arduino then parses the numeric component of the command and sets it as the servo's angle. All that's left now is to attach a Nerf gun to it and make it actually shoot intruders!</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The introduction of the new URLSessionWebSocketTask finally solves a major pain point in developing networking applications for iOS, and I hope this article sparks some ideas for new side projects for you. Creating side projects is a cool way to learn new technologies -- I first did this project to know more about Raspberry Pis, and this article was a chance for me to have my first interaction with SwiftUI and Combine after Xcode 11's release.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -6331,6 +6397,7 @@ September 30, 2019
 </div>
 <p><b>SIMD Vector Types</b> is a feature added in Swift 5 that exposes Apple's <code>&lt;simd/simd.h></code> module to Swift, allowing you to calculate multiple results with a single instruction.</p>
 <h2>What's SIMD?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>SIMD stands for <b>Single Instruction, Multiple Data</b>, a hardware instruction that can be used once to perform multiple operations <b>at once.</b> There's nothing you can do with SIMD that you can't do without it, but in the world of graphical applications where handling multiple values in the shape of vectors and matrices is important, usage of SIMD types can provide big performance boosts over calculating values normally.</p>
 <p>Let's assume that we are handling the position of a character in a game that currently sits in the vector <code>x: 2 | y: 4</code>, and an explosion needs to apply some knockback to it.</p>
 <p>If we assume that the knockback multiplies the character's position by two, we'll need to do two operations to end up with <code>x: 4| y: 8</code>:</p>
@@ -6393,6 +6460,7 @@ September 30, 2019
 <code>character .== knockback // SIMDMask&lt;SIMD2&lt;Int32>>(false, true)</code>
 </pre>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Although the monstrous performance benefits can be only seen in the world of graphical applications, many problems can benefit from SIMD by being vectorized. Even when working with consumer applications, being careful about memory and CPU usage can bring big benefits to the user experience while teaching you more about software engineering.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -6429,6 +6497,7 @@ September 30, 2019
 September 4, 2019
 </div>
 <p>Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin <code>sort()</code> method. However, knowing the properties of the sorting algorithm built into your language is important if you want to prevent unwanted behaviors and nasty edge cases.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>When analyzing sorting algorithms, you'll want to search for two properties:</p>
 <h2>1 - Sorting Stability</h2>
 <p>The <b>stability</b> of a sorting algorithm represents the ability of the algorithm to <b>maintain the original order of equal elements after sorting</b>. An <b>unstable</b> sorting algorithm has no guarantees that the order of equal elements in the unsorted array will stay the same after sorting, while a <b>stable</b> one guarantees that they will stay the same.</p>
@@ -6656,6 +6725,7 @@ September 4, 2019
 <p>The galloping process can be aborted if the binary search process "loses" to the regular comparison process. <a href="https://bugs.python.org/file4451/timsort.txt">You can see all the optimizations that are done in the Timsort description.</a> Finally, after all runs were found, the remaining runs in the stack are progressively merged together until the entire array is sorted.</p>
 <p>The major differences in Swift is that the compiler's implementation of Timsort doesn't use galloping, and it attempts to collapse runs based on the last four runs instead of the last three. Still, it outperforms Introsort in pretty much every scenario.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Timsort is one of the fastest sorting algorithms for real world problems. Knowing what algorithm your language uses can help you optimize your code by making better decisions based on what data you're handling.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -6694,6 +6764,7 @@ September 4, 2019
 August 8, 2019
 </div>
 <p>While Xcode provides several visual abstractions for lldb commands like adding breakpoints by clicking the lines of code and running by clicking the play button, lldb provides several useful commands that are not present in Xcode's UI. This can range from creating methods on the fly to even changing the CPU's registers to force a specific flow on the app without having to recompile it, and knowing them can greatly improve your debugging experience.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Not all Swift things are developed in Xcode -- things like the Swift Compiler or Apple's SourceKit-LSP work better through other means, and these means usually end up having you use lldb <b>manually.</b> Without Xcode to assist you, some of these tricks can prevent you from having to compile the app again to test certain changes.</p>
 <h2>Injecting properties and methods</h2>
 <p>You might already know <code>po</code> (short for "print object") -- the friendly command that is commonly used to print the contents of a property:</p>
@@ -6848,6 +6919,7 @@ August 8, 2019
 </pre>
 <p>Now, running the app will result in <code>"Subscribed!"</code> being printed.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>While disassembling and writing to memory might be too extreme for daily development, you can use some of the more advanced lldb tricks to increase your productivity. Changing properties, defining helper methods and mixing them with breakpoint actions will allow you to navigate and test your code faster without having you recompile it.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -6888,6 +6960,7 @@ July 17, 2019
 <code>    return URL(string: "https://swiftrocks.com")!</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>However, to prevent having to use this initializer everytime, you could say that it's possible to represent an URL directly from its URL string using <code>ExpressibleByStringLiteral</code>:</p>
 <pre>
 <code>extension URL: ExpressibleByStringLiteral {</code>
@@ -7051,6 +7124,7 @@ bb0(%0 : $*URL):</code>
 <code>    return String.init(_builtinStringLiteral: "https://swiftrocks.com")</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>This not only allows you to write untyped expressions like <code>let foo = "bar"</code>, but it also serves for UI reasons - thanks to that, in a later pass the previous <code>getURL()</code> example will result in our user-friendly <code>Cannot convert value of type 'String' to specified type 'URL'</code> compilation error.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -7085,6 +7159,7 @@ bb0(%0 : $*URL):</code>
 June 26, 2019
 </div>
 <p>The <code>Foundation</code> provides you a lot of the bread-and-butter needed for your daily iOS development, ranging from structures like <code>Data</code> all the way to complete APIs like <code>URLSession</code>. But as it turns out, we only use a fraction of what <code>Foundation</code> offers.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>There's a bunch of Foundation types that are <b>so situational</b> that people doubt they even existed in the first place! In fact, they are so rarely mentioned as solutions to daily problems that developers may end up coding things that may <i>already</i> exist in these SDKs. But they do exist -- and although some of them are really old, most of these types are still very useful. Let's take a look at some of them!</p>
 <h2>NSScanner</h2>
 <p><code>NSScanner</code> can progressively extract numbers and strings from a base string, similarly to how <code>scanf</code> works in C:</p>
@@ -7256,6 +7331,7 @@ June 26, 2019
 <code>heap?.popMinimumObject() // 5</code>
 <code>heap?.popMinimumObject() // 8</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Priority queues are popular in graph searching problems and can be used to bring efficiency to anything where you need to keep track of the smallest or largest elements in an unordered array. It might take a while for you to find a use-case for priority queues or graph algorithms in general, but once you do, you'll realize that anything else would have been a giant performance issue. One example where I have personally applied graph algorithms in Swift is to resolve the dependencies of our app's dependency injection system for features.</p>
 <p>There are tons of useful types in Foundation and UIKit that we don't hear much of, but knowing them can help you prevent writing unnecessary code. Have fun with these types!</p>
 <h2>References and Good reads</h2>
@@ -7298,6 +7374,7 @@ June 10, 2019
 <p><i>Why are SwiftUI's return types <code>some View</code>?</i><br>
 <i>Why can't it just return a regular protocol?</i><br>
 <i>What are Opaque Types?</i></p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><b>Opaque Return Types</b> is a feature added in Swift 5.1 that is a big part of the new SwiftUI framework's functionality. It comes to finally fix a fundamental problem of the usage of protocols and the design of Swift APIs, opening new possibilities for the creation and usage of public APIs.</p>
 <h2>Building APIs before Swift 5.1</h2>
 <p>To understand what Opaque Types are, let's see what possibilities we have today when building public APIs.</p>
@@ -7408,6 +7485,7 @@ June 10, 2019
 <code>    return lazyDrop</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>This is why SwiftUI screens return <code>some View</code> — you need a concrete object for you to be able to compare, process and position them on the screen, but in most cases, it doesn't matter <b>what</b> the View really is, we just need to know that it is one. In the end, this is a tool meant to make your coding life easier.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -7443,6 +7521,7 @@ June 10, 2019
 June 4, 2019
 </div>
 <p>Announced in WWDC 2019, SwiftUI is an incredible UI building framework that might forever change how iOS apps are made. For years we've engaged in the war of writing views via Storyboard or View Code, and SwiftUI seems to finally end this. With its release, not only Storyboards are now pretty much irrelevant, but the old fashioned View Code is also very threatened as SwiftUI mixes the best of both worlds.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>With this new framework, you can use Xcode to define your screens visually just like in Storyboards -- but instead of generating unreadable XML files, it generates code:</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/NfE8605.png" alt="">                                    
@@ -7639,6 +7718,7 @@ June 4, 2019
 </pre>
 <p>The version of the feature inside Xcode 11 is internal and has less features than the proposed Swift version, and thus shouldn't be used manually until it's officially added into the language.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>SwiftUI has just been announced and it's already causing a huge impact. The new Swift features that are spawning out it are also game changing, and I for one am ready for the addition of new compiler black magics into Swift.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -7675,6 +7755,7 @@ June 4, 2019
 May 22, 2019
 </div>
 <p>Foundation's <code>NSAutoreleasePool</code> type, later abstracted to the <code>@autoreleasepool</code> block, is a very old concept in iOS development. During the Obj-C era of iOS, usage of this type was important to prevent your app's memory from blowing up in specific cases. As ARC and Swift came around and evolved, very few people still have to manually play around with memory, making seeing it become a rare occurrence.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Having developed tools that need to allocate enourmous amounts of memory, I asked myself if there's still a case where <code>@autoreleasepool</code> is useful in Swift 5. Here are the answers.</p>
 <h2>What is <code>@autoreleasepool</code>? (Objective-C)</h2>
 <p>In the pre-ARC Obj-C days of manual memory management, <code>retain()</code> and <code>release()</code> had to be used to control the memory flow of an iOS app. As iOS's memory management works based on the retain count of an object, users could use these methods to signal how many times an object is being referenced so it can be safely dealloced if this value ever reaches zero.</p>
@@ -7780,6 +7861,7 @@ May 22, 2019
 <p>I tried many ways to automate this inside Swift with no success. My attempts included expanding <code>NSData</code> to contain an associated object to a dummy Swift class, but ARC was still smart enough to deinit these objects right after their loops even though the Data object is technically still alive.</p>
 <p>I also tried to create a <code>weak</code> reference to the <code>Data</code> instance hoping that it would be still alive after its loop, but it was too set to <code>nil</code>. This makes me think that it's possible that the <code>Data</code> object is indeed deiniting after the loop and what's autoreleasing in that init is something else entirely, but there's way to confirm this without looking the source code; which we unfortunately can't. I believe that there must be an internal property in <code>NSAutoreleasePool</code> or <code>NSThread</code> that you can inspect autoreleased properties, but for now the only way I found really is to manually look the Allocations instrument.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>To put it short, <code>autoreleasepool</code> is still useful in iOS/Swift development as there are still legacy Obj-C classes in UIKit and Foundation that call <code>autorelease</code>, but you likely don't need to worry about it when dealing with Swift classes due to ARC's optimizations.</p>
 <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
 </div>
@@ -7814,6 +7896,7 @@ May 6, 2019
 <blockquote class="margin-top-40 margin-bottom-40">
 <p><i>This is part 2 of the Avoiding Release Anxiety series. <a href="https://swiftrocks.com/blockbased-ui-testing-in-swift">Check out part 1 here!</a></i></p>
 </blockquote>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p><i>"I'm not sure how to implement this feature, Johnny is the one who created this screen."</i><br>
 <i>"Better to leave that code as it is, the guy who did it left the company a few months ago."</i><br>
 <i>"We should postpone this because Ana is the best person to handle this and she's on vacation."</i></p>
@@ -7850,6 +7933,7 @@ May 6, 2019
 </div>
 <p>With time, the topics that matter most to you and your team will be covered and you'll have a complete guide.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>In the end, it's all about how far you see your project going. Style guides are strict, have a learning curve and are hard to get used to initially, but if neglected, the lack of one ends up being one of the main reasons why a repository fell apart. In the long term, being able to seamlessly access and understand someone else's code in a team of 200 engineers is a large scale project's biggest strength.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 </div>
@@ -7883,6 +7967,7 @@ April 20, 2019
 </div>
 <p>When deadlines are tight and the product faces considerable changes, it's common for developers to make concessions in the project's quality to make sure it gets shipped in time. This leads to release anxiety - that stressful feeling where you're unsure if you're shipping something that actually works. As a result, teams resort to heavy amounts of manual testing, staying overtime to make sure nothing fell apart and an unhappy environment in general. <i>Avoiding Release Anxiety</i> is a series of posts where I show the things I do to develop durable Swift apps that allow me and my team to sleep worry-free at night.</p>
 <h2>Resilient UI Tests</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I feel that UI Tests are very underrated by the community when compared to other forms of testing, but they're my favorite. When the subject is making sure that a feature works, my opinion is that users don't care if a button isn't the right color or if a font is slightly off -- they only care if it does what it should do. UI Testing is the closest you can get to the actual user experience, so if the UI Tests are working, it's likely that the user's experience in these flows will work as well. As a complement to the usual unit tests, I make sure to always write UI tests that navigate through all variations of the important flows of the app to reduce stress in release days.</p>
 <p>With that said, how can you effectively write and maintain these tests if your app has several screens and variations of them?</p>
 <p>I deal with this by implementing something that I call block-based testing. Instead of putting all the test logic directly in the test method, I instead divide each step of the navigation into its own "exploration" method. Here's an example:</p>
@@ -8091,6 +8176,7 @@ April 20, 2019
 </pre>
 <p>The downside of this approach is that the initializers tend to get really big when a screen has tons of responsibilities, which can be a bit jarring. There are several alternatives to dependency injection out there that don't hurt the testability of the classes, but that's a topic for another blog post.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>With everything setup, we're able to create not just UI but also Unit Tests while still being able to scale our project stress-free. By separating the test necessities from the project itself, we can develop conditions for tests without hurting the project's quality. After creating exploration methods and developing UI Tests for important flows that snap these methods together, we can rely on a resilient test suite that allows us to safely release new versions of our apps.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 </div>
@@ -8123,6 +8209,7 @@ April 20, 2019
 February 20, 2019
 </div>
 <p>Deeplinking is widely used to provide easy access to certain portions of an iOS app. While most of the uses for a deeplink are marketing purposes such as providing shortcuts inside an e-mail or push notification, they can also be used for communicating between different apps and pretty much anything that involves routing to different screens.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>iOS already allows you to add "shortcuts" to an app in the shape of 3D Touch Quick Actions, but they are very limited, hidden from the user, and let's be honest - it's one of these features that nobody remembers. You can also use Siri Extensions, but then you have to deal with Siri, and the regular Siri Shortcuts relies on the Shortcuts app, so it's not something that you can provide to your users. Wouldn't it be great if you could give your users the ability to add shortcuts to things like ordering their favorite coffee in the shape of a home icon - just like the app itself?</p>
 <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/XD134oO.jpg" alt="iOS home screen">
@@ -8271,6 +8358,7 @@ February 20, 2019
 <p>Now, while this works, it certainly doesn't look anything like the Shortcuts example! I didn't go too far in the looks department since I'm not a designer, but because this is essentially a PWA page you can infuse it with PWA properties in order to add things like home icons and splash screens.</p>
 <p>You can find this info in the Apple docs, but you can use <code>apple-touch-icon</code> and <code>apple-touch-startup-image</code> tags to link to images in order to add this sort of content, as well as using some html tricks to make your pages look neater. You can see the example project or the decoded Shortcut to see how to achieve this, but the Shortcuts app uses the localhost server to provide images while the example project encodes an asset and provides the raw data.</p>
 <p>To display the pretty instructions, the Shortcuts app generates an image on the fly. When it boots in PWA mode, it fetches the image from the local server and adds it to the body just like the previous <code>SwiftRocks!</code> example. It also has a fake version of the splash screen encoded into the html to make the transition between the page and the app smoother. In the end you're dealing with a HTML page, so anything goes!</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>In conclusion, if you have an app that contains important features, you can use this trick as an alternative to allow your users to create icons that go straight to them directly from their home screen.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -8305,6 +8393,7 @@ February 20, 2019
 DateHere
 </div>
 <p>TODO</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>LongDescriptionHere</p>
 <pre>
 <code>func codeExample() -> Int</code>
@@ -8317,6 +8406,7 @@ DateHere
   <img src="https://i.imgur.com/xbVOfbq.png"" alt="">                                    
 </div>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>WriteConclusion</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -8351,6 +8441,7 @@ DateHere
 December 17, 2018
 </div>
 <p>Being able to work in projects of the most diverse varieties gave me the chance to be in contact with several types of developers and code bases. Besides their core differences, what stood out to me during this process is that projects with a lower level of maturity will always face similar problems.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Perhaps they choose the wrong architecture, or the lack of unit tests caused a nasty bug to sneak into production, but there's a specific problem that always draws my attention - callback hell. If not treated from the very beginning, these awful pyramids of braces you get when chaining callbacks inside other callbacks or conditions plague code bases with an eternity of impossible code-reviews and distant screams of "what the hell is this method supposed to be doing?".</p>
 <pre>
 <code>private func requestNetwork&lt;T: Request>(request: T, completion: (Result&lt;T> -> Void)?) {</code>
@@ -8631,6 +8722,7 @@ December 17, 2018
 <p>If you're into this sort of stuff, the formal name for this very specific merging operation is the <a href="https://blog.ssanj.net/posts/2017-06-07-composing-monadic-functions-with-kleisli-arrows.html">Kleisi composition.</a></p>
 <h2>Conclusion: Read articles and books about writing clean code</h2>
 <p>If you take a deep look at it, you'll notice that the presence of things like callback hell will always boil down to the lack of good coding practices.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Clean code is a big topic, but there are great resources about it around the web. I've personally read and highly recommend <a href="https://www.amazon.com/dp/B001GSTOAM/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1">Robert C. Martin's Clean Code book</a> as it teaches you how to see your code from the perspective of other developers - a great skill to have when learning how to write better looking code. You should definitely give it a try if you're a professional developer.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -8679,6 +8771,7 @@ December 6, 2018
 <code>MyClass().notFoo // SwiftRocks</code>
 <code>// These properties don't exist, but they can be called because the type is @dynamicMemberLookup.</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>As seen in the snippet, usage of this attribute instead forces the type to provide a <code>dynamicMember</code> subscript which receives the "fake" property name as a parameter and acts upon it.</p>
 <p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md">The original motivation</a> was that it could be used in interoperability layers with dynamic languages, allowing you to call Python code in Swift like you would in Python itself, for example. Although this attribute doesn't have pure Swift in mind, you can certainly use it for it. I would probably never use it in regular iOS development, but my favorite use case is being able to improve JSON parsing:</p>
 <pre>
@@ -8919,6 +9012,7 @@ December 6, 2018
 <code>}</code>
 </pre>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>I enjoy researching these features because they tell you a lot about how the language works. In this case, we can see that attributes have infinite possibilities - from stupid name checks to making properties pop from thin air. One might argue that they aren't "swifty" compared to the rest of the language, but they'll likely continue to be an integral part of the language for years to come.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -8964,6 +9058,7 @@ December 6, 2018
 <code>    //because fatalError() returns 'Never'.</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Deep down, <code>Never</code> is just the revamped "swifty" version of <code>@noreturn</code>: an attribute which provided the exact same functionality but was removed for being too complex due to its nature as an attribute. Connecting this behaviour to a return type allowed the compiler to work better, and certainly ended up looking better for the developer as well.</p>
 <p>Something about <code>Never</code> intrigued me, though. We know that there's nothing in the language itself that allows you to skip return values, so what magic is done in the compiler to allow this?</p>
 <p>Just like in my <a href="https://swiftrocks.com/how-caseiterable-works-internally-in-swift">previous article about the innards of CaseIterable</a>, I'm going to dive into the compiler in order to extract and analyze the pieces of code that intercept and change the functionality of methods that return <code>Never</code> in order to learn more about how the Swift compiler works.</p>
@@ -9149,6 +9244,7 @@ December 6, 2018
 <p>Actually, there's no definition for this method! <code>Builtin</code> is not a normal framework - it seems to be generated inside the compiler as a way to allow Swift code to directly access LLVM functions. It appears to be all done <a href="https://github.com/apple/swift/blob/4fb4cb058d5d81f5fc3f8aaeb0adec2b933c5511/lib/AST/Builtins.cpp">in Builtins.cpp</a> by parsing <a href="https://github.com/apple/swift-llvm/blob/e9e59b13f33aadfb02075c373d52506b261a26ac/include/llvm/IR/Intrinsics.td#L835">a table all the way from the swift-llvm repository</a> and generating "pre-compiled" Swift methods from them. In this case, <code>int_trap()</code> is parsed as a <code>Never</code> returning method that calls <a href="https://llvm.org/docs/LangRef.html#llvm-trap-intrinsic">llvm.trap()</a>, a function that adds an instruction to blow up your app.</p>
 <p>So how does the infinite loop stops? The answer seems to be that it simply does not. Because the final call of the chain is inside a "pre-compiled framework" in a sense, diagnostics do not seem to affect it, allowing the app to compile correctly.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>That was quite the ride, but I hope that you found this useful. As I mentioned in previous articles, compilers are scary monsters, but knowing the internals of a language can really help you write efficient code. In this case, spelunking <code>Never</code> was interesting to see how each optimization pass complements each other when it comes to finding problems or changing the behaviour of a piece of code.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -9188,6 +9284,7 @@ December 6, 2018
           October 29, 2018
           </div>
           <p>Ah metatypes. That's another one for the list of <i>things I use everyday but couldn't explain in an interview if my life depended on it</i>.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>Metatypes are pretty useful in Swift, and you have certainly used it in multiple occasions. Unfortunately they look pretty weird in code, which can cause some confusion when trying to understand what they really are.</p>
           <p>I for one know how these weird suffixes can confuse you, but don't worry, they are actually pretty straightforward once you get to know the differences between each of them. But before getting into that, let's take a step back:</p>
           <h2>What's a Metatype?</h2>
@@ -9318,6 +9415,7 @@ December 6, 2018
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>And as a more recent example, here's how we use metatypes to represent and retrieve information about A/B tests (called "Experiments"):</p>
 <pre>
 <code>if ExperimentManager.get(HomeExperiment.self)?.showNewHomeScreen == true {</code>
@@ -9372,6 +9470,7 @@ December 6, 2018
           </div> 
           <p>It's very common to use the <code>weak</code> keyword in order to prevent reference cycles in properties like delegates:</p>
 <pre class = "language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Unfortunately, since it protects you from references being lost, the <code>weak</code> keyword forces the usage of <code>var</code> and an optional type, which can be quite jarring if you're building something like an <code>UIView</code> that is not supposed to be used without a delegate - much less change delegates suddenly:</p>
 <pre class = "language-swift"><code class="language-swift">class HomeView: UIView {
     weak var delegate: HomeViewDelegate?
@@ -9417,6 +9516,7 @@ December 6, 2018
 <p>If the captured reference will never become nil, it should always be captured as an unowned reference, rather than a weak reference.</p></blockquote>
 <p>In any other cases, you should keep using <code>weak</code> references.</p>
 <h2>What else?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>The next time you create a delegate or an <code>@escaping</code> closure, think about its context and see if it's possible for it to outlive its reference. If it doesn't, you might find <code>unowned</code> properties an interesting tool to improve your code's quality.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -9457,6 +9557,7 @@ December 6, 2018
           <i>Why do I get a crash if I call DispatchQueue.main.sync? What's the point of it?<br></i>
           <i>Just what is this Main Thread anyway?</i><br><br>
           <p>If you're developing iOS apps for more than a few weeks, then you have probably dealt with concurrent code before. If you have no background on Operating Systems, you may have asked yourself one of these questions.</p> 
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>Multithreading in general is a difficult thing to fully understand, but understanding how the CPU deals with concurrency is the key to writing good, fast code that does what you expected it to do. Otherwise, you might be abusing your user's CPUs but thinking everything is fine because they are too fast for you to notice that something is wrong.</p>
           <p>Before we can answer these questions, we need to take a step back and understand how things work behind the scenes.</p>
           <h2>What's a Process?</h2>
@@ -9635,6 +9736,7 @@ async task ended
 </code></pre>
 <p>A <code>sync</code> task is forwarded to the queue, and the main thread will freeze until <code>"a"</code> gets printed. The task gets sent to the Main Thread, which is frozen because it's waiting for the task to run. But the task can't run, because the thread is frozen waiting for the task to run, and on and on and on until your app decides to crash. You can't call <code>sync</code> dispatches from the thread itself, it has to come from somewhere else. Nothing will get printed here. As you most likely know, this is called a <b>deadlock</b>.</p>
 <h2>What else?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Hopefully, this is to answer the questions at the beginning of the article. Concurrency is a very wide issue, and in iOS, <code>DispatchQueues</code> are just one way to approach concurrency problems. There's still much more in the shape of <code>Atomicity</code>, <code>OperationQueues</code>, <code>Locks</code>, <code>Semaphores</code>. However, <code>DispatchQueues</code> are the most used concurrency tools in iOS, and when understood, one of the keys to writing efficient multi-threaded code.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -9686,6 +9788,7 @@ async task ended
 <code>    return addresses</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Fortunately, Swift has a way to use high-order functions while still keeping the improved performance of the helper methods - Lazy versions of the Swift Standard Library <code>Sequences</code> and <code>Collections</code> can be accessed through the <code>lazy</code> property.</p>
 <p>These lazy variations work just like their regular counterparts, but with one twist: they have custom implementations of methods like <code>map</code> and <code>filter</code> in order to make them work <b>lazily</b> - meaning that the actual computations will only happen <b>where and when you need them.</b></p>
 <pre>
@@ -9852,6 +9955,7 @@ async task ended
 <code>let result = Array(sequence) // ~0.004 secs!</code>
 </pre>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Usage of <code>lazy</code> objects can allow you to write high-performance complicated things very quickly - at the cost of requiring some understanding of Swift internals to prevent major issues. Like all features, they have great advantages with equal downsides, and in this case knowledge of the main differences between <code>Sequences</code> and <code>Collections</code> is required to extract the best of them. Once mastered, mapping specific elements becomes very simple and intuitive.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -9891,6 +9995,7 @@ async task ended
           July 23, 2018
           </div> 
           <p>The choice between using Storyboards and writing views programmatically is very subjetive. Having dealt with both in the past, I personally vouch for writing projects entirely through view code as it allows multiple people to work in the same class without nasty conflicts, and easier code reviews.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>When starting with the practice of writing views programatically, a common problem people face is <i>where</i> to put the code in the first place. If you follow the regular storyboard approach of putting everything view related in your view controller, it's very easy to end up with a giant god class:</p>
 <pre class = "language-swift"><code class="language-swift">final class MyViewController: UIViewController {
     private let myButton: UIButton = {
@@ -10027,6 +10132,7 @@ final class MyViewController: CustomViewController&lt;MyView> {
 </code></pre>
 <p>I personally don't like the generic approach because the compiler doesn't allow generic classes to have extensions with <code>@objc</code> methods, which forbids you from having protocols like <code>UITableViewDataSource</code> in extensions. However, it allows you to skip overriding <code>loadView()</code> unless something special needs to be done (like setting delegates), which really helps keep your View Controllers clean.</p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Overriding <code>loadView()</code> is a great way to make a View Code project easier to read and maintain, and I've been using <code>HasCustomView</code> specifically in my last few projects with great results. View coding is something that might not be your thing, but it brings many advantages to the table. Try it out, and see what works better for you.</p>
 <p>Let me know if you have other ways of defining views in a project without storyboards, along with any other questions, comments or feedback you might have.</p>
 <h2>References and Good reads</h2>
@@ -10061,6 +10167,7 @@ final class MyViewController: CustomViewController&lt;MyView> {
           May 21, 2018
           </div>
           <p>Competitive programming is a great way to master a specific programming language. Even if you're not interested in competing in world events like the <b>Facebook Hacker Cup</b>, tackling difficult algorithm problems using nothing but the language's bread and butter will expose you to aspects/shortcuts of the language you would otherwise never see, such as how efficient certain methods/operations are and how to code better alternatives. This is a cool hobby to have, and as a bonus you'll even be indirectly preparing yourself to the feared Big 4 interviews where you have to solve algorithm problems in a whiteboard!</p>
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>Even though in a real competition coding in Swift would be a big disavantage (as it's slightly slow compared to other languages and has few native data structures), lots of popular online platforms like <a href='https://leetcode.com/'>LeetCode</a>, <a href='https://www.hackerrank.com/'>HackerRank</a> and <a href='https://codefights.com/'>Codefights</a> support Swift and they are a great way to make yourself a better iOS developer, specially since competitive problems will only accept very fast algorithms as possible solutions. If you've never did this before, I highly recommend giving it a shot.</p>
           <p>In this article, I'll give a brief tutorial on how to use Swift to read input data and some tips for tackling competitive problems in Swift.</p>
           <h2>Reading Standard Input with Swift</h2>
@@ -10175,6 +10282,7 @@ measure {
 <p>Most competitive programming problems will rely on a specific data structure, and since Swift unfortunately has no native support for most of them, that means you'll have to code them yourself.</p>
 <p>Fortunately, the <a href="https://github.com/raywenderlich/swift-algorithm-club/">swift-algorithm-club</a> repo has Swift implementations of pretty much everything, making it a great place to learn how to code popular data structures in Swift.</p>
 <h2>What else?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Regardless if you are studying for an interview, wanting to compete at world events or just trying to get better at iOS development, solving competitive programming problems is a very interesting way of increasing your Swift skills. I've personally benefited a lot from it, and would love to know what you think of it.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -10211,6 +10319,7 @@ measure {
           October 18, 2018
           </div> 
           <p>Siri Shortcuts are definitely my favorite iOS 12 feature. Ever since SiriKit first came out I was very disappointed that you couldn't use it for your own custom commands, but the new Shortcuts app solves this problem. Not only it allows you to create your custom commands, but it also provides a very intuitive UI to allow even non-devs to automate tons of kinds of workflows in their iPhones.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>We've all seen how to create a workflow and make your app expose custom actions, but one thing that I haven't seen people mention is that the Shortcuts app exposes several deep links for opening and running shortcuts - meaning that you can make an app that runs other apps' Siri Shortcuts. <a href="https://twitter.com/rockbruno_/status/1052625467147083777">I used this to make an app run my "Take Picture" shortcut every time I tapped my AirPods.</a></p>
           <p>The URL Scheme for the Shortcuts app is <code>shortcuts://</code>, and you can test all of them by typing them into Safari.</p>
           <h2>Running a specific Shortcut</h2>
@@ -10248,6 +10357,7 @@ measure {
 		  <h3>Search the Shortcuts Gallery</h3>
 		  <p><code>shortcuts://gallery/search?query=[query]</code></p>
 <h2>Conclusion</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Because there's no way for you to retrieve a list of the user's shortcuts, there are probably not many uses for these deep links in regular apps - but they can be very useful for personal automation projects like my AirPods camera trick. What are you planning to do?</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good Reads</h2>
@@ -10284,6 +10394,7 @@ measure {
           September 16, 2018
           </div>
     	  <p>I was browsing the Swift forums when I stumbled across a <a href="https://forums.swift.org/t/a-question-about-associatedtype-in-protocols/16168">discussion</a> regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
     	  <p>I've shown associated types in action before <a href="https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview">in my article about loadView()</a> - they are a great tool to define generic behaviour inside protocols in the shape of a specific type. As the feature implies, setting a default value for an associated type will allow the children of the protocol to skip having to define a typealias for the type, unless they specifically want to use a different type.</p>
     	  <p>This is the regular way to define a associated type:</p>
     	  <pre>
@@ -10357,6 +10468,7 @@ measure {
 <code>    }</code>
 <code>}</code>
 </pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Plain requests can now work purely with a <code>path</code> property (and return a plain <code>Data</code> object) while still allowing the regular requests to provide their custom responses.</p>
 <pre>
 <code>struct ABTestDataRequest: HTTPRequest {</code>
@@ -10396,6 +10508,7 @@ measure {
                                       <span>January 10, 2018</span>
                                     </div>
                                     <p>By default, <b>LAContext's</b> <b>evaluatePolicy</b> method will consider any registered fingerprint/face valid - even if they were added after your app was installed.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
                                     <p>If your app contains sensitive data (like a bank or marketplace app would), you probably don't want this "feature". If someone with bad intentions gets a hold of your user's unlocked phone and adds new fingerprints, he could efforteslly pretend to be the original user - and your TouchID/FaceID enabled app would never notice the difference.</p>
                                     <p>To detect hardware biometry changes, we can compare the value of one of <b>LAContext's</b> properties: <b>evaluatedPolicyDomainState</b>.</p>
                                     <p>From Apple's documentation:</p>
@@ -10416,6 +10529,7 @@ measure {
                   <p>But what if the biometry data changes legitimally, like upgrading to an iPhone X? TouchID data will become FaceID data, changing <b>evaluatedPolicyDomainState</b>'s value.</p>
                   <p>You could store all your data on the Keychain to prevent it from being backed up, but it turns out that <b>LAContext</b> contains several interesting properties.</p>
                   <p>One of them is <b>biometryType</b>, which indicates which biometry system (TouchID/FaceID/none) is enabled at the user's device.</p> 
+<div class="sponsor-article-ad-auto hidden"></div>
                   <p>Like <b>evaluatedPolicyDomainState</b>, it starts at nil, requiring a canEvaluatePolicy or evaluatePolicy call to be filled. I personally use this property to change messages and errors, but it can be used to detect system changes as well.</p>
                   <p>Due to possible stability issues, one could consider this a premature security measure. Because of that, consider if your app really needs this sort of protection - or even should have TouchID/FaceID support in first place.</p>
                                 </div>
@@ -10446,6 +10560,7 @@ measure {
           </div> 
           <div class="post-info">August 8, 2018</div> 
           <p>Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like <code>switch</code> cases. While regular <code>switch</code> cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of <code>switches</code> to result in really cool and short lines of code. One thing that interests me in particular is that pattern matching can be used for a wide variety of things.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>At first glance, it's easy to see pattern matching as simple equality checks:</p>
 <pre class = "language-swift"><code class="language-swift">switch 80 {
 case 100:
@@ -10528,6 +10643,7 @@ default:
     break
 }
 </code></pre>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>This allows you to bypass having to map broader types into more specific ones, such as how an <code>Int</code> can be mapped to a <code>WeekDay</code> enum. In this case in particular, your backend would return you the week day either as an <code>Int</code> or a <code>String</code>, and with custom pattern matching you can make use of this broader type while still treating it like it was mapped to the more specific enum type. This can be useful when you want to try concepts without commiting to certain approachs or types:</p>
 <pre class = "language-swift"><code class="language-swift">enum WeekDay: Int {
     case sunday
@@ -10583,6 +10699,7 @@ if case .friday? = nextHoliday?.weekDay {
           September 21, 2018
           </div>
           <p><code>CaseIterable</code> is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>If we take a look at how <code>CaseIterable</code> is implemented in the Standard Library, we can see that the protocol is just what one would expect it to be: a simple definition of an array of cases.</p>
 <pre>
 <code>public protocol CaseIterable {</code>
@@ -10833,6 +10950,7 @@ bt</code>
 </pre>
 <h2>Conclusion</h2>
 <p>Compilers are scary, and the Swift one is no different. I'm still trying to figure out how most things work (If you're a compiler expert, I'm looking for tips on great books and resources!), but one thing that I've said before on my posts is that knowing the internals of a language can really help you write efficient code. I had a lot of fun inspecting this feature and hope it was useful to you in some way.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
 <a href="https://github.com/apple/swift">The Swift Source Code</a><br><br>
@@ -10867,6 +10985,7 @@ bt</code>
           May 26, 2018
           </div>
           <p>The <code>@inline</code> attribute is one of those obscure things in Swift - it's nowhere to be found in Apple's docs, doesn't help you write cleaner code and has no purpose but to help the compiler make optimization decisions, but it's related to a pretty important aspect of your app's performance.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>In programming, <b>function inlining</b> is a compiler optimization technique that removes the overhead of calling certain methods by directly replacing calls to them with the method's contents, basically pretending that the method never existed in first place. This provides a great performance boost.</p>
           <p>For example, consider the following code:</p>
           <pre class = "language-swift"><code class="language-swift">func calculateAndPrintSomething() {
@@ -10947,6 +11066,7 @@ func play(song: Song) {
 <p>Be aware that using <code>@inline(__always)</code> doesn't guarantee that the compiler will actually inline your method. The rules for it are unknown, and there are some cases where inlining is impossible, such as when dynamic dispatching can't be avoided.</p>
 <h2>What else?</h2>
 <p>Since <code>@inline</code> is not officially supported, you should really never use it in a real project and use this article only for the sake of learning something new.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>However, I found it to be very useful and hope Apple decides to officially support it some day. If you are interested in more obscure Swift things, check out <a href="https://github.com/apple/swift">Swift's Source Code.</a></p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>
@@ -10982,6 +11102,7 @@ func play(song: Song) {
             April 13, 2018 
           </div> 
           <p>It's very likely that you asked yourself at least once in your iOS career what's the difference between a <code>struct</code> and a <code>class</code>. While realistically the choice between using one or another always boils down to <i>value semantics</i> versus <i>reference semantics</i>, the performance differences between the two are expressive and can heavily favor one or another depending on the contents of your object, specially when dealing with value types.</p> 
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>Some people might say that knowledge of memory architecture is irrelevant for application level developers, and I agree <i>partially</i>. Knowing how to save a few bits here and there will make no visible difference on newer iPhones, and premature optimization is a highly shunned practice.</p> 
           <p>However, both reference and value types can severely slow down your app when misused, and such knowledge will define whether or not you can fix the problem efficiently.</p> 
           <p>To understand the deeper differences between the two, let's look back at the address space of a process: (single thread for simplicity)</p> 
@@ -11211,6 +11332,7 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
           </blockquote> 
           <h2>What else?</h2>
           <p>Even though the examples shown here are extremely exaggerated, small mistakes can and will add up quick enough to cause you trouble in the future. Remember: People want to have a good time with apps, and most of them won't accept anything less than a silky smooth 60 fps experience. Waits/freezes are so universally hated that <a href="https://www.thinkwithgoogle.com/data-gallery/detail/mobile-site-abandonment-three-second-load/">53% of visits are abandoned if a mobile site takes longer than 3 seconds to load,</a> and you should keep that in mind when your app starts displaying random hiccups/slowdowns, specially when scrolling content.</p> 
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>Performance depends on several factors, and choosing between <code>structs</code> and <code>classes</code> are just one of them. If you are interested in this topic, I largely recommend watching the WWDC videos about Method Dispatching and Witness Tables.</p> 
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
           <h2>References and Good reads</h2>
@@ -11256,6 +11378,7 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
                                     </div>
                                     <blockquote class="margin-top-40 margin-bottom-40">
                                     <p>This article is SwiftRocks's slimmed down version of my original <a href="https://medium.com/@brunorochaesilva/how-i-hacked-messengers-ios-app-custom-chat-bubble-colors-12f1ac7f070c">2016 Medium article.</a> The Medium article is badly written and contains mistakes, but it has more information on how to reproduce each step.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
                                     <p>Update: As of May 3, 2018, this sadly doesn't seem to work anymore. My web chats returned to the blue color and the custom changes only apply locally. I guess color changes are validated on the backend now. Damn you Zuckerberg!</p>
                                     </blockquote>
                                     <p>Due do the messaging nature of the Objective-C runtime, a great amount of information about your code can be extracted and manipulated during runtime by external tools. The <b>Selectors</b> you reference everyday are nothing more than exposed strings in your code, despite what Swift's <b>#selector</b> abstraction might imply. With the right tools, any production app can be messed with just like it's Xcode debugging counterpart.</p>
@@ -11331,6 +11454,7 @@ MS.hookMessage(FBPickerItem, @selector(initWithColor:accessibilityTitle:accessib
                                     </div>
                                     <div class="post-image margin-top-40 margin-bottom-40">
                                       <img src="https://i.imgur.com/0W3zbIH.png" alt="">
+<div class="sponsor-article-ad-auto hidden"></div>
                                       <p>Yes! If they have analytic events for these colors, someone at Facebook will be very confused trying to figure out why there's some random guy with a black chat.</p>
                                     </div>
                                     <p>Hopefully this can give you an idea of how easily your app's data can be tampered it. Be careful with what's inside your binary - no matter how hard you try to hide it, someone who tries hard enough will eventually find it - specially if they are being paid to screw you up. Do not try to reinvent the wheel, use actual, market proven security measures.</p>

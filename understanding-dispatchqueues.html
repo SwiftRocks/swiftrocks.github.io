@@ -134,6 +134,7 @@
           <i>Why do I get a crash if I call DispatchQueue.main.sync? What's the point of it?<br></i>
           <i>Just what is this Main Thread anyway?</i><br><br>
           <p>If you're developing iOS apps for more than a few weeks, then you have probably dealt with concurrent code before. If you have no background on Operating Systems, you may have asked yourself one of these questions.</p> 
+<div class="sponsor-article-ad-auto hidden"></div>
           <p>Multithreading in general is a difficult thing to fully understand, but understanding how the CPU deals with concurrency is the key to writing good, fast code that does what you expected it to do. Otherwise, you might be abusing your user's CPUs but thinking everything is fine because they are too fast for you to notice that something is wrong.</p>
           <p>Before we can answer these questions, we need to take a step back and understand how things work behind the scenes.</p>
           <h2>What's a Process?</h2>
@@ -312,6 +313,7 @@ async task ended
 </code></pre>
 <p>A <code>sync</code> task is forwarded to the queue, and the main thread will freeze until <code>"a"</code> gets printed. The task gets sent to the Main Thread, which is frozen because it's waiting for the task to run. But the task can't run, because the thread is frozen waiting for the task to run, and on and on and on until your app decides to crash. You can't call <code>sync</code> dispatches from the thread itself, it has to come from somewhere else. Nothing will get printed here. As you most likely know, this is called a <b>deadlock</b>.</p>
 <h2>What else?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Hopefully, this is to answer the questions at the beginning of the article. Concurrency is a very wide issue, and in iOS, <code>DispatchQueues</code> are just one way to approach concurrency problems. There's still much more in the shape of <code>Atomicity</code>, <code>OperationQueues</code>, <code>Locks</code>, <code>Semaphores</code>. However, <code>DispatchQueues</code> are the most used concurrency tools in iOS, and when understood, one of the keys to writing efficient multi-threaded code.</p>
 <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
 <h2>References and Good reads</h2>

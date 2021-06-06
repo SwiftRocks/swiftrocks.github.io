@@ -128,6 +128,7 @@
 May 5th, 2020
 </div>
 <p><b>Preprocessor macros</b> are used to bring context to a build, allowing you to transform how your app is compiled depending on why it's being built.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>In iOS, preprocessors are popularly used to determine which scheme was used to build an app. This allows you to build things such as <b>debug views</b> which are only visible in debug builds, additional logging for non-AppStore builds, and more. My favorite use of macros is using the Factory pattern to return mocked components for XCUITests:</p> 
 <pre>
 <code>enum HTTPClientFactory {</code>
@@ -278,6 +279,7 @@ May 5th, 2020
 <code>}</code>
 </pre>
 <p><i>(Note that because <b>isOverridden</b> only works when a macro isn't present in the build, your testing target should not contain macros whose's presence/absence needs to be tested.)</i></p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>With this setup, we're able to test preprocessor macros while being sure that our final release builds will not contain code that's not meant to be executed. This same trick can be used to test macros in XCUITests.</p>
 <p>As a final note in the topic of security, note that if your intention is to <b>completely</b> get rid of something in runtime, everything needs to be wrapped by macro checks. In this case, if hiding the build types themselves was critical (and not just the logic of what's my current one), we would have to wrap the enum itself in macros, which would make unit testing it like this considerably harder, although still possible.</p>
 </div>
