@@ -139,8 +139,8 @@ June 22nd, 2021
 <li>Provide photographs of the object you want to capture</li>
 </ul>
 <div class="sponsor-article-ad-auto hidden"></div>
-<p>Capturing photographs of the object is not hard, although you may have to fine tune your environment to get better results. The idea is to place your object in a well lit place and continuously take pictures as you round the object. You can also take pictures of the bottom of the object if you'd like that to be modeled as well, by taking pictures of the object flipped upside-down in the same environment.</p>
-<p>Your pictures don't need to have any particular ordering or naming for Object Capture to work and there's no minimum number of pictures you need to take, although you might better results the more you do. I've found that ~30ish pictures already gives a nice result. Quite easy!</p>
+<p>Capturing photographs of the object is not hard, although you may have to fine-tune your environment to get better results. The idea is to place your object in a well-lit place and continuously take pictures as you round the object. You can also take pictures of the bottom of the object if you'd like that to be modeled as well, by taking pictures of the object flipped upside-down in the same environment.</p>
+<p>Your pictures don't need to have any particular ordering or naming for Object Capture to work and there's no minimum number of pictures you need to take, although you might better results the more you do. I've found that ~30ish pictures already give a nice result. Quite easy!</p>
 <div class="post-image">
   <img style="height: 300px;" src="https://i.imgur.com/9ZiPV1Y.gif" alt="Pictures example">
 </div>
@@ -211,14 +211,14 @@ June 22nd, 2021
   <img style="height: 300px;" src="https://i.imgur.com/QvvOiYE.gif" alt="Pictures result">
 </div>
 <h2>Configuring PhotogrammetrySessions</h2>
-<p>To fine-tune your results, there are two aspects of Object Capture that can be configured. The first one is the detail of the output, which you can control to determine the amount of polygons in the final model:</p>
+<p>To fine-tune your results, there are two aspects of Object Capture that can be configured. The first one is the detail of the output, which you can control to determine the number of polygons in the final model:</p>
 <pre>
 <code>let request = PhotogrammetrySession.Request.modelFile(</code>
 <code>    url: outputFile,</code>
 <code>    detail: .preview</code>
 <code>)</code>
 </pre>
-<p>Details range from the lower quality <code>preview</code> to the high-end <code>full</code>. Try playing with lower quality settings before trying to generate a higher quality one.</p>
+<p>Details range from the lower quality <code>preview</code> to the high-end <code>full</code>. Try playing with lower-quality settings before trying to generate a higher-quality one.</p>
 <p>The second aspect that can be configured in the input itself:</p>
 <pre>
 <code>var configuration = PhotogrammetrySession.Configuration()</code>
