@@ -69,8 +69,10 @@ June 22nd, 2021
 <p>In the <code>run()</code> method, create a <code>PhotogrammetrySession</code> with the default configuration:</p>
 <pre>
 <code>let configuration = PhotogrammetrySession.Configuration()
-<code>let session = try PhotogrammetrySession(input: inputFolder,</code>
-                                              configuration: configuration)</code>
+<code>let session = try PhotogrammetrySession(</code>
+<code>    input: inputFolder,</code>
+<code>    configuration: configuration</code>
+<code>)</code>
 </pre>
 <p>It's possible to fine-tune the final model, which we'll see further on. For now, let's use the default settings.</p>
 <p>With a session, we should now create a request to fabricate a model from our photographs:</p>
