@@ -51,11 +51,12 @@ June 22nd, 2021
 <code></code>
 <code>    func run() throws {</code>
 <code>    }</code>
+<code>}</code>
 </pre>
 <p>Object Capture works by creating a <code>PhotogrammetrySession</code> object, configuring it, passing the folder that contains our pictures and waiting for the result. The result comes asynchronously through Combine, so make sure to create a <code>subscriber</code> object like in the snippet.</p>
 <p>In the <code>run()</code> method, create a <code>PhotogrammetrySession</code> with the default configuration:</p>
 <pre>
-<code>let configuration = PhotogrammetrySession.Configuration()
+<code>let configuration = PhotogrammetrySession.Configuration()</code>
 <code>let session = try PhotogrammetrySession(</code>
 <code>    input: inputFolder,</code>
 <code>    configuration: configuration</code>
@@ -116,7 +117,10 @@ June 22nd, 2021
 <p>The second aspect that can be configured in the input itself:</p>
 <pre>
 <code>var configuration = PhotogrammetrySession.Configuration()</code>
+<code>configuration.sampleOverlap = .low</code>
+<code>configuration.sampleOrdering = .unordered</code>
+<code>configuration.featureSensitivity = .high</code>
 </pre>
 <div class="sponsor-article-ad-auto hidden"></div>
-<p>The configuration struct allows you to provide more information about your photographs, which may result in a better model. <code>sampleOverlap</code> allows you to describe how much overlap there is between each photograph, <code>sampleOrdering</code> allows you to indicate whether or not your photographs are ordered (which will speed the process), <code>featureSensitivity</code> indicates how hard RealityKit should try to search for features in your object, which should be used in cases where the object doesn't have a lot of discernible structures, edges or textures.</p>
+<p>The configuration struct allows you to provide more information about your photographs, which may result in a better model. <code>sampleOverlap</code> allows you to describe how much overlap there is between each photograph, <code>sampleOrdering</code> allows you to indicate whether or not your photographs are ordered (which will speed the process), and <code>featureSensitivity</code> indicates how hard RealityKit should try to search for features in your object, which should be used in cases where the object doesn't have a lot of discernible structures, edges or textures.</p>
 </div>
