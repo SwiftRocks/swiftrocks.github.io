@@ -28,6 +28,19 @@
       <!-- Blog Post Start -->
                                 <div class="col-xs-12 blog-post">
                                     <div class="post-title-index">
+                                      <a href="how-actors-work-internally-in-swift"><strong>How Actors Work Internally in Swift</strong></a>
+                                    </div>  
+                                    <div class="post-info">
+                                      July 6th, 2021
+                                    </div>
+<p><b>Actors</b> is a feature that is part of Swift's <i>Structured Concurrency</i>, bringing a brand new format to write and deal with asynchronous code. Although what Swift brings is new to the language, it's not new to tech itself. Many languages supported actors and async/await before Swift, but one interesting thing is that they are all implemented similarly. By having these features now in Swift, there's much we can learn from what developers experienced by using them in other languages.</p>
+<p>Just like other "How X works internally in Swift" SwiftRocks articles, the purpose of this article is to explore how actors work under the hood, using Swift's own source code as a guide to finding out how they work inside the compiler.</p>
+                                </div>
+                                <!-- Blog Post End -->
+
+      <!-- Blog Post Start -->
+                                <div class="col-xs-12 blog-post">
+                                    <div class="post-title-index">
                                       <a href="creating-3d-models-out-of-anything-with-realitykit-in-swift"><strong>Creating 3D Models from Photographs with RealityKit in Swift</strong></a>
                                     </div>  
                                     <div class="post-info">
@@ -541,13 +554,13 @@ Your browser does not support the video tag.
       <!-- Blog Post Start -->
                                 <div class="col-xs-12 blog-post">
                                     <div class="post-title-index">
-                                      <a href="autoreleasepool-in-2019-swift"><strong>@autoreleasepool uses in 2019 Swift</strong></a>
+                                      <a href="autoreleasepool-in-swift"><strong>autoreleasepool uses in 2019 Swift</strong></a>
                                     </div>  
                                     <div class="post-info">
                                       May 22nd, 2019
                                     </div>  
 <p>Foundation's <code>NSAutoreleasePool</code> type, later abstracted to the <code>@autoreleasepool</code> block, is a very old concept in iOS development. During the Obj-C era of iOS, usage of this type was important to prevent your app's memory from blowing up in specific cases. As ARC and Swift came around and evolved, very few people still have to manually play around with memory, making seeing it become a rare occurrence.</p>
-<p>Having developed tools that need to allocate enourmous amounts of memory, I asked myself if there's still a case where <code>@autoreleasepool</code> is useful in Swift 5. Here are the answers.</p>
+<p>Having developed tools that need to allocate enourmous amounts of memory, I asked myself if there's still a case where <code>autoreleasepool</code> is useful in Swift. Here are the answers.</p>
                                 </div>
                                 <!-- Blog Post End -->
 

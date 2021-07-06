@@ -145,6 +145,16 @@
     <priority>0.80</priority>
 </url>
 <url>
+    <loc>https://swiftrocks.com/how-actors-work-internally-in-swift</loc>
+    <lastmod>2020-07-06T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-actors-work-internally-in-swift.html</loc>
+    <lastmod>2020-07-06T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/creating-debug-menus-in-swift-with-uicontextmenuinteraction</loc>
     <lastmod>2020-06-30T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
@@ -281,6 +291,16 @@
 </url>
 <url>
     <loc>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/autoreleasepool-in-swift</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/autoreleasepool-in-swift.html</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
@@ -601,16 +621,6 @@
 </url>
 <url>
     <loc>https://swiftrocks.com/index.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/autoreleasepool-in-2019-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/autoreleasepool-in-2019-swift.html</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>

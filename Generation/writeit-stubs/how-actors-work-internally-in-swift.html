@@ -7,11 +7,11 @@
 <!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=aaa-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Lets explore how actors work under the hood, using Swift's own source code as a guide to finding out how they work inside the compiler.-->
 
-<!--DateFormat example: 2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2020-04-12T14:00:00+02:00-->
+<!--DateFormat example: 2020-07-06T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-07-06T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2020-07-06T14:00:00+02:00-->
 
 <title>$WRITEIT_POST_NAME</title>
 <div class="col-md-12 blog-post"> 
@@ -19,13 +19,13 @@
   <h1>$WRITEIT_POST_NAME</h1> 
 </div> 
 <div class="post-info"> 
-DateHere
+July 6th, 2021
 </div>
-<p><b>Actor</b> is a feature that is part of Swift's <i>Structured Concurrency</i>, bringing a brand new format to write and deal with asynchronous code. Although what Swift brings is new to language, it's not new to tech itself. Many languages supported actors and async/await before Swift, but one interesting thing is that they are all implemented similarly. By having these features now in Swift, there's much we can learn from what developers experienced by using them in other languages.</p>
+<p><b>Actors</b> is a feature that is part of Swift's <i>Structured Concurrency</i>, bringing a brand new format to write and deal with asynchronous code. Although what Swift brings is new to the language, it's not new to tech itself. Many languages supported actors and async/await before Swift, but one interesting thing is that they are all implemented similarly. By having these features now in Swift, there's much we can learn from what developers experienced by using them in other languages.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
-<p>Just like other "How X works internally in Swift" SwiftRocks articles, the purpose of this article is to explore how actors work under the hood, using Swift's own source code as a guide to find out how they work inside the compiler.</p>
+<p>Just like other "How X works internally in Swift" SwiftRocks articles, the purpose of this article is to explore how actors work under the hood, using Swift's own source code as a guide to finding out how they work inside the compiler.</p>
 <h2>What's an actor?</h2>
-<p>The purpose of the actor feature is to help prevent race conditions in the state of asynchronous classes. Although this is not a new concept, actors are part of a much bigger investment. While in theory you can reproduce everything an actor is doing by simply adding <code>NSLocks</code> to your classes's properties/methods, in practice they have a couple of important bonuses. First of all, the synchonization mechanism used by actors are not the locks we know, but async/await's new <b>Cooperative Threading Model</b> in which threads can seamleslly "change" contexts to execute other pieces of code to avoid ever having idle threads, and second of all, the presence of actors allow the compiler to check for many concurrency issues in <b>compile time</b>, letting you know right off the beat if something is potentially dangerous:</p>
+<p>The purpose of the actor feature is to help prevent race conditions in the state of asynchronous classes. Although this is not a new concept, actors are part of a much bigger investment. While in theory you can reproduce everything an actor is doing by simply adding <code>NSLocks</code> to your classes' properties/methods, in practice they have a couple of important bonuses. First of all, the synchronization mechanism used by actors is not the locks we know, but async/await's new <b>Cooperative Threading Model</b> in which threads can seamlessly "change" contexts to execute other pieces of code to avoid ever having idle threads, and second of all, the presence of actors allow the compiler to check for many concurrency issues in <b>compile time</b>, letting you know right off the beat if something is potentially dangerous:</p>
 <pre>
 <code>actor MyActor {</code>
 <code>    var myProp = 0</code>
@@ -34,7 +34,7 @@ DateHere
 <code>MyActor().myProp</code>
 <code>// error: actor-isolated property 'myProp' can only be referenced from inside the actor</code>
 </pre>
-<p>In this case, one of the reasons why <code>myProp</code> can only be accesed from within the actor is that you can only use actors from within an <b>async</b> context, because the actor's synchronization implies that there's no guarantee that your code will be executed synchronously. Because of that, every actor method is implicitly <code>async</code> unless stated otherwise (shown later on).</p>
+<p>In this case, one of the reasons why <code>myProp</code> can only be accessed from within the actor is that you can only use actors from within an <b>async</b> context, because the actor's synchronization implies that there's no guarantee that your code will be executed synchronously. Because of that, every actor method is implicitly <code>async</code> unless stated otherwise (shown later on).</p>
 <pre>
 <code>Task {</code>
 <code>    await actor.getMyProp()</code>
@@ -51,7 +51,7 @@ DateHere
 <pre>
 <code>final class MyCustomActor: Actor {}</code>
 </pre>
-<p>In practice however, this won't work like a regular actor. Although this code works, the compiler will ask you to manually implement the <code>unownedExecutor</code> requirement and its synchronization mechanisms. This was a bit surprising to be honest, because some other features like the automatic <code>Codable</code> synthesis can automatically fill the gaps when you provide part of the implementation like in this example. Regardless of the intention, in the current Swift 5.5 build you can only have the complete actor implementation by using the <code>actor</code> keyword.</p>
+<p>In practice however, this won't work as a regular actor. Although this code works, the compiler will ask you to manually implement the <code>unownedExecutor</code> requirement and its synchronization mechanisms. This was a bit surprising to be honest, because some other features like the automatic <code>Codable</code> synthesis can automatically fill the gaps when you provide part of the implementation like in this example. Regardless of the intention, in the current Swift 5.5 build you can only have the complete actor implementation by using the <code>actor</code> keyword.</p>
 <p>The protocol states that all actors must also be <code>Sendable</code>, which is another new important piece of the concurrency proposal. This protocol has no actual code, and its purpose is to "mark" which types are safe to use in a concurrent environment. Even though actors by themselves are "safe", you could still have race condition issues if you, for example, used reference types as your state and leaked it outside the actor. To avoid this, Swift uses <code>Sendable</code> to indicate which types are thread-safe by design, which actually ends up being the backbone of the compile-time errors we saw before. Only immutable content like structs and final classes can inherit from <code>Sendable</code>, with <code>UnsafeSendable</code> being available as a workaround that skips all compile-time static analysis. As far I could tell however it appears that the implementation of <code>Sendable</code> is not yet complete, as it was stated in WWDC 2021 that a future intention is to stop actors from being able to leak non-Sendable types.</p>
 <h2>Executors</h2>
 <p>The most important aspect of the <code>Actor</code> protocol however is its required property: a nonisolated <code>unownedExecutor</code>. The <code>Executor</code> protocol was added in Swift 5.5 to define an object that can perform a "job", which in the case of actors are the methods themselves:</p>
@@ -80,7 +80,7 @@ DateHere
 <p>You might have noticed that this property contains a new keyword: <code>nonisolated</code>, which is what allows you to "override" Swift's compile-time checks for actors. Like we mentioned before with <code>Sendable</code>, Swift will try to make sure your actors are safe as possible, but there might be cases where this is a mistake. If something is truly meant to be accessed concurrently and on-demand, you can use the <code>nonisolated</code> keyword to detach it from Swift's checks. In this case, the executor needs to be detached from the protections so that we have an actual entry-point to the actor.</p>
 <p>Swift automatically generates an executor for your actors, but before seeing how that works, we should see executors in action in another new feature: <b>Global Actors</b>.</p>
 <h2>Executors in Global Actors</h2>
-<p>The existance of Global Actors exist to cover the fact that state synchronization is not limited to local variables, meaning that you might need to have global access to an actor. Instead of forcing everyone to write singletons everywhere, Swift 5.5's Global Actors feature allow you to easily indicate that a certain piece of code should be executed within the bounds of a specific global actor. Perhaps the most important example of this is <code>MainActor</code>, which is a global actor that makes sure all code is executed in the main thread.</p>
+<p>Global Actors exisst to cover the fact that state synchronization is not limited to local variables, meaning that you might need to have global access to an actor. Instead of forcing everyone to write singletons everywhere, Swift 5.5's Global Actors feature allows you to easily indicate that a certain piece of code should be executed within the bounds of a specific global actor. Perhaps the most important example of this is <code>MainActor</code>, which is a global actor that makes sure all code is executed in the main thread.</p>
 <pre>
 <code>@MainActor doSomethingInMain() {</code>
 <code>    something() // Will always be executed in main</code>
@@ -130,7 +130,7 @@ DateHere
 <code>    myMainActorMethod()</code>
 <code>}</code>
 </pre>
-<p>I should let you know that this is not entirely accurate, because the functionality of actors (and the executors specifically) are in practice tightly connected to async/await and its new <code>Task</code> model, but I shall ignore this for now and explore the details of that in a separate article about how async/await itself works.</p>
+<p>I should let you know that this is not entirely accurate because the functionality of actors (and the executors specifically) are in practice tightly connected to async/await and its new <code>Task</code> model, but I shall ignore this for now and explore the details of that in a separate article about how async/await itself works.</p>
 <p>In short, what we're looking at here is that though Swift generates all the implementation of an actor for you, it's still possible for you to override its behavior. In my opinion though I can't see a single reason why someone would need to do this besides the main thread case that Swift already provides to you, so you should probably never attempt to do this yourself.</p>
 <h2>Swift's Default Actor</h2>
 <p>Now that we understand how executors are used, we're ready to investigate how actors actually work. Swift's actor behavior is based on something called a <b>default actor</b>, which could be explained as a base class that handles all the synchronization needs of the actor. When you define an empty actor, this is how it'll look like after the code is compiled:</p>
@@ -210,10 +210,10 @@ DateHere
 <code>    giveUpThread();</code>
 <code>}</code>
 </pre>
-<p>Additionally, when an actor's method contains an <code>await</code> call, the actor will actually yield the thread in the middle of the execution of the job, allowing other actors to be executed while this one is waiting. When a result is available, a new job will be enqueued for the actor to pick-up later on in a (possibly) different thread. This is what the concurrency model describes as <b>Actor Reentrancy</b>, and is why you should be careful with thread-sensitive content like <code>DispatchSemaphores</code> in async/await code -- <b>there's no guarantee that the thread that started a job will be the one that continues it.</b></p>
+<p>Additionally, when an actor's method contains an <code>await</code> call, the actor will actually yield the thread in the middle of the execution of the job, allowing other actors to be executed while this one is waiting. When a result is available, a new job will be enqueued for the actor to pick up later on in a (possibly) different thread. This is what the concurrency model describes as <b>Actor Reentrancy</b>, and is why you should be careful with thread-sensitive content like <code>DispatchSemaphores</code> in async/await code -- <b>there's no guarantee that the thread that started a job will be the one that continues it.</b></p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <h2>Conclusion</h2>
-<p>As we've seen, the execution side of Swift's concurrency model centers around scheduling work onto various execution services. Although this execution is available as a high-level Swift protocol, the actual implementation of an actor needs to be a lower-level C++ mechanism due to the new runtime features required by async/await. In a next article, we shall explore async/await and its <i>Cooperative Threading Model</i>.</p>
+<p>As we've seen, the execution side of Swift's concurrency model centers around scheduling work onto various execution services. Although this execution is available as a high-level Swift protocol, the actual implementation of an actor needs to be a lower-level C++ mechanism due to the new runtime features required by async/await. In a future article, we shall explore async/await and its <i>Cooperative Threading Model</i>.</p>
 <h2>References and Good Reads</h2>
 <a href="https://github.com/apple/swift/blob/main/stdlib/public/Concurrency/Actor.swift">Actor.swift</a><br>
 <a href="https://github.com/apple/swift/blob/main/stdlib/public/Concurrency/Actor.cpp">Actor.cpp</a><br>

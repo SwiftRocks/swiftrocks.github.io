@@ -10,6 +10,7 @@ body {
   --detail-color: #4e4e4e;
   --strong-color: #f38d03;
   --code-bg-color: #fff;
+  --generic-button-text-color: #ffffff;
   --generic-button-bg-color: #4e4e4e;
 }
 
@@ -20,7 +21,8 @@ body.dark-theme {
   --detail-color: #b0b3b8;
   --strong-color: #f38d03;
   --code-bg-color: #000000;
-  --generic-button-bg-color: #222;
+  --generic-button-text-color: #4e4e4e;
+  --generic-button-bg-color: #fff;
 }
 
 body {
@@ -390,13 +392,13 @@ div.footer-links {
 }
 
 .footer-links .newsletter {
-  color: #ffffff; 
+  color: var(--generic-button-text-color);
   background-color: var(--generic-button-bg-color);
 }
 
 .footer-links .newsletter:hover {
-  color: #4e4e4e; 
-  background-color: #ffffff;
+  color: var(--generic-button-bg-color);
+  background-color: var(--generic-button-text-color);
 }
 
 .footer-links .sponsor {
@@ -427,13 +429,13 @@ div.about-links {
 }
 
 .about-links .newsletter {
-  color: #ffffff; 
+  color: var(--generic-button-text-color);
   background-color: var(--generic-button-bg-color);
 }
 
 .about-links .newsletter:hover {
-  color: #4e4e4e; 
-  background-color: #ffffff;
+  color: var(--generic-button-bg-color);
+  background-color: var(--generic-button-text-color);
 }
 
 .about-links .sponsor {
