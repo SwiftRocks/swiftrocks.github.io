@@ -51,12 +51,6 @@ b {
   margin-right: 4px;
 }
 
-@media (max-width: 500px) {
-    .blog-header-button-follow-verbose {
-        display: none !important;
-    }
-}
-
 .blog-header-button-follow-verbose {
     display: contents;
 }
@@ -157,6 +151,19 @@ b {
   background-color: black;
   color: white;
   transition: 0.25s;
+}
+
+@media (max-width: 500px) {
+    .blog-header-button-follow-verbose {
+        display: none;
+    }
+    .blog-header-text {
+        font-size: 13px;
+    }
+    .blog-header-button a {
+      padding-left: 6px;
+      padding-right: 6px;
+    }
 }
 
 .post-title-index a {
