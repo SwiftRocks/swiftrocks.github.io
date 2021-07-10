@@ -41,13 +41,14 @@ b {
 
 .blog-header-container {
     position: relative;
-    height: 312px;
     background: linear-gradient(0deg, rgba(255,113,0,1) 0%, rgba(243,141,3,1) 100%);
 }
 
 .blog-header-text {
   color: white; 
   font-size: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 .blog-header-text a {
