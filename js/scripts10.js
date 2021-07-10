@@ -19,7 +19,7 @@
     		return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 
-        var rss = readHTMLFile("rss.xml");
+        var rss = readHTMLFile("https://swiftrocks.com/rss.xml");
 		var channel = rss.getElementsByTagName("channel")[0];
 
 		var item = channel.getElementsByTagName("item");

@@ -13,30 +13,31 @@
     <!-- SEO -->
     <meta name="author" content="Bruno Rocha">
     <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
-    <meta name="description" content="Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI.">
-    <meta name="title" content="How to create Widgets in iOS 14 in Swift">
-    <meta name="url" content="https://swiftrocks.com/ios-14-widget-tutorial-mini-apps">
-    <meta name="image" content="https://swiftrocks.com/images/thumbs/ios-14-widget-tutorial-mini-apps.png">
+    <meta name="description" content="SwiftRocks is a blog about how Swift works and general iOS tips and tricks.">
+    <meta name="title" content="SwiftRocks - How Swift Works & iOS Tips and Tricks">
+    <meta name="url" content="https://swiftrocks.com/index">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/index.png">
     <meta name="copyright" content="Bruno Rocha">
     <meta name="robots" content="index,follow">
 
-    <meta property="og:title" content="How to create Widgets in iOS 14 in Swift"/>
-    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/ios-14-widget-tutorial-mini-apps.png"/>
-    <meta property="og:description" content="Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI."/>
+    <meta property="og:title" content="SwiftRocks - How Swift Works & iOS Tips and Tricks"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/index.png"/>
+    <meta property="og:description" content="SwiftRocks is a blog about how Swift works and general iOS tips and tricks."/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://swiftrocks.com/ios-14-widget-tutorial-mini-apps"/>
+    <meta property="og:url" content="https://swiftrocks.com/index"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/ios-14-widget-tutorial-mini-apps.png"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/index.png"/>
     <meta name="twitter:image:alt" content="SwiftRocks.com logo"/>
-    <meta name="twitter:title" content="How to create Widgets in iOS 14 in Swift"/>
-    <meta name="twitter:description" content="Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI."/>
+    <meta name="twitter:title" content="SwiftRocks - How Swift Works & iOS Tips and Tricks"/>
+    <meta name="twitter:description" content="SwiftRocks is a blog about how Swift works and general iOS tips and tricks."/>
     <meta name="twitter:site" content="@rockbruno_"/>
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
     <link rel="mask-icon" href="images/favicon/favicon-2.ico">
     <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:light,lightitalic,regular,regularitalic,medium,mediumitalic,bold,bolditalic,black,blackitalic">
     
   <!-- All CSS Plugins --> 
   <link rel="stylesheet" type="text/css" href="css/plugin3.css"> 
@@ -45,8 +46,6 @@
   <!-- Main CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/style35.css"> 
   <link rel="stylesheet" type="text/css" href="css/sponsor.css">
-  <!-- PT Sans --> 
-  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     
     <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -87,22 +86,49 @@
 
   </head>
 
- <body class="hidden">
+ <body>
       
     
     
+     
+    
+    
   <div id="main"> 
-   <div class="container"> 
-     <!-- Blog Header --> 
-    <div class="blog-header col-xs-12">
-     <div class="blog-header-container">
-         <a href="https://swiftrocks.com">
-           <img id="logo" alt="SwiftRocks" style="max-height: 110px; max-width: 100%;"> 
-         </a> 
+<!-- Blog Header --> 
+      <div class="blog-header-container" style="width: 100%">
+         <div style="display: flex; justify-content: center;"><a href="https://swiftrocks.com">
+           <img id="logo" alt="SwiftRocks" src="images/bg/swiftrockswithtextdarkmode2.png" style="margin-top: 32px; margin-left: -77px;"> 
+         </a></div>
+         <div style="margin-top: 15px; display: flex; justify-content: center;">
+           <p class="blog-header-text">A blog about <b style="color: white;">how Swift works</b> and <b style="color: white;">iOS tricks</b>, by <a href="https://twitter.com/rockbruno_">Bruno Rocha</a>.</p>
+         </div>
+          <div style="margin-top: -8px; display: flex; justify-content: center;">
+          <div class="blog-header-button">
+               <a href="https://twitter.com/rockbruno_" target="_blank" style="display: flex; margin-right: -10px;">
+                  <i class="fa fa-twitter"></i>
+                  <div class="blog-header-button-follow">4700 followers!</div>
+               </a>
+          </div>
+          <div class="blog-header-button">
+               <a href="mailto:bruno@swiftrocks.com" target="_blank">
+                  <i class="fa fa-envelope"></i>
+               </a>
+          </div>
+           <div class="blog-header-button">
+               <a href="rss.xml" target="_blank">
+                  <i class="fa fa-rss"></i>
+               </a>
+          </div>
+          <div class="blog-header-button">
+               <a href="https://github.com/rockbruno" target="_blank">
+                  <i class="fa fa-github"></i>
+               </a>
+          </div>
+         </div>
      </div>
-   </div>
-     <!-- Blog Post (Right Sidebar) Start --> 
-                 <div class="col-sm-9 col-xs-12">
+         <!-- Blog Post (Right Sidebar) Start --> 
+   <div class="container"> 
+                 <div class="col-xs-12">
                     <div class="page-body">
                     	<div class="row">
 
@@ -553,43 +579,6 @@ June 23rd, 2020
                      
                   </div>
                   <!-- Blog Post (Right Sidebar) End -->
-
-                 <!-- About Me (Left Sidebar) Start -->
-                 <div class="col-sm-3 col-xs-12">
-                   <div class="about-fixed">
-                     <div class="my-pic">
-                        <img src="images/pic/my-pic-3.jpeg" alt="Bruno Rocha">
-                        </div>
-
-                             <div style="text-align: center; display: block;">
-<a href="https://twitter.com/rockbruno_" id="twitter-followers" style="color: #ffffff; padding-left: 12px; padding-right: 12px; margin-top: 12px; margin-bottom: -6px; padding-top: 6px; padding-bottom: 6px; text-decoration: none; background-color: #ff8e00; width: 100%; max-width: 250px; display: inline-block; border-radius: 8px; font-weight: 500;"><i class="fa fa-twitter"></i> 4690 followers</a>
-   </div>
-                      
-                      
-                      
-                      <div class="my-detail">
-                        <h3 class="separator">About</h3>
-        			    <span>Hi! I'm <b>Bruno Rocha</b>. I work at Spotify and am the developer of open source libraries like <a href="https://github.com/rockbruno/SwiftInfo">SwiftInfo</a> and <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>.</span>
-
-<div class="about-links" style="margin-top: 4px;">
-
-<a href="https://bit.ly/2IY5F4Y" class="newsletter"><i class="fa fa-newspaper-o"></i>‏‏‎ ‎‏‏‎ ‎Subscribe to Newsletter</i></a>
-
-<a href="https://open.spotify.com/show/6sOFIDT8ELXygixjYBTAb2?si=uWw7mmiRR2ioBkhl8PR6Mw" class="newsletter"><i class="fa fa-microphone"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎ ‎Podcast (pt-BR)</a>
-
-<a href="mailto:bruno@swiftrocks.com" class="newsletter"><i class="fa fa-envelope"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Contact</a>
-
-</div>
-                        <h3 class="separator">RSS / Social</h3>
-                        <div class="social-icon">
-                         <a href="rss.xml" target="_blank" class="rss"><i class="fa fa-rss"></i></a>
-                         <a href="https://twitter.com/rockbruno_" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
-                         <a href="https://github.com/rockbruno" target="_blank" class="github"><i class="fa fa-github"></i></a>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- About Me (Left Sidebar) End -->
                 
             </div>
          </div>
