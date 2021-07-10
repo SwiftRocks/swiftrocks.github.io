@@ -47,8 +47,25 @@ b {
 .blog-header-text {
   color: white; 
   font-size: 16px;
-  margin-left: 16px;
-  margin-right: 16px;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+@media (max-width: 500px) {
+    .blog-header-button-follow-verbose {
+        display: none !important;
+    }
+}
+
+.blog-header-button-follow-verbose {
+    display: contents;
+}
+
+.blog-header-button-container {
+  margin-top: -8px; 
+  display: flex; 
+  justify-content: center; 
+  flex-flow: row wrap;
 }
 
 .blog-header-text a {
