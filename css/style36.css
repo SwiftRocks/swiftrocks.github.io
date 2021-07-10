@@ -151,7 +151,7 @@ b {
     transition: 0.25s;
 }
 
-.post-title-index h1:hover {
+.post-title-index a:hover > h1 {
   color: var(--strong-color);
   transition: 0.25s;
 }

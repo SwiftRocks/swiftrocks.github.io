@@ -126,7 +126,7 @@
                </a>
           </div>
           <div class="blog-header-button">
-               <a href="sponsor" target="_blank">
+               <a href="sponsor-advertise-at-swiftrocks" target="_blank">
                   <div class="blog-header-button-sponsor">Sponsor</div>
                </a>
           </div>
@@ -156,33 +156,39 @@
   <!-- Mailchimp End -->
 
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
-<!--WRITEIT_POST_NAME=Using SIMD Vector Types in Swift-->
-<!--WRITEIT_POST_HTML_NAME=using-simd-vector-types-in-swift-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2019-09-29T18:00:00+00:00-->
+ 
+  
+  <!--WRITEIT_POST_NAME=Using SIMD Vector Types in Swift--> 
+  <!--WRITEIT_POST_HTML_NAME=using-simd-vector-types-in-swift--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE=2019-09-29T18:00:00+00:00--> 
+  <!--Add here the additional properties that you want each page to possess.--> 
+  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
+  <!--Properties must start with 'WRITEIT_POST'.--> 
+  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
+  <!--WRITEIT_POST_SHORT_DESCRIPTION=SIMD Vector Types is a feature added in Swift 5 that allows you to calculate multiple results with a single instruction. Let's see how that works.--> 
+  <title>Using SIMD Vector Types in Swift</title>  
+ 
 
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=SIMD Vector Types is a feature added in Swift 5 that allows you to calculate multiple results with a single instruction. Let's see how that works.-->
-
-<title>Using SIMD Vector Types in Swift</title>
-<div class="col-md-12 blog-post"> 
-<div class="post-title"> 
-  <h1>Using SIMD Vector Types in Swift</h1> 
-</div> 
-<div class="post-info"> 
-September 30, 2019
-</div>
-<p><b>SIMD Vector Types</b> is a feature added in Swift 5 that exposes Apple's <code>&lt;simd/simd.h></code> module to Swift, allowing you to calculate multiple results with a single instruction.</p>
-<h2>What's SIMD?</h2>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>SIMD stands for <b>Single Instruction, Multiple Data</b>, a hardware instruction that can be used once to perform multiple operations <b>at once.</b> There's nothing you can do with SIMD that you can't do without it, but in the world of graphical applications where handling multiple values in the shape of vectors and matrices is important, usage of SIMD types can provide big performance boosts over calculating values normally.</p>
-<p>Let's assume that we are handling the position of a character in a game that currently sits in the vector <code>x: 2 | y: 4</code>, and an explosion needs to apply some knockback to it.</p>
-<p>If we assume that the knockback multiplies the character's position by two, we'll need to do two operations to end up with <code>x: 4| y: 8</code>:</p>
-<pre>
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>Using SIMD Vector Types in Swift</h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-swift">
+   Swift
+  </div> 
+  <div class="post-info-text">
+   Published on 30 Sep 2019 
+  </div> 
+ </div>  
+ <p><b>SIMD Vector Types</b> is a feature added in Swift 5 that exposes Apple's <code>&lt;simd/simd.h&gt;</code> module to Swift, allowing you to calculate multiple results with a single instruction.</p>
+ <h2>What's SIMD?</h2>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>SIMD stands for <b>Single Instruction, Multiple Data</b>, a hardware instruction that can be used once to perform multiple operations <b>at once.</b> There's nothing you can do with SIMD that you can't do without it, but in the world of graphical applications where handling multiple values in the shape of vectors and matrices is important, usage of SIMD types can provide big performance boosts over calculating values normally.</p>
+ <p>Let's assume that we are handling the position of a character in a game that currently sits in the vector <code>x: 2 | y: 4</code>, and an explosion needs to apply some knockback to it.</p>
+ <p>If we assume that the knockback multiplies the character's position by two, we'll need to do two operations to end up with <code>x: 4| y: 8</code>:</p>
+ <pre>
 <code>(64bit integers)</code>
 <code>0000000000000000000000000000000000000000000000000000000000000010</code>
 <code>times</code>
@@ -192,64 +198,66 @@ September 30, 2019
 <code>times</code>
 <code>0000000000000000000000000000000000000000000000000000000000000010</code>
 </pre>
-<p>While there's nothing particular wrong about doing two operations to achieve this, we can do better: a SIMD vector allows us to store multiple pieces of data in a single register by splitting our 64 bits of memory into smaller sections. In the case of our character, we can use a <code>SIMD2</code> vector to store two different 32 bit values in a single 64 bit storage:</p>
-<pre>
+ <p>While there's nothing particular wrong about doing two operations to achieve this, we can do better: a SIMD vector allows us to store multiple pieces of data in a single register by splitting our 64 bits of memory into smaller sections. In the case of our character, we can use a <code>SIMD2</code> vector to store two different 32 bit values in a single 64 bit storage:</p>
+ <pre>
 <code>32 bits for (x: 2), and 32 bits for (4)</code>
 <code>00000000000000000000000000000010 | 00000000000000000000000000000100</code>
 </pre>
-<p>If we treat the knockback's power as another <code>SIMD2</code>, we can multiply the vectors together to get the character's new position in one go:</p>
-<pre>
+ <p>If we treat the knockback's power as another <code>SIMD2</code>, we can multiply the vectors together to get the character's new position in one go:</p>
+ <pre>
 <code>00000000000000000000000000000010 | 00000000000000000000000000000100</code>
 <code>times</code>
 <code>00000000000000000000000000000010 | 00000000000000000000000000000010</code>
 </pre>
-<p>This allows us to perform a single hardware instruction that will end up containing the result of multiple operators -- in this case, a single instruction will allow us to get a <b>new</b> vector that contains the new values for both the x and y axes. Data-parallel problems like this have shown to gain between 2-10x better performance when using SIMD types, making them an invaluable tool when building high performance algorithms in the graphical applications world.</p>
-<p>For example, a more common problem that benefits from SIMD is changing the brightness of an image -- instead of individually bumping the R, G and B channels of each pixel for each of the millions of pixels in a modern screen, we can treat the pixels' channels as a SIMD3 vector to reduce the number of instructions by around 3x.</p>
-<h2>SIMD in Swift</h2>
-<p>Starting from Swift 5, SIMD Vector types that range from 2 to 64 lanes are available for use. This is how the previous character example can be written in Swift using <code>SIMD2&lt;Int32></code>:</p>
-<pre>
-<code>let character = SIMD2&lt;Int32>(arrayLiteral: 2, 4)</code>
-<code>let knockback = SIMD2&lt;Int32>(arrayLiteral: 2, 2)</code>
-<code>let result: SIMD2&lt;Int32> = character &* knockback // 4,8</code>
+ <p>This allows us to perform a single hardware instruction that will end up containing the result of multiple operators -- in this case, a single instruction will allow us to get a <b>new</b> vector that contains the new values for both the x and y axes. Data-parallel problems like this have shown to gain between 2-10x better performance when using SIMD types, making them an invaluable tool when building high performance algorithms in the graphical applications world.</p>
+ <p>For example, a more common problem that benefits from SIMD is changing the brightness of an image -- instead of individually bumping the R, G and B channels of each pixel for each of the millions of pixels in a modern screen, we can treat the pixels' channels as a SIMD3 vector to reduce the number of instructions by around 3x.</p>
+ <h2>SIMD in Swift</h2>
+ <p>Starting from Swift 5, SIMD Vector types that range from 2 to 64 lanes are available for use. This is how the previous character example can be written in Swift using <code>SIMD2&lt;Int32&gt;</code>:</p>
+ <pre>
+<code>let character = SIMD2&lt;Int32&gt;(arrayLiteral: 2, 4)</code>
+<code>let knockback = SIMD2&lt;Int32&gt;(arrayLiteral: 2, 2)</code>
+<code>let result: SIMD2&lt;Int32&gt; = character &amp;* knockback // 4,8</code>
 </pre>
-<p>Vectors can be operated on through masked arithmetic operators, and individual values of the vectors can be accessed with the <code>x,y,z,w</code> properties, depending on how big the lanes are. If the SIMD has more than four lanes, you can use the <code>lowHalf</code> and <code>highHalf</code> to access smaller halves of the lanes until you can access individual values.</p>
-<pre>
-<code>var character = SIMD2&lt;Int32>()</code>
+ <p>Vectors can be operated on through masked arithmetic operators, and individual values of the vectors can be accessed with the <code>x,y,z,w</code> properties, depending on how big the lanes are. If the SIMD has more than four lanes, you can use the <code>lowHalf</code> and <code>highHalf</code> to access smaller halves of the lanes until you can access individual values.</p>
+ <pre>
+<code>var character = SIMD2&lt;Int32&gt;()</code>
 <code>character.x = 2</code>
 <code>character.y = 4</code>
-<code>var fourLanes = SIMD4&lt;Int16>()</code>
+<code>var fourLanes = SIMD4&lt;Int16&gt;()</code>
 <code>fourLanes.x = 2</code>
 <code>fourLanes.y = 4</code>
 <code>fourLanes.z = 8</code>
 <code>fourLanes.w = 16</code>
-<code>var eightLanes = SIMD8&lt;Int8>()</code>
+<code>var eightLanes = SIMD8&lt;Int8&gt;()</code>
 <code>eightLanes.lowHalf.x = 1</code>
 <code>eightLanes.highHalf.w = 1</code>
 <code></code>
-<code>character &+ character // 4, 8</code>
-<code>character &- character // 0, 0</code>
-<code>character &* character // 4, 16</code>
+<code>character &amp;+ character // 4, 8</code>
+<code>character &amp;- character // 0, 0</code>
+<code>character &amp;* character // 4, 16</code>
 <code>character / character // 1, 1</code>
 </pre>
-<p>(Note that because only masked operators are supported, Swift will not protect you from overflowing values when using SIMD vectors.)</p>
-<p>Besides arithmetic operators, SIMD types also supports comparison operators:</p>
-<pre>
+ <p>(Note that because only masked operators are supported, Swift will not protect you from overflowing values when using SIMD vectors.)</p>
+ <p>Besides arithmetic operators, SIMD types also supports comparison operators:</p>
+ <pre>
 <code>character == knockback // false</code>
 </pre>
-<p>In addition to comparing the entire vector itself, SIMD types in Swift also support <b>pointwise operators</b> for comparisons. If instead of comparing everything we're looking to get the individual result for each comparison in the vector, we can prefix a dot <code>.</code> to the operator to get the pointwise version of it. For equality for example, we can use the <code>.==</code> pointwise operator to get a vector of booleans that indicates the result of each individual equality.</p>
-<pre>
-<code>character .== knockback // SIMDMask&lt;SIMD2&lt;Int32>>(false, true)</code>
+ <p>In addition to comparing the entire vector itself, SIMD types in Swift also support <b>pointwise operators</b> for comparisons. If instead of comparing everything we're looking to get the individual result for each comparison in the vector, we can prefix a dot <code>.</code> to the operator to get the pointwise version of it. For equality for example, we can use the <code>.==</code> pointwise operator to get a vector of booleans that indicates the result of each individual equality.</p>
+ <pre>
+<code>character .== knockback // SIMDMask&lt;SIMD2&lt;Int32&gt;&gt;(false, true)</code>
 </pre>
-<h2>Conclusion</h2>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>Although the monstrous performance benefits can be only seen in the world of graphical applications, many problems can benefit from SIMD by being vectorized. Even when working with consumer applications, being careful about memory and CPU usage can bring big benefits to the user experience while teaching you more about software engineering.</p>
-<p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
-<h2>References and Good reads</h2>
-<a href="https://github.com/apple/swift">The Swift Source Code</a><br>
-<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0229-simd.md">SIMD Proposal</a><br>
-<a href="https://www.coursera.org/lecture/comparch/simd-MtZ5W">SIMD Lecture from Princeton</a><br>
-</div>
-</div>
+ <h2>Conclusion</h2>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>Although the monstrous performance benefits can be only seen in the world of graphical applications, many problems can benefit from SIMD by being vectorized. Even when working with consumer applications, being careful about memory and CPU usage can bring big benefits to the user experience while teaching you more about software engineering.</p>
+ <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
+ <h2>References and Good reads</h2>
+ <a href="https://github.com/apple/swift">The Swift Source Code</a>
+ <br>
+ <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0229-simd.md">SIMD Proposal</a>
+ <br>
+ <a href="https://www.coursera.org/lecture/comparch/simd-MtZ5W">SIMD Lecture from Princeton</a>
+ <br>
+</div></div>
                               
    
 
@@ -278,7 +286,7 @@ September 30, 2019
   <!-- Mailchimp End -->
     <div class="copyright">
     <text>Copyright © 2016-2021 SwiftRocks.</text>
-    <text><a href="https://swiftrocks.com">Index</a> | <a href="sponsor">Sponsor</a></text>
+    <text><a href="https://swiftrocks.com">Index</a> | <a href="sponsor-advertise-at-swiftrocks">Sponsor</a></text>
     </div>
 
     </div>

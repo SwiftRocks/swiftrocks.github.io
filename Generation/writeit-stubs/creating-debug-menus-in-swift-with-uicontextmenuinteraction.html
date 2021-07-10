@@ -1,37 +1,46 @@
 
-<!--WRITEIT_POST_NAME=Creating Debug Menus in Swift with UIContextMenuInteraction-->
-<!--WRITEIT_POST_HTML_NAME=creating-debug-menus-in-swift-with-uicontextmenuinteraction-->
+ 
+  
+  <!--WRITEIT_POST_NAME=Creating Debug Menus in Swift with UIContextMenuInteraction--> 
+  <!--WRITEIT_POST_HTML_NAME=creating-debug-menus-in-swift-with-uicontextmenuinteraction--> 
+  <!--Add here the additional properties that you want each page to possess.--> 
+  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
+  <!--Properties must start with 'WRITEIT_POST'.--> 
+  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
+  <!--WRITEIT_POST_SHORT_DESCRIPTION=Debug menus in iOS are an effective way to make your debugging day more productive. Let's see how we can use UIContextMenuInteraction to create debug-only menus.--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-30T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE=2020-06-30T14:00:00+02:00--> 
+  <title>$WRITEIT_POST_NAME</title>  
+ 
 
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Debug menus in iOS are an effective way to make your debugging day more productive. Let's see how we can use UIContextMenuInteraction to create debug-only menus.-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-30T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2020-06-30T14:00:00+02:00-->
-
-<title>$WRITEIT_POST_NAME</title>
-<div class="col-md-12 blog-post"> 
-<div class="post-title"> 
-  <h1>$WRITEIT_POST_NAME</h1> 
-</div> 
-<div class="post-info"> 
-June 30th, 2020
-</div>
-<p>Debug menus in iOS are a very effective way to make your day more productive as a developer. If you find yourself doing the same debugging tasks over and over, such as printing backend responses, skipping to specific view controllers or copying user identifiers, it's nice to have special developer menus in your app that automatically handles these tasks for you.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>iOS 13 introduced <code>UIContextMenuInteraction</code> -- a new context menu API that replaces the older (and much harder to use) peek-and-pop menus. When a <code>UIView</code> with a registered interaction is pressed, a menu containing actions and an optional preview will show up. It works similarly to an <code>UIAlertController</code>, but nicer to look at and much easier to implement! New in iOS 14, we can even add asynchronously resolved actions to it.</p>
-<div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/iJ9FXS6.png" alt="Context Menu">                                    
-</div>
-<p>Because these context menus are implemented directly into the view (as opposed to something like an alert, which is an independent view controller), we can create an abstraction that implements debug menus to specific views if we're running a developer build.</p>
-<h2>Example: Copy a logged user's data to the pasteboard</h2>
-<p>In this example, let's pretend that we have an app where we often have to retrieve the logged account's user identifier -- in past projects, I had to do this a lot for debugging and bug reporting purposes, either to let the backend know which user I am having a problem with or to be able to manually send backend requests in a service like <b>Postman</b>.</p>
-<p>I normally did that by setting a breakpoint and printing the user's model fields, which was a very slow and annoying process. Let's add a special debug menu that does this for us.</p>
-<p><code>UIContextMenuInteraction</code> works through a delegate -- to have a debug menu show up for a view, you must inherit the delegate, define a list of <code>UIActions</code> that should show up and insert the interaction in the view. In this case, we'll add the interaction directly in the initializer.</p>
-<p>Here's how our "debuggable user view" looks like:</p>
-<pre>
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>Creating Debug Menus in Swift with <code>UIContextMenuInteraction</code></h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-ios">
+   iOS
+  </div> 
+  <div class="post-info-text">
+   Published on 30 Jun 2020 
+  </div> 
+ </div>  
+ <div class="post-image margin-top-40 margin-bottom-40"> 
+  <img src="https://i.imgur.com/akiIA1Z.png" alt="Context Menu 2"> 
+ </div> 
+ <p>Debug menus in iOS are a very effective way to make your day more productive as a developer. If you find yourself doing the same debugging tasks over and over, such as printing backend responses, skipping to specific view controllers or copying user identifiers, it's nice to have special developer menus in your app that automatically handles these tasks for you.</p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>iOS 13 introduced <code>UIContextMenuInteraction</code> -- a new context menu API that replaces the older (and much harder to use) peek-and-pop menus. When a <code>UIView</code> with a registered interaction is pressed, a menu containing actions and an optional preview will show up. It works similarly to an <code>UIAlertController</code>, but nicer to look at and much easier to implement! New in iOS 14, we can even add asynchronously resolved actions to it.</p>
+ <div class="post-image margin-top-40 margin-bottom-40"> 
+  <img src="https://i.imgur.com/iJ9FXS6.png" alt="Context Menu"> 
+ </div>
+ <p>Because these context menus are implemented directly into the view (as opposed to something like an alert, which is an independent view controller), we can create an abstraction that implements debug menus to specific views if we're running a developer build.</p>
+ <h2>Example: Copy a logged user's data to the pasteboard</h2>
+ <p>In this example, let's pretend that we have an app where we often have to retrieve the logged account's user identifier -- in past projects, I had to do this a lot for debugging and bug reporting purposes, either to let the backend know which user I am having a problem with or to be able to manually send backend requests in a service like <b>Postman</b>.</p>
+ <p>I normally did that by setting a breakpoint and printing the user's model fields, which was a very slow and annoying process. Let's add a special debug menu that does this for us.</p>
+ <p><code>UIContextMenuInteraction</code> works through a delegate -- to have a debug menu show up for a view, you must inherit the delegate, define a list of <code>UIActions</code> that should show up and insert the interaction in the view. In this case, we'll add the interaction directly in the initializer.</p>
+ <p>Here's how our "debuggable user view" looks like:</p>
+ <pre>
 <code>struct User {</code>
 <code>    let identifier: String</code>
 <code>    let name: String</code>
@@ -61,7 +70,7 @@ June 30th, 2020
 <code>    func contextMenuInteraction(</code>
 <code>        _ interaction: UIContextMenuInteraction,</code>
 <code>        configurationForMenuAtLocation location: CGPoint</code>
-<code>    ) -> UIContextMenuConfiguration? {</code>
+<code>    ) -&gt; UIContextMenuConfiguration? {</code>
 <code>        return UIContextMenuConfiguration(</code>
 <code>            identifier: nil,</code>
 <code>            previewProvider: nil</code>
@@ -70,29 +79,29 @@ June 30th, 2020
 <code>        }</code>
 <code>    }</code>
 <code></code>
-<code>    func copyIdentifierAction() -> UIAction {</code>
+<code>    func copyIdentifierAction() -&gt; UIAction {</code>
 <code>        return UIAction(title: "Copy Identifier") { _ in</code>
 <code>            UIPasteboard.general.string = self.user?.identifier ?? ""</code>
 <code>        }</code>
 <code>    }</code>
 <code>}</code>
 </pre>
-<div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/akiIA1Z.png" alt="Context Menu 2">                                    
-</div>
-<p>There are a few ways to remove this code from release builds, and my recommended way is to use preprocessor macros to completely eliminate the "debug code", as other approaches will still allow your code to be reverse-engineered by hackers.</p>
-<pre>
+ <div class="post-image margin-top-40 margin-bottom-40"> 
+  <img src="https://i.imgur.com/akiIA1Z.png" alt="Context Menu 2"> 
+ </div>
+ <p>There are a few ways to remove this code from release builds, and my recommended way is to use preprocessor macros to completely eliminate the "debug code", as other approaches will still allow your code to be reverse-engineered by hackers.</p>
+ <pre>
 <code>#if DEBUG</code>
 <code>extension UserTextField: UIContextMenuInteractionDelegate {</code>
 <code>...</code>
 <code>#endif</code>
 </pre>
-<h2>Expanding it for every UIView in the app</h2>
-<p>We have created a debug menu for a single view, but what about the others? As you can see, this code doesn't look very nice and will get difficult to maintain pretty quickly. To remedy this, we can subclass <code>UIContextMenuInteraction</code> into a cleaner abstraction that only requires the list of actions to display -- no configurations, previews or other annoying things.</p>
-<p>I chose to create <code>DebugMenuInteraction</code> -- a special <code>UIContextMenuInteraction</code> that handles its own delegate, exposing a <code>DebugMenuInteractionDelegate</code> instead to retrieve the list of debugging actions.</p>
-<pre>
+ <h2>Expanding it for every UIView in the app</h2>
+ <p>We have created a debug menu for a single view, but what about the others? As you can see, this code doesn't look very nice and will get difficult to maintain pretty quickly. To remedy this, we can subclass <code>UIContextMenuInteraction</code> into a cleaner abstraction that only requires the list of actions to display -- no configurations, previews or other annoying things.</p>
+ <p>I chose to create <code>DebugMenuInteraction</code> -- a special <code>UIContextMenuInteraction</code> that handles its own delegate, exposing a <code>DebugMenuInteractionDelegate</code> instead to retrieve the list of debugging actions.</p>
+ <pre>
 <code>public protocol DebugMenuInteractionDelegate: AnyObject {</code>
-<code>    func debugActions() -> [UIMenuElement]</code>
+<code>    func debugActions() -&gt; [UIMenuElement]</code>
 <code>}</code>
 <code></code>
 <code>public final class DebugMenuInteraction: UIContextMenuInteraction {</code>
@@ -103,7 +112,7 @@ June 30th, 2020
 <code>        public func contextMenuInteraction(</code>
 <code>            _ interaction: UIContextMenuInteraction,</code>
 <code>            configurationForMenuAtLocation location: CGPoint</code>
-<code>        ) -> UIContextMenuConfiguration? {</code>
+<code>        ) -&gt; UIContextMenuConfiguration? {</code>
 <code>            return UIContextMenuConfiguration(</code>
 <code>                identifier: nil,</code>
 <code>                previewProvider: nil</code>
@@ -124,8 +133,8 @@ June 30th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>This allows us to refactor <code>UserTextField</code> into a much cleaner structure:</p>
-<pre>
+ <p>This allows us to refactor <code>UserTextField</code> into a much cleaner structure:</p>
+ <pre>
 <code>final class UserTextField: UITextField {</code>
 <code></code>
 <code>    private(set) var user: User?</code>
@@ -138,7 +147,7 @@ June 30th, 2020
 <code></code>
 <code>#if DEBUG</code>
 <code>extension UserTextField: DebugMenuInteractionDelegate {</code>
-<code>    func debugActions() -> [UIAction] {</code>
+<code>    func debugActions() -&gt; [UIAction] {</code>
 <code>        let copyId = UIAction(title: "Copy Identifier") { _ in</code>
 <code>            UIPasteboard.general.string = self.user?.identifier ?? ""</code>
 <code>        }</code>
@@ -147,8 +156,8 @@ June 30th, 2020
 <code>}</code>
 <code>#endif</code>
 </pre>
-<p>Previously, the interaction was being added directly in the class's initializer. This can still be done, but to allow us to better separate the "debug code" from the production code, we can create a global extension instead:</p>
-<pre>
+ <p>Previously, the interaction was being added directly in the class's initializer. This can still be done, but to allow us to better separate the "debug code" from the production code, we can create a global extension instead:</p>
+ <pre>
 <code>extension UIView {</code>
 <code>    public func addDebugMenuInteraction() {</code>
 <code>        #if DEBUG</code>
@@ -161,22 +170,22 @@ June 30th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Since the extension itself is able to determine if we're running a debug build, calls to <code>addDebugMenuInteraction()</code> can be kept in production code as the compiler will automatically optimize it out of the build.</p>
-<p>With these abstractions, the final result is the same, but the code is now easier to maintain and evolve as supporting different views is just a matter of extending them to conform to the new delegate.</p>
-<h2>iOS 14 - Asynchronous actions with <code>UIDeferredMenuElement</code></h2>
-<p>The arrival of iOS 14 introduced the possibility of creating menu elements that are resolved asynchronously. If your debug actions involves some data that requires an API call, you can use the new APIs to create async actions that are automatically displayed in the <code>UIContextMenuInteraction</code> with a special loading UI:</p>
-<pre>
-<code>func serverInformation() -> UIMenuElement {</code>
+ <p>Since the extension itself is able to determine if we're running a debug build, calls to <code>addDebugMenuInteraction()</code> can be kept in production code as the compiler will automatically optimize it out of the build.</p>
+ <p>With these abstractions, the final result is the same, but the code is now easier to maintain and evolve as supporting different views is just a matter of extending them to conform to the new delegate.</p>
+ <h2>iOS 14 - Asynchronous actions with <code>UIDeferredMenuElement</code></h2>
+ <p>The arrival of iOS 14 introduced the possibility of creating menu elements that are resolved asynchronously. If your debug actions involves some data that requires an API call, you can use the new APIs to create async actions that are automatically displayed in the <code>UIContextMenuInteraction</code> with a special loading UI:</p>
+ <pre>
+<code>func serverInformation() -&gt; UIMenuElement {</code>
 <code>    return UIDeferredMenuElement { completion in</code>
 <code>        // an Async task that fetches some information about a server:</code>
 <code>        completion([printServerInformationAction(serverInfo)])</code>
 <code>    }</code>
 <code>}</code>
 </pre>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>The completion type of the deferred action is an array of <code>UIMenuElements</code>, meaning that you can a single action can be resolved to multiple entries in the debug menu. When displayed, you'll get a nice loading screen that is replaced with the real actions once the completion handler is called.</p>
-<div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/05piylJ.png" alt="Context Menu Async">                                    
-</div>
-<p>If you're interested in creating debug menus, the code we created here <a href="https://github.com/rockbruno/DebugActions">is available in SPM and CocoaPods as the DebugActions library.</a></p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>The completion type of the deferred action is an array of <code>UIMenuElements</code>, meaning that you can a single action can be resolved to multiple entries in the debug menu. When displayed, you'll get a nice loading screen that is replaced with the real actions once the completion handler is called.</p>
+ <div class="post-image margin-top-40 margin-bottom-40"> 
+  <img src="https://i.imgur.com/05piylJ.png" alt="Context Menu Async"> 
+ </div>
+ <p>If you're interested in creating debug menus, the code we created here <a href="https://github.com/rockbruno/DebugActions">is available in SPM and CocoaPods as the DebugActions library.</a></p>
 </div>

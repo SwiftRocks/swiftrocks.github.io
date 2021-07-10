@@ -126,7 +126,7 @@
                </a>
           </div>
           <div class="blog-header-button">
-               <a href="sponsor" target="_blank">
+               <a href="sponsor-advertise-at-swiftrocks" target="_blank">
                   <div class="blog-header-button-sponsor">Sponsor</div>
                </a>
           </div>
@@ -156,46 +156,51 @@
   <!-- Mailchimp End -->
 
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
-<!--WRITEIT_POST_NAME=Creating 3D Models from Photographs with RealityKit in Swift-->
-<!--WRITEIT_POST_HTML_NAME=creating-3d-models-out-of-anything-with-realitykit-in-swift-->
+ 
+  
+  <!--WRITEIT_POST_NAME=Creating 3D Models from Photographs with RealityKit in Swift--> 
+  <!--WRITEIT_POST_HTML_NAME=creating-3d-models-out-of-anything-with-realitykit-in-swift--> 
+  <!--Add here the additional properties that you want each page to possess.--> 
+  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
+  <!--Properties must start with 'WRITEIT_POST'.--> 
+  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
+  <!--WRITEIT_POST_SHORT_DESCRIPTION=RealityKit Object Capture is a feature introduced in Xcode 13 that allows you to create 3D objects from photographs using a process called photogrammetry.--> 
+  <!--DateFormat example: 2020-04-12T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-06-22T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE=2021-06-22T14:00:00+02:00--> 
+  <title>Creating 3D Models from Photographs with RealityKit in Swift</title>  
+ 
 
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=RealityKit Object Capture is a feature introduced in Xcode 13 that allows you to create 3D objects from photographs using a process called photogrammetry.-->
-
-<!--DateFormat example: 2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-06-22T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-06-22T14:00:00+02:00-->
-
-<title>Creating 3D Models from Photographs with RealityKit in Swift</title>
-<div class="col-md-12 blog-post"> 
-<div class="post-title"> 
-  <h1>Creating 3D Models from Photographs with RealityKit in Swift</h1> 
-</div> 
-<div class="post-info"> 
-June 22nd, 2021
-</div>
-<p><i>RealityKit Object Capture</i> is a feature introduced in Xcode 13 that allows you to create 3D objects from photographs using a process called photogrammetry. Although intended for retailers to enhance their online shopping experience by creating models out of things like furniture and using them in augmented reality experiences, RealityKit is incredibly easy to use for anything you may want, like 3D printing random things from your house.</p>
-<div class="post-image">
-  <img style="height: 300px;" src="https://i.imgur.com/sp4LypF.gif" alt="Mug">
-</div>
-<p>To use Object Capture, you must:</p>
-<ul>
-<li>Be running macOS 12 (this feature is not available in iOS!)</li>
-<li>Provide photographs of the object you want to capture</li>
-</ul>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>Capturing photographs of the object is not hard, although you may have to fine-tune your environment to get better results. The idea is to place your object in a well-lit place and continuously take pictures as you round the object. You can also take pictures of the bottom of the object if you'd like that to be modeled as well, by taking pictures of the object flipped upside-down in the same environment.</p>
-<p>Your pictures don't need to have any particular ordering or naming for Object Capture to work and there's no minimum number of pictures you need to take, although you might better results the more you do. I've found that ~30ish pictures already give a nice result. Quite easy!</p>
-<div class="post-image">
-  <img style="height: 300px;" src="https://i.imgur.com/9ZiPV1Y.gif" alt="Pictures example">
-</div>
-<h2>Creating a Photogrammetry CLI App</h2>
-<p>To use Object Capture, start by creating a new Command Line App in Xcode and add new a class named <code>Session</code>:</p>
-<pre>
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>Creating 3D Models from Photographs with RealityKit in Swift</h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-ios">
+   iOS
+  </div> 
+  <div class="post-info-text">
+   Published on 22 Jun 2021 
+  </div> 
+ </div>  
+ <p><i>RealityKit Object Capture</i> is a feature introduced in Xcode 13 that allows you to create 3D objects from photographs using a process called photogrammetry. Although intended for retailers to enhance their online shopping experience by creating models out of things like furniture and using them in augmented reality experiences, RealityKit is incredibly easy to use for anything you may want, like 3D printing random things from your house.</p>
+ <div class="post-image"> 
+  <img style="height: 300px;" src="https://i.imgur.com/sp4LypF.gif" alt="Mug"> 
+ </div>
+ <p>To use Object Capture, you must:</p>
+ <ul> 
+  <li>Be running macOS 12 (this feature is not available in iOS!)</li> 
+  <li>Provide photographs of the object you want to capture</li> 
+ </ul>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>Capturing photographs of the object is not hard, although you may have to fine-tune your environment to get better results. The idea is to place your object in a well-lit place and continuously take pictures as you round the object. You can also take pictures of the bottom of the object if you'd like that to be modeled as well, by taking pictures of the object flipped upside-down in the same environment.</p>
+ <p>Your pictures don't need to have any particular ordering or naming for Object Capture to work and there's no minimum number of pictures you need to take, although you might better results the more you do. I've found that ~30ish pictures already give a nice result. Quite easy!</p>
+ <div class="post-image"> 
+  <img style="height: 300px;" src="https://i.imgur.com/9ZiPV1Y.gif" alt="Pictures example"> 
+ </div>
+ <h2>Creating a Photogrammetry CLI App</h2>
+ <p>To use Object Capture, start by creating a new Command Line App in Xcode and add new a class named <code>Session</code>:</p>
+ <pre>
 <code>import Foundation</code>
 <code>import RealityKit</code>
 <code>import Combine</code>
@@ -210,23 +215,23 @@ June 22nd, 2021
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Object Capture works by creating a <code>PhotogrammetrySession</code> object, configuring it, passing the folder that contains our pictures and waiting for the result. The result comes asynchronously through Combine, so make sure to create a <code>subscriber</code> object like in the snippet.</p>
-<p>In the <code>run()</code> method, create a <code>PhotogrammetrySession</code> with the default configuration:</p>
-<pre>
+ <p>Object Capture works by creating a <code>PhotogrammetrySession</code> object, configuring it, passing the folder that contains our pictures and waiting for the result. The result comes asynchronously through Combine, so make sure to create a <code>subscriber</code> object like in the snippet.</p>
+ <p>In the <code>run()</code> method, create a <code>PhotogrammetrySession</code> with the default configuration:</p>
+ <pre>
 <code>let configuration = PhotogrammetrySession.Configuration()</code>
 <code>let session = try PhotogrammetrySession(</code>
 <code>    input: inputFolder,</code>
 <code>    configuration: configuration</code>
 <code>)</code>
 </pre>
-<p>It's possible to fine-tune the final model, which we'll see further on. For now, let's use the default settings.</p>
-<p>With a session, we should now create a request to fabricate a model from our photographs:</p>
-<pre>
+ <p>It's possible to fine-tune the final model, which we'll see further on. For now, let's use the default settings.</p>
+ <p>With a session, we should now create a request to fabricate a model from our photographs:</p>
+ <pre>
 <code>let request = PhotogrammetrySession.Request.modelFile(url: outputFile)</code>
 </pre>
-<p>To wrap it up, we should observe the progress of the request and wait for it to end. As mentioned before, this process is done asynchronously with Combine, so we should attach a subscriber to the session's <code>output</code> property.</p>
-<p>Additionally, since this is a CLI app, we need to make sure the app stays alive while the model is being created. For simplicity, I've decided to attach a semaphore to the operation:</p>
-<pre>
+ <p>To wrap it up, we should observe the progress of the request and wait for it to end. As mentioned before, this process is done asynchronously with Combine, so we should attach a subscriber to the session's <code>output</code> property.</p>
+ <p>Additionally, since this is a CLI app, we need to make sure the app stays alive while the model is being created. For simplicity, I've decided to attach a semaphore to the operation:</p>
+ <pre>
 <code>let semaphore = DispatchSemaphore(value: 0)</code>
 <code></code>
 <code>subscriber = session.output.sink(receiveCompletion: { completion in</code>
@@ -253,35 +258,34 @@ June 22nd, 2021
 <code></code>
 <code>semaphore.wait()</code>
 </pre>
-<p>As you can see, many aspects of the process can be observed. In this case, I'm only interested in the actual progress.</p>
-<p>Before running the app, edit your <code>main.swift</code> file to call our <code>run()</code> method:</p>
-<pre>
+ <p>As you can see, many aspects of the process can be observed. In this case, I'm only interested in the actual progress.</p>
+ <p>Before running the app, edit your <code>main.swift</code> file to call our <code>run()</code> method:</p>
+ <pre>
 <code>try! Session().run()</code>
 </pre>
-<p>The process takes a while to start and may take several minutes to finish, so don't worry if you get a bunch of prints but not progress at first. Wait a bit and it will start!</p>
-<div class="post-image">
-  <img style="height: 300px;" src="https://i.imgur.com/QvvOiYE.gif" alt="Pictures result">
-</div>
-<h2>Configuring PhotogrammetrySessions</h2>
-<p>To fine-tune your results, there are two aspects of Object Capture that can be configured. The first one is the detail of the output, which you can control to determine the number of polygons in the final model:</p>
-<pre>
+ <p>The process takes a while to start and may take several minutes to finish, so don't worry if you get a bunch of prints but not progress at first. Wait a bit and it will start!</p>
+ <div class="post-image"> 
+  <img style="height: 300px;" src="https://i.imgur.com/QvvOiYE.gif" alt="Pictures result"> 
+ </div>
+ <h2>Configuring PhotogrammetrySessions</h2>
+ <p>To fine-tune your results, there are two aspects of Object Capture that can be configured. The first one is the detail of the output, which you can control to determine the number of polygons in the final model:</p>
+ <pre>
 <code>let request = PhotogrammetrySession.Request.modelFile(</code>
 <code>    url: outputFile,</code>
 <code>    detail: .preview</code>
 <code>)</code>
 </pre>
-<p>Details range from the lower quality <code>preview</code> to the high-end <code>full</code>. Try playing with lower-quality settings before trying to generate a higher-quality one.</p>
-<p>The second aspect that can be configured in the input itself:</p>
-<pre>
+ <p>Details range from the lower quality <code>preview</code> to the high-end <code>full</code>. Try playing with lower-quality settings before trying to generate a higher-quality one.</p>
+ <p>The second aspect that can be configured in the input itself:</p>
+ <pre>
 <code>var configuration = PhotogrammetrySession.Configuration()</code>
 <code>configuration.sampleOverlap = .low</code>
 <code>configuration.sampleOrdering = .unordered</code>
 <code>configuration.featureSensitivity = .high</code>
 </pre>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>The configuration struct allows you to provide more information about your photographs, which may result in a better model. <code>sampleOverlap</code> allows you to describe how much overlap there is between each photograph, <code>sampleOrdering</code> allows you to indicate whether or not your photographs are ordered (which will speed the process), and <code>featureSensitivity</code> indicates how hard RealityKit should try to search for features in your object, which should be used in cases where the object doesn't have a lot of discernible structures, edges or textures.</p>
-</div>
-</div>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>The configuration struct allows you to provide more information about your photographs, which may result in a better model. <code>sampleOverlap</code> allows you to describe how much overlap there is between each photograph, <code>sampleOrdering</code> allows you to indicate whether or not your photographs are ordered (which will speed the process), and <code>featureSensitivity</code> indicates how hard RealityKit should try to search for features in your object, which should be used in cases where the object doesn't have a lot of discernible structures, edges or textures.</p>
+</div></div>
                               
    
 
@@ -310,7 +314,7 @@ June 22nd, 2021
   <!-- Mailchimp End -->
     <div class="copyright">
     <text>Copyright © 2016-2021 SwiftRocks.</text>
-    <text><a href="https://swiftrocks.com">Index</a> | <a href="sponsor">Sponsor</a></text>
+    <text><a href="https://swiftrocks.com">Index</a> | <a href="sponsor-advertise-at-swiftrocks">Sponsor</a></text>
     </div>
 
     </div>

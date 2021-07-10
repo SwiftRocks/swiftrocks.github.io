@@ -1,30 +1,35 @@
 
-<!--WRITEIT_POST_NAME=Swift Associated Types With Default Values-->
-<!--WRITEIT_POST_HTML_NAME=swift-associated-types-with-default-values-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00-->
+ 
+  
+  <!--WRITEIT_POST_NAME=Swift Associated Types With Default Values--> 
+  <!--WRITEIT_POST_HTML_NAME=swift-associated-types-with-default-values--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
+  <!--Add here the additional properties that you want each page to possess.--> 
+  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
+  <!--Properties must start with 'WRITE_IT_POST'.--> 
+  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
+  <!--WRITEIT_POST_SHORT_DESCRIPTION=I was browsing the Swift forums when I stumbled across a discussion regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value.--> 
+  <title>Swift Associated Types With Default Values</title>  
+ 
 
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITE_IT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=I was browsing the Swift forums when I stumbled across a discussion regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value.-->
-
-
-<title>Swift Associated Types With Default Values</title>
-         <div class="col-md-12 blog-post"> 
-          <div class="post-title"> 
-           <h1>Swift Associated Types With Default Values</h1> 
-          </div> 
-          <div class="post-info"> 
-          September 16, 2018
-          </div>
-    	  <p>I was browsing the Swift forums when I stumbled across a <a href="https://forums.swift.org/t/a-question-about-associatedtype-in-protocols/16168">discussion</a> regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-    	  <p>I've shown associated types in action before <a href="https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview">in my article about loadView()</a> - they are a great tool to define generic behaviour inside protocols in the shape of a specific type. As the feature implies, setting a default value for an associated type will allow the children of the protocol to skip having to define a typealias for the type, unless they specifically want to use a different type.</p>
-    	  <p>This is the regular way to define a associated type:</p>
-    	  <pre>
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>Swift Associated Types With Default Values</h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-swift">
+   Swift
+  </div> 
+  <div class="post-info-text">
+   Published on 16 Sep 2018 
+  </div> 
+ </div>  
+ <p>I was browsing the Swift forums when I stumbled across a <a href="https://forums.swift.org/t/a-question-about-associatedtype-in-protocols/16168">discussion</a> regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value.</p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>I've shown associated types in action before <a href="https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview">in my article about loadView()</a> - they are a great tool to define generic behaviour inside protocols in the shape of a specific type. As the feature implies, setting a default value for an associated type will allow the children of the protocol to skip having to define a typealias for the type, unless they specifically want to use a different type.</p>
+ <p>This is the regular way to define a associated type:</p>
+ <pre>
 <code>protocol Foo {</code>
 <code>    associatedtype FooType</code>
 <code>}</code>
@@ -33,8 +38,8 @@
 <code>    typealias Foo = BarType</code>
 <code>}</code>
 </pre>
-<p>With just an equal sign, you can define a default type to it.</p>
-<pre>
+ <p>With just an equal sign, you can define a default type to it.</p>
+ <pre>
 <code>protocol Foo {</code>
 <code>    associatedtype FooType = BarType</code>
 <code>}</code>
@@ -42,8 +47,8 @@
 <code>struct Bar: Foo {} //Automatically sets FooType to BarType</code>
 <code>//unless another type is specified</code>
 </pre>
-    	  <p>It is a very simple thing in nature, but I've found this undocumented feature very interesting. Having to set typealiases really bothered me - being forced to provide a typealias means that the type inherting the protocol is certainly going to do something unique, which might not <i>really</i> be true. Consider this structure used to define a HTTP request:</p>
-<pre>
+ <p>It is a very simple thing in nature, but I've found this undocumented feature very interesting. Having to set typealiases really bothered me - being forced to provide a typealias means that the type inherting the protocol is certainly going to do something unique, which might not <i>really</i> be true. Consider this structure used to define a HTTP request:</p>
+ <pre>
 <code>/// The representation of a HTTPClient's request.</code>
 <code>public protocol HTTPRequest {</code>
 <code>    /// The Value of a HTTPRequest is the response object retrieved after parsing the request's response.</code>
@@ -51,27 +56,27 @@
 <code>    /// The endpoint path of the request, to be appended after the HTTPClient's baseURL property.</code>
 <code>    var path: String { get }</code>
 <code>    /// Serializes the response of this request to its associated value type.</code>
-<code>    func serialize(data: Data) throws -> Value</code>
+<code>    func serialize(data: Data) throws -&gt; Value</code>
 <code>}</code>
 <code></code>
 <code>extension HTTPRequest where Value: Unboxable {</code>
-<code>    public func serialize(data: Data) throws -> Value {</code>
+<code>    public func serialize(data: Data) throws -&gt; Value {</code>
 <code>        let value: Value = try unbox(data: data)</code>
 <code>        return value</code>
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>This structure works very well for my current project because defining <code>path</code> and the <code>Value</code> type is all a request needs to do in order to work, and if <code>Value</code> conforms to <code>Unboxable</code>, the object is even retrieved automatically. This works perfectly for requests such as this one that retrieves an user:</p>
-<pre>
+ <p>This structure works very well for my current project because defining <code>path</code> and the <code>Value</code> type is all a request needs to do in order to work, and if <code>Value</code> conforms to <code>Unboxable</code>, the object is even retrieved automatically. This works perfectly for requests such as this one that retrieves an user:</p>
+ <pre>
 <code>struct UserRequest: HTTPRequest {</code>
 <code>    typealias Value = User // is Unboxable</code>
 <code>    let path: String = "v1/profiles"</code>
 <code>}</code>
 </pre>
-<p>But that implementation is not perfect: Using associated types like that means that I can't test an endpoint without defining a fully fledgled response type to it.</p>
-<p>Worse: What if I don't <i>need</i> my request to return something meaningful? Perhaps I don't care about the response, perhaps I just need to cache some <code>Data</code> on the device, or a plain dictionary is enough. For all these cases, I have to explicitly set <code>Value</code> to something and code a custom <code>serialize()</code> method.</p>
-<p>If that situation was common, I would simply not use associated types for my requests. Luckily, the existence of default values for associated types solve this problem entirely. Now, I can solve it by making all <code>HTTPRequest</code> objects return a <code>Data</code> object by default:</p>
-<pre>
+ <p>But that implementation is not perfect: Using associated types like that means that I can't test an endpoint without defining a fully fledgled response type to it.</p>
+ <p>Worse: What if I don't <i>need</i> my request to return something meaningful? Perhaps I don't care about the response, perhaps I just need to cache some <code>Data</code> on the device, or a plain dictionary is enough. For all these cases, I have to explicitly set <code>Value</code> to something and code a custom <code>serialize()</code> method.</p>
+ <p>If that situation was common, I would simply not use associated types for my requests. Luckily, the existence of default values for associated types solve this problem entirely. Now, I can solve it by making all <code>HTTPRequest</code> objects return a <code>Data</code> object by default:</p>
+ <pre>
 <code>/// The representation of a HTTPClient's request.</code>
 <code>public protocol HTTPRequest {</code>
 <code>    /// The Value of a HTTPRequest is the response object retrieved after parsing the request's response.</code>
@@ -79,30 +84,31 @@
 <code>    /// The endpoint path of the request, to be appended after the HTTPClient's baseURL property.</code>
 <code>    var path: String { get }</code>
 <code>    /// Serializes the response of this request to it's associated value type.</code>
-<code>    func serialize(data: Data) throws -> Value</code>
+<code>    func serialize(data: Data) throws -&gt; Value</code>
 <code>}</code>
 <code></code>
 <code>extension HTTPRequest where Value: Data {</code>
-<code>    public func serialize(data: Data) throws -> Value {</code>
+<code>    public func serialize(data: Data) throws -&gt; Value {</code>
 <code>        return data</code>
 <code>    }</code>
 <code>}</code>
 <code></code>
 <code>extension HTTPRequest where Value: Unboxable {</code>
-<code>    public func serialize(data: Data?, error: Error?) throws -> Value {</code>
+<code>    public func serialize(data: Data?, error: Error?) throws -&gt; Value {</code>
 <code>        let value: Value = try unbox(data: data)</code>
 <code>        return value</code>
 <code>    }</code>
 <code>}</code>
 </pre>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>Plain requests can now work purely with a <code>path</code> property (and return a plain <code>Data</code> object) while still allowing the regular requests to provide their custom responses.</p>
-<pre>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>Plain requests can now work purely with a <code>path</code> property (and return a plain <code>Data</code> object) while still allowing the regular requests to provide their custom responses.</p>
+ <pre>
 <code>struct ABTestDataRequest: HTTPRequest {</code>
 <code>    let path: String = "v1/abtest"</code>
 <code>}</code>
 </pre>
-<p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
-<h2>Reference</h2>
-<a href="https://bugs.swift.org/browse/SR-8761">SR-8761</a><br>
-         </div>
+ <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
+ <h2>Reference</h2>
+ <a href="https://bugs.swift.org/browse/SR-8761">SR-8761</a>
+ <br>
+</div>

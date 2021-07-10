@@ -126,7 +126,7 @@
                </a>
           </div>
           <div class="blog-header-button">
-               <a href="sponsor" target="_blank">
+               <a href="sponsor-advertise-at-swiftrocks" target="_blank">
                   <div class="blog-header-button-sponsor">Sponsor</div>
                </a>
           </div>
@@ -156,86 +156,92 @@
   <!-- Mailchimp End -->
 
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
-<!--WRITEIT_POST_NAME=Adding iOS Home Shortcuts to Specific Parts of An App in Swift-->
-<!--WRITEIT_POST_HTML_NAME=adding-deeplink-shortcuts-to-the-ios-home-screen-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2019-02-20T18:00:00+00:00-->
+ 
+  
+  <!--WRITEIT_POST_NAME=Adding iOS Home Shortcuts to Specific Parts of An App in Swift--> 
+  <!--WRITEIT_POST_HTML_NAME=adding-deeplink-shortcuts-to-the-ios-home-screen--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE=2019-02-20T18:00:00+00:00--> 
+  <!--Add here the additional properties that you want each page to possess.--> 
+  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
+  <!--Properties must start with 'WRITE_IT_POST'.--> 
+  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
+  <!--WRITEIT_POST_SHORT_DESCRIPTION=Deeplinking is widely used to provide easy access to certain portions of an iOS app. While most of the uses for a deeplink are marketing purposes such as providing shortcuts inside an e-mail or push notification, they can also be used for communicating between different apps and pretty much anything that involves routing to different screens.--> 
+  <title>Adding iOS Home Shortcuts to Specific Parts of An App in Swift</title>  
+ 
 
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITE_IT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Deeplinking is widely used to provide easy access to certain portions of an iOS app. While most of the uses for a deeplink are marketing purposes such as providing shortcuts inside an e-mail or push notification, they can also be used for communicating between different apps and pretty much anything that involves routing to different screens.-->
-
-<title>Adding iOS Home Shortcuts to Specific Parts of An App in Swift</title>
-<div class="col-md-12 blog-post"> 
-<div class="post-title"> 
-  <h1>Adding iOS Home Shortcuts to Specific Parts of An App in Swift</h1> 
-</div> 
-<div class="post-info"> 
-February 20, 2019
-</div>
-<p>Deeplinking is widely used to provide easy access to certain portions of an iOS app. While most of the uses for a deeplink are marketing purposes such as providing shortcuts inside an e-mail or push notification, they can also be used for communicating between different apps and pretty much anything that involves routing to different screens.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>iOS already allows you to add "shortcuts" to an app in the shape of 3D Touch Quick Actions, but they are very limited, hidden from the user, and let's be honest - it's one of these features that nobody remembers. You can also use Siri Extensions, but then you have to deal with Siri, and the regular Siri Shortcuts relies on the Shortcuts app, so it's not something that you can provide to your users. Wouldn't it be great if you could give your users the ability to add shortcuts to things like ordering their favorite coffee in the shape of a home icon - just like the app itself?</p>
-<div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/XD134oO.jpg" alt="iOS home screen">
-</div>
-<p>Well, after reverse engineering Apple's Shortcuts app, it turns out that you can! That's exactly what it does when you add a system shortcut to the home screen, and we're going to <b>replicate it</b> in order to <b>give users the ability to add home icons that directly open a specific part of an app.</b></p>
-<p><a href="https://github.com/SwiftRocks/adding-deeplink-shortcuts-to-the-iOS-home-screen">Full project available here.</a></p>
-<div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://cdn-images-1.medium.com/max/1600/1*1FKWtw4MtEdALUh7rJ0gvw.gif" alt="Opening shortcut">
-</div>
-<h2>Safari, Raw Data Rendering and PWAs</h2>
-<p>If you've never added an Apple shortcut to your home screen, here's the Shortcuts app equivalent that we're going to replicate:</p>
-<div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/OknDMDb.jpg" alt="Saving Shortcuts from Shortcuts app">                                    
-</div>
-<p>One might think that this is the result of an internal API since Apple has never shared anything in that aspect, but this is actually just a clever use of Safari's PWA features.</p>
-<p>To make it short, before the Safari screen is shown, the Shortcuts app locally generates a HTML page that pretends to be a PWA. If the page was opened inside Safari, the instructions are shown - but when the page is opened in PWA mode (a.k.a when you open it from the home screen), it instantly redirects to the relevant <code>shortcuts://</code> deeplink. That's very sneaky, and you can see by yourself exactly how it achieves that by 3D Touching the generated home icon and decoding the base64 string in the URL. <a href="https://gist.github.com/rockbruno/5412417f30c4ac506a7faa6a74a3f322">Here's an example.</a></p>
-<p>Replicating this requires a bit of tinkering since that's not an official iOS feature, but the end result is exactly the same and easier than it sounds. With this, you can make your app create home shortcuts to virtually anything that's bootable via deeplinks.</p>
-<p>The reason this is possible comes from the fact that Safari doesn't need an URL to display a page - it can render raw encoded data of many kinds, including HTML and images.</p>
-<p>Have your Safari open this, for example. You should see a <code>SwiftRocks!</code> page:</p>
-<pre>
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>Adding iOS Home Shortcuts to Specific Parts of An App in Swift</h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-ios">
+   iOS
+  </div> 
+  <div class="post-info-text">
+   Published on 20 Feb 2019 
+  </div> 
+ </div>   
+ <p>Deeplinking is widely used to provide easy access to certain portions of an iOS app. While most of the uses for a deeplink are marketing purposes such as providing shortcuts inside an e-mail or push notification, they can also be used for communicating between different apps and pretty much anything that involves routing to different screens.</p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>iOS already allows you to add "shortcuts" to an app in the shape of 3D Touch Quick Actions, but they are very limited, hidden from the user, and let's be honest - it's one of these features that nobody remembers. You can also use Siri Extensions, but then you have to deal with Siri, and the regular Siri Shortcuts relies on the Shortcuts app, so it's not something that you can provide to your users. Wouldn't it be great if you could give your users the ability to add shortcuts to things like ordering their favorite coffee in the shape of a home icon - just like the app itself?</p>
+ <div class="post-image margin-top-40 margin-bottom-40"> 
+  <img src="https://i.imgur.com/XD134oO.jpg" alt="iOS home screen"> 
+ </div>
+ <p>Well, after reverse engineering Apple's Shortcuts app, it turns out that you can! That's exactly what it does when you add a system shortcut to the home screen, and we're going to <b>replicate it</b> in order to <b>give users the ability to add home icons that directly open a specific part of an app.</b></p>
+ <p><a href="https://github.com/SwiftRocks/adding-deeplink-shortcuts-to-the-iOS-home-screen">Full project available here.</a></p>
+ <div class="post-image margin-top-40 margin-bottom-40"> 
+  <img src="https://cdn-images-1.medium.com/max/1600/1*1FKWtw4MtEdALUh7rJ0gvw.gif" alt="Opening shortcut"> 
+ </div>
+ <h2>Safari, Raw Data Rendering and PWAs</h2>
+ <p>If you've never added an Apple shortcut to your home screen, here's the Shortcuts app equivalent that we're going to replicate:</p>
+ <div class="post-image margin-top-40 margin-bottom-40"> 
+  <img src="https://i.imgur.com/OknDMDb.jpg" alt="Saving Shortcuts from Shortcuts app"> 
+ </div>
+ <p>One might think that this is the result of an internal API since Apple has never shared anything in that aspect, but this is actually just a clever use of Safari's PWA features.</p>
+ <p>To make it short, before the Safari screen is shown, the Shortcuts app locally generates a HTML page that pretends to be a PWA. If the page was opened inside Safari, the instructions are shown - but when the page is opened in PWA mode (a.k.a when you open it from the home screen), it instantly redirects to the relevant <code>shortcuts://</code> deeplink. That's very sneaky, and you can see by yourself exactly how it achieves that by 3D Touching the generated home icon and decoding the base64 string in the URL. <a href="https://gist.github.com/rockbruno/5412417f30c4ac506a7faa6a74a3f322">Here's an example.</a></p>
+ <p>Replicating this requires a bit of tinkering since that's not an official iOS feature, but the end result is exactly the same and easier than it sounds. With this, you can make your app create home shortcuts to virtually anything that's bootable via deeplinks.</p>
+ <p>The reason this is possible comes from the fact that Safari doesn't need an URL to display a page - it can render raw encoded data of many kinds, including HTML and images.</p>
+ <p>Have your Safari open this, for example. You should see a <code>SwiftRocks!</code> page:</p>
+ <pre>
 <code>data:text/html;base64,PGJvZHk+PHA+U3dpZnRSb2NrcyE8L3A+PC9ib2R5Pg==</code>
 </pre>
-<p>There's no page hosting this content, it's simply Safari directly rendering the base 64 encoding of <code>&lt;body>&lt;p>SwiftRocks!&lt;/p>&lt;/body></code>. As expected, you can render entires pages using this format, including their scripts.</p>
-<p>Routing to a deeplink can be achieved with a simple JavaScript snippet - if you've been around during the iOS days before Apple added Universal Links, you probably had to deal with making an arbitrary page redirect to its deeplink equivalent if the user happened to have the app installed. We can use a similar approach here to achieve this effect:</p>
-<pre>
-<code>&lt;html></code>
-<code>  &lt;body></code>
-<code>    &lt;p>SwiftRocks!&lt;/p></code>
-<code>    &lt;a id="redirect" href="https://apple.com/">&lt;/a></code>
-<code>  &lt;/body></code>
-<code>&lt;/html></code>
-<code>&lt;script type="text/javascript"></code>
+ <p>There's no page hosting this content, it's simply Safari directly rendering the base 64 encoding of <code>&lt;body&gt;&lt;p&gt;SwiftRocks!&lt;/p&gt;&lt;/body&gt;</code>. As expected, you can render entires pages using this format, including their scripts.</p>
+ <p>Routing to a deeplink can be achieved with a simple JavaScript snippet - if you've been around during the iOS days before Apple added Universal Links, you probably had to deal with making an arbitrary page redirect to its deeplink equivalent if the user happened to have the app installed. We can use a similar approach here to achieve this effect:</p>
+ <pre>
+<code>&lt;html&gt;</code>
+<code>  &lt;body&gt;</code>
+<code>    &lt;p&gt;SwiftRocks!&lt;/p&gt;</code>
+<code>    &lt;a id="redirect" href="https://apple.com/"&gt;&lt;/a&gt;</code>
+<code>  &lt;/body&gt;</code>
+<code>&lt;/html&gt;</code>
+<code>&lt;script type="text/javascript"&gt;</code>
 <code>  var element = document.getElementById('redirect');</code>
 <code>  var event = document.createEvent('MouseEvents');</code>
 <code>  event.initEvent('click', true, true, document.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null);</code>
 <code>  setTimeout(function() { element.dispatchEvent(event); }, 25);</code>
-<code>&lt;/script></code>
+<code>&lt;/script&gt;</code>
 </pre>
-<p>This adds an invisible button link to the Apple website and immediatly runs a script that touches it after a small amount of time. You can try it out here:</p>
-<pre>
+ <p>This adds an invisible button link to the Apple website and immediatly runs a script that touches it after a small amount of time. You can try it out here:</p>
+ <pre>
 <code>data:text/html;base64,PGh0bWw+CiAgPGJvZHk+CiAgICA8cD5Td2lmdFJvY2tzITwvcD4KICAgIDxhIGlkPSJyZWRpcmVjdCIgaHJlZj0iaHR0cHM6Ly9hcHBsZS5jb20vIj48L2E+CiAgPC9ib2R5Pgo8L2h0bWw+CjxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4KICB2YXIgZWxlbWVudCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdyZWRpcmVjdCcpOwogIHZhciBldmVudCA9IGRvY3VtZW50LmNyZWF0ZUV2ZW50KCdNb3VzZUV2ZW50cycpOwogIGV2ZW50LmluaXRFdmVudCgnY2xpY2snLCB0cnVlLCB0cnVlLCBkb2N1bWVudC5kZWZhdWx0VmlldywgMSwgMCwgMCwgMCwgMCwgZmFsc2UsIGZhbHNlLCBmYWxzZSwgZmFsc2UsIDAsIG51bGwpOwogIHNldFRpbWVvdXQoZnVuY3Rpb24oKSB7IGVsZW1lbnQuZGlzcGF0Y2hFdmVudChldmVudCk7IH0sIDI1KTsKPC9zY3JpcHQ+</code>
 </pre>
-<p>That looks great! But if you take a look at the Shortcuts's app behavior, you'll see that the redirecting starts only <i>after</i> the icon is generated. How does that work?</p>
-<p>When Apple first added PWA support for Safari, a "standalone" or "app mode" function was added in order to make the web app experience better for users by hiding normal Safari functions such as the URL bar and navigation arrows. This mode is initiated when a PWA is opened from the home screen, and its usage can be detected by the page. That's exactly what the Shortcuts app uses to make sure the redirecting only happens when the page is opened from the home screen!</p>
-<p>In the following example, the <code>SwiftRocks!</code> text is only added if the page was opened inside Safari. If the page was opened in PWA mode, the user will be redirected instead. Metadata was also added to indicate Safari that this page can be opened in PWA mode, as well as a simple <code>title</code> tag so a default name is provided inside the share sheet.</p>
-<pre>
-<code>&lt;html></code>
-<code>&lt;head></code>
-<code>  &lt;title>Apple Page&lt;/title></code>
-<code>  &lt;meta name="apple-mobile-web-app-capable" content="yes"></code>
-<code>  &lt;meta name="apple-mobile-web-app-status-bar-style" content="#ffffff"></code>
-<code>  &lt;meta name="apple-mobile-web-app-title" content="Apple Page"></code>
-<code>&lt;/head></code>
-<code>  &lt;body></code>
-<code>    &lt;a id="redirect" href="https://apple.com/">&lt;/a></code>
-<code>  &lt;/body></code>
-<code>&lt;/html></code>
-<code>&lt;script type="text/javascript"></code>
+ <p>That looks great! But if you take a look at the Shortcuts's app behavior, you'll see that the redirecting starts only <i>after</i> the icon is generated. How does that work?</p>
+ <p>When Apple first added PWA support for Safari, a "standalone" or "app mode" function was added in order to make the web app experience better for users by hiding normal Safari functions such as the URL bar and navigation arrows. This mode is initiated when a PWA is opened from the home screen, and its usage can be detected by the page. That's exactly what the Shortcuts app uses to make sure the redirecting only happens when the page is opened from the home screen!</p>
+ <p>In the following example, the <code>SwiftRocks!</code> text is only added if the page was opened inside Safari. If the page was opened in PWA mode, the user will be redirected instead. Metadata was also added to indicate Safari that this page can be opened in PWA mode, as well as a simple <code>title</code> tag so a default name is provided inside the share sheet.</p>
+ <pre>
+<code>&lt;html&gt;</code>
+<code>&lt;head&gt;</code>
+<code>  &lt;title&gt;Apple Page&lt;/title&gt;</code>
+<code>  &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</code>
+<code>  &lt;meta name="apple-mobile-web-app-status-bar-style" content="#ffffff"&gt;</code>
+<code>  &lt;meta name="apple-mobile-web-app-title" content="Apple Page"&gt;</code>
+<code>&lt;/head&gt;</code>
+<code>  &lt;body&gt;</code>
+<code>    &lt;a id="redirect" href="https://apple.com/"&gt;&lt;/a&gt;</code>
+<code>  &lt;/body&gt;</code>
+<code>&lt;/html&gt;</code>
+<code>&lt;script type="text/javascript"&gt;</code>
 <code>  if (window.navigator.standalone) {</code>
 <code>    var element = document.getElementById('redirect');</code>
 <code>    var event = document.createEvent('MouseEvents');</code>
@@ -247,24 +253,24 @@ February 20, 2019
 <code>    p.appendChild(node);</code>
 <code>    document.body.appendChild(p);</code>
 <code>  }</code>
-<code>&lt;/script></code>
+<code>&lt;/script&gt;</code>
 </pre>
-<p>Try it out! Open this in Safari, press the Share button, add it to your home screen and touch it to see how it works. For a real example, change the link to a deeplink to your app and encode it to base64 to see it in action. The page still looks terrible, but we'll see how to add icons and splash screens later on.</p>
-<pre>
+ <p>Try it out! Open this in Safari, press the Share button, add it to your home screen and touch it to see how it works. For a real example, change the link to a deeplink to your app and encode it to base64 to see it in action. The page still looks terrible, but we'll see how to add icons and splash screens later on.</p>
+ <pre>
 <code>data:text/html;base64,PGh0bWw+CjxoZWFkPgogIDx0aXRsZT5BcHBsZSBQYWdlPC90aXRsZT4KICA8bWV0YSBuYW1lPSJhcHBsZS1tb2JpbGUtd2ViLWFwcC1jYXBhYmxlIiBjb250ZW50PSJ5ZXMiPgogIDxtZXRhIG5hbWU9ImFwcGxlLW1vYmlsZS13ZWItYXBwLXN0YXR1cy1iYXItc3R5bGUiIGNvbnRlbnQ9IiNmZmZmZmYiPgogIDxtZXRhIG5hbWU9ImFwcGxlLW1vYmlsZS13ZWItYXBwLXRpdGxlIiBjb250ZW50PSJBcHBsZSBQYWdlIj4KPC9oZWFkPgogIDxib2R5PgogICAgPGEgaWQ9InJlZGlyZWN0IiBocmVmPSJodHRwczovL2FwcGxlLmNvbS8iPjwvYT4KICA8L2JvZHk+CjwvaHRtbD4KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPgogIGlmICh3aW5kb3cubmF2aWdhdG9yLnN0YW5kYWxvbmUpIHsKICAgIHZhciBlbGVtZW50ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3JlZGlyZWN0Jyk7CiAgICB2YXIgZXZlbnQgPSBkb2N1bWVudC5jcmVhdGVFdmVudCgnTW91c2VFdmVudHMnKTsKICAgIGV2ZW50LmluaXRFdmVudCgnY2xpY2snLCB0cnVlLCB0cnVlLCBkb2N1bWVudC5kZWZhdWx0VmlldywgMSwgMCwgMCwgMCwgMCwgZmFsc2UsIGZhbHNlLCBmYWxzZSwgZmFsc2UsIDAsIG51bGwpOwogICAgc2V0VGltZW91dChmdW5jdGlvbigpIHsgZWxlbWVudC5kaXNwYXRjaEV2ZW50KGV2ZW50KTsgfSwgMjUpOwogIH0gZWxzZSB7CiAgICB2YXIgcCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ3AnKTsKICAgIHZhciBub2RlID0gZG9jdW1lbnQuY3JlYXRlVGV4dE5vZGUoJ1N3aWZ0Um9ja3MhJyk7CiAgICBwLmFwcGVuZENoaWxkKG5vZGUpOwogICAgZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChwKTsKICB9Cjwvc2NyaXB0Pg==</code>
 </pre>
-<h2>iOS: Opening the raw page from Swift</h2>
-<p>Now that we've seen how to make a shortcut PWA, we can make an app generate and trigger it.</p>
-<p>I'm assuming you already know how to create and process deeplinks in iOS, so I'll go straight to the point. In this example, I'm going to make a simple <code>UIViewController</code> that represents a "profile" screen trigger a shortcut page that opens an <code>shortcutTestApp://profile</code> deeplink that my app listens to in order to route the user to this same view controller:</p>
-<pre>
+ <h2>iOS: Opening the raw page from Swift</h2>
+ <p>Now that we've seen how to make a shortcut PWA, we can make an app generate and trigger it.</p>
+ <p>I'm assuming you already know how to create and process deeplinks in iOS, so I'll go straight to the point. In this example, I'm going to make a simple <code>UIViewController</code> that represents a "profile" screen trigger a shortcut page that opens an <code>shortcutTestApp://profile</code> deeplink that my app listens to in order to route the user to this same view controller:</p>
+ <pre>
 <code>final class ProfileViewController: UIViewController {</code>
 <code>    @IBAction func shortcutButtonTouched(_ sender: Any) {</code>
 <code>    	showShortcutScreen(forDeepLink: "shortcutTestApp://profile")</code>
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>Inside <code>showShortcutScreen</code>, I'm going to generate the HTML for that shortcut, encode it and attempt to open it:</p>
-<pre>
+ <p>Inside <code>showShortcutScreen</code>, I'm going to generate the HTML for that shortcut, encode it and attempt to open it:</p>
+ <pre>
 <code>func showShortcutScreen(forDeepLink deepLink: String) {</code>
 <code>    guard let deepLinkUrl = URL(string: deepLink) else {</code>
 <code>        return</code>
@@ -280,19 +286,19 @@ February 20, 2019
 <code>    UIApplication.shared.open(shortcutPage)</code>
 <code>}</code>
 <code></code>
-<code>func getHtml(title: String, urlToRedirect: URL) -> String {</code>
+<code>func getHtml(title: String, urlToRedirect: URL) -&gt; String {</code>
 <code>	return</code>
 <code>	"""</code>
-<code>	    &lt;head></code>
-<code>	      &lt;body></code>
+<code>	    &lt;head&gt;</code>
+<code>	      &lt;body&gt;</code>
 <code>	        .. //Rest of the HTML, replacing the relevant data with the properties.</code>
 <code>	"""</code>
 <code>}</code>
 </pre>
-<p>This looks straightforward, but there's a big problem: If you try to run this, you'll see that it will simply not work.</p>
-<p>If you try to open a <code>data:</code> page from Swift using <code>open(url)</code>, nothing will happen, and if you try to use <code>SFSafariViewController</code>, it will crash stating that it doesn't understand the URL. There's no clear reason why this happens since Safari itself can open these links - it honestly just sounds like a bug in Apple's side. However, it does mean that we need to do a small workaround to make it work, but the good news is that even the Shortcuts app needs to do this, so you're not going to be alone.</p>
-<p>A solution for this is that instead of trying to directly open the raw content, you can create a localhost server that redirects to it. To make things easy, I'm going to use the <a href="https://github.com/httpswift/swifter">Swifter library</a> to create this server:</p>
-<pre>
+ <p>This looks straightforward, but there's a big problem: If you try to run this, you'll see that it will simply not work.</p>
+ <p>If you try to open a <code>data:</code> page from Swift using <code>open(url)</code>, nothing will happen, and if you try to use <code>SFSafariViewController</code>, it will crash stating that it doesn't understand the URL. There's no clear reason why this happens since Safari itself can open these links - it honestly just sounds like a bug in Apple's side. However, it does mean that we need to do a small workaround to make it work, but the good news is that even the Shortcuts app needs to do this, so you're not going to be alone.</p>
+ <p>A solution for this is that instead of trying to directly open the raw content, you can create a localhost server that redirects to it. To make things easy, I'm going to use the <a href="https://github.com/httpswift/swifter">Swifter library</a> to create this server:</p>
+ <pre>
 <code>var localServer: HttpServer?</code>
 <code></code>
 <code>func showShortcutScreen(forDeepLink deepLink: String) {</code>
@@ -320,19 +326,19 @@ February 20, 2019
 <code>    localServer = nil</code>
 <code>}</code>
 </pre>
-<p>Compared to the previous example, this will boot a localhost server that listens to <code>/shortcut</code> and redirects to the original data URL. The result of this is the gif at the beginning of the article, and you can add this to different screens of your app in order to add shortcuts to pre-defined deeplinks that your or other's apps supports.</p>
-<p><a href="https://github.com/SwiftRocks/adding-deeplink-shortcuts-to-the-iOS-home-screen">Full project available here.</a></p>
-<h2>Pimp my PWA: Icons, Splash Screens and Conclusion</h2>
-<p>Now, while this works, it certainly doesn't look anything like the Shortcuts example! I didn't go too far in the looks department since I'm not a designer, but because this is essentially a PWA page you can infuse it with PWA properties in order to add things like home icons and splash screens.</p>
-<p>You can find this info in the Apple docs, but you can use <code>apple-touch-icon</code> and <code>apple-touch-startup-image</code> tags to link to images in order to add this sort of content, as well as using some html tricks to make your pages look neater. You can see the example project or the decoded Shortcut to see how to achieve this, but the Shortcuts app uses the localhost server to provide images while the example project encodes an asset and provides the raw data.</p>
-<p>To display the pretty instructions, the Shortcuts app generates an image on the fly. When it boots in PWA mode, it fetches the image from the local server and adds it to the body just like the previous <code>SwiftRocks!</code> example. It also has a fake version of the splash screen encoded into the html to make the transition between the page and the app smoother. In the end you're dealing with a HTML page, so anything goes!</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>In conclusion, if you have an app that contains important features, you can use this trick as an alternative to allow your users to create icons that go straight to them directly from their home screen.</p>
-<p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
-<h2>References and Good reads</h2>
-<a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">Apple's PWA docs</a><br>
-</div>
-</div>
+ <p>Compared to the previous example, this will boot a localhost server that listens to <code>/shortcut</code> and redirects to the original data URL. The result of this is the gif at the beginning of the article, and you can add this to different screens of your app in order to add shortcuts to pre-defined deeplinks that your or other's apps supports.</p>
+ <p><a href="https://github.com/SwiftRocks/adding-deeplink-shortcuts-to-the-iOS-home-screen">Full project available here.</a></p>
+ <h2>Pimp my PWA: Icons, Splash Screens and Conclusion</h2>
+ <p>Now, while this works, it certainly doesn't look anything like the Shortcuts example! I didn't go too far in the looks department since I'm not a designer, but because this is essentially a PWA page you can infuse it with PWA properties in order to add things like home icons and splash screens.</p>
+ <p>You can find this info in the Apple docs, but you can use <code>apple-touch-icon</code> and <code>apple-touch-startup-image</code> tags to link to images in order to add this sort of content, as well as using some html tricks to make your pages look neater. You can see the example project or the decoded Shortcut to see how to achieve this, but the Shortcuts app uses the localhost server to provide images while the example project encodes an asset and provides the raw data.</p>
+ <p>To display the pretty instructions, the Shortcuts app generates an image on the fly. When it boots in PWA mode, it fetches the image from the local server and adds it to the body just like the previous <code>SwiftRocks!</code> example. It also has a fake version of the splash screen encoded into the html to make the transition between the page and the app smoother. In the end you're dealing with a HTML page, so anything goes!</p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>In conclusion, if you have an app that contains important features, you can use this trick as an alternative to allow your users to create icons that go straight to them directly from their home screen.</p>
+ <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
+ <h2>References and Good reads</h2>
+ <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">Apple's PWA docs</a>
+ <br>
+</div></div>
                               
    
 
@@ -361,7 +367,7 @@ February 20, 2019
   <!-- Mailchimp End -->
     <div class="copyright">
     <text>Copyright © 2016-2021 SwiftRocks.</text>
-    <text><a href="https://swiftrocks.com">Index</a> | <a href="sponsor">Sponsor</a></text>
+    <text><a href="https://swiftrocks.com">Index</a> | <a href="sponsor-advertise-at-swiftrocks">Sponsor</a></text>
     </div>
 
     </div>

@@ -1,26 +1,34 @@
 
-<!--WRITEIT_POST_NAME=Writing Custom Pattern Matching in Swift-->
-<!--WRITEIT_POST_HTML_NAME=writing-custom-pattern-matching-rules-in-swift-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00-->
+ 
+  
+  <!--WRITEIT_POST_NAME=Writing Custom Pattern Matching in Swift--> 
+  <!--WRITEIT_POST_HTML_NAME=writing-custom-pattern-matching-rules-in-swift--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
+  <!--Add here the additional properties that you want each page to possess.--> 
+  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
+  <!--Properties must start with 'WRITE_IT_POST'.--> 
+  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
+  <!--WRITEIT_POST_SHORT_DESCRIPTION=Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like switch cases. While regular switch cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of switches to result in really cool and short lines of code.--> 
+  <title>Writing Custom Pattern Matching in Swift</title>  
+ 
 
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITE_IT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like switch cases. While regular switch cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of switches to result in really cool and short lines of code.-->
-
-<title>Writing Custom Pattern Matching in Swift</title>
-         <div class="col-md-12 blog-post"> 
-          <div class="post-title"> 
-           <h1>Writing Custom Pattern Matching in Swift</h1> 
-          </div> 
-          <div class="post-info">August 8, 2018</div> 
-          <p>Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like <code>switch</code> cases. While regular <code>switch</code> cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of <code>switches</code> to result in really cool and short lines of code. One thing that interests me in particular is that pattern matching can be used for a wide variety of things.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>At first glance, it's easy to see pattern matching as simple equality checks:</p>
-<pre class = "language-swift"><code class="language-swift">switch 80 {
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>Writing Custom Pattern Matching in Swift</h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-swift">
+   Swift
+  </div> 
+  <div class="post-info-text">
+   Published on 08 Aug 2018 
+  </div> 
+ </div>  
+ <p>Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like <code>switch</code> cases. While regular <code>switch</code> cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of <code>switches</code> to result in really cool and short lines of code. One thing that interests me in particular is that pattern matching can be used for a wide variety of things.</p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>At first glance, it's easy to see pattern matching as simple equality checks:</p>
+ <pre class="language-swift"><code class="language-swift">switch 80 {
 case 100:
     //
 case 80:
@@ -29,13 +37,13 @@ default:
     break
 }
 </code></pre>
-<p>Given that, you might think that something like <code>case "eighty"</code> wouldn't compile, after all, <code>"eighty"</code> and <code>80</code> aren't even the same type - and it's indeed what happens if you try it right now:</p>
-<pre class = "language-swift"><code class="language-swift">if case "eighty" = 80 {
+ <p>Given that, you might think that something like <code>case "eighty"</code> wouldn't compile, after all, <code>"eighty"</code> and <code>80</code> aren't even the same type - and it's indeed what happens if you try it right now:</p>
+ <pre class="language-swift"><code class="language-swift">if case "eighty" = 80 {
     //error: expression pattern of type 'String' cannot match values of type 'Int'
 }
 </code></pre>
-<p>But that's not necessarily the case. When developing your projects, you might have noticed that some types have special interactions between each other, such as <code>Ranges</code> and their associated types:</p>
-<pre class = "language-swift"><code class="language-swift">switch 80 {
+ <p>But that's not necessarily the case. When developing your projects, you might have noticed that some types have special interactions between each other, such as <code>Ranges</code> and their associated types:</p>
+ <pre class="language-swift"><code class="language-swift">switch 80 {
 case 0...20:
 	break
 case 21...50:
@@ -46,18 +54,18 @@ default:
     break
 }
 </code></pre>
-<p>The reason for this is the <code>~=</code> <b>pattern matching operator</b>. This operator doesn't see much use in regular projects (you might have seen it before for this exact <i>is number inside range</i> example), but it is used a lot internally in Swift and it's exactly what's used to confirm case statements.</p>
-<p>For most cases, the operator is a simple wrapper for an equality check (like the <code>Int</code> example), but <code>Range</code> has a special implementation for <code>~=</code> when used against its own associated type, allowing it to have this custom behaviour when pattern matching:</p>
-<pre class = "language-swift"><code class="language-swift">extension RangeExpression {
+ <p>The reason for this is the <code>~=</code> <b>pattern matching operator</b>. This operator doesn't see much use in regular projects (you might have seen it before for this exact <i>is number inside range</i> example), but it is used a lot internally in Swift and it's exactly what's used to confirm case statements.</p>
+ <p>For most cases, the operator is a simple wrapper for an equality check (like the <code>Int</code> example), but <code>Range</code> has a special implementation for <code>~=</code> when used against its own associated type, allowing it to have this custom behaviour when pattern matching:</p>
+ <pre class="language-swift"><code class="language-swift">extension RangeExpression {
     @inlinable
-    public static func ~= (pattern: Self, value: Bound) -> Bool {
+    public static func ~= (pattern: Self, value: Bound) -&gt; Bool {
       return pattern.contains(value)
     }
 }
 </code></pre>
-<p>And since <code>~=</code> is available globally, you can overload it in order to write your own pattern matching logic!</p>
-<p>To make <code>"eighty"</code> match <code>80</code>, for example, all you need to do is add a version of the operator that matches <code>String</code> patterns with <code>Int</code> values:</p>
-<pre class = "language-swift"><code class="language-swift">func ~= (pattern: String, value: Int) -> Bool {
+ <p>And since <code>~=</code> is available globally, you can overload it in order to write your own pattern matching logic!</p>
+ <p>To make <code>"eighty"</code> match <code>80</code>, for example, all you need to do is add a version of the operator that matches <code>String</code> patterns with <code>Int</code> values:</p>
+ <pre class="language-swift"><code class="language-swift">func ~= (pattern: String, value: Int) -&gt; Bool {
     if pattern == "eighty" {
         return value == 80
     } else if pattern == "not eighty" {
@@ -76,8 +84,8 @@ default:
    break
 }
 </code></pre>
-<p>Now let's say my app recieved a deep link in the shape of a path string and I need to decide which of my tabBar's <code>UIViewControllers</code> this deep link belongs too - in the form of a <code>AppTab</code> type:</p>
-<pre class = "language-swift"><code class="language-swift">enum AppTab: String {
+ <p>Now let's say my app recieved a deep link in the shape of a path string and I need to decide which of my tabBar's <code>UIViewControllers</code> this deep link belongs too - in the form of a <code>AppTab</code> type:</p>
+ <pre class="language-swift"><code class="language-swift">enum AppTab: String {
     case home
     case orderHistory
     case profile
@@ -85,8 +93,8 @@ default:
 
 let deepLink = DeepLink(path: "home", parameters: [:])
 </code></pre>
-<p>There are several ways to do this, including adding a <code>correspondingTab</code> property to the deep link itself or subclassing the <code>DeepLink</code> type, but with custom pattern matching, this attribution can be one-lined without having to touch the <code>DeepLink</code> type!</p>
-<pre class = "language-swift"><code class="language-swift">func ~= (pattern: AppTab, value: DeepLink) -> Bool {
+ <p>There are several ways to do this, including adding a <code>correspondingTab</code> property to the deep link itself or subclassing the <code>DeepLink</code> type, but with custom pattern matching, this attribution can be one-lined without having to touch the <code>DeepLink</code> type!</p>
+ <pre class="language-swift"><code class="language-swift">func ~= (pattern: AppTab, value: DeepLink) -&gt; Bool {
     return value.path.hasPrefix(pattern.rawValue)
 }
 
@@ -101,9 +109,9 @@ default:
     break
 }
 </code></pre>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>This allows you to bypass having to map broader types into more specific ones, such as how an <code>Int</code> can be mapped to a <code>WeekDay</code> enum. In this case in particular, your backend would return you the week day either as an <code>Int</code> or a <code>String</code>, and with custom pattern matching you can make use of this broader type while still treating it like it was mapped to the more specific enum type. This can be useful when you want to try concepts without commiting to certain approachs or types:</p>
-<pre class = "language-swift"><code class="language-swift">enum WeekDay: Int {
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>This allows you to bypass having to map broader types into more specific ones, such as how an <code>Int</code> can be mapped to a <code>WeekDay</code> enum. In this case in particular, your backend would return you the week day either as an <code>Int</code> or a <code>String</code>, and with custom pattern matching you can make use of this broader type while still treating it like it was mapped to the more specific enum type. This can be useful when you want to try concepts without commiting to certain approachs or types:</p>
+ <pre class="language-swift"><code class="language-swift">enum WeekDay: Int {
     case sunday
     case monday
     case tuesday
@@ -113,7 +121,7 @@ default:
     case saturday
 }
 
-func ~= (pattern: WeekDay, value: Int) -> Bool {
+func ~= (pattern: WeekDay, value: Int) -&gt; Bool {
     return pattern.rawValue == value
 }
 
@@ -124,7 +132,8 @@ if case .friday? = nextHoliday?.weekDay {
     print("Woohoo!")
 }
 </code></pre>
-<p>Creation of custom patterns is a simple way to write cleaner code without too much effort, as you can leverage <code>cases</code> to jump straight to the point without having to add additional properties to your types - while making sure your code doesn't become harder to understand.</p>
-<h2>References and Good reads</h2>
-<a href="https://docs.swift.org/swift-book/ReferenceManual/Patterns.html">Apple Docs: Patterns</a><br>
-         </div>
+ <p>Creation of custom patterns is a simple way to write cleaner code without too much effort, as you can leverage <code>cases</code> to jump straight to the point without having to add additional properties to your types - while making sure your code doesn't become harder to understand.</p>
+ <h2>References and Good reads</h2>
+ <a href="https://docs.swift.org/swift-book/ReferenceManual/Patterns.html">Apple Docs: Patterns</a>
+ <br>
+</div>

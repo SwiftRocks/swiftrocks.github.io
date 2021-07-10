@@ -1,40 +1,51 @@
 
-<!--WRITEIT_POST_NAME=Creating a licensing system for paid apps in Swift-->
-<!--WRITEIT_POST_HTML_NAME=creating-a-license-system-for-paid-apps-in-swift-->
+ 
+  
+  <!--WRITEIT_POST_NAME=Creating a licensing system for paid apps in Swift--> 
+  <!--WRITEIT_POST_HTML_NAME=creating-a-license-system-for-paid-apps-in-swift--> 
+  <!--Add here the additional properties that you want each page to possess.--> 
+  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
+  <!--Properties must start with 'WRITEIT_POST'.--> 
+  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
+  <!--WRITEIT_POST_SHORT_DESCRIPTION=The easiest way is to create a paid macOS app is to simply put a price tag in the App Store, but it's a common practice nowadays to provide a free download that can later be upgraded to a pro version. In this article, we'll use our knowledge of serial numbers and asymmetric cryptography to create license files that cannot be reverse-engineered and use them to activate an app's premium features.--> 
+  <!--DateFormat example: 2020-04-12T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-04-06T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE=2021-04-06T14:00:00+02:00--> 
+  <title>$WRITEIT_POST_NAME</title>  
+ 
 
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=The easiest way is to create a paid macOS app is to simply put a price tag in the App Store, but it's a common practice nowadays to provide a free download that can later be upgraded to a pro version. In this article, we'll use our knowledge of serial numbers and asymmetric cryptography to create license files that cannot be reverse-engineered and use them to activate an app's premium features.-->
-
-<!--DateFormat example: 2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-04-06T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-04-06T14:00:00+02:00-->
-
-<title>$WRITEIT_POST_NAME</title>
-<div class="col-md-12 blog-post"> 
-<div class="post-title"> 
-  <h1>$WRITEIT_POST_NAME</h1> 
-</div> 
-<div class="post-info"> 
-April 6th, 2021
-</div>
-<p>The easiest way is to create a paid macOS app is to simply put a price tag in the App Store, but it's a common practice nowadays to provide a free download that can later be upgraded to a pro version. In this article, we'll use our knowledge of serial numbers and asymmetric cryptography to create license files that cannot be reverse-engineered and use them to activate an app's premium features.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>The safest way to include a "pro" version in your app is to have a backend that is capable of providing content to premium users, but not every app falls into this category. If what you're developing is an offline productivity tool, then you might not have a backend at all. The easiest alternative is this case is to add an in-app purchase for the pro version, but for macOS apps, you might want to not use the App Store at all. In these cases, you'll have to ship your own licensing system that is capable of validating and upgrading an instance of the app.</p>
-<p>A simple way to achieve this is to provide serial numbers -- a system in which a user of the app can purchase one of these numbers and input it into the app to unlock its premium features. But how do you know the code is <b>legitimate</b>? Is it possible to confirm that the code was 100%, without a shadow of a doubt, provided by you, and not faked by someone who reverse-engineered the logic?</p>
-<h2>Serial numbers in the past</h2>
-<p>In the mid-2000s, serial numbers were a very common way to validate purchases, and every software/game you bought from a store would come with a serial number in the box which you had to input when installing it to prove that you were in possession of a legitimate copy of the software. However, serial numbers at the time were also very flawed. The validation logic was often some sort of hash function that was calculated on top of the serial number, and because this all happened offline, it wasn't very hard for a hacker to decompile the software and find out what this logic was. In fact, decompilers like Hopper nowadays are so good that they can even convert the decompiled assembly code into a pretty readable pseudo C code, making it pretty easy to figure out how an app works. Hackers would then use this logic to create <b>keygens</b> that could produce <i>fake</i> serial numbers that these apps would naively accept as being legitimate. If you ever pirated anything from the time, you definitely used one of these!</p>
-<p>Fortunately, with modern cryptography, the serial number system has been since replaced by a much more secure system that is practically impossible to break. Let's see how it works and how to implement one in Swift.</p>
-<h2>Creating an unbreakable(*) licensing system</h2>
-<p><i>* (Note: When I say unbreakable, I mean that it's impossible for someone to create fake licenses without modifying the app itself. If the validation process is placed in the client and a hacker decompiles your binary, they can simply disable the validation process and distribute a cracked version of your app. If you want to be truly unhackable, you should only serve content from a backend.)</i></p>
-<p>As we've seen above, the biggest flaw in serial number systems is that the validation logic could simply be reverse engineered and reproduced to generate fake keys that the apps would think are legit. This seems like a dead-end scenario because we absolutely can't prevent the app from being reverse engineered, but we actually <i>can</i> prevent the reverse-engineered logic from being reproduced.</p>
-<p>You might think this doesn't make sense, because if they know how the app validates a key, then you surely have all the tools you need to create a fake one, right? If you thought that, you're actually correct. But the thing is not that it's <b>impossible</b> for someone to reproduce it, it's that it's <b>technically unfeasible</b>.</p>
-<p>The system we'll implement in this article is called a <b>digital signature</b>, and it works around asymmetric encryption (private/public key). Digital signatures work by providing some arbitrary data (for example, the name of the person who purchased the license) and a serial number, which we'll now call a <b>signature</b>. This signature was created by encrypting that data with one of the keys, and by inputting both the data and the signature into the app, the app can validate it by decrypting the signature with the other key of the pair and checking that the resulting value is equal to the accompanying data.</p>
-<p>There's only one additional requirement we'll add to this system: Instead of encrypting the raw data, we'll instead encrypt a <i>hash</i> of it (which we'll call a <b>digest</b>). This is mainly for performance reasons since asymmetric encryption is meant to be used for small pieces of data, but also to prevent a security issue we'll see later on.</p>
-<pre>
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>Creating a licensing system for paid apps in Swift</h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-swift">
+   Swift
+  </div> 
+  <div class="category category-ios">
+   iOS
+  </div> 
+  <div class="post-info-text">
+   Published on 06 Apr 2021 
+  </div> 
+ </div>  
+ <div class="post-image"> 
+  <img src="https://i.imgur.com/f2r6hL5.png" alt="License View"> 
+ </div> 
+ <p>The easiest way is to create a paid macOS app is to simply put a price tag in the App Store, but it's a common practice nowadays to provide a free download that can later be upgraded to a pro version. In this article, we'll use our knowledge of serial numbers and asymmetric cryptography to create license files that cannot be reverse-engineered and use them to activate an app's premium features.</p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>The safest way to include a "pro" version in your app is to have a backend that is capable of providing content to premium users, but not every app falls into this category. If what you're developing is an offline productivity tool, then you might not have a backend at all. The easiest alternative is this case is to add an in-app purchase for the pro version, but for macOS apps, you might want to not use the App Store at all. In these cases, you'll have to ship your own licensing system that is capable of validating and upgrading an instance of the app.</p>
+ <p>A simple way to achieve this is to provide serial numbers -- a system in which a user of the app can purchase one of these numbers and input it into the app to unlock its premium features. But how do you know the code is <b>legitimate</b>? Is it possible to confirm that the code was 100%, without a shadow of a doubt, provided by you, and not faked by someone who reverse-engineered the logic?</p>
+ <h2>Serial numbers in the past</h2>
+ <p>In the mid-2000s, serial numbers were a very common way to validate purchases, and every software/game you bought from a store would come with a serial number in the box which you had to input when installing it to prove that you were in possession of a legitimate copy of the software. However, serial numbers at the time were also very flawed. The validation logic was often some sort of hash function that was calculated on top of the serial number, and because this all happened offline, it wasn't very hard for a hacker to decompile the software and find out what this logic was. In fact, decompilers like Hopper nowadays are so good that they can even convert the decompiled assembly code into a pretty readable pseudo C code, making it pretty easy to figure out how an app works. Hackers would then use this logic to create <b>keygens</b> that could produce <i>fake</i> serial numbers that these apps would naively accept as being legitimate. If you ever pirated anything from the time, you definitely used one of these!</p>
+ <p>Fortunately, with modern cryptography, the serial number system has been since replaced by a much more secure system that is practically impossible to break. Let's see how it works and how to implement one in Swift.</p>
+ <h2>Creating an unbreakable(*) licensing system</h2>
+ <p><i>* (Note: When I say unbreakable, I mean that it's impossible for someone to create fake licenses without modifying the app itself. If the validation process is placed in the client and a hacker decompiles your binary, they can simply disable the validation process and distribute a cracked version of your app. If you want to be truly unhackable, you should only serve content from a backend.)</i></p>
+ <p>As we've seen above, the biggest flaw in serial number systems is that the validation logic could simply be reverse engineered and reproduced to generate fake keys that the apps would think are legit. This seems like a dead-end scenario because we absolutely can't prevent the app from being reverse engineered, but we actually <i>can</i> prevent the reverse-engineered logic from being reproduced.</p>
+ <p>You might think this doesn't make sense, because if they know how the app validates a key, then you surely have all the tools you need to create a fake one, right? If you thought that, you're actually correct. But the thing is not that it's <b>impossible</b> for someone to reproduce it, it's that it's <b>technically unfeasible</b>.</p>
+ <p>The system we'll implement in this article is called a <b>digital signature</b>, and it works around asymmetric encryption (private/public key). Digital signatures work by providing some arbitrary data (for example, the name of the person who purchased the license) and a serial number, which we'll now call a <b>signature</b>. This signature was created by encrypting that data with one of the keys, and by inputting both the data and the signature into the app, the app can validate it by decrypting the signature with the other key of the pair and checking that the resulting value is equal to the accompanying data.</p>
+ <p>There's only one additional requirement we'll add to this system: Instead of encrypting the raw data, we'll instead encrypt a <i>hash</i> of it (which we'll call a <b>digest</b>). This is mainly for performance reasons since asymmetric encryption is meant to be used for small pieces of data, but also to prevent a security issue we'll see later on.</p>
+ <pre>
 <code>//--- How Digital Signatures Work ---</code>
 <code></code>
 <code>// Data: An arbitrary piece of data, like the user's name.</code>
@@ -57,92 +68,92 @@ April 6th, 2021
 <code>    print("Invalid license!")</code>
 <code>}</code>
 </pre>
-<p>If the validation succeeds, then the signature is absolutely legitimate. As you might know from asymmetric encryption, something encrypted by one key can <b>only</b> be decrypted by the other, so if you decrypt a value and it matches what you expected, then that value has 100% been generated by the other key of the pair.</p>
-<p>The security of digital signatures comes from the fact that you can make it impossible for a hacker to have access to both keys. The idea is that you can ship your app with one of the keys (the "public key") so you can validate signatures, but the generation of these signatures will happen privately and safely inside your backend when a user purchases a license. Because the key that generates the signatures (the "private key") is never exposed to the outside world, a hacker would never be able to intercept it, making the creation of fake licenses impossible unless they kidnap you or spend <a href="https://bitcoin.stackexchange.com/questions/2847/how-long-would-it-take-a-large-computer-to-crack-a-private-key">0.65 billion billion</a> years trying to brute-force all possible combinations.</p>
-<h2>Can we break digital signatures by reversing the process?</h2>
-<p>Let's use intuition to validate the safety of a digital signature. We know the following:</p>
-<pre>
+ <p>If the validation succeeds, then the signature is absolutely legitimate. As you might know from asymmetric encryption, something encrypted by one key can <b>only</b> be decrypted by the other, so if you decrypt a value and it matches what you expected, then that value has 100% been generated by the other key of the pair.</p>
+ <p>The security of digital signatures comes from the fact that you can make it impossible for a hacker to have access to both keys. The idea is that you can ship your app with one of the keys (the "public key") so you can validate signatures, but the generation of these signatures will happen privately and safely inside your backend when a user purchases a license. Because the key that generates the signatures (the "private key") is never exposed to the outside world, a hacker would never be able to intercept it, making the creation of fake licenses impossible unless they kidnap you or spend <a href="https://bitcoin.stackexchange.com/questions/2847/how-long-would-it-take-a-large-computer-to-crack-a-private-key">0.65 billion billion</a> years trying to brute-force all possible combinations.</p>
+ <h2>Can we break digital signatures by reversing the process?</h2>
+ <p>Let's use intuition to validate the safety of a digital signature. We know the following:</p>
+ <pre>
 <code>PrivateKey + Data = Signature</code>
 <code>PublicKey + Signature = Data</code>
 </pre>
-<p>A hacker can't intercept the private key, so they can't generate a valid signature for a certain piece of data. However, they can definitely extract the public key from your app's binary. What if they input something random as the signature and attempt to decrypt it with the key? What do you think the result will be?</p>
-<pre>
+ <p>A hacker can't intercept the private key, so they can't generate a valid signature for a certain piece of data. However, they can definitely extract the public key from your app's binary. What if they input something random as the signature and attempt to decrypt it with the key? What do you think the result will be?</p>
+ <pre>
 <code>PublicKey + MyRandomValue = X</code>
 </pre>
-<p>The result, X, will be the arbitrary data value that would cause the private key to generate this signature!</p>
-<pre>
+ <p>The result, X, will be the arbitrary data value that would cause the private key to generate this signature!</p>
+ <pre>
 <code>PrivateKey + X = MyRandomValue</code>
 <code>PublicKey + MyRandomValue = X</code>
 </pre>
-<p>Thus, even though a hacker doesn't know what the private key is, they can still find the data that matches a given signature by reversing the process. This is precisely why we need to first hash the data with a strong algorithm like SHA-512 -- even though hackers can easily find the X that matches a particular signature, that X will simply be the digest of the original data. The app will not validate that signature unless they figure out what data generated that digest, and unless they can <a href="https://www.quora.com/How-long-would-it-take-to-crack-SHA-256">literally survive the end of the universe</a>, they probably won't.</p>
-<p>On a different note, the advancements being made to computers (especially quantum ones) are slowly making this possible, with researches suggesting that brute-forcing algorithms like SHA-256 might become feasible sometime around 2030. However, by that time, you'll have hopefully already have migrated to whatever the standards of 2030 for security would be.</p>
-<h2>Implementing digital signatures in Swift</h2>
-<p>Before implementing a validation system, let's first define what our license key/validation will look like. You can use anything as your license keys, as long as it contains the data that we'll use to create the digest and the resulting signature. In this case, let's pretend that we have a <code>myApp.license</code> file that is essentially a JSON:</p>
-<pre>
+ <p>Thus, even though a hacker doesn't know what the private key is, they can still find the data that matches a given signature by reversing the process. This is precisely why we need to first hash the data with a strong algorithm like SHA-512 -- even though hackers can easily find the X that matches a particular signature, that X will simply be the digest of the original data. The app will not validate that signature unless they figure out what data generated that digest, and unless they can <a href="https://www.quora.com/How-long-would-it-take-to-crack-SHA-256">literally survive the end of the universe</a>, they probably won't.</p>
+ <p>On a different note, the advancements being made to computers (especially quantum ones) are slowly making this possible, with researches suggesting that brute-forcing algorithms like SHA-256 might become feasible sometime around 2030. However, by that time, you'll have hopefully already have migrated to whatever the standards of 2030 for security would be.</p>
+ <h2>Implementing digital signatures in Swift</h2>
+ <p>Before implementing a validation system, let's first define what our license key/validation will look like. You can use anything as your license keys, as long as it contains the data that we'll use to create the digest and the resulting signature. In this case, let's pretend that we have a <code>myApp.license</code> file that is essentially a JSON:</p>
+ <pre>
 <code>{</code>
 <code>    "name": "Bruno Rocha"</code>
 <code>    "signature": "AUmrQ3cK+bZOjBPnrGV/3KWiTddu50zWvsas1tMlepc2zf="</code>
 <code>}</code>
 </pre>
-<p>In our app, we'll provide fields where the user can input this data.</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/f2r6hL5.png" alt="License View">
-</div>
-<h2>Generating Signatures</h2>
-<p>For this example, we'll assume that both the app and backend are written in Swift for simplicity.</p>
-<p>The first thing we need is a pair of encryption keys. It's possible to generate keys in Swift, but since the private key will be stored in the backend we'll use OpenSSL for simplicity. In this case, I want to generate a pair of 2048 bit RSA keys:</p>
-<pre>
+ <p>In our app, we'll provide fields where the user can input this data.</p>
+ <div class="post-image"> 
+  <img src="https://i.imgur.com/f2r6hL5.png" alt="License View"> 
+ </div>
+ <h2>Generating Signatures</h2>
+ <p>For this example, we'll assume that both the app and backend are written in Swift for simplicity.</p>
+ <p>The first thing we need is a pair of encryption keys. It's possible to generate keys in Swift, but since the private key will be stored in the backend we'll use OpenSSL for simplicity. In this case, I want to generate a pair of 2048 bit RSA keys:</p>
+ <pre>
 <code>// Generate a 2048 bit RSA private key</code>
 <code>openssl genrsa -out my_private_key.pem 2048</code>
 <code>// Extract public key out of it</code>
 <code>openssl rsa -in my_private_key.pem -outform PEM -pubout -out my_public_key.pem</code>
 </pre>
-<p>If you open these files with a text editor, you'll be able to extract the base64 representation of the keys that we'll need for the rest of this tutorial.</p>
-<p>Let's now assume that we want to generate a license file for someone who just bought a pro version of our app. We'll use the name of the user to create our digest and encrypt it to create the signature. Luckily for us, the <b>Security</b> framework has tons of built-in APIs and algorithms for digital signatures.</p>
-<p>Let's start by creating an instance of our private key. <b>Remember, this is supposed to be some backend code that nobody has access to. Do not reference your private key in the actual app!</b> It's perfectly fine to ship your public key as a hardcoded string in your app, but <b>never</b> expose your private key to the outside world. If you suspect your private key has leaked, invalidate the current public key, generate a brand new pair of keys and restart the process.</b></p>
-<pre>
+ <p>If you open these files with a text editor, you'll be able to extract the base64 representation of the keys that we'll need for the rest of this tutorial.</p>
+ <p>Let's now assume that we want to generate a license file for someone who just bought a pro version of our app. We'll use the name of the user to create our digest and encrypt it to create the signature. Luckily for us, the <b>Security</b> framework has tons of built-in APIs and algorithms for digital signatures.</p>
+ <p>Let's start by creating an instance of our private key. <b>Remember, this is supposed to be some backend code that nobody has access to. Do not reference your private key in the actual app!</b> It's perfectly fine to ship your public key as a hardcoded string in your app, but <b>never</b> expose your private key to the outside world. If you suspect your private key has leaked, invalidate the current public key, generate a brand new pair of keys and restart the process.</p>
+ <pre>
 <code>import Security</code>
 <code></code>
-<code>func getPrivateKey(_ base64PrivateKeyString: String) throws -> SecKey {</code>
+<code>func getPrivateKey(_ base64PrivateKeyString: String) throws -&gt; SecKey {</code>
 <code>    let data = Data(base64Encoded: base64PrivateKeyString, options: [])!</code>
 <code></code>
 <code>    let options: [String: Any] = [kSecAttrKeyType as String: kSecAttrKeyTypeRSA,</code>
 <code>                                  kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,</code>
 <code>                                  kSecAttrKeySizeInBits as String: 2048]</code>
 <code></code>
-<code>    var error: Unmanaged&lt;CFError>?</code>
+<code>    var error: Unmanaged&lt;CFError&gt;?</code>
 <code>    guard let privateKey = SecKeyCreateWithData(</code>
 <code>        data as CFData,</code>
 <code>        options as CFDictionary,</code>
-<code>        &error</code>
+<code>        &amp;error</code>
 <code>    ) else {</code>
 <code>        throw error!.takeRetainedValue() as Error</code>
 <code>    }</code>
 <code>    return privateKey</code>
 <code>}</code>
 </pre>
-<p>To create a signature, we can call Security's<code>SecKeyCreateSignature</code> method:</p>
-<pre>
-<code>func sign(userName: String, withKey privateKey: SecKey) throws -> String {</code>
+ <p>To create a signature, we can call Security's<code>SecKeyCreateSignature</code> method:</p>
+ <pre>
+<code>func sign(userName: String, withKey privateKey: SecKey) throws -&gt; String {</code>
 <code>    let data = userName.data(using: .utf8)!</code>
-<code>    var error: Unmanaged&lt;CFError>?</code>
+<code>    var error: Unmanaged&lt;CFError&gt;?</code>
 <code>    guard let signature = SecKeyCreateSignature(</code>
 <code>            privateKey,</code>
 <code>            .rsaSignatureMessagePKCS1v15SHA512,</code>
 <code>            data as CFData,</code>
-<code>            &error</code>
+<code>            &amp;error</code>
 <code>    ) as Data? else {</code>
 <code>        throw error!.takeRetainedValue() as Error</code>
 <code>    }</code>
 <code>    return signature.base64EncodedString()</code>
 <code>}</code>
 </pre>
-<p>This method takes an algorithm, and you might notice that there are several options. They simply represent different encryption methods, and in this case we'll want to select <code>.rsaSignatureMessagePKCS1v15SHA512</code>. What this long name means is that we'll take a <b>message</b> (the user's name, in this case), create a digest using <b>SHA-512</b> (our hashing algorithm of choice for this article) and encrypt it with an RSA asymmetric key (the one we just created) that follows the basic definitions of the Public Key Cryptography Standards.</p>
-<p>The other algorithms are simply variations of this format. For example, if you prefer hashing the data yourself, you could use the series of enums that are named <code>SignatureDigest</code> instead of <code>SignatureMessage</code> to indicate that the data is already hashed. You can use these variations to use different hashing algorithms, and even different forms of asymmetric encryption like elliptic curve keys (ECDSA).</p>
-<p>If your backend isn't written in Swift, it's likely that your programming language of choice has its own APIs for digital signatures. In the event that it doesn't, you can reproduce this algorithm by simply hashing the data yourself and encrypting the resulting digest.</p>
-<p>Once the signature is successfully generated, we can create a license key in the format we created above and return it to the user.</p>
-<pre>
-<code>func createLicense(forUser userName: String) throws -> String {</code>
+ <p>This method takes an algorithm, and you might notice that there are several options. They simply represent different encryption methods, and in this case we'll want to select <code>.rsaSignatureMessagePKCS1v15SHA512</code>. What this long name means is that we'll take a <b>message</b> (the user's name, in this case), create a digest using <b>SHA-512</b> (our hashing algorithm of choice for this article) and encrypt it with an RSA asymmetric key (the one we just created) that follows the basic definitions of the Public Key Cryptography Standards.</p>
+ <p>The other algorithms are simply variations of this format. For example, if you prefer hashing the data yourself, you could use the series of enums that are named <code>SignatureDigest</code> instead of <code>SignatureMessage</code> to indicate that the data is already hashed. You can use these variations to use different hashing algorithms, and even different forms of asymmetric encryption like elliptic curve keys (ECDSA).</p>
+ <p>If your backend isn't written in Swift, it's likely that your programming language of choice has its own APIs for digital signatures. In the event that it doesn't, you can reproduce this algorithm by simply hashing the data yourself and encrypting the resulting digest.</p>
+ <p>Once the signature is successfully generated, we can create a license key in the format we created above and return it to the user.</p>
+ <pre>
+<code>func createLicense(forUser userName: String) throws -&gt; String {</code>
 <code>    //// Remember: This is private backend code. Do not leak your private key!</code>
 <code>    //// PS: If you generated the key with OpenSSL, you need to remove the newlines for the key creation to work.</code>
 <code>    let privateKeyStringBase64 = "" // Add your key's base64 here</code>
@@ -158,30 +169,30 @@ April 6th, 2021
 <code>    """</code>
 <code>}</code>
 </pre>
-<p>With my private key, the result of calling <code>createLicense(forUser: "Bruno Rocha")</code> looked like this:</p>
-<pre>
+ <p>With my private key, the result of calling <code>createLicense(forUser: "Bruno Rocha")</code> looked like this:</p>
+ <pre>
 <code>{</code>
 <code>  "name": "Bruno Rocha",</code>
 <code>  "signature": "VloolUI253gfWBBnCMXARpU/QdjOMbRaGtuNsm+60CMNVRzcvelqoN8yQ3Yy6TY1Hcrl738oJcunqUCvGyR8/3/38+zy96tUzqW7U4MDJtI+jIHD7/4IvQ5Pn9vUJ4zFXz0RiEqf4lgiuqOv8IcD7VuWpXzmMMq13HpxpHb3QoRZx9CTAUwhsVqcJV2NoYAIlHsOB89ptL1/abmH4IkSlXslLxtDeijcShxlUR08XXU3+sGjU0H796KTkSTuqotF11sz9kxWBqCoxL5dGJpxlgV8cTg8vHJl4jvGK4IzKIuWcTGBLkXZ+2NN8m/rW8Lpknxq0kiK4TXvbw/GmKeqPA=="</code>
 <code>}</code>
 </pre>
-<p>Now, with possession of the license file, this user can use this JSON to activate their copy of the app.</p>
-<h2>Validating a digital signature in the app</h2>
-<p>To validate the user's license in the app, we must decrypt the signature and check that the result is equal to the hash of our data of choice (the user's name). Like with the creation of the signature, <b>Security</b> provides the <code>SecKeyVerifySignature</code> API to make this easy for us!</p>
-<p>But before doing that, we need to create an instance of our <b>public</b> key. Unlike before, the logic from now on should live inside the app:</p>
-<pre>
-<code>func getPublicKey(_ base64PublicKeyString: String) throws -> SecKey {</code>
+ <p>Now, with possession of the license file, this user can use this JSON to activate their copy of the app.</p>
+ <h2>Validating a digital signature in the app</h2>
+ <p>To validate the user's license in the app, we must decrypt the signature and check that the result is equal to the hash of our data of choice (the user's name). Like with the creation of the signature, <b>Security</b> provides the <code>SecKeyVerifySignature</code> API to make this easy for us!</p>
+ <p>But before doing that, we need to create an instance of our <b>public</b> key. Unlike before, the logic from now on should live inside the app:</p>
+ <pre>
+<code>func getPublicKey(_ base64PublicKeyString: String) throws -&gt; SecKey {</code>
 <code>    let data = Data(base64Encoded: base64PublicKeyString, options: [])!</code>
 <code></code>
 <code>    let options: [String: Any] = [kSecAttrKeyType as String: kSecAttrKeyTypeRSA,</code>
 <code>                                  kSecAttrKeyClass as String: kSecAttrKeyClassPublic,</code>
 <code>                                  kSecAttrKeySizeInBits as String: 2048]</code>
 <code></code>
-<code>    var error: Unmanaged&lt;CFError>?</code>
+<code>    var error: Unmanaged&lt;CFError&gt;?</code>
 <code>    guard let publicKey = SecKeyCreateWithData(</code>
 <code>        data as CFData,</code>
 <code>        options as CFDictionary,</code>
-<code>        &error</code>
+<code>        &amp;error</code>
 <code>    ) else {</code>
 <code>        throw error!.takeRetainedValue() as Error</code>
 <code>    }</code>
@@ -189,22 +200,22 @@ April 6th, 2021
 <code>    return publicKey</code>
 <code>}</code>
 </pre>
-<p>With possession of the key, we can validate the signature by inputting it and the data into <code>SecKeyVerifySignature</code>. The most important thing here is the algorithm of choice: It must match the one that created the signature.</p>
-<pre>
-<code>func validateLicense(userName: String, signature: String, publicKey: SecKey) -> Bool {</code>
+ <p>With possession of the key, we can validate the signature by inputting it and the data into <code>SecKeyVerifySignature</code>. The most important thing here is the algorithm of choice: It must match the one that created the signature.</p>
+ <pre>
+<code>func validateLicense(userName: String, signature: String, publicKey: SecKey) -&gt; Bool {</code>
 <code>    let message = userName.data(using: .utf8)!</code>
 <code>    guard let signatureData = Data(base64Encoded: signature) else {</code>
 <code>        print("The signature isn't a base64 string!")</code>
 <code>        return false</code>
 <code>    }</code>
 <code></code>
-<code>    var error: Unmanaged&lt;CFError>?</code>
+<code>    var error: Unmanaged&lt;CFError&gt;?</code>
 <code>    if SecKeyVerifySignature(</code>
 <code>        publicKey,</code>
 <code>        .rsaSignatureMessagePKCS1v15SHA512,</code>
 <code>        message as CFData,</code>
 <code>        signatureData as CFData,</code>
-<code>        &error</code>
+<code>        &amp;error</code>
 <code>    ) {</code>
 <code>        return true</code>
 <code>    } else {</code>
@@ -215,9 +226,9 @@ April 6th, 2021
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>This function will return true if the license is valid, and print an error otherwise.</p>
-<p>Here's an example of this being used to check the previous signature. Try copying and pasting this to see the result yourself!</p>
-<pre>
+ <p>This function will return true if the license is valid, and print an error otherwise.</p>
+ <p>Here's an example of this being used to check the previous signature. Try copying and pasting this to see the result yourself!</p>
+ <pre>
 <code>// It's not a problem to hardcode your public keys in your app! A hacker won't be able to do anything with them.</code>
 <code>let publicKey = try! getPublicKey(</code>
 <code>    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArhBwaepKM5hZA4I/IZJ8oOTCbKMr+H5KZ3W4fx/ISMtZqbL6NJBNDLEqHCF/kA/Af9YbN5kFgQoysB9TzDCGnQMZ6nzMsne8muXklrPx7ApX317ckVVDph59mBNrx4IMYNM7BYCN2dv5RxraNFqHKQ9nDi510OIRHVGnKkulLa3RxGVVpTHs3GYI3rDiT/5a8Oi0Tku77lqeZDe368Kx7jsD8Pgxb+Xz7IQfh/H/xG/q9AfcDYNbmBgDbh/OH1+HF9t66/h7uXLPqEgMhkoc5jibd1h/7jFNAoMlB3o97KKGEAQjM61i5/Q1WpK5e1X4OIiFD+KpbERUwO1RvLToSwIDAQAB"</code>
@@ -234,8 +245,8 @@ April 6th, 2021
 <code>    print("The license is not valid!")</code>
 <code>}</code>
 </pre>
-<p>Try changing the user name or the signature to see what happens! Because I never shared my private key with you, you will never be able to create a different license that passes the validation. I, however, can create as many of them as I wish! Here are some other ones:</p>
-<pre>
+ <p>Try changing the user name or the signature to see what happens! Because I never shared my private key with you, you will never be able to create a different license that passes the validation. I, however, can create as many of them as I wish! Here are some other ones:</p>
+ <pre>
 <code>{</code>
 <code>  "name": "SwiftRocks",</code>
 <code>  "signature": "mKb5hIV2/bWkus0VWNEWUcPEoFDcRS6Uv6wpWpbekCSCQbfusOW1mhwntQTSLhIdL+Wl6FK/upW1ztGyij5Y2EE8LjUU0a7Fa2ItdwV8QVhDb/J8ftjpc7U3H2KV8khL61R6QIVzh4aQ1hxjQ0Zs2aaN7dvjprq8gfbBe4rxnKTyllAoXsKG7aCqFgGWdMQVq3wNtiILCh1MnUjk/yRt5fa4vv3l20xHfjPindPnxhTspNCtghuGcgdon5GaHKvNtVYQcsSx7PXvvQ1wpKpDT6juohS/Q+Jz8D4tikgThuFBDoExOXIlN5ZbQJwgNugwWmS8mdnpaw+cbOI88Fm/AA=="</code>
@@ -251,8 +262,8 @@ April 6th, 2021
 <code>  "signature": "rFT++9NEzcCsoxy0V8RRd7VOyO2aKfAQR0Cfwl1uLlbxp2ibRmZBRaAVWkCRw0YLOoNSb/VYkJVW++y04k+KWSq+X7QJcKpRfflZvyJCQczt8EVbYAcJrVSLyTpFVscxviwsuSFkVKsVzlJrfob/3+7YDg4hnTlBd1fvntzqUNomC0mzmyAuWcZs+EwVzHyQ7aGCnbn3tgbDq4W9TsKRjfEJBQOYrKX0WvWNpRUl5ScU5LL5wxE1Pt76CZUtBynrDlJHbRf0pNbWAdToFLUz6gJ+OqzeoUt/26ieEykfG0kwhLHKd8+N67nNWb3HuF5CiRkUoqC9nynKs4mUGmup0w=="</code>
 <code>}</code>
 </pre>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>We can now safely activate our app's premium features for these users.</p>
-<h2>Conclusion</h2>
-<p>As a final note, remember what was said in regards to the meaning of <i>uncrackable</i> in this context. Unless your app is serving 100% of its content from a backend, it's impossible to make it uncrackable. In this case, a hacker could simply edit the assembly of the app to invert the <code>if</code> that activates the premium features. Like a physical lock, security measures in macOS apps are simply deterrents, and you should keep that in mind when implementing features like this.</p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>We can now safely activate our app's premium features for these users.</p>
+ <h2>Conclusion</h2>
+ <p>As a final note, remember what was said in regards to the meaning of <i>uncrackable</i> in this context. Unless your app is serving 100% of its content from a backend, it's impossible to make it uncrackable. In this case, a hacker could simply edit the assembly of the app to invert the <code>if</code> that activates the premium features. Like a physical lock, security measures in macOS apps are simply deterrents, and you should keep that in mind when implementing features like this.</p>
 </div>

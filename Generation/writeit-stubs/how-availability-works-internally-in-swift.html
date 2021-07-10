@@ -1,81 +1,90 @@
 
-<!--WRITEIT_POST_NAME=How Swift API Availability Works Internally-->
-<!--WRITEIT_POST_HTML_NAME=how-availability-works-internally-in-swift-->
+ 
+  
+  <!--WRITEIT_POST_NAME=How Swift API Availability Works Internally--> 
+  <!--WRITEIT_POST_HTML_NAME=how-availability-works-internally-in-swift--> 
+  <!--Add here the additional properties that you want each page to possess.--> 
+  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
+  <!--Properties must start with 'WRITEIT_POST'.--> 
+  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
+  <!--WRITEIT_POST_SHORT_DESCRIPTION=We use API availability checks all the time, but have you wondered how the Swift compiler handles this? In this article, we'll take a deep dive on how the #availability condition works, how the Swift compiler is able to know if a specific symbol is available for usage and what the code you wrote looks like after being optimized.--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-09-29T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE=2020-09-29T14:00:00+02:00--> 
+  <title>$WRITEIT_POST_NAME</title>  
+ 
 
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=We use API availability checks all the time, but have you wondered how the Swift compiler handles this? In this article, we'll take a deep dive on how the #availability condition works, how the Swift compiler is able to know if a specific symbol is available for usage and what the code you wrote looks like after being optimized.-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-09-29T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2020-09-29T14:00:00+02:00-->
-
-<title>$WRITEIT_POST_NAME</title>
-<div class="col-md-12 blog-post"> 
-<div class="post-title"> 
-  <h1>$WRITEIT_POST_NAME</h1> 
-</div>
-<div class="post-info">
-September 29th, 2020
-</div>
-<p>We use API availability checks all the time to provide fallbacks for users running older iOS versions, but have you wondered <b>how the Swift compiler handles this?</b> In this article, we'll take a deep dive on how the <code>#availability</code> condition works, how the Swift compiler is able to know if a specific symbol is available for usage and what the code you wrote looks like after being optimized.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>I have recently authored an <a href="https://github.com/apple/swift-evolution/pull/1184">evolution proposal</a> to add a new <code>#unavailable</code> attribute to Swift, and while I haven't needed to do any meaningful work on Swift's availability system to implement it, this gave me the opportunity to learn a little more about things work deep down. Here's a deep dive on Swift's availability system!</p>
-<h2>Why are <code>#available</code> checks necessary?</h2>
-<p>While the reason <i>why</i> API availability checks are needed might be obvious, let's take a practical look at it for educational purposes before seeing how it works deep down.</p>
-<p>Every <code>UIKit</code> or <code>Foundation</code> code you use comes from the iOS SDKs in your machine. While users of new iOS versions can still use your app normally if you don't update your app to support the new version, you'll only be able to use the version's new features if you submit a version that links with the relevant SDK. Currently these SDKs are shipped within Xcode, so you can always expect newer iOS versions to accompany a new Xcode version as well. You can always find an Xcode's provided SDKs in the description of the version.</p>
-<p><code>Xcode 12 includes Swift 5.3 and SDKs for iOS 14, iPadOS 14, tvOS 14, watchOS 7 and maccOS Catalina.</code></p>
-<p>However, even though your app now links to the correct SDK and uses its features, you don't know if the users of your app have the latest iOS version installed! If you were allowed to ship your app without compatibility checks, an app using newer iOS features would crash when used in old versions because the SDK in that user's device will not have those symbols. Thus, unless you explicitly set your app's minimum deployment target to be the latest available iOS version, you must use Swift's <code>#available</code> condition to provide a suitable fallback for older versions.</p>
-<pre>
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>How Swift API Availability Works Internally</h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-compiler">
+   Compiler
+  </div> 
+  <div class="category category-swift">
+   Swift
+  </div> 
+  <div class="post-info-text">
+   Published on 29 Sep 2020 
+  </div> 
+ </div>  
+ <p>We use API availability checks all the time to provide fallbacks for users running older iOS versions, but have you wondered <b>how the Swift compiler handles this?</b> In this article, we'll take a deep dive on how the <code>#availability</code> condition works, how the Swift compiler is able to know if a specific symbol is available for usage and what the code you wrote looks like after being optimized.</p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>I have recently authored an <a href="https://github.com/apple/swift-evolution/pull/1184">evolution proposal</a> to add a new <code>#unavailable</code> attribute to Swift, and while I haven't needed to do any meaningful work on Swift's availability system to implement it, this gave me the opportunity to learn a little more about things work deep down. Here's a deep dive on Swift's availability system!</p>
+ <h2>Why are <code>#available</code> checks necessary?</h2>
+ <p>While the reason <i>why</i> API availability checks are needed might be obvious, let's take a practical look at it for educational purposes before seeing how it works deep down.</p>
+ <p>Every <code>UIKit</code> or <code>Foundation</code> code you use comes from the iOS SDKs in your machine. While users of new iOS versions can still use your app normally if you don't update your app to support the new version, you'll only be able to use the version's new features if you submit a version that links with the relevant SDK. Currently these SDKs are shipped within Xcode, so you can always expect newer iOS versions to accompany a new Xcode version as well. You can always find an Xcode's provided SDKs in the description of the version.</p>
+ <p><code>Xcode 12 includes Swift 5.3 and SDKs for iOS 14, iPadOS 14, tvOS 14, watchOS 7 and maccOS Catalina.</code></p>
+ <p>However, even though your app now links to the correct SDK and uses its features, you don't know if the users of your app have the latest iOS version installed! If you were allowed to ship your app without compatibility checks, an app using newer iOS features would crash when used in old versions because the SDK in that user's device will not have those symbols. Thus, unless you explicitly set your app's minimum deployment target to be the latest available iOS version, you must use Swift's <code>#available</code> condition to provide a suitable fallback for older versions.</p>
+ <pre>
 <code>if #available(iOS 14.0, *) {</code>
 <code>    SomeiOS14NewType()</code>
 <code>} else {</code>
 <code>    SomeOlderType()</code>
 <code>}</code>
 </pre>
-<p>Here, <code>(iOS 14.0, *)</code> means "If this is an iOS device, return <code>true</code> only if it contains the iOS 14 SDK. Always return <code>true</code> if this is a different platform (*)."</p>
-<p>You can only use platforms that are hardcoded into Swift (iOS, OSX, tvOS and watchOS), but you can use any version you wish. The Swift compiler funnily uses absurd version numbers to prevent things from running:</p>
-<pre>
+ <p>Here, <code>(iOS 14.0, *)</code> means "If this is an iOS device, return <code>true</code> only if it contains the iOS 14 SDK. Always return <code>true</code> if this is a different platform (*)."</p>
+ <p>You can only use platforms that are hardcoded into Swift (iOS, OSX, tvOS and watchOS), but you can use any version you wish. The Swift compiler funnily uses absurd version numbers to prevent things from running:</p>
+ <pre>
 <code>if #available(macOS 9999, iOS 9999, watchOS 9999, tvOS 9999, *) {</code>
 <code>  expectTrue(isP(CFBitVector.makeImmutable(from: [10, 20])))</code>
 <code>  expectTrue(isP(CFMutableBitVector.makeMutable(from: [10, 20])))</code>
 <code>}</code>
 </pre>
-<p>You can also lock types to work only when used in a very distant future, although that might not be really useful unless you're trying to predict future features, I guess.</p>
-<pre>
+ <p>You can also lock types to work only when used in a very distant future, although that might not be really useful unless you're trying to predict future features, I guess.</p>
+ <pre>
 <code>@available(iOS, introduced: 999)</code>
 <code>final class HologramCreator {}</code>
 <code></code>
 <code>HologramCreator()</code>
 <code>// 'HologramCreator' is only available in iOS 999 or newer</code>
 </pre>
-<h2>How Availability works in the Swift Compiler</h2>
-<p>In the compiler, the availability of symbols is treated during the type-checking phase.</p>
-<div class="post-image margin-top-40 margin-bottom-40">
-  <img src="https://i.imgur.com/xbVOfbq.png" alt="" style="background-color: #fff;">                                    
-</div>
-<p>If you haven't read my previous articles or need a refresher, the type-checking phase is when the compiler wants to determine if what you coded semantically correct. At this stage, the compiler has a basic <b>Abstract Syntax Tree</b> of your code that it knows to be correct in terms of structure, but it needs to know if what you're doing is actually possible. For example, does the type you're referencing actually contains the method you're calling? Are the return types correct?</p>
-<h3>Type Refinement Contexts for AST nodes</h3>
-<p>Naturally, checking if a symbol you're calling is available for usage falls into that phase. The compiler does it by building <b>Type Refinement Contexts</b>, which is a special structure that can hold any relevant additional information that a scope should have. Currently, this is only used for the very symbol availability we're interested in.</p>
-<p>The process starts when the compiler wants to type-check a statement that contains an availability check. Let's take this one as an example:</p>
-<pre>
+ <h2>How Availability works in the Swift Compiler</h2>
+ <p>In the compiler, the availability of symbols is treated during the type-checking phase.</p>
+ <div class="post-image margin-top-40 margin-bottom-40"> 
+  <img src="https://i.imgur.com/xbVOfbq.png" alt="" style="background-color: #fff;"> 
+ </div>
+ <p>If you haven't read my previous articles or need a refresher, the type-checking phase is when the compiler wants to determine if what you coded semantically correct. At this stage, the compiler has a basic <b>Abstract Syntax Tree</b> of your code that it knows to be correct in terms of structure, but it needs to know if what you're doing is actually possible. For example, does the type you're referencing actually contains the method you're calling? Are the return types correct?</p>
+ <h3>Type Refinement Contexts for AST nodes</h3>
+ <p>Naturally, checking if a symbol you're calling is available for usage falls into that phase. The compiler does it by building <b>Type Refinement Contexts</b>, which is a special structure that can hold any relevant additional information that a scope should have. Currently, this is only used for the very symbol availability we're interested in.</p>
+ <p>The process starts when the compiler wants to type-check a statement that contains an availability check. Let's take this one as an example:</p>
+ <pre>
 <code>if #available(iOS 14.0, *) {</code>
 <code></code>
 <code>} else {</code>
 <code></code>
 <code>}</code>
 </pre>
-<p>At this phase, the purpose of the compiler is to search for any availability conditions and build a proper refinement context if needed. For every condition, the compiler will extract the currently-being-built platform from the condition and attempt to build a <i>range</i> of available version numbers. In this case, the range will simply be <code>minimumTarget...iOS 14</code>, while the else branch will keep whatever its parent refinement context was unless your condition is checking for some <i>lower</i> than the current context (which would reduce it instead). The main refinement context allows you to freely use anything up to your app's minimum deployment target, which is why you don't need to bother with these checks when you have a sufficiently high deployment target.</p>
-<pre>
+ <p>At this phase, the purpose of the compiler is to search for any availability conditions and build a proper refinement context if needed. For every condition, the compiler will extract the currently-being-built platform from the condition and attempt to build a <i>range</i> of available version numbers. In this case, the range will simply be <code>minimumTarget...iOS 14</code>, while the else branch will keep whatever its parent refinement context was unless your condition is checking for some <i>lower</i> than the current context (which would reduce it instead). The main refinement context allows you to freely use anything up to your app's minimum deployment target, which is why you don't need to bother with these checks when you have a sufficiently high deployment target.</p>
+ <pre>
 <code>if #available(iOS 14.0, *) {</code>
 <code> // Symbol Availability: minimumTarget...iOS 14</code>
 <code>} else {</code>
 <code> // Symbol Availability: 0...minimumTarget (The default)</code>
 <code>}</code>
 </pre>
-<p>The fact that it works with ranges makes it possible for it to locate potentially useless checks. If a condition's range is completely contained by the current context, the compiler will ignore it and display a warning.</p>
-<pre>
+ <p>The fact that it works with ranges makes it possible for it to locate potentially useless checks. If a condition's range is completely contained by the current context, the compiler will ignore it and display a warning.</p>
+ <pre>
 <code>if #available(iOS 14.0, *), #available(iOS 13.0, *) {</code>
 <code> // (iOS 13.0) Unnecessary check for 'iOS'; enclosing scope ensures guard will always be true</code>
 <code> // Symbol Availability: minimumTarget...iOS 14</code>
@@ -83,8 +92,8 @@ September 29th, 2020
 <code> // Symbol Availability: 0...minimumTarget (The default)</code>
 <code>}</code>
 </pre>
-<p>When the refinement contexts for each scope are determined, the compiler will associate it with the current statement's AST node and use it for any future availability checks. The refinement contexts are built like trees (where a context has a pointer to its parent), but they are used as a stack. As the compiler traverses your code, these refinement contexts will get pushed and popped as needed.</p>
-<pre>
+ <p>When the refinement contexts for each scope are determined, the compiler will associate it with the current statement's AST node and use it for any future availability checks. The refinement contexts are built like trees (where a context has a pointer to its parent), but they are used as a stack. As the compiler traverses your code, these refinement contexts will get pushed and popped as needed.</p>
+ <pre>
 <code>if #available(iOS 9.0, *) {</code>
 <code>  // Symbol Availability: minimumTarget...iOS 9</code>
 <code>  if #available(iOS 13.0, *) {</code>
@@ -96,8 +105,8 @@ September 29th, 2020
 <code>  // Symbol Availability: 0...minimumTarget (The default)</code>
 <code>}</code>
 </pre>
-<p>While the outer else scope will make no changes to availability, the inner else scope will keep the increased iOS 9 availability as that was the current refinement context at the time. Here's a visual example of how this works in practice:</p>
-<pre>
+ <p>While the outer else scope will make no changes to availability, the inner else scope will keep the increased iOS 9 availability as that was the current refinement context at the time. Here's a visual example of how this works in practice:</p>
+ <pre>
 <code>// Refinement Context Stack: [MinimumTarget]</code>
 <code>if #available(iOS 9.0, *) {</code>
 <code>  // Push: iOS 9 ([MinimumTarget, iOS 9])</code>
@@ -110,27 +119,27 @@ September 29th, 2020
 <code>  // Pop: iOS 9 ([MinimumTarget])</code>
 <code>}</code>
 </pre>
-<p>Everything shown here also applies for <code>guard</code> statements, except in that case the positive availability changes are applied in what's left of the current scope.</p>
-<pre>
+ <p>Everything shown here also applies for <code>guard</code> statements, except in that case the positive availability changes are applied in what's left of the current scope.</p>
+ <pre>
 <code>guard #available(iOS 14, *) else {</code>
 <code>    // Symbol Availability: 0...minimumTarget (The default)</code>
 <code>    return</code>
 <code>}</code>
 <code>// Symbol Availability: minimumTarget...iOS 14</code>
 </pre>
-<p>This process involving refinement contexts is precisely why you can't use availability conditions outside of statements like this:</p>
-<pre>
+ <p>This process involving refinement contexts is precisely why you can't use availability conditions outside of statements like this:</p>
+ <pre>
 <code>let isAvailable: Bool = #available(iOS 13.0, *)</code>
 <code>if isAvailable {</code>
 <code>  // ?????</code>
 <code>}</code>
 <code>// error: #available may only be used as condition of an 'if', 'guard' or 'while' statement</code>
 </pre>
-<p>Even though doing something like this might make sense at first glace, what should be the symbol availability of that <code>if</code> statement? Something like this would be incredibly hard to process as now every boolean you create must also have its own refinement context, and would lead to many situations where the compiler wouldn't be able to process something that a human being can visualize as being possible.</p>
-<h2>Determining if a symbol is available</h2>
-<p>With the type refinement contexts created, the compiler can check if something is available by matching its current availability status with the top context in the refinement stack. The availability of the declaration in question is determined by the presence of the <code>@availability</code> attribute in its type. If there's none, the type will always be available.</p>
-<pre>
-<code>Optional&lt;AvailabilityContext> AnnotatedRange = annotatedAvailableRange(D, Ctx);</code>
+ <p>Even though doing something like this might make sense at first glace, what should be the symbol availability of that <code>if</code> statement? Something like this would be incredibly hard to process as now every boolean you create must also have its own refinement context, and would lead to many situations where the compiler wouldn't be able to process something that a human being can visualize as being possible.</p>
+ <h2>Determining if a symbol is available</h2>
+ <p>With the type refinement contexts created, the compiler can check if something is available by matching its current availability status with the top context in the refinement stack. The availability of the declaration in question is determined by the presence of the <code>@availability</code> attribute in its type. If there's none, the type will always be available.</p>
+ <pre>
+<code>Optional&lt;AvailabilityContext&gt; AnnotatedRange = annotatedAvailableRange(D, Ctx);</code>
 <code>if (AnnotatedRange.hasValue()) {</code>
 <code>  return AnnotatedRange.getValue();</code>
 <code>}</code>
@@ -138,13 +147,13 @@ September 29th, 2020
 <code>// Treat unannotated declarations as always available.</code>
 <code>return AvailabilityContext::alwaysAvailable();</code>
 </pre>
-<p>To check whether or not this specific declaration is available, the compiler retrieves the current refinement context of the declaration and checks if it's contained by the declaration's own availability range. This is where an app's minimum deployment target comes into play: If there's no refinement context (because no availability conditions have been seen yet), the compiler will build one that has it as the maximum available version. Finally, if this availability check returns false, the compiler will emit an error and suggest a fix-it that includes adding an availability condition.</p>
-<pre>
+ <p>To check whether or not this specific declaration is available, the compiler retrieves the current refinement context of the declaration and checks if it's contained by the declaration's own availability range. This is where an app's minimum deployment target comes into play: If there's no refinement context (because no availability conditions have been seen yet), the compiler will build one that has it as the maximum available version. Finally, if this availability check returns false, the compiler will emit an error and suggest a fix-it that includes adding an availability condition.</p>
+ <pre>
 <code>// Code sligthly changed for readability purposes</code>
 <code>bool TypeChecker::isDeclAvailable(const Decl *D,</code>
 <code>                                  const DeclContext *referenceDC) {</code>
 <code></code>
-<code>  ASTContext &Context = referenceDC->getASTContext();</code>
+<code>  ASTContext &amp;Context = referenceDC-&gt;getASTContext();</code>
 <code></code>
 <code>  AvailabilityContext declAvailability{</code>
 <code>      AvailabilityInference::availableRange(D, Context)};</code>
@@ -154,8 +163,8 @@ September 29th, 2020
 <code>  return currentAvailability.isContainedIn(declAvailability);</code>
 <code>}</code>
 </pre>
-<p>Additionally, if you're building something outside of Xcode, the minimum deployment target will be the current version of whatever it is that you're doing. For example, when running <code>.swift</code> scripts, the "minimum deployment target" will be your macOS's version.</p>
-<pre>
+ <p>Additionally, if you're building something outside of Xcode, the minimum deployment target will be the current version of whatever it is that you're doing. For example, when running <code>.swift</code> scripts, the "minimum deployment target" will be your macOS's version.</p>
+ <pre>
 <code>/// Returns the minimum platform version to which code will be deployed.</code>
 <code>///</code>
 <code>/// This is only implemented on certain OSs. If no target has been</code>
@@ -172,9 +181,9 @@ September 29th, 2020
 <code>  return llvm::VersionTuple(major, minor, revision);</code>
 <code>}</code>
 </pre>
-<h2>Translating <code>#available</code> to a boolean</h2>
-<p>Finally, after determining that our code is structurally and semantically correct, the compiler can wrap up by swapping the availability conditions with actual booleans. Currently, this works by replacing your statement with a call to <code>_stdlib_isOSVersionAtLeast</code> that receives the version range calculated and stored in each refinement context and returns a boolean if the current device is running the desired version.</p>
-<pre>
+ <h2>Translating <code>#available</code> to a boolean</h2>
+ <p>Finally, after determining that our code is structurally and semantically correct, the compiler can wrap up by swapping the availability conditions with actual booleans. Currently, this works by replacing your statement with a call to <code>_stdlib_isOSVersionAtLeast</code> that receives the version range calculated and stored in each refinement context and returns a boolean if the current device is running the desired version.</p>
+ <pre>
 <code>// Before</code>
 <code>if #available(iOS 14.0, *) {</code>
 <code></code>
@@ -185,30 +194,33 @@ September 29th, 2020
 <code></code>
 <code>}</code>
 </pre>
-<p>As you would expect, <code>_stdlib_isOSVersionAtLeast</code> works by determining the current OS version and checking if it matches the provided value. Here's how the compiler tries to determine the current iOS version:</p>
-<pre>
+ <p>As you would expect, <code>_stdlib_isOSVersionAtLeast</code> works by determining the current OS version and checking if it matches the provided value. Here's how the compiler tries to determine the current iOS version:</p>
+ <pre>
 <code>static os_system_version_s getOSVersion() {</code>
 <code>  auto lookup =</code>
 <code>    (int(*)(struct os_system_version_s * _Nonnull))</code>
 <code>    dlsym(RTLD_DEFAULT, "os_system_version_get_current_version");</code>
 <code></code>
 <code>  struct os_system_version_s vers = { 0, 0, 0 };</code>
-<code>  lookup(&vers);</code>
+<code>  lookup(&amp;vers);</code>
 <code>  return vers;</code>
 <code>}</code>
 </pre>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>If you'd like to see this happening in practice, you can ask the compiler to emit the Swift Intermediate Language for a certain code like this:</p>
-<pre class="command-line language-bash" data-host="SwiftRocks">
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>If you'd like to see this happening in practice, you can ask the compiler to emit the Swift Intermediate Language for a certain code like this:</p>
+ <pre class="command-line language-bash" data-host="SwiftRocks">
 <code>swiftc -emit-sil myFile.swift</code>
 </pre>
-<p>After running it, you can see all availability conditions being replaced by the lower-level OS version check.</p>
-<pre>
+ <p>After running it, you can see all availability conditions being replaced by the lower-level OS version check.</p>
+ <pre>
 <code>// function_ref _stdlib_isOSVersionAtLeast(_:_:_:)</code>
 <code>%5 = function_ref @$ss26_stdlib_isOSVersionAtLeastyBi1_Bw_BwBwtF</code>
 </pre>
-<h2>References and Good reads</h2>
-<a href="https://github.com/apple/swift">The Swift Source Code</a><br>
-<a href="https://github.com/apple/swift/blob/9af806e8fd93df3499b1811deae7729176879cb0/lib/Sema/TypeCheckAvailability.cpp#L400">TypeCheckAvailability.cpp</a><br>
-<a href="https://github.com/apple/swift-evolution/pull/1184">SE-NNNN: Unavailability Condition</a><br>
+ <h2>References and Good reads</h2>
+ <a href="https://github.com/apple/swift">The Swift Source Code</a>
+ <br>
+ <a href="https://github.com/apple/swift/blob/9af806e8fd93df3499b1811deae7729176879cb0/lib/Sema/TypeCheckAvailability.cpp#L400">TypeCheckAvailability.cpp</a>
+ <br>
+ <a href="https://github.com/apple/swift-evolution/pull/1184">SE-NNNN: Unavailability Condition</a>
+ <br>
 </div>

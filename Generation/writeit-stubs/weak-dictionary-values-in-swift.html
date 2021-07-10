@@ -1,43 +1,49 @@
 
-<!--WRITEIT_POST_NAME=Weak Dictionary Values in Swift-->
-<!--WRITEIT_POST_HTML_NAME=weak-dictionary-values-in-swift-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2020-04-14T14:00:00+02:00-->
+ 
+  
+  <!--WRITEIT_POST_NAME=Weak Dictionary Values in Swift--> 
+  <!--WRITEIT_POST_HTML_NAME=weak-dictionary-values-in-swift--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE=2020-04-14T14:00:00+02:00--> 
+  <!--Add here the additional properties that you want each page to possess.--> 
+  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
+  <!--Properties must start with 'WRITEIT_POST'.--> 
+  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
+  <!--WRITEIT_POST_SHORT_DESCRIPTION=When dealing with dictionaries and arrays in Swift, it's very important to know that any reference types used as a key or value will be retained by default.--> 
+  <title>$WRITEIT_POST_NAME</title>  
+ 
 
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=When dealing with dictionaries and arrays in Swift, it's very important to know that any reference types used as a key or value will be retained by default.-->
-
-<title>$WRITEIT_POST_NAME</title>
-<div class="col-md-12 blog-post"> 
-<div class="post-title"> 
-  <h1>$WRITEIT_POST_NAME</h1> 
-</div> 
-<div class="post-info"> 
-April 14th, 2020
-</div>
-<p>When dealing with dictionaries and arrays in Swift, it's very important to know that any reference types used as a key or value will be <b>retained by default.</b> Let's see some interesting cases where this behavior is problematic, and how we can use types like <code>NSMapTable</code>, <code>NSHashTable</code> and <code>NSPointerArray</code> to create weak collections that perform better than their Swift counterparts.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>To visualize why the default memory management behavior of Swift dictionaries can sometimes be bad for you, let's attempt to build a system that uses dictionaries to store instances of some arbitrary types. We can use <a href="https://github.com/rockbruno/RouterService">RouterService's</a> dependency management system as an example:</p>
-<pre>
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>Weak Dictionary Values in Swift</h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-swift">
+   Swift
+  </div> 
+  <div class="post-info-text">
+   Published on 14 Apr 2020 
+  </div> 
+ </div>  
+ <p>When dealing with dictionaries and arrays in Swift, it's very important to know that any reference types used as a key or value will be <b>retained by default.</b> Let's see some interesting cases where this behavior is problematic, and how we can use types like <code>NSMapTable</code>, <code>NSHashTable</code> and <code>NSPointerArray</code> to create weak collections that perform better than their Swift counterparts.</p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>To visualize why the default memory management behavior of Swift dictionaries can sometimes be bad for you, let's attempt to build a system that uses dictionaries to store instances of some arbitrary types. We can use <a href="https://github.com/rockbruno/RouterService">RouterService's</a> dependency management system as an example:</p>
+ <pre>
 <code>protocol Dependency: AnyObject {</code>
 <code>    static var identifier: String { get }</code>
 <code>}</code>
 <code></code>
 <code>final class DependencyStore {</code>
 <code></code>
-<code>    var factories = [String: () -> Dependency]()</code>
+<code>    var factories = [String: () -&gt; Dependency]()</code>
 <code>    var cachedDependencies = [String: Dependency]()</code>
 <code></code>
-<code>    func register&lt;T: Dependency>(dependencyFactory: @escaping () -> T) {</code>
+<code>    func register&lt;T: Dependency&gt;(dependencyFactory: @escaping () -&gt; T) {</code>
 <code>        let key = T.identifier</code>
 <code>        factories[key] = dependencyFactory</code>
 <code>    }</code>
 <code></code>
-<code>    func getInstanceOf&lt;T: Dependency>(dependencyType type: T.Type) -> T? {</code>
+<code>    func getInstanceOf&lt;T: Dependency&gt;(dependencyType type: T.Type) -&gt; T? {</code>
 <code>        let key = T.identifier</code>
 <code>        let cachedInstance = cachedDependencies[key]</code>
 <code>        if cachedInstance != nil {</code>
@@ -50,20 +56,19 @@ April 14th, 2020
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>In this dependency injection system, the app is able to register a <code>Dependency</code> by providing a closure that creates such dependency. When a feature states that this dependency is needed in order for it to work, the system creates an instance of it and stores it for future uses.</p>
-<p>However, <b>what happens when a feature doesn't need these dependencies anymore?</b> Because dictionary values are retained, the dependency instances will live <b>forever</b> in the app, even if the features that needed them are long gone.</p>
-<p>To solve this, you could create some complex system where features could warn the DependencyStore that they are going to close, or, you could create a <b>weak dictionary.</b> A weak dictionary works exactly like a normal one, with the difference being that it doesn't retain its values. If <code>cachedDependencies</code> was a weak dictionary, its values would automatically go out of scope if nobody else in the app was referencing them. This way, dependencies would correctly be created and disposed of as necessary by the app
-s lifecycle.</p>
-<h2>Creating a Weak Dictionary in Pure Swift</h2>
-<p>A way to solve this problem in pure Swift is to create some sort of wrapper class that has a weak reference inside, and stored our values there instead:</p>
-<pre>
+ <p>In this dependency injection system, the app is able to register a <code>Dependency</code> by providing a closure that creates such dependency. When a feature states that this dependency is needed in order for it to work, the system creates an instance of it and stores it for future uses.</p>
+ <p>However, <b>what happens when a feature doesn't need these dependencies anymore?</b> Because dictionary values are retained, the dependency instances will live <b>forever</b> in the app, even if the features that needed them are long gone.</p>
+ <p>To solve this, you could create some complex system where features could warn the DependencyStore that they are going to close, or, you could create a <b>weak dictionary.</b> A weak dictionary works exactly like a normal one, with the difference being that it doesn't retain its values. If <code>cachedDependencies</code> was a weak dictionary, its values would automatically go out of scope if nobody else in the app was referencing them. This way, dependencies would correctly be created and disposed of as necessary by the app s lifecycle.</p>
+ <h2>Creating a Weak Dictionary in Pure Swift</h2>
+ <p>A way to solve this problem in pure Swift is to create some sort of wrapper class that has a weak reference inside, and stored our values there instead:</p>
+ <pre>
 <code>final class WeakRef {</code>
 <code>    weak var value: AnyObject?</code>
 <code>}</code>
 <code></code>
 <code>var cachedDependencies = [String: WeakRef]()</code>
 <code></code>
-<code>func getInstanceOf&lt;T: Dependency>(dependencyType type: T.Type) -> T? {</code>
+<code>func getInstanceOf&lt;T: Dependency&gt;(dependencyType type: T.Type) -&gt; T? {</code>
 <code>    let key = T.identifier</code>
 <code>    let cachedInstance = cachedDependencies[key]?.value</code>
 <code>    if cachedInstance != nil {</code>
@@ -79,8 +84,8 @@ s lifecycle.</p>
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>With some prints added to our function, we can confirm that it works by playing with pointers in a playground:</p>
-<pre>
+ <p>With some prints added to our function, we can confirm that it works by playing with pointers in a playground:</p>
+ <pre>
 <code>class MockDependency: Dependency {</code>
 <code>    static let identifier: String = "mock"</code>
 <code>}</code>
@@ -106,34 +111,34 @@ s lifecycle.</p>
 <code>_ = store.getInstanceOf(dependencyType: MockDependency.self)</code>
 <code>// Using old value!</code>
 </pre>
-<p><i>(Note: An autoreleasepool block is used to force iOS to deallocate the instance after setting it to nil. <a href="https://swiftrocks.com/autoreleasepool-in-2019-swift">Check my article about autoreleasepool to learn more about it!</a>)</i></p>
-<p>While this works, it doesn't fully solve the problem. Although the instance of our dependencies will be correctly disposed of, our cache dictionary will still contain their <code>WeakRef</code> wrappers, which is an unnecessary memory overhead for us:</p>
-<pre>
+ <p><i>(Note: An autoreleasepool block is used to force iOS to deallocate the instance after setting it to nil. <a href="https://swiftrocks.com/autoreleasepool-in-2019-swift">Check my article about autoreleasepool to learn more about it!</a>)</i></p>
+ <p>While this works, it doesn't fully solve the problem. Although the instance of our dependencies will be correctly disposed of, our cache dictionary will still contain their <code>WeakRef</code> wrappers, which is an unnecessary memory overhead for us:</p>
+ <pre>
 <code>print(cachedDependencies)</code>
 <code>// ["mock": WeakRef(value: nil)]</code>
 </pre>
-<p>If we want to completely get rid of the dictionary entries, we must bring the big guns. Let's take a look at three classes that <code>Foundation</code> provides for this purpose.</p>
-<h2>NSMapTable</h2>
-<p>The <code>NSMapTable</code> class at first glance looks just like a plain <code>NSDictionary</code> / Swift <code>Dictionary&lt;></code>, but it supports a broader range of memory semantics.</p>
-<p><code>NSMapTable</code> is configured through its initializer, which allows you to pick different semantics for memory management and key equality. Here's how we can rewrite <code>DependencyStore</code> to use an <code>NSMapTable</code> that retains values weakly:</p>
-<pre>
+ <p>If we want to completely get rid of the dictionary entries, we must bring the big guns. Let's take a look at three classes that <code>Foundation</code> provides for this purpose.</p>
+ <h2>NSMapTable</h2>
+ <p>The <code>NSMapTable</code> class at first glance looks just like a plain <code>NSDictionary</code> / Swift <code>Dictionary&lt;&gt;</code>, but it supports a broader range of memory semantics.</p>
+ <p><code>NSMapTable</code> is configured through its initializer, which allows you to pick different semantics for memory management and key equality. Here's how we can rewrite <code>DependencyStore</code> to use an <code>NSMapTable</code> that retains values weakly:</p>
+ <pre>
 <code>import Foundation</code>
 <code></code>
 <code>final class DependencyStore {</code>
 <code></code>
-<code>    var factories = [String: () -> Dependency]()</code>
+<code>    var factories = [String: () -&gt; Dependency]()</code>
 <code></code>
-<code>    var cachedDependencies = NSMapTable&lt;NSString, AnyObject>.init(</code>
+<code>    var cachedDependencies = NSMapTable&lt;NSString, AnyObject&gt;.init(</code>
 <code>        keyOptions: .copyIn,</code>
 <code>        valueOptions: .weakMemory</code>
 <code>    )</code>
 <code></code>
-<code>    func register&lt;T: Dependency>(dependencyFactory: @escaping () -> T) {</code>
+<code>    func register&lt;T: Dependency&gt;(dependencyFactory: @escaping () -&gt; T) {</code>
 <code>        let key = T.identifier</code>
 <code>        factories[key] = dependencyFactory</code>
 <code>    }</code>
 <code></code>
-<code>    func getInstanceOf&lt;T: Dependency>(dependencyType type: T.Type) -> T? {</code>
+<code>    func getInstanceOf&lt;T: Dependency&gt;(dependencyType type: T.Type) -&gt; T? {</code>
 <code>        let key = T.identifier</code>
 <code>        let cachedInstance = cachedDependencies.object(forKey: key as NSString)</code>
 <code>        if cachedInstance != nil {</code>
@@ -148,37 +153,37 @@ s lifecycle.</p>
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>If we try to run the previous example again we'll get the same output, but with the lovely difference that printing <code>NSMapTable</code> will reveal that the entire dictionary entry is gone when the dependencies are disposed!</p>
-<pre>
+ <p>If we try to run the previous example again we'll get the same output, but with the lovely difference that printing <code>NSMapTable</code> will reveal that the entire dictionary entry is gone when the dependencies are disposed!</p>
+ <pre>
 <code>print(cachedDependencies)</code>
 <code>// NSMapTable {</code>
 <code>// }</code>
 </pre>
-<p>Here are some options supported by <code>NSMapTable</code>. Because the options argument is an <code>OptionSet</code>, you can use several of them at the same. <a href="https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler">Here's my article about OptionSets if you're looking for more info on them!</a></p>
-<p>
-<ul>
-  <li><b>.strongMemory</b> - Retains the data.</li>
-  <li><b>.weakMemory</b> - Do not retain the data.</li>
-  <li><b>.copyIn</b> - Create a copy of the data through <b>NSCopying</b>.</li>
-  <li><b>.objectPointerPersonality</b> - When used for keys, equality is determined based on pointer equality instead of <b>NSObject</b> hash equality.</li>
-</ul>
-</p>
-<p>As an important disclaimer, note that <code>NSMapTable</code> is an Objective-C class. Besides only being able to use reference types with it, the equality of keys is not determined by the Swift <code>Hashable</code> protocol. If you do end up having to use these classes, I recommend using nothing but <code>NSStrings</code> as key types to prevent weird bugs.</p>
-<p>Additionally, you should be mindful when using this class with weak <b>keys</b>. Although the functionality is similar, weak keys are only removed when the map table is resized.</p>
-<h2>NSHashTable</h2>
-<p>For completion purposes, let's take a look at other <code>Foundation</code> classes that provide the same functionality. <code>NSHashTable</code> works exactly the same as an <code>NSMapTable</code>, but instead of providing additional memory options for dictionaries, it does so for a <code>Set</code>:</p>
-<pre>
+ <p>Here are some options supported by <code>NSMapTable</code>. Because the options argument is an <code>OptionSet</code>, you can use several of them at the same. <a href="https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler">Here's my article about OptionSets if you're looking for more info on them!</a></p>
+ <p> </p>
+ <ul> 
+  <li><b>.strongMemory</b> - Retains the data.</li> 
+  <li><b>.weakMemory</b> - Do not retain the data.</li> 
+  <li><b>.copyIn</b> - Create a copy of the data through <b>NSCopying</b>.</li> 
+  <li><b>.objectPointerPersonality</b> - When used for keys, equality is determined based on pointer equality instead of <b>NSObject</b> hash equality.</li> 
+ </ul>
+ <p></p>
+ <p>As an important disclaimer, note that <code>NSMapTable</code> is an Objective-C class. Besides only being able to use reference types with it, the equality of keys is not determined by the Swift <code>Hashable</code> protocol. If you do end up having to use these classes, I recommend using nothing but <code>NSStrings</code> as key types to prevent weird bugs.</p>
+ <p>Additionally, you should be mindful when using this class with weak <b>keys</b>. Although the functionality is similar, weak keys are only removed when the map table is resized.</p>
+ <h2>NSHashTable</h2>
+ <p>For completion purposes, let's take a look at other <code>Foundation</code> classes that provide the same functionality. <code>NSHashTable</code> works exactly the same as an <code>NSMapTable</code>, but instead of providing additional memory options for dictionaries, it does so for a <code>Set</code>:</p>
+ <pre>
 <code>let stringRef = "AnUniqueString" as NSString</code>
 <code></code>
-<code>let weakSetOfStrings = NSHashTable&lt;NSString>(options: .weakMemory)</code>
+<code>let weakSetOfStrings = NSHashTable&lt;NSString&gt;(options: .weakMemory)</code>
 <code>weakSetOfStrings.add(stringRef)</code>
 <code>weakSetOfStrings.contains(stringRef)</code>
 </pre>
-<h2>NSPointerArray</h2>
-<p>Once again, <code>NSPointerArray</code> is very similar to <code>NSMapTable</code>, but with the difference being that it represents a plain array instead.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>Unfortunately, unlike the other types, <code>NSPointerArray</code> doesn't support adding/retrieving objects directly. To use it, you must convert to and from raw pointer types.</p>
-<pre>
+ <h2>NSPointerArray</h2>
+ <p>Once again, <code>NSPointerArray</code> is very similar to <code>NSMapTable</code>, but with the difference being that it represents a plain array instead.</p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>Unfortunately, unlike the other types, <code>NSPointerArray</code> doesn't support adding/retrieving objects directly. To use it, you must convert to and from raw pointer types.</p>
+ <pre>
 <code>let dependency = MockDependency()</code>
 <code></code>
 <code>let weakArray = NSPointerArray(options: .weakMemory)</code>
@@ -186,10 +191,10 @@ s lifecycle.</p>
 <code>let pointer = Unmanaged.passUnretained(dependency).toOpaque()</code>
 <code>weakArray.addPointer(pointer)</code>
 <code></code>
-<code>let storedValue = Unmanaged&lt;MockDependency></code>
+<code>let storedValue = Unmanaged&lt;MockDependency&gt;</code>
 <code>                      .fromOpaque(weakArray.pointer(at: 0)!)</code>
 <code>                      .takeUnretainedValue()</code>
 </pre>
-<h2>Conclusion</h2>
-<p>Besides the obvious memory management differences between disposing of a value when it's not needed anymore versus keeping it alive forever, using weak collections when applicable can be very useful for performance reasons. As shown in the examples, while a bare Swift weak wrapper keeps existing when its value is gone, classes like <code>NSMapTable</code> clean their entries completely when values are disposed of. This reduced overhead can make a big difference in your app's lifecycle.</p>
+ <h2>Conclusion</h2>
+ <p>Besides the obvious memory management differences between disposing of a value when it's not needed anymore versus keeping it alive forever, using weak collections when applicable can be very useful for performance reasons. As shown in the examples, while a bare Swift weak wrapper keeps existing when its value is gone, classes like <code>NSMapTable</code> clean their entries completely when values are disposed of. This reduced overhead can make a big difference in your app's lifecycle.</p>
 </div>

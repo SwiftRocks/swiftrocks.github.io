@@ -1,60 +1,68 @@
 
-<!--WRITEIT_POST_NAME=Thread Safety in Swift-->
-<!--WRITEIT_POST_HTML_NAME=thread-safety-in-swift-->
+ 
+  
+  <!--WRITEIT_POST_NAME=Thread Safety in Swift--> 
+  <!--WRITEIT_POST_HTML_NAME=thread-safety-in-swift--> 
+  <!--Add here the additional properties that you want each page to possess.--> 
+  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
+  <!--Properties must start with 'WRITEIT_POST'.--> 
+  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
+  <!--WRITEIT_POST_SHORT_DESCRIPTION=Concurrency is the entry point for the most complicated and bizarre bugs a programmer will ever experience. In this article, I'll share my favorite methods of ensuring thread-safety, as well as analyzing the performance of the different mechanisms.--> 
+  <!--DateFormat example: 2020-04-12T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-05-11T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE=2021-05-11T14:00:00+02:00--> 
+  <title>$WRITEIT_POST_NAME</title>  
+ 
 
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Concurrency is the entry point for the most complicated and bizarre bugs a programmer will ever experience. In this article, I'll share my favorite methods of ensuring thread-safety, as well as analyzing the performance of the different mechanisms.-->
-
-<!--DateFormat example: 2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-05-11T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-05-11T14:00:00+02:00-->
-
-<title>$WRITEIT_POST_NAME</title>
-<div class="col-md-12 blog-post"> 
-<div class="post-title"> 
-  <h1>$WRITEIT_POST_NAME</h1> 
-</div> 
-<div class="post-info"> 
-May 11th, 2021
-</div>
-<p>Concurrency is the entry point for the most complicated and bizarre bugs a programmer will ever experience. Because we at the application level have no real control over the threads and the hardware, there's no real way of creating unit tests that guarantee your systems behave correctly when used by multiple threads at the same time. In this article, I'll share my favorite methods of ensuring thread safety, as well as analyzing the performance of the different mechanisms.</p>
-<h2>What is Thread Safety?</h2>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>I personally define thread safety as a class's ability to ensure "correctness" when multiple threads attempt to use it at the same time. If different threads accessing some piece of shared state at very specific moments at the same time cannot result in your class ending up in an unexpected/broken state, then your code is thread-safe. If that's not the case, you can use the OS's synchronization APIs to orchestrate <i>when</i> the threads can access that information, making so your class's shared state is always correct and predictable.</p>
-<h2>Thread Safety costs</h2>
-<p>Before going further, it's good to be aware that any form of synchronization comes with a performance hit, and this hit can sometimes be quite noticeable. On the other hand, I'd argue that this trade-off is always worth it. The worst issues I had to debug were always related to code that is not thread-safe, and because we cannot unit-test for it, you never know what kind of bizarre situation you'll get.</p>
-<p>For that reason, my main tip for you is to stay away from any form of state that can be accessed in parallel in exchange for having a nice and simple atomic serial queue of events. If you truly need to create something that can be used in parallel, then I suggest you put extra effort into understanding all possible usage scenarios. Try to describe every possible bizarre thread scenario that you would need to orchestrate, and what should happen in each of them. If you find this task to be too complicated, then it's possible that your system is too complex to be used in parallel, and having it run serially would save you a lot of trouble.</p>
-<h2>Goal: A thread-safe queue of events</h2>
-<p>Before using our tools, we'll define the objective of creating a <i>thread-safe event queue</i>. We would like to define a class that can process a queue of "events", with each event being processed serially one after the other. If multiple threads try to run events at the same time, the one that came later will <b>wait</b> for the previous one to finish before being executed.</p>
-<p>If a class exclusively uses this event queue to manage its state, then it'll be impossible for different threads to access the state at the same time, making the state always predictable and correct. Thus, that class can be considered <b>thread-safe</b>.</p>
-<pre>
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>Thread Safety in Swift</h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-swift">
+   Swift
+  </div> 
+  <div class="post-info-text">
+   Published on 11 May 2021 
+  </div> 
+ </div>  
+ <div class="post-image"> 
+  <img src="https://i.imgur.com/2PDjXPQ.png" alt="Lock times"> 
+ </div> 
+ <p>Concurrency is the entry point for the most complicated and bizarre bugs a programmer will ever experience. Because we at the application level have no real control over the threads and the hardware, there's no real way of creating unit tests that guarantee your systems behave correctly when used by multiple threads at the same time. In this article, I'll share my favorite methods of ensuring thread safety, as well as analyzing the performance of the different mechanisms.</p>
+ <h2>What is Thread Safety?</h2>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>I personally define thread safety as a class's ability to ensure "correctness" when multiple threads attempt to use it at the same time. If different threads accessing some piece of shared state at very specific moments at the same time cannot result in your class ending up in an unexpected/broken state, then your code is thread-safe. If that's not the case, you can use the OS's synchronization APIs to orchestrate <i>when</i> the threads can access that information, making so your class's shared state is always correct and predictable.</p>
+ <h2>Thread Safety costs</h2>
+ <p>Before going further, it's good to be aware that any form of synchronization comes with a performance hit, and this hit can sometimes be quite noticeable. On the other hand, I'd argue that this trade-off is always worth it. The worst issues I had to debug were always related to code that is not thread-safe, and because we cannot unit-test for it, you never know what kind of bizarre situation you'll get.</p>
+ <p>For that reason, my main tip for you is to stay away from any form of state that can be accessed in parallel in exchange for having a nice and simple atomic serial queue of events. If you truly need to create something that can be used in parallel, then I suggest you put extra effort into understanding all possible usage scenarios. Try to describe every possible bizarre thread scenario that you would need to orchestrate, and what should happen in each of them. If you find this task to be too complicated, then it's possible that your system is too complex to be used in parallel, and having it run serially would save you a lot of trouble.</p>
+ <h2>Goal: A thread-safe queue of events</h2>
+ <p>Before using our tools, we'll define the objective of creating a <i>thread-safe event queue</i>. We would like to define a class that can process a queue of "events", with each event being processed serially one after the other. If multiple threads try to run events at the same time, the one that came later will <b>wait</b> for the previous one to finish before being executed.</p>
+ <p>If a class exclusively uses this event queue to manage its state, then it'll be impossible for different threads to access the state at the same time, making the state always predictable and correct. Thus, that class can be considered <b>thread-safe</b>.</p>
+ <pre>
 <code>final class EventQueue {</code>
-<code>    func synchronize(action: () -> Void) {</code>
+<code>    func synchronize(action: () -&gt; Void) {</code>
 <code>        // Missing: thread orchestration!</code>
 <code>        action()</code>
 <code>    }</code>
 <code>}</code>
 </pre>
-<h2>Serial DispatchQueues</h2>
-<p>If our intention is to have the events be processed <b>asynchronously</b> in a different thread, then a serial <code>DispatchQueue</code> is a great choice.</p>
-<pre>
+ <h2>Serial DispatchQueues</h2>
+ <p>If our intention is to have the events be processed <b>asynchronously</b> in a different thread, then a serial <code>DispatchQueue</code> is a great choice.</p>
+ <pre>
 <code>let queue = DispatchQueue(label: "my-queue", qos: .userInteractive)</code>
 <code></code>
-<code>func synchronize(action: @escaping () -> Void) {</code>
+<code>func synchronize(action: @escaping () -&gt; Void) {</code>
 <code>    queue.async {</code>
 <code>        action()</code>
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>The greatest thing about <code>DispatchQueue</code> is how it completely manages any threading-related task like locking and prioritization for you. Apple advises you to never create your own <code>Thread</code> types for resource management reasons -- threads are not cheap, and they must be prioritized between each other. <code>DispatchQueues</code> handle all of that for you, and in the case of a serial queue, the state of the queue itself and the execution order of the tasks will also be managed for you, making it perfect as a thread safety tool.</p>
-<p>However, we don't want our <code>EventQueue</code> class to be asynchronous. In our case, we'd like the thread that registered the event to actually <b>wait</b> until it got executed.</p>
-<p>In that case, a <code>DispatchQueue</code> will not be the best choice. Not only running code synchronously means that we have no use for its threading features, resulting in wasted precious resources, but the <code>DispatchQueue.sync</code> synchronous variant is also a relatively dangerous API as it cannot deal with the fact that you might <b>already</b> be inside the queue:</p>
-<pre>
-<code>func synchronize(action: @escaping () -> Void) {</code>
+ <p>The greatest thing about <code>DispatchQueue</code> is how it completely manages any threading-related task like locking and prioritization for you. Apple advises you to never create your own <code>Thread</code> types for resource management reasons -- threads are not cheap, and they must be prioritized between each other. <code>DispatchQueues</code> handle all of that for you, and in the case of a serial queue, the state of the queue itself and the execution order of the tasks will also be managed for you, making it perfect as a thread safety tool.</p>
+ <p>However, we don't want our <code>EventQueue</code> class to be asynchronous. In our case, we'd like the thread that registered the event to actually <b>wait</b> until it got executed.</p>
+ <p>In that case, a <code>DispatchQueue</code> will not be the best choice. Not only running code synchronously means that we have no use for its threading features, resulting in wasted precious resources, but the <code>DispatchQueue.sync</code> synchronous variant is also a relatively dangerous API as it cannot deal with the fact that you might <b>already</b> be inside the queue:</p>
+ <pre>
+<code>func synchronize(action: @escaping () -&gt; Void) {</code>
 <code>    queue.sync {</code>
 <code>        action()</code>
 <code>    }</code>
@@ -82,32 +90,32 @@ May 11th, 2021
 <code></code>
 <code>logLifecycle() // Crash!</code>
 </pre>
-<p>Recursively attempting to enter the serial <code>DispatchQueue</code> will result in two threads simultaneously waiting on each other, making the app freeze forever. This is the classic <b>deadlock</b>.</p>
-<p>There are ways to fix this, including using the <code>DispatchQueue.getSpecific</code> API I mentioned here at SwiftRocks some time ago, but a <code>DispatchQueue</code> is still not the best tool for this case. For synchronous execution, we can have better performance by using an old-fashioned mutex.</p>
-<h2>os_unfair_lock</h2>
-<p><b>Note: @tclementdev has kindly shared with me that's not a good idea to use this lock in Swift because the ampersand in Swift actually copies the lock instead of referencing it, and this can cause an infinite number of problems. I'll keep this section because I think it's interesting knowledge, but I'll spoil a bit and say that this is not the solution to the problem and you should probably not use it.</b></p>
-<p>The <code>os_unfair_lock</code> mutex (mutual exclusion) lock is currently the fastest lock in iOS. If your intention is to simply prevent two threads from accessing some piece of code at the same time (called a <i>critical section</i>) like in our <code>EventQueue</code> example, then this lock will get the job done with great performance.</p>
-<pre>
+ <p>Recursively attempting to enter the serial <code>DispatchQueue</code> will result in two threads simultaneously waiting on each other, making the app freeze forever. This is the classic <b>deadlock</b>.</p>
+ <p>There are ways to fix this, including using the <code>DispatchQueue.getSpecific</code> API I mentioned here at SwiftRocks some time ago, but a <code>DispatchQueue</code> is still not the best tool for this case. For synchronous execution, we can have better performance by using an old-fashioned mutex.</p>
+ <h2>os_unfair_lock</h2>
+ <p><b>Note: @tclementdev has kindly shared with me that's not a good idea to use this lock in Swift because the ampersand in Swift actually copies the lock instead of referencing it, and this can cause an infinite number of problems. I'll keep this section because I think it's interesting knowledge, but I'll spoil a bit and say that this is not the solution to the problem and you should probably not use it.</b></p>
+ <p>The <code>os_unfair_lock</code> mutex (mutual exclusion) lock is currently the fastest lock in iOS. If your intention is to simply prevent two threads from accessing some piece of code at the same time (called a <i>critical section</i>) like in our <code>EventQueue</code> example, then this lock will get the job done with great performance.</p>
+ <pre>
 <code>var lock = os_unfair_lock_s()</code>
 <code></code>
-<code>func synchronize(action: () -> Void) {</code>
-<code>    os_unfair_lock_lock(&lock)</code>
+<code>func synchronize(action: () -&gt; Void) {</code>
+<code>    os_unfair_lock_lock(&amp;lock)</code>
 <code>    action()</code>
-<code>    os_unfair_lock_unlock(&lock)</code>
+<code>    os_unfair_lock_unlock(&amp;lock)</code>
 <code>}</code>
 </pre>
-<div class="post-image">
-  <img src="https://i.imgur.com/VR72J4H.png" alt="Alt">                                    
-</div>
-<p>It's not a surprise that it's faster than a <code>DispatchQueue</code> -- despite being low-level C code, the fact that we are not dispatching the code to a different thread saves us a lot of time.</p>
-<p>A downside of this lock is that it's really nothing more than this. Although the API contains does contain some additional utilities like <code>os_unfair_lock_trylock</code> and <code>os_unfair_lock_assert_owner</code>, some of the other locks have additional features that I find very useful. But if you don't need more features, then this will solve your problem nicely.</p>
-<p>This lock is technically enough to implement our thread-safe serial queue of events, but it also cannot handle recursion. If we try to claim this lock recursively, we'll get a deadlock. As we'd like to have this ability, we will need to use bigger guns.</p>
-<h2>NSLock</h2>
-<p>Like <code>os_unfair_lock</code>, <code>NSLock</code> is also a mutex. Deep down the difference between the two is that <code>NSLock</code> is an Obj-C abstraction for another mutex called <code>pthread_mutex</code> lock, but <code>NSLock</code> contains an additional feature that I find really useful -- <b>timeouts</b>:</p>
-<pre>
+ <div class="post-image"> 
+  <img src="https://i.imgur.com/VR72J4H.png" alt="Alt"> 
+ </div>
+ <p>It's not a surprise that it's faster than a <code>DispatchQueue</code> -- despite being low-level C code, the fact that we are not dispatching the code to a different thread saves us a lot of time.</p>
+ <p>A downside of this lock is that it's really nothing more than this. Although the API contains does contain some additional utilities like <code>os_unfair_lock_trylock</code> and <code>os_unfair_lock_assert_owner</code>, some of the other locks have additional features that I find very useful. But if you don't need more features, then this will solve your problem nicely.</p>
+ <p>This lock is technically enough to implement our thread-safe serial queue of events, but it also cannot handle recursion. If we try to claim this lock recursively, we'll get a deadlock. As we'd like to have this ability, we will need to use bigger guns.</p>
+ <h2>NSLock</h2>
+ <p>Like <code>os_unfair_lock</code>, <code>NSLock</code> is also a mutex. Deep down the difference between the two is that <code>NSLock</code> is an Obj-C abstraction for another mutex called <code>pthread_mutex</code> lock, but <code>NSLock</code> contains an additional feature that I find really useful -- <b>timeouts</b>:</p>
+ <pre>
 <code>let nslock = NSLock()</code>
 <code></code>
-<code>func synchronize(action: () -> Void) {</code>
+<code>func synchronize(action: () -&gt; Void) {</code>
 <code>    if nslock.lock(before: Date().addingTimeInterval(5)) {</code>
 <code>        action()</code>
 <code>        nslock.unlock()</code>
@@ -117,20 +125,20 @@ May 11th, 2021
 <code>    }</code>
 <code>}</code>
 </pre>
-<p>When you deadlock yourself with a <code>DispatchQueue</code> the class will detect it and immediately crash the app, but these lower-level locks will do nothing and leave you with a completely unresponsive app. Yikes!</p>
-<p>However, in the case of <code>NSLock</code>, I actually find this to be a good thing! Because it contains a timeout feature, you have the opportunity to implement a fallback and save yourself from a deadlock. In the case of our event queue, a fallback could be to simply ignore the lock -- removing the deadlock and restoring the app's healthy state. This scenario could also happen if the queue is running some really slow piece of code, allowing you to detect these cases so they can be improved.</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/CSNvtKc.png" alt="Alt">                                    
-</div>
-<p>Despite being the same kind of lock as <code>os_unfair_lock</code>, you'll find <code>NSLock</code> to be slightly slower due to the additional cost of having to go through Obj-C's messaging system.</p>
-<p><code>NSLock</code> is great when we need a lock with more features, but it still cannot properly handle recursion. In this case, although the code <i>would</i> work, we would find ourselves waiting for the timeout every time. What we're looking for is the ability to <i>ignore</i> the lock when claiming it recursively, and for this, we'll need yet another special kind of lock.</p>
-<h2>NSRecursiveLock</h2>
-<p><code>NSRecursiveLock</code> is exactly like <code>NSLock</code>, but it can handle recursion. ...Not so impressive, right?</p>
-<p>Jokes aside, this is exactly what we are looking for! Regular looks will cause a deadlock when recursively attempting to claim the lock in the same thread, but a recursive lock allows the owner of the lock to repeatedly claim it. As you might know by now, this is intended to be used in scenarios where the critical section might call itself:</p>
-<pre>
+ <p>When you deadlock yourself with a <code>DispatchQueue</code> the class will detect it and immediately crash the app, but these lower-level locks will do nothing and leave you with a completely unresponsive app. Yikes!</p>
+ <p>However, in the case of <code>NSLock</code>, I actually find this to be a good thing! Because it contains a timeout feature, you have the opportunity to implement a fallback and save yourself from a deadlock. In the case of our event queue, a fallback could be to simply ignore the lock -- removing the deadlock and restoring the app's healthy state. This scenario could also happen if the queue is running some really slow piece of code, allowing you to detect these cases so they can be improved.</p>
+ <div class="post-image"> 
+  <img src="https://i.imgur.com/CSNvtKc.png" alt="Alt"> 
+ </div>
+ <p>Despite being the same kind of lock as <code>os_unfair_lock</code>, you'll find <code>NSLock</code> to be slightly slower due to the additional cost of having to go through Obj-C's messaging system.</p>
+ <p><code>NSLock</code> is great when we need a lock with more features, but it still cannot properly handle recursion. In this case, although the code <i>would</i> work, we would find ourselves waiting for the timeout every time. What we're looking for is the ability to <i>ignore</i> the lock when claiming it recursively, and for this, we'll need yet another special kind of lock.</p>
+ <h2>NSRecursiveLock</h2>
+ <p><code>NSRecursiveLock</code> is exactly like <code>NSLock</code>, but it can handle recursion. ...Not so impressive, right?</p>
+ <p>Jokes aside, this is exactly what we are looking for! Regular looks will cause a deadlock when recursively attempting to claim the lock in the same thread, but a recursive lock allows the owner of the lock to repeatedly claim it. As you might know by now, this is intended to be used in scenarios where the critical section might call itself:</p>
+ <pre>
 <code>let recursiveLock = NSRecursiveLock()</code>
 <code></code>
-<code>func synchronize(action: () -> Void) {</code>
+<code>func synchronize(action: () -&gt; Void) {</code>
 <code>    recursiveLock.lock()</code>
 <code>    action()</code>
 <code>    recursiveLock.unlock()</code>
@@ -158,13 +166,13 @@ May 11th, 2021
 <code></code>
 <code>logLifecycle() // No crash!</code>
 </pre>
-<p>If the thread entering the critical section <b>already</b> owns the lock, then we can safely enter the critical section again. The only requirement is that multiple lock calls need to be followed by multiple unlock calls, and due to the additional thread checks, recursive locks are slightly slower than the normal <code>NSLock</code>.</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/2PDjXPQ.png" alt="Alt">                                    
-</div>
-<h2>DispatchSemaphore</h2>
-<p>Semaphores don't fit our problem scenario, but I thought it would be interesting to mention them as well. In short, a semaphore is a lock that you use when the locking and unlocking need to happen in different threads:</p>
-<pre>
+ <p>If the thread entering the critical section <b>already</b> owns the lock, then we can safely enter the critical section again. The only requirement is that multiple lock calls need to be followed by multiple unlock calls, and due to the additional thread checks, recursive locks are slightly slower than the normal <code>NSLock</code>.</p>
+ <div class="post-image"> 
+  <img src="https://i.imgur.com/2PDjXPQ.png" alt="Alt"> 
+ </div>
+ <h2>DispatchSemaphore</h2>
+ <p>Semaphores don't fit our problem scenario, but I thought it would be interesting to mention them as well. In short, a semaphore is a lock that you use when the locking and unlocking need to happen in different threads:</p>
+ <pre>
 <code>let semaphore = DispatchSemaphore(value: 0)</code>
 <code></code>
 <code>mySlowAsynchronousTask {</code>
@@ -174,14 +182,14 @@ May 11th, 2021
 <code>semaphore.wait()</code>
 <code>print("Task done!")</code>
 </pre>
-<p>Like in this example, semaphores are commonly used to lock a thread until a different event in another thread has finished. The most common example of a semaphore in iOS is <code>DispatchQueue.sync</code> itself -- we have some code running in another thread, but we want to wait for it to finish before continuing our thread. The example here is exactly what <code>DispatchQueue.sync</code> does, except we're building the semaphore ourselves.</p>
-<p><code>DispatchSemaphore</code> is quick, and contains the same features that <code>NSLock</code> has.</p>
-<h2>DispatchGroup</h2>
-<p>A <code>DispatchGroup</code> is exactly like a <code>DispatchSemaphore</code>, but for <b>groups</b> of tasks. While a semaphore waits for one event, a group can wait for an infinite number of events:</p>
-<pre>
+ <p>Like in this example, semaphores are commonly used to lock a thread until a different event in another thread has finished. The most common example of a semaphore in iOS is <code>DispatchQueue.sync</code> itself -- we have some code running in another thread, but we want to wait for it to finish before continuing our thread. The example here is exactly what <code>DispatchQueue.sync</code> does, except we're building the semaphore ourselves.</p>
+ <p><code>DispatchSemaphore</code> is quick, and contains the same features that <code>NSLock</code> has.</p>
+ <h2>DispatchGroup</h2>
+ <p>A <code>DispatchGroup</code> is exactly like a <code>DispatchSemaphore</code>, but for <b>groups</b> of tasks. While a semaphore waits for one event, a group can wait for an infinite number of events:</p>
+ <pre>
 <code>let group = DispatchGroup()</code>
 <code></code>
-<code>for _ in 0..<6 {</code>
+<code>for _ in 0..&lt;6 {</code>
 <code>    group.enter()</code>
 <code>    mySlowAsynchronousTask {</code>
 <code>        group.leave()</code>
@@ -191,18 +199,18 @@ May 11th, 2021
 <code>group.wait()</code>
 <code>print("ALL tasks done!")</code>
 </pre>
-<p>In this case, the thread will only be unlocked when <b>all</b> 6 tasks have finished.</p>
-<p>One really neat feature of <code>DispatchGroups</code> is that you have the ability to wait <b>asynchronously</b> by calling <code>group.notify</code>:</p>
-<pre>
+ <p>In this case, the thread will only be unlocked when <b>all</b> 6 tasks have finished.</p>
+ <p>One really neat feature of <code>DispatchGroups</code> is that you have the ability to wait <b>asynchronously</b> by calling <code>group.notify</code>:</p>
+ <pre>
 <code>group.notify(queue: .main) {</code>
 <code>    print("ALL tasks done!")</code>
 <code>}</code>
 </pre>
-<p>This lets you be notified of the result in a <code>DispatchQueue</code> instead of blocking the thread, which can be extremely useful if you don't need the result synchronously.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>Because of the group mechanism, you'll find groups to be usually slower than plain semaphores:</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/V1S7N2y.png" alt="Alt">                                    
-</div>
-<p>In general this means you should always use <code>DispatchSemaphore</code> if you're only waiting for a single event, but unfortunately <code>DispatchSemaphore</code> doesn't have the <code>notify</code> API and lots of people end up using <code>DispatchGroup</code> also for individual events for this reason.</p>
+ <p>This lets you be notified of the result in a <code>DispatchQueue</code> instead of blocking the thread, which can be extremely useful if you don't need the result synchronously.</p>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>Because of the group mechanism, you'll find groups to be usually slower than plain semaphores:</p>
+ <div class="post-image"> 
+  <img src="https://i.imgur.com/V1S7N2y.png" alt="Alt"> 
+ </div>
+ <p>In general this means you should always use <code>DispatchSemaphore</code> if you're only waiting for a single event, but unfortunately <code>DispatchSemaphore</code> doesn't have the <code>notify</code> API and lots of people end up using <code>DispatchGroup</code> also for individual events for this reason.</p>
 </div>

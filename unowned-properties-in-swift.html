@@ -126,7 +126,7 @@
                </a>
           </div>
           <div class="blog-header-button">
-               <a href="sponsor" target="_blank">
+               <a href="sponsor-advertise-at-swiftrocks" target="_blank">
                   <div class="blog-header-button-sponsor">Sponsor</div>
                </a>
           </div>
@@ -156,32 +156,37 @@
   <!-- Mailchimp End -->
 
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
-<!--WRITEIT_POST_NAME=Unowned Properties in Swift-->
-<!--WRITEIT_POST_HTML_NAME=unowned-properties-in-swift-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00-->
+ 
+  
+  <!--WRITEIT_POST_NAME=Unowned Properties in Swift--> 
+  <!--WRITEIT_POST_HTML_NAME=unowned-properties-in-swift--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
+  <!--Add here the additional properties that you want each page to possess.--> 
+  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
+  <!--Properties must start with 'WRITE_IT_POST'.--> 
+  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
+  <!--WRITEIT_POST_SHORT_DESCRIPTION=Learn more about this alternative to weak properties in Swift.--> 
+  <title>Unowned Properties in Swift</title>  
+ 
 
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITE_IT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Learn more about this alternative to weak properties in Swift.-->
-
-
-<title>Unowned Properties in Swift</title>
-         <div class="col-md-12 blog-post"> 
-          <div class="post-title"> 
-           <h1>Unowned Properties in Swift</h1> 
-          </div> 
-          <div class="post-info"> 
-          May 2, 2018
-          </div> 
-          <p>It's very common to use the <code>weak</code> keyword in order to prevent reference cycles in properties like delegates:</p>
-<pre class = "language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>Unfortunately, since it protects you from references being lost, the <code>weak</code> keyword forces the usage of <code>var</code> and an optional type, which can be quite jarring if you're building something like an <code>UIView</code> that is not supposed to be used without a delegate - much less change delegates suddenly:</p>
-<pre class = "language-swift"><code class="language-swift">class HomeView: UIView {
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>Unowned Properties in Swift</h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-swift">
+   Swift
+  </div> 
+  <div class="post-info-text">
+   Published on 02 May 2018 
+  </div> 
+ </div>   
+ <p>It's very common to use the <code>weak</code> keyword in order to prevent reference cycles in properties like delegates:</p>
+ <pre class="language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>Unfortunately, since it protects you from references being lost, the <code>weak</code> keyword forces the usage of <code>var</code> and an optional type, which can be quite jarring if you're building something like an <code>UIView</code> that is not supposed to be used without a delegate - much less change delegates suddenly:</p>
+ <pre class="language-swift"><code class="language-swift">class HomeView: UIView {
     weak var delegate: HomeViewDelegate?
 
     func renderView() {
@@ -195,10 +200,10 @@
     }
 }
 </code></pre>
-<p>But <code>weak</code> is not the only way of breaking reference cycles. Just like in capture lists, the <code>unowned</code> keyword can be used in properties to create non-strong references:</p>
-<pre class = "language-swift"><code class="language-swift">unowned let delegate: HomeViewModelDelegate</code></pre>
-<p>Unlike <code>weak</code>, <code>unowned</code> references are expected to always have a value. This allows you to not only use non-optional types when declaring them, but also to do so with <code>let</code>, bringing back immutability and making sure your objects won't act in unexpected ways:</p>
-<pre class = "language-swift"><code class="language-swift">class HomeView: UIView {
+ <p>But <code>weak</code> is not the only way of breaking reference cycles. Just like in capture lists, the <code>unowned</code> keyword can be used in properties to create non-strong references:</p>
+ <pre class="language-swift"><code class="language-swift">unowned let delegate: HomeViewModelDelegate</code></pre>
+ <p>Unlike <code>weak</code>, <code>unowned</code> references are expected to always have a value. This allows you to not only use non-optional types when declaring them, but also to do so with <code>let</code>, bringing back immutability and making sure your objects won't act in unexpected ways:</p>
+ <pre class="language-swift"><code class="language-swift">class HomeView: UIView {
     private unowned let delegate: HomeViewDelegate
 
     init(delegate: HomeViewDelegate) {
@@ -213,25 +218,27 @@
     }
 }
 </code></pre>
-<p>With <code>weak</code>, there's nothing stopping <code>HomeView</code> from being used without a delegate, and a <code>guard</code> is required to unwrap values retrieved from the delegate due to the optional requirement of the keyword. On the other hand, <code>unowned</code> allows you to break reference cycles while still using the reference just like if it was strong.</p>
-<p>However, be aware that <code>unowned</code> properties will work just like the capture list keyword. If you try to access an unowned reference that has already deallocated, your app will crash.</p>
-<p>If your object is guaranteed to never outlive its unowned reference (like a <code>ViewModel</code>, for example), usage of <code>unowned</code> can greatly improve both code quality and performance.</p>
-<h2>But <code>unowned</code> can crash your app just like implicitly unwrapped optionals. Shouldn't you use <code>weak</code> for everything?</h2>
-<p>Most people rely on <code>weak</code> for everything and frown upon <code>unowned</code> due to its potential crashes, specially on capture lists. This is a safe way to use Swift, but not Apple's intended practice.</p>
-<p>Unlike implicitly unwrapped optionals, which in my opinion are just a lazy way of overcoming architectural problems, <code>unowned</code> references have significant advantages over <code>weak</code> ones: They have better performance, allow immutability, and since they can't be manually set to <code>nil</code>, your code will not accidentally follow unexpected paths. <code>unowned</code> references are perfectly safe - problems will only arise if you misuse the keyword.</p>
-<p>According to Apple, you should always use <code>unowned</code> references when your object can't outlive its reference:</p>
-<blockquote><p>Use an unowned reference only when you are sure that the reference always refers to an instance that has not been deallocated.</p>
-<p>If you try to access the value of an unowned reference after that instance has been deallocated, you’ll get a runtime error.</p>
-<p>If the captured reference will never become nil, it should always be captured as an unowned reference, rather than a weak reference.</p></blockquote>
-<p>In any other cases, you should keep using <code>weak</code> references.</p>
-<h2>What else?</h2>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>The next time you create a delegate or an <code>@escaping</code> closure, think about its context and see if it's possible for it to outlive its reference. If it doesn't, you might find <code>unowned</code> properties an interesting tool to improve your code's quality.</p>
-<p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
-<h2>References and Good reads</h2>
-<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html">Apple Docs: ARC and Keywords</a><br>
-         </div>
-</div>
+ <p>With <code>weak</code>, there's nothing stopping <code>HomeView</code> from being used without a delegate, and a <code>guard</code> is required to unwrap values retrieved from the delegate due to the optional requirement of the keyword. On the other hand, <code>unowned</code> allows you to break reference cycles while still using the reference just like if it was strong.</p>
+ <p>However, be aware that <code>unowned</code> properties will work just like the capture list keyword. If you try to access an unowned reference that has already deallocated, your app will crash.</p>
+ <p>If your object is guaranteed to never outlive its unowned reference (like a <code>ViewModel</code>, for example), usage of <code>unowned</code> can greatly improve both code quality and performance.</p>
+ <h2>But <code>unowned</code> can crash your app just like implicitly unwrapped optionals. Shouldn't you use <code>weak</code> for everything?</h2>
+ <p>Most people rely on <code>weak</code> for everything and frown upon <code>unowned</code> due to its potential crashes, specially on capture lists. This is a safe way to use Swift, but not Apple's intended practice.</p>
+ <p>Unlike implicitly unwrapped optionals, which in my opinion are just a lazy way of overcoming architectural problems, <code>unowned</code> references have significant advantages over <code>weak</code> ones: They have better performance, allow immutability, and since they can't be manually set to <code>nil</code>, your code will not accidentally follow unexpected paths. <code>unowned</code> references are perfectly safe - problems will only arise if you misuse the keyword.</p>
+ <p>According to Apple, you should always use <code>unowned</code> references when your object can't outlive its reference:</p>
+ <blockquote>
+  <p>Use an unowned reference only when you are sure that the reference&nbsp;always&nbsp;refers to an instance that has not been deallocated.</p> 
+  <p>If you try to access the value of an unowned reference after that instance has been deallocated, you’ll get a runtime error.</p> 
+  <p>If the captured reference will never become&nbsp;nil, it should always be captured as an unowned reference, rather than a weak reference.</p>
+ </blockquote>
+ <p>In any other cases, you should keep using <code>weak</code> references.</p>
+ <h2>What else?</h2>
+ <div class="sponsor-article-ad-auto hidden"></div>
+ <p>The next time you create a delegate or an <code>@escaping</code> closure, think about its context and see if it's possible for it to outlive its reference. If it doesn't, you might find <code>unowned</code> properties an interesting tool to improve your code's quality.</p>
+ <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
+ <h2>References and Good reads</h2>
+ <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html">Apple Docs: ARC and Keywords</a>
+ <br>
+</div></div>
                               
    
 
@@ -260,7 +267,7 @@
   <!-- Mailchimp End -->
     <div class="copyright">
     <text>Copyright © 2016-2021 SwiftRocks.</text>
-    <text><a href="https://swiftrocks.com">Index</a> | <a href="sponsor">Sponsor</a></text>
+    <text><a href="https://swiftrocks.com">Index</a> | <a href="sponsor-advertise-at-swiftrocks">Sponsor</a></text>
     </div>
 
     </div>
