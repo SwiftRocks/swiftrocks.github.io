@@ -77,18 +77,32 @@ b {
   text-decoration: none;
 }
 
+.blog-header-button-follow-shape {
+  position: absolute;
+  border-top: 20px solid transparent;
+  border-right: 30px solid white;
+  border-bottom: 16px solid transparent;
+  z-index: 0;
+  border-radius: 2000px;
+  margin-left: 33px;
+  margin-top: -7px;
+  transform: rotate(20deg);
+  transition: 0.25s;
+}
+
 .blog-header-button-follow {
   height: 33px;
   line-height: 33px;
   background-color: white;
-  color: #616161;
+  color: var(--strong-color);
   font-size: 14px;
   margin-left: 8px;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 20px;
   transition: 0.25s;
-  font-weight: 600;
+  font-weight: 400;
+  z-index: 2;
 }
 
 .blog-header-button a:hover {
@@ -97,6 +111,31 @@ b {
 }
 
 .blog-header-button a:hover > .blog-header-button-follow {
+  background-color: black;
+  color: white;
+  transition: 0.25s;
+}
+
+.blog-header-button a:hover > .blog-header-button-follow-shape {
+  border-right: 30px solid black;
+  transition: 0.25s;
+}
+
+.blog-header-button-sponsor {
+  height: 33px;
+  line-height: 33px;
+  background-color: white;
+  color: var(--strong-color);
+  font-size: 14px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  transition: 0.25s;
+  font-weight: 400;
+  z-index: 2;
+}
+
+.blog-header-button a:hover > .blog-header-button-sponsor {
   background-color: black;
   color: white;
   transition: 0.25s;
@@ -212,13 +251,20 @@ code {
   margin-top: 16px;
 }
 
-.footer-share a {
-  text-decoration: none;
+.footer-share i {
   background-color: var(--strong-color);
   color: white;
+  padding: 8px;
+  font-size: 20x;
+  border-radius: 8px;
+  transition: 0.25s;
+}
+
+.footer-share a {
+  text-decoration: none;
+  color: var(--strong-color);
   font-size: 18px;
-  padding-left: 16px;
-  padding-right: 16px;
+  font-weight: bold;
   padding-top: 8px;
   padding-bottom: 8px;
   border-radius: 4px;
@@ -226,6 +272,11 @@ code {
 }
 
 .footer-share a:hover {
+  color: black;
+  transition: 0.25s;
+}
+
+.footer-share a:hover > i {
   background-color: black;
   transition: 0.25s;
 }
@@ -260,6 +311,7 @@ Adapted from: http://blog.heyimcat.com/universal-signup-form/ */
 #mc_embed_signup #mce-error-response {display:none;}
 #mc_embed_signup #mce-success-response {color:#529214; display:none;}
 #mc_embed_signup label.error {display:block; float:none; width:auto; margin-left:1.05em; text-align:left; padding:.5em 0;}
+#mc_embed_signup { margin-top: 32px; }
 @media (max-width: 768px) {
     #mc_embed_signup input.email {width:100%; margin-bottom:5px;}
     #mc_embed_signup .clear {display: block; width: 100% }
