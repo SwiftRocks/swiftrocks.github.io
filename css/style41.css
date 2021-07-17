@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: unset !important;
+}
+
 body {
   background: #ffffff;
   --text-color: #000000;
