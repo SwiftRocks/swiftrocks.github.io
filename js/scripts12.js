@@ -6,10 +6,10 @@
         ///
         var showSponsor = true;
         ///
-        var sponsorTitle = "Title"
-        var sponsorIcon = "https://i.imgur.com/tw7D4YJ.jpg"
-        var sponsorText = "example"
-        var sponsorLink = "https://swiftrocks.com"
+        var sponsorTitle = "Essential Developer"
+        var sponsorIcon = "https://i.imgur.com/FsUmJHv.png"
+        var sponsorText = "If you’re a mid/senior iOS developer who’s looking to improve both your skills and your salary level, then join this 100% free online crash course, starting on August 2nd. Learn how to apply truly scalable iOS app architecture patterns through a series of lectures and practical coding sessions."
+        var sponsorLink = "https://iosacademy.essentialdeveloper.com/p/ios-architect-crash-course-srs4cce/"
 
         const sponsorDivId = "sponsor-article-ad-auto"
         const sponsorDivs = document.getElementsByClassName(sponsorDivId)
