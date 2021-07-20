@@ -5,6 +5,26 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/benchmarking-swift-code-properly-with-attabench</loc>
+    <lastmod>2021-07-20T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/benchmarking-swift-code-properly-with-attabench.html</loc>
+    <lastmod>2021-07-20T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-actors-work-internally-in-swift</loc>
+    <lastmod>2021-07-06T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-actors-work-internally-in-swift.html</loc>
+    <lastmod>2021-07-06T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/creating-3d-models-out-of-anything-with-realitykit-in-swift</loc>
     <lastmod>2021-06-22T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
@@ -152,16 +172,6 @@
 <url>
     <loc>https://swiftrocks.com/adapting-objectivec-apis-for-swift-using-nsrefinedforswift.html</loc>
     <lastmod>2020-07-14T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-actors-work-internally-in-swift</loc>
-    <lastmod>2020-07-06T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-actors-work-internally-in-swift.html</loc>
-    <lastmod>2020-07-06T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
