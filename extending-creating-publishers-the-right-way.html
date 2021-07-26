@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <script src="https://use.fontawesome.com/afd448ce82.js"></script>
+    
+    <!-- Meta Tag -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO -->
+    <meta name="author" content="Bruno Rocha">
+    <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
+    <meta name="description" content="In this article, I'll show you how to properly extend existing publishers and how to wrap them when creating your own custom publishers.">
+    <meta name="title" content="Extending / Creating Combine Publishers the Right Way">
+    <meta name="url" content="https://swiftrocks.com/extending-creating-combine-publishers-the-right-way">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/extending-creating-combine-publishers-the-right-way.jpg?3">
+    <meta name="copyright" content="Bruno Rocha">
+    <meta name="robots" content="index,follow">
+
+    <meta property="og:title" content="Extending / Creating Combine Publishers the Right Way"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/extending-creating-combine-publishers-the-right-way.jpg?3"/>
+    <meta property="og:description" content="In this article, I'll show you how to properly extend existing publishers and how to wrap them when creating your own custom publishers."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://swiftrocks.com/extending-creating-combine-publishers-the-right-way"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/extending-creating-combine-publishers-the-right-way.jpg?3"/>
+    <meta name="twitter:image:alt" content="Page Thumbnail"/>
+    <meta name="twitter:title" content="Extending / Creating Combine Publishers the Right Way"/>
+    <meta name="twitter:description" content="In this article, I'll show you how to properly extend existing publishers and how to wrap them when creating your own custom publishers."/>
+    <meta name="twitter:site" content="@rockbruno_"/>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
+    <link rel="mask-icon" href="images/favicon/favicon-2.ico">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:light,lightitalic,regular,regularitalic,medium,mediumitalic,bold,bolditalic,black,blackitalic">
+    
+  <!-- Bootstrap CSS Plugins --> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Prism CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/prism3.css"> 
+  <!-- Main CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/style41.css"> 
+  <link rel="stylesheet" type="text/css" href="css/sponsor2.css">
+    
+    <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <script type="application/ld+json">
+  {
+"@context": "https://schema.org",
+"@type": "BlogPosting",
+"mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://swiftrocks.com/extending-creating-combine-publishers-the-right-way"
+},
+"image": [
+  "https://swiftrocks.com/images/bg/swiftrockssocial.png"
+],
+"datePublished": "2021-07-27T14:00:00+02:00",
+"dateModified": "2021-07-27T14:00:00+02:00",
+"author": {
+  "@type": "Person",
+  "name": "Bruno Rocha"
+},
+ "publisher": {
+  "@type": "Organization",
+  "name": "SwiftRocks",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://swiftrocks.com/images/bg/swiftrockssocial.png"
+  }
+},
+"headline": "Extending / Creating Combine Publishers the Right Way",
+    "abstract": "In this article, I'll show you how to properly extend existing publishers and how to wrap them when creating your own custom publishers."
+}
+  </script>
+    
+
+  </head>
+
+ <body>
+      
+    
+    
+     
+    
+    
+  <div id="main"> 
+<!-- Blog Header --> 
+      <div class="blog-header-container" style="width: 100%">
+         <div style="display: flex; justify-content: center;"><a href="https://swiftrocks.com">
+           <img id="logo" alt="SwiftRocks" src="images/bg/swiftrockswithtextdarkmode2.png" style="margin-top: 32px; margin-left: 32px; margin-right: 32px; max-width: calc(100% - 64px); width: auto; height: auto;"> 
+         </a></div>
+         <div style="margin-top: 15px; display: flex; justify-content: center;">
+           <p class="blog-header-text">A blog about <b style="color: white;">how Swift works</b> and <b style="color: white;">iOS tricks</b>, by <a href="https://twitter.com/rockbruno_">Bruno Rocha</a>.</p>
+         </div>
+          <div class="blog-header-button-container">
+          <div class="blog-header-button">
+               <a href="https://twitter.com/rockbruno_" target="_blank" style="display: flex;">
+                  <i class="fa fa-twitter"></i>
+                  <div class="blog-header-button-follow-shape"></div>
+                  <div class="blog-header-button-follow">4845<div class="blog-header-button-follow-verbose"> followers</div>!</div>
+               </a>
+          </div>
+          <div class="blog-header-button">
+               <a href="rss.xml" target="_blank">
+                  <i class="fa fa-rss"></i>
+               </a>
+          </div>
+          <div class="blog-header-button">
+               <a href="mailto:bruno@swiftrocks.com" target="_blank">
+                  <i class="fa fa-envelope"></i>
+               </a>
+          </div>
+          <div class="blog-header-button">
+               <a href="https://github.com/rockbruno" target="_blank">
+                  <i class="fa fa-github"></i>
+               </a>
+          </div>
+          <div class="blog-header-button">
+               <a href="sponsor-advertise-at-swiftrocks">
+                  <div class="blog-header-button-sponsor">Sponsor</div>
+               </a>
+          </div>
+         </div>
+     </div>
+         <!-- Blog Post (Right Sidebar) Start --> 
+   <div class="container"> 
+                 <div class="col-xs-12">
+                    <div class="page-body">
+                    	<div class="row">
+
+ <!-- Mailchimp -->
+  <div id="mc_embed_signup">
+  <div style="display:flex; justify-content: center;">
+  <p style="font-weight: 100; font-size: 16px; text-align: center;">Articles about advanced Swift development in excruciating detail, for free!</p>
+  </div>
+  <form action="https://swiftrocks.us17.list-manage.com/subscribe/post?u=d6bdd39e59b8d9b8f2b8d4852&amp;id=cbca5f3532" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" style="padding: 0;" novalidate>
+      <div id="mc_embed_signup_scroll">
+    
+    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Your email address" required>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_d6bdd39e59b8d9b8f2b8d4852_cbca5f3532" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Notify me of new posts" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+      </div>
+  </form>
+  </div>
+  <!-- Mailchimp End -->
+
+                            <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
+<!--WRITEIT_POST_NAME=Extending / Creating Combine Publishers the Right Way-->
+<!--WRITEIT_POST_HTML_NAME=extending-creating-combine-publishers-the-right-way-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, I'll show you how to properly extend existing publishers and how to wrap them when creating your own custom publishers.-->
+
+<!--DateFormat example: 2021-07-27T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-07-27T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2021-07-27T14:00:00+02:00-->
+
+<title>Extending / Creating Combine Publishers the Right Way</title>
+<div class="blog-post"> 
+ <div class="post-title-index">  
+  <h1>Extending / Creating Combine Publishers the Right Way</h1>
+ </div> 
+ <div class="post-info"> 
+  <div class="category category-swift">
+   Swift
+  </div> 
+  <div class="post-info-text">
+   Published on 26 Jul 2021 
+  </div> 
+ </div>   
+<p>I've been playing around with <b>Combine</b> for a while now and had some trouble navigating all the new protocols and types, especially when it came to extensions. In this article, I'll show you how to properly extend existing publishers and how to wrap them when creating your own custom publishers.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<h2>The Easy Case: Extending Basic Output Publishers</h2>
+<p>One of my favorite uses of Combine is how easily composable everything is. There's no need to create custom classes unless you really need to keep track of an external object:</p>
+<pre>
+<code>let publisher = CurrentValueSubject&lt;Int, Never>(0)</code>
+<code></code>
+<code>let evenSquaredPublisher = publisher.filter {</code>
+<code>    $0 % 2 == 0</code>
+<code>}.map {</code>
+<code>    $0 * $0</code>
+<code>}</code>
+<code></code>
+<code>let cancellable = evenSquaredPublisher.sink { print($0) }</code>
+</pre>
+<p>Since all articles require a non-sense example, our example is going to be a publisher that streams the squared of even numbers. As you can see, it's trivial to develop this functionality, but what if we wanted to do this more than once around our code?</p>
+<p>Surprisingly, due to limitations on the constrained extensions API, it took me a while to figure out the right way to abstract this under a function. My first idea, and what I think some people out there are doing, is to extend <code>AnyPublisher</code> and constrain it to the <code>Int</code> output used by the example:</p>
+<pre>
+<code>extension AnyPublisher where Output == Int {</code>
+<code>    func evenSquared() -> AnyPublisher&lt;Output, Failure> {</code>
+<code>        return filter {</code>
+<code>            $0 % 2 == 0</code>
+<code>        }.map {</code>
+<code>            $0 * $0</code>
+<code>        }.eraseToAnyPublisher()</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>This however is not the right approach, because you'll now have to erase everyone who wants to use this method, and that's not why <code>AnyPublisher</code> exists:</p>
+<pre>
+<code>let evenSquaredPublisher = publisher.eraseToAnyPublisher().evenSquared()</code>
+</pre>
+<p>To extend publishers correctly in this case, we need to extend the main <code>Publisher</code> protocol:</p>
+<pre>
+<code>extension Publisher where Output == Int {</code>
+<code>    func evenSquared() -> AnyPublisher&lt;Output, Failure> {</code>
+<code>        return filter {</code>
+<code>            $0 % 2 == 0</code>
+<code>        }.map {</code>
+<code>            $0 * $0</code>
+<code>        }.eraseToAnyPublisher()</code>
+<code>    }</code>
+<code>}</code>
+<code></code>
+<code>let evenSquaredPublisher = publisher.evenSquared()</code>
+</pre>
+<p>This is better, but we're still not done. Luckily for us (or not, as you'll see below), every one of these Combine operators return an actual concrete <code>Publisher</code> implementation, so with some help of the compiler we can return the correct result of the operation instead of <code>AnyPublisher</code>:</p>
+<pre>
+<code>extension Publisher where Output == Int {</code>
+<code>    func evenSquared() -> Publishers.Map&lt;Publishers.Filter&lt;Self>, Output> {</code>
+<code>        return filter {</code>
+<code>            $0 % 2 == 0</code>
+<code>        }.map {</code>
+<code>            $0 * $0</code>
+<code>        }</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>The signature of methods might let a little large because of this, but as far as I know, this is the correct way of approaching this problem, and you can make it better in this case with an alias:</p>
+<pre>
+<code>typealias EvenSquaredPublisher&lt;P: Publisher, T> = Publishers.Map&lt;Publishers.Filter&lt;P>, T></code>
+<code>extension Publisher where Output == Int {</code>
+<code>    func evenSquared() -> EvenSquaredPublisher&lt;Self, Output> {</code>
+<code>        return filter {</code>
+<code>            $0 % 2 == 0</code>
+<code>        }.map {</code>
+<code>            $0 * $0</code>
+<code>        }</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>So far this seems like nothing special, but don't worry, this is going to get weird pretty soon.</p>
+<h2>The Hardcore Case: Extending Publishers With Generic Outputs</h2>
+<p>There's one additional case I would like to show you, which is what prompted me to write this article. <b>What if the output itself contains generics?</b></p>
+<pre>
+<code>enum Condition&lt;T> {</code>
+<code>    case satisfied(T)</code>
+<code>    case unsatisfied</code>
+<code>}</code>
+<code></code>
+<code>let publisher = CurrentValueSubject&lt;Condition&lt;Int>, Never>(.satisfied(1))</code>
+<code>let publisherB = CurrentValueSubject&lt;Condition&lt;Int>, Never>(.satisfied(2))</code>
+<code></code>
+<code>let combinedConditions = publisher.combineLatest(publisherB).map { tuple in</code>
+<code>    guard case .satisfied(let pA) = tuple.0, case .satisfied(let pB) = tuple.1 else {</code>
+<code>        return .unsatisfied</code>
+<code>    }</code>
+<code>    return .satisfied((pA, pB))</code>
+<code>}</code>
+</pre>
+<p>In this example, we're merging the contents of two conditions into a single condition that contains both publisher's values. But because the result here is <code>Condition&lt;T></code>, we can't use the constrained extension syntax anymore:</p>
+<pre>
+<code>extension Publisher where Output == Condition</code>
+<code>// Reference to generic type 'Condition' requires arguments in &lt;...></code>
+</pre>
+<p>I personally find it really weird that this is not possible to do, and perhaps a point of improvement with Swift in the future. Still, there's a way you can achieve this. in <i>this</i> case, the correct approach is to instead constrain <b>the method itself</b>:</p>
+<pre>
+<code>extension Publisher {</code>
+<code>    func combineCondition&lt;A, B, P: Publisher>(</code>
+<code>        _ publisher: P</code>
+<code>    ) -> Publishers.Map&lt;Publishers.CombineLatest&lt;Self, P>, Condition<(A, B)>></code>
+<code>    where Output == Condition&lt;A>, P.Output == Condition&lt;B>, Failure == P.Failure {</code>
+<code>        return combineLatest(publisher).map { tuple in</code>
+<code>            guard case .satisfied(let pA) = tuple.0, case .satisfied(let pB) = tuple.1 else {</code>
+<code>                return .unsatisfied</code>
+<code>            }</code>
+<code>            return .satisfied((pA, pB))</code>
+<code>        }</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>As promised, things got weird pretty fast. Besides constraining the initial publisher's output to match the desired <code>Condition</code> type through an unconstrained generic <code>A</code> type in the method's signature, we also need to make sure that the merging publisher's <code>Failure</code> type matches the one that triggered the operation. That's a really big method!</p>
+<p>To wrap it up, let me show you how to achieve the same thing when a custom type is used instead. In this case, we can do the same thing in the class's initializer:</p>
+<pre>
+<code>final class CombinedConditionPublisher&lt;A, B, F: Error>: Publisher {</code>
+<code></code>
+<code>    typealias Output = Condition<(A, B)></code>
+<code>    typealias Failure = F</code>
+<code></code>
+<code>    let combined: AnyPublisher&lt;Condition&lt;(A, B)>, F></code>
+<code></code>
+<code>    init&lt;PA: Publisher, PB: Publisher>(</code>
+<code>        _ a: PA,</code>
+<code>        _ b: PB,</code>
+<code>        receiveValue: @escaping ((Condition<(A, B)>) -> Void)</code>
+<code>    )</code>
+<code>    where PA.Failure == F, PB.Failure == F, PA.Output == Condition&lt;A>, PB.Output == Condition&lt;B></code>
+<code>    {</code>
+<code>        combined = a.combineLatest(b).map { tuple in</code>
+<code>            guard case .satisfied(let pA) = tuple.0, case .satisfied(let pB) = tuple.1 else {</code>
+<code>                return .unsatisfied</code>
+<code>            }</code>
+<code>            return .satisfied((pA, pB))</code>
+<code>        }.eraseToAnyPublisher()</code>
+<code>    }</code>
+<code></code>
+<code>    func receive&lt;S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {</code>
+<code>        combined.receive(subscriber: subscriber)</code>
+<code>    }</code>
+<code>}</code>
+<code></code>
+<code>extension Publisher {</code>
+<code>    func combineCondition&lt;A, B, P: Publisher>(</code>
+<code>        _ publisher: P</code>
+<code>    ) -> CombinedConditionPublisher&lt;A, B, Failure></code>
+<code>    where Output == Condition&lt;A>, P.Output == Condition&lt;B>, Failure == P.Failure {</code>
+<code>        return CombinedConditionPublisher(self, publisher)</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>This case is a little more complex though, because we now need to use <code>AnyPublisher</code> to cover the fact that we cannot constrain <code>PA</code> and <code>PB</code> in the class's main definition. Still, the functionality will be the same.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>While it's unfortunate that the signatures are enormous, things will look perfect on the call site. As mentioned before, as weird as it looks, this seems to be exactly how Combine implements some of its operators.</p>
+<pre>
+<code>let publisher = CurrentValueSubject&lt;Condition&lt;Int>, Never>(.satisfied(1))</code>
+<code>let publisherB = CurrentValueSubject&lt;Condition&lt;Int>, Never>(.satisfied(2))</code>
+<code></code>
+<code>let combined = publisher.combineCondition(publisherB)</code>
+</pre>
+</div>
+</div>
+                              
+   
+
+    <div class="blog-post" style="margin-top: 16px;">
+      <div class="footer-text">
+        <p>Thanks for reading! If you want to see more Swift / iOS content like this, follow me on <a href="https://twitter.com/rockbruno_">Twitter!</a></p>
+        <div class="footer-share">
+        <a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Fhow-actors-work-internally-in-swift&text=How Actors Work Internally in Swift" target="_blank" class="share" style="font-size: 18px;"><i class="fa fa-twitter"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Share this page on Twitter</a>
+        </div>
+      </div>
+    <!-- Mailchimp -->
+  <div id="mc_embed_signup" style="border-top: 1px solid black; padding-top: 32px;">
+  <div style="display:flex; justify-content: center; text-align: center;">
+  <p style="font-weight: 100; font-size: 16px;">Articles about advanced Swift development in excruciating detail, for free!</p>
+  </div>
+  <form action="https://swiftrocks.us17.list-manage.com/subscribe/post?u=d6bdd39e59b8d9b8f2b8d4852&amp;id=cbca5f3532" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" style="padding: 0;" novalidate>
+      <div id="mc_embed_signup_scroll">
+    
+    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Your email address" required>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_d6bdd39e59b8d9b8f2b8d4852_cbca5f3532" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Notify me of new posts" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+      </div>
+  </form>
+  </div>
+  <!-- Mailchimp End -->
+    <div class="copyright">
+    <text>Copyright © 2016-2021 SwiftRocks.</text>
+    <text><a href="https://swiftrocks.com">Index</a> | <a href="sponsor-advertise-at-swiftrocks">Sponsor</a></text>
+    </div>
+
+    </div>
+
+                         </div>
+
+</div>
+                        
+                           
+                         </div>
+                     
+                     
+                  </div>
+                  <!-- Blog Post (Right Sidebar) End -->
+                
+            </div>
+         </div>
+      </div>
+    
+    
+    <!-- All Javascript Plugins  -->
+  <script type="text/javascript" src="js/jquery.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/prism3.js"></script> 
+    <!-- Main Javascript File  -->
+    <script type="text/javascript" src="js/scripts13.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-130406165-1');
+</script>
+
+   </body>
+ </html>
