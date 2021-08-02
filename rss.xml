@@ -7,6 +7,120 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>StaticString, and how it works internally in Swift</title>
+    <link>https://swiftrocks.com/staticstring-in-swift</link>
+    <guid>https://swiftrocks.com/staticstring-in-swift</guid>
+    <pubDate>Mon, 2 Aug 2021 14:00:00 GMT+2</pubDate>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=StaticString, and how it works internally in Swift-->
+<!--WRITEIT_POST_HTML_NAME=staticstring-in-swift-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=StaticString is an interesting type in Swift. Let's see how it works!-->
+
+<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-08-02T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2021-08-02T14:00:00+02:00-->
+
+<title>StaticString, and how it works internally in Swift</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>StaticString, and how it works internally in Swift</h1>
+  </div>  
+  <div class="post-info">
+    <div class="category category-compiler">Compiler</div>
+    <div class="category category-swift">Swift</div>
+    <div class="post-info-text">Published on 02 Aug 2021</div>
+  </div>
+<p><code>StaticString</code> is an interesting type in Swift. It's essentially nothing more than a <code>String</code> that can't be modified for the purposes of referencing static content inside your binary.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>You can encounter <code>StaticString</code> in Swift when referencing source metadata like <code>#file</code> and <code>#function</code>, but you can also define one yourself by explicitly declaring it in a string literal:</p>
+<pre>
+<code>let path: StaticString = #file // StaticString</code>
+<code>let myStaticString: StaticString = "SwiftRocks!"</code>
+</pre>
+<p>In short, this is an optimization trick. A <code>StaticString</code> is meant to represent text that is known at compile-time (and is not going to be modified), allowing you to save memory by not building the heap storage that a regular <code>String</code> would require.</p>
+<p>You might already have a good idea of what this is going to look like. While a normal <code>String</code> will read the memory address of the original string in the binary and build the entire data structure around it, a <code>StaticString</code> just... stores that address:</p>
+<pre>
+<code>public struct StaticString: Sendable {</code>
+<code></code>
+<code>  /// Either a pointer to the start of UTF-8 data, represented as an integer,</code>
+<code>  /// or an integer representation of a single Unicode scalar.</code>
+<code>  @usableFromInline</code>
+<code>  internal var _startPtrOrData: Builtin.Word</code>
+<code></code>
+<code>  ...</code>
+<code>}</code>
+</pre>
+<p>This makes perfect sense -- if you're not going to modify that string, we don't really need to do anything with that address. Every string literal you write is stored in the binary in the end (which you can even reverse-engineer to extract other people's API keys and such, yuck), and a <code>StaticString</code> is simply a wrapper of a type that reads that address.</p>
+<p>But how does Swift differentiate between regular strings versus static ones?</p>
+<h2>How <code>StaticString</code> is built in the compiler</h2>
+<p>In Swift, literals are syntax-sugars for types that implement the <code>ExpressibleBy</code> series of protocols, so this wouldn't be different for <code>StaticString</code>. <a href="https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler">We already covered the topic of ExpressibleBy here on SwiftRocks</a>, so to avoid duplicating information, make sure to familiarize yourself with that article before continuing this one.</p>
+<p>As mentioned in that article, types that empower string literals are in reality types that inherit from the <code>ExpressibleByStringLiteral</code> protocol, exposing an initializer that receives a <code>String</code> formed from that literal. <code>StaticString</code> also works by inheriting from that protocol, but I was confusing about something: If <code>ExpressibleByStringLiteral</code> gives you a normal <code>String</code>, doesn't this ruin the purpose of a static string?</p>
+<p>It turns out that I was missing an important point about string literals. <code>ExpressibleByStringLiteral</code> doesn't simply give you a <code>String</code>, you can actually customize it!</p>
+<pre>
+<code>public protocol ExpressibleByStringLiteral {</code>
+<code></code>
+<code>  /// A type that represents a string literal.</code>
+<code>  associatedtype StringLiteralType: _ExpressibleByBuiltinStringLiteral</code>
+<code></code>
+<code>  init(stringLiteral value: StringLiteralType)</code>
+<code>}</code>
+</pre>
+<p>When inheriting from <code>ExpressibleByStringLiteral</code>, you can receive anything that inherits <code>_ExpressibleByBuiltinStringLiteral</code>, which is a protocol that defines an object that can build a string from its original memory address:</p>
+<pre>
+<code>public protocol _ExpressibleByBuiltinStringLiteral {</code>
+<code></code>
+<code>  init(</code>
+<code>      _builtinStringLiteral start: Builtin.RawPointer,</code>
+<code>      utf8CodeUnitCount: Builtin.Word,</code>
+<code>      isASCII: Builtin.Int1</code>
+<code> )</code>
+<code>}</code>
+</pre>
+<p>As dictated by the underscore, this is an internal protocol that you shouldn't be messing with. The practice is quite interesting because you can actually inherit it, but the code won't compile because we cannot access <code>Builtin</code> types from Swift. But if we cannot create conformances to it, what <i>can</i> we use? The answer: <code>String</code> and <code>StaticString</code>.</p>
+<p>These two types conform not only to <code>ExpressibleByStringLiteral</code>, but also to the protocol that defines how these strings are created in the first place. And while a <code>String</code> will implement it in order to create a proper mutable string object, a <code>StaticString</code> just stores the address.</p>
+<pre>
+<code>extension StaticString: _ExpressibleByBuiltinStringLiteral {</code>
+<code>  public init(</code>
+<code>    _builtinStringLiteral start: Builtin.RawPointer,</code>
+<code>    utf8CodeUnitCount: Builtin.Word,</code>
+<code>    isASCII: Builtin.Int1</code>
+<code>  ) {</code>
+<code>    self = StaticString(</code>
+<code>      _start: start,</code>
+<code>      utf8CodeUnitCount: utf8CodeUnitCount,</code>
+<code>      isASCII: isASCII)</code>
+<code>  }</code>
+<code>}</code>
+</pre>
+<p>When building a string literal, the compiler reads the <code>StringLiteralType</code> type used by the <code>ExpressibleByStringLiteral</code> conformance to make sure the right string type is created and provided.</p>
+<pre>
+<code>literalType = ctx.Id_StringLiteralType;</code>
+<code></code>
+<code>literalFuncName = DeclName(ctx, DeclBaseName::createConstructor(),</code>
+<code>                           {ctx.Id_stringLiteral});</code>
+<code></code>
+<code>builtinProtocol = TypeChecker::getProtocol(</code>
+<code>    cs.getASTContext(), expr->getLoc(),</code>
+<code>    KnownProtocolKind::ExpressibleByBuiltinStringLiteral);</code>
+<code>builtinLiteralFuncName =</code>
+<code>    DeclName(ctx, DeclBaseName::createConstructor(),</code>
+<code>             {ctx.Id_builtinStringLiteral,</code>
+<code>              ctx.getIdentifier("utf8CodeUnitCount"),</code>
+<code>              ctx.getIdentifier("isASCII")});</code>
+</pre>
+<h2>Should I be using <code>StaticString</code>?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>As is the norm with micro-optimizations, unless you know what you're doing, probably not. You should also note that <code>StaticStrings</code> have a couple of limitations when it comes to Unicode, so you should be careful when trying to read their internal content.</p>
+</div>
+]]></description>
+</item>
+<item>
     <title>Extending / Creating Combine Publishers the Right Way</title>
     <link>https://swiftrocks.com/extending-creating-publishers-the-right-way</link>
     <guid>https://swiftrocks.com/extending-creating-publishers-the-right-way</guid>
