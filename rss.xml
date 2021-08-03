@@ -10,7 +10,7 @@
     <title>StaticString, and how it works internally in Swift</title>
     <link>https://swiftrocks.com/staticstring-in-swift</link>
     <guid>https://swiftrocks.com/staticstring-in-swift</guid>
-    <pubDate>Mon, 2 Aug 2021 14:00:00 GMT+2</pubDate>
+    <pubDate>Tue, 3 Aug 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=StaticString, and how it works internally in Swift-->
 <!--WRITEIT_POST_HTML_NAME=staticstring-in-swift-->
@@ -23,8 +23,8 @@
 <!--WRITEIT_POST_SHORT_DESCRIPTION=StaticString is an interesting type in Swift. Let's see how it works!-->
 
 <!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-08-02T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-08-02T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-08-03T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2021-08-03T14:00:00+02:00-->
 
 <title>StaticString, and how it works internally in Swift</title>
 <div class="blog-post">
@@ -34,7 +34,7 @@
   <div class="post-info">
     <div class="category category-compiler">Compiler</div>
     <div class="category category-swift">Swift</div>
-    <div class="post-info-text">Published on 02 Aug 2021</div>
+    <div class="post-info-text">Published on 03 Aug 2021</div>
   </div>
 <p><code>StaticString</code> is an interesting type in Swift. It's essentially nothing more than a <code>String</code> that can't be modified for the purposes of referencing static content inside your binary.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
