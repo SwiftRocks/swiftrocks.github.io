@@ -5,10 +5,10 @@
         ///
         var showSponsor = true;
         ///
-        var sponsorTitle = "Essential Developer"
-        var sponsorIcon = "https://i.imgur.com/FsUmJHv.png"
-        var sponsorText = "If you’re a mid/senior iOS developer who’s looking to improve both your skills and your salary level, then join this 100% free online crash course, starting on August 2nd. Learn how to apply truly scalable iOS app architecture patterns through a series of lectures and practical coding sessions."
-        var sponsorLink = "https://iosacademy.essentialdeveloper.com/p/ios-architect-crash-course-srs4cce/"
+        var sponsorTitle = "Stoked about SwiftUI but hesitant to start using it in production?"
+        var sponsorIcon = "https://i.imgur.com/fNHP98M.png"
+        var sponsorText = "Build better apps faster. Moving Parts is a library of high-level production-ready SwiftUI components, made to solve real-world problems. Backed by Y Combinator. Join our private beta to get started."
+        var sponsorLink = "https://www.movingparts.io/"
 
         const sponsorDivId = "sponsor-article-ad-auto"
         const sponsorDivs = document.getElementsByClassName(sponsorDivId)
