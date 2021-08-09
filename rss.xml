@@ -1119,6 +1119,284 @@
 </div>]]></description>
 </item>
 <item>
+    <title>Adding Intelligent Code Generation to Swift Projects with SourceKit</title>
+    <link>https://swiftrocks.com/code-generation-with-sourcekit</link>
+    <guid>https://swiftrocks.com/code-generation-with-sourcekit</guid>
+    <pubDate>Mon, 12 Apr 2021 14:00:00 GMT+2</pubDate>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=Adding Intelligent Code Generation to Swift Projects with SourceKit-->
+<!--WRITEIT_POST_HTML_NAME=code-generation-with-sourcekit-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=I've been playing with "intelligent code generation" for a couple of years now, and I'd like to show you how to achieve this with SourceKit.-->
+
+<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-04-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2021-04-12T14:00:00+02:00-->
+
+<title>Adding Intelligent Code Generation to Swift Projects with SourceKit</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>Adding Intelligent Code Generation to Swift Projects with SourceKit</h1>
+  </div>  
+  <div class="post-info">
+    <div class="category category-compiler">iOS</div>
+    <div class="category category-swift">Swift</div>
+    <div class="post-info-text">Published on 10 Aug 2021</div>
+  </div>
+<p><a href="https://www.youtube.com/watch?v=sZuI6z8qSmc">I gave a talk about scalable iOS apps at SwiftHeroes 2021</a> in which I speak about an app's four "levels" of complexity, ending by stating that we still don't know what the "fifth level" would be.</p>
+<p>I do have one guess though: I believe a "level five" iOS app will be an app that contains so many modules and architectural components that any small addition will require writing massive amounts of boilerplate code. In an app like this, the jump from level four to level five would be defined by the app's ability to generate most of its boilerplate and requirements.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>Note that I'm not talking about code generation in the sense of tools like Sourcery where you define templates for common actions, push an input and get an output -- I'm talking about generating code for things you <b>don't even know what the inputs are.</b> Yes, that's possible! I've been playing with "intelligent code generation" for a couple of years now, and I'd like to show you how to achieve this with <b>SourceKit</b>.</p>
+<h2>Example: Generating a dependency injection library's dependency list</h2>
+<p>For this article, I'd like to use <a href="https://github.com/rockbruno/RouterService">RouterService</a> as an example. This is a type-safe dependency injection library in which your app is defined as a series of "features" that can depend on each other, creating a dependency graph that is then fed into a main <code>RouterService</code> object that does all the magic:</p>
+<pre>
+<code>struct ProfileFeature: Feature {</code>
+<code></code>
+<code>    @Dependency var client: HTTPClientProtocol</code>
+<code></code>
+<code>    func build(fromRoute route: Route?) -> UIViewController {</code>
+<code>        return ProfileViewController(client: client)</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>There's one thing that is slightly annoying about it though -- because type-safety is an important aspect of the library, you need to manually inform <code>RouterService</code> of all available features in your app:</p>
+<pre>
+<code>routerService.register(feature: ProfileFeature.self)</code>
+<code>routerService.register(feature: SomeOtherFeature.self)</code>
+</pre>
+<p>(The actual registration is a bit different from this, but I simplified it too avoid skewing the subject too much.)</p>
+<p>This means that every time a new feature is added, the pull request must also contain a change to the file where these registrations are being made. If you forget to do that, the library will crash when attempting to reference that feature.</p>
+<p>We can improve this by automating this step with code generation. If you're maintaining a list of features somewhere in a file you <i>could</i> use Sourcery to generate this boilerplate, but what I'd like to show you is <b>how to generate this code without having any prior information on the app's feature list.</b> No special yaml files, no special calls, just run a tool and get this code generated.</p>
+<h2>Introducing SourceKit</h2>
+<p><b>SourceKit</b> is Swift's syntax highlighting engine. Well, I suppose technically the engine is Swift itself, but SourceKit is how Xcode is able to implement all of its Swift IDE features like formatting, jumping to specific symbols, and of course, the syntax highlighting itself. Part of the Swift umbrella of tools, SourceKit is a C library that abstracts the Swift compiler, and it's shipped inside the Swift toolchain when you download Xcode. This means that you don't need to download a special binary to follow this tutorial -- if you have Xcode, you also have SourceKit.</p>
+<p>Like Swift, SourceKit is open-source, and you can use it outside of Xcode to give any project the capabilities of a Swift IDE. SourceKit-powered projects were actually sort of common a couple of years ago, with the most notorious one being JP Simard's <a href="https://github.com/jpsim/SourceKitten">SourceKitten</a> framework which allowed you to use SourceKit directly in Swift. In fact, many popular code-related tools like SwiftLint, Jazzy and even Sourcery itself are still using SourceKitten under the hood. I haven't seen any more SourceKit-related projects being developed in recent times, but you can still use it to create intelligent projects.</p>
+<p>SourceKit works through a request/response format. The tool can receive many types of IDE-related requests like opening files, indexing content, auto-completion, looking up the definition of a symbol, formatting and so on, and by sending a structured request object you'll get a structured response with the result of what you're asking for.</p>
+<p>You can actually see SourceKit in action by launching Xcode with SourceKit logging enabled:</p>
+<pre>
+<code>export SOURCEKIT_LOGGING=3 && /Applications/Xcode.app/Contents/MacOS/Xcode > log.txt</code>
+</pre>
+<p>With the <code>SOURCEKIT_LOGGING</code> flag, Xcode will start dumping every request done to SourceKit. Try doing some common actions like waiting for auto-complete and see how SourceKit makes it happen! The logs will contain a lot of noise, but if you want a pointer, search for calls to the <code>editor_open</code> request, which is the request done whenever you open a file:</p>
+<pre>
+<code>final class TestService {</code>
+<code>    init() {}</code>
+<code>}</code>
+</pre>
+<pre>
+<code>{</code>
+<code>  key.request: source.request.editor.open,</code>
+<code>  key.name: "/myFolder/myFile.swift",</code>
+<code>  key.sourcefile: "/myFolder/myFile.swift"</code>
+<code>}</code>
+</pre>
+<pre>
+<code>{</code>
+<code>  key.substructure: [</code>
+<code>    {</code>
+<code>      key.kind: source.lang.swift.decl.class,</code>
+<code>      key.accessibility: source.lang.swift.accessibility.internal,</code>
+<code>      key.name: "TestService",</code>
+<code>      key.offset: 6,</code>
+<code>      key.length: 35,</code>
+<code>      key.nameoffset: 12,</code>
+<code>      key.namelength: 11,</code>
+<code>      key.bodyoffset: 25,</code>
+<code>      key.bodylength: 15,</code>
+<code>      key.attributes: [</code>
+<code>        {</code>
+<code>          key.offset: 0,</code>
+<code>          key.length: 5,</code>
+<code>          key.attribute: source.decl.attribute.final</code>
+<code>        }</code>
+<code>      ],</code>
+<code>      key.substructure: [</code>
+<code>        {</code>
+<code>          key.kind: source.lang.swift.decl.function.method.instance,</code>
+<code>          key.accessibility: source.lang.swift.accessibility.internal,</code>
+<code>          key.name: "init()",</code>
+<code>          key.offset: 30,</code>
+<code>          key.length: 9,</code>
+<code>          key.nameoffset: 30,</code>
+<code>          key.namelength: 6,</code>
+<code>          key.bodyoffset: 38,</code>
+<code>          key.bodylength: 0</code>
+<code>        }</code>
+<code>      ]</code>
+<code>    }</code>
+<code>  ]</code>
+<code>}</code>
+</pre>
+<p>As you can see, the response to this request contains the tokenized structure of a Swift file. With it, we can determine that this file is declaring <code>TestPrivate</code>, that <code>TestPrivate</code> is a <code>final private class</code>, that <code>final class</code> are builtin Swift keywords, <i>where</i> they were defined, the length of each code block and so on. That's what Xcode uses to give keywords a special color before your file is properly indexed, and that's the most basic request it has!</p>
+<p>In short, we can use this tokenized structure to automatically generate a feature's declaration code. If we know that a file contains the declaration of a feature, we can extract its name and automatically generate its setup boilerplate.</p>
+<h2>Creating a project with SourceKit</h2>
+<p>SourceKit is easy to use, but a bit annoying to configure. This is because we're dealing with a C library, so some setup needs to be done in your Xcode project before you can actually use it. I suppose that for simple endeavors you can use <a href="https://github.com/jpsim/SourceKitten">SourceKitten</a>, but I'll teach you how to manually use SourceKit so you have access to its full capabilities.</p>
+<p>To start, download <a href="https://github.com/rockbruno/SourceKitSampleProject">this sample SourceKit-powered Swift Package Manager project</a> that contains everything you need to get started.</p>
+<p>The project contains two targets: <code>Csourcekitd</code> and <code>MyProject</code>, which is where the project itself resides. The reason we need to define a target for SourceKit is that although we have access to SourceKit in the toolchain, we don't know <i>how</i> to call it. This target has a header file that contains all functions supported by SourceKit, alongside the minimum setup necessary to abstract a C library into a Swift module.</p>
+<p>Additionally, <code>MyProject</code> contains Swift abstractions that can handle initializing and using SourceKit. It defines for example the data structures that you need to pass, the constants for every relevant string in SourceKit (requests, keys and values), and small utilities on handling these types. If you're wondering where all of that comes from, all of these files come from Swift itself! The abstractions specifically were snatched from <a href="https://github.com/apple/sourcekit-lsp">SourceKit-LSP</a>, which is a Swift abstraction of SourceKit for IDEs that support the Language Server Protocols. Before continuing, I recommend you to take a quick glimpse at the contents of the files in the sample project so you can get familiarized with why they're there.</p>
+<h2>Extracting features and generating the boilerplate</h2>
+<p>If we assume that the purpose of this tool is to read the sources of a project, find <code>Feature</code> definitions and dump the generated code somewhere, we could define something like this:</p>
+<pre>
+<code>let sourceKit = SourceKit()</code>
+<code>let keys = sourceKit.keys!</code>
+<code>let requests = sourceKit.requests!</code>
+<code>let values = sourceKit.values!</code>
+<code></code>
+<code>func process(files: [String]) {</code>
+<code>    var features = [String]()</code>
+<code>    for file in files {</code>
+<code>        features.append(contentsOf: findFeatures(inFile: file))</code>
+<code>    }</code>
+<code>    process(result: features)</code>
+<code>}</code>
+<code></code>
+<code>func findFeatures(inFile file: String) -> [String] {</code>
+<code>    return []</code>
+<code>}</code>
+</code>
+<code>func process(result: [String]) {</code>
+<code></code>
+<code>}</code>
+<code></code>
+<code>process(files: []) // Add here the list of file paths you'd like to process</code>
+</pre>
+<p>(I'm assuming you know how to provide the <code>files</code> array, but if you don't, you could search for .swift files with <code>FileManager</code> or receive an input directly with <b>swift-argument-parser</b>. For this tutorial, you could also simply hardcode a file path string.)</p>
+<p>In short, the intention of this code is to iterate a files array, search for <code>Feature</code> declarations in each of them and report this result back to another method.</p>
+<p>To implement <code>findFeature(inFile:)</code>, let's start by defining a <code>editor_open</code> request to SourceKit:</p>
+<pre>
+<code>func findFeature(inFile: String) -> [String] {</code>
+<code>    let req = SKRequestDictionary(sourcekitd: sourceKit)</code>
+<code></code>
+<code>    req[keys.request] = requests.editor_open</code>
+<code>    req[keys.name] = servicePath</code>
+<code>    req[keys.sourcefile] = servicePath</code>
+<code></code>
+<code>    print(req)</code>
+<code>    let response = sourceKit.sendSync(req)</code>
+<code>    print(req)</code>
+<code></code>
+<code>    return []</code>
+<code>}</code>
+</pre>
+<p>Both the request and response objects are <code>CustomStringConvertible</code>, so printing them will show you all their details. If you run this for a given file, you'll see an output similar to the one I showed above. If you're wondering how I know which arguments to pass to the request, it's because I looked at how Xcode is calling it using the tips mentioned above. Unfortunately, I don't think there's any actual documentation for these requests besides checking the Xcode logs, but if you try to perform a request with something missing, SourceKit will tell you.</p>
+<p>In short, what we need to do is traverse the tokens of a file and determine if it contains one or more <code>enums</code> that inherit from the <code>Feature</code> protocol. To figure out how to do that, it helps to feed SourceKit a file that matches our needs and see what SourceKit responds with:</p>
+<pre>
+<code>enum MyFeature: Feature {}</code>
+</pre>
+<pre>
+<code>{</code>
+<code>  key.substructure: [</code>
+<code>    {</code>
+<code>      key.kind: source.lang.swift.decl.enum,</code>
+<code>      key.accessibility: source.lang.swift.accessibility.internal,</code>
+<code>      key.name: "MyFeature",</code>
+<code>      key.offset: 0,</code>
+<code>      key.length: 26,</code>
+<code>      key.nameoffset: 5,</code>
+<code>      key.namelength: 9,</code>
+<code>      key.bodyoffset: 25,</code>
+<code>      key.bodylength: 0,</code>
+<code>      key.inheritedtypes: [</code>
+<code>        {</code>
+<code>          key.name: "Feature"</code>
+<code>        }</code>
+<code>      ],</code>
+<code>      key.elements: [</code>
+<code>        {</code>
+<code>          key.kind: source.lang.swift.structure.elem.typeref,</code>
+<code>          key.offset: 16,</code>
+<code>          key.length: 7</code>
+<code>        }</code>
+<code>      ]</code>
+<code>    }</code>
+<code>  ]</code>
+<code>}</code>
+</pre>
+<p>From this response, we can determine that we need to:</p>
+<ul>
+<li>Iterate <code>key.substructure</code> (recursively, because the declaration could be deeper down the structure)</li>
+<li>Check if <code>kind</code> is <code>source.lang.swift.decl.enum</code></li>
+<li>Check if <code>inheritedtypes</code> contains <code>Feature</code></li>
+<li>If yes, record the name of the feature.</li>
+</ul>
+<p>Luckily for us, the Swift abstraction of SourceKit has some methods that can help us with the above. This is how we can iterate <code>key.substructure</code> and check if the element represents the declaration of an enum:</p>
+<pre>
+<code>var features = [String]()</code>
+<code>response.recurse(uid: keys.substructure) { dict in</code>
+<code>    let kind: SKUID? = dict[keys.kind]</code>
+<code>    guard kind?.uid == values.decl_enum else {</code>
+<code>        return</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>With that out of the picture, we can check <code>inheritedtypes</code> by reading its value as a <code>SKResponseArray</code>:</p>
+<pre>
+<code>guard let inheritedtypes: SKResponseArray = dict[keys.inheritedtypes] else {</code>
+<code>    return</code>
+<code>}</code>
+<code>for inheritance in (0..&lt;inheritedtypes.count).map({ inheritedtypes.get($0) }) {</code>
+<code></code>
+<code>}</code>
+</pre>
+<p>And from each element in the array, we can check if its name is <code>Feature</code> and add it to our response array if true. This is how the full code looks like:</p>
+<pre>
+<code>func findFeatures(inFile file: String) -> [String] {</code>
+<code>    let req = SKRequestDictionary(sourcekitd: sourceKit)</code>
+<code></code>
+<code>    req[keys.request] = requests.editor_open</code>
+<code>    req[keys.name] = file</code>
+<code>    req[keys.sourcefile] = file</code>
+<code></code>
+<code>    let response = try! sourceKit.sendSync(req)</code>
+<code></code>
+<code>    var features = [String]()</code>
+<code>    response.recurse(uid: keys.substructure) { dict in</code>
+<code>        let kind: SKUID? = dict[keys.kind]</code>
+<code>        guard kind?.uid == values.decl_enum else {</code>
+<code>            return</code>
+<code>        }</code>
+<code>        guard let inheritedtypes: SKResponseArray = dict[keys.inheritedtypes] else {</code>
+<code>            return</code>
+<code>        }</code>
+<code>        for inheritance in (0..&lt;inheritedtypes.count).map({ inheritedtypes.get($0) }) {</code>
+<code>            if let name: String = inheritance[keys.name], name == "Feature" {</code>
+<code>                features.append(name)</code>
+<code>            }</code>
+<code>        }</code>
+<code>    }</code>
+<code></code>
+<code>    return features</code>
+<code>}</code>
+</pre>
+<p>From here you could probably export this result and use Sourcery to generate the actual code, but since we already created a project for this I think it's easier to just generate the code yourself:</p>
+<pre>
+<code>func process(result: [String]) {</code>
+<code>    let declaration = result.map {</code>
+<code>        "    routerService.register(feature: \($0).self"</code>
+<code>    }.joined(separator: "\n")</code>
+<code>    let result = """</code>
+<code>    func registerFeatures(_ routerService: RouterService) {</code>
+<code>    \(declaration)</code>
+<code>    }</code>
+<code>    """</code>
+<code></code>
+<code>    print(result)</code>
+<code>    // Save this result to a file</code>
+<code>}</code>
+</pre>
+<p>In this example, we're generating a <code>registerFeatures</code> method that contains all the registration code inside of it. We could replace our current code with a call to this method, and setup a script that would run this tool every time a new service is added.</p>
+<h2>What about more complicated cases?</h2>
+<p>One thing you might've noticed is that this code doesn't take the module of the file into consideration, so this wouldn't work for apps with multiple modules, and we're also not doing any sort of caching. These however are problems that you can solve without using SourceKit directly, so we won't go into their details here. It should show to you however how this is a difficult thing to do properly and is why this should probably only be a concern of apps in a very advanced state.</p>
+<p>In regards to the more advanced uses of SourceKit itself, one of my favorite requests is the <code>index_source</code> request which provides you the "indexed" version of your file. This is similar to the <code>editor_open</code> request, but instead of simply printing you the names of the tokens, it shows you the <b>symbol</b> of each reference. For example, if you're looking at a type reference like <code>let type: MyType</code>, SourceKit will tell you which module <code>MyType</code> belongs to, the name of the file in which it's defined, the specific line/column where the type is declared, and much more. This is what powers the "jump to definition" feature of Xcode, and is why the color of your files changes after a while -- Xcode has finished indexing it, and it now knows where each reference is coming from.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>Unfortunately, these more advanced requests are also more difficult to use because their requests require you to pass your app's full list of compiler arguments. This would be easy if Xcode allowed you to export that information, but it doesn't, so you will have to mess with <code>xcodebuild</code> to figure out what these arguments are. If you want to see an example of a tool that actually went to the trouble of doing that, check out <a href="https://github.com/rockbruno/swiftshield">swiftshield</a>. This is a tool that obfuscates Swift files, and it's completely based on SourceKit's <code>index_sources</code> request. I also think that looking at <a href="https://github.com/apple/sourcekit-lsp">sourcekit-lsp</a> is a good idea, as it contains implementations of many different SourceKit requests that you can take inspiration from.</p>
+</div>
+]]></description>
+</item>
+<item>
     <title>Creating a licensing system for paid apps in Swift</title>
     <link>https://swiftrocks.com/creating-a-license-system-for-paid-apps-in-swift</link>
     <guid>https://swiftrocks.com/creating-a-license-system-for-paid-apps-in-swift</guid>
