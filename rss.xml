@@ -276,8 +276,7 @@
 <code></code>
 <code>    init&lt;PA: Publisher, PB: Publisher>(</code>
 <code>        _ a: PA,</code>
-<code>        _ b: PB,</code>
-<code>        receiveValue: @escaping ((Condition<(A, B)>) -> Void)</code>
+<code>        _ b: PB</code>
 <code>    )</code>
 <code>    where PA.Failure == F, PB.Failure == F, PA.Output == Condition&lt;A>, PB.Output == Condition&lt;B></code>
 <code>    {</code>
