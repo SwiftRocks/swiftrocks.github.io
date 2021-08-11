@@ -1131,7 +1131,7 @@
 <!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=I've been playing with "intelligent code generation" for a couple of years now, and I'd like to show you how to achieve this with SourceKit.-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=I've been playing with intelligent code generation for a couple of years now, and I'd like to show you how to achieve this with SourceKit.-->
 
 <!--DateFormat example: 2021-04-12T14:00:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-04-12T14:00:00+02:00-->
