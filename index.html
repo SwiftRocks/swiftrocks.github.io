@@ -44,7 +44,7 @@
   <!-- Prism CSS Stylesheet --> 
   <link rel="stylesheet" type="text/css" href="css/prism3.css"> 
   <!-- Main CSS Stylesheet --> 
-  <link rel="stylesheet" type="text/css" href="css/style41.css"> 
+  <link rel="stylesheet" type="text/css" href="css/style42.css"> 
   <link rel="stylesheet" type="text/css" href="css/sponsor2.css">
     
     <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
@@ -55,6 +55,32 @@
 
   <script type="application/ld+json">
   [{
+"@context": "https://schema.org",
+"@type": "BlogPosting",
+"mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://swiftrocks.com/reverse-engineering-xcode-issue-crash-symbol"
+},
+"image": [
+  "https://swiftrocks.com/images/bg/swiftrockssocial.png"
+],
+"datePublished": "2021-08-31T14:00:00+02:00",
+"dateModified": "2021-08-31T14:00:00+02:00",
+"author": {
+  "@type": "Person",
+  "name": "Bruno Rocha"
+},
+ "publisher": {
+  "@type": "Organization",
+  "name": "SwiftRocks",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://swiftrocks.com/images/bg/swiftrockssocial.png"
+  }
+},
+"headline": "Reverse engineering a 5 year old Xcode issue",
+    "abstract": "Have you ever had issues with Xcode not symbolicating crashes? Me too, and I found the fix by reverse engineering the IDE."
+},{
 "@context": "https://schema.org",
 "@type": "BlogPosting",
 "mainEntityOfPage": {
@@ -1615,7 +1641,7 @@
                <a href="https://twitter.com/rockbruno_" target="_blank" style="display: flex;">
                   <i class="fa fa-twitter"></i>
                   <div class="blog-header-button-follow-shape"></div>
-                  <div class="blog-header-button-follow">4950<div class="blog-header-button-follow-verbose"> followers</div>!</div>
+                  <div class="blog-header-button-follow">5050<div class="blog-header-button-follow-verbose"> followers</div>!</div>
                </a>
           </div>
           <div class="blog-header-button">
@@ -1685,6 +1711,21 @@
 </style>
 
  <div class="sponsor-article-ad-auto hidden"></div>
+
+  <!-- Blog Post Start -->
+<div class="blog-post">
+  <div class="post-title-index">
+    <a href="reverse-engineering-xcode-issue-crash-symbol"><h1>Reverse engineering a 5 year old Xcode issue</h1></a>
+  </div>  
+  <div class="post-info">
+    <div class="category category-reverse">Reverse Engineering</div>
+    <div class="post-info-text">Published on 31 Aug 2021</div>
+  </div>
+<p>Xcode has a feature called <b>Organizer</b> that shows you important information about builds you sent to the App Store, with the most relevant ones being crashes and energy reports (for CPU/memory usage). In my experience, this feature will work perfectly fine if you pushed the build from your <i>own</i> machine, but if that's not true for any reason (the most common being because you're using a CI pipeline to do) then you might have a frustrating experience.</p>
+<p>Have you ever had issues with Xcode not symbolicating crashes? Me too, and I found the fix by reverse engineering the IDE.</p>
+                                </div>
+                                <!-- Blog Post End -->
+
   <!-- Blog Post Start -->
 <div class="blog-post">
   <div class="post-title-index">
@@ -2713,9 +2754,7 @@ Your browser does not support the video tag.
                                       <a href="reverse-engineering-ios-facebook-messenger-chat"><h1>iOS Security: Reverse Engineering Messenger's Chat Bubbles</h1></a>
                                     </div>
   <div class="post-info">
-    <div class="category category-theory">Theory</div>
-    <div class="category category-compiler">Compiler</div>
-    <div class="category category-swift">Swift</div>
+    <div class="category category-reverse">Reverse Engineering</div>
     <div class="post-info-text">Published on 07 Nov 2016
     </div>
   </div> 

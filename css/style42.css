@@ -227,6 +227,11 @@ b {
     color: white;
 }
 
+.category-reverse {
+    background-color: #a500c3;
+    color: white;
+}
+
 .category-theory {
     background-color: #02a200;
     color: white;
