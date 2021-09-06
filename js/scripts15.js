@@ -3,7 +3,7 @@
     jQuery(document).ready(function () {
         $('pre').addClass("language-swift");
         ///
-        var showSponsor = true;
+        var showSponsor = false;
         ///
         var sponsorTitle = "Stoked about SwiftUI but hesitant to start using it in production?"
         var sponsorIcon = "https://i.imgur.com/fNHP98M.png"
