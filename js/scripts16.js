@@ -3,12 +3,12 @@
     jQuery(document).ready(function () {
         $('pre').addClass("language-swift");
         ///
-        var showSponsor = false;
+        var showSponsor = true;
         ///
-        var sponsorTitle = "Stoked about SwiftUI but hesitant to start using it in production?"
-        var sponsorIcon = "https://i.imgur.com/fNHP98M.png"
-        var sponsorText = "Build better apps faster. Moving Parts is a library of high-level production-ready SwiftUI components, made to solve real-world problems. Backed by Y Combinator. Join our private beta to get started."
-        var sponsorLink = "https://www.movingparts.io/"
+        var sponsorTitle = "Emerge Tools - Monitor and reduce app size"
+        var sponsorIcon = "https://i.imgur.com/dtfOYh1.png"
+        var sponsorText = "Emerge helps teams build better, smaller apps. With binary profiling to enable developers to see the full impact of their changes as they make them and actionable insights to provide suggestions on ways devs can improve their code."
+        var sponsorLink = "https://www.emergetools.com/?utm_source=swiftrocks&utm_medium=advertisement&utm_campaign=emerge/"
 
         const sponsorDivId = "sponsor-article-ad-auto"
         const sponsorDivs = document.getElementsByClassName(sponsorDivId)
