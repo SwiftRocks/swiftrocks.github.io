@@ -8,12 +8,12 @@
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
     <title>Unit Testing Weak References / Retain Cycles in Swift</title>
-    <link>https://swiftrocks.com/unit-testing-weak-references-retain-cycles-in-swift</link>
-    <guid>https://swiftrocks.com/unit-testing-weak-references-retain-cycles-in-swift</guid>
+    <link>https://swiftrocks.com/unit-testing-weak-references--deallocation-in-swift</link>
+    <guid>https://swiftrocks.com/unit-testing-weak-references--deallocation-in-swift</guid>
     <pubDate>Wed, 13 Oct 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Unit Testing Weak References / Retain Cycles in Swift-->
-<!--WRITEIT_POST_HTML_NAME=unit-testing-weak-references-retain-cycles-in-swift-->
+<!--WRITEIT_POST_HTML_NAME=unit-testing-weak-references--deallocation-in-swift-->
 
 <!--Add here the additional properties that you want each page to possess.-->
 <!--These properties can be used to change content in the template page or in the page itself as shown here.-->
