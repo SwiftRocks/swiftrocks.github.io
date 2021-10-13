@@ -7,6 +7,123 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>Unit Testing Weak References / Retain Cycles in Swift</title>
+    <link>https://swiftrocks.com/unit-testing-weak-references-retain-cycles-in-swift</link>
+    <guid>https://swiftrocks.com/unit-testing-weak-references-retain-cycles-in-swift</guid>
+    <pubDate>Wed, 13 Oct 2021 14:00:00 GMT+2</pubDate>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=Unit Testing Weak References / Retain Cycles in Swift-->
+<!--WRITEIT_POST_HTML_NAME=unit-testing-weak-references-retain-cycles-in-swift-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Code that relies on memory tricks to work can be complicated, but there's a solid way of unit testing these cases.-->
+
+<!--DateFormat example: 2021-10-13T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-10-13T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2021-10-13T14:00:00+02:00-->
+
+<title>Unit Testing Weak References / Retain Cycles in Swift</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>Unit Testing Weak References / Retain Cycles in Swift</h1>
+  </div>  
+  <div class="post-info">
+    <div class="category category-swift">Swift</div>
+    <div class="post-info-text">Published on 13 Oct 2021</div>
+  </div>
+<p>Code that relies on memory tricks to work can be complicated, but there's a solid way of unit testing these cases. I see people wonder about this every once in a while, so I think it's a good moment to share the trick I use to achieve this.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>Any sort of deallocation unit testing can be achieved by using <code>autoreleasepool</code>. I already wrote an article about it in the past, so if you're unfamiliar with this feature, <a href="https://swiftrocks.com/autoreleasepool-in-swift">here's a good place to start</a> before reading this article.</p>
+<p>In short, while in normal development a property's release is done at the <code>autoreleasepool</code> of the thread's <code>RunLoop</code>, you can create your own pools to have finer-grained control. For tests, pools can be used to validate <code>weak</code> references and test code that runs in a class' <code>deinit</code>.</p>
+<p>Here's a simple example where we can see it in action. Let's assume that we want to test that a class' deinit is being called:</p>
+<pre>
+<code>func testClassDeinitIsCalled() {</code>
+<code>    let semaphore = DispatchSemaphore(value: 0)</code>
+<code>    final class TestClass {</code>
+<code>        let semaphore: DispatchSemaphore</code>
+<code>        init(semaphore: DispatchSemaphore) { self.semaphore = semaphore }</code>
+<code>        deinit {</code>
+<code>            semaphore.signal()</code>
+<code>        }</code>
+<code>    }</code>
+<code></code>
+<code>    var cls: TestClass? = TestClass(semaphore: semaphore)</code>
+<code>    cls = nil</code>
+<code></code>
+<code>    semaphore.wait()</code>
+<code>}</code>
+</pre>
+<p>This test will never succeed. While setting the property to <code>nil</code> does result in a <code>cls.release()</code> call by the compiler, the resources won't be freed until the main thread's current loop ends, which is going to be blocked by the test's execution. You could technically make this work by initializing the class in a different thread, but there's a much easier way!</p>
+<pre>
+<code>func testClassDeinitIsCalled() {</code>
+<code>    let semaphore = DispatchSemaphore(value: 0)</code>
+<code>    final class TestClass {</code>
+<code>        let semaphore: DispatchSemaphore</code>
+<code>        init(semaphore: DispatchSemaphore) { self.semaphore = semaphore }</code>
+<code>        deinit {</code>
+<code>            semaphore.signal()</code>
+<code>        }</code>
+<code>    }</code>
+<code></code>
+<code>    autoreleasepool {</code>
+<code>        let cls = TestClass(semaphore: semaphore)</code>
+<code>    }</code>
+<code></code>
+<code>    semaphore.wait()</code>
+<code>}</code>
+</pre>
+<p>The test now passes, because any resources created by <code>cls</code> will be freed when the pool ends, resulting in <code>deinit</code> being called.</p>
+<p>My favorite use of this trick is to test that a particular component isn't causing a retain cycle. If we have two types that use each other, you can test for a retain cycle by initializing both and checking that eliminating one doesn't result in the other keeping it alive:</p>
+<pre>
+<code>class TypeA {</code>
+<code>    weak var typeB: TypeB?</code>
+<code>}</code>
+<code></code>
+<code>class TypeB {</code>
+<code>    var typeA: TypeA?</code>
+<code>}</code>
+<code></code>
+<code>func testNoRetainCycle() {</code>
+<code></code>
+<code>    let typeA = TypeA()</code>
+<code>    weak var _typeB: TypeB? = nil</code>
+<code></code>
+<code>    autoreleasepool {</code>
+<code>        let typeB = TypeB()</code>
+<code>        typeB.typeA = typeA</code>
+<code>        typeA.typeB = typeB</code>
+<code>        _typeB = typeB</code>
+<code>    }</code>
+<code></code>
+<code>    XCTAssertNil(_typeB)</code>
+<code>}</code>
+</pre>
+<p>Try modifying this test yourself to see what happens! If you modify <code>TypeA</code> to cause a retain cycle, the test will fail as the test's weak reference will be unable to deallocate.</p>
+<p>This trick can also be done in reverse. In this case, we're using a weak property to test that <code>TypeA</code> <b>does</b> keep <code>TypeB</code> alive:</p>
+<pre>
+<code>func testKeepsValueAlive() {</code>
+<code></code>
+<code>    let typeA = TypeA()</code>
+<code>    weak var _typeB: TypeB? = nil</code>
+<code></code>
+<code>    autoreleasepool {</code>
+<code>        let typeB = TypeB()</code>
+<code>        typeA.typeB = typeB</code>
+<code>        _typeB = typeB</code>
+<code>    }</code>
+<code></code>
+<code>    XCTAssertNotNil(_typeB)</code>
+<code>}</code>
+</pre>
+<p>If <code>TypeA</code> has a weak reference or disposes of <code>TypeB</code> after it's set, the test will fail.</p>
+</div>
+]]></description>
+</item>
+<item>
     <title>Solving CPU Usage Crashes with Xcode's Energy Organizer</title>
     <link>https://swiftrocks.com/debug-cpu-exceptions-xcode-energy-reports</link>
     <guid>https://swiftrocks.com/debug-cpu-exceptions-xcode-energy-reports</guid>
