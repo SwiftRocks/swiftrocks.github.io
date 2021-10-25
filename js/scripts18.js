@@ -5,10 +5,10 @@
         ///
         var showSponsor = true;
         ///
-        var sponsorTitle = "Essential Developer"
-        var sponsorIcon = "https://i.imgur.com/9AaIWZC.png"
-        var sponsorText = "If you want to become a complete senior iOS developer, join this free online crash course starting on October 18th. Learn how to apply truly scalable iOS app architecture patterns through a series of lectures and practical coding sessions. Click to learn more."
-        var sponsorLink = "https://iosacademy.essentialdeveloper.com/p/ios-architect-crash-course-srse34a/"
+        var sponsorTitle = "Emerge Tools - Monitor and reduce app size"
+        var sponsorIcon = "https://i.imgur.com/dtfOYh1.png"
+        var sponsorText = "Emerge helps teams build better, smaller apps. With binary profiling to enable developers to see the full impact of their changes as they make them and actionable insights to provide suggestions on ways devs can improve their code."
+        var sponsorLink = "https://www.emergetools.com/?utm_source=swiftrocks&utm_medium=advertisement&utm_campaign=emerge/"
 
         const sponsorDivId = "sponsor-article-ad-auto"
         const sponsorDivs = document.getElementsByClassName(sponsorDivId)
