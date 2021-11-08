@@ -3,7 +3,7 @@
     jQuery(document).ready(function () {
         $('pre').addClass("language-swift");
         ///
-        var showSponsor = true;
+        var showSponsor = false;
         ///
         var sponsorTitle = "Emerge Tools - Monitor and reduce app size"
         var sponsorIcon = "https://i.imgur.com/F4ZGrLz.png"
