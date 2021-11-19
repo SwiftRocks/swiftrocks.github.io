@@ -7,6 +7,130 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>Detecting Broken Constraints in Swift</title>
+    <link>https://swiftrocks.com/detecting-broken-constraints-in-swift</link>
+    <guid>https://swiftrocks.com/detecting-broken-constraints-in-swift</guid>
+    <pubDate>Mon, 22 Nov 2021 13:00:00 GMT+1</pubDate>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=Detecting Broken Constraints in Swift-->
+<!--WRITEIT_POST_HTML_NAME=detecting-broken-constraints-in-swift-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, I'd like to show a way you can intercept UIKit's exceptions directly in code (not using breakpoints!) and what you can use an implementation like for for.-->
+
+<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-11-22T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2021-11-22T14:00:00+02:00-->
+
+<title>Detecting Broken Constraints in Swift</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>Detecting Broken Constraints in Swift</h1>
+  </div>  
+  <div class="post-info">
+    <div class="category category-ios">iOS</div>
+    <div class="category category-swift">Swift</div>
+    <div class="post-info-text">Published on 22 Nov 2021</div>
+  </div>
+<p>Broken constraints are common, but there are good reasons you might wanted to get them sorted out. Even though iOS can sometimes provide a functional UI after breaking a constraint, the additional layout passes that this requires are usually a performance issue. If you care about your users' battery usage, you'll want to make sure your UI is always configured and rendered properly.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>In this article, I'd like to show a way you can intercept UIKit's exceptions directly in code (not using breakpoints!) and what you can use an implementation like for for.</p>
+<h2>How do broken constraint alerts work?</h2>
+<p>The alert you get in Xcode when a constraint breaks is a really interesting little detail of UIKit. Although the alert describes it as an "exception", <code>UIViewAlertForUnsatisfiableConstraints</code> is actually a global C function:</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/lGt3BqP.png" alt="Alt">                                    
+</div>
+<p>I imagine the reason they made that choice is because that would be the easiest way to allow you, a developer outside UIKit, to debug such issues -- if you the name of the method that causes something, you can attach a symbolic lldb breakpoint to it. And that's exactly what the alert suggests you to do.</p>
+<p>At the time this article was written, UIKit contains four "exceptions":</p>
+<ul>
+<li>_UIViewAlertForUnsatisfiableConstraints</li>
+<li>_UITableViewAlertForForcedLayout</li>
+<li>_UITableViewAlertForLayoutOutsideViewHierarchy</li>
+<li>_UITableViewAlertForVisibleCellsAccessDuringUpdate</li>
+</ul>
+<p>Although you can easily intercept these issues in a debug build by creating a symbolic breakpoint, I spent quite a while trying to figure out how to do that directly in the code. The reason for that is because I wanted to also be able to detect broken constraints in <b>internal releases</b> so that our beta testers could also find and report these issues.</p>
+<p>When it comes to altering framework execution, the answer is clearly <b>method swizzling</b>. Unfortunately, after a long search, I couldn't find any easy way to swizzle a global C function. I did eventually find <a href="https://github.com/facebook/fishhook/blob/main/fishhook.c">fishhook</a>, which is an utility created by Facebook that is capable of modifying dynamic loader load commands, but it didn't work for UIKit's content for caching reasons. I don't think this is impossible to do per-se, but it's definitely complicated enough to make me not want to bother with it.</p>
+<p>Instead, what we need to is find the closest Obj-C method that calls these methods and swizzle that instead. Luckily, in the case of the constraints, we have a very good candidate right off the bat!</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/KUQyaXr.png" alt="Alt">                                    
+</div>
+<p>The <code>engine:willBreakConstraint:dueToMutuallyExclusiveConstraints:</code> private method does nothing but to call the relevant C function, making it a perfect swizzling candidate.</p>
+<h2>Swizzling in Swift</h2>
+<p>To swizzle this method, I've decided to create a central "interception" object that would bootstrap the swizzling and listen for any broken constraints in the form of a notification. This is because the method above is inside <code>UIView</code>, so notifications work as an easy way to transmit that information somewhere else.</p>
+<pre>
+<code>import Foundation</code>
+<code>import UIKit</code>
+<code></code>
+<code>extension Notification.Name {</code>
+<code>    static let willBreakConstraint = Notification.Name(</code>
+<code>        rawValue: "NSISEngineWillBreakConstraint"</code>
+<code>    )</code>
+<code>}</code>
+<code></code>
+<code>final class ConstraintWarningCatcher {</code>
+<code></code>
+<code>    static func startListening() {</code>
+<code>        // Note: Only call this **once**!</code>
+<code>        let sel = NSSelectorFromString("engine:willBreakConstraint:dueToMutuallyExclusiveConstraints:")</code>
+<code>        let method = class_getInstanceMethod(UIView.self, sel)!</code>
+<code>        let impl = method_getImplementation(method)</code>
+<code></code>
+<code>        let replSel = #selector(UIView.willBreakConstraint(_:_:_:))</code>
+<code>        let replMethod = class_getInstanceMethod(UIView.self, replSel)!</code>
+<code>        let replImpl = method_getImplementation(replMethod)</code>
+<code></code>
+<code>        class_replaceMethod(UIView.self, sel, replImpl, method_getTypeEncoding(replImpl))</code>
+<code>        class_replaceMethod(UIView.self, replSel, impl, method_getTypeEncoding(impl))</code>
+<code></code>
+<code>        NotificationCenter.default.addObserver(</code>
+<code>            self,</code>
+<code>            selector: #selector(didReceiveBrokenConstraintNotification),</code>
+<code>            name: .willBreakConstraint,</code>
+<code>            object: nil</code>
+<code>        )</code>
+<code>    }</code>
+<code></code>
+<code>    @objc func didReceiveBrokenConstraintNotification(notification: NSNotification) {</code>
+<code>        guard let constraint = notification.object as? NSLayoutConstraint else {</code>
+<code>            return</code>
+<code>        }</code>
+<code>        // do something with this information</code>
+<code>    }</code>
+<code>}</code>
+<code></code>
+<code>extension UIView {</code>
+<code>    @objc func willBreakConstraint(_ engine: Any, _ constraint: NSLayoutConstraint, _ conflict: Any) {</code>
+<code>        willBreakConstraint(engine, constraint, conflict) // swizzled, will call original impl instead</code>
+<code>        NotificationCenter.default.post(</code>
+<code>            name: .willBreakConstraint,</code>
+<code>            object: constraint</code>
+<code>        )</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>From here, you can keep an instance of <code>ConstraintWarningCatcher</code> alive and start the observation. When a constraint breaks, the instance will receive a notification.</p>
+<pre>
+<code>ConstraintWarningCatcher.startListening()</code>
+<code>let catcher = ConstraintWarningCatcher()</code>
+<code></code>
+<code>let v = UIView()</code>
+<code>v.heightAnchor.constraint(equalToConstant: 50).isActive = true</code>
+<code>v.heightAnchor.constraint(equalToConstant: 100).isActive = true</code>
+<code>view.addSubview(v) // A constraint will break and the catcher will be notified</code>
+</pre>
+<p><b>An important note to be made is that you should never push code involving private APIs to production.</b> In the event that Apple doesn't reject your app (they probably will), there's nothing guaranteeing that Apple won't change how this API works, which could have immediate and devastating effects in your app. Keep this only in your debug builds.</p>
+<h2>What can you use this for?</h2>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>For me, what I find this most useful for is that it allows you to have your own backlog of constraint issues. Instead of relying solely on breakpoints, you could use this interception to send this information somewhere (ex: Firebase). Just remember to never push this to actual production builds!</p>
+<p>Unfortunately, I couldn't find a good way to swizzle the other exceptions mentioned in this article. Although they are indeed called from Obj-C methods deeper down, these methods are also handling tons of other things, which makes swizzling them a very dangerous idea. Still, being able to do that to constraints alone is already a very good win in my book.</p>
+</div>
+]]></description>
+</item>
+<item>
     <title>How To Solve Any iOS Crash Ever</title>
     <link>https://swiftrocks.com/how-to-solve-any-ios-crash-ever</link>
     <guid>https://swiftrocks.com/how-to-solve-any-ios-crash-ever</guid>
