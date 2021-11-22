@@ -20,7 +20,7 @@
 <!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, I'd like to show a way you can intercept UIKit's exceptions directly in code (not using breakpoints!) and what you can use an implementation like for for.-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, I'd like to show a way you can intercept UIKit's exceptions directly in code (not using breakpoints!) and what you can use an implementation like this for.-->
 
 <!--DateFormat example: 2021-04-12T14:00:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-11-22T14:00:00+02:00-->
@@ -38,7 +38,7 @@
   </div>
 <p>Broken constraints are common, but there are good reasons you might wanted to get them sorted out. Even though iOS can sometimes provide a functional UI after breaking a constraint, the additional layout passes that this requires are usually a performance issue. If you care about your users' battery usage, you'll want to make sure your UI is always configured and rendered properly.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
-<p>In this article, I'd like to show a way you can intercept UIKit's exceptions directly in code (not using breakpoints!) and what you can use an implementation like for for.</p>
+<p>In this article, I'd like to show a way you can intercept UIKit's exceptions directly in code (not using breakpoints!) and what you can use an implementation like this for.</p>
 <h2>How do broken constraint alerts work?</h2>
 <p>The alert you get in Xcode when a constraint breaks is a really interesting little detail of UIKit. Although the alert describes it as an "exception", <code>UIViewAlertForUnsatisfiableConstraints</code> is actually a global C function:</p>
 <div class="post-image">
