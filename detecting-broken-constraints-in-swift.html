@@ -217,7 +217,7 @@
 <code></code>
 <code>final class ConstraintWarningCatcher {</code>
 <code></code>
-<code>    static func startListening() {</code>
+<code>    func startListening() {</code>
 <code>        // Note: Only call this **once**!</code>
 <code>        let sel = NSSelectorFromString("engine:willBreakConstraint:dueToMutuallyExclusiveConstraints:")</code>
 <code>        let method = class_getInstanceMethod(UIView.self, sel)!</code>
@@ -258,8 +258,8 @@
 </pre>
 <p>From here, you can keep an instance of <code>ConstraintWarningCatcher</code> alive and start the observation. When a constraint breaks, the instance will receive a notification.</p>
 <pre>
-<code>ConstraintWarningCatcher.startListening()</code>
 <code>let catcher = ConstraintWarningCatcher()</code>
+<code>catcher.startListening()</code>
 <code></code>
 <code>let v = UIView()</code>
 <code>v.heightAnchor.constraint(equalToConstant: 50).isActive = true</code>
