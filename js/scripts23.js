@@ -7,7 +7,7 @@
         ///
         var sponsorTitle = "The Senior iOS Developer Testing Crash Course"
         var sponsorIcon = "https://i.imgur.com/9AaIWZC.png"
-        var sponsorText = "Learn the most up-to-date techniques and strategies for testing new and legacy Swift code in this free practical course for iOS devs who want to become complete Senior iOS Developers."
+        var sponsorText = "Only until this Sunday, December 12th, you can join a free crash course to learn advanced techniques for testing new and legacy Swift code — it's the fast track to becoming a complete Senior iOS Developer! Click to learn more."
         var sponsorLink = "https://iosacademy.essentialdeveloper.com/p/ios-testing-crash-course-srs72db/"
 
         const sponsorDivId = "sponsor-article-ad-auto"
