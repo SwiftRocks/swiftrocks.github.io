@@ -3,7 +3,7 @@
     jQuery(document).ready(function () {
         $('pre').addClass("language-swift");
         ///
-        var showSponsor = true;
+        var showSponsor = false;
         ///
         var sponsorTitle = "The Senior iOS Developer Testing Crash Course"
         var sponsorIcon = "https://i.imgur.com/9AaIWZC.png"
