@@ -7,6 +7,48 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>Future of SwiftRocks</title>
+    <link>https://swiftrocks.com/future-of-swiftrocks</link>
+    <guid>https://swiftrocks.com/future-of-swiftrocks</guid>
+    <pubDate>Mon, 3 Jan 2022 09:00:00 GMT-3</pubDate>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=Future of SwiftRocks-->
+<!--WRITEIT_POST_HTML_NAME=future-of-swiftrocks-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Here's what I'm gonna do in the future!-->
+
+<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-01-03T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2022-01-03T14:00:00+02:00-->
+
+<title>Future of SwiftRocks</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>Future of SwiftRocks</h1>
+  </div>  
+  <div class="post-info">
+    <div class="post-info-text">Published on 03 Jan 2022</div>
+  </div>
+<p>I started SwiftRocks in 2018 as a tool to help me improve my iOS development skills. I've figured out that one of the best ways to properly learn something is to attempt to teach the same thing to someone else, and a blog turned out to be a great way to do so. I didn't expect anyone to read these posts, and I'm incredibly grateful for how many people I was able to reach and the opportunities that were presented to me as a result of these posts. Thank you so much!</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>First of all, I'd like to apologize for slightly disappearing in the last couple of months. When I started doing sponsorships I said that I'd try to post content more frequently, but after a couple of months I started doing the opposite. This is because my career objectives mutated heavily over the last couple of years. Long-time SwiftRocks reads might know that I always described myself as a generalist, so even though I by all means work officially as an "iOS Developer", I haven't done real old-school iOS feature work in over 4 years. My work at Spotify is related to the infrastructure and backend services that support the iOS app, so although I do still need to write Swift code from time to time, keeping myself updated with the latest iOS/Swift news has progressively become unnecessary to me. This means that although I've never stopped learning and coming up with new articles to write, this content has become separate enough from the world of iOS that it would feel wrong to post here at SwiftRocks.</p>
+<p>I also always had the dream of being an indie developer, but never truly pursued it because I decided that I'd first improve other areas of my life and career before jumping into it. This year is when I decided that I'm ready, which is another reason why I slowly started moving away from blogging and general iOS development.</p>
+<p>In the interest of keeping my followers updated, I'd like to announce my future work plans!</p>
+<ul>
+<li>Me and some friends will start doing indie product development in our free time. I hope to be able to create something you'll find useful!</li>
+<li>Since nowadays my interests are more connected to general software engineering as opposed to just iOS related content, I'm creating a new website called <a href="https://rockbruno.com">rockbruno.com</a> intended to host content around that. This will be my main domain from now on and will also work as a sort of portfolio for my indie products.</li>
+<li>SwiftRocks will still exist and possibly receive new content, but it may be a rare occurrence given that my priority is now the new website and its indie/platform-agnostic content.</li>
+</ul>
+<p>I'd like to thank you for being part of the SwiftRocks journey and I hope to see you on this new one!</p>
+</div>
+]]></description>
+</item>
+<item>
     <title>Detecting Broken Constraints in Swift</title>
     <link>https://swiftrocks.com/detecting-broken-constraints-in-swift</link>
     <guid>https://swiftrocks.com/detecting-broken-constraints-in-swift</guid>
