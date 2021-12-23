@@ -193,6 +193,8 @@
 <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-11-01T14:00:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE=2021-11-01T14:00:00+02:00-->
 
+<!--WRITEIT_POST_CANONICAL=https://rockbruno.com/how-to-solve-any-crash-->
+
 <title>How To Solve Any iOS Crash Ever</title>
 <div class="blog-post">
   <div class="post-title-index">
@@ -642,6 +644,8 @@
 <!--DateFormat example: 2021-08-31T14:00:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-08-31T14:00:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE=2021-08-31T14:00:00+02:00-->
+
+<!--WRITEIT_POST_CANONICAL=https://rockbruno.com/reverse-engineering-xcode-issue-crash-symbol-->
 
 <title>Reverse engineering a 5 year old Xcode issue</title>
 <div class="blog-post">
@@ -1715,6 +1719,9 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
   <!--DateFormat example: 2021-05-18T14:00:00+02:00--> 
   <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-05-20T23:00:00+02:00--> 
   <!--WRITEIT_POST_SITEMAP_DATE=2021-05-18T14:00:00+02:00--> 
+
+<!--WRITEIT_POST_CANONICAL=https://rockbruno.com/how-necessary-are-the-programming-fundamentals-->
+  
   <title>How necessary are the programming fundamentals?</title> 
  
 
@@ -7935,6 +7942,9 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
   <!--Properties must start with 'WRITEIT_POST'.--> 
   <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
   <!--WRITEIT_POST_SHORT_DESCRIPTION=Some time ago I created a little side project that involved an Arduino-powered servo motor that menacingly pointed at people's faces with the help of CoreML, mimicking the Team Fortress 2 Engineer's Sentry Gun. With iOS 13, I decided to re-write that using the new Socket APIs and SwiftUI.--> 
+
+<!--WRITEIT_POST_CANONICAL=https://rockbruno.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino-->
+  
   <title>Building a Face Detecting Robot with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino</title>  
  
 
@@ -8604,6 +8614,9 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
   <!--Properties must start with 'WRITEIT_POST'.--> 
   <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
   <!--WRITEIT_POST_SHORT_DESCRIPTION=Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin sort() method. However, knowing the properties of the sorting algorithm built into your language is important if you want to prevent unwanted behaviors and nasty edge cases.--> 
+
+<!--WRITEIT_POST_CANONICAL=https://rockbruno.com/introsort-timsort-swifts-sorting-algorithm-->
+  
   <title>Timsort and Introsort: Swift's Sorting Algorithms</title>  
  
 
@@ -13628,6 +13641,9 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
   <!--Properties must start with 'WRITE_IT_POST'.--> 
   <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
   <!--WRITEIT_POST_SHORT_DESCRIPTION=Due do the messaging nature of the Objective-C runtime, a great amount of information about your code can be extracted and manipulated during runtime by external tools.--> 
+
+<!--WRITEIT_POST_CANONICAL=https://rockbruno.com/reverse-engineering-ios-facebook-messenger-chat-->
+  
   <title>iOS Security: Reverse Engineering Messenger's Chat Bubbles</title>  
  
 
