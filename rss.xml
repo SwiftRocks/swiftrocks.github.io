@@ -10,7 +10,7 @@
     <title>Future of SwiftRocks</title>
     <link>https://swiftrocks.com/future-of-swiftrocks</link>
     <guid>https://swiftrocks.com/future-of-swiftrocks</guid>
-    <pubDate>Mon, 3 Jan 2022 09:00:00 GMT-3</pubDate>
+    <pubDate>Mon, 3 Jan 2022 13:00:00 GMT+1</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Future of SwiftRocks-->
 <!--WRITEIT_POST_HTML_NAME=future-of-swiftrocks-->
@@ -54,7 +54,7 @@
     <title>Detecting Broken Constraints in Swift</title>
     <link>https://swiftrocks.com/detecting-broken-constraints-in-swift</link>
     <guid>https://swiftrocks.com/detecting-broken-constraints-in-swift</guid>
-    <pubDate>Mon, 22 Nov 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Mon, 22 Nov 2021 13:00:00 GMT+1</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Detecting Broken Constraints in Swift-->
 <!--WRITEIT_POST_HTML_NAME=detecting-broken-constraints-in-swift-->
@@ -178,7 +178,7 @@
     <title>How To Solve Any iOS Crash Ever</title>
     <link>https://swiftrocks.com/how-to-solve-any-ios-crash-ever</link>
     <guid>https://swiftrocks.com/how-to-solve-any-ios-crash-ever</guid>
-    <pubDate>Mon, 1 Nov 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Mon, 1 Nov 2021 13:00:00 GMT+1</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=How To Solve Any iOS Crash Ever-->
 <!--WRITEIT_POST_HTML_NAME=how-to-solve-any-ios-crash-ever-->
@@ -269,7 +269,7 @@
     <title>Enabling Module Stability in Swift Package Manager Projects</title>
     <link>https://swiftrocks.com/enabling-module-stability-in-swift-package-manager-projects</link>
     <guid>https://swiftrocks.com/enabling-module-stability-in-swift-package-manager-projects</guid>
-    <pubDate>Tue, 26 Oct 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 26 Oct 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Enabling Module Stability in Swift Package Manager Projects-->
 <!--WRITEIT_POST_HTML_NAME=enabling-module-stability-in-swift-package-manager-projects-->
@@ -332,7 +332,7 @@
     <title>Unit Testing Weak References / Retain Cycles in Swift</title>
     <link>https://swiftrocks.com/unit-testing-weak-references--deallocation-in-swift</link>
     <guid>https://swiftrocks.com/unit-testing-weak-references--deallocation-in-swift</guid>
-    <pubDate>Wed, 13 Oct 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Wed, 13 Oct 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Unit Testing Weak References / Retain Cycles in Swift-->
 <!--WRITEIT_POST_HTML_NAME=unit-testing-weak-references--deallocation-in-swift-->
@@ -449,7 +449,7 @@
     <title>Solving CPU Usage Crashes with Xcode's Energy Organizer</title>
     <link>https://swiftrocks.com/debug-cpu-exceptions-xcode-energy-reports</link>
     <guid>https://swiftrocks.com/debug-cpu-exceptions-xcode-energy-reports</guid>
-    <pubDate>Tue, 28 Sep 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 28 Sep 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Solving CPU Usage Crashes with Xcode's Energy Organizer-->
 <!--WRITEIT_POST_HTML_NAME=debug-cpu-exceptions-xcode-energy-reports-->
@@ -556,7 +556,7 @@
     <title>How AsyncSequence works internally in Swift</title>
     <link>https://swiftrocks.com/how-asyncsequence-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-asyncsequence-works-internally-in-swift</guid>
-    <pubDate>Mon, 20 Sep 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Mon, 20 Sep 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=How AsyncSequence works internally in Swift-->
 <!--WRITEIT_POST_HTML_NAME=how-asyncsequence-works-internally-in-swift-->
@@ -630,7 +630,7 @@
     <title>Reverse engineering a 5 year old Xcode issue</title>
     <link>https://swiftrocks.com/reverse-engineering-xcode-issue-crash-symbol</link>
     <guid>https://swiftrocks.com/reverse-engineering-xcode-issue-crash-symbol</guid>
-    <pubDate>Tue, 31 Aug 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 31 Aug 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Reverse engineering a 5 year old Xcode issue-->
 <!--WRITEIT_POST_HTML_NAME=reverse-engineering-xcode-issue-crash-symbol-->
@@ -769,7 +769,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Swift's Documentation Markup</title>
     <link>https://swiftrocks.com/swifts-documentation-markup</link>
     <guid>https://swiftrocks.com/swifts-documentation-markup</guid>
-    <pubDate>Tue, 17 Aug 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 17 Aug 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Swift's Documentation Markup-->
 <!--WRITEIT_POST_HTML_NAME=swifts-documentation-markup-->
@@ -926,7 +926,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>StaticString, and how it works internally in Swift</title>
     <link>https://swiftrocks.com/staticstring-in-swift</link>
     <guid>https://swiftrocks.com/staticstring-in-swift</guid>
-    <pubDate>Tue, 3 Aug 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 3 Aug 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=StaticString, and how it works internally in Swift-->
 <!--WRITEIT_POST_HTML_NAME=staticstring-in-swift-->
@@ -1040,7 +1040,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Extending / Creating Combine Publishers the Right Way</title>
     <link>https://swiftrocks.com/extending-creating-publishers-the-right-way</link>
     <guid>https://swiftrocks.com/extending-creating-publishers-the-right-way</guid>
-    <pubDate>Tue, 27 Jul 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 27 Jul 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Extending / Creating Combine Publishers the Right Way-->
 <!--WRITEIT_POST_HTML_NAME=extending-creating-publishers-the-right-way-->
@@ -1234,7 +1234,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Benchmarking Swift Code Properly with Attabench</title>
     <link>https://swiftrocks.com/benchmarking-swift-code-properly-with-attabench</link>
     <guid>https://swiftrocks.com/benchmarking-swift-code-properly-with-attabench</guid>
-    <pubDate>Tue, 20 Jul 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 20 Jul 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Benchmarking Swift Code Properly with Attabench-->
 <!--WRITEIT_POST_HTML_NAME=benchmarking-swift-code-properly-with-attabench-->
@@ -1329,7 +1329,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>How Actors Work Internally in Swift</title>
     <link>https://swiftrocks.com/how-actors-work-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-actors-work-internally-in-swift</guid>
-    <pubDate>Tue, 6 Jul 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 6 Jul 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -1569,7 +1569,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Creating 3D Models from Photographs with RealityKit in Swift</title>
     <link>https://swiftrocks.com/creating-3d-models-out-of-anything-with-realitykit-in-swift</link>
     <guid>https://swiftrocks.com/creating-3d-models-out-of-anything-with-realitykit-in-swift</guid>
-    <pubDate>Tue, 22 Jun 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 22 Jun 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -1706,7 +1706,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>How necessary are the programming fundamentals?</title>
     <link>https://swiftrocks.com/how-necessary-are-the-programming-fundamentals</link>
     <guid>https://swiftrocks.com/how-necessary-are-the-programming-fundamentals</guid>
-    <pubDate>Tue, 18 May 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 18 May 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -1818,7 +1818,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Thread Safety in Swift</title>
     <link>https://swiftrocks.com/thread-safety-in-swift</link>
     <guid>https://swiftrocks.com/thread-safety-in-swift</guid>
-    <pubDate>Tue, 11 May 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 11 May 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -2040,7 +2040,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Adding Intelligent Code Generation to Swift Projects with SourceKit</title>
     <link>https://swiftrocks.com/code-generation-with-sourcekit</link>
     <guid>https://swiftrocks.com/code-generation-with-sourcekit</guid>
-    <pubDate>Mon, 12 Apr 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Mon, 12 Apr 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Adding Intelligent Code Generation to Swift Projects with SourceKit-->
 <!--WRITEIT_POST_HTML_NAME=code-generation-with-sourcekit-->
@@ -2318,7 +2318,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Creating a licensing system for paid apps in Swift</title>
     <link>https://swiftrocks.com/creating-a-license-system-for-paid-apps-in-swift</link>
     <guid>https://swiftrocks.com/creating-a-license-system-for-paid-apps-in-swift</guid>
-    <pubDate>Tue, 6 Apr 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 6 Apr 2021 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -2593,7 +2593,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Be careful with Obj-C bridging in Swift</title>
     <link>https://swiftrocks.com/be-careful-with-objc-bridging-in-swift</link>
     <guid>https://swiftrocks.com/be-careful-with-objc-bridging-in-swift</guid>
-    <pubDate>Tue, 2 Mar 2021 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 2 Mar 2021 13:00:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -2726,7 +2726,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Understanding @inlinable in Swift</title>
     <link>https://swiftrocks.com/understanding-inlinable-in-swift</link>
     <guid>https://swiftrocks.com/understanding-inlinable-in-swift</guid>
-    <pubDate>Tue, 22 Dec 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 22 Dec 2020 13:00:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -2827,7 +2827,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>DispatchSource: Detecting changes in files and folders in Swift</title>
     <link>https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift</link>
     <guid>https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift</guid>
-    <pubDate>Tue, 24 Nov 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 24 Nov 2020 13:00:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -3044,7 +3044,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>How Swift API Availability Works Internally</title>
     <link>https://swiftrocks.com/how-availability-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-availability-works-internally-in-swift</guid>
-    <pubDate>Tue, 29 Sep 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 29 Sep 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -3276,7 +3276,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>UI Testing Deeplinks and Universal Links in iOS</title>
     <link>https://swiftrocks.com/ui-testing-deeplinks-and-universal-links-in-ios</link>
     <guid>https://swiftrocks.com/ui-testing-deeplinks-and-universal-links-in-ios</guid>
-    <pubDate>Tue, 15 Sep 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 15 Sep 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -3488,7 +3488,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Improving Observer Pattern APIs in Swift With Weak Collections</title>
     <link>https://swiftrocks.com/improving-observer-pattern-apis-in-swift-with-weak-collections</link>
     <guid>https://swiftrocks.com/improving-observer-pattern-apis-in-swift-with-weak-collections</guid>
-    <pubDate>Tue, 25 Aug 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 25 Aug 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -3663,7 +3663,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>App Attest: How to prevent an iOS app's APIs from being abused</title>
     <link>https://swiftrocks.com/app-attest-apple-protect-ios-jailbreak</link>
     <guid>https://swiftrocks.com/app-attest-apple-protect-ios-jailbreak</guid>
-    <pubDate>Tue, 11 Aug 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 11 Aug 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -3769,7 +3769,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Entry Points in Swift: How @main and @UIApplicationMain work internally</title>
     <link>https://swiftrocks.com/entry-points-swift-uiapplicationmain-main</link>
     <guid>https://swiftrocks.com/entry-points-swift-uiapplicationmain-main</guid>
-    <pubDate>Tue, 21 Jul 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 21 Jul 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -3900,7 +3900,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Adapting Objective-C APIs to Swift with NS_REFINED_FOR_SWIFT</title>
     <link>https://swiftrocks.com/adapting-objectivec-apis-for-swift-using-nsrefinedforswift</link>
     <guid>https://swiftrocks.com/adapting-objectivec-apis-for-swift-using-nsrefinedforswift</guid>
-    <pubDate>Tue, 14 Jul 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 14 Jul 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -4007,7 +4007,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Creating Debug Menus in Swift with UIContextMenuInteraction</title>
     <link>https://swiftrocks.com/creating-debug-menus-in-swift-with-uicontextmenuinteraction</link>
     <guid>https://swiftrocks.com/creating-debug-menus-in-swift-with-uicontextmenuinteraction</guid>
-    <pubDate>Tue, 30 Jun 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 30 Jun 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -4204,7 +4204,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>How to create Widgets in iOS 14 in Swift</title>
     <link>https://swiftrocks.com/ios-14-widget-tutorial-mini-apps</link>
     <guid>https://swiftrocks.com/ios-14-widget-tutorial-mini-apps</guid>
-    <pubDate>Tue, 23 Jun 2020 13:10:00 GMT-3</pubDate>
+    <pubDate>Tue, 23 Jun 2020 18:10:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -4630,7 +4630,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Benefits of using throwing functions (try) - Swift's most underrated feature?</title>
     <link>https://swiftrocks.com/benefits-of-throwing-functions-try-swift-underrated-feature</link>
     <guid>https://swiftrocks.com/benefits-of-throwing-functions-try-swift-underrated-feature</guid>
-    <pubDate>Tue, 16 Jun 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 16 Jun 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -4790,7 +4790,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>How Random Numbers Work In Swift</title>
     <link>https://swiftrocks.com/how-random-numbers-work-in-swift</link>
     <guid>https://swiftrocks.com/how-random-numbers-work-in-swift</guid>
-    <pubDate>Tue, 12 May 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 12 May 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -4931,7 +4931,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>iOS Responder Chain: UIResponder, UIEvent, UIControl and uses</title>
     <link>https://swiftrocks.com/understanding-the-ios-responder-chain</link>
     <guid>https://swiftrocks.com/understanding-the-ios-responder-chain</guid>
-    <pubDate>Thu, 7 May 2020 10:00:00 GMT-3</pubDate>
+    <pubDate>Thu, 7 May 2020 15:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -5158,7 +5158,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Unit Testing Preprocessor Macros in Swift</title>
     <link>https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift</link>
     <guid>https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift</guid>
-    <pubDate>Tue, 5 May 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 5 May 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -5347,7 +5347,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Discovering which DispatchQueue a method is running on</title>
     <link>https://swiftrocks.com/discovering-which-dispatchqueue-a-method-is-running-on</link>
     <guid>https://swiftrocks.com/discovering-which-dispatchqueue-a-method-is-running-on</guid>
-    <pubDate>Tue, 28 Apr 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 28 Apr 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -5467,7 +5467,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Weak Dictionary Values in Swift</title>
     <link>https://swiftrocks.com/weak-dictionary-values-in-swift</link>
     <guid>https://swiftrocks.com/weak-dictionary-values-in-swift</guid>
-    <pubDate>Tue, 14 Apr 2020 09:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 14 Apr 2020 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -5673,7 +5673,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Understanding Swift's ObjectIdentifier</title>
     <link>https://swiftrocks.com/understanding-swifts-objectidentifier</link>
     <guid>https://swiftrocks.com/understanding-swifts-objectidentifier</guid>
-    <pubDate>Tue, 31 Mar 2020 04:25:00 GMT-3</pubDate>
+    <pubDate>Tue, 31 Mar 2020 09:25:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -5852,7 +5852,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Useful Global Swift Functions</title>
     <link>https://swiftrocks.com/useful-global-swift-functions</link>
     <guid>https://swiftrocks.com/useful-global-swift-functions</guid>
-    <pubDate>Tue, 24 Mar 2020 04:25:00 GMT-3</pubDate>
+    <pubDate>Tue, 24 Mar 2020 08:25:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -6072,7 +6072,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>How Collection Diffing works in Swift</title>
     <link>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift</guid>
-    <pubDate>Wed, 18 Mar 2020 04:25:00 GMT-3</pubDate>
+    <pubDate>Wed, 18 Mar 2020 08:25:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -6378,7 +6378,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Swift Codable: Decoding / Encoding With Context</title>
     <link>https://swiftrocks.com/swift-codable-decodingencoding-with-context</link>
     <guid>https://swiftrocks.com/swift-codable-decodingencoding-with-context</guid>
-    <pubDate>Wed, 5 Feb 2020 04:25:00 GMT-3</pubDate>
+    <pubDate>Wed, 5 Feb 2020 08:25:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -6554,7 +6554,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Reducing iOS Build Times by using Interface Modules</title>
     <link>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-modules</link>
     <guid>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-modules</guid>
-    <pubDate>Thu, 23 Jan 2020 03:00:00 GMT-3</pubDate>
+    <pubDate>Thu, 23 Jan 2020 07:00:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -6700,7 +6700,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>How Hashable works in Swift</title>
     <link>https://swiftrocks.com/how-hashable-works-in-swift</link>
     <guid>https://swiftrocks.com/how-hashable-works-in-swift</guid>
-    <pubDate>Mon, 13 Jan 2020 03:00:00 GMT-3</pubDate>
+    <pubDate>Mon, 13 Jan 2020 07:00:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -6924,7 +6924,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift</title>
     <link>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift</link>
     <guid>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift</guid>
-    <pubDate>Thu, 2 Jan 2020 03:00:00 GMT-3</pubDate>
+    <pubDate>Thu, 2 Jan 2020 07:00:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -7270,7 +7270,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Faster Array Operations With CollectionOfOne in Swift</title>
     <link>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone</link>
     <guid>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone</guid>
-    <pubDate>Mon, 23 Dec 2019 03:00:00 GMT-3</pubDate>
+    <pubDate>Mon, 23 Dec 2019 07:00:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -7403,7 +7403,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>How OptionSet works inside the Swift Compiler</title>
     <link>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler</link>
     <guid>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler</guid>
-    <pubDate>Tue, 3 Dec 2019 03:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 3 Dec 2019 07:00:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -7570,7 +7570,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>NSCopying uses in Swift</title>
     <link>https://swiftrocks.com/nscopying-nszone-uses-in-swift</link>
     <guid>https://swiftrocks.com/nscopying-nszone-uses-in-swift</guid>
-    <pubDate>Tue, 5 Nov 2019 03:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 5 Nov 2019 07:00:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -7748,7 +7748,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Swift's Sequence Inside The Compiler: How for loops work internally</title>
     <link>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work</link>
     <guid>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work</guid>
-    <pubDate>Fri, 25 Oct 2019 14:50:00 GMT-3</pubDate>
+    <pubDate>Fri, 25 Oct 2019 19:50:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -7930,7 +7930,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Building a Face Detecting Robot with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino</title>
     <link>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino</link>
     <guid>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino</guid>
-    <pubDate>Tue, 15 Oct 2019 15:39:00 GMT-3</pubDate>
+    <pubDate>Tue, 15 Oct 2019 20:39:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -8493,7 +8493,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Using SIMD Vector Types in Swift</title>
     <link>https://swiftrocks.com/using-simd-vector-types-in-swift</link>
     <guid>https://swiftrocks.com/using-simd-vector-types-in-swift</guid>
-    <pubDate>Sun, 29 Sep 2019 15:00:00 GMT-3</pubDate>
+    <pubDate>Sun, 29 Sep 2019 20:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -8602,7 +8602,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Timsort and Introsort: Swift's Sorting Algorithms</title>
     <link>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm</link>
     <guid>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm</guid>
-    <pubDate>Wed, 4 Sep 2019 15:00:00 GMT-3</pubDate>
+    <pubDate>Wed, 4 Sep 2019 20:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -8884,7 +8884,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Advanced lldb tricks for Swift - Injecting and changing code on the fly</title>
     <link>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks</link>
     <guid>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks</guid>
-    <pubDate>Thu, 8 Aug 2019 15:00:00 GMT-3</pubDate>
+    <pubDate>Thu, 8 Aug 2019 20:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -9082,7 +9082,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <title>Swift ExpressibleBy protocols: What they are and how they work internally in the compiler</title>
     <link>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler</link>
     <guid>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler</guid>
-    <pubDate>Wed, 17 Jul 2019 15:00:00 GMT-3</pubDate>
+    <pubDate>Wed, 17 Jul 2019 20:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -9284,7 +9284,7 @@ bb0(%0 : $*URL):</code>
     <title>Useful (and obscure!) Foundation types in Swift</title>
     <link>https://swiftrocks.com/useful-obscure-foundation-types-in-swift</link>
     <guid>https://swiftrocks.com/useful-obscure-foundation-types-in-swift</guid>
-    <pubDate>Wed, 26 Jun 2019 15:00:00 GMT-3</pubDate>
+    <pubDate>Wed, 26 Jun 2019 20:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -9509,7 +9509,7 @@ bb0(%0 : $*URL):</code>
     <title>Understanding Opaque Return Types in Swift</title>
     <link>https://swiftrocks.com/understanding-opaque-return-types-in-swift</link>
     <guid>https://swiftrocks.com/understanding-opaque-return-types-in-swift</guid>
-    <pubDate>Mon, 10 Jun 2019 15:00:00 GMT-3</pubDate>
+    <pubDate>Mon, 10 Jun 2019 20:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -9666,7 +9666,7 @@ bb0(%0 : $*URL):</code>
     <title>Inside SwiftUI's Declarative Syntax's Compiler Magic</title>
     <link>https://swiftrocks.com/inside-swiftui-compiler-magic</link>
     <guid>https://swiftrocks.com/inside-swiftui-compiler-magic</guid>
-    <pubDate>Tue, 4 Jun 2019 15:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 4 Jun 2019 20:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -9914,7 +9914,7 @@ bb0(%0 : $*URL):</code>
     <title>autoreleasepool uses in Swift</title>
     <link>https://swiftrocks.com/autoreleasepool-in-swift</link>
     <guid>https://swiftrocks.com/autoreleasepool-in-swift</guid>
-    <pubDate>Wed, 22 May 2019 15:00:00 GMT-3</pubDate>
+    <pubDate>Wed, 22 May 2019 20:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -10058,7 +10058,7 @@ bb0(%0 : $*URL):</code>
     <title>Avoiding Release Anxiety 2: On the importance of creating a code Style Guide</title>
     <link>https://swiftrocks.com/code-style-guides-in-swift</link>
     <guid>https://swiftrocks.com/code-style-guides-in-swift</guid>
-    <pubDate>Tue, 7 May 2019 15:00:00 GMT-3</pubDate>
+    <pubDate>Tue, 7 May 2019 20:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -10119,7 +10119,7 @@ bb0(%0 : $*URL):</code>
     <title>Avoiding Release Anxiety 1: Block-based UI Testing in Swift</title>
     <link>https://swiftrocks.com/blockbased-ui-testing-in-swift</link>
     <guid>https://swiftrocks.com/blockbased-ui-testing-in-swift</guid>
-    <pubDate>Sat, 20 Apr 2019 15:00:00 GMT-3</pubDate>
+    <pubDate>Sat, 20 Apr 2019 20:00:00 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -10370,7 +10370,7 @@ bb0(%0 : $*URL):</code>
     <title>Adding iOS Home Shortcuts to Specific Parts of An App in Swift</title>
     <link>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen</link>
     <guid>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen</guid>
-    <pubDate>Wed, 20 Feb 2019 15:00:00 GMT-3</pubDate>
+    <pubDate>Wed, 20 Feb 2019 19:00:00 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -10560,7 +10560,7 @@ bb0(%0 : $*URL):</code>
     <title>Avoiding Callback Hell in Swift</title>
     <link>https://swiftrocks.com/avoiding-callback-hell-in-swift</link>
     <guid>https://swiftrocks.com/avoiding-callback-hell-in-swift</guid>
-    <pubDate>Mon, 17 Dec 2018 11:42:07 GMT-2</pubDate>
+    <pubDate>Mon, 17 Dec 2018 14:42:07 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -10887,7 +10887,7 @@ bb0(%0 : $*URL):</code>
     <title>How @dynamicMemberLookup Works Internally in Swift (+ Creating Custom Swift Attributes)</title>
     <link>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift</guid>
-    <pubDate>Thu, 6 Dec 2018 11:42:07 GMT-2</pubDate>
+    <pubDate>Thu, 6 Dec 2018 14:42:07 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -11188,7 +11188,7 @@ bb0(%0 : $*URL):</code>
     <title>How Never Works Internally in Swift</title>
     <link>https://swiftrocks.com/how-never-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-never-works-internally-in-swift</guid>
-    <pubDate>Wed, 14 Nov 2018 11:42:07 GMT-2</pubDate>
+    <pubDate>Wed, 14 Nov 2018 14:42:07 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -11433,7 +11433,7 @@ bb0(%0 : $*URL):</code>
     <title>What's .self, .Type and .Protocol? Understanding Swift Metatypes</title>
     <link>https://swiftrocks.com/whats-type-and-self-swift-metatypes</link>
     <guid>https://swiftrocks.com/whats-type-and-self-swift-metatypes</guid>
-    <pubDate>Mon, 29 Oct 2018 09:23:13 GMT-3</pubDate>
+    <pubDate>Mon, 29 Oct 2018 13:23:13 GMT+1</pubDate>
 <description><![CDATA[
  
   
@@ -11624,7 +11624,7 @@ bb0(%0 : $*URL):</code>
     <title>Unowned Properties in Swift</title>
     <link>https://swiftrocks.com/unowned-properties-in-swift</link>
     <guid>https://swiftrocks.com/unowned-properties-in-swift</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -11714,7 +11714,7 @@ bb0(%0 : $*URL):</code>
     <title>Understanding DispatchQueues</title>
     <link>https://swiftrocks.com/understanding-dispatchqueues</link>
     <guid>https://swiftrocks.com/understanding-dispatchqueues</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -11950,7 +11950,7 @@ async task ended
     <title>Lazy Sequences in Swift And How They Work</title>
     <link>https://swiftrocks.com/lazy-sequences-in-swift-and-how-they-work</link>
     <guid>https://swiftrocks.com/lazy-sequences-in-swift-and-how-they-work</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -12183,7 +12183,7 @@ async task ended
     <title>Writing Cleaner View Code in Swift By Overriding loadView()</title>
     <link>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview</link>
     <guid>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -12364,7 +12364,7 @@ final class MyViewController: CustomViewController&lt;MyView&gt; {
     <title>Competitive Programming With Swift</title>
     <link>https://swiftrocks.com/competitive-programming-with-swift</link>
     <guid>https://swiftrocks.com/competitive-programming-with-swift</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -12523,7 +12523,7 @@ measure {
     <title>Running Other Apps' Siri Shortcuts Through Deep Links in Swift</title>
     <link>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift</link>
     <guid>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -12606,7 +12606,7 @@ measure {
     <title>Swift Associated Types With Default Values</title>
     <link>https://swiftrocks.com/swift-associated-types-with-default-values</link>
     <guid>https://swiftrocks.com/swift-associated-types-with-default-values</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -12726,7 +12726,7 @@ measure {
     <title>Detecting TouchID fingerprint/FaceID face changes</title>
     <link>https://swiftrocks.com/detecting-touchid-fingerprint-changes</link>
     <guid>https://swiftrocks.com/detecting-touchid-fingerprint-changes</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -12783,7 +12783,7 @@ measure {
     <title>Writing Custom Pattern Matching in Swift</title>
     <link>https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift</link>
     <guid>https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -12928,7 +12928,7 @@ if case .friday? = nextHoliday?.weekDay {
     <title>How CaseIterable Works Internally in Swift</title>
     <link>https://swiftrocks.com/how-caseiterable-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-caseiterable-works-internally-in-swift</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -13218,7 +13218,7 @@ bt</code>
     <title>The Forbidden @inline Attribute in Swift</title>
     <link>https://swiftrocks.com/the-forbidden-inline-attribute-in-swift</link>
     <guid>https://swiftrocks.com/the-forbidden-inline-attribute-in-swift</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -13344,7 +13344,7 @@ func play(song: Song) {
     <title>Memory Management and Performance of Value Types</title>
     <link>https://swiftrocks.com/memory-management-and-performance-of-value-types</link>
     <guid>https://swiftrocks.com/memory-management-and-performance-of-value-types</guid>
-    <pubDate>Fri, 26 Oct 2018 10:42:07 GMT-3</pubDate>
+    <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
 <description><![CDATA[
  
   
@@ -13629,7 +13629,7 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
     <title>iOS Security: Reverse Engineering Messenger's Chat Bubbles</title>
     <link>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat</link>
     <guid>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat</guid>
-    <pubDate>Mon, 7 Nov 2016 11:42:07 GMT-2</pubDate>
+    <pubDate>Mon, 7 Nov 2016 14:42:07 GMT+1</pubDate>
 <description><![CDATA[
  
   

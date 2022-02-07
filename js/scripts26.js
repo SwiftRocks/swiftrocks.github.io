@@ -7,8 +7,8 @@
         ///
         var sponsorTitle = "Emerge Tools - Monitor and reduce app size"
         var sponsorIcon = "https://i.imgur.com/F4ZGrLz.png"
-        var sponsorText = "Emerge helps teams build better, smaller apps. With binary profiling to enable developers to see the full impact of their changes as they make them and actionable insights to provide suggestions on ways devs can improve their code."
-        var sponsorLink = "https://www.emergetools.com/?utm_source=swiftrocks&utm_medium=advertisement&utm_campaign=emerge/"
+        var sponsorText = "Why are Swift reference types bad for app startup time, and what’s the performance cost of protocol conformances? That’s just a couple of the topics you can learn about on the Emerge blog — written by the app performance experts behind Emerge’s advanced app optimization and monitoring tools, based on their experience of working at companies like Apple, Airbnb, Snap, and Spotify."
+        var sponsorLink = "https://www.emergetools.com/blog?utm_source=swiftrocks&utm_medium=sponsor&utm_campaign=emerge"
 
         const sponsorDivId = "sponsor-article-ad-auto"
         const sponsorDivs = document.getElementsByClassName(sponsorDivId)
