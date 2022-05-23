@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <script src="https://use.fontawesome.com/afd448ce82.js"></script>
+    
+    <!-- Meta Tag -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO -->
+    <meta name="author" content="Bruno Rocha">
+    <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
+    <meta name="description" content="You do not need to understand the theory of certificates and profiles in order to create a fully working iOS app, but you might be interested in knowing how this process works to make future debugging sessions easier.">
+    <meta name="title" content="Understanding Certificates and iOS Provisioning Profiles">
+    <meta name="url" content="https://swiftrocks.com/how-certificates-work">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/how-certificates-work.jpg?3">
+    <meta name="copyright" content="Bruno Rocha">
+    <meta name="robots" content="index,follow">
+
+    <meta property="og:title" content="Understanding Certificates and iOS Provisioning Profiles"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/how-certificates-work.jpg?3"/>
+    <meta property="og:description" content="You do not need to understand the theory of certificates and profiles in order to create a fully working iOS app, but you might be interested in knowing how this process works to make future debugging sessions easier."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://swiftrocks.com/how-certificates-work"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/how-certificates-work.jpg?3"/>
+    <meta name="twitter:image:alt" content="Page Thumbnail"/>
+    <meta name="twitter:title" content="Understanding Certificates and iOS Provisioning Profiles"/>
+    <meta name="twitter:description" content="You do not need to understand the theory of certificates and profiles in order to create a fully working iOS app, but you might be interested in knowing how this process works to make future debugging sessions easier."/>
+    <meta name="twitter:site" content="@rockbruno_"/>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
+    <link rel="mask-icon" href="images/favicon/favicon-2.ico">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:light,lightitalic,regular,regularitalic,medium,mediumitalic,bold,bolditalic,black,blackitalic">
+    
+    
+
+  <!-- Bootstrap CSS Plugins --> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Prism CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/prism3.css"> 
+  <!-- Main CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/style42.css"> 
+  <link rel="stylesheet" type="text/css" href="css/sponsor2.css">
+    
+    <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <script type="application/ld+json">
+  {
+"@context": "https://schema.org",
+"@type": "BlogPosting",
+"mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://swiftrocks.com/how-certificates-work"
+},
+"image": [
+  "https://swiftrocks.com.com/images/logo/logo.png"
+],
+"datePublished": "2022-05-24T14:00:00+02:00",
+"dateModified": "2022-05-24T14:00:00+02:00",
+"author": {
+  "@type": "Person",
+  "name": "Bruno Rocha"
+},
+ "publisher": {
+  "@type": "Organization",
+  "name": "SwiftRocks",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://swiftrocks.com.com/images/logo/logo.png"
+  }
+},
+"headline": "Understanding Certificates and iOS Provisioning Profiles",
+    "abstract": "You do not need to understand the theory of certificates and profiles in order to create a fully working iOS app, but you might be interested in knowing how this process works to make future debugging sessions easier."
+}
+  </script>
+    
+
+  </head>
+
+ <body>
+      
+    
+    
+     
+    
+    
+  <div id="main"> 
+<!-- Blog Header --> 
+      <div class="blog-header-container" style="width: 100%">
+         <div style="display: flex; justify-content: center;"><a href="https://swiftrocks.com">
+           <img id="logo" alt="SwiftRocks" src="images/bg/swiftrockswithtextdarkmode2.png" style="margin-top: 32px; margin-left: 32px; margin-right: 32px; max-width: calc(100% - 64px); width: auto; height: auto;"> 
+         </a></div>
+         <div style="margin-top: 15px; display: flex; justify-content: center;">
+           <p class="blog-header-text">A blog about <b style="color: white;">how Swift works</b> and <b style="color: white;">iOS tricks</b>, by <a href="https://rockbruno.com">Bruno Rocha</a>.</p>
+         </div>
+          <div class="blog-header-button-container">
+          <div class="blog-header-button">
+               <a href="https://twitter.com/rockbruno_" target="_blank" style="display: flex;">
+                  <i class="fa fa-twitter"></i>
+<!--                   <div class="blog-header-button-follow-shape"></div>
+                  <div class="blog-header-button-follow">5570<div class="blog-header-button-follow-verbose"> followers</div>!</div> -->
+               </a>
+          </div>
+          <div class="blog-header-button">
+               <a href="rss.xml" target="_blank">
+                  <i class="fa fa-rss"></i>
+               </a>
+          </div>
+          <div class="blog-header-button">
+               <a href="mailto:rockbruno@rockbruno.com" target="_blank">
+                  <i class="fa fa-envelope"></i>
+               </a>
+          </div>
+          <div class="blog-header-button">
+               <a href="https://github.com/rockbruno" target="_blank">
+                  <i class="fa fa-github"></i>
+               </a>
+          </div>
+<!--           <div class="blog-header-button">
+               <a href="sponsor-advertise-at-swiftrocks">
+                  <div class="blog-header-button-sponsor">Sponsor</div>
+               </a>
+          </div> -->
+         </div>
+     </div>
+         <!-- Blog Post (Right Sidebar) Start --> 
+   <div class="container"> 
+                 <div class="col-xs-12">
+                    <div class="page-body">
+                    	<div class="row">
+
+ <!-- Mailchimp -->
+  <div id="mc_embed_signup">
+  <div style="display:flex; justify-content: center;">
+  <p style="font-weight: 100; font-size: 16px; text-align: center;">Articles about advanced Swift development in excruciating detail, for free!</p>
+  </div>
+  <form action="https://swiftrocks.us17.list-manage.com/subscribe/post?u=d6bdd39e59b8d9b8f2b8d4852&amp;id=cbca5f3532" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" style="padding: 0;" novalidate>
+      <div id="mc_embed_signup_scroll">
+    
+    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Your email address" required>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_d6bdd39e59b8d9b8f2b8d4852_cbca5f3532" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Notify me of new posts" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+      </div>
+  </form>
+  </div>
+  <!-- Mailchimp End -->
+
+                            <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
+<!--WRITEIT_POST_NAME=Understanding Certificates and iOS Provisioning Profiles-->
+<!--WRITEIT_POST_HTML_NAME=how-certificates-work-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=You do not need to understand the theory of certificates and profiles in order to create a fully working iOS app, but you might be interested in knowing how this process works to make future debugging sessions easier.-->
+
+<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-05-24T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2022-05-24T14:00:00+02:00-->
+
+<title>Understanding Certificates and iOS Provisioning Profiles</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>Understanding Certificates and iOS Provisioning Profiles</h1>
+  </div>  
+  <div class="post-info">
+    <div class="category category-ios">iOS</div>
+    <div class="post-info-text">Published on 24 May 2022</div>
+  </div>
+<p>You do not need to understand the theory of certificates and profiles in order to create a fully working iOS app, but you might be interested in knowing how this process works to make future debugging sessions easier. After all, I'd say it's pretty likely that you as an engineer have needed to deal with mysterious signing errors at one point in the past!</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>The theory behind these two is intrinsically connected to the topic of modern cryptography, and I find that a good way to understand certificates and profiles is by taking a step back from the mobile world and <b>understanding how safe web browsing (HTTPS, SSL, TLS) works.</b></p>
+<h2>A quick introduction to modern (safe) web browsing</h2>
+<p>You might have heard of <i>symmetric</i> cryptography, which is a mechanism that allows a message to be encrypted with a special secret key and then later decrypted by the same key:</p>
+<ul>
+<li>Plain message + secret key = Encrypted message</li>
+<li>Encrypted message + secret key = Plain message</li>
+</ul>
+<p>If two people who are trying to communicate with each other want to do so in a secure way, they can do so by agreeing on a secret key and using a symmetric cryptography algorithm to encrypt/decrypt their messages. This communication will be safe even if the network is being intercepted by a bad actor, as this actor will not be able to make sense of the messages being intercepted unless they somehow manage to steal the key being used to encrypt the messages. This is how WhatsApp's E2E encrypted chats used to work – when the feature was first released, the encryption was activated by sharing a QR Code with the contact you wanted to talk securely with. This QR Code represented a secret key generated by your device, and once shared with the contact, both devices would store this key. (FYI, WhatsApp's encryption doesn't work like this anymore. The system has since evolved into something more powerful that uses the concepts this article is trying to teach.)</p>
+<p>But despite working fine for WhatsApp at the time, this mechanism doesn't work for general web browsing for a multitude of reasons.</p>
+<p>First of all, the whole concept of WhatsApp's mechanism at that time was that the sharing was meant to happen <b>in person.</b> If you shared your QR Code physically by having your contact scan it by pointing their camera directly at your phone, then you could be completely sure that no one had access to it. If I'm trying to establish a safe connection to Google, then Google will proooobably not send some employee to my house for me to give them some weird QR code. You need to somehow transmit the key to them via the internet, which would immediately render your connection vulnerable to man-in-the-middle attacks:</p>
+<ul>
+<li>Generate key</li>
+<li>Send the key to someone as part of a plain HTTP request</li>
+<li>Whoopsie! Someone was snooping your network without your knowledge and sniffed the key you tried to send. They can now see everything you're communicating.</li>
+</ul>
+<p>Second of all, the web doesn't have "accounts" – you cannot generate a key once and store it in a device like WhatsApp does because you don't need to log in to make a Google search. This means you'd have to do this process every time you tried to visit a new website, making you even more vulnerable to being intercepted.</p>
+<h2>Asymmetric Encryption</h2>
+<p>Part of the solution to this problem comes in the form of <b>asymmetric encryption.</b> Instead of having a single key that can both encrypt and decrypt messages, asymmetric encryption algorithms instead deal with a <b>pair</b> of keys that cannot function without each other:</p>
+<ul>
+<li>Plain message + key 1 = Encrypted message</li>
+<li>Encrypted message + key 2 = Plain message</li>
+</ul>
+<p>You <b>can't</b> unencrypt the message with key 1 itself – only the opposite key can revert something encrypted by a particular key. This means that the opposite scenario is also valid: encrypt with key 2, unencrypt with key 1.</p>
+<p>These pairs of keys are often referred to as <b>public/private keys</b> due to how they're meant to be used. Since you need <b>both</b> keys to fully intercept messages, there's no danger in having bad actors intercept one of the keys as long as you make sure that the other one is safe (ideally by keeping it completely out of the web). The former is referred to as the public key, while the latter is the private (or secret) key.</p>
+<p>Let's go back to the web browsing example. In the previous scenario, we were unable to establish a safe connection to a website because of how simple it'd be for someone to steal the symmetric secret key and intercept the communication. If we start communicating with a key pair however, the situation can already improve a bit. Assuming that a server has generated its own pair of keys in order to communicate with its users, an encrypted connection could be established as follows:</p>
+<ul>
+<li>Ask the server to give me its public key</li>
+<li>Send a message and encrypt it with the public key</li>
+<li>Server answers back with a message encrypted with their secret key</li>
+<li>Unencrypt the server's message with the public key</li>
+</ul>
+<p>In this scenario, someone intercepting your network <b>would not be able to read what you're sending to the server as they don't have access to the key being held by the server</b>, but this is still not a secure connection.</p>
+<p>First of all, a bad actor could still intercept the part where the server gives you the public key in order to unencrypt the messages the server sends to you. They won't know what you're sending to it, but they can know what you're receiving.</p>
+<p>Second of all, there's no way you can trust that the public key you received actually came from the server. A bad actor could've very well intercepted that and replaced it with their own public key, giving them the full ability to pretend to be the server you were trying to reach.</p>
+<p>The solution to the first problem is by having the connection work not by simply encrypting messages asymmetrically, but by first having the client and the server both attempt to "validate" each other by going through a series of steps that mixes <b>both</b> symmetric and asymmetric encryption in a way that any attempt of trying to intercept/modify the connection would cause the process to fail. This process, which is called a <b>handshake</b>, is detailed by secure connection protocols like <b>SSL</b> and <b>TLS</b> and implemented by your browser (and servers) to provide the HTTPS schema functionality you're using right now. But what about the part where the public key itself might be forged? Even if your browser attempts to handshake the connection, it's not far-fetched to say that an attacker could replicate the handshake process itself in an attempt to fully impersonate the server.</p>
+<p>In this case, the root of <b>the problem lies in the fact that in our hypothetical scenario, the public key is being sent to us via plain text.</b> In order to be sure that the key was not tampered with by an attacker, the message that brings us the key needs itself arrive at us encrypted.</p>
+<p>But hold on… The last time we tried to encrypt something, we decided it wasn't enough because an attacker could've intercepted the part where the keys were exchanged. If you're telling me that the exchange itself will be encrypted, how am I supposed to safely exchange the keys that will protect the other exchange of keys? If reading this made you completely confused, welcome to the world of cryptography.</p>
+<p>As you might've noticed, we're dealing with a cat and mouse game. We need to protect data, but we need to first share a protection mechanism. But this mechanism needs to the protected, and that mechanism needs to be protected. and then that other mechanism needs to be protected, and so on and on and on. It never ends! …or does it? How come the web works if everything is this flawed?</p>
+<p>When we were talking about symmetric cryptography, we mentioned that the reason WhatsApp's initial encryption feature worked was that <b>it was able to share information outside the web</b>, and that's exactly how we're able to break out of our cat and mouse loop.</p>
+<h2>Enter Certificate Authorities</h2>
+<p>But before seeing how the loop is broken, we need to first introduce the third party we mentioned that will be responsible for safely transmitting a server's public key to us.</p>
+<p>A Certificate Authority (CA) is a fancy name for a server that stores a dictionary that maps between principles (for example, swiftrocks.com's IP address) with a public key. This is the party we mentioned – when a server wishes to implement secure connections, they start by creating a key pair and submitting it to a CA. (This might ring some bells if you're an iOS developer; this is exactly what you do when you ask to create a development certificate for your app in the Keychain.)</p>
+<p>The CA responds to the registration by giving you a file that contains your public key encrypted with the CA's own secret key. The output of this operation is called a <b>certificate</b>, and its purpose is to function as a secure way for users to have access to that public key. If the user has access to that particular CA's public key, they can read your certificate and have undeniable proof that its contents were not tampered with. There are tons of Certificate Authorities around the world – security companies, Apple, and even the US Postal Office are examples of companies operating as such.</p>
+<p>Now, hold on, because we already know what's going to happen. How is this supposed to solve anything when the entire point of the problem is that you <b>can't safely transfer public keys through the web?</b> How am I supposed to get a hold of the CA's public key without having a CA for the CA, and a CA for the CA for the CA?</p>
+<p>The answer might be surprising: you don't need to, because <b>you already have it.</b> In order to break the cat and mouse loop, the tech community agreed to maintain a list of "CAs that can be trusted" and <b>hardcode</b> their public keys in things such as your OS and browser of choice. The keys are not "sent" to you as part of a handshake process like in our previous fake scenarios – they come bundled in the stuff you install. With the public key already in your possession, a bad actor becomes unable to forge a certificate through man-in-the-middle attacks, thus allowing us to finally establish a secure connection.</p>
+<p>This mechanism isn't completely infallible through. It's still possible for a hacker to break this process through the following scenarios:</p>
+<ul>
+<li>Compromising the CA itself: This isn't impossible, but it would probably be dealt with pretty quickly with a hotfix removing the CA from your "trusted" list.</li>
+<li>Leaking a server's private key: This happens occasionally and can be treated by "revoking" a certificate. The ways certificates can be revoked are quite interesting, but I won't go into details here.</li>
+<li>Downloading and using a fake copy of a browser that accepts fake CAs: Not impossible, but if you fall for this, it's 100% your fault.</li>
+</ul>
+<p>Despite the theoretical potential issues, the current setup is seen as good enough for its purpose and is used all across the web. We won't go into details here about how exactly a TLS/SSL handshake works on the modern web as that's not the topic of the article, but here's an example image where you can see how certificates come into the picture in SSL connections:</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/O9vK8Ff.png" alt="SSL">                                    
+</div>
+<h2>How do Certificates work in iOS?</h2>
+<p>With an understanding of how certificates are used in the general web world, we're in a better position to understand their purpose in mobile development.</p>
+<p>In the case of iOS, Xcode will start bugging you about certificates and signing identities when attempting to distribute copies of your app. This will lead you to a process in which you create a pair of encryption keys and ask Apple to act as a CA and give you a certificate for your app's bundle ID, all while keeping the secret key for yourself and your teammates only.</p>
+<p>The purpose of this process is to safeguard both the upload and a user's attempt to install your app. You might've noticed that you can't create archives of your app without having a hold of the secret key of the certificate you're trying to bundle in the app: that's because the Xcode distribution process wants you to "sign" the binary with your secret key so that Apple can have undeniable proof that it was you (or your teammates) who created that binary, and not someone pretending to be you. That's why Apple requires bundle IDs to be unique.</p>
+<h2>What are provisioning profiles?</h2>
+<p>Unlike certificates, the concept of profiles is specific to iOS development, and their purpose is directly tied to Apple's effort into wanting iOS to be perceived as a safe operating system. Here's the challenge: how can Apple give developers deeper access to the OS and the hardware without compromising the security of the average user?</p>
+<p>The answer: Let them do whatever they want, but limit their ability to share their creations depending on what the product does. While Android allows you to download binaries from the web and install them on your phone without restrictions, iOS forbids you to do so unless the developer explicitly acknowledges, during compilation time, that your specific phone is allowed to install that particular binary. You already know what these acknowledgments are – that's what a provisioning profile is, and they are bundled inside your apps alongside your certificates so that Apple/iOS can have full confidence in the binaries they receive.</p>
+<p>Developers are required to provide profiles when targetting physical devices, and they contain information such as:</p>
+<ul>
+<li>The bundle id of the app</li>
+<li>The certificates tied to that id</li>
+<li>The capabilities of the app (e.g camera access)</li>
+</ul>
+<p>The "signing" process mentioned previously will then bundle this information into the binary, which is later in the process inspected by the device trying to install the app to confirm that the binary is legitimate and that it's actually allowed to install it.</p>
+<p>All builds targetting physical devices require provisioning profiles, but only debug builds require an explicit list of devices. For Enterprise and App Store builds, profiles do not need to include device data because such builds are designed to be installed by a theoretically infinite amount of users.</p>
+<h2>Conclusion</h2>
+<p>While you needed to know absolutely nothing of this to submit an app to the App Store, this information should hopefully come in good use the next time your team faces a mystical signing-related issue in Xcode. You are now elected as your company's go-to person for certificate issues!</p>
+</div>
+</div>
+                              
+   
+
+    <div class="blog-post" style="margin-top: 16px;">
+      <div class="footer-text">
+        <p>Thanks for reading! If you want to see more Swift / iOS content like this, follow me on <a href="https://twitter.com/rockbruno_">Twitter!</a></p>
+        <div class="footer-share">
+        <a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Fhow-certificates-work&text=Understanding Certificates and iOS Provisioning Profiles" target="_blank" class="share" style="font-size: 18px;"><i class="fa fa-twitter"></i>‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Share this page on Twitter</a>
+        </div>
+      </div>
+    <!-- Mailchimp -->
+  <div id="mc_embed_signup" style="border-top: 1px solid black; padding-top: 32px;">
+  <div style="display:flex; justify-content: center; text-align: center;">
+  <p style="font-weight: 100; font-size: 16px;">Articles about advanced Swift development in excruciating detail, for free!</p>
+  </div>
+  <form action="https://swiftrocks.us17.list-manage.com/subscribe/post?u=d6bdd39e59b8d9b8f2b8d4852&amp;id=cbca5f3532" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" style="padding: 0;" novalidate>
+      <div id="mc_embed_signup_scroll">
+    
+    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Your email address" required>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_d6bdd39e59b8d9b8f2b8d4852_cbca5f3532" tabindex="-1" value=""></div>
+      <div class="clear"><input type="submit" value="Notify me of new posts" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+      </div>
+  </form>
+  </div>
+  <!-- Mailchimp End -->
+
+    </div>
+
+                         </div>
+
+</div>
+                        
+                           
+                         </div>
+                     
+                     
+                  </div>
+                  <!-- Blog Post (Right Sidebar) End -->
+                
+            </div>
+         </div>
+      </div>
+    
+    
+    <!-- All Javascript Plugins  -->
+  <script type="text/javascript" src="js/jquery.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/prism3.js"></script> 
+    <!-- Main Javascript File  -->
+    <script type="text/javascript" src="js/scripts26.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130406165-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-130406165-1');
+</script>
+
+   </body>
+ </html>
