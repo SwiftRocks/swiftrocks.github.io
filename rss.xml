@@ -51,7 +51,7 @@
 </div>
 <h2>Info and Comments</h2>
 <ul>
-<li>Neutrality is defined as something scoring between -0.5 and 0.5. The huge majority of values in this range were on the negative side.</li>
+<li>Neutrality was defined as sentiment scoring between -0.5 and 0.5. The huge majority of values in this range were on the negative side.</li>
 <li><i>Happy</i> is the only subreddit that scored higher in positivity than in negativity.</li>
 <li>Despite naturally ranking high in positivity, subreddits themed around happiness showed to still contain an overwhelming amount of negative comments.</li>
 <li>Subreddits themed around advice/knowledge ranking as <i>more hostile</i> than subreddits themed around <i>actual</i> hate is interesting, but not surprising. They are famous among redditors for being hotspots for insecure individuals and often host some of the lowest-quality discussions in the platform.</li>
