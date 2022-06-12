@@ -7,6 +7,164 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>Visualizing Reddit's negativity with NSTagger</title>
+    <link>https://swiftrocks.com/sentiment-analysis-reddit-negativity</link>
+    <guid>https://swiftrocks.com/sentiment-analysis-reddit-negativity</guid>
+    <pubDate>Sun, 12 Jun 2022 16:00:00 GMT+2</pubDate>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=Visualizing Reddit's negativity with NSTagger-->
+<!--WRITEIT_POST_HTML_NAME=sentiment-analysis-reddit-negativity-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=I have been feeling that Reddit is well on its way to taking away from 4chan the title of internet hate machine, because even when a subreddit is themed around happiness it takes little to no effort to find extremely hostile comment chains.-->
+
+<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-06-12T16:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2022-06-12T16:00:00+02:00-->
+
+<title>Visualizing Reddit's negativity with NSTagger</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>Visualizing Reddit's negativity with NSTagger</h1>
+  </div>  
+  <div class="post-info">
+    <div class="category category-ios">iOS</div>
+    <div class="category category-swift">Swift</div>
+    <div class="post-info-text">Published on 12 Jun 2022</div>
+  </div>
+<p>I have been feeling that Reddit is well on its way to taking away from 4chan the title of <i>internet hate machine</i>, because even when a subreddit is themed around happiness it takes little to no effort to find extremely hostile comment chains with complete strangers arguing about the most pointless things. I was curious to see what this looked like across different subreddits, so I decided to use Reddit's APIs and iOS's built-in sentiment analysis tools to visualize how negative a subreddit is.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>This is not a new problem, and you can find many GitHub repos of people who've done similar things with Reddit comments in the past. I started this "project" by <a href="https://github.com/hein-j/reddit-sentiment-analysis">modifying this script made by hein-j</a>, but I wasn't satisfied with the results being given by the usual Python NL frameworks. I thought they were being way too eager at saying that a subreddit was neutral when they're in reality notorious for being negative (maybe they're not the best at detecting passive-aggressiveness?), so I wondered if I could get better results by using iOS's <code>NLTagger</code> that has been available since iOS 12.</p>
+<p>With a simple setup of extracting comments and running them through a Swift script, I grabbed a couple of popular subreddits, analyzed the comments of the top 10 submissions at the time and plotted the output by pasting the results in a Google Sheets doc. If you want to try this yourself and/or tweak the parameters, you can find the code I used at the bottom of the article.</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/n14Jsmi.png" alt="Alt">                                    
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/Xmw2WK9.png" alt="Alt">                                    
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/JZA3vx0.png" alt="Alt">                                    
+</div>
+<h2>Info and Comments</h2>
+<ul>
+<li>Neutrality is defined as something scoring between -0.5 and 0.5. The huge majority of values in this range were on the negative side.</li>
+<li><i>Happy</i> is the only subreddit that scored higher in positivity than in negativity.</li>
+<li>Despite naturally ranking high in positivity, subreddits themed around happiness showed to still contain an overwhelming amount of negativity.</li>
+<li>It's not one bit surprising that <i>Relationships</i> and <i>Science</i> scored the highest percentage of negativity, given that both subreddits are notorious for having very low-quality threads and comments.</li>
+</ul>
+<h2>Code</h2>
+<h3>Python</h3>
+<p>The purpose of the Python script is to connect to Reddit and dump the comments of a subreddit into a JSON file. The script requires <code>praw</code> and a <code>praw.ini</code> file in the project's root named <code>bot</code> with the following Reddit App parameters: <code>client_id</code>, <code>client_secret</code>, and <code>user_agent</code>. See <a href="https://www.geeksforgeeks.org/how-to-get-client_id-and-client_secret-for-python-reddit-api-registration/">here</a> for help with creating a Reddit App and <a href="https://praw.readthedocs.io/en/latest/getting_started/configuration/prawini.html">here</a> for help with praw.</p>
+<p>Make sure to modify the output path of this script before running.</p>
+<p>Usage example: <code>python comments.py getmotivated</code></p>
+<pre>
+<code>import praw</code>
+<code>import sys</code>
+<code>import argparse</code>
+<code></code>
+<code>def parse():</code>
+<code>    print('parsing arguments and options...')</code>
+<code></code>
+<code>    parser = argparse.ArgumentParser(description="Get the comments of a subreddit")</code>
+<code>    parser.add_argument('subreddit', type=str, help='name of subreddit')</code>
+<code></code>
+<code>    return parser.parse_args()</code>
+<code></code>
+<code></code>
+<code>def gather(subreddit):</code>
+<code>    print('searching subreddit for key phrase...')</code>
+<code>    relevant_strings = []</code>
+<code>    print('gathering texts for analysis...')</code>
+<code>    try:</code>
+<code>        for submission in subreddit.hot(limit=10):</code>
+<code>            print('...')</code>
+<code>            if submission.selftext:</code>
+<code>                relevant_strings.append(str(submission.selftext))</code>
+<code>            for comment in submission.comments.list():</code>
+<code>                if isinstance(comment, praw.models.MoreComments):</code>
+<code>                    continue</code>
+<code>                relevant_strings.append(str(comment.body))</code>
+<code>        if len(relevant_strings) == 0:</code>
+<code>            raise Exception</code>
+<code>        return relevant_strings</code>
+<code>    except:</code>
+<code>        sys.exit('ERROR: No posts were found for the provided subreddit and key phrase.')</code>
+<code></code>
+<code></code>
+<code>args = parse()</code>
+<code>subreddit_str = args.subreddit</code>
+<code></code>
+<code>print('establishing reddit instance...')</code>
+<code></code>
+<code>try:</code>
+<code>    reddit = praw.Reddit("bot")</code>
+<code>except:</code>
+<code>    sys.exit('ERROR: Failed to establish a reddit instance. Have you correctly set up your praw.ini file? See README.md for more detail.')</code>
+<code></code>
+<code>print('connecting to subreddit...')</code>
+<code>subreddit = reddit.subreddit(subreddit_str)</code>
+<code></code>
+<code># Get user inputs to analyze</code>
+<code>relevant_strings = gather(subreddit)</code>
+<code></code>
+<code>joined = "||aa||aa||aa||aa||".join(relevant_strings)</code>
+<code></code>
+<code>#open text file</code>
+<code>text_file = open("~/Desktop/r"+subreddit_str+".json", "w")</code>
+<code> </code>
+<code>#write string to file</code>
+<code>text_file.write(joined)</code>
+<code> </code>
+<code>#close file</code>
+<code>text_file.close()</code>
+</pre>
+<h3>Swift</h3>
+<p>The Swift part of the script loads the json files dumped by the Python script and runs them through iOS's <code>NSTagger</code>. Make sure to modify the input path and subreddits in the script to the subreddits you're analyzing.</p>
+<pre>
+<code>import Foundation</code>
+<code>import NaturalLanguage</code>
+<code></code>
+<code>let subreddits = ["gaming", "wholesomememes", "funny", "technology", "eyebleach", "dogswithjobs", "aww", "comedyheaven", "iamatotalpieceofshit", "mildlyinteresting", "mildlyinfuriating", "upliftingnews", "politics", "mademesmile", "interestingasfuck", "memes", "science", "animalsbeingbros", "askreddit", "relationships", "happy", "getmotivated", "rarepuppers"]</code>
+<code></code>
+<code>for sub in subreddits {</code>
+<code></code>
+<code>    let str = try! String(contentsOfFile: "~/Desktop/r\(sub).json")</code>
+<code>    let arr = str.components(separatedBy: "||aa||aa||aa||aa||")</code>
+<code></code>
+<code>    var negative: Double = 0</code>
+<code>    var neutral: Double = 0</code>
+<code>    var positive: Double = 0</code>
+<code>    for input in arr {</code>
+<code>        let tagger = NLTagger(tagSchemes: [.sentimentScore])</code>
+<code>        tagger.string = input</code>
+<code>        let (sentiment, _) = tagger.tag(at: input.startIndex, unit: .paragraph, scheme: .sentimentScore)</code>
+<code>        let score = Double(sentiment?.rawValue ?? "0") ?? 0</code>
+<code>        if score > 0.5 {</code>
+<code>            positive += 1</code>
+<code>        } else if score < -0.5 {</code>
+<code>            negative += 1</code>
+<code>        } else {</code>
+<code>            neutral += 1</code>
+<code>        }</code>
+<code>    }</code>
+<code></code>
+<code>    let total = negative + neutral + positive</code>
+<code></code>
+<code>    print(sub.capitalized)</code>
+<code>    print(negative / total * 100)</code>
+<code>    print(neutral / total * 100)</code>
+<code>    print(positive / total * 100)</code>
+<code></code>
+<code>}</code>
+</pre>
+</div>
+]]></description>
+</item>
+<item>
     <title>Understanding Certificates and iOS Provisioning Profiles</title>
     <link>https://swiftrocks.com/how-certificates-work</link>
     <guid>https://swiftrocks.com/how-certificates-work</guid>
