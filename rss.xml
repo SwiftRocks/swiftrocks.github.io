@@ -7,12 +7,12 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
-    <title>Visualizing Reddit's negativity with NSTagger</title>
+    <title>Sentiment Analysis with NSTagger: Ranking popular subreddits by the negativity/hostility of its comments</title>
     <link>https://swiftrocks.com/sentiment-analysis-reddit-negativity</link>
     <guid>https://swiftrocks.com/sentiment-analysis-reddit-negativity</guid>
     <pubDate>Sun, 12 Jun 2022 16:00:00 GMT+2</pubDate>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Visualizing Reddit's negativity with NSTagger-->
+<!--WRITEIT_POST_NAME=Sentiment Analysis with NSTagger: Ranking popular subreddits by the negativity/hostility of its comments-->
 <!--WRITEIT_POST_HTML_NAME=sentiment-analysis-reddit-negativity-->
 
 <!--Add here the additional properties that you want each page to possess.-->
@@ -26,10 +26,10 @@
 <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-06-12T16:00:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE=2022-06-12T16:00:00+02:00-->
 
-<title>Visualizing Reddit's negativity with NSTagger</title>
+<title>Sentiment Analysis with NSTagger: Ranking popular subreddits by the negativity/hostility of its comments</title>
 <div class="blog-post">
   <div class="post-title-index">
-    <h1>Visualizing Reddit's negativity with NSTagger</h1>
+    <h1>Sentiment Analysis with NSTagger: Ranking popular subreddits by the negativity/hostility of its comments</h1>
   </div>  
   <div class="post-info">
     <div class="category category-ios">iOS</div>
