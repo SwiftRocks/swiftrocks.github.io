@@ -279,13 +279,16 @@
 <code>        action()</code>
 <code>        nslock.unlock()</code>
 <code>    } else {</code>
-<code>        print("Took to long to lock, avoiding deadlock by ignoring the lock")</code>
-<code>        action()</code>
+<code>        print("Took to long to lock, did we deadlock?")</code>
+<code>        reportPotentialDeadlock() // Raise a non-fatal assertion to the crash reporter</code>
+<code>        action() // Continue and hope the user's session won't be corrupted</code>
 <code>    }</code>
 <code>}</code>
 </pre>
  <p>When you deadlock yourself with a <code>DispatchQueue</code> the class will detect it and immediately crash the app, but these lower-level locks will do nothing and leave you with a completely unresponsive app. Yikes!</p>
- <p>However, in the case of <code>NSLock</code>, I actually find this to be a good thing! Because it contains a timeout feature, you have the opportunity to implement a fallback and save yourself from a deadlock. In the case of our event queue, a fallback could be to simply ignore the lock -- removing the deadlock and restoring the app's healthy state. This scenario could also happen if the queue is running some really slow piece of code, allowing you to detect these cases so they can be improved.</p>
+ <p>However, in the case of <code>NSLock</code>, I actually find this to be a good thing, because the timeout feature allows you to be smarter and implement your own fallbacks when things don't go as planned. In the case of a potential deadlock, sometimes I've done in the past with great success is to report this occurrence to our crash reporter and actually <i>allow the app to proceed</i> as an attempt to not ruin the user's experience with a crash. (Note that the reason why I could gamble on that was because what was being synchronized was purely some innocent client-side logic that doesn't get carried over to next session. For anything serious and persistent, this would be a horrible choice.)
+
+  fallback and save yourself from a deadlock. In the case of our event queue, a fallback could be to simply ignore the lock -- removing the deadlock and restoring the app's healthy state. This scenario could also happen if the queue is running some really slow piece of code, allowing you to detect these cases so they can be improved.</p>
  <div class="post-image"> 
   <img src="https://i.imgur.com/CSNvtKc.png" alt="Alt"> 
  </div>
