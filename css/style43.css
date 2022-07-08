@@ -201,6 +201,7 @@ b {
 }
 
 .category {
+    display:none;
     border-radius: 4px;
     font-size: 14px;
     padding-left: 12px;
