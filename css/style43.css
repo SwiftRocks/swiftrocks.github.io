@@ -5,12 +5,13 @@ html {
 body {
   background: #ffffff;
   --text-color: #000000;
-  --bold-color: #383838;
-  --detail-color: #4e4e4e;
+  --bold-color: #000000;
+  --detail-color: #3d3d3d;
   --strong-color: #f38d03;
-  background: #ffffff;
   font-family: "Source Sans Pro", sans-serif;
   overflow-wrap: break-word;
+  font-size: 1.1rem;
+  color: var(--text-color);
 }
 
 .hidden {
@@ -188,7 +189,7 @@ b {
 
 .post-info {
   display: flex;
-  font-size: 11px;
+  font-size: .9rem;
   margin-top: 8px;
   margin-bottom: 24px;
   color: var(--text-color);
@@ -196,8 +197,6 @@ b {
 
 .post-info-text {
   line-height: 28px;
-  font-size: 16px;
-  font-weight: 500;
   color: var(--detail-color);
 }
 
@@ -213,32 +212,32 @@ b {
 }
 
 .category-swift {
-    background-color: var(--strong-color);
+    background-color: #f38d03;
     color: white;
 }
 
 .category-compiler {
-    background-color: #0089ff;
+    background-color: #f38d03;
     color: white;
 }
 
 .category-ios {
-    background-color: #0089ff;
+    background-color: #f38d03;
     color: white;
 }
 
 .category-reverse {
-    background-color: #a500c3;
+    background-color: #f38d03;
     color: white;
 }
 
 .category-theory {
-    background-color: #02a200;
+    background-color: #f38d03;
     color: white;
 }
 
 .category-swiftui {
-    background-color: #f93c5d;
+    background-color: #f38d03;
     color: white;
 }
 
@@ -246,34 +245,28 @@ b {
     margin-top: 32px;
 }
 
-.blog-post p {
-  color: var(--text-color);
-  font-size: 17px;
-}
-
 h1 {
-    color: var(--bold-color);
-    font-size: 39px;
-    font-weight: 700;
+    color: var(--text-color);
+    font-size: 2.4rem;
+    font-weight: 500;
 }
 
 h2 {
-    color: var(--bold-color);
-    font-size: 30px;
-    font-weight: 600;
+    color: var(--text-color);
+    font-size: 2.2rem;
+    font-weight: 500;
 }
 
 h3 {
-    color: var(--bold-color);
-    font-size: 23px;
-    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1.6rem;
+    font-weight: 400;
 }
 
 code {
     padding-left: 6px !important;
     padding-right: 6px !important;
-    color: white;
-    background-color: #282823;
+    color: var(--text-color);
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
@@ -290,6 +283,16 @@ blockquote {
     font-size: 17.5px;
 }
 
+.footer-text {
+  font-size: 1.0rem !important;
+  color: var(--detail-color) !important;
+}
+
+.footer-text ul {
+  font-size: 1.0rem !important;
+  color: var(--detail-color) !important;
+}
+
 .footer-share {
   margin-top: 16px;
 }
@@ -300,22 +303,6 @@ blockquote {
   padding: 8px;
   font-size: 20x;
   border-radius: 8px;
-  transition: 0.25s;
-}
-
-.footer-share a {
-  text-decoration: none;
-  color: var(--strong-color);
-  font-size: 18px;
-  font-weight: bold;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  border-radius: 4px;
-  transition: 0.25s;
-}
-
-.footer-share a:hover {
-  color: black;
   transition: 0.25s;
 }
 
@@ -409,7 +396,7 @@ button {
 }
 
 p {
-    font-size: 15px;
+    font-size: 1.1rem;
     color: var(--text-color);
 }
 
