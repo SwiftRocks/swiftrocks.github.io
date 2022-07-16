@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/are-your-frameworks-bulletproof</loc>
+    <lastmod>2022-07-18T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/are-your-frameworks-bulletproof.html</loc>
+    <lastmod>2022-07-18T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/using-a-macbook-pro-as-a-gaming-console</loc>
     <lastmod>2022-07-08T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
