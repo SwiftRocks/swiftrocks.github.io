@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/thread-safety-in-swift</loc>
+    <lastmod>2022-07-19T14:35:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/thread-safety-in-swift.html</loc>
+    <lastmod>2022-07-19T14:35:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/are-your-frameworks-bulletproof</loc>
     <lastmod>2022-07-18T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
@@ -222,16 +232,6 @@
 <url>
     <loc>https://swiftrocks.com/creating-3d-models-out-of-anything-with-realitykit-in-swift.html</loc>
     <lastmod>2021-06-22T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/thread-safety-in-swift</loc>
-    <lastmod>2021-05-11T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/thread-safety-in-swift.html</loc>
-    <lastmod>2021-05-11T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
