@@ -2493,17 +2493,16 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
   <img src="https://i.imgur.com/2PDjXPQ.png" alt="Alt"> 
  </div>
  <h2>DispatchSemaphore</h2>
- <p>Semaphores are meant to solve a completely different thread safety problem scenario from what we've seen so far. Because the purpose of locks is to prevent two threads from running certain pieces of code at the same time, the thread that claims the lock <b>must</b> also be the one unlocking it.</p>
- <p>However, there are many legitimate reasons why you'd want this to <b>not</b> be the case! In iOS, for example, it's very common to want one thread to wait until something in another thread finishes, like an HTTP request:</p>
- <pre>
+ <p>So far we've only looked at the problem of preventing two threads from running conflicting code at the same time, but another very common thread safety issue is when you need one thread to <b>wait</b> until another thread finishes a particular task before it can continue:
+<pre>
 <code>getUserInformation {</code>
-<code>    myLock.unlock()</code>
+<code>    // Done</code>
 <code>}</code>
 <code></code>
-<code>myLock.lock()</code>
+<code>// Pause the thread until the callback in getUserInformation is called</code>
 <code>print("Did finish fetching user information! Proceeding...")</code>
-</pre>
-<p>You cannot do this with locks, but you can with a <b>semaphore</b>.</p>
+</pre> 
+<p>Although this may sound very similar to a lock, you'll find that you cannot implement such a thing with them. This is because what you're looking for here is the <i>opposite</i> of a lock: instead of claiming a region and preventing other threads from doing so, we want to <b>intentionally</b> block ourselves and wait for a completely different thread to release us. This is what a <b>semaphore</b> is for:</p>
 <pre>
 <code>let semaphore = DispatchSemaphore(value: 0)</code>
 <code></code>
@@ -2514,8 +2513,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 <code>semaphore.wait()</code>
 <code>print("Did finish fetching user information! Proceeding...")</code>
 </pre>
- <p>Semaphores in general work just like locks, with the difference being that they're meant to be used in scenarios like this where the locking and unlocking need to happen in different threads (hence the wait/signal naming instead of lock/unlock). The most common example of a semaphore in iOS is <code>DispatchQueue.sync</code> itself -- we have some code running in another thread, but we want to wait for it to finish before continuing our thread. The example here is exactly what <code>DispatchQueue.sync</code> does, except we're building the semaphore ourselves.</p>
- <p><code>DispatchSemaphore</code> is generally quick and contains the same features that <code>NSLock</code> has.</p>
+ <p>The most common example of a semaphore in iOS is <code>DispatchQueue.sync</code> -- we have some code running in another thread, but we want to wait for it to finish before continuing our thread. The example here is exactly what <code>DispatchQueue.sync</code> does, except we're building the semaphore ourselves.</p>
+ <p><code>DispatchSemaphore</code> is generally quick and contains the same features that <code>NSLock</code> has. You can additionally use the <code>value</code> property to control the number of threads that are allowed to go through <code>wait()</code> before they're blocked and <code>signal()</code> has to be called; in this case, a value of 0 means that they will always be blocked.</p>
  <h2>DispatchGroup</h2>
  <p>A <code>DispatchGroup</code> is exactly like a <code>DispatchSemaphore</code>, but for <b>groups</b> of tasks. While a semaphore waits for one event, a group can wait for an infinite number of events:</p>
  <pre>
@@ -2532,7 +2531,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 <code>print("ALL tasks done!")</code>
 </pre>
  <p>In this case, the thread will only be unlocked when <b>all</b> 6 tasks have finished.</p>
- <p>One really neat feature of <code>DispatchGroups</code> is that you have the ability to wait <b>asynchronously</b> by calling <code>group.notify</code>:</p>
+ <p>One really neat feature of <code>DispatchGroups</code> is that you have the additional ability to wait <b>asynchronously</b> by calling <code>group.notify</code>:</p>
  <pre>
 <code>group.notify(queue: .main) {</code>
 <code>    print("ALL tasks done!")</code>
@@ -2544,7 +2543,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <div class="post-image"> 
   <img src="https://i.imgur.com/V1S7N2y.png" alt="Alt"> 
  </div>
- <p>In general, this means you should always use <code>DispatchSemaphore</code> if you're only waiting for a single event, but unfortunately <code>DispatchSemaphore</code> doesn't have the <code>notify</code> API and lots of people end up using <code>DispatchGroup</code> also for individual events for this reason.</p>
+ <p>This means you should generally use <code>DispatchSemaphore</code> if you're only waiting for a single event, but in practice, the presence of the <code>notify</code> API makes a lot of people use <code>DispatchGroups</code> for individual events as well.</p>
 </div>]]></description>
 </item>
 <item>
