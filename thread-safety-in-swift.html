@@ -386,6 +386,11 @@
   <img src="https://i.imgur.com/V1S7N2y.png" alt="Alt"> 
  </div>
  <p>This means you should generally use <code>DispatchSemaphore</code> if you're only waiting for a single event, but in practice, the presence of the <code>notify</code> API makes a lot of people use <code>DispatchGroups</code> for individual events as well.</p>
+ <h2>Async/Await</h2>
+ <p>After this article was originally published, many readers messaged me with a very relevant question: <b>what about actors and async/await?</b></p>
+<p>As insightfully noticed by you, these are <i>also</i> thread safety tools worth mentioning. Features like <b>Actors</b> have the same objective of synchronizing threads as the APIs we've seen, but because they're compiler-level abstractions, they are considerably <b>more powerful</b> than the manual APIs. We've gone through these advantages in detail in our article about <a href="https://swiftrocks.com/how-actors-work-internally-in-swift">how Actors work inside the Swift compiler</a>, but one specific advantage worth re-mentioning is that unlike the APIs, <b>actors are able to detect race conditions during compilation time.</b></p>
+<p>One frustrating disadvantage of these features however is that you <b>cannot use them outside of async/await environments</b>, making them unfit for the majority of Swift projects at the moment. If you're one of the lucky few that don't have this constraint, these can prove to be amazing tools for solving thread safety issues in your projects.</p>
+<p>I have to admit though that I'm not a huge fan of async/await, so I'm wary of suggesting that you should actually use this feature. I have a feeling that it in its current state makes the concept of running async code unnecessarily complicated and over-engineered, and long-time SwiftRocks readers will notice that I always advocate for keeping things as simple as possible. It's a fact however that Apple is continuously improving this feature and its APIs, so you can expect this paragraph to be revisited in the future.</p>
 </div></div>
                               
    
