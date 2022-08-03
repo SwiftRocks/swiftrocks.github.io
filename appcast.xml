@@ -3,6 +3,17 @@
     <channel>
         <title>RestBot</title>
         <item>
+            <title>1.1</title>
+            <pubDate>Wed, 03 Aug 2022 09:51:28 +0200</pubDate>
+            <sparkle:version>2</sparkle:version>
+            <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.1</sparkle:minimumSystemVersion>
+            <enclosure url="https://swiftrocks.com/RestBot-1.2.zip" length="3876121" type="application/octet-stream" sparkle:edSignature="t5Lk21NzCk3uVuSOu2eOE0q9I2Uulxk/tbojy0yDs8tWjmLoOaGp5d4tDc5T1Sc6zGDk4CKlAlg+cBOWK86XAw=="/>
+            <sparkle:deltas>
+                <enclosure url="https://swiftrocks.com/RestBot2-1.delta" sparkle:deltaFrom="1" length="6142" type="application/octet-stream" sparkle:edSignature="eSZQgm2Oqd3LTqi8U7GPWVJoZVPZ16HYBcy8evT85G3sQK1x3iLwUroimD9e3dH2PhLIlF6kun85q0Ew6IYKAw=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>1.0</title>
             <pubDate>Wed, 03 Aug 2022 09:47:09 +0200</pubDate>
             <sparkle:version>1</sparkle:version>
