@@ -3,12 +3,12 @@
     jQuery(document).ready(function () {
         $('pre').addClass("language-swift");
         ///
-        var showSponsor = false;
+        var showSponsor = true;
         ///
-        var sponsorTitle = "Emerge Tools - Monitor and reduce app size"
-        var sponsorIcon = "https://i.imgur.com/F4ZGrLz.png"
-        var sponsorText = "Why are Swift reference types bad for app startup time, and what’s the performance cost of protocol conformances? That’s just a couple of the topics you can learn about on the Emerge blog — written by the app performance experts behind Emerge’s advanced app optimization and monitoring tools, based on their experience of working at companies like Apple, Airbnb, Snap, and Spotify."
-        var sponsorLink = "https://www.emergetools.com/blog?utm_source=swiftrocks&utm_medium=sponsor&utm_campaign=emerge"
+        var sponsorTitle = "BurnoutBuddy - Anti-burnout & self-control tool for Workaholics"
+        var sponsorIcon = "https://i.imgur.com/xhEWrj7.png"
+        var sponsorText = "Working late hours and weekends for no good reason? BurnoutBuddy actively blocks you from using work-related apps outside working hours to help you to overcome bad habits and improve your work-life balance."
+        var sponsorLink = "https://burnoutbuddy.rockbruno.com/"
 
         const sponsorDivId = "sponsor-article-ad-auto"
         const sponsorDivs = document.getElementsByClassName(sponsorDivId)
