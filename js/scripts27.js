@@ -5,7 +5,7 @@
         ///
         var showSponsor = true;
         ///
-        var sponsorTitle = "BurnoutBuddy - Anti-burnout & self-control tool for Workaholics"
+        var sponsorTitle = "BurnoutBuddy - Anti-burnout & self-control tool for workaholics"
         var sponsorIcon = "https://i.imgur.com/xhEWrj7.png"
         var sponsorText = "Working late hours and weekends for no good reason? BurnoutBuddy actively blocks you from using work-related apps outside working hours to help you to overcome bad habits and improve your work-life balance."
         var sponsorLink = "https://burnoutbuddy.rockbruno.com/"
