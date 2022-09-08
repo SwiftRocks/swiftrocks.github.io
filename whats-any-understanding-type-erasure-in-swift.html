@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <script src="https://use.fontawesome.com/afd448ce82.js"></script>
+    
+    <!-- Meta Tag -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO -->
+    <meta name="author" content="Bruno Rocha">
+    <meta name="keywords" content="iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
+    <meta name="description" content="In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood.">
+    <meta name="title" content="What's the "any" keyword? Understanding Type Erasure in Swift">
+    <meta name="url" content="https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/thumb.jpg?4">
+    <meta name="copyright" content="Bruno Rocha">
+    <meta name="robots" content="index,follow">
+
+    <meta property="og:title" content="What's the "any" keyword? Understanding Type Erasure in Swift"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/thumb.jpg?4"/>
+    <meta property="og:description" content="In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/thumb.jpg?4"/>
+    <meta name="twitter:image:alt" content="Page Thumbnail"/>
+    <meta name="twitter:title" content="What's the "any" keyword? Understanding Type Erasure in Swift"/>
+    <meta name="twitter:description" content="In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood."/>
+    <meta name="twitter:site" content="@rockbruno_"/>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon/favicon-2.ico">
+    <link rel="mask-icon" href="images/favicon/favicon-2.ico">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:light,lightitalic,regular,regularitalic,medium,mediumitalic,bold,bolditalic,black,blackitalic">
+    
+    
+
+  <!-- Bootstrap CSS Plugins --> 
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <!-- Prism CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/prism3.css"> 
+  <!-- Main CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/style43.css"> 
+  <link rel="stylesheet" type="text/css" href="css/sponsor2.css">
+    
+    <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <script type="application/ld+json">
+  {
+"@context": "https://schema.org",
+"@type": "BlogPosting",
+"mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift"
+},
+"image": [
+  "https://swiftrocks.com.com/images/logo/logo.png"
+],
+"datePublished": "2022-09-12T14:00:00+02:00",
+"dateModified": "2022-09-12T14:00:00+02:00",
+"author": {
+  "@type": "Person",
+  "name": "Bruno Rocha"
+},
+ "publisher": {
+  "@type": "Organization",
+  "name": "SwiftRocks",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://swiftrocks.com.com/images/logo/logo.png"
+  }
+},
+"headline": "What's the "any" keyword? Understanding Type Erasure in Swift",
+    "abstract": "In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood."
+}
+  </script>
+    
+
+  </head>
+
+ <body>
+      
+    
+    
+     
+    
+    
+  <div id="main"> 
+<!-- Blog Header --> 
+         <!-- Blog Post (Right Sidebar) Start --> 
+   <div class="container"> 
+                 <div class="col-xs-12">
+                    <div class="page-body">
+                    	<div class="row">
+         <div><a href="https://swiftrocks.com">
+           <img id="logo" alt="SwiftRocks" src="images/bg/logo.png" style="margin-top: 32px; max-width: 100%; width: auto; height: auto;"> 
+         </a></div>
+                            <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
+<!--WRITEIT_POST_NAME=What's the "any" keyword? Understanding Type Erasure in Swift-->
+<!--WRITEIT_POST_HTML_NAME=whats-any-understanding-type-erasure-in-swift-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood.-->
+
+<!--DateFormat example: 2022-09-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-09-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2022-09-12T14:00:00+02:00-->
+
+<title>What's the "any" keyword? Understanding Type Erasure in Swift</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>What's the "any" keyword? Understanding Type Erasure in Swift</h1>
+  </div>  
+  <div class="post-info">
+    <div class="post-info-text">Published on 12 Sep 2022</div>
+  </div>
+<p>The concept of <b>Type Erasure</b> is not new to Swift, but was radically improved in Swift 5.7 with the addition of the <code>any</code> prefix keyword (not to be confused with the capitalized <code>Any</code> type!) and improvements to the already existing <code>some</code> <b>Opaque Type</b> keyword. In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood.</p>
+<h2>What the hell is Type Erasure?</h2>
+<p>In programming languages with support for generic types, <b>Type Erasure</b> is the process of abstracting constrained generic types inside an <b>unconstrained non-generic type</b> that can be passed around freely.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>If you don't know why that's necessary, consider the following example where we define a protocol and a few conforming types:</p>
+<pre>
+<code>protocol Shape {}</code>
+<code>struct Circle: Shape {}</code>
+<code>struct Triangle: Shape {}</code>
+</pre>
+<p>Because the <code>Shape</code> protocol is <b>unconstrained</b>, Swift allows us to quite easily refer to <code>Circle</code> and <code>Triangle</code> as their bare conformances:</p>
+<pre>
+<code>var userShapes = [Shape]()</code>
+<code>func userDidCreate(shape: Shape)</code>
+<code>    userShapes.append(shape)</code>
+<code>}</code>
+<code>userDidCreate(shape: Circle())</code>
+<code>userDidCreate(shape: Triangle())</code>
+<code>// No problems will arise here. It's fine to refer to these types as just "Shape".</code>
+</pre>
+<p>This will <b>not</b> be the case if the protocol has generic requirements. If the protocol has, for example, associated types that each underlying type provides on its own, Swift will strictly forbid you from referring to this protocol if you're also not providing appropriate generic constraints:</p>
+<pre>
+<code>protocol Sequence {</code>
+<code>    associatedtype Element</code>
+<code>}</code>
+<code>var sequences = [Sequence]() // Can't do!</code>
+<code>// Error: Protocol 'Sequence' can only be used as a generic constraint</code>
+<code>// because it has Self or associated type requirements</code>
+</pre>
+<p>The reason you can't do this is that Swift is designed to be a <b>type-safe</b> language. Even though the compiler has no problem determining the underlying type of a <code>Sequence</code> type in the previous snippet, Swift has these features in order to allow you to ship safer products (runtime-wise). Think of access control properties like public and private; they are good examples of concepts that have absolutely no impact on the final binary. In the end, everything is accessible from everywhere, but inside your IDE, the compiler forces access control conventions to be followed so at the very least you are able to write code that is used the way you intended it to be used.</p>
+<p>The issue here with generic constraints is similar. The compiler does know what the underlying type of a particular generic protocol is in runtime, but because Swift is designed to be type-safe, for safety reasons, if it can't be determined in compile time, it will not let you do it. This is the complete opposite of Objective-C where you could easily do whatever you wanted for the (very big) cost of runtime safety.</p>
+<p>Before Swift 5.7, the solution to this problem was to box these objects into <b>unconstrained</b> and generally unsafe "Any" variations of their protocols, like this:</p>
+<pre>
+<code>class AnySequence {</code>
+<code>    let value: Any</code>
+<code></code>
+<code>    init&lt;T: Sequence>(_ sequence: T) {</code>
+<code>        self.value = shape</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>This process is called <b>type erasure</b>, and the Swift standard library itself contains many such objects. There are many situations in Swift where you'd need to do this, and one of them was covered in <a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift">our 2020 article on how to use type erasure to build a dependency injection system.</a> In general, you'll find yourself needing to type erase a protocol with generic requirements whenever you're in a situation where knowing the actual constraints of said protocols are irrelevant.</p>
+<h2>After Swift 5.7: Enter "any"</h2>
+<p>As far as I'm aware, this process was widely disliked by the Swift community. Not only it was a symptom of a design mistake in the language, but the process itself was also quite unsafe as it often involved the extensive usage of force-unwrapping (due to the need of referring to everything as <code>Any</code>).</p>
+<p>This has changed in Swift 5.7. With the addition of the new <code>any</code> <i>existential type</i> keyword, <b>type erasure is now a feature of the Swift compiler</b>. You do not need to create your own "AnyMyType" abstraction anymore; by adding <code>any</code> before a type, the Swift compiler will now automatically abstract it for you. While I like to call these "type-erased values" for simplicity, you should know that the proper terminology for referring to a value as an abstract representation is <b>existential type</b>.</p>
+<pre>
+<code>let erased: any Sequence = MyConcreteSequenceType()</code>
+</pre>
+<p>This also means that the old "protocol can only be used as a generic constraint" error has changed. In Swift 5.7, trying to use such protocols without their constraints will now make the compiler prompt you to refer to it as an existential.</p>
+<pre>
+<code>let erased: Sequence = MyConcreteSequenceType()</code>
+<code>// Error: Use of protocol 'Sequence' as a type must be written 'any Sequence'</code>
+</pre>
+<h3>Type-safety of "any"</h3>
+<p>One amazing benefit of this new keyword is that unlike manual type-erasure, <b>using the new <code>any</code> keyword is type-safe.</b> While before Swift 5.7 you generally had to force-unwrap your type-erased values in order to "unbox" them and access their constraints (and hope you didn't get anything wrong), the Swift 5.7 compiler will watch your back and prevent you from making mistakes. The way in which you achieve this is a bit tricky though, so I've modified an example from WWDC 2022's session about the feature to clarify it.</p>
+<p>Let's assume that we have a <code>Animal</code> protocol that defines a generic food type and a method to feed said food. We also have a <code>FoodProvider</code> protocol that is able to provide said food.</p>
+<pre>
+<code>protocol Animal {</code>
+<code>    associatedtype Food</code>
+<code>    func eat(_ food: Food)</code>
+<code>}</code>
+<code></code>
+<code>protocol FoodProvider {</code>
+<code>    func getFood&lt;T: Animal>(for animal: T) -> T.Food</code>
+<code>}</code>
+</pre>
+<p>Let's now pretend that we have a helper method that receives a group of animals and tries to feed all of them. Because the particular type of animal doesn't matter to us in this scenario, we want to do so without declaring any generic constraints.</p>
+<pre>
+<code>func feedAll(_ animals: [Animal], provider: FoodProvider) {</code>
+<code>    animals.forEach {</code>
+<code>        let food = provider.getFood(for: $0)</code>
+<code>        $0.eat(food)</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>As you might expect after reading this article, the existence of an associated type will make Swift prevent us from doing that. Before Swift 5.7, the solution to this was generally to create a <code>AnyAnimal</code> type and abstract these actions under unsafe closures powered by force-unwrapping:</p>
+<pre>
+<code>final class AnyAnimal {</code>
+<code>    var getFood: (FoodProvider) -> Any</code>
+<code>    var eatFood: (Any) -> Void</code>
+<code></code>
+<code>    init&lt;T: Animal>(_ animal: T) {</code>
+<code>        self.getFood = { provider in</code>
+<code>            provider.getFood(for: animal)</code>
+<code>        }</code>
+<code>        self.eatFood = { food in</code>
+<code>            animal.eat(food as! T.Food)</code>
+<code>        }</code>
+<code>    }</code>
+<code>}</code>
+<code></code>
+<code>func feedAll(_ animals: [AnyAnimal], provider: FoodProvider) {</code>
+<code>    animals.forEach {</code>
+<code>        let food = $0.getFood(provider)</code>
+<code>        $0.eatFood(food)</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>While this solution will work for this case, it's not safe as you could quite easily pass the wrong food type to the erased value and cause a crash. Swift 5.7's <code>any</code> keyword solves this problem by enforcing complete type-safety on any existential value, but there's a small catch <i>(Note: This refers to a limitation of Swift 5.7. If you're reading this in the future, this might not be the case anymore.)</i>. While Swift will freely allow you to call any unconstrained methods of the existential type, attempting to use any constrained methods can prove to be a bit challenging:</p>
+<pre>
+<code>func feedAll(_ animals: [any Animal], provider: FoodProvider) {</code>
+<code>    animals.forEach {</code>
+<code>        let food = provider.getFood(for: $0)</code>
+<code>        $0.eat(food) // Member 'eat' cannot be used on value of type 'any Animal'</code>
+<code>    }</code>
+<code>}</code>
+</pre>
+<p>Even though the naked eye might tell you that the output of <code>getFood(_:)</code> definitely matches the input of <code>getFood(_:)</code>, Swift will not allow you to call any methods involving generic parameters unless you first explicitly "unbox" the existential by passing it to a generic method that receives a non-erased value (with no constraints):</p>
+<pre>
+<code>func feedAll(_ animals: [any Animal], provider: FoodProvider) {</code>
+<code>    animals.forEach {</code>
+<code>        feed($0, provider: provider) // Now works!</code>
+<code>    }</code>
+<code>}</code>
+<code></code>
+<code>func feed&lt;T: Animal>(_ animal: T, provider: FoodProvider) {</code>
+<code>    let food = provider.getFood(for: animal)</code>
+<code>    animal.eat(food)</code>
+<code>}</code>
+</pre>
+<p>I thought this seemed like a pointless step since they're both doing the same thing, so I asked about it on the official Swift Forums and it turns out that this is indeed a limitation of Swift 5.7. To be more specific, the proposal that introduced the ability to "unbox" existential types in a type-safe manner has a negative side-effect that makes the compiler "lose" information about a particular existential outside of said "unboxing" contexts. <a href="https://github.com/apple/swift-evolution/blob/main/proposals/0352-implicit-open-existentials.md#losing-constraints-when-type-erasing-resulting-values">You can read more about it in the proposal.</a></p>
+<p>It's important to keep in mind though that the <code>any</code> keyword doesn't replace all cases in which you'd need to erase generic types. While it takes care of the basic case of hiding a type's constraints, more special cases such as <b>transforming</b> constraints (<a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift">like in our tutorial about it</a>) still require you to go with the manual approach for the time being.</p>
+<h2>Supporting Features</h2>
+<p>Despite not being directly related to the concept of type erasure, Swift 5.7 comes with some additional features that greatly empower it. Let's check them out.</p>
+<h3>Opaque Parameters</h3>
+<p>One thing we mentioned is the necessity of "unboxing" existentials by writing empty generic clauses. These empty clauses are very common even outside type erasure, and were improved in Swift 5.7 by the addition of the new <b>Opaque Parameters</b> feature. Now, instead of writing this:</p>
+<pre>
+<code>func feed&lt;T: Animal>(_ animal: T)</code>
+</pre>
+<p>You can write it like this:</p>
+<pre>
+<code>func feed(_ animal: some Animal)</code>
+</pre>
+<p>Deep down, these are exactly the same thing. Declaring a parameter as <code>some Type</code> is simply a syntax sugar for declaring an empty generic constraint clause. Despite not being a ground-breaking feature, this is a very welcome change as generic methods with several parameters tended to become borderline unreadable.</p>
+<p><b>Note: This is not to be confused with Swift 5.1's <a href="https://swiftrocks.com/understanding-opaque-return-types-in-swift">Opaque Return Types</a> feature.</b> Despite using the same keyword and behaving relatively similarly, they are different features that work in very different ways.</p>
+<h3>Primary Associated Types</h3>
+<p>Starting on Swift 5.7, you can now declare one or more of your protocol's associated types as its <b>primary associated types</b> by adding them between angle brackets in the protocol's declaration:</p>
+<pre>
+<code>protocol Sequence&lt;Element> { // Element is now a primary associated type</code>
+<code>    associatedtype Element</code>
+<code>    associatedtype Iterator</code>
+<code>}</code>
+</pre>
+<p>This has two purposes. The first one is that it gives you a very welcome syntax sugar when declaring generic constraints just like the one we saw in the Opaque Parameters section; instead of declaring ugly constraint clauses for that particular type like this:</p>
+<pre>
+<code>extension Sequence where Element == Int {</code>
+<code>    func grabSomeNumbers() { ... }</code>
+<code>}</code>
+<code></code>
+<code>// or</code>
+<code></code>
+<code>func grabSomeNumbers&lt;T: Sequence>(_ s: T) where T.Element == Int { ... }</code>
+</pre>
+<p>...you are now able to inform this directly in the type!</p>
+<pre>
+<code>extension Sequence&lt;Int> {</code>
+<code>    func grabSomeNumbers() { }</code>
+<code>}</code>
+<code></code>
+<code>// or</code>
+<code></code>
+<code>func grabSomeNumbers(_ s: Sequence&lt;Int>) { ... }</code>
+</pre>
+<p>In addition to doing this to your own types, you may find it interesting that many protocols of Swift's Standard Library have already been updated to declare primary associated types.</p>
+<p>The second and most ground-breaking purpose is that this is not restricted to extensions and methods; you can combine with the <code>any</code> keyword to <b>declare type-erased, partially constrained stored properties:</b></p>
+<pre>
+<code>let intSequences: [any Sequence&lt;Int>]</code>
+</pre>
+<p>This was previously unheard of in Swift as we were never allowed to define generic constraints in properties. I'm partially disappointed though that they didn't go to the full way to allow us to declare any type of constraint on the fly (like <code>Sequence&lt;where Element == String, Iterator = MyIterator></code>), but the proposal indicates that the existence of primary associated types does not prevent this from being potentially implemented in the future.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+</div>
+</div>
+                              
+   
+
+    <div class="blog-post" style="margin-top: 8px; margin-bottom: 32px;">
+      <div class="footer-text">
+        Thanks for reading! If you want to see more content like this, follow me on <a href="https://twitter.com/rockbruno_">Twitter!</a>
+        <ul>
+          <li>        <a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Fwhats-any-understanding-type-erasure-in-swift&text=What's the "any" keyword? Understanding Type Erasure in Swift" target="_blank" class="share">Share this page</a> on Twitter</li>
+          <li>Subscribe via <a href="https://swiftrocks.com/rss.xml">RSS</a> or <a href="https://swiftrocks.us17.list-manage.com/subscribe/post?u=d6bdd39e59b8d9b8f2b8d4852&id=cbca5f3532">e-mail</a></li>
+        </ul>
+        <a href="https://swiftrocks.com">See all articles</a>
+      </div>
+
+    </div>
+
+                         </div>
+
+</div>
+                        
+                           
+                         </div>
+                     
+                     
+                  </div>
+                  <!-- Blog Post (Right Sidebar) End -->
+                
+            </div>
+         </div>
+      </div>
+    
+    
+    <!-- All Javascript Plugins  -->
+  <script type="text/javascript" src="js/jquery.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/prism3.js"></script> 
+    <!-- Main Javascript File  -->
+    <script type="text/javascript" src="js/scripts27.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8KZTWSQ1R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H8KZTWSQ1R');
+</script>
+
+   </body>
+ </html>

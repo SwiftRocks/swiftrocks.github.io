@@ -134,7 +134,8 @@
   <div class="post-info-text">
    Published on 02 Jan 2020 
   </div> 
- </div>   
+ </div>
+ <p><b>Update (2022-09-13): This article was written before Swift 5.7 and its introduction of many new useful type-erasure-oriented features. I recommend you to first <a href="https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift">read my article about those features</a> before reading this one. The code of this article has not been updated to use the new features for preservation reasons.</b></p>
  <p>With Swift being a very type-safe and namespaced language, you'll find that certain tasks are really hard to complete if at some point you can't determine the types that are being handled -- mostly when generics are involved. Using an automatic dependency injector as an example, let's see how generic arguments and closures can be "erased" to trick the compiler into compiling code that it would otherwise claim to be impossible (when it's clearly not!).</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>While this isn't your usual SwiftRocks-compiler-feature-deconstruction article, we'll take an exciting look at how the treatment of methods/closures as properties can be used in this context to bypass one of the Swift Compiler's most annoying compilation errors.</p>
@@ -181,6 +182,7 @@
  <p>The answer is not really -- these errors only exist inside your IDE as a means to prevent you from making silly code mistakes. Think of access control properties like <code>public</code> and <code>private</code>: They are good examples of concepts that have absolute no impact on the final binary -- in the end, everything is accessible from everywhere, but inside your IDE, the compiler forces access control conventions to be followed so at the very least you are able to write code that is used the way you intended it to be used.</p>
  <p>The issue here with generic constraints is similar -- the compiler <b>does</b> know what the underlying type of a <code>Shape</code> is in runtime, but because Swift is very type-safe, for safety reasons, if it can't be determined in compile time, it can't be done in the IDE. This is the complete opposite of Objective-C, where you could easily do whatever you wanted for the (very big) cost of compile-time safety.</p>
  <h3>Type Erasing with Closures</h3>
+ <p><b>Update (2022-09-13): As mentioned in the beginning, Swift 5.7 introduced new features that replaced most use cases of this practice. <a href="https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift">You should now use the new <code>any</code> keyword when possible.</a></b></p>
  <p>To bypass this problem, we can use the concept of Type Erasure. Instead of representing our stored shapes as <code>Any</code>, we abstract our constrained, boring <code>Shape</code> into an <code>AnyShape</code> type that has no constraints:</p>
  <pre>
 <code>class AnyShape {</code>

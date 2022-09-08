@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</loc>
+    <lastmod>2022-09-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift.html</loc>
+    <lastmod>2022-09-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/thread-safety-in-swift</loc>
     <lastmod>2022-07-19T14:35:00+02:00</lastmod>
     <priority>0.80</priority>
