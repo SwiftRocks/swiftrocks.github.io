@@ -7,12 +7,12 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
-    <title>What's the "any" keyword? Understanding Type Erasure in Swift</title>
+    <title>What's the 'any' keyword? Understanding Type Erasure in Swift</title>
     <link>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</link>
     <guid>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</guid>
     <pubDate>Mon, 12 Sep 2022 14:00:00 GMT+2</pubDate>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=What's the "any" keyword? Understanding Type Erasure in Swift-->
+<!--WRITEIT_POST_NAME=What's the 'any' keyword? Understanding Type Erasure in Swift-->
 <!--WRITEIT_POST_HTML_NAME=whats-any-understanding-type-erasure-in-swift-->
 
 <!--Add here the additional properties that you want each page to possess.-->
@@ -26,7 +26,7 @@
 <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-09-12T14:00:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE=2022-09-12T14:00:00+02:00-->
 
-<title>What's the "any" keyword? Understanding Type Erasure in Swift</title>
+<title>What's the 'any' keyword? Understanding Type Erasure in Swift</title>
 <div class="blog-post">
   <div class="post-title-index">
     <h1>What's the "any" keyword? Understanding Type Erasure in Swift</h1>
