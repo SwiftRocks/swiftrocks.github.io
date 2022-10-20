@@ -7,6 +7,151 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>Thoughts on SwiftUI vs UIKit</title>
+    <link>https://swiftrocks.com/my-experience-with-swiftui</link>
+    <guid>https://swiftrocks.com/my-experience-with-swiftui</guid>
+    <pubDate>Thu, 20 Oct 2022 14:00:00 GMT+2</pubDate>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=Thoughts on SwiftUI vs UIKit-->
+<!--WRITEIT_POST_HTML_NAME=my-experience-with-swiftui-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=I had played with SwiftUI before, but it wasn't until now that I had built a complete app with it. Here's my experience!-->
+
+<!--DateFormat example: 2022-10-20T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-10-20T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2022-10-20T14:00:00+02:00-->
+
+<title>Thoughts on SwiftUI vs UIKit</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>Thoughts on SwiftUI vs UIKit</h1>
+  </div>  
+  <div class="post-info">
+    <div class="post-info-text">Published on 20 Oct 2022</div>
+  </div>
+<p>I had played with SwiftUI sporadically in the past, but it wasn't until now that I had built a complete App Store-ready app with it. When SwiftUI was first announced I was very concerned about certain quirks of the framework and how it was probably not suitable for professional iOS development, but with the framework evolving constantly over the past couple of years it became time to re-evaluate that statement. Through <a href="https://burnoutbuddy.rockbruno.com">BurnoutBuddy,</a> I had the chance to develop a production app written 100% with SwiftUI. Here are my thoughts on what works and what could be improved, and how I would fit SwiftUI and UIKit in my day-to-day work.</p>
+<h2>Things that are great</h2>
+<h3>Previews / Hot Reloading</h3>
+<p>I can't stress hard enough how awesome SwiftUI's previews are. The amount of time UIKit devs were wasting compiling and running code to make small iterative UI changes is unfathomable -- yes, there were LLDB tricks and tools like <i>Reveal</i> which could sort of let you make certain types of changes on the fly, but I don't know anyone who was actually able to flawlessly integrate these into their day-to-day work. The previews allow you to iterate on visual changes and sometimes even the app's logic itself extremely quickly, and its ability to bootstrap itself out of any arbitrary <code>View</code> pairs perfectly when building composable components.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>To be fair, the previews aren't perfect. I had a frequent bug where the preview refused to show up and was unable to do any form of debugging on the preview itself, but it generally works well and I'm very happy we finally have official hot-reloading support in iOS. I'm eager to see how it will be improved in the future.</p>
+<h3>Development speed</h3>
+<p>Another extremely notable SwiftUI benefit is how easy it is to build apps with it. You can quite literally build an app to start to finish in just a couple of minutes, something which would be unheard of in any professional-level UIKit app (meaning no Storyboards and similar features that are known for not being scalable).</p>
+<p>While BurnoutBuddy took me a couple of weeks to build, the majority of that time was spent on the logic and architecture. The UI itself for the entire app was built in just a couple of minutes.</p>
+<p>It's important to mention that this is not always true. As we'll see down below there's an entire category of "more complicated" products where SwiftUI is actually <i>extremely detrimental</i> to development speed, but we should still appreciate that SwiftUI works amazingly well for the more straight-forward category of projects that the majority of developers deal with. It's also not too surprising that this is the case considering that they have been Apple's primary target audience for Xcode features since the dawn of iOS.</p>
+<h3>It encourages great coding practices</h3>
+<p>It's very easy to make a UIKit app that has everything shoved into one god object. You could theoretically do the same in SwiftUI, but you'd have a much harder doing so. The way views are setup and referenced between each other encourages you to break up your views into small independent pieces, which is an amazing habit to have when building apps of any size as it improves the quality of your project in multiple areas such as composability, scalability, testability and code readability. For developers who are not yet familiar with those concepts, SwiftUI is a great tool to learn and apply those practices.</p>
+<h2>Things that are not so great</h2>
+<h3>Great for simple things, not so great for not-so-simple things</h3>
+<p>It's generally easy to build state logic with UIKit. Because there are no constraints on what things should look like, you can build everything on the fly and achieve virtually anything you want at the cost of having to write a lot of annoying UI code.</p>
+<p>SwiftUI is the opposite on steroids. It's <b>very, very easy</b> to build UI with, and <b>very, very hard</b> to build any piece of real business logic that you wouldn't see in some simple Hello World tutorial.</p>
+<p>My first thought when SwiftUI was announced was that there's <i>no way</i> it works seamlessly for complex apps, and I imagine that anyone who ever had experience with React on the web front had the same thought. The reason for that is because data-drivenness, SwiftUI's main concept that some people already were experienced with due to React functioning roughly in the same way, doesn't scale very well. SwiftUI forces you to shape your model in a way so that the complete structure and state of all views are static and known well in advance, which while not an impossible task, can be insanely difficult for views that have lots of moving parts and conditions.</p>
+<p>The best example I can show of how data-drivenness can massively spike the complexity of an app is SwiftUI's <code>ForEach</code> API:</p>
+<pre>
+<code>ForEach(0..<7) { i in</code>
+<code>    MyObject(myStrings[i])</code>
+<code>}</code>
+</pre>
+<p>If all you're doing is iterating a static list of elements, everything will work like in UIKit. You can build a loop that takes a fixed integer range and access the indexes without any additional trouble.</p> 
+<p>Iterating the <b>mutable state</b> of your view is a bit trickier, but still doable. While in UIKit this doesn't incur any extra architectural cost on your behalf, SwiftUI forbids you from doing so unless the content conforms to <code>Identifiable</code>. This can be quite annoying given that almost nothing in Swift's Standard Library conforms to this protocol, but the requirement makes sense in the context of SwiftUI where the framework relies on the concept of model identity and uniqueness in order to determine when the UI should be re-drawn.</p>
+<pre>
+<code>ForEach(myStrings) { string in</code>
+<code>    MyObject(string)</code>
+<code>} // Error: String does not conform to Identifiable</code>
+<code></code>
+<code>// Solution: Replace "myStrings" with:</code>
+<code>struct MyModel: Identifiable {</code>
+<code>    let id = ... // How this is implemented depends</code>
+<code>    // on what the model represents in practice and how it should be updated</code>
+<code>    let string: String</code>
+<code>}</code>
+</pre>
+<p>Try to do anything more complicated than that though and you'll face the wrath of data-drivenness. Consider the simple use-case of keeping track of the position of an item in a list while iterating it, something which is very common in iOS to implement features like alternating background colors in views: While this is trivial to pull off in UIKit, attempting to introduce dynamic behavior like this in SwiftUI can result in your view's entire architecture being body slammed!</p>
+<pre>
+<code>ForEach(contentList.enumerated()) { info in</code>
+<code>    MyObject(info.element, info.offset)</code>
+<code>} // Error: Arbitrary sequences cannot be iterated in SwiftUI, only RandomAccessCollections</code>
+<code></code>
+<code>ForEach(Array(strings.enumerated())) { info in</code>
+<code>    MyObject(info.element, info.offset)</code>
+<code>} // Error: Tuples don't conform to Identifiable, the model must expose some form of unique id</code>
+</pre>
+<p>Because the concept of object identity is critical in SwiftUI, if the position of an item is relevant to the UI, we must architecture our view's state model around this fact and provide/predict it in advance alongside everything else that is relevant to the view:</p>
+<pre>
+<code>struct ListIndexable&lt;T>: Identifiable {</code>
+<code>    let id = ... // How this is implemented depends</code>
+<code>    // on what the model represents in practice and how it should be updated</code>
+<code>    let index: Int</code>
+<code>    let object: T</code>
+<code>}</code>
+</pre>
+<p>This means that trying to add new behavior to views can result in the <i>entire architecture</i> of that view needing to be refactored, which is a trade-off that developers creating complicated apps would want to avoid at all costs.</p>
+<p>But before we continue, we must mention something very important in this area. Astute readers that have used SwiftUI before might look at this example and point out that you don't really need to do any of these, because there's a variation of <code>ForEach</code> that allows you to manually provide the <code>Hashable</code> value that SwiftUI will use deep-down to enforce uniqueness. This allows you to skip the <code>Identifiable</code> requirement and solve the <code>.enumerated()</code> problem with zero extra code, and if you look up this problem in StackOverflow you can even find plug-and-play extensions for this exact use-case:</p>
+<pre>
+<code>private func ForEachEnumerated&lt;T: Hashable, U: View>(_ arr: Binding<[T]>, @ViewBuilder content: @escaping (Int, Binding&lt;T>) -> U) -> some View {</code>
+<code>    let arr = Array(arr.enumerated())</code>
+<code>    return ForEach(arr, id: \.offset, content: content)</code>
+<code>}</code>
+</pre>
+<p><b>You need to be very careful when using snippets like this in SwiftUI</b>, because trying to out-smart the framework is a very easy way to end up with cryptic and undebuggable rendering problems. In this case the problem with the snippet is that using the index itself as the definition of uniqueness has serious implications for how SwiftUI will draw updates to that particular list, which might not be what you're expecting for your particular use-case. This is the same reason why I've refrained from implementing <code>let id</code> in the examples above.</p>
+<p>When working with frameworks like SwiftUI and React, you should always avoid shortcuts and take the extra time to think how to architect your view's state in a static and predictable way. I've found that this forces you to put quite a lot of pre-thinking into what you want a certain view to do, because if you forget something down the line it can be very hard to recover from it. This won't be a big deal for simple products, but if you're developing a very complicated app, you might not be willing to make that trade-off.</p>
+<h3>Rendering issues are impossible to debug</h3>
+<p>Almost nothing you write in SwiftUI is "real" Swift code. With <a href="https://swiftrocks.com/inside-swiftui-compiler-magic">Property Wrappers and Function Builders</a> at its core, almost everything you write will result in the compiler generating additional wiring code for you.</p>
+<p>The fact that SwiftUI relies heavily on generated code is not a problem by itself, because as long you know what that wiring code is, you can generally follow along and debug issues just as if that wasn't the case. When the wiring code leads to closed source code however, the story is different.</p>
+<p>Here's an example of how this can negatively affect your work. In BurnoutBuddy, it's possible to shortcut your way into configuring time schedules for an entire week by setting just one of them and asking the tool to copy the values into the remaining days. In code, I attempted to achieve this by creating a custom <code>Binding</code> object that pastes Monday's schedule into the rest of the week:</p>
+<pre>
+<code>let weekdayBinding = Binding<[TimeRange]> {</code>
+<code>    schedule.days[0]</code>
+<code>} set: { range, transaction in</code>
+<code>    schedule.days[0] = range</code>
+<code>    schedule.days[1] = range</code>
+<code>    schedule.days[2] = range</code>
+<code>    schedule.days[3] = range</code>
+<code>    schedule.days[4] = range</code>
+<code>}</code>
+</pre>
+<p>The code above however did not work. To be very specific, it does quite literally nothing. While I could breakpoint the <code>set</code> closure and see that it was being called correctly with the right values, the view was not being updated accordingly. To make things worse, I was also seeing other completely unrelated things being updated as a result of this code that made no sense whatsoever!</p>
+<p>The reason it didn't work? I don't know, because <code>Binding</code> is closed source. It took me multiple hours to even realize that this particular piece of code was the source of the problem as there was no feedback from SwiftUI itself that there was something wrong, meaning the only thing I could do was re-write parts of the app aimlessly and hope for the best.</p>
+<p>I eventually managed to solve the problem by slightly re-shaping how the closure is executed. Instead of setting each array entry one by one, I chose to copy the entire structure, change it accordingly, and then apply it back to the original bound state object. Because I couldn't actually debug the problem, I can only speculate that the bug had something to do with array element reference semantics in Swift not triggering <code>State's</code> concept of "change".</p>
+<pre>
+<code>let weekdayBinding = Binding<[TimeRange]> {</code>
+<code>    schedule.days[0]</code>
+<code>} set: { range, transaction in</code>
+<code>    var days = schedule.days</code>
+<code>    days[0] = range</code>
+<code>    days[1] = range</code>
+<code>    days[2] = range</code>
+<code>    days[3] = range</code>
+<code>    days[4] = range</code>
+<code>    schedule.days = days</code>
+<code>}</code>
+</pre>
+<p>This is not a problem with SwiftUI itself, but with Apple deciding to hide critical logic (in this case, what causes a view to re-render) from you. In contrast, you'd not see problems like this in UIKit because the important bits are always handled on your side of the field (e.g when to call <code>addSubview</code>, <code>layoutIfNeeded</code>, etc).</p>
+<p>The good news is that SwiftUI is already able to warn you when you make a rendering mistake in certain cases, so Apple is definitely aware of this problem and is working on ways to make it less disruptive.</p>
+<h2>Should I learn SwiftUI?</h2>
+<p>Ever since the dawn of software engineering, there have been people engaging in "platform wars". They'll evangelize for the "best architecture", "best framework", "best OS", "best design pattern", and claim that theirs is the only option and everything else is a mistake. This is no different for iOS development, and "SwiftUI vs UIKit" is, sure enough, the new "conflict' of choice.</p>
+<p>As a software engineer, it's critical for you to realize that there is no such thing as "best X". Everything is a tool, and whether or not you should use them depends only on what you're trying to achieve. Even Objective-C still has its uses!</p>
+<p>Claiming that no one should learn something or that it's useless shows a lack of understanding of what software engineering is, and as an engineer yourself you need to learn to identify these conflicts and not engage with them. SwiftUI and UIKit do not cancel each other; they are both good and bad in different ways, and whether or not you should pick SwiftUI specifically will depend on the details of what you're trying to build.</p>
+<p>After building a SwiftUI app myself, these are the guidelines that I would personally follow for my next projects:</p>
+<ul>
+<li><b>Simple UI, Simple Logic:</b> Would make it 100% with SwiftUI.</li>
+<li><b>Simple UI, Not-so-simple Logic:</b> I'd start with a 100% SwiftUI app, but if it got too tough I'd fall back to using SwiftUI for the UI itself and UIKit for the more complex pieces of logic (via <code>UIViewRepresentable</code>).</li>
+<li><b>Not-so-simple UI, Simple Logic:</b> Will greatly depend on case to case. I find that more complex pieces of UI can be a lot harder to pull off with SwiftUI when compared to UIKit.</li>
+<li><b>Not-so-simple UI, Not-so-simple Logic:</b> Probably best to go 100% UIKit to avoid issues in the long run.</li>
+</ul>
+<h2>What should beginners learn first?</h2>
+<p>I think the situation right now is very similar to when Swift was released. I started with iOS exactly when that happened, and the way I learned it was by first learning as much I could about Objective-C and then using that knowledge to seamlessly move over to Swift and making that my main tool of choice. As the years went by and everyone migrated to Swift, it became less and less necessary to strictly learn Objective-C to the point where nowadays you can defer learning it until you reach a point where you want/need to expand your knowledge of the platform itself.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>This is how I think beginners should approach SwiftUI vs UIKit. While people will always want to learn the shiny new thing, you should always learn both whilst focusing on what the majority of people use right now to maximize your hiring opportunities. I expect that as the years go the majority of UIKit projects will move over to SwiftUI, but it's still too early to tell if UIKit will completely go away given SwiftUI's current issues when used in more complicated projects.</p>
+</div>
+]]></description>
+</item>
+<item>
     <title>What's the 'any' keyword? Understanding Type Erasure in Swift</title>
     <link>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</link>
     <guid>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</guid>
@@ -2610,7 +2755,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <p>Note: When using <code>DispatchQueues</code>, make sure to follow <a href="https://gist.github.com/tclementdev/6af616354912b0347cdf6db159c37057">these guidelines from @tclementdev</a> in order to use them efficiently.</p>
  <h2>os_unfair_lock</h2>
  <p>The <code>os_unfair_lock</code> mutex is currently the fastest lock in iOS. If your intention is to simply establish a critical region like in our original <code>Name</code> example, then this lock will get the job done with great performance.</p>
- <p><b>Note: Due to how Swift's memory model works, you should never use this API directly. Use the <code>UnfairLock</code> abstraction below when using this lock in your code.</b></p>
+ <p><b>Note: Due to how Swift's memory model works, you should never use this API directly. If you're targeting iOS 15 or below, use the <code>UnfairLock</code> abstraction below when using this lock in your code. If you're targetting iOS 16, use the new built-in <a href="https://developer.apple.com/documentation/os/osallocatedunfairlock">OSAllocatedUnfairLock</a> type.</b></p>
  <pre>
 <code>// Read http://www.russbishop.net/the-law for more information on why this is necessary</code>
 <code>final class UnfairLock {</code>
@@ -10277,7 +10422,7 @@ bb0(%0 : $*URL):</code>
   
   <!--WRITEIT_POST_NAME=Inside SwiftUI's Declarative Syntax's Compiler Magic--> 
   <!--WRITEIT_POST_HTML_NAME=inside-swiftui-compiler-magic--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-10-11T14:00:00+02:00--> 
   <!--WRITEIT_POST_SITEMAP_DATE=2019-06-04T18:00:00+00:00--> 
   <!--Add here the additional properties that you want each page to possess.--> 
   <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
@@ -10344,13 +10489,13 @@ bb0(%0 : $*URL):</code>
 <code>AFD-&gt;setSingleExpressionBody(E);</code>
 </pre>
  <p>Although I personally think that this can be a little confusing (but I haven't used it much, so I might change my mind), this is really great to bring the declarative feeling into the language.</p>
- <h2>Property Delegates</h2>
+ <h2>Property Wrappers</h2>
  <p>One of the most interesting features of SwiftUI is how changing the state of your view can trigger a full UI reload of it. This is enabled by the fact that Xcode 11 adds the <a href="https://developer.apple.com/documentation/combine">Combine</a> framework, officially bringing tons of Reactive concepts to iOS in the shape of declarative Swift APIs. However, what's cooler isn't these concepts themselves, but how they are applied. The previous example contains this line:</p>
  <pre>
 <code>@State var showFavoritesOnly = false</code>
 </pre>
  <p>Because this property is marked with the <code>@State</code> attribute, changing it triggers <code>body</code>, resulting in a new <code>View</code> being drawn in the screen.</p>
- <p>This attribute isn't available in Swift itself, but it relates to a compiler feature that is currently under discussion to be added officially into the language: <b>property delegates.</b></p>
+ <p>This attribute isn't available in Swift itself, but it relates to a compiler feature that is currently under discussion to be added officially into the language: <b>property wrappers.</b></p>
  <p>Sometimes, we want to add more complex pieces of logic to a property that doesn't really justify the use of a new type, at least not that in that scope. This can with the <code>get/set/willSet/didSet</code> property observers, like in the classic <code>UserDefaults</code> example:</p>
  <pre>
 <code>var isFirstBoot: Bool {</code>
@@ -10375,10 +10520,10 @@ bb0(%0 : $*URL):</code>
 <code>    }</code>
 <code>}</code>
 </pre>
- <p>In current Swift your only choice would be to wrap this inside a <code>Lazy&lt;T&gt;</code> generic type, which visually doesn't fit SwiftUI's declarative programming style. In response, the <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-delegates.md">Property Delegates</a> proposal was created in April 2019. This compiler feature isn't officially added to the language yet, but it's already being used as part of SwiftUI. Its purpose is to do exactly what we have to do in current Swift, but visually <b>abstracting it from the user</b>.</p>
- <p>When creating generic types, you can now add the <code>@propertyDelegate</code> attribute to its declaration to make it <b>usable as an attribute:</b></p>
+ <p>In current Swift your only choice would be to wrap this inside a <code>Lazy&lt;T&gt;</code> generic type, which visually doesn't fit SwiftUI's declarative programming style. In response, the <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-delegates.md">Property Wrappers</a> proposal was created in April 2019. This compiler feature isn't officially added to the language yet, but it's already being used as part of SwiftUI. Its purpose is to do exactly what we have to do in current Swift, but visually <b>abstracting it from the user</b>.</p>
+ <p>When creating generic types, you can now add the <code>@propertyWrapper</code> attribute to its declaration to make it <b>usable as an attribute:</b></p>
  <pre>
-<code>@propertyDelegate class UserDefault&lt;T&gt; {</code>
+<code>@propertyWrapper struct UserDefault&lt;T&gt; {</code>
 <code>    let key: String</code>
 <code>    let defaultValue: T</code>
 <code></code>
@@ -10391,12 +10536,11 @@ bb0(%0 : $*URL):</code>
 <code>    }</code>
 <code>}</code>
 </pre>
- <p><b>Update: It appears that the official Swift 5.1 name for this attribute is going to be <code>@propertyWrapper</code>, but the SwiftUI beta is using <code>@propertyDelegate</code> so I'm using this one.</b></p>
  <p>I can now use <code>isFirstBoot</code> as follows:</p>
  <pre>
 <code>@UserDefault(key: "isFirstBoot", defaultValue: false) var isFirstBoot: Bool</code>
 </pre>
- <p>This allows you to interface with the complex generic type, but visually see nothing but a regular <code>Bool</code> property, As stated, the attribute empowers compiler magic to abstract the creation of the original generic type. Because the full implementation of it deserves an <code>How 'x' Works Internally in Swift</code> article of its own, we'll jump to the interesting parts -- with property delegates, the compiler translates the previous declaration to this:</p>
+ <p>This allows you to interface with the complex generic type, but visually see nothing but a regular <code>Bool</code> property, As stated, the attribute empowers compiler magic to abstract the creation of the original generic type. Because the full implementation of it deserves an <code>How 'x' Works Internally in Swift</code> article of its own, we'll jump to the interesting parts -- with property wrappers, the compiler translates the previous declaration to this:</p>
  <pre>
 <code>var $isFirstBoot: UserDefaults&lt;Bool&gt; = UserDefaults&lt;Bool&gt;(key: "isFirstBoot", defaultValue: false)</code>
 <code>var isFirstBoot: Bool {</code>
@@ -10416,13 +10560,13 @@ bb0(%0 : $*URL):</code>
  <pre>
 <code>$isFirstBoot.reset()</code>
 </pre>
- <p>This is why <code>Toggle(isOn: $showFavoritesOnly)</code> in SwiftUI's example use <code>$</code>: it doesn't want the actual <code>Bool</code>, but the <code>Binding</code> property provided by the <code>State</code> property delegate struct which will be able to trigger a view reload when it changes.</p>
+ <p>This is why <code>Toggle(isOn: $showFavoritesOnly)</code> in SwiftUI's example use <code>$</code>: it doesn't want the actual <code>Bool</code>, but the <code>Binding</code> property provided by the <code>State</code> property wrapper struct which will be able to trigger a view reload when it changes.</p>
  <pre>
 <code>/// A linked View property that instantiates a persistent state</code>
 <code>/// value of type `Value`, allowing the view to read and update its</code>
 <code>/// value.</code>
 <code>@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)</code>
-<code>@propertyDelegate public struct State&lt;Value&gt; : DynamicViewProperty, BindingConvertible {</code>
+<code>@propertyWrapper public struct State&lt;Value&gt; : DynamicViewProperty, BindingConvertible {</code>
 <code></code>
 <code>    /// Initialize with the provided initial value.</code>
 <code>    public init(initialValue value: Value)</code>
@@ -10441,7 +10585,7 @@ bb0(%0 : $*URL):</code>
 <code>    public var storageValue: Binding&lt;Value&gt; { get }</code>
 <code>}</code>
 </pre>
- <h2>Function Builders</h2>
+ <h2>Result Builders</h2>
  <p>We've seen how single expression don't need to add <code>return</code> statements, but what the hell is going on here?</p>
  <pre>
 <code>HStack {</code>
@@ -10451,19 +10595,19 @@ bb0(%0 : $*URL):</code>
 <code>}</code>
 </pre>
  <p>This will result in a nice horizontal stack with three labels, but all we did was instantiate them! How could they be added to the view?</p>
- <p>The answer to this is perhaps the most groundbreaking change in SwiftUI -- <b>function builders.</b></p>
- <p>The function builders feature pitch was introduced to the Swift community right after SwiftUI was released, allowing Swift to abstract factory patterns into a clean visual declarative expression. All indicates that it'll be part of Swift itself very soon, but for now you can try it as part of SwiftUI.</p>
- <p>Function builders relate to types that, given a closure, can retrieve a sequence of statements and abstract the creation of something more concrete based on them.</p>
- <p><code>HStack</code> can do this because it has the <code>ViewBuilder</code> function builder in its signature:</p>
+ <p>The answer to this is perhaps the most groundbreaking change in SwiftUI -- <b>result builders.</b></p>
+ <p>The resulkt builders feature pitch was introduced to the Swift community right after SwiftUI was released, allowing Swift to abstract factory patterns into a clean visual declarative expression. All indicates that it'll be part of Swift itself very soon, but for now you can try it as part of SwiftUI.</p>
+ <p>Result builders relate to types that, given a closure, can retrieve a sequence of statements and abstract the creation of something more concrete based on them.</p>
+ <p><code>HStack</code> can do this because it has the <code>ViewBuilder</code> result builder in its signature:</p>
  <pre>
 <code>public init(..., content: @ViewBuilder () -&gt; Content)</code>
 <code>//Note: The official docs won't show the attribute, and I'm not sure why,</code>
 <code>//but you can confirm it has it by adding a normal expression `let a = 1` expression inside of the closure.</code>
 <code>//It will give you a compilation error.</code>
 </pre>
- <p><code>@ViewBuilder</code> translates to the <code>ViewBuilder</code> struct: a <b>function builder</b> that can transform view expressions into actual views. Function builders are determined by the <code>@_functionBuilder</code> attribute (with an underline because we're not supposed to use it manually yet) and a series of methods that determine how expressions should be parsed:</p>
+ <p><code>@ViewBuilder</code> translates to the <code>ViewBuilder</code> struct: a <b>result builder</b> that can transform view expressions into actual views. Result builders are determined by the <code>@resultBuilder</code> attribute (with an underline because we're not supposed to use it manually yet) and a series of methods that determine how expressions should be parsed:</p>
  <pre>
-<code>@_functionBuilder public struct ViewBuilder {</code>
+<code>@resultBuilder public struct ViewBuilder {</code>
 <code></code>
 <code>    /// Builds an empty view from an block containing no statements, `{ }`.</code>
 <code>    public static func buildBlock() -&gt; EmptyView</code>
@@ -10483,14 +10627,14 @@ bb0(%0 : $*URL):</code>
 <code>   return ViewBuilder.buildBlock(Text("Hi"), Text("Swift"), Text("Rocks"))</code>
 <code>}</code>
 </pre>
- <p>The more complex the block, the more complex the magic'd expression is. The important thing here is that function builders block can <b>only contain content that is understandable by the builder.</b> For example, you can only add an <code>if</code> statement to <code>HStack</code> because it contains the related <code>buildIf()</code> method from the attribute. If you want an example of something that doesn't work, try the following:</p>
+ <p>The more complex the block, the more complex the magic'd expression is. The important thing here is that result builders block can <b>only contain content that is understandable by the builder.</b> For example, you can only add an <code>if</code> statement to <code>HStack</code> because it contains the related <code>buildIf()</code> method from the attribute. If you want an example of something that doesn't work, try the following:</p>
  <pre>
 <code>HStack {</code>
-<code>    let a = 1 //Closure containing a declaration cannot be used with function builder 'ViewBuilder'</code>
+<code>    let a = 1 //Closure containing a declaration cannot be used with result builder 'ViewBuilder'</code>
 <code>    Text("a")</code>
 <code>}</code>
 </pre>
- <p>The purpose of this feature is to enable the creation of embedded DSLs in Swift -- allowing you to define content that gets translated to something else down the line, but it plays a big role in giving the declarative programming feeling to Swift. Here's how building a HTML page can look with this function builders:</p>
+ <p>The purpose of this feature is to enable the creation of embedded DSLs in Swift -- allowing you to define content that gets translated to something else down the line, but it plays a big role in giving the declarative programming feeling to Swift. Here's how building a HTML page can look with this result builders:</p>
  <pre>
 <code>div {</code>
 <code>    p {</code>
@@ -10507,11 +10651,11 @@ bb0(%0 : $*URL):</code>
  <p>SwiftUI has just been announced and it's already causing a huge impact. The new Swift features that are spawning out it are also game changing, and I for one am ready for the addition of new compiler black magics into Swift.</p>
  <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
  <h2>References and Good reads</h2>
- <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-delegates.md">SE-0258: Property Delegates</a>
+ <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-delegates.md">SE-0258: Property Wrappers</a>
  <br>
  <a href="https://github.com/apple/swift/pull/23251">Original Returnless Expressions PR</a>
  <br>
- <a href="https://forums.swift.org/t/pitch-function-builders/25167">Function Builders Pitch</a>
+ <a href="https://forums.swift.org/t/pitch-function-builders/25167">Result Builders Pitch</a>
  <br>
 </div>]]></description>
 </item>

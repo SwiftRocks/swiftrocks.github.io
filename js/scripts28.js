@@ -5,9 +5,9 @@
         ///
         var showSponsor = true;
         ///
-        var sponsorTitle = "BurnoutBuddy - Anti-burnout & self-control tool for workaholics"
-        var sponsorIcon = "https://i.imgur.com/xhEWrj7.png"
-        var sponsorText = "Working late hours and weekends for no good reason? BurnoutBuddy actively blocks you from using work-related apps outside working hours to help you to overcome bad habits and improve your work-life balance."
+        var sponsorTitle = "BurnoutBuddy - Fight smartphone addiction & workaholism"
+        var sponsorIcon = "https://i.imgur.com/rg56aLQ.png"
+        var sponsorText = "Looking at social media too much? Working late hours for no good reason? BurnoutBuddy is a iOS/macOS app blocker that helps you overcome bad habits and improve your mental health."
         var sponsorLink = "https://burnoutbuddy.rockbruno.com/"
 
         const sponsorDivId = "sponsor-article-ad-auto"

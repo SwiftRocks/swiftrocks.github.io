@@ -5,6 +5,26 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/my-experience-with-swiftui</loc>
+    <lastmod>2022-10-20T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/my-experience-with-swiftui.html</loc>
+    <lastmod>2022-10-20T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/inside-swiftui-compiler-magic</loc>
+    <lastmod>2022-10-11T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/inside-swiftui-compiler-magic.html</loc>
+    <lastmod>2022-10-11T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</loc>
     <lastmod>2022-09-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
@@ -551,16 +571,6 @@
 </url>
 <url>
     <loc>https://swiftrocks.com/lazy-sequences-in-swift-and-how-they-work.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/inside-swiftui-compiler-magic</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/inside-swiftui-compiler-magic.html</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>

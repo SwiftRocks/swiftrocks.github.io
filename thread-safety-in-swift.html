@@ -241,7 +241,7 @@
  <p>Note: When using <code>DispatchQueues</code>, make sure to follow <a href="https://gist.github.com/tclementdev/6af616354912b0347cdf6db159c37057">these guidelines from @tclementdev</a> in order to use them efficiently.</p>
  <h2>os_unfair_lock</h2>
  <p>The <code>os_unfair_lock</code> mutex is currently the fastest lock in iOS. If your intention is to simply establish a critical region like in our original <code>Name</code> example, then this lock will get the job done with great performance.</p>
- <p><b>Note: Due to how Swift's memory model works, you should never use this API directly. Use the <code>UnfairLock</code> abstraction below when using this lock in your code.</b></p>
+ <p><b>Note: Due to how Swift's memory model works, you should never use this API directly. If you're targeting iOS 15 or below, use the <code>UnfairLock</code> abstraction below when using this lock in your code. If you're targetting iOS 16, use the new built-in <a href="https://developer.apple.com/documentation/os/osallocatedunfairlock">OSAllocatedUnfairLock</a> type.</b></p>
  <pre>
 <code>// Read http://www.russbishop.net/the-law for more information on why this is necessary</code>
 <code>final class UnfairLock {</code>
@@ -428,7 +428,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script type="text/javascript" src="js/prism3.js"></script> 
     <!-- Main Javascript File  -->
-    <script type="text/javascript" src="js/scripts27.js"></script>
+    <script type="text/javascript" src="js/scripts28.js"></script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8KZTWSQ1R"></script>
