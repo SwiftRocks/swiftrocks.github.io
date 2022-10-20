@@ -141,7 +141,7 @@
 <ul>
 <li><b>Simple UI, Simple Logic:</b> Would make it 100% with SwiftUI.</li>
 <li><b>Simple UI, Not-so-simple Logic:</b> I'd start with a 100% SwiftUI app, but if it got too tough I'd fall back to using SwiftUI for the UI itself and UIKit for the more complex pieces of logic (via <code>UIViewRepresentable</code>).</li>
-<li><b>Not-so-simple UI, Simple Logic:</b> Will greatly depend on case to case. I find that more complex pieces of UI can be a lot harder to pull off with SwiftUI when compared to UIKit.</li>
+<li><b>Not-so-simple UI, Simple Logic:</b> Will greatly depend on what's being built. I find that more complex pieces of UI can be a lot harder to pull off with SwiftUI when compared to UIKit.</li>
 <li><b>Not-so-simple UI, Not-so-simple Logic:</b> Probably best to go 100% UIKit to avoid issues in the long run.</li>
 </ul>
 <h2>What should beginners learn first?</h2>
