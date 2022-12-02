@@ -5,10 +5,10 @@
         ///
         var showSponsor = true;
         ///
-        var sponsorTitle = "BurnoutBuddy - Fight smartphone addiction & workaholism"
+        var sponsorTitle = "Burnout Buddy - Fight social media & work addiction"
         var sponsorIcon = "https://i.imgur.com/rg56aLQ.png"
-        var sponsorText = "Looking at social media too much? Working late hours for no good reason? BurnoutBuddy is a iOS/macOS app blocker that helps you overcome bad habits and improve your mental health."
-        var sponsorLink = "https://burnoutbuddy.rockbruno.com/"
+        var sponsorText = "Working late hours for no reason? Looking at social media too much? Burnout Buddy is a self-control app blocker that helps you overcome bad habits and improve your mental health."
+        var sponsorLink = "https://burnoutbuddy.io/"
 
         const sponsorDivId = "sponsor-article-ad-auto"
         const sponsorDivs = document.getElementsByClassName(sponsorDivId)
