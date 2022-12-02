@@ -2603,16 +2603,6 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <h2>Moving forward</h2>
  <p>I hope this article was able to make it clear to you the role that understanding programming theory plays in a developer's career and how it's important to separate it from our resentment towards bad interviewing practices. While we've seen that almost no one truly <i>requires</i> to study theory in order to have a successful career, I believe all kinds of developers could greatly benefit from doing so, making it critical for us as a community to be aware of the unconscious power of bandwagoning and know where to direct our emotions in order to not incorrectly drive people away from things that can potentially take them to the next step of their careers.</p>
  <p>While I'm certain that some people will still not agree with this article (and I'd love to know why, if that's you), I hope that this has given you new interesting insights on the practical applications of theory and what we can do to build better and more enjoyable interview processes.</p>
- <h2>Where can I learn the programming fundamentals?</h2>
- <p>You've certainly heard of GeeksforGeeks if you ever searched anything software-related on Google. Their platform contains millions of articles and free tutorials ranging across an unfathomable number of engineering fields and topics, so regardless if you're looking for the answer to a simple coding question or trying to learn an entirely new field, they got something for you. I have personally benefitted immensely from their platform and never heard of an experienced engineer who never bumped on their content.</p>
- <p>The people at GeeksforGeeks have been kind enough to provide SwiftRocks a 10% discount code (<code>BRUNO10</code>) for two of their courses:</p>
-  <ul>
-    <li><a href="https://practice.geeksforgeeks.org/courses/test-series-bundle?utm_source=blog_swiftrocks&utm_medium=partnershipandalliances_swiftrocks&utm_campaign=testseries_swiftrocks">Complete Test Series for Product-Based Companies</a> An algorithms + data structures learning program that is aimed specifically at training you for the interview processes of top-tier companies. I've personally done courses like this throughout my career and I greatly recommend them if you have the ambition to work at these companies.
-    </li>
-    <li><a href="https://practice.geeksforgeeks.org/courses/dsa-self-paced?utm_source=blog_swiftrocks&utm_medium=partnershipandalliances_swiftrocks&utm_campaign=testseries_swiftrocks">Data Structures & Algorithms</a>: Their most popular course on programming fundamentals. While this course also offers some interview training, it's heavily geared towards having you master the building blocks of programming. You should pick this over <i>Complete Test Series</i> if your interest is not <i>simply</i> to pass interviews but to actually absorb this knowledge and become a better software engineer.
-    </li>
- </ul>
- <p><i>(Disclaimer: The links are referrals and I get a commission for each sale. The message and opinions you've just read however are mine and weren't manipulated by GeeksforGeeks in any way.)</i></p>
 </div>]]></description>
 </item>
 <item>
