@@ -7,7 +7,7 @@
         ///
         var sponsorTitle = "Burnout Buddy - Fight social media addiction & other bad habits"
         var sponsorIcon = "https://i.imgur.com/OHTdc17.png"
-        var sponsorText = "Working late hours for no reason? Looking at social media too much? Burnout Buddy is a free self-control iOS app blocker that helps you overcome bad habits and improve your mental health."
+        var sponsorText = "Working late hours for no reason? Looking at social media too much? Burnout Buddy is a free app blocker for iOS that helps you overcome bad habits and improve your mental health."
         var sponsorLink = "https://burnoutbuddy.io/"
 
         const sponsorDivId = "sponsor-article-ad-auto"
