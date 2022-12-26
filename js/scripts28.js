@@ -5,9 +5,9 @@
         ///
         var showSponsor = true;
         ///
-        var sponsorTitle = "Burnout Buddy - Fight social media addiction & other bad habits"
+        var sponsorTitle = "Burnout Buddy - Don't let your phone control your life"
         var sponsorIcon = "https://i.imgur.com/OHTdc17.png"
-        var sponsorText = "Working late hours for no reason? Looking at social media too much? Burnout Buddy is a free app blocker for iOS that helps you overcome bad habits and improve your mental health."
+        var sponsorText = "Do you feel that you spend more time on apps like Slack and social media than you should? Burnout Buddy is a personal app blocker for iOS that helps you break free from addictive apps and heal their impact on your mental health. Try it and see the benefits for yourself; it's free and requires no account."
         var sponsorLink = "https://burnoutbuddy.io/"
 
         const sponsorDivId = "sponsor-article-ad-auto"
