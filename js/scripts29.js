@@ -5,9 +5,9 @@
         ///
         var showSponsor = true;
         ///
-        var sponsorTitle = "Burnout Buddy - Don't let your phone control your life"
+        var sponsorTitle = "Burnout Buddy - Screen Time for iOS"
         var sponsorIcon = "https://i.imgur.com/OHTdc17.png"
-        var sponsorText = "Do you feel that you spend more time on apps like Slack than you should? Burnout Buddy helps you break free from addictive apps and heal their impact on your mental health. Try it and see the benefits for yourself; it's free and requires no account."
+        var sponsorText = "Modern apps like social media hook you at a psychological level. Burnout Buddy helps you break free from addictive apps and heal their impact on your mental health. Try it and see the benefits for yourself; it's free and requires no account."
         var sponsorLink = "https://burnoutbuddy.io/"
 
         const sponsorDivId = "sponsor-article-ad-auto"
