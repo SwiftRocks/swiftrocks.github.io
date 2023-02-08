@@ -11967,16 +11967,16 @@ bb0(%0 : $*URL):</code>
 <code>}</code>
 </pre>
  <div class="sponsor-article-ad-auto hidden"></div>
- <p>Deep down, <code>Never</code> is just the revamped "swifty" version of <code>@noreturn</code>: an attribute which provided the exact same functionality but was removed for being too complex due to its nature as an attribute. Connecting this behaviour to a return type allowed the compiler to work better, and certainly ended up looking better for the developer as well.</p>
- <p>Something about <code>Never</code> intrigued me, though. We know that there's nothing in the language itself that allows you to skip return values, so what magic is done in the compiler to allow this?</p>
+ <p>Deep down, <code>Never</code> is just the revamped "swifty" version of <code>@noreturn</code>: an attribute that provided the exact same functionality but was removed for being too complex due to its nature as an attribute. Connecting this behavior to a return type allowed the compiler to work better, and certainly ended up looking better for the developer as well.</p>
+ <p>Something about <code>Never</code> intrigued me though. We know that there's nothing in the language itself that allows you to skip return values, so what magic is done in the compiler to allow this?</p>
  <p>Just like in my <a href="https://swiftrocks.com/how-caseiterable-works-internally-in-swift">previous article about the innards of CaseIterable</a>, I'm going to dive into the compiler in order to extract and analyze the pieces of code that intercept and change the functionality of methods that return <code>Never</code> in order to learn more about how the Swift compiler works.</p>
- <p><i>Disclaimer: As always, this is a result of my own research and reverse-engineering. As I obviously have nothing to do with the original development of <code>Never</code>, some assumptions might be not fully correct. Feel free to correct me if you know how the compiler works!</i></p>
+ <p><i>Disclaimer: As always, this is a result of my own research and reverse-engineering. As I have nothing to do with the original development of <code>Never</code>, some assumptions might be not fully correct.</p>
  <h2>Uninhabited Types / Never Patterns</h2>
- <p>Expecting to find complex pieces of code, the implementation of <code>Never</code> in the Standard Library show us something else - the type is nothing but an empty enum:</p>
+ <p>Expecting to find complex pieces of code, the implementation of <code>Never</code> in the Standard Library shows us something else - the type is nothing but an empty enum:</p>
  <pre>
 <code>public enum Never {}</code>
 </pre>
- <p>Although that certainly looks weird, it is correct in its theory. When <code>Never</code> got implemented, Swift also added the concept of <b>uninhabited types</b> to its lingo - a type with no value, often used to represent the unexistant result of something that will never happen. Because an enum with no cases can't be instantiated in any way, it becomes perfect to represent this concept. But if the type itself doesn't do anything, where is the magic done?</p>
+ <p>Although that certainly looks weird, it is correct in its theory. When <code>Never</code> got implemented, Swift also added the concept of <b>uninhabited types</b> to its lingo - a type with no value, often used to represent the nonexistent result of something that will never happen. Because an enum with no cases can't be instantiated in any way, it becomes perfect to represent this concept. But if the type itself doesn't do anything, where is the magic done?</p>
  <p>A quick search for <code>"never typecheck"</code> in the Swift repo reveals a method called <code>isNoReturnFunction()</code>, which searches for the presence of an uninhabited type return:</p>
  <pre>
 <code>bool SILFunctionType::isNoReturnFunction() const {</code>
@@ -11998,7 +11998,7 @@ bb0(%0 : $*URL):</code>
 <code>    return false;</code>
 <code>}</code>
 </pre>
- <p>Because <code>Never</code> has no actual code, I expected the compiler to directly identify and change it somehow, but what this shows is that <code>Never</code> <b>really</b> is just an empty enum - the behaviour we see has nothing to do with the type itself, but with the concept of an uninhabited type. This means that you don't need <code>Never</code> at all to ignore return statements:</p>
+ <p>Because <code>Never</code> has no actual code, I expected the compiler to directly identify and change it somehow, but what this shows is that <code>Never</code> <b>really</b> is just an empty enum - the behavior we see has nothing to do with the type itself, but with the concept of an uninhabited type. This means that you don't need <code>Never</code> at all to ignore return statements:</p>
  <pre>
 <code>enum Crash {}</code>
 <code></code>
@@ -12011,25 +12011,27 @@ bb0(%0 : $*URL):</code>
 <code>    logAndCrash() //Compiles!</code>
 <code>}</code>
 </pre>
- <p>In fact, because the compiler doesn't know the difference, my <code>Crash</code> type will even throw errors that mention <code>Never</code>:</p>
+ <p>In fact, because the compiler doesn't know the difference, my <code>Crash</code> type will even throw the same errors as <code>Never</code>:</p>
  <pre>
 <code>func logAndCrash() -&gt; Crash {</code>
 <code>    //Function with uninhabited return type 'Crash'</code>
 <code>    //is missing call to another never-returning function on all paths</code>
 <code>}</code>
 </pre>
- <p>For completeness, the very first commit of <code>Never</code> was indeed using the type itself to generate this behaviour, but it was later changed to work with all uninhabited types due to multiple bugs that a <code>Never</code>-only solution was causing.</p>
+ <p>For context, the very first commit of <code>Never</code> was indeed using the type itself to generate this behavior, but it was later changed to work with all uninhabited types due to multiple bugs that a <code>Never</code>-only solution was causing.</p>
  <p>That's a great start, but I still have two major questions:</p>
- <p>First, where are these methods used?</p>
- <p>Second, if all never-returning methods need to return another never-returning method, don't we have an infinite recursion? Because the app is guaranteed to crash, <b>someone</b> down the line will have to not return something. Who makes this decision?</p>
+ <ul>
+<li>First, where are these methods used?</li>
+<li>Second, if all never-returning methods need to return another never-returning method, don't we have an infinite recursion? Because the app is guaranteed to crash, <b>someone</b> down the line will have to not return something. Who makes this decision?</li>
+ </ul>
  <h2>SIL generation of Never-returning methods</h2>
- <p>The first question can be answered by inspecting what Swift does to your code during the compile process. To make it straight-forward, the secrets of <code>Never</code> are hidden into a source file's SIL representation.</p>
+ <p>The first question can be answered by inspecting what Swift does to your code during the compilation process. To make it straightforward, the secrets of <code>Never</code> are hidden in a source file's SIL representation.</p>
  <h3>Swift Intermediate Language</h3>
- <p>In short, SIL is the middle-ground between your .swift files and the LLVM IR, basically acting as your Swift files translated to a "language" that contains high-level semantic information of what's happening behind the scenes. This allows the compiler to diagnose compilation errors and perform early optimizations while still allowing it to seamlessly generate the final LLVM IR necessary to let LLVM handle the rest of the compilation.</p>
+ <p>In short, SIL is the middle-ground between your .swift files and the LLVM IR, basically acting as your Swift files translated to a "language" that contains high-level semantic information about what's happening behind the scenes. This allows the compiler to diagnose compilation errors and perform early optimizations while still allowing it to seamlessly generate the final LLVM IR necessary to let LLVM handle the rest of the compilation.</p>
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/xbVOfbq.png" alt="" style="background-color: #fff"> 
  </div>
- <p>Inspecting the SIL version of a method that returns <code>Never</code> should reveal us an optimized version of it, with hopefully an indicator of how the type works behind the scenes. I'm going to compile the following snippet - with an explicit return statement just to see how the SIL version reacts to it:</p>
+ <p>Inspecting the SIL version of a method that returns <code>Never</code> should reveal to us an optimized version of it, with hopefully an indicator of how the type works behind the scenes. I'm going to compile the following snippet - with an explicit return statement just to see how the SIL version reacts to it:</p>
  <pre>
 <code>@inline(never) func crash() -&gt; Never {</code>
 <code>    fatalError()</code>
@@ -12056,8 +12058,8 @@ bb0(%0 : $*URL):</code>
 <code>  unreachable // id: %2</code>
 <code>} // end sil function '$S5never11doSomethingSiyF'</code>
 </pre>
- <p>SIL is not very easy to read, but it thankfully comes with a few comments that helps us understand what's going on. The first thing we can notice here is the beauty of optimizations: all the unreachable number code I added there is completely gone!</p>
- <p>Besides that, we can see that an <code>unreachable</code> statement was added right after the call to <code>crash()</code>. Normal methods would show a return statement, so this was clearly added by the whatever logic handles <code>Never</code>.</p>
+ <p>SIL is not very easy to read, but it thankfully comes with a few comments that help us understand what's going on. The first thing we can notice here is the beauty of optimizations: all the unreachable number code I added there is completely gone!</p>
+ <p>Besides that, we can see that an <code>unreachable</code> statement was added right after the call to <code>crash()</code>. Normal methods would show a return statement, so this was clearly added by whatever logic handles <code>Never</code>.</p>
  <p>A quick search into the Swift repo revealed that <code>unreachable</code> relates to <code>UnreachableInst</code>, a type that is injected and later used when the compiler needs to make decisions when it comes to code that will never succeed, or even be executed in this case.</p>
  <pre>
 <code>TERMINATOR(UnreachableInst, unreachable,</code>
@@ -12124,10 +12126,10 @@ bb0(%0 : $*URL):</code>
 <code>  }</code>
 <code>}</code>
 </pre>
- <p>In summary, <code>Never</code>'s behaviour is defined in the optimization passes - after <code>DiagnoseUnreachable.cpp</code> detects and marks the instruction after a never call as unreachable, <code>DataflowDiagnostics.cpp</code> sees that this specific unreachable statement was injected by the compiler itself, avoids throwing a "missing return" compilation error and lets the compilation continue.</p>
+ <p>In short, <code>Never</code>'s behavior is defined in the optimization passes - after <code>DiagnoseUnreachable.cpp</code> detects and marks the instruction after a never call as unreachable, <code>DataflowDiagnostics.cpp</code> sees that this specific unreachable statement was injected by the compiler itself, avoids throwing a "missing return" compilation error, and lets the compilation continue.</p>
  <h2>Internals of <code>fatalError()</code></h2>
- <p>Although the main functionality is now uncovered, something still bugs me: we've seen that creating a <code>Never</code> returning method will result in a compilation error if it doesn't call another <code>Never</code> method. Isn't this an infinite loop? Where is this loop broken?</p>
- <p>To get the answer for that, we can inspect the contents of <code>fatalError()</code> and start going up its backtrace. Here's how <code>fatalError()</code> is defined:</p>
+ <p>Although the main functionality is now uncovered, something still bugs me; We've seen that creating a <code>Never</code> returning method will result in a compilation error if it doesn't call another <code>Never</code> method. Isn't this an infinite loop? Where is this loop broken?</p>
+ <p>To get the answer to that, we can inspect the contents of <code>fatalError()</code> and start going up its backtrace. Here's how <code>fatalError()</code> is defined:</p>
  <pre>
 <code>public func fatalError(</code>
 <code>  _ message: @autoclosure () -&gt; String = String(),</code>
@@ -12153,8 +12155,7 @@ bb0(%0 : $*URL):</code>
  <p>So how does the infinite loop stops? The answer seems to be that it simply does not. Because the final call of the chain is inside a "pre-compiled framework" in a sense, diagnostics do not seem to affect it, allowing the app to compile correctly.</p>
  <h2>Conclusion</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
- <p>That was quite the ride, but I hope that you found this useful. As I mentioned in previous articles, compilers are scary monsters, but knowing the internals of a language can really help you write efficient code. In this case, spelunking <code>Never</code> was interesting to see how each optimization pass complements each other when it comes to finding problems or changing the behaviour of a piece of code.</p>
- <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
+ <p>Compilers are scary monsters, but knowing the internals of a language can really help you write efficient code. In this case, spelunking <code>Never</code> was interesting to see how each optimization pass complements each other when it comes to finding problems or changing the behaviour of a piece of code.</p>
  <h2>References and Good reads</h2>
  <a href="https://github.com/apple/swift">The Swift Source Code</a>
  <br>
