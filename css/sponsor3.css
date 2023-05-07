@@ -56,9 +56,10 @@
 
 .sponsor-article-ad-auto .sponsor-article-ad-auto-header {
     background-color: #ff8e00;
-    position: absolute;
     margin-top: -28px;
     margin-left: -4px;
+    margin-bottom: 8px;
+    width: 63px;
     font-weight: bold;
     color: #e2e4e9;
     font-size: 12px;
