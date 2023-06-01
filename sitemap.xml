@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles</loc>
+    <lastmod>2023-06-01T13:30:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles.html</loc>
+    <lastmod>2023-06-01T13:30:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/my-experience-with-swiftui</loc>
     <lastmod>2023-01-12T10:00:00+02:00</lastmod>
     <priority>0.80</priority>

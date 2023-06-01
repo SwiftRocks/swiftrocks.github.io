@@ -227,13 +227,14 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 <pre>
 <code>mdfind \"com_apple_xcode_dsym_uuids == $canonical_uuid\"</code>
 </pre>
-<p>This means that the failure to symbolicate crashes isn't a problem with Xcode, but that for some reason Spotlight failed to add the dSYM to its search index. After some quick searches about Spotlight issues, I found two ways to force Spotlight to re-index a folder:</p>
+<p>This means that the failure to symbolicate crashes isn't a problem with Xcode, but that for some reason Spotlight failed to add the dSYM to its search index. After some quick searches about Spotlight issues, I found three ways to force Spotlight to re-index a folder (thus allowing the symbolication to work properly):</p>
 <ul>
-<li>The <code>mdimport</code> CLI tool, pointing directly to where the dSYM is stored.</li>
+<li>Running the <code>mdimport</code> CLI tool, pointing directly to where the dSYM is stored.</li>
 <li>This <a href="https://support.apple.com/en-us/HT201716">support article</a> from Apple</li>
+<li>Simply moving the dSYMs somewhere else (Some folders might be blocked by Spotlight. I was never able to get it to work if the dSYms were stored in the <i>Downloads</i> folder, for example)</li>
 </ul>
 <div class="sponsor-article-ad-auto hidden"></div>
-<p>I had mixed success with <code>mdimport</code> (in fact, I remember seeing this as a buried comment in one of the StackOverflow posts, so someone <i>did</i> also figure this out in the past), but the trick from the article solved it for me. I think this feature would've been better developed if Xcode allowed you to provide the dSYM manually instead of completely relying on Spotlight, but investigating this issue was a very fun couple of hours for me.</p>
+<p>I had mixed success with <code>mdimport</code> (in fact, I remember seeing this as a buried comment in one of the StackOverflow posts, so someone <i>did</i> also figure this out in the past), but the other two tricks usually solves it for me. I think this feature would've been better developed if Xcode allowed you to provide the dSYM manually instead of completely relying on Spotlight, but investigating this issue was a very fun couple of hours for me.</p>
 </div>
 </div>
                               
