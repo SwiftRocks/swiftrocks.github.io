@@ -137,9 +137,9 @@
   <img src="https://i.imgur.com/2PDjXPQ.png" alt="Lock times"> 
  </div> 
  <p>Concurrency is the entry point for the most complicated and bizarre bugs a programmer will ever experience. Because we at the application level have no real control over the threads and the hardware, there's no perfect way of creating unit tests that guarantee your systems will behave correctly when used by multiple threads at the same time.</p>
+  <div class="sponsor-article-ad-auto hidden"></div>
  <p>You can, however, make some very educated guesses. In this article, we'll take a look at what thread safety is, which tools iOS provides to help us achieve it, and how they compare in terms of performance.</p>
  <h2>What is Thread Safety?</h2>
- <div class="sponsor-article-ad-auto hidden"></div>
  <p>I personally define thread safety as a system's ability to ensure "correctness" when multiple threads attempt to use it at the same time. Look at a specific class you have that contains logic that can be accessed by background threads and ask yourself: Is it possible for <b>any</b> two lines of code in this class to run in parallel? If so, would that be fine or would that be <i>really</i> bad?</p>
  <p>One thing I've noticed is that while developers generally don't have trouble understanding the concept of thread safety, a lot of people have trouble applying it in practice. Consider the following example of a class that stores a person's full name:</p>
  <pre>
@@ -165,7 +165,7 @@
      <p>Thread 1: Sets <code>lastName</code> to "Rocha"</p>
      <p>Final name: "Onurb Rocha". That's not right...</p>
  </blockquote>
- <p>This is called a <b>race condition</b>, and it's the least-worst scenario in this case. In reality, what would probably happen is that the memory addresses holding these strings would become corrupted, triggering an exception that would crash your app.</p>
+ <p>This is called a <b>race condition</b>, and it's the least-worst scenario in this case. In reality, what would probably happen is that having two threads attempt to access the strings' memory addresses at the same time would trigger a EXC_BAD_ACCESS exception and crash your app.</p>
  <p>In short, this means that the <code>Name</code> class is not thread-safe. To fix the above race condition, we need to <b>synchronize how threads get to access and modify the state of this class</b>. If we make it so that <i>Thread 2</i> cannot start running <code>setFullName</code> until <i>Thread 1</i> finishes doing so, the scenario above would become impossible.</p>
  <p>In practice, many developers have trouble getting this right because they <b>confuse atomicity with thread safety.</b> Consider the following attempt to fix the race condition:</p>
  <pre>
@@ -194,14 +194,36 @@
 </pre>
 <p>In theoretical terms, what we did by wrapping the logic around calls to <code>lock()</code> and <code>unlock()</code> was to establish a <b>critical region</b> within <code>setFullName</code> which only one thread can access at any given time (a guarantee made by the <code>OSAllocatedUnfairLock</code> API in this case). The logic within <code>setFullName</code> is now thread-safe.</p>
 <p>Does this mean that the <code>Name</code> class itself is now thread-safe? <b>It depends on the point of view.</b> While the <code>setFullName</code> method itself is safe from race conditions, we still technically could have a race condition if some external object attempted to read the user's name in parallel with a new name being written. This is why the most important thing for you to keep in mind is the <b>relativity</b> of this problem: While you could say that <code>Name</code> is technically thread-safe in relation to itself, it could very well be the case that whatever class that would be using this in a real application could be doing so in a way that is not. Even the reverse can happen: Although the strings in this example are technically not thread-safe themselves, they are if you consider that they cannot be modified outside <code>setFullName</code>. To fix thread safety issues in the real world, you'll need to first rationalize the problem this way to determine what exactly needs to be made thread-safe in order to fix the problem.</p>
+ <h2>Other concurrency problems</h2>
+ <p>In the example above we talked about <b>race conditions</b> specifically, but in practice there are many different types of problems that you might encounter when working with thread safety and concurrency in general. We won't go into deep details of all of them, but here's a summary that covers the most common ones:</p>
+ <ul>
+<li><b>Data Race:</b> Two threads accessing shared data at the same time, leading to unpredictable results</li>
+
+
+
+<li><b>Race Condition:</b> Failing at synchronize the execution of two or more threads, leading to events happening in the wrong order</li>
+
+
+
+<li><b>Deadlock:</b> Two threads waiting on each other, meaning neither is able to proceed</li>
+
+
+
+<li><b>Priority Inversion:</b> Low-priority task holding a resource needed by a high-priority task, causing delays in execution</li>
+
+
+
+<li><b>Thread Explosion:</b> Excessive number of threads in the program, leading to resource exhaustion and decreased system performance</li>
+<li><b>Thread Starvation:</b> Thread is unable to access a resource it needs because other threads are monopolizing it, causing delays in execution</li>
+</ul>
  <h2>Thread Safety costs</h2>
  <p>Before going further, it's good to be aware that any form of synchronization comes with a performance hit. This is not something you can run away from if you need to run code in parallel, but you can control how bad the impact will be. Different APIs have different performance costs, so by picking the right API for your problem, you can at least make sure you're not "over paying" for its thread safety. It's very common for developers to not be aware of these performance costs and proceed to pick extremely expensive APIs for relatively simple problems <a href="https://stackoverflow.com/questions/28191079/create-thread-safe-array-in-swift">(here's one great example, look at the top two answers)</a>, so I strongly recommend you to be aware of these costs (which we'll see in the next section).</p>
  <h2>Thread Safety APIs in iOS</h2>
- <p>As mentioned in the example, there are many different ways in which you can achieve thread safety in Swift. The right API to use depends on the issue you're facing, so in this section we're going to cover all of them and provide some examples that shows what they're supposed to be used for. (todo)</p>
+ <p>As mentioned in the example, there are many different ways in which you can achieve thread safety in Swift. The right API to use depends on the issue you're facing, so in this section we're going to cover all of them and provide some examples that shows what they're supposed to be used for.</p>
  <h3>async/await</h3>
- <p>If your app has a minimum target of at least iOS 15, you should go for async/await and ignore everything else in this article.</p>
- <p>I wouldn’t go as far as saying that async/await makes concurrency easy, but it for sure makes it less problematic. By far the biggest problem with concurrency is how easy it is for you to make dangerous mistakes, and while async/await doesn’t necessarily protects you from logic issues, the way the feature works and is handled by the compiler makes it <b>safe from deadlocks, thread explosion, and memory corruption issues</b>, which is a major achievement for Swift as a programming language. (Technically you can still cause these problems if you mix async/await's APIs with one of the older ones, <a href="https://developer.apple.com/videos/play/wwdc2021/10254/?time=1558">but Apple explicitly tells you not to do that.</a>)</p></p>
- <p>async/await is too big of a topic for us to cover here in this article though, so we won't go into details of it here.</p>
+ <p>If your app has a minimum target of at least iOS 15, you should probably go for async/await and ignore everything else in this article.</p>
+ <p>async/await doesn't solve the problem of concurrency, but it does make it a bit less problematic. By far the biggest problem with concurrency is how easy it is for you to make dangerous mistakes, and while async/await doesn’t protect you from logic mistakes / straight-up incorrect code, the way the feature works makes it <b>safe from deadlocks, thread explosion, and data races</b>, which is a major achievement for Swift as a programming language. You still need to be careful about race conditions and wrong code in general though, especially because the feature has many "gotchas" to it.</p>
+ <p>For more information on async/await, how to use it to implement thread safety, and what are those "gotchas" that you need to be careful about, <a href="how-async-await-works-internally-in-swift">check out my deep dive on async/await.</a></p>
  <p>If you cannot use async/await, here are some of the "old school" synchronization APIs in iOS:</p>
  <h3>Serial DispatchQueues</h3>
  <p>Despite not being generally connected to the topic of thread safety, <code>DispatchQueues</code> can be great tools for thread safety. By creating a queue of tasks where only one task can be processed at any given time, you are indirectly introducing thread safety to the component that is using the queue.</p>
