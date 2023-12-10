@@ -7,6 +7,64 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>How I'm using ChatGPT for software engineering</title>
+    <link>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</link>
+    <guid>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</guid>
+    <pubDate>Mon, 4 Dec 2023 13:00:00 GMT+1</pubDate>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=How I'm using ChatGPT for software engineering-->
+<!--WRITEIT_POST_HTML_NAME=how-im-using-chatgpt-for-software-engineering-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=ChatGPT has become an important part of my daily software engineering work, so I thought it would be interesting to share what exactly I've been using it for in case you're wondering how to use it to improve your productivity.-->
+
+<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-12-04T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2023-12-04T14:00:00+02:00-->
+
+<title>How I'm using ChatGPT for software engineering</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>How I'm using ChatGPT for software engineering</h1>
+  </div>  
+  <div class="post-info">
+    <div class="post-info-text">Published on 04 Dec 2023</div>
+  </div>
+<p>ChatGPT has become an important part of my daily software engineering work, so I thought it would be interesting to share what exactly I've been using it for in case you're wondering how to use it to improve your productivity.</p>
+<h2>Use-case 1: I don't know what I'm looking for</h2>
+<p>I find that Google tends to provide good results if you know <b>exactly</b> what you're looking for. But if you don't really know what is it that you're trying to find out, you'll have a hard time with it.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>For example, the other day I was trying to find what the <code>_start</code> function in iOS (the first function called when your app is launched) is, where it's defined, and what it does. But if I go now and search for "_start function iOS" on Google, I will not find a straight answer to this question. Google <i>does</i> return somewhat good results (the second search result contains some interesting information about it if you scroll down far enough), but it cannot give me a direct response because I asked the wrong question. I know today that what I should've done is ask it about details of how C programs are linked, but I didn't know this back then, so I couldn't have done that.</p>
+<p>ChatGPT does not have this problem. If you don't know what you're looking for, you can explain your situation to ChatGPT and it will point you in the right direction:</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/KuTBOgc.png" alt="Alt">
+</div>
+<p>In this example, you can see that ChatGPT immediately pointed out that I asked the wrong question before attempting to explain it.</p>
+<p>Although ChatGPT's answers aren't 100% accurate, I find them to be accurate enough to allow me to use Google to find the rest of the information.</p>
+<h2>Use-case 2: My question is too specific for Google</h2>
+<p>Even if you know exactly what you're looking for, you may have difficulty using Google if your question is too specific. For example, you cannot search Google on "how to implement X thing in Swift in my app that is using XYZ frameworks in X iOS version with dependency injection bridging an Obj-C type after the user logged in on my TODO list app using Apple Sign-in from Italy during a rainy day in October". For cases like this, usually what you need to do is break your problem into multiple, more generic queries, open many tabs that each help you with a specific part of the problem, and then use all of that combined knowledge to come up with the actual answer to your question.</p>
+<p>ChatGPT excels at this. You can be as specific as you want and you'll get a relevant answer. Most coding questions fall into this category, although for these specifically I have mostly been using Copilot rather than ChatGPT itself.</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/Rlbf1Pl.png" alt="Alt">
+</div>
+<p>In this case, I could've probably found the answer I was looking for in Google by making a bunch of generic searches about C++ global constructors and good practices, opening a bunch of tabs, and summarizing everything I found. But by asking ChatGPT, I saved several hours of my time instead.</p>
+<h2>Use-case 3: I want FAST answers</h2>
+<p>It has been getting harder and harder to get fast answers to your questions with Google. Today, it's very unlikely that the answer to a question will lie at the top of a page you've opened. As SEO optimization became more and more important for survival on the web, the amount of stuff you have to endure before getting to the actual content has increased significantly. There will be a lengthy introduction, a pause for sponsors, ten paragraphs about how the question reminds the author about a personal story of how their dog bodyslammed their grandma on Christmas, a call to action for the author's newsletter, some backstory on the question, and <b>only then</b> you'll get to the actual content.</p>
+<p>I find that there are many cases where this fluff is relevant and worth reading. But there are also many cases when I'm in a hurry and would much rather just get a straight answer to my question.</p>
+<!-- <div class="sponsor-article-ad-auto hidden"></div> -->
+<p>This is also something that I find ChatGPT to be quite good at. It generally doesn't try to educate you on things you didn't ask, it just straight up answers your question.</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/SuUcWBm.png" alt="Alt">
+</div>
+<p>By asking follow-up questions regarding one or more things it mentioned in its answer, I can get all of the information I need to learn something new considerably faster than if I had used Google instead. Even though I still need to use Google to double-check if ChatGPT didn't hallucinate particular pieces of information, this ability to quickly gather relevant information saves me an absurd amount of time.</p>
+</div>
+]]></description>
+</item>
+<item>
     <title>How async/await works internally in Swift</title>
     <link>https://swiftrocks.com/how-async-await-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-async-await-works-internally-in-swift</guid>
@@ -3834,7 +3892,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
    Theory
   </div> 
   <div class="post-info-text">
-   Reworked on 5 Nov 2023, first published on 18 May 2021
+   Reworked on 05 Nov 2023, first published on 18 May 2021
   </div>
  </div>
  <p>I've been meaning to write an article about computer science fundamentals and how it can improve a programmer's career for a long time, but I always had trouble finding a good way of introducing this topic. The reason I'd like to talk about this is first that, well, I really like this field and I feel that most of my programming ability today is a result of having studied this, but also because I feel like there's a lot of misinformation around this topic and I've been hoping I could address that in a way that could be convincing even for those who can't stand hearing the word "algorithms" anymore.</p>
