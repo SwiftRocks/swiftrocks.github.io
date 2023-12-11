@@ -11,6 +11,7 @@
     <link>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</link>
     <guid>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</guid>
     <pubDate>Mon, 11 Dec 2023 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=How I'm using ChatGPT for software engineering-->
 <!--WRITEIT_POST_HTML_NAME=how-im-using-chatgpt-for-software-engineering-->
@@ -69,6 +70,7 @@
     <link>https://swiftrocks.com/how-async-await-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-async-await-works-internally-in-swift</guid>
     <pubDate>Thu, 28 Sep 2023 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=How async/await works internally in Swift-->
 <!--WRITEIT_POST_HTML_NAME=how-async-await-works-internally-in-swift-->
@@ -1203,6 +1205,7 @@
     <link>https://swiftrocks.com/faster-performance-debugging-with-ettrace</link>
     <guid>https://swiftrocks.com/faster-performance-debugging-with-ettrace</guid>
     <pubDate>Thu, 7 Sep 2023 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Faster iOS performance debugging with ETTrace-->
 <!--WRITEIT_POST_HTML_NAME=faster-performance-debugging-with-ettrace-->
@@ -1281,6 +1284,7 @@
     <link>https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles</link>
     <guid>https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles</guid>
     <pubDate>Thu, 1 Jun 2023 13:30:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Performance Trace Profiles in iOS: Debugging performance issues you can't reproduce-->
 <!--WRITEIT_POST_HTML_NAME=debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles-->
@@ -1393,6 +1397,7 @@
     <link>https://swiftrocks.com/my-experience-with-swiftui</link>
     <guid>https://swiftrocks.com/my-experience-with-swiftui</guid>
     <pubDate>Thu, 20 Oct 2022 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Thoughts on SwiftUI vs UIKit-->
 <!--WRITEIT_POST_HTML_NAME=my-experience-with-swiftui-->
@@ -1538,6 +1543,7 @@
     <link>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</link>
     <guid>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</guid>
     <pubDate>Mon, 12 Sep 2022 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=What's the 'any' keyword? Understanding Type Erasure in Swift-->
 <!--WRITEIT_POST_HTML_NAME=whats-any-understanding-type-erasure-in-swift-->
@@ -1739,6 +1745,7 @@
     <link>https://swiftrocks.com/are-your-frameworks-bulletproof</link>
     <guid>https://swiftrocks.com/are-your-frameworks-bulletproof</guid>
     <pubDate>Mon, 18 Jul 2022 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Are your frameworks bulletproof?-->
 <!--WRITEIT_POST_HTML_NAME=are-your-frameworks-bulletproof-->
@@ -1783,6 +1790,7 @@
     <link>https://swiftrocks.com/using-a-macbook-pro-as-a-gaming-console</link>
     <guid>https://swiftrocks.com/using-a-macbook-pro-as-a-gaming-console</guid>
     <pubDate>Fri, 8 Jul 2022 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Using a Macbook Pro as a gaming console-->
 <!--WRITEIT_POST_HTML_NAME=using-a-macbook-pro-as-a-gaming-console-->
@@ -1863,6 +1871,7 @@
     <link>https://swiftrocks.com/sentiment-analysis-reddit-negativity</link>
     <guid>https://swiftrocks.com/sentiment-analysis-reddit-negativity</guid>
     <pubDate>Sun, 12 Jun 2022 16:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Sentiment Analysis with NSTagger: Ranking popular subreddits by the negativity/hostility of its comments-->
 <!--WRITEIT_POST_HTML_NAME=sentiment-analysis-reddit-negativity-->
@@ -2021,6 +2030,7 @@
     <link>https://swiftrocks.com/how-certificates-work</link>
     <guid>https://swiftrocks.com/how-certificates-work</guid>
     <pubDate>Tue, 24 May 2022 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Understanding Certificates and iOS Provisioning Profiles-->
 <!--WRITEIT_POST_HTML_NAME=how-certificates-work-->
@@ -2127,6 +2137,7 @@
     <link>https://swiftrocks.com/focus-on-concepts-not-approaches</link>
     <guid>https://swiftrocks.com/focus-on-concepts-not-approaches</guid>
     <pubDate>Thu, 6 Jan 2022 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Focus on concepts, not approaches-->
 <!--WRITEIT_POST_HTML_NAME=focus-on-concepts-not-approaches-->
@@ -2172,6 +2183,7 @@
     <link>https://swiftrocks.com/detecting-broken-constraints-in-swift</link>
     <guid>https://swiftrocks.com/detecting-broken-constraints-in-swift</guid>
     <pubDate>Mon, 22 Nov 2021 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Detecting Broken Constraints in Swift-->
 <!--WRITEIT_POST_HTML_NAME=detecting-broken-constraints-in-swift-->
@@ -2296,6 +2308,7 @@
     <link>https://swiftrocks.com/how-to-solve-any-ios-crash-ever</link>
     <guid>https://swiftrocks.com/how-to-solve-any-ios-crash-ever</guid>
     <pubDate>Mon, 1 Nov 2021 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=How To Solve Any iOS Crash Ever-->
 <!--WRITEIT_POST_HTML_NAME=how-to-solve-any-ios-crash-ever-->
@@ -2385,6 +2398,7 @@
     <link>https://swiftrocks.com/enabling-module-stability-in-swift-package-manager-projects</link>
     <guid>https://swiftrocks.com/enabling-module-stability-in-swift-package-manager-projects</guid>
     <pubDate>Tue, 26 Oct 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Enabling Module Stability in Swift Package Manager Projects-->
 <!--WRITEIT_POST_HTML_NAME=enabling-module-stability-in-swift-package-manager-projects-->
@@ -2448,6 +2462,7 @@
     <link>https://swiftrocks.com/unit-testing-weak-references--deallocation-in-swift</link>
     <guid>https://swiftrocks.com/unit-testing-weak-references--deallocation-in-swift</guid>
     <pubDate>Wed, 13 Oct 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Unit Testing Weak References / Retain Cycles in Swift-->
 <!--WRITEIT_POST_HTML_NAME=unit-testing-weak-references--deallocation-in-swift-->
@@ -2565,6 +2580,7 @@
     <link>https://swiftrocks.com/debug-cpu-exceptions-xcode-energy-reports</link>
     <guid>https://swiftrocks.com/debug-cpu-exceptions-xcode-energy-reports</guid>
     <pubDate>Tue, 28 Sep 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Solving CPU Usage Crashes with Xcode's Energy Organizer-->
 <!--WRITEIT_POST_HTML_NAME=debug-cpu-exceptions-xcode-energy-reports-->
@@ -2672,6 +2688,7 @@
     <link>https://swiftrocks.com/how-asyncsequence-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-asyncsequence-works-internally-in-swift</guid>
     <pubDate>Mon, 20 Sep 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=How AsyncSequence works internally in Swift-->
 <!--WRITEIT_POST_HTML_NAME=how-asyncsequence-works-internally-in-swift-->
@@ -2746,6 +2763,7 @@
     <link>https://swiftrocks.com/reverse-engineering-xcode-issue-crash-symbol</link>
     <guid>https://swiftrocks.com/reverse-engineering-xcode-issue-crash-symbol</guid>
     <pubDate>Tue, 31 Aug 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Reverse engineering a 5 year old Xcode issue-->
 <!--WRITEIT_POST_HTML_NAME=reverse-engineering-xcode-issue-crash-symbol-->
@@ -2884,6 +2902,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/swifts-documentation-markup</link>
     <guid>https://swiftrocks.com/swifts-documentation-markup</guid>
     <pubDate>Tue, 17 Aug 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Swift's Documentation Markup-->
 <!--WRITEIT_POST_HTML_NAME=swifts-documentation-markup-->
@@ -3041,6 +3060,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/staticstring-in-swift</link>
     <guid>https://swiftrocks.com/staticstring-in-swift</guid>
     <pubDate>Tue, 3 Aug 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=StaticString, and how it works internally in Swift-->
 <!--WRITEIT_POST_HTML_NAME=staticstring-in-swift-->
@@ -3155,6 +3175,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/extending-creating-publishers-the-right-way</link>
     <guid>https://swiftrocks.com/extending-creating-publishers-the-right-way</guid>
     <pubDate>Tue, 27 Jul 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Extending / Creating Combine Publishers the Right Way-->
 <!--WRITEIT_POST_HTML_NAME=extending-creating-publishers-the-right-way-->
@@ -3349,6 +3370,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/benchmarking-swift-code-properly-with-attabench</link>
     <guid>https://swiftrocks.com/benchmarking-swift-code-properly-with-attabench</guid>
     <pubDate>Tue, 20 Jul 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Benchmarking Swift Code Properly with Attabench-->
 <!--WRITEIT_POST_HTML_NAME=benchmarking-swift-code-properly-with-attabench-->
@@ -3444,6 +3466,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/how-actors-work-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-actors-work-internally-in-swift</guid>
     <pubDate>Tue, 6 Jul 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -3685,6 +3708,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/creating-3d-models-out-of-anything-with-realitykit-in-swift</link>
     <guid>https://swiftrocks.com/creating-3d-models-out-of-anything-with-realitykit-in-swift</guid>
     <pubDate>Tue, 22 Jun 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -3822,6 +3846,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/how-necessary-are-the-programming-fundamentals</link>
     <guid>https://swiftrocks.com/how-necessary-are-the-programming-fundamentals</guid>
     <pubDate>Tue, 18 May 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -3948,6 +3973,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/thread-safety-in-swift</link>
     <guid>https://swiftrocks.com/thread-safety-in-swift</guid>
     <pubDate>Tue, 11 May 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -4263,6 +4289,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/code-generation-with-sourcekit</link>
     <guid>https://swiftrocks.com/code-generation-with-sourcekit</guid>
     <pubDate>Mon, 12 Apr 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=Adding Intelligent Code Generation to Swift Projects with SourceKit-->
 <!--WRITEIT_POST_HTML_NAME=code-generation-with-sourcekit-->
@@ -4541,6 +4568,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/creating-a-license-system-for-paid-apps-in-swift</link>
     <guid>https://swiftrocks.com/creating-a-license-system-for-paid-apps-in-swift</guid>
     <pubDate>Tue, 6 Apr 2021 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -4816,6 +4844,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/be-careful-with-objc-bridging-in-swift</link>
     <guid>https://swiftrocks.com/be-careful-with-objc-bridging-in-swift</guid>
     <pubDate>Tue, 2 Mar 2021 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -4949,6 +4978,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/understanding-inlinable-in-swift</link>
     <guid>https://swiftrocks.com/understanding-inlinable-in-swift</guid>
     <pubDate>Tue, 22 Dec 2020 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -5050,6 +5080,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift</link>
     <guid>https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift</guid>
     <pubDate>Tue, 24 Nov 2020 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -5267,6 +5298,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/how-availability-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-availability-works-internally-in-swift</guid>
     <pubDate>Tue, 29 Sep 2020 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -5499,6 +5531,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/ui-testing-deeplinks-and-universal-links-in-ios</link>
     <guid>https://swiftrocks.com/ui-testing-deeplinks-and-universal-links-in-ios</guid>
     <pubDate>Tue, 15 Sep 2020 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -5711,6 +5744,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/improving-observer-pattern-apis-in-swift-with-weak-collections</link>
     <guid>https://swiftrocks.com/improving-observer-pattern-apis-in-swift-with-weak-collections</guid>
     <pubDate>Tue, 25 Aug 2020 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -5886,6 +5920,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/app-attest-apple-protect-ios-jailbreak</link>
     <guid>https://swiftrocks.com/app-attest-apple-protect-ios-jailbreak</guid>
     <pubDate>Tue, 11 Aug 2020 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -5992,6 +6027,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/entry-points-swift-uiapplicationmain-main</link>
     <guid>https://swiftrocks.com/entry-points-swift-uiapplicationmain-main</guid>
     <pubDate>Tue, 21 Jul 2020 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -6123,6 +6159,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/adapting-objectivec-apis-for-swift-using-nsrefinedforswift</link>
     <guid>https://swiftrocks.com/adapting-objectivec-apis-for-swift-using-nsrefinedforswift</guid>
     <pubDate>Tue, 14 Jul 2020 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -6230,6 +6267,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/creating-debug-menus-in-swift-with-uicontextmenuinteraction</link>
     <guid>https://swiftrocks.com/creating-debug-menus-in-swift-with-uicontextmenuinteraction</guid>
     <pubDate>Tue, 30 Jun 2020 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -6427,6 +6465,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/ios-14-widget-tutorial-mini-apps</link>
     <guid>https://swiftrocks.com/ios-14-widget-tutorial-mini-apps</guid>
     <pubDate>Tue, 23 Jun 2020 18:10:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -6853,6 +6892,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/benefits-of-throwing-functions-try-swift-underrated-feature</link>
     <guid>https://swiftrocks.com/benefits-of-throwing-functions-try-swift-underrated-feature</guid>
     <pubDate>Tue, 16 Jun 2020 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -7013,6 +7053,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/how-random-numbers-work-in-swift</link>
     <guid>https://swiftrocks.com/how-random-numbers-work-in-swift</guid>
     <pubDate>Tue, 12 May 2020 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -7154,6 +7195,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/understanding-the-ios-responder-chain</link>
     <guid>https://swiftrocks.com/understanding-the-ios-responder-chain</guid>
     <pubDate>Thu, 7 May 2020 15:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -7381,6 +7423,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift</link>
     <guid>https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift</guid>
     <pubDate>Tue, 5 May 2020 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -7570,6 +7613,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/weak-dictionary-values-in-swift</link>
     <guid>https://swiftrocks.com/weak-dictionary-values-in-swift</guid>
     <pubDate>Tue, 14 Apr 2020 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -7776,6 +7820,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/understanding-swifts-objectidentifier</link>
     <guid>https://swiftrocks.com/understanding-swifts-objectidentifier</guid>
     <pubDate>Tue, 31 Mar 2020 09:25:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -7955,6 +8000,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/useful-global-swift-functions</link>
     <guid>https://swiftrocks.com/useful-global-swift-functions</guid>
     <pubDate>Tue, 24 Mar 2020 08:25:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -8175,6 +8221,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift</guid>
     <pubDate>Wed, 18 Mar 2020 08:25:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -8481,6 +8528,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/swift-codable-decodingencoding-with-context</link>
     <guid>https://swiftrocks.com/swift-codable-decodingencoding-with-context</guid>
     <pubDate>Wed, 5 Feb 2020 08:25:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -8657,6 +8705,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets</link>
     <guid>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets</guid>
     <pubDate>Thu, 23 Jan 2020 07:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -8804,6 +8853,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/how-hashable-works-in-swift</link>
     <guid>https://swiftrocks.com/how-hashable-works-in-swift</guid>
     <pubDate>Mon, 13 Jan 2020 07:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -9028,6 +9078,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift</link>
     <guid>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift</guid>
     <pubDate>Thu, 2 Jan 2020 07:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -9376,6 +9427,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone</link>
     <guid>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone</guid>
     <pubDate>Mon, 23 Dec 2019 07:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -9509,6 +9561,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler</link>
     <guid>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler</guid>
     <pubDate>Tue, 3 Dec 2019 07:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -9676,6 +9729,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/nscopying-nszone-uses-in-swift</link>
     <guid>https://swiftrocks.com/nscopying-nszone-uses-in-swift</guid>
     <pubDate>Tue, 5 Nov 2019 07:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -9854,6 +9908,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work</link>
     <guid>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work</guid>
     <pubDate>Fri, 25 Oct 2019 19:50:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -10036,6 +10091,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino</link>
     <guid>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino</guid>
     <pubDate>Tue, 15 Oct 2019 20:39:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -10597,6 +10653,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/using-simd-vector-types-in-swift</link>
     <guid>https://swiftrocks.com/using-simd-vector-types-in-swift</guid>
     <pubDate>Sun, 29 Sep 2019 20:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -10706,6 +10763,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm</link>
     <guid>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm</guid>
     <pubDate>Wed, 4 Sep 2019 20:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -10986,6 +11044,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks</link>
     <guid>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks</guid>
     <pubDate>Thu, 8 Aug 2019 20:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -11184,6 +11243,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <link>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler</link>
     <guid>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler</guid>
     <pubDate>Wed, 17 Jul 2019 20:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -11386,6 +11446,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/useful-obscure-foundation-types-in-swift</link>
     <guid>https://swiftrocks.com/useful-obscure-foundation-types-in-swift</guid>
     <pubDate>Wed, 26 Jun 2019 20:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -11611,6 +11672,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/understanding-opaque-return-types-in-swift</link>
     <guid>https://swiftrocks.com/understanding-opaque-return-types-in-swift</guid>
     <pubDate>Mon, 10 Jun 2019 20:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -11768,6 +11830,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/inside-swiftui-compiler-magic</link>
     <guid>https://swiftrocks.com/inside-swiftui-compiler-magic</guid>
     <pubDate>Tue, 4 Jun 2019 20:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -12015,6 +12078,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/autoreleasepool-in-swift</link>
     <guid>https://swiftrocks.com/autoreleasepool-in-swift</guid>
     <pubDate>Wed, 22 May 2019 20:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -12159,6 +12223,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/code-style-guides-in-swift</link>
     <guid>https://swiftrocks.com/code-style-guides-in-swift</guid>
     <pubDate>Tue, 7 May 2019 20:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -12220,6 +12285,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/blockbased-ui-testing-in-swift</link>
     <guid>https://swiftrocks.com/blockbased-ui-testing-in-swift</guid>
     <pubDate>Sat, 20 Apr 2019 20:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -12471,6 +12537,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen</link>
     <guid>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen</guid>
     <pubDate>Wed, 20 Feb 2019 19:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -12661,6 +12728,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/avoiding-callback-hell-in-swift</link>
     <guid>https://swiftrocks.com/avoiding-callback-hell-in-swift</guid>
     <pubDate>Mon, 17 Dec 2018 14:42:07 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -12988,6 +13056,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift</guid>
     <pubDate>Thu, 6 Dec 2018 14:42:07 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -13289,6 +13358,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/how-never-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-never-works-internally-in-swift</guid>
     <pubDate>Wed, 14 Nov 2018 14:42:07 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -13535,6 +13605,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/whats-type-and-self-swift-metatypes</link>
     <guid>https://swiftrocks.com/whats-type-and-self-swift-metatypes</guid>
     <pubDate>Mon, 29 Oct 2018 13:23:13 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -13725,6 +13796,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/unowned-properties-in-swift</link>
     <guid>https://swiftrocks.com/unowned-properties-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -13815,6 +13887,7 @@ bb0(%0 : $*URL):</code>
     <link>https://swiftrocks.com/understanding-dispatchqueues</link>
     <guid>https://swiftrocks.com/understanding-dispatchqueues</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -14056,6 +14129,7 @@ async task ended
     <link>https://swiftrocks.com/lazy-sequences-in-swift-and-how-they-work</link>
     <guid>https://swiftrocks.com/lazy-sequences-in-swift-and-how-they-work</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -14289,6 +14363,7 @@ async task ended
     <link>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview</link>
     <guid>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -14470,6 +14545,7 @@ final class MyViewController: CustomViewController&lt;MyView&gt; {
     <link>https://swiftrocks.com/competitive-programming-with-swift</link>
     <guid>https://swiftrocks.com/competitive-programming-with-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -14629,6 +14705,7 @@ measure {
     <link>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift</link>
     <guid>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -14712,6 +14789,7 @@ measure {
     <link>https://swiftrocks.com/swift-associated-types-with-default-values</link>
     <guid>https://swiftrocks.com/swift-associated-types-with-default-values</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -14832,6 +14910,7 @@ measure {
     <link>https://swiftrocks.com/detecting-touchid-fingerprint-changes</link>
     <guid>https://swiftrocks.com/detecting-touchid-fingerprint-changes</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -14889,6 +14968,7 @@ measure {
     <link>https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift</link>
     <guid>https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -15034,6 +15114,7 @@ if case .friday? = nextHoliday?.weekDay {
     <link>https://swiftrocks.com/how-caseiterable-works-internally-in-swift</link>
     <guid>https://swiftrocks.com/how-caseiterable-works-internally-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -15324,6 +15405,7 @@ bt</code>
     <link>https://swiftrocks.com/the-forbidden-inline-attribute-in-swift</link>
     <guid>https://swiftrocks.com/the-forbidden-inline-attribute-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -15450,6 +15532,7 @@ func play(song: Song) {
     <link>https://swiftrocks.com/memory-management-and-performance-of-value-types</link>
     <guid>https://swiftrocks.com/memory-management-and-performance-of-value-types</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
@@ -15735,6 +15818,7 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
     <link>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat</link>
     <guid>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat</guid>
     <pubDate>Mon, 7 Nov 2016 14:42:07 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
 <description><![CDATA[
  
   
