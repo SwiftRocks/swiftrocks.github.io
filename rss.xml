@@ -10,7 +10,7 @@
     <title>How I'm using ChatGPT for software engineering</title>
     <link>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</link>
     <guid>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</guid>
-    <pubDate>Mon, 4 Dec 2023 13:00:00 GMT+1</pubDate>
+    <pubDate>Mon, 11 Dec 2023 13:00:00 GMT+1</pubDate>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=How I'm using ChatGPT for software engineering-->
 <!--WRITEIT_POST_HTML_NAME=how-im-using-chatgpt-for-software-engineering-->
@@ -23,8 +23,8 @@
 <!--WRITEIT_POST_SHORT_DESCRIPTION=ChatGPT has become an important part of my daily software engineering work, so I thought it would be interesting to share what exactly I've been using it for in case you're wondering how to use it to improve your productivity.-->
 
 <!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-12-04T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2023-12-04T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-12-11T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2023-12-11T14:00:00+02:00-->
 
 <title>How I'm using ChatGPT for software engineering</title>
 <div class="blog-post">
@@ -32,7 +32,7 @@
     <h1>How I'm using ChatGPT for software engineering</h1>
   </div>  
   <div class="post-info">
-    <div class="post-info-text">Published on 04 Dec 2023</div>
+    <div class="post-info-text">Published on 11 Dec 2023</div>
   </div>
 <p>ChatGPT has become an important part of my daily software engineering work, so I thought it would be interesting to share what exactly I've been using it for in case you're wondering how to use it to improve your productivity.</p>
 <h2>Use-case 1: I don't know what I'm looking for</h2>
@@ -2164,50 +2164,6 @@
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>The model details that beginners have a much harder time judging what they're reading, which leads them to require a much stricter set of rules in order to learn something new. On the other hand, the more knowledgeable you are, the more you're able to ignore these rules and acquire new information in a way that is much more intuitive and personal to you.</p>
 <p>But in the case of software concepts, I believe that you don't need to be an expert in the field to be able to exercise this ability. It feels to me that this is more of a matter of having the right mindset than the right skill set, and an "expert" in the model would just mean how familiar you're with exercising this mindset. As mentioned before, always keep in mind that every project is different, and the way to achieve a particular goal should always be something that is personal, comfortable to you, and adapted to the reality of your project.</p>
-</div>
-]]></description>
-</item>
-<item>
-    <title>Future of SwiftRocks</title>
-    <link>https://swiftrocks.com/future-of-swiftrocks</link>
-    <guid>https://swiftrocks.com/future-of-swiftrocks</guid>
-    <pubDate>Mon, 3 Jan 2022 13:00:00 GMT+1</pubDate>
-<description><![CDATA[
-<!--WRITEIT_POST_NAME=Future of SwiftRocks-->
-<!--WRITEIT_POST_HTML_NAME=future-of-swiftrocks-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Here's what I'm gonna do in the future!-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-01-03T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2022-01-03T14:00:00+02:00-->
-
-<title>Future of SwiftRocks</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Future of SwiftRocks</h1>
-  </div>  
-  <div class="post-info">
-  	<div class="category category-theory">Meta</div>
-    <div class="post-info-text">Published on 03 Jan 2022</div>
-  </div>
-<p>I started SwiftRocks in 2018 as a tool to help me improve my iOS development skills. I've figured out that one of the best ways to properly learn something is to attempt to teach the same thing to someone else, and a blog turned out to be a great way to do so. I didn't expect anyone to read these posts, and I'm incredibly grateful for how many people I was able to reach and the opportunities I got as a result. Thank you so much!</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>First of all, I'd like to apologize for slightly disappearing in the last couple of months. When I started doing sponsorships I said that I'd try to post content more frequently, but after a couple of months I actually started doing the opposite. The reason is because my priorities changed a lot over the last couple of years -- long-time SwiftRocks readers might know that I always described myself as a generalist, so even though I by all means work officially as an "iOS Developer", my work was never restricted to the iOS platform. In fact, I haven't worked with real old-school iOS "feature work" (view controllers, UI and so on) in over 4 years.</p>
-<p>To add to that, my current work at Spotify is more related to the infrastructure and backend services that support the iOS app, so although I do write Swift code from time to time, keeping myself updated with the latest iOS/Swift news has progressively become unnecessary to me. What I mean by this is that although I've never stopped learning and coming up with new articles to write, the things I'm studying and working with wouldn't really fit SwiftRocks, which is why I have been moving away from it lately.</p>
-<p>Another reason why I moved away from blogging lately is because I've been nurturing my passion for indie development. This is something I've always wanted to but avoided until now because I decided that I'd first improve other areas of my life and career before jumping into it, which I now consider a complete task.</p>
-<p>In order to adapt myself and SwiftRocks to these priority changes and to keep everyone updated, here's what I'll work on from now:</p>
-<ul>
-<li>Me and some friends will start doing indie product development in our free time. I hope to be able to create something you'll find useful!</li>
-<li>Because nowadays my interests are more connected to general software engineering as opposed to just iOS development, I've created a <i>new</i> blog called <a href="https://rockbruno.com">rockbruno.com</a> for all of my current and future non-iOS articles. That way I can maintain SwiftRocks as a place for iOS and Swift content, while also having a separate "software engineering" page that can work as a portfolio for my public talks, products and open source projects.</li>
-<li>SwiftRocks will continue to exist, but since I expect that most of my new content will be about software engineering in general, it may not receive new content as frequently as before. Sorry :(</li>
-</ul>
-<p>I'm <i>extremely</i> grateful for all the support you've given me, and I hope that you'll be able to enjoy my new content as well!</p>
 </div>
 ]]></description>
 </item>

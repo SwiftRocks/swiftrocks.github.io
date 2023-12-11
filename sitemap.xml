@@ -6,12 +6,12 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
     <loc>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</loc>
-    <lastmod>2023-12-04T14:00:00+02:00</lastmod>
+    <lastmod>2023-12-11T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
     <loc>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering.html</loc>
-    <lastmod>2023-12-04T14:00:00+02:00</lastmod>
+    <lastmod>2023-12-11T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
@@ -182,16 +182,6 @@
 <url>
     <loc>https://swiftrocks.com/focus-on-concepts-not-approaches.html</loc>
     <lastmod>2022-01-06T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/future-of-swiftrocks</loc>
-    <lastmod>2022-01-03T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/future-of-swiftrocks.html</loc>
-    <lastmod>2022-01-03T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
