@@ -10,7 +10,7 @@
     <title>There is no right or wrong in software engineering</title>
     <link>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering</link>
     <guid>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering</guid>
-    <pubDate>Thu, 4 Jan 2024 13:00:00 GMT+1</pubDate>
+    <pubDate>Thu, 28 Dec 2023 15:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
 <!--WRITEIT_POST_NAME=There is no right or wrong in software engineering-->
@@ -21,11 +21,11 @@
 <!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=todo-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Developers love to argue about which tools and languages are better. In this article, we'll see that things are not that straightforward in practice.-->
 
 <!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2024-01-04T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2024-01-04T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-12-28T16:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2023-12-28T16:00:00+02:00-->
 
 <title>There is no right or wrong in software engineering</title>
 <div class="blog-post">
@@ -33,7 +33,7 @@
     <h1>There is no right or wrong in software engineering</h1>
   </div>  
   <div class="post-info">
-    <div class="post-info-text">Published on 04 Jan 2024</div>
+    <div class="post-info-text">Published on 28 Dec 2024</div>
   </div>
 <p>Have you ever seen "preachings" like these in the wild west of Twitter, Medium, and LinkedIn?</p>
 <ul>
@@ -43,7 +43,7 @@
 </ul>
 <p>Humans' obsession with dividing things into groups is not unknown to psychology. The ability to quickly classify information is a core contributor to humanity's evolution and is something we start doing as soon as we're born.</p>
 <p>But we need to be careful with the fact that sometimes this classification "feature" goes wrong. Instead of categorizing something as "this or that", we sometimes go for something more in terms of "us vs them", which tends to lead to unnecessary conflict.</p>
-<p>As far as I understand, the exact reason why humans do this is not known. You might have heard of the "tribalism" theory which defines that humans are hardcoded to divide themselves in this "us vs them" fashion; this is mentioned a lot in pop culture, but from my understanding, it's heavily critized by experts and largely not true.</p>
+<p>As far as I understand, the exact reason why humans do this is not fully understood. You might have heard of the "tribalism" theory which defines that humans are hardcoded to divide themselves in this "us vs them" fashion; this is mentioned a lot in pop culture, but from my understanding, it's heavily critized by experts and largely not true.</p>
 <p>In any way, we know that this is a thing and is something that we need to deal with as part of our human experience. We've all been there, and I did it too back when I thought I had all the answers to the coding universe.</p></p>
 <p>But when it comes to software engineering, the reality is <b>most things cannot be cleanly divided into "right or wrong" boxes like that.</b> Yes, some things are concrete and indisputable. If an OS-level API states that you should never call it outside of the main thread, then that's what you should follow.</p>
 <p>But most things are the opposite of that. When we talk about general problems and best practices, it's extremely rare for them to have a clear right or wrong to go. Instead, <b>they depend on what you're trying to achieve, and everyone is trying to achieve something different.</b> There is no right or wrong in these situations, only different approaches.</p>
@@ -55,8 +55,8 @@
 <p>The problem with this line of thought is that it assumes that one tool was created to <i>completely</i> replace another, and while sometimes this may very well be the case, in most cases it's not.</p>
 <p>As a developer, it's important to understand that <b>different tools solve different problems.</b> While there may be some overlap between them, they were likely designed with different use cases in mind.</p>
 <p>The biggest example here as of writing is the SwiftUI vs UIKit discussion. Despite being largely different from each other, social media is full of content about how one is "better" than the other.</p>
-<p>Yes, SwiftUI and UIKit are both frameworks for building UI, <b>but they solve different problems.</b> As covered in my earlier <a href="https://swiftrocks.com/my-experience-with-swiftui">"Thoughts on SwiftUI vs UIKit"</a> article, SwiftUI is amazing for simple projects but quickly becomes inferior to UIKit as the project grows in complexity. Neither of these frameworks is better than the other, they are simply different tools for different jobs. Comparisons like this are like trying to compare a screwdriver to a hammer!</p>
-<p>Discussions about Hybrid vs Native development also fall into this category. Hybrid development has a bad reputation because it generally results in apps of very low quality, but it saves companies a lot of time and money. Most companies reject this trade-off as they determine that quality is more important than saving a few bucks, but that doesn't mean that <i>nobody</i> should do so. If you're starting a company but don't have a lot of time or money, hybrid development can be a good way to bootstrap your business. It's not fair to compare these two because <b>they don't target the same set of problems.</b></p>
+<p>Yes, SwiftUI and UIKit are both frameworks for building UI, <b>but they solve different problems.</b> As covered in my earlier <a href="https://swiftrocks.com/my-experience-with-swiftui">"Thoughts on SwiftUI vs UIKit"</a> article, SwiftUI is amazing for simple projects but quickly becomes inferior to UIKit as the project grows in complexity. Neither of these frameworks is better than the other, they are simply different tools for different jobs.</p>
+<p>Discussions about Hybrid vs Native development also fall into this category. Hybrid development has a bad reputation because it generally results in apps of very low quality, but it saves companies a lot of time and money. Most companies reject this trade-off as they determine that quality is more important than saving a few bucks, but that doesn't mean that <i>nobody</i> should do so. If you're starting a company but don't have a lot of time or money, hybrid development can be a good way to bootstrap your business. It's not fair to compare these two in a "better/worse" fashion because <b>they don't target the same set of problems.</b></p>
 <p>I find that one example of how things can be subjective in this context is how a developer uses <code>git</code>. There is a lot of discussion about whether you should use it via the CLI or as a dedicated GUI app, but there isn't much to be discussed here because this is something that entirely boils down to your personal preference. There are pros and cons to each approach, and you will know which one is the right one for you because you will feel that it better suits your set of preferences. Neither approach is universally right or wrong.</p>
 <h2>Best Practices Wars (e.g architecture, general advice)</h2>
 <p>Architecture is usually the first thing that an iOS developer fights about. Every year we get a new architecture with some fancy acronym, that architecture gets a bunch of loyal followers, and then the groups start arguing about which architecture has the coolest name and solves the biggest number of problems. The first thing you learn is that MVC is terrible and should be avoided at all costs.</p>
@@ -69,6 +69,8 @@
 <h2>Programming Fundamentals War (e.g LeetCode)</h2>
 <p>Another common discussion point for iOS developers is whether or not you should learn computer science theory as part of your career. This is usually brought up whenever the interview process of large companies like Apple is mentioned and is something that some people strongly disagree with while others strongly agree.</p>
 <p>This topic however is complex enough that it deserves its own article, and convieniently enough, such an article already exists! You can find more information about this in my <a href="https://swiftrocks.com/how-necessary-are-the-programming-fundamentals">"How necessary are the programming fundamentals?"</a> article, but as a quick summary, like everything else mentioned in this article, neither group is right or wrong. The answer to this question is personal and depends on what you want to achieve in the long term.</p>
+<h2>Conclusion</h2>
+<p>I hope this was able to help you see that some things in software engineering are more complicated than they might seem at first glance. Realizing this is an important step in a developer's career, and while this article will certainly not stop those wars from popping up every once in a while, I do believe that as a community we can help others get through this phase faster.</p>
 </div>
 ]]></description>
 </item>
