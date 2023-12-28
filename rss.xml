@@ -7,6 +7,72 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>There is no right or wrong in software engineering</title>
+    <link>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering</link>
+    <guid>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering</guid>
+    <pubDate>Thu, 4 Jan 2024 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=There is no right or wrong in software engineering-->
+<!--WRITEIT_POST_HTML_NAME=there-is-no-right-or-wrong-in-software-engineering-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=todo-->
+
+<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2024-01-04T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2024-01-04T14:00:00+02:00-->
+
+<title>There is no right or wrong in software engineering</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>There is no right or wrong in software engineering</h1>
+  </div>  
+  <div class="post-info">
+    <div class="post-info-text">Published on 04 Jan 2024</div>
+  </div>
+<p>Have you ever seen "preachings" like these in the wild west of Twitter, Medium, and LinkedIn?</p>
+<ul>
+<li>"If you're not using X in 2023 you're an idiot!"</li>
+<li>"XYZ architecture is the only way to go!"</li>
+<li>"Doing X in Swift? Stop immediately!"</li>
+</ul>
+<p>Humans' obsession with dividing things into groups is not unknown to psychology. The ability to quickly classify information is a core contributor to humanity's evolution and is something we start doing as soon as we're born.</p>
+<p>But we need to be careful with the fact that sometimes this classification "feature" goes wrong. Instead of categorizing something as "this or that", we sometimes go for something more in terms of "us vs them", which tends to lead to unnecessary conflict.</p>
+<p>As far as I understand, the exact reason why humans do this is not known. You might have heard of the "tribalism" theory which defines that humans are hardcoded to divide themselves in this "us vs them" fashion; this is mentioned a lot in pop culture, but from my understanding, it's heavily critized by experts and largely not true.</p>
+<p>In any way, we know that this is a thing and is something that we need to deal with as part of our human experience. We've all been there, and I did it too back when I thought I had all the answers to the coding universe.</p></p>
+<p>But when it comes to software engineering, the reality is <b>most things cannot be cleanly divided into "right or wrong" boxes like that.</b> Yes, some things are concrete and indisputable. If an OS-level API states that you should never call it outside of the main thread, then that's what you should follow.</p>
+<p>But most things are the opposite of that. When we talk about general problems and best practices, it's extremely rare for them to have a clear right or wrong to go. Instead, <b>they depend on what you're trying to achieve, and everyone is trying to achieve something different.</b> There is no right or wrong in these situations, only different approaches.</p>
+<p>To add another layer to the problem, <b>a lot of stuff is also largely subjective!</b> Many of our daily choices boil down to personal preference, making it even more senseless to attempt to categorize such things into clean "right" or "wrong" boxes.</p>
+<p>I believe that part of the process of becoming an experienced software engineer is <b>learning not to classify things in that "us vs them" way</b>, and realizing that software engineering is complicated and most of the time even subjective.</p>
+<p>In this article, I'd like to shine a light on some of the topics that iOS developers tend to be divided on, as a way to help developers who still haven't cleared that hurdle understand that these topics are not as straightforward as we might tend to think.</p>
+<h2>Tool Wars (e.g SwiftUI vs UIKit, Hybrid vs Native, CLI vs GUI, programming languages)</h2>
+<p>When a new framework, tool, or programming language is released, it's not uncommon for developers to divide themselves into groups and argue about which one of them is "better", claiming that theirs is the only option and everything else is a mistake.</p>
+<p>The problem with this line of thought is that it assumes that one tool was created to <i>completely</i> replace another, and while sometimes this may very well be the case, in most cases it's not.</p>
+<p>As a developer, it's important to understand that <b>different tools solve different problems.</b> While there may be some overlap between them, they were likely designed with different use cases in mind.</p>
+<p>The biggest example here as of writing is the SwiftUI vs UIKit discussion. Despite being largely different from each other, social media is full of content about how one is "better" than the other.</p>
+<p>Yes, SwiftUI and UIKit are both frameworks for building UI, <b>but they solve different problems.</b> As covered in my earlier <a href="https://swiftrocks.com/my-experience-with-swiftui">"Thoughts on SwiftUI vs UIKit"</a> article, SwiftUI is amazing for simple projects but quickly becomes inferior to UIKit as the project grows in complexity. Neither of these frameworks is better than the other, they are simply different tools for different jobs. Comparisons like this are like trying to compare a screwdriver to a hammer!</p>
+<p>Discussions about Hybrid vs Native development also fall into this category. Hybrid development has a bad reputation because it generally results in apps of very low quality, but it saves companies a lot of time and money. Most companies reject this trade-off as they determine that quality is more important than saving a few bucks, but that doesn't mean that <i>nobody</i> should do so. If you're starting a company but don't have a lot of time or money, hybrid development can be a good way to bootstrap your business. It's not fair to compare these two because <b>they don't target the same set of problems.</b></p>
+<p>I find that one example of how things can be subjective in this context is how a developer uses <code>git</code>. There is a lot of discussion about whether you should use it via the CLI or as a dedicated GUI app, but there isn't much to be discussed here because this is something that entirely boils down to your personal preference. There are pros and cons to each approach, and you will know which one is the right one for you because you will feel that it better suits your set of preferences. Neither approach is universally right or wrong.</p>
+<h2>Best Practices Wars (e.g architecture, general advice)</h2>
+<p>Architecture is usually the first thing that an iOS developer fights about. Every year we get a new architecture with some fancy acronym, that architecture gets a bunch of loyal followers, and then the groups start arguing about which architecture has the coolest name and solves the biggest number of problems. The first thing you learn is that MVC is terrible and should be avoided at all costs.</p>
+<p>One unfortunate consequence of these fights around architecture is that it leads developers to pick architectures that solve problems that they don't really have (and not solving the problems they actually have), which are guaranteed to make a project harder to maintain in the long run.</p>
+<p>It's important to understand that <b>there is no architecture that solves all problems.</b> Just like in the tools example, different architectures are meant to solve different problems, and <b>the right architecture for your project is the one that solves <i>your</i> particular set of problems.</b> MVC for example, which developers love to hate for some reason, can be a great choice for simple projects!</p>
+<p>Architecture is not something that you pick once and stick with forever, but rather something that you <b>continuously adjust as your project evolves</b> and you start having to deal with different sets of problems. I have been told that my talk about <a href="https://www.youtube.com/watch?v=sZuI6z8qSmc">how Spotify's iOS app is architected</a> is great at demonstrating this, so I'm mentioning it here in case you want to check it out!</p>
+<p>The same applies to general programming advice that you find on the web. We have a lot of content creators in our community, and I find that most of them present their content in the following format: "here's a thing, here's how it works, and here's what you can do with it". This is what I also strive to do when writing content for this blog, and I like this format because it doesn't claim that something is the best way of achieving something, it's simply showing you one possible way and leaving for you to decide whether or not that's the right solution for you.</p>
+<p>But every once in a while, the algorithm recommends me content that is more in line with "here's a thing, and here's why you should always use it and abandon everything else". It's not about learning something new, it's about saying that you're wrong about something. There's usually a spike of this type of content in the WWDC week when new APIs are released.</p>
+<p>The problem with content like this is that <b>most best practices are highly subjective.</b> Even if the content is referring to a very specific problem, it's hardly the case that the problem in question has one single viable solution. As we've already mentioned a couple of times in this article, personal preference plays a major role in this type of stuff. Something very helpful to you might be terrible for someone else, so they cannot be classified in a universal "right or wrong" fashion.</p>
+<h2>Programming Fundamentals War (e.g LeetCode)</h2>
+<p>Another common discussion point for iOS developers is whether or not you should learn computer science theory as part of your career. This is usually brought up whenever the interview process of large companies like Apple is mentioned and is something that some people strongly disagree with while others strongly agree.</p>
+<p>This topic however is complex enough that it deserves its own article, and convieniently enough, such an article already exists! You can find more information about this in my <a href="https://swiftrocks.com/how-necessary-are-the-programming-fundamentals">"How necessary are the programming fundamentals?"</a> article, but as a quick summary, like everything else mentioned in this article, neither group is right or wrong. The answer to this question is personal and depends on what you want to achieve in the long term.</p>
+</div>
+]]></description>
+</item>
+<item>
     <title>How I'm using ChatGPT for software engineering</title>
     <link>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</link>
     <guid>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</guid>
@@ -1522,8 +1588,8 @@
 <p>The good news is that SwiftUI is already able to warn you when you make a rendering mistake in certain cases, so Apple is definitely aware of this problem and is working on ways to make it less disruptive.</p>
 <h2>Should I learn SwiftUI?</h2>
 <p>Ever since the dawn of software engineering, there have been people engaging in "platform wars". They'll evangelize for the "best architecture", "best framework", "best OS", "best design pattern", and claim that theirs is the only option and everything else is a mistake. This is no different for iOS development, and "SwiftUI vs UIKit" is, sure enough, the new "conflict' of choice.</p>
-<p>As a software engineer, it's critical for you to realize that there is no such thing as "best X". Everything is a tool, and whether or not you should use them depends only on what you're trying to achieve. Even Objective-C still has its uses!</p>
-<p>Claiming that no one should learn something or that it's useless shows a lack of understanding of what software engineering is, and as an engineer yourself you need to learn to identify these conflicts and not engage with them. SwiftUI and UIKit do not cancel each other; they are both good and bad in different ways, and whether or not you should pick SwiftUI specifically will depend on the details of what you're trying to build.</p>
+<p>As a software engineer, it's critical for you to realize that there is no such thing as "best X". Everything is a tool, and whether or not you should use them depends only on what you're trying to achieve. Even Objective-C still has its uses! (If you want more examples of that, <a href="https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering">I've written a full article about how there is no right or wrong in tech.</a>)</p>
+<p>SwiftUI and UIKit do not cancel each other; they are both good and bad in different ways, and whether or not you should pick SwiftUI specifically will depend on the details of what you're trying to build.</p>
 <p>After building a SwiftUI app myself, these are the guidelines that I would personally follow for my next projects:</p>
 <ul>
 <li><b>Simple UI, Simple Logic:</b> Would make it 100% with SwiftUI.</li>
@@ -2055,6 +2121,7 @@
     <div class="category category-ios">iOS</div>
     <div class="post-info-text">Published on 24 May 2022</div>
   </div>
+<p><b>Note:</b> I've written a more complete article on code signing in general on Dec 2023 that is much more complete than this one. <a href="https://www.runway.team/blog/what-even-is-code-signing-in-ios">You should read that instead!</a></p>
 <p>You do not need to understand the theory of certificates and profiles in order to create a fully working iOS app, but you might be interested in knowing how this process works to make future debugging sessions easier. After all, I'd say it's pretty likely that you as an engineer have needed to deal with mysterious signing errors at one point in the past!</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>The theory behind these two is intrinsically connected to the topic of modern cryptography, and I find that a good way to understand certificates and profiles is by taking a step back from the mobile world and <b>understanding how safe web browsing (HTTPS, SSL, TLS) works.</b></p>
