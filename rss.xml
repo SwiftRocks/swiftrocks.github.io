@@ -67,6 +67,17 @@
 ]]></description>
 </item>
 <item>
+    <title>What even is code signing in iOS? (Runway)</title>
+    <link>https://www.runway.team/blog/what-even-is-code-signing-in-ios</link>
+    <guid>https://www.runway.team/blog/what-even-is-code-signing-in-ios</guid>
+    <pubDate>Fri, 15 Dec 2023 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>If you have been developing for iOS for a while, chances are you had one of two issues involving <b>code signing</b>, the process where Apple/Xcode forces you to "sign" your app with a developer certificate in order to be able to archive it and submit it to the App Store.</p>
+<p>I find code signing to be interesting not just because of what it does, but because it's one of those things that iOS developers kinda just take for granted. We know it's there and we know how to deal with it, but we don't really stop to think <b>why</b> it's there or what it's doing under the hood. We just follow Apple's convoluted steps on how to make it work and move on with our lives.</p>
+<p>In practice, code signing is an incredibly important safety feature of Apple's ecosystems. Knowing what it is and why it exists makes debugging issues related to it considerably easier, so I've written this article to help you understand it.</p>]]></description>
+</item>
+<item>
     <title>How I'm using ChatGPT for software engineering</title>
     <link>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</link>
     <guid>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</guid>
@@ -1663,6 +1674,16 @@
 ]]></description>
 </item>
 <item>
+    <title>Architecting iOS apps for fast build times</title>
+    <link>https://www.runway.team/blog/how-to-improve-ios-build-times-with-modularization</link>
+    <guid>https://www.runway.team/blog/how-to-improve-ios-build-times-with-modularization</guid>
+    <pubDate>Wed, 31 Aug 2022 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>Most mobile teams understand and appreciate the benefits of fast build times. Being able to quickly compile and test your code means quicker development and iteration, which in turn allows your team to ship more regularly and efficiently. But actually achieving fast build times, and implementing a long-term solution that keeps build times fast as your codebase grows, can be a complex undertaking. There are a number of different tactics, and while some are relatively trivial  — reducing the size of bundled resources, for example — others can be much more involved, or even kind of dangerous (think questionable compiler tricks)!</p>
+<p>Luckily, the riskiest build time improvement techniques are rarely necessary. Instead, most teams will achieve build time success by implementing some of the more common approaches incrementally as their codebase grows and resources scale.</p>]]></description>
+</item>
+<item>
     <title>Are your frameworks bulletproof?</title>
     <link>https://swiftrocks.com/are-your-frameworks-bulletproof</link>
     <guid>https://swiftrocks.com/are-your-frameworks-bulletproof</guid>
@@ -1885,7 +1906,6 @@
     <pubDate>Tue, 24 May 2022 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-  </div>
 <p><b>Note:</b> I've written a more complete article on code signing in general on Dec 2023 that is much more complete than this one. <a href="https://www.runway.team/blog/what-even-is-code-signing-in-ios">You should read that instead!</a></p>
 <p>You do not need to understand the theory of certificates and profiles in order to create a fully working iOS app, but you might be interested in knowing how this process works to make future debugging sessions easier. After all, I'd say it's pretty likely that you as an engineer have needed to deal with mysterious signing errors at one point in the past!</p>
 <div class="sponsor-article-ad-auto hidden"></div>
