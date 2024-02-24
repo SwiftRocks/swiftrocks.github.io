@@ -7,6 +7,43 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>What the hell are passkeys?</title>
+    <link>https://www.runway.team/blog/an-introduction-to-passkeys</link>
+    <guid>https://www.runway.team/blog/an-introduction-to-passkeys</guid>
+    <pubDate>Thu, 22 Feb 2024 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<!--WRITEIT_POST_NAME=What the hell are passkeys?-->
+<!--WRITEIT_POST_HTML_NAME=what-the-hell-are-passkeys-->
+<!--WRITEIT_POST_EXTERNAL_LINK=https://www.runway.team/blog/an-introduction-to-passkeys-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Lots of companies are adding support for "passkeys". I wasn't sure what I was looking at, so I decided to look into it!-->
+
+<!--DateFormat example: 2024-02-22T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2024-02-22T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2024-02-22T14:00:00+02:00-->
+
+<title>What the hell are passkeys?</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>What the hell are passkeys?</h1>
+  </div>  
+  <div class="post-info">
+    <div class="post-info-text">Published on 22 Feb 2024</div>
+  </div>
+<p><b>Passkeys</b> are an alternative to passwords that allow you to sign in to any website or app that supports this technology <b>without needing to define/remember a password.</b></p>
+<p>Over the last couple of years, the tech world has been witnessing many companies updating their products to add support to this new technology, including tech giants like Apple, who introduced several APIs and device features related to passkeys <a href="https://support.apple.com/en-gb/guide/iphone/iphf538ea8d0/ios">in iOS 16</a>, and Google, who has been pushing passkeys hard since announcing passkeys support for Chrome and Gmail <a href="https://blog.google/technology/safety-security/one-step-closer-to-a-passwordless-future/">back in 2022.</a></p>
+<p>When I first saw Apple and Google’s announcements, I wasn't sure what I was looking at. The fact that the tech industry has been trying to move away from old-school passwords wasn't news to me, but I asked myself: didn't we already solve this problem when products started allowing users to register a "secondary" authentication requirement, such as receiving an SMS containing a PIN code?</p>
+<p>I then decided to look deeper into this topic, and was so pleasantly surprised by what I found that I thought it would be cool to share it with you. In this article, we'll take a look at what passkeys are, why companies like Apple and Google are adding support for them, how they work under the hood, and whether or not you should convert your own accounts to use them and build support for them in your mobile apps!</p>
+</div>
+]]></description>
+</item>
+<item>
     <title>There is no right or wrong in software engineering</title>
     <link>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering</link>
     <guid>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering</guid>
