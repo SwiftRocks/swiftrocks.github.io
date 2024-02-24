@@ -13,29 +13,6 @@
     <pubDate>Thu, 22 Feb 2024 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=What the hell are passkeys? (Runway)-->
-<!--WRITEIT_POST_HTML_NAME=what-the-hell-are-passkeys-->
-<!--WRITEIT_POST_EXTERNAL_LINK=https://www.runway.team/blog/an-introduction-to-passkeys-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Lots of companies are adding support for "passkeys". I wasn't sure what I was looking at, so I decided to look into it!-->
-
-<!--DateFormat example: 2024-02-22T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2024-02-22T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2024-02-22T14:00:00+02:00-->
-
-<title>What the hell are passkeys? (Runway)</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>What the hell are passkeys? (Runway)</h1>
-  </div>  
-  <div class="post-info">
-    <div class="post-info-text">Published on 22 Feb 2024</div>
-  </div>
 <p><b>Passkeys</b> are an alternative to passwords that allow you to sign in to any website or app that supports this technology <b>without needing to define/remember a password.</b></p>
 <p>Over the last couple of years, the tech world has been witnessing many companies updating their products to add support to this new technology, including tech giants like Apple, who introduced several APIs and device features related to passkeys <a href="https://support.apple.com/en-gb/guide/iphone/iphf538ea8d0/ios">in iOS 16</a>, and Google, who has been pushing passkeys hard since announcing passkeys support for Chrome and Gmail <a href="https://blog.google/technology/safety-security/one-step-closer-to-a-passwordless-future/">back in 2022.</a></p>
 <p>When I first saw Apple and Google’s announcements, I wasn't sure what I was looking at. The fact that the tech industry has been trying to move away from old-school passwords wasn't news to me, but I asked myself: didn't we already solve this problem when products started allowing users to register a "secondary" authentication requirement, such as receiving an SMS containing a PIN code?</p>
@@ -50,28 +27,6 @@
     <pubDate>Thu, 28 Dec 2023 15:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=There is no right or wrong in software engineering-->
-<!--WRITEIT_POST_HTML_NAME=there-is-no-right-or-wrong-in-software-engineering-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Developers love to argue about which tools and languages are better. In this article, we'll see that things are not that straightforward in practice.-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-12-28T16:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2023-12-28T16:00:00+02:00-->
-
-<title>There is no right or wrong in software engineering</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>There is no right or wrong in software engineering</h1>
-  </div>  
-  <div class="post-info">
-    <div class="post-info-text">Published on 28 Dec 2023</div>
-  </div>
 <p>Have you ever seen "preachings" like these in the wild west of Twitter, Medium, and LinkedIn?</p>
 <ul>
 <li>"If you're not using X in 2023 you're an idiot!"</li>
@@ -120,28 +75,6 @@
     <pubDate>Mon, 11 Dec 2023 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=How I'm using ChatGPT for software engineering-->
-<!--WRITEIT_POST_HTML_NAME=how-im-using-chatgpt-for-software-engineering-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=ChatGPT has become an important part of my daily software engineering work, so I thought it would be interesting to share what exactly I've been using it for in case you're wondering how to use it to improve your productivity.-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-12-11T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2023-12-11T14:00:00+02:00-->
-
-<title>How I'm using ChatGPT for software engineering</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>How I'm using ChatGPT for software engineering</h1>
-  </div>  
-  <div class="post-info">
-    <div class="post-info-text">Published on 11 Dec 2023</div>
-  </div>
 <p>ChatGPT has become an important part of my daily software engineering work, so I thought it would be interesting to share what exactly I've been using it for in case you're wondering how to use it to improve your productivity.</p>
 <h2>Use-case 1: I don't know what I'm looking for</h2>
 <p>I find that Google tends to provide good results if you know <b>exactly</b> what you're looking for. But if you don't really know what is it that you're trying to find out, you'll have a hard time with it.</p>
@@ -179,28 +112,6 @@
     <pubDate>Thu, 28 Sep 2023 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=How async/await works internally in Swift-->
-<!--WRITEIT_POST_HTML_NAME=how-async-await-works-internally-in-swift-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=You probably know how to use async/await. But have you ever wondered how it works under the hood?-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-09-28T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2023-09-28T14:00:00+02:00-->
-
-<title>How async/await works internally in Swift</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>How async/await works internally in Swift</h1>
-  </div>  
-  <div class="post-info">
-    <div class="post-info-text">Published on 28 Sep 2023</div>
-  </div>
 <p>async/await in Swift was introduced with iOS 15, and I would guess that at this point you probably already know how to use it. But have you ever wondered <b>how</b> async/await works internally? Or maybe <b>why</b> it looks and behaves the way it does, or even <b>why was it even introduced in the first place?</b></p>
 
 <p>In typical SwiftRocks fashion, we're going deep into the Swift compiler to answer these and other questions about <b>how async/await works internally in Swift</b>. This is not a tutorial on how to use async/await; we're going to take a deep dive into the feature's history and implementation so that we can understand how it works, <b>why it works</b>, what you can achieve with it, and most importantly, <b>what are the gotchas that you must be aware of when working with it.</b></p>
@@ -1314,28 +1225,6 @@
     <pubDate>Thu, 7 Sep 2023 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Faster iOS performance debugging with ETTrace-->
-<!--WRITEIT_POST_HTML_NAME=faster-performance-debugging-with-ettrace-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Still using the Time Profiler? Better performance debugging tools are available today, and in this article, I'll show you one of them.-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-09-11T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2023-09-07T14:00:00+02:00-->
-
-<title>Faster iOS performance debugging with ETTrace</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Faster iOS performance debugging with ETTrace</h1>
-  </div>  
-  <div class="post-info">
-    <div class="post-info-text">Published on 11 Sep 2023</div>
-  </div>
 <p>Performance problems can be rare in this era of blazing-fast iPhones, but chances are you're still having to deal with them every once in a while. Classic performance issues such as scroll hitches are still very easy to introduce if you're not careful about them, and when it happens, you'll want to be properly equipped to get to the bottom of it.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>The "standard" way of debugging performance issues in iOS is to use Xcode's <i>Time Profiler</i> instrument, but I personally never had a good experience with it. While it contains all the information you need to understand a particular problem, that information is not exactly easy to make sense of. To make it worse, sometimes <i>even getting the information to show up</i> in the first place can be quite the challenge, <a href="https://swiftrocks.com/reverse-engineering-xcode-issue-crash-symbol">as Instruments in iOS in general have been historically broken and plagued by bad UX.</a></p>
@@ -1393,28 +1282,6 @@
     <pubDate>Thu, 1 Jun 2023 13:30:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Performance Trace Profiles in iOS: Debugging performance issues you can't reproduce-->
-<!--WRITEIT_POST_HTML_NAME=debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=The Performance Trace profile allows you to debug performance issues without having to attach the device to Xcode. Let's see what we can use it for!-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-06-01T13:30:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2023-06-01T13:30:00+02:00-->
-
-<title>Performance Trace Profiles in iOS: Debugging performance issues you can't reproduce</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Performance Trace Profiles in iOS: Debugging performance issues you can't reproduce</h1>
-  </div>  
-  <div class="post-info">
-    <div class="post-info-text">Published on 01 Jun 2023</div>
-  </div>
 <p>If you landed at this article then it's possible that you're dealing with one of the most annoying things you can face as a developer: having to investigate an issue reported by your users that <b>nobody</b> seems to be able to reproduce internally.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>The topic of investigating <i>crashes</i> you can't reproduce is something I've already talked about here at SwiftRocks in the <a href="https://swiftrocks.com/how-to-solve-any-ios-crash-ever">"How To Solve Any iOS Crash Ever"</a> article, but what I wanted to show you today refers to a different yet equally challenging category of issues: <b>performance problems</b>, like hangs/freezing UI, slow code, unnecessary threading/concurrency, CPU/memory exceptions, and so on.</p>
@@ -1506,28 +1373,6 @@
     <pubDate>Thu, 20 Oct 2022 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Thoughts on SwiftUI vs UIKit-->
-<!--WRITEIT_POST_HTML_NAME=my-experience-with-swiftui-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=I had played with SwiftUI before, but it wasn't until now that I had built a complete app with it. Here's my experience!-->
-
-<!--DateFormat example: 2022-10-20T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-01-12T10:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2022-10-20T14:00:00+02:00-->
-
-<title>Thoughts on SwiftUI vs UIKit</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Thoughts on SwiftUI vs UIKit</h1>
-  </div>  
-  <div class="post-info">
-    <div class="post-info-text">Published on 20 Oct 2022</div>
-  </div>
 <p>I had played with SwiftUI sporadically in the past, but it wasn't until now that I had built a complete App Store-ready app with it. When SwiftUI was first announced I was very concerned about certain quirks of the framework and how it was probably not suitable for professional iOS development, but with the framework evolving constantly over the past couple of years it became time to re-evaluate that statement. Through <a href="https://burnoutbuddy.io">Burnout Buddy,</a> I had the chance to develop a production app 100% with SwiftUI. Here are my thoughts on what works and what could be improved, and how I would fit SwiftUI and UIKit in my day-to-day work.</p>
 <h2>Things that are great</h2>
 <h3>Previews / Hot Reloading</h3>
@@ -1652,28 +1497,6 @@
     <pubDate>Mon, 12 Sep 2022 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=What's the 'any' keyword? Understanding Type Erasure in Swift-->
-<!--WRITEIT_POST_HTML_NAME=whats-any-understanding-type-erasure-in-swift-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood.-->
-
-<!--DateFormat example: 2022-09-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-09-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2022-09-12T14:00:00+02:00-->
-
-<title>What's the 'any' keyword? Understanding Type Erasure in Swift</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>What's the "any" keyword? Understanding Type Erasure in Swift</h1>
-  </div>  
-  <div class="post-info">
-    <div class="post-info-text">Published on 12 Sep 2022</div>
-  </div>
 <p>The concept of <b>Type Erasure</b> is not new to Swift, but was radically improved in Swift 5.7 with the addition of the <code>any</code> prefix keyword (not to be confused with the capitalized <code>Any</code> type!) and improvements to the already existing <code>some</code> <b>Opaque Type</b> keyword. In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood.</p>
 <h2>What the hell is Type Erasure?</h2>
 <p>In programming languages with support for generic types, <b>Type Erasure</b> is the process of abstracting constrained generic types inside an <b>unconstrained non-generic type</b> that can be passed around freely.</p>
@@ -1854,28 +1677,6 @@
     <pubDate>Mon, 18 Jul 2022 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Are your frameworks bulletproof?-->
-<!--WRITEIT_POST_HTML_NAME=are-your-frameworks-bulletproof-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Let's take a look at why it can be important to actively prevent developers from writing workarounds in a project.-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-07-18T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2022-07-18T14:00:00+02:00-->
-
-<title>Are your frameworks bulletproof?</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Are your frameworks bulletproof?</h1>
-  </div>  
-  <div class="post-info">
-    <div class="post-info-text">Published on 18 Jul 2022</div>
-  </div>
 <p>Imagine that you're a developer in a large company working to solve a high-profile architectural problem in an app. Your team has compiled all of the company's use-cases within that particular problem and developed a framework that solves not only all of those use-cases but also some additional ones that you're expecting developers will need in the near future as the project grows. The developers of the company are on board with this change, and over a large period of time, you've written extensive documentation on how to use this new framework, instructed developers on where to find said docs, and migrated the project to use it.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>Fast-forwarding a couple of years, the project is now in such a bad state that you're in a position in which you essentially need to throw everything away and start from scratch. To make matters worse, not only the architectural problem your framework was supposed to fix is still unsolved, it's now arguably in a much <b>worse</b> shape and considerably harder to fix than before. What in holy heaven happened here?</p>
@@ -1899,28 +1700,6 @@
     <pubDate>Fri, 8 Jul 2022 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Using a Macbook Pro as a gaming console-->
-<!--WRITEIT_POST_HTML_NAME=using-a-macbook-pro-as-a-gaming-console-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=I had to leave my gaming computer behind when I moved to another country and have ever since felt an empty spot in my life. Can I transform a Macbook Pro into a sofa-gaming machine?-->
-
-<!--DateFormat example: 2022-04-06T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-07-08T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2022-07-08T14:00:00+02:00-->
-
-<title>Using a Macbook Pro as a gaming console</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Using a Macbook Pro as a gaming console</h1>
-  </div>  
-  <div class="post-info">
-    <div class="post-info-text">Published on 08 Jul 2022</div>
-  </div>
 <p>I had to leave my gaming computer behind when I moved to another country and have ever since felt an empty spot in my life. I watched many interesting games get released as the years went by, but I didn't feel it was enough justification to buy a gigantic gaming desktop again as I don't have enough space (or will) to have a dedicated space for one.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>The release of the Steam Deck got me really excited as it effectively solved the space problem, but it will still take several months until I can get my hands on mine. I then wondered: While my deck doesn't arrive, <b>could I somehow use my work Macbook to emulate the console gaming experience?</b></p>
@@ -1980,28 +1759,6 @@
     <pubDate>Sun, 12 Jun 2022 16:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Sentiment Analysis with NSTagger: Ranking popular subreddits by the negativity/hostility of its comments-->
-<!--WRITEIT_POST_HTML_NAME=sentiment-analysis-reddit-negativity-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=I have been feeling that Reddit is well on its way to taking away from 4chan the title of internet hate machine, because even when a subreddit is themed around happiness it takes little to no effort to find extremely hostile comment chains.-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-06-12T16:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2022-06-12T16:00:00+02:00-->
-
-<title>Sentiment Analysis with NSTagger: Ranking popular subreddits by the negativity/hostility of its comments</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Sentiment Analysis with NSTagger: Ranking popular subreddits by the negativity/hostility of its comments</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-ios">iOS</div>
-    <div class="category category-swift">Swift</div>
     <div class="post-info-text">Published on 12 Jun 2022</div>
   </div>
 <p>I have been feeling that Reddit is well on its way to taking away from 4chan the title of <i>internet hate machine</i>, because even when a subreddit is themed around happiness it takes little to no effort to find extremely hostile comment chains with complete strangers arguing about the most pointless things. I was curious to see what this looked like across different subreddits, so I decided to use Reddit's APIs and iOS's built-in sentiment analysis tools to visualize how negative a subreddit is.</p>
@@ -2139,28 +1896,6 @@
     <pubDate>Tue, 24 May 2022 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Understanding Certificates and iOS Provisioning Profiles-->
-<!--WRITEIT_POST_HTML_NAME=how-certificates-work-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=You do not need to understand the theory of certificates and profiles in order to create a fully working iOS app, but you might be interested in knowing how this process works to make future debugging sessions easier.-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-05-24T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2022-05-24T14:00:00+02:00-->
-
-<title>Understanding Certificates and iOS Provisioning Profiles</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Understanding Certificates and iOS Provisioning Profiles</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-ios">iOS</div>
-    <div class="post-info-text">Published on 24 May 2022</div>
   </div>
 <p><b>Note:</b> I've written a more complete article on code signing in general on Dec 2023 that is much more complete than this one. <a href="https://www.runway.team/blog/what-even-is-code-signing-in-ios">You should read that instead!</a></p>
 <p>You do not need to understand the theory of certificates and profiles in order to create a fully working iOS app, but you might be interested in knowing how this process works to make future debugging sessions easier. After all, I'd say it's pretty likely that you as an engineer have needed to deal with mysterious signing errors at one point in the past!</p>
@@ -2247,28 +1982,6 @@
     <pubDate>Thu, 6 Jan 2022 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Focus on concepts, not approaches-->
-<!--WRITEIT_POST_HTML_NAME=focus-on-concepts-not-approaches-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=As long as there has been software concepts, there has been evangelism around them. More common for widely-known concepts like Clean Code and TDD, evangelists are developers who preach for the adoption of a specific pattern or platform, often with the intention of it being seen and used as some global solution that can be applied in all circunstances.-->
-
-<!--DateFormat example: 2022-01-06T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-01-06T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2022-01-06T14:00:00+02:00-->
-
-<title>Focus on concepts, not approaches</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Focus on concepts, not approaches</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-theory">Theory</div>
-    <div class="post-info-text">Published on 06 Jan 2022</div>
   </div>
 <p>As long as there has been software concepts, there has been evangelism around them. More common for widely-known concepts like Clean Code and TDD, evangelists are developers who preach for the adoption of a specific pattern or platform, often with the intention of it being seen and used as some global solution that can be applied in all circumstances.</p>
 <p>As an iOS developer, I remember vividly when a then-new architecture, VIPER, started being evangelized by a group of developers. Building a rocket? VIPER. Building a calculator? VIPER. Hey there! I'm gonna make some quick prototype for my startup, what wou---- Shush, go with VIPER!</p>
@@ -2293,28 +2006,6 @@
     <pubDate>Mon, 22 Nov 2021 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Detecting Broken Constraints in Swift-->
-<!--WRITEIT_POST_HTML_NAME=detecting-broken-constraints-in-swift-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, I'd like to show a way you can intercept UIKit's exceptions directly in code (not using breakpoints!) and what you can use an implementation like this for.-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-11-22T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-11-22T14:00:00+02:00-->
-
-<title>Detecting Broken Constraints in Swift</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Detecting Broken Constraints in Swift</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-ios">iOS</div>
-    <div class="category category-swift">Swift</div>
     <div class="post-info-text">Published on 22 Nov 2021</div>
   </div>
 <p>Broken constraints are common, but there are good reasons you might wanted to get them sorted out. Even though iOS can sometimes provide a functional UI after breaking a constraint, the additional layout passes that this requires are usually a performance issue. If you care about your users' battery usage, you'll want to make sure your UI is always configured and rendered properly.</p>
@@ -2418,28 +2109,6 @@
     <pubDate>Mon, 1 Nov 2021 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=How To Solve Any iOS Crash Ever-->
-<!--WRITEIT_POST_HTML_NAME=how-to-solve-any-ios-crash-ever-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Ever had a crash in which you had absolutely no idea what was going on, and no amount of testing allowed you to reproduce the issue? If so, you've come to the right place!-->
-
-<!--DateFormat example: 2021-11-02T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-11-01T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-11-01T14:00:00+02:00-->
-
-<title>How To Solve Any iOS Crash Ever</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>How To Solve Any iOS Crash Ever</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-ios">iOS</div>
-    <div class="post-info-text">Published on 01 Nov 2021</div>
   </div>
 <p><i>Closed: Cannot Reproduce</i></p>
 <p>Ever had a crash in which you had absolutely no idea what was going on, and no amount of testing allowed you to reproduce the issue? If so, you've come to the right place!</p>
@@ -2508,28 +2177,6 @@
     <pubDate>Tue, 26 Oct 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Enabling Module Stability in Swift Package Manager Projects-->
-<!--WRITEIT_POST_HTML_NAME=enabling-module-stability-in-swift-package-manager-projects-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Uh-oh! You've been visited by the module stability fairy. Let's see how to solve this classic error.-->
-
-<!--DateFormat example: 2021-10-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-10-26T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-10-26T14:00:00+02:00-->
-
-<title>Enabling Module Stability in Swift Package Manager Projects</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Enabling Module Stability in Swift Package Manager Projects</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-compiler">Compiler</div>
-    <div class="category category-swift">Swift</div>
     <div class="post-info-text">Published on 26 Oct 2021</div>
   </div>
 <p><i>Module compiled with Swift X cannot be imported by the Swift Y compiler</i></p>
@@ -2572,28 +2219,6 @@
     <pubDate>Wed, 13 Oct 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Unit Testing Weak References / Retain Cycles in Swift-->
-<!--WRITEIT_POST_HTML_NAME=unit-testing-weak-references--deallocation-in-swift-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Code that relies on memory tricks to work can be complicated, but there's a solid way of unit testing these cases.-->
-
-<!--DateFormat example: 2021-10-13T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-10-13T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-10-13T14:00:00+02:00-->
-
-<title>Unit Testing Weak References / Retain Cycles in Swift</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Unit Testing Weak References / Retain Cycles in Swift</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-swift">Swift</div>
-    <div class="post-info-text">Published on 13 Oct 2021</div>
   </div>
 <p>Code that relies on memory tricks to work can be complicated, but there's a solid way of unit testing these cases. I see people wonder about this every once in a while, so I think it's a good moment to share the trick I use to achieve this.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
@@ -2690,28 +2315,6 @@
     <pubDate>Tue, 28 Sep 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Solving CPU Usage Crashes with Xcode's Energy Organizer-->
-<!--WRITEIT_POST_HTML_NAME=debug-cpu-exceptions-xcode-energy-reports-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=If you don't know what a CPU Usage termination is, consider yourself lucky. Let's explore iOS' CPU Exceptions!-->
-
-<!--DateFormat example: 2021-09-28T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-09-28T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-09-28T14:00:00+02:00-->
-
-<title>Solving CPU Usage Crashes with Xcode's Energy Organizer</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Solving CPU Usage Crashes with Xcode's Energy Organizer</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-compiler">iOS</div>
-    <div class="post-info-text">Published on 28 Sep 2021</div>
   </div>
 <p>If you don't know what a CPU Usage termination is, consider yourself lucky. Not only this is one of the nastiest crashes you can get in iOS, but it's also not even considered as a crash by the system. These terminations are not reported to crash providers like Firebase, so if your app has a severe high CPU usage crash, you won't even know about it until your users start reporting it to you. Really nasty stuff!</p>
 <div class="sponsor-article-ad-auto hidden"></div>
@@ -2798,28 +2401,6 @@
     <pubDate>Mon, 20 Sep 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=How AsyncSequence works internally in Swift-->
-<!--WRITEIT_POST_HTML_NAME=how-asyncsequence-works-internally-in-swift-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=As part of my series of articles about Swift's new Structured Concurrency features, let's take a look at how AsyncSequence works behind the curtains!-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-09-20T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-09-20T14:00:00+02:00-->
-
-<title>How AsyncSequence works internally in Swift</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>How AsyncSequence works internally in Swift</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-compiler">Compiler</div>
-    <div class="category category-swift">Swift</div>
     <div class="post-info-text">Published on 20 Sep 2021</div>
   </div>
 <p>As part of my series of articles about Swift's new <i>Structured Concurrency</i> features, let's take a look at how <code>AsyncSequence</code> works behind the curtains!</p>
@@ -2873,28 +2454,6 @@
     <pubDate>Tue, 31 Aug 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Reverse engineering a 5 year old Xcode issue-->
-<!--WRITEIT_POST_HTML_NAME=reverse-engineering-xcode-issue-crash-symbol-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Have you ever had issues with Xcode not symbolicating crashes? Me too, and I found the fix by reverse engineering the IDE.-->
-
-<!--DateFormat example: 2021-08-31T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-08-31T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-08-31T14:00:00+02:00-->
-
-<title>Reverse engineering a 5 year old Xcode issue</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Reverse engineering a 5 year old Xcode issue</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-reverse">Reverse Engineering</div>
-    <div class="post-info-text">Published on 31 Aug 2021</div>
   </div>
 <p>Xcode has a feature called <b>Organizer</b> that shows you important information about builds you sent to the App Store, with the most relevant ones being crashes and energy reports (for CPU/memory usage). In my experience, this feature will work perfectly fine if you pushed the build from your <i>own</i> machine, but if that's not true for any reason (the most common being because you're using a CI pipeline to do) then you might have a frustrating experience. To be specific, if you didn't push the build from your machine, then all reports provided by Xcode will be unsymbolicated:</p>
 <div class="post-image">
@@ -3012,28 +2571,6 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <pubDate>Tue, 17 Aug 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Swift's Documentation Markup-->
-<!--WRITEIT_POST_HTML_NAME=swifts-documentation-markup-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Swift always had its own documentation format, but the introduction of DocC in Xcode 13 added some cool new features. Let's take a look at what we can do now!-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-08-17T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-08-17T14:00:00+02:00-->
-
-<title>Swift's Documentation Markup</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Swift's Documentation Markup</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-swift">Swift</div>
-    <div class="post-info-text">Published on 17 Aug 2021</div>
   </div>
 <p>Swift always had its own documentation format, but the introduction of DocC in Xcode 13 added some cool new features. Let's take a look at what we can do now!</p>
 <div class="sponsor-article-ad-auto hidden"></div>
@@ -3170,28 +2707,6 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <pubDate>Tue, 3 Aug 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=StaticString, and how it works internally in Swift-->
-<!--WRITEIT_POST_HTML_NAME=staticstring-in-swift-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=StaticString is an interesting type in Swift. Let's see how it works!-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-08-03T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-08-03T14:00:00+02:00-->
-
-<title>StaticString, and how it works internally in Swift</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>StaticString, and how it works internally in Swift</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-compiler">Compiler</div>
-    <div class="category category-swift">Swift</div>
     <div class="post-info-text">Published on 03 Aug 2021</div>
   </div>
 <p><code>StaticString</code> is an interesting type in Swift. It's essentially nothing more than a <code>String</code> that can't be modified for the purposes of referencing static content inside your binary.</p>
@@ -3284,33 +2799,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/extending-creating-publishers-the-right-way</guid>
     <pubDate>Tue, 27 Jul 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
-<!--WRITEIT_POST_NAME=Extending / Creating Combine Publishers the Right Way-->
-<!--WRITEIT_POST_HTML_NAME=extending-creating-publishers-the-right-way-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, I'll show you how to properly extend existing publishers and how to wrap them when creating your own custom publishers.-->
-
-<!--DateFormat example: 2021-07-27T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-07-27T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-07-27T14:00:00+02:00-->
-
-<title>Extending / Creating Combine Publishers the Right Way</title>
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Extending / Creating Combine Publishers the Right Way</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 26 Jul 2021 
-  </div> 
+<description><![CDATA[ 
  </div>   
 <p>I've been playing around with <b>Combine</b> for a while now and had some trouble navigating all the new protocols and types, especially when it came to extensions. In this article, I'll show you how to properly extend existing publishers and how to wrap them when creating your own custom publishers.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
@@ -3480,28 +2969,6 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <pubDate>Tue, 20 Jul 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Benchmarking Swift Code Properly with Attabench-->
-<!--WRITEIT_POST_HTML_NAME=benchmarking-swift-code-properly-with-attabench-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=Hmmmm, how fast is this piece of code? Let's find out!-->
-
-<!--DateFormat example: 2020-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-07-20T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-07-20T14:00:00+02:00-->
-
-<title>Benchmarking Swift Code Properly with Attabench</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Benchmarking Swift Code Properly with Attabench</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-swift">Swift</div>
-    <div class="post-info-text">Published on 20 Jul 2021</div>
   </div>
 <p>Hmmmm, how fast is this piece of code? Let's find out!</p>
 <div class="sponsor-article-ad-auto hidden"></div>
@@ -3575,33 +3042,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-actors-work-internally-in-swift</guid>
     <pubDate>Tue, 6 Jul 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=How Actors Work Internally in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=how-actors-work-internally-in-swift--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Lets explore how actors work under the hood, using Swift's own source code as a guide to finding out how they work inside the compiler.--> 
-  <!--DateFormat example: 2020-07-06T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-07-06T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2021-07-06T14:00:00+02:00--> 
-  <title>How Actors Work Internally in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>How Actors Work Internally in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 06 Jul 2021 
   </div> 
@@ -3817,33 +3258,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/creating-3d-models-out-of-anything-with-realitykit-in-swift</guid>
     <pubDate>Tue, 22 Jun 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Creating 3D Models from Photographs with RealityKit in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=creating-3d-models-out-of-anything-with-realitykit-in-swift--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=RealityKit Object Capture is a feature introduced in Xcode 13 that allows you to create 3D objects from photographs using a process called photogrammetry.--> 
-  <!--DateFormat example: 2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-06-22T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2021-06-22T14:00:00+02:00--> 
-  <title>Creating 3D Models from Photographs with RealityKit in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Creating 3D Models from Photographs with RealityKit in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 22 Jun 2021 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <p><i>RealityKit Object Capture</i> is a feature introduced in Xcode 13 that allows you to create 3D objects from photographs using a process called photogrammetry. Although intended for retailers to enhance their online shopping experience by creating models out of things like furniture and using them in augmented reality experiences, RealityKit is incredibly easy to use for anything you may want, like 3D printing random things from your house.</p>
  <div class="post-image"> 
@@ -3956,33 +3371,6 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <pubDate>Tue, 18 May 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=How necessary are the programming fundamentals?--> 
-  <!--WRITEIT_POST_HTML_NAME=how-necessary-are-the-programming-fundamentals--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=I feel like there's a lot of misinformation around this topic and I've been hoping I could address that in a way that could be convincing even for those who can't stand hearing the word "algorithms" anymore.--> 
-  <!--DateFormat example: 2021-05-18T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2024-02-02T23:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2021-05-18T14:00:00+02:00--> 
-
-  <title>How necessary are the programming fundamentals?</title> 
-
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>How necessary are the programming fundamentals?</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-theory">
-   Theory
-  </div> 
-  <div class="post-info-text">
-   Reworked on 05 Nov 2023, first published on 18 May 2021
-  </div>
  </div>
  <p>I've been meaning to write an article about computer science fundamentals and how it can improve a programmer's career for a long time, but I always had trouble finding a good way of introducing this topic. The reason I'd like to talk about this is first that, well, I really like this field and I feel that most of my programming ability today is a result of having studied this, but also because I feel like there's a lot of misinformation around this topic and I've been hoping I could address that in a way that could be convincing even for those who can't stand hearing the word "algorithms" anymore.</p>
  <h2>Developers, and their hatred for theory</h2>
@@ -4098,33 +3486,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/thread-safety-in-swift</guid>
     <pubDate>Tue, 11 May 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Thread Safety in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=thread-safety-in-swift--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Concurrency is the entry point for the most complicated and bizarre bugs a programmer will ever experience. In this article, I'll share my favorite methods of ensuring thread safety, as well as analyzing the performance of the different mechanisms.--> 
-  <!--DateFormat example: 2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-09-21T14:06:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2021-05-11T14:00:00+02:00--> 
-  <title>Thread Safety in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Thread Safety in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 11 May 2021 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <div class="post-image"> 
   <img src="https://i.imgur.com/2PDjXPQ.png" alt="Lock times"> 
@@ -4415,28 +3777,6 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <pubDate>Mon, 12 Apr 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<!--WRITEIT_POST_NAME=Adding Intelligent Code Generation to Swift Projects with SourceKit-->
-<!--WRITEIT_POST_HTML_NAME=code-generation-with-sourcekit-->
-
-<!--Add here the additional properties that you want each page to possess.-->
-<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
-<!--Properties must start with 'WRITEIT_POST'.-->
-<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
-
-<!--WRITEIT_POST_SHORT_DESCRIPTION=I've been playing with intelligent code generation for a couple of years now, and I'd like to show you how to achieve this with SourceKit.-->
-
-<!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE=2021-04-12T14:00:00+02:00-->
-
-<title>Adding Intelligent Code Generation to Swift Projects with SourceKit</title>
-<div class="blog-post">
-  <div class="post-title-index">
-    <h1>Adding Intelligent Code Generation to Swift Projects with SourceKit</h1>
-  </div>  
-  <div class="post-info">
-    <div class="category category-compiler">iOS</div>
-    <div class="category category-swift">Swift</div>
     <div class="post-info-text">Published on 10 Aug 2021</div>
   </div>
 <p><a href="https://www.youtube.com/watch?v=sZuI6z8qSmc">I gave a talk about scalable iOS apps at SwiftHeroes 2021</a> in which I speak about an app's four "levels" of complexity, ending by stating that we still don't know what the "fifth level" would be.</p>
@@ -4693,33 +4033,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/creating-a-license-system-for-paid-apps-in-swift</guid>
     <pubDate>Tue, 6 Apr 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Creating a licensing system for paid apps in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=creating-a-license-system-for-paid-apps-in-swift--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=The easiest way is to create a paid macOS app is to simply put a price tag in the App Store, but it's a common practice nowadays to provide a free download that can later be upgraded to a pro version. In this article, we'll use our knowledge of serial numbers and asymmetric cryptography to create license files that cannot be reverse-engineered and use them to activate an app's premium features.--> 
-  <!--DateFormat example: 2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-04-06T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2021-04-06T14:00:00+02:00--> 
-  <title>Creating a licensing system for paid apps in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Creating a licensing system for paid apps in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="category category-ios">
-   iOS
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 06 Apr 2021 
   </div> 
@@ -4969,33 +4283,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/be-careful-with-objc-bridging-in-swift</guid>
     <pubDate>Tue, 2 Mar 2021 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Be careful with Obj-C bridging in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=be-careful-with-objc-bridging-in-swift--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Bridging to/from Objective-C is an important part of Swift development due to the Obj-C history of Apple's platforms. Unfortunately, there are some hidden caveats that could lead to bizarre situations that would be impossible in a pure Swift environment.--> 
-  <!--DateFormat example: 2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2021-03-02T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2021-03-02T14:00:00+02:00--> 
-  <title>Be careful with Obj-C bridging in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Be careful with Obj-C bridging in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="category category-ios">
-   iOS
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 02 Mar 2021 
   </div> 
@@ -5103,33 +4391,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/understanding-inlinable-in-swift</guid>
     <pubDate>Tue, 22 Dec 2020 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Understanding @inlinable in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=understanding-inlinable-in-swift--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=The @inlinable attribute is one of Swift's lesser-known attributes. Like others of its kind, its purpose is to enable a specific set of micro-optimizations that you can use to increase the performance of your application.--> 
-  <!--DateFormat example: 2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-12-22T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-12-22T14:00:00+02:00--> 
-  <title>Understanding @inlinable in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Understanding <code>@inlinable</code> in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 22 Dec 2020 
   </div> 
@@ -5205,32 +4467,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift</guid>
     <pubDate>Tue, 24 Nov 2020 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=DispatchSource: Detecting changes in files and folders in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=dispatchsource-detecting-changes-in-files-and-folders-in-swift--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=The DispatchSource family of types from GCD contains a series of objects that are capable of monitoring OS-related events. In this article, we'll see how to use DispatchSource to monitor a log file and create a debug-only view that shows the app's latest logs.--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-11-24T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-11-24T14:00:00+02:00--> 
-  <title>DispatchSource: Detecting changes in files and folders in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>DispatchSource: Detecting changes in files and folders in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 24 Nov 2020 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <div class="post-image"> 
   <img src="https://i.imgur.com/OsWGXW5.png" alt="Debug Log View" style="height: 500px"> 
@@ -5423,32 +4660,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-availability-works-internally-in-swift</guid>
     <pubDate>Tue, 29 Sep 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=How Swift API Availability Works Internally--> 
-  <!--WRITEIT_POST_HTML_NAME=how-availability-works-internally-in-swift--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=We use API availability checks all the time, but have you wondered how the Swift compiler handles this? In this article, we'll take a deep dive on how the #availability condition works, how the Swift compiler is able to know if a specific symbol is available for usage and what the code you wrote looks like after being optimized.--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-09-29T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-09-29T14:00:00+02:00--> 
-  <title>How Swift API Availability Works Internally</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>How Swift API Availability Works Internally</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 29 Sep 2020 
   </div> 
@@ -5656,32 +4868,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/ui-testing-deeplinks-and-universal-links-in-ios</guid>
     <pubDate>Tue, 15 Sep 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=UI Testing Deeplinks and Universal Links in iOS--> 
-  <!--WRITEIT_POST_HTML_NAME=ui-testing-deeplinks-and-universal-links-in-ios--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Did you know it's possible to terminate your app in the middle of an XCUITest and launch it again from somewhere else? Let's see how to use this trick to test that deeplinks and universal links are properly launching our app when executed from Safari or iMessage.--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-09-15T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-09-15T14:00:00+02:00--> 
-  <title>UI Testing Deeplinks and Universal Links in iOS</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>UI Testing Deeplinks and Universal Links in iOS</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 15 Sep 2020 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <p>Did you know it's possible to terminate your app in the <i>middle</i> of an XCUITest and launch it again from somewhere else? Let's see how to use this trick to test that deeplinks and universal links are properly launching our app when executed from Safari or iMessage.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -5869,32 +5056,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/improving-observer-pattern-apis-in-swift-with-weak-collections</guid>
     <pubDate>Tue, 25 Aug 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Improving Observer Pattern APIs in Swift With Weak Collections--> 
-  <!--WRITEIT_POST_HTML_NAME=improving-observer-pattern-apis-in-swift-with-weak-collections--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, I'll show you a memory management trick with some old-school Foundation types that can be used in any object that applies the Observer pattern to create better and safer APIs.--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-08-25T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-08-25T14:00:00+02:00--> 
-  <title>Improving Observer Pattern APIs in Swift With Weak Collections</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Improving Observer Pattern APIs in Swift With Weak Collections</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 25 Aug 2020 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p>Even if you don't know what the <b>Observer</b> pattern is, there's a good chance that you applied it somewhere in the past. This design pattern is used to create APIs that notify one or more subjects about changes in a certain object, with the <code>NotificationCenter</code> being the most popular use of this pattern in iOS.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -6045,32 +5207,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/app-attest-apple-protect-ios-jailbreak</guid>
     <pubDate>Tue, 11 Aug 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=App Attest: How to prevent an iOS app's APIs from being abused--> 
-  <!--WRITEIT_POST_HTML_NAME=app-attest-apple-protect-ios-jailbreak--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=As (possibly) a response to jailbreaking become popular again in recent times, Apple has released their own solution to hackers creating compromised versions of your app.--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-08-11T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-08-11T14:00:00+02:00--> 
-  <title>App Attest: How to prevent an iOS app's APIs from being abused</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>App Attest: How to prevent an iOS app's APIs from being abused</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 11 Aug 2020 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p>When jailbreaking of iOS devices first became popular, it was very common for iOS developers to try to defend their apps from users that altered their devices to enable piracy. There were many ways of doing that, which included checking for the existence of <b>Cydia</b>, checking if the app could read files outside its sandbox, crashing the app if it detects a debugger and more.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -6152,32 +5289,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/entry-points-swift-uiapplicationmain-main</guid>
     <pubDate>Tue, 21 Jul 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Entry Points in Swift: How @main and @UIApplicationMain work internally--> 
-  <!--WRITEIT_POST_HTML_NAME=entry-points-swift-uiapplicationmain-main--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, we'll see how Swift determines the entry point of an app, the different attributes used to alter this behavior in iOS, how they work internally, and what Swift 5.3's new @main attribute brings to the table.--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-07-21T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-07-21T14:00:00+02:00--> 
-  <title>Entry Points in Swift: How @main and @UIApplicationMain work internally</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Entry Points in Swift: How <code>@main</code> and <code>@UIApplicationMain</code> work internally</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 21 Jul 2020 
   </div> 
@@ -6284,32 +5396,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/adapting-objectivec-apis-for-swift-using-nsrefinedforswift</guid>
     <pubDate>Tue, 14 Jul 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Adapting Objective-C APIs to Swift with NS_REFINED_FOR_SWIFT--> 
-  <!--WRITEIT_POST_HTML_NAME=adapting-objectivec-apis-for-swift-using-nsrefinedforswift--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=The compiler already does a good job translating Objective-C APIs to Swift's standards, but what if you want them to be translated to something completely different?--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-07-14T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-07-14T14:00:00+02:00--> 
-  <title>Adapting Objective-C APIs to Swift with NS_REFINED_FOR_SWIFT</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Adapting Objective-C APIs to Swift with <code>NS_REFINED_FOR_SWIFT</code></h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 14 Jul 2020 
   </div> 
@@ -6392,32 +5479,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/creating-debug-menus-in-swift-with-uicontextmenuinteraction</guid>
     <pubDate>Tue, 30 Jun 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Creating Debug Menus in Swift with UIContextMenuInteraction--> 
-  <!--WRITEIT_POST_HTML_NAME=creating-debug-menus-in-swift-with-uicontextmenuinteraction--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Debug menus in iOS are an effective way to make your debugging day more productive. Let's see how we can use UIContextMenuInteraction to create debug-only menus.--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-30T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-06-30T14:00:00+02:00--> 
-  <title>Creating Debug Menus in Swift with UIContextMenuInteraction</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Creating Debug Menus in Swift with <code>UIContextMenuInteraction</code></h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 30 Jun 2020 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/akiIA1Z.png" alt="Context Menu 2"> 
@@ -6590,32 +5652,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/ios-14-widget-tutorial-mini-apps</guid>
     <pubDate>Tue, 23 Jun 2020 18:10:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=How to create Widgets in iOS 14 in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=ios-14-widget-tutorial-mini-apps--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI.--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-25T13:50:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-06-23T18:10:00+02:00--> 
-  <title>How to create Widgets in iOS 14 in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>How to create Widgets in iOS 14 in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 23 June 2020 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p>Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI. iOS 14's Widgets come in a variety of shapes (literally), ranging from simple information squares to widgets that can retrieve and display information from its parent app's <b>Siri Intents</b>.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -7017,32 +6054,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/benefits-of-throwing-functions-try-swift-underrated-feature</guid>
     <pubDate>Tue, 16 Jun 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Benefits of using throwing functions (try) - Swift's most underrated feature?--> 
-  <!--WRITEIT_POST_HTML_NAME=benefits-of-throwing-functions-try-swift-underrated-feature--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=I've always found throwing functions to be a very underrated feature in the Swift community. In this article, I've separated some of the benefits of this feature that have drawn my attention the most and shared some of my thoughts on why you should give it a second chance.--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-16T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-06-16T14:00:00+02:00--> 
-  <title>Benefits of using throwing functions (try) - Swift's most underrated feature?</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Benefits of using throwing functions (try) - Swift's most underrated feature?</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 16 June 2020 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <p>I've always found throwing functions (<code>try/catch</code>, or <code>do/catch</code>) to be a very underrated feature in the Swift community. While many native APIs from iOS rely on it, very few people seem to actually use them in their daily projects. Most people seem to either optionally unwrap them (<code>try?</code>) or use other features like the <code>Result</code> type, and in my opinion, this stems from the fact that unless your entire project is built around throwing, the parts that do use it are somewhat annoying to deal with, and don't look very nice code-wise:</p>
  <pre>
@@ -7178,32 +6190,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-random-numbers-work-in-swift</guid>
     <pubDate>Tue, 12 May 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=How Random Numbers Work In Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=how-random-numbers-work-in-swift--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Let's see how to use the new APIs, but most importantly, how they are implemented inside the Swift compiler.--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-05-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-05-12T14:00:00+02:00--> 
-  <title>How Random Numbers Work In Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>How Random Numbers Work In Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 12 May 2020 
   </div> 
@@ -7320,32 +6307,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/understanding-the-ios-responder-chain</guid>
     <pubDate>Thu, 7 May 2020 15:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=iOS Responder Chain: UIResponder, UIEvent, UIControl and uses--> 
-  <!--WRITEIT_POST_HTML_NAME=understanding-the-ios-responder-chain--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-05-07T13:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=In iOS, the Responder Chain is the name given to an UIKit-generated linked list of UIResponder objects, and is the foundation for everything regarding events (like touch and motion) in iOS.--> 
-  <title>iOS Responder Chain: UIResponder, UIEvent, UIControl and uses</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>iOS Responder Chain: UIResponder, UIEvent, UIControl and uses</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 01 Mar 2019 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <i>What on earth is this "first responder" thing when I'm dealing with UITextFields?<br></i>
  <i>Why do UIViews subclass things like UIResponder?<br></i>
@@ -7548,32 +6510,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift</guid>
     <pubDate>Tue, 5 May 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Unit Testing Preprocessor Macros in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=unit-testing-preprocessor-macros-in-swift--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Macros are used to bring context to a build. Let's see how we can unit test their presence / absence while still keeping your app's unreachable code uncompiled.--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-05-05T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-05-05T14:00:00+02:00--> 
-  <title>Unit Testing Preprocessor Macros in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Unit Testing Preprocessor Macros in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 05 May 2020 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <p><b>Preprocessor macros</b> are used to bring context to a build, allowing you to transform how your app is compiled depending on why it's being built.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -7738,32 +6675,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/weak-dictionary-values-in-swift</guid>
     <pubDate>Tue, 14 Apr 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Weak Dictionary Values in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=weak-dictionary-values-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-04-14T14:00:00+02:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=When dealing with dictionaries and arrays in Swift, it's very important to know that any reference types used as a key or value will be retained by default.--> 
-  <title>Weak Dictionary Values in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Weak Dictionary Values in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 14 Apr 2020 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <p>When dealing with dictionaries and arrays in Swift, it's very important to know that any reference types used as a key or value will be <b>retained by default.</b> Let's see some interesting cases where this behavior is problematic, and how we can use types like <code>NSMapTable</code>, <code>NSHashTable</code> and <code>NSPointerArray</code> to create weak collections that perform better than their Swift counterparts.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -7945,32 +6857,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/understanding-swifts-objectidentifier</guid>
     <pubDate>Tue, 31 Mar 2020 09:25:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Understanding Swift's ObjectIdentifier--> 
-  <!--WRITEIT_POST_HTML_NAME=understanding-swifts-objectidentifier--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-03-31T07:25:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=ObjectIdentifier is one of these obscure Swift types that you only see when looking at the answers for very specific problems in StackOverflow, and chances are that you have never really needed to use it. However, ObjectIdentifier plays an important part in Swift and is actually pretty useful as a solution to problems that involve metatypes. Let's take a look at why this type exists and what you can use it for.--> 
-  <title>Understanding Swift's ObjectIdentifier</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Understanding Swift's ObjectIdentifier</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 31 Mar 2020 
   </div> 
@@ -8125,32 +7012,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/useful-global-swift-functions</guid>
     <pubDate>Tue, 24 Mar 2020 08:25:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Useful Global Swift Functions--> 
-  <!--WRITEIT_POST_HTML_NAME=useful-global-swift-functions--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-03-24T07:25:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Global functions, or functions that can be accessed from anywhere without the scope of a specific type is an old concept that was popular in languages like C and Objective-C, but unrecommended in Swift as we would rather have things that are nicely typed and scoped ("swifty"). For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like zip() and dump().--> 
-  <title>Useful Global Swift Functions</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Useful Global Swift Functions</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 24 Mar 2020 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p><b>Global functions</b>, or functions that can be accessed from anywhere without the scope of a specific type is an old concept that was popular in languages like C and Objective-C, but unrecommended in Swift as we would rather have things that are nicely typed and scoped ("swifty").</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -8346,32 +7208,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift</guid>
     <pubDate>Wed, 18 Mar 2020 08:25:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=How Collection Diffing works in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=how-collection-diffing-works-internally-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-03-18T07:25:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Ordered Collection Diffing is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in UITableViews. With the addition of this feature, developers can now diff Collections without having to bother with external libraries. Have you wondered what efficiently diffing something looks like? In this article, we'll see and analyze the diffing APIs as well as the diffing algorithm used by the Swift Standard Library.--> 
-  <title>How Collection Diffing works in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>How Collection Diffing works in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 18 Mar 2020 
   </div> 
@@ -8653,32 +7490,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/swift-codable-decodingencoding-with-context</guid>
     <pubDate>Wed, 5 Feb 2020 08:25:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Swift Codable: Decoding / Encoding With Context--> 
-  <!--WRITEIT_POST_HTML_NAME=swift-codable-decodingencoding-with-context--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-02-05T07:25:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=The Codable protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like Unbox, Codable has the advantage of being powered by the compiler. One of my favorite features in Unbox was to give a context to the decoding operation. Let's take a look at how we can achieve the same with Codable and how I use to power a type-erased Decodable type.--> 
-  <title>Swift Codable: Decoding / Encoding With Context</title> 
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Swift Codable: Decoding / Encoding With Context</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 05 Feb 2020 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p>The <code>Codable</code> protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like <code>Unbox</code>, <code>Codable</code> has the advantage of being powered by the compiler.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -8830,32 +7642,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets</guid>
     <pubDate>Thu, 23 Jan 2020 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Reducing iOS Build Times by using Interface Modules--> 
-  <!--WRITEIT_POST_HTML_NAME=reducing-ios-build-times-by-using-interface-targets--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-06-15T11:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-01-23T06:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=While dividing an app into several modules can improve the build time of an iOS app, the result heavily depends on what is being changed. If you're not careful with how your dependency graph is laid out, you can often have results that are worse< than non-modularized apps. Let's take a look at a technique used at iFood to have big and consistent improvements to the build times of our app.--> 
-  <title>Reducing iOS Build Times by using Interface Modules</title> 
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Reducing iOS Build Times by using Interface Modules</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-theory">
-   Theory
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 23 Jan 2020 
   </div> 
@@ -8978,32 +7765,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-hashable-works-in-swift</guid>
     <pubDate>Mon, 13 Jan 2020 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=How Hashable works in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=how-hashable-works-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-01-13T06:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Hashing algorithms are functions that map an arbitrary string to a seemingly "random" output with a fixed length. Commonly associated as a component of Sets and Dictionaries, hashing algorithms are a major component of several branches of computer science, including cryptography. The internal algorithm used to calculate a type's `hashValue` (now `Hasher` in Swift 4.2) and the related compiler features changed several times throughout Swift's releases, ant it was only after Swift 4.2 that a real universal hashing algorithm was added to Swift. To see how this is implemented today, let's take a look at how this looked like throughout the history of Swift.--> 
-  <title>How Hashable works in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>How Hashable works in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 13 Jan 2020 
   </div> 
@@ -9203,32 +7965,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift</guid>
     <pubDate>Thu, 2 Jan 2020 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=using-type-erasure-to-build-a-dependency-injector-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2020-01-02T06:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=With Swift being a very type-safe and namespaced language, you'll find that certain tasks are really hard to complete if at some point you can't determine the types that are being handled - mostly when generics are involved. Using an automatic dependency injector as an example, let's see how generic arguments and closures can be "erased" to trick the compiler into compiling code that it would otherwise claim to be impossible (when it's clearly not!). While this isn't your usual SwiftRocks-compiler-feature-deconstruction article, we'll take an exciting look at how the treatment of methods/closures as properties can be used in this context to bypass one of the Swift Compiler's most annoying compilation errors.--> 
-  <title>Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-theory">
-   Theory
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 02 Jan 2020 
   </div> 
@@ -9552,32 +8289,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone</guid>
     <pubDate>Mon, 23 Dec 2019 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Faster Array Operations With CollectionOfOne in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=faster-swift-array-operations-with-collectionofone--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-12-23T06:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=CollectionOfOne is a type inside the Swift Standard Library that defines a <b>collection of a single element.</b> While this sounds a bit weird, there's a good reason for this to exist. Let's check out why.--> 
-  <title>Faster Array Operations With CollectionOfOne in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Faster Array Operations With CollectionOfOne in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 23 Dec 2019 
   </div> 
@@ -9686,32 +8398,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler</guid>
     <pubDate>Tue, 3 Dec 2019 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=How OptionSet works inside the Swift Compiler--> 
-  <!--WRITEIT_POST_HTML_NAME=how-optionset-works-inside-the-swift-compiler--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-12-03T06:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Swift's OptionSet protocol is the bridged version of Objective-C's NS_OPTIONS enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation. Let's see what this protocol is, why OptionSets are preferred over a regular Set in some cases and finally what compiler magics it possesses.--> 
-  <title>How OptionSet works inside the Swift Compiler</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>How OptionSet works inside the Swift Compiler</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 03 Dec 2019 
   </div> 
@@ -9854,32 +8541,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/nscopying-nszone-uses-in-swift</guid>
     <pubDate>Tue, 5 Nov 2019 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=NSCopying uses in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=nscopying-nszone-uses-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-11-05T06:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Even in apps written in full Swift, interfacing with Objective-C is still a very big part of iOS development. Many types and semantics from Objective-C are hidden underneath the code we write today, and understanding where they come from can help you make better code decisions and just better understand the platform in general. This time, we'll take a look at what NSCopying and its companion class NSZone are and what they can do for Swift apps.--> 
-  <title>NSCopying uses in Swift</title> 
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>NSCopying uses in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 05 Nov 2019 
   </div> 
@@ -10033,32 +8695,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work</guid>
     <pubDate>Fri, 25 Oct 2019 19:50:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Swift's Sequence Inside The Compiler: How for loops work internally--> 
-  <!--WRITEIT_POST_HTML_NAME=swift-sequence-inside-the-compiler-how-for-loops-work--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-10-25T17:50:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=In this article, I'll cover one of my favorite syntax sugars in the language: the protocols and the internal compiler behavior that allow you to write for loops. You might have heard already of the Sequence family of protocols, and here, we'll see how the compiler uses them as the building blocks for for loops.--> 
-  <title>Swift's Sequence Inside The Compiler: How for loops work internally</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Swift's Sequence Inside The Compiler: How <code>for</code> loops work internally</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 26 Oct 2019 
   </div> 
@@ -10216,31 +8853,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino</guid>
     <pubDate>Tue, 15 Oct 2019 20:39:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Building a Face Detecting Robot with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino--> 
-  <!--WRITEIT_POST_HTML_NAME=building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-10-15T18:39:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Some time ago I created a little side project that involved an Arduino-powered servo motor that menacingly pointed at people's faces with the help of CoreML, mimicking the Team Fortress 2 Engineer's Sentry Gun. With iOS 13, I decided to re-write that using the new Socket APIs and SwiftUI.-->
-  
-  <title>Building a Face Detecting Robot with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Building a Face Detecting Robot with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino</h1>
- </div> 
- <div class="post-info"> 
-  <div class="post-info-text">
-   Published on 16 Oct 2019 
-  </div> 
- </div>   
+<description><![CDATA[   
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <video style="width: 100%; height: auto;" controls> 
    <source src="https://i.imgur.com/g6lhAxR.mp4" type="video/mp4"> Your browser does not support the video tag. 
@@ -10778,32 +9391,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/using-simd-vector-types-in-swift</guid>
     <pubDate>Sun, 29 Sep 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Using SIMD Vector Types in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=using-simd-vector-types-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-09-29T18:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=SIMD Vector Types is a feature added in Swift 5 that allows you to calculate multiple results with a single instruction. Let's see how that works.--> 
-  <title>Using SIMD Vector Types in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Using SIMD Vector Types in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 30 Sep 2019 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <p><b>SIMD Vector Types</b> is a feature added in Swift 5 that exposes Apple's <code>&lt;simd/simd.h&gt;</code> module to Swift, allowing you to calculate multiple results with a single instruction.</p>
  <h2>What's SIMD?</h2>
@@ -10888,33 +9476,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm</guid>
     <pubDate>Wed, 4 Sep 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Timsort and Introsort: Swift's Sorting Algorithms--> 
-  <!--WRITEIT_POST_HTML_NAME=introsort-timsort-swifts-sorting-algorithm--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-09-04T18:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin sort() method. However, knowing the properties of the sorting algorithm built into your language is important if you want to prevent unwanted behaviors and nasty edge cases.--> 
-  
-  <title>Timsort and Introsort: Swift's Sorting Algorithms</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Timsort and Introsort: Swift's Sorting Algorithms</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 04 Sep 2019 
   </div> 
@@ -11169,32 +9731,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks</guid>
     <pubDate>Thu, 8 Aug 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Advanced lldb tricks for Swift - Injecting and changing code on the fly--> 
-  <!--WRITEIT_POST_HTML_NAME=using-lldb-manually-xcode-console-tricks--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-08-08T18:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Not all Swift things are developed in Xcode -- things like the Swift Compiler or Apple's SourceKit-LSP work better through other means, and these means usually end up having you use lldb manually. Without Xcode to assist you, some of these tricks can prevent you from having to compile the app again to test certain changes.--> 
-  <title>Advanced lldb tricks for Swift - Injecting and changing code on the fly</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Advanced lldb tricks for Swift - Injecting and changing code on the fly</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 08 Aug 2019 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <p>While Xcode provides several visual abstractions for lldb commands like adding breakpoints by clicking the lines of code and running by clicking the play button, lldb provides several useful commands that are not present in Xcode's UI. This can range from creating methods on the fly to even changing the CPU's registers to force a specific flow on the app without having to recompile it, and knowing them can greatly improve your debugging experience.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -11368,32 +9905,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler</guid>
     <pubDate>Wed, 17 Jul 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Swift ExpressibleBy protocols: What they are and how they work internally in the compiler--> 
-  <!--WRITEIT_POST_HTML_NAME=swift-expressibleby-protocols-how-they-work-internally-in-the-compiler--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-07-17T18:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=ExpressibleBy represents a series of protocols in the Swift Standard library that allows you to instantiate objects directly from token literals. Let's see how it works.--> 
-  <title>Swift ExpressibleBy protocols: What they are and how they work internally in the compiler</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Swift ExpressibleBy protocols: What they are and how they work internally in the compiler</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 17 Jul 2019 
   </div> 
@@ -11571,32 +10083,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/useful-obscure-foundation-types-in-swift</guid>
     <pubDate>Wed, 26 Jun 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Useful (and obscure!) Foundation types in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=useful-obscure-foundation-types-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-10-18T18:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-06-26T18:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=The <code>Foundation</code> provides you a lot of the bread-and-butter needed for your daily iOS development, ranging from structures like <code>Data</code> all the way to complete APIs like <code>URLSession</code>. But as it turns out, we only use a fraction of what <code>Foundation</code> offers.--> 
-  <title>Useful (and obscure!) Foundation types in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Useful (and obscure!) Foundation types in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 26 Jun 2019 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p>The <code>Foundation</code> provides you a lot of the bread-and-butter needed for your daily iOS development, ranging from structures like <code>Data</code> all the way to complete APIs like <code>URLSession</code>. But as it turns out, we only use a fraction of what <code>Foundation</code> offers.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -11797,32 +10284,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/understanding-opaque-return-types-in-swift</guid>
     <pubDate>Mon, 10 Jun 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Understanding Opaque Return Types in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=understanding-opaque-return-types-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-06-10T18:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Wondering why SwiftUI's return types are `some View`? Let's see what Opaque Return Types are and why they were added in Swift 5.1.--> 
-  <title>Understanding Opaque Return Types in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Understanding Opaque Return Types in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 10 June 2019 
   </div> 
@@ -11955,32 +10417,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/inside-swiftui-compiler-magic</guid>
     <pubDate>Tue, 4 Jun 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Inside SwiftUI's Declarative Syntax's Compiler Magic--> 
-  <!--WRITEIT_POST_HTML_NAME=inside-swiftui-compiler-magic--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2022-10-11T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-06-04T18:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=SwiftUI is a revolutionary framework announced by Apple in WWDC 2019 and you might've noticed that it looks pretty different from regular Swift. Let's see why.--> 
-  <title>Inside SwiftUI's Declarative Syntax's Compiler Magic</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Inside SwiftUI's Declarative Syntax's Compiler Magic</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swiftui">
-   SwiftUI
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 04 Jun 2019 
   </div> 
@@ -12203,32 +10640,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/autoreleasepool-in-swift</guid>
     <pubDate>Wed, 22 May 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=autoreleasepool uses in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=autoreleasepool-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-05-22T18:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=NSAutoreleasePool was very important during the Obj-C era. Let's see cases where it's still useful in Swift.--> 
-  <title>autoreleasepool uses in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>autoreleasepool uses in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 22 May 2019 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p>Foundation's <code>NSAutoreleasePool</code> type, later abstracted to the <code>@autoreleasepool</code> block, is a very old concept in iOS development. During the Obj-C era of iOS, usage of this type was important to prevent your app's memory from blowing up in specific cases. As ARC and Swift came around and evolved, very few people still have to manually play around with memory, making seeing it become a rare occurrence.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -12348,32 +10760,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/code-style-guides-in-swift</guid>
     <pubDate>Tue, 7 May 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Avoiding Release Anxiety 2: On the importance of creating a code Style Guide--> 
-  <!--WRITEIT_POST_HTML_NAME=code-style-guides-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-05-07T18:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITEIT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=When teams start to grow, it becomes to difficult to track what everyone is doing. If the team has different ideas on what a specific piece of code should look like, you can very quickly end up with a project where nobody wanders outside the things they coded themselves.--> 
-  <title>Avoiding Release Anxiety 2: On the importance of creating a code Style Guide</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Avoiding Release Anxiety 2: On the importance of creating a code Style Guide</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-theory">
-   Theory
-  </div> 
-  <div class="post-info-text">
-   Published on 07 May 2019 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <blockquote class="margin-top-40 margin-bottom-40"> 
   <p><i>This is part 2 of the Avoiding Release Anxiety series. <a href="https://swiftrocks.com/blockbased-ui-testing-in-swift">Check out part 1 here!</a></i></p> 
@@ -12410,32 +10797,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/blockbased-ui-testing-in-swift</guid>
     <pubDate>Sat, 20 Apr 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Avoiding Release Anxiety 1: Block-based UI Testing in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=blockbased-ui-testing-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-04-20T18:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=When deadlines are tight and the product faces considerable changes, it's common for developers to make concessions in the project's quality to make sure it gets shipped in time. This leads to release anxiety - that stressful feeling where you're unsure if you're shipping something that actually works.--> 
-  <title>Avoiding Release Anxiety 1: Block-based UI Testing in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Avoiding Release Anxiety 1: Block-based UI Testing in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-theory">
-   Theory
-  </div> 
-  <div class="category category-ios">
-   iOS
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 20 Apr 2019 
   </div> 
@@ -12662,32 +11024,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen</guid>
     <pubDate>Wed, 20 Feb 2019 19:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Adding iOS Home Shortcuts to Specific Parts of An App in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=adding-deeplink-shortcuts-to-the-ios-home-screen--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2019-02-20T18:00:00+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Deeplinking is widely used to provide easy access to certain portions of an iOS app. While most of the uses for a deeplink are marketing purposes such as providing shortcuts inside an e-mail or push notification, they can also be used for communicating between different apps and pretty much anything that involves routing to different screens.--> 
-  <title>Adding iOS Home Shortcuts to Specific Parts of An App in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Adding iOS Home Shortcuts to Specific Parts of An App in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 20 Feb 2019 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p>Deeplinking is widely used to provide easy access to certain portions of an iOS app. While most of the uses for a deeplink are marketing purposes such as providing shortcuts inside an e-mail or push notification, they can also be used for communicating between different apps and pretty much anything that involves routing to different screens.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -12853,32 +11190,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/avoiding-callback-hell-in-swift</guid>
     <pubDate>Mon, 17 Dec 2018 14:42:07 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Avoiding Callback Hell in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=avoiding-callback-hell-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-12-17T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Being able to work in projects of the most diverse varieties gave me the chance to be in contact with several types of developers and code bases. Besides their core differences, what stood out to me during this process is that projects with a lower level of maturity will always face similar problems.--> 
-  <title>Avoiding Callback Hell in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Avoiding Callback Hell in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 17 Dec 2018 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p>Being able to work in projects of the most diverse varieties gave me the chance to be in contact with several types of developers and code bases. Besides their core differences, what stood out to me during this process is that projects with a lower level of maturity will always face similar problems.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -13181,32 +11493,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift</guid>
     <pubDate>Thu, 6 Dec 2018 14:42:07 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=How @dynamicMemberLookup Works Internally in Swift (+ Creating Custom Swift Attributes)--> 
-  <!--WRITEIT_POST_HTML_NAME=how-dynamicmemberlookup-works-internally-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-12-06T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=The @dynamicMemberLookup attribute was introduced in Swift 4.2 to add a certain degree of dynamism into the language similar to what is seen in languages like Python.--> 
-  <title>How @dynamicMemberLookup Works Internally in Swift (+ Creating Custom Swift Attributes)</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>How @dynamicMemberLookup Works Internally in Swift (+ Creating Custom Swift Attributes)</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 06 Dec 2018 
   </div> 
@@ -13483,32 +11770,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/how-never-works-internally-in-swift</guid>
     <pubDate>Wed, 14 Nov 2018 14:42:07 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=How Never Works Internally in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=how-never-works-internally-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-11-14T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Added in Swift 3, the Never type allows you to define a method that is guaranteed to crash your app.--> 
-  <title>How Never Works Internally in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>How Never Works Internally in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 14 Nov 2018 
   </div> 
@@ -13730,32 +11992,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/whats-type-and-self-swift-metatypes</guid>
     <pubDate>Mon, 29 Oct 2018 13:23:13 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=What's .self, .Type and .Protocol? Understanding Swift Metatypes--> 
-  <!--WRITEIT_POST_HTML_NAME=whats-type-and-self-swift-metatypes--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-29T12:23:13+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Metatypes are pretty useful in Swift, and you have certainly used it in multiple occasions. Unfortunately they look pretty weird in code, which can cause some confusion when trying to understand what they really are.--> 
-  <title>What's .self, .Type and .Protocol? Understanding Swift Metatypes</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>What's .self, .Type and .Protocol? Understanding Swift Metatypes</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 29 Oct 2018 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p>Ah metatypes. That's another one for the list of <i>things I use everyday but couldn't explain in an interview if my life depended on it</i>.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -13921,32 +12158,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/unowned-properties-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Unowned Properties in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=unowned-properties-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Learn more about this alternative to weak properties in Swift.--> 
-  <title>Unowned Properties in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Unowned Properties in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 02 May 2018 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p>It's very common to use the <code>weak</code> keyword in order to prevent reference cycles in properties like delegates:</p>
  <pre class="language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
@@ -14012,32 +12224,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/understanding-dispatchqueues</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Understanding DispatchQueues--> 
-  <!--WRITEIT_POST_HTML_NAME=understanding-dispatchqueues--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Multithreading in general is a difficult thing to fully understand, but understanding how the CPU deals with concurrency is the key to writing good, fast code that does what you expected it to do. Otherwise, you might be abusing your user's CPUs but thinking everything is fine because they are too fast for you to notice that something is wrong.--> 
-  <title>Understanding DispatchQueues</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Understanding DispatchQueues</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 14 Feb 2018 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <i>What on earth are these "DispatchQueues"?<br></i>
  <i>Why do I have to use it to send UI code to the main thread? It clearly still works if I do nothing.<br></i>
@@ -14254,32 +12441,7 @@ async task ended
     <guid>https://swiftrocks.com/lazy-sequences-in-swift-and-how-they-work</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Lazy Sequences in Swift And How They Work--> 
-  <!--WRITEIT_POST_HTML_NAME=lazy-sequences-in-swift-and-how-they-work--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Usage of high-order functions like map and filter are very common in Swift projects, as they are simple algorithms that allow you to convert extensive ideas into simple one-liners. Unfortunately, they don't solve every issue - at least not in their default implementations.--> 
-  <title>Lazy Sequences in Swift And How They Work</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Lazy Sequences in Swift And How They Work</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 27 Aug 2018 
   </div> 
@@ -14488,32 +12650,7 @@ async task ended
     <guid>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Writing Cleaner View Code in Swift By Overriding loadView()--> 
-  <!--WRITEIT_POST_HTML_NAME=writing-cleaner-view-code-by-overriding-loadview--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=The choice between using Storyboards and writing views programmatically is very subjetive. Having dealt with both in the past, I personally vouch for writing projects entirely through view code as it allows multiple people to work in the same class without nasty conflicts, and easier code reviews.--> 
-  <title>Writing Cleaner View Code in Swift By Overriding loadView()</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Writing Cleaner View Code in Swift By Overriding loadView()</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-theory">
-   Theory
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 23 Jul 2018 
   </div> 
@@ -14670,32 +12807,7 @@ final class MyViewController: CustomViewController&lt;MyView&gt; {
     <guid>https://swiftrocks.com/competitive-programming-with-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Competitive Programming With Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=competitive-programming-with-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Competitive programming is a great way to master a specific programming language. Even if you're not interested in competing in world events like the Facebook Hacker Cup, tackling difficult algorithm problems using nothing but the language's bread and butter will expose you to aspects/shortcuts of the language you would otherwise never see, such as how efficient certain methods/operations are and how to code better alternatives.--> 
-  <title>Competitive Programming With Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Competitive Programming With Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-theory">
-   Compiler
-  </div> 
-  <div class="post-info-text">
-   Published on 21 May 2018 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <p>Competitive programming is a great way to master a specific programming language. Even if you're not interested in competing in world events like the <b>Facebook Hacker Cup</b>, tackling difficult algorithm problems using nothing but the language's bread and butter will expose you to aspects/shortcuts of the language you would otherwise never see, such as how efficient certain methods/operations are and how to code better alternatives. This is a cool hobby to have, and as a bonus you'll even be indirectly preparing yourself to the feared Big 4 interviews where you have to solve algorithm problems in a whiteboard!</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -14830,32 +12942,7 @@ measure {
     <guid>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Running Other Apps' Siri Shortcuts Through Deep Links in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=running-other-apps-siri-shortcuts-through-deep-links-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Siri Shortcuts are definitely my favorite iOS 12 feature. Ever since SiriKit first came out I was very disappointed that you couldn't use it for your own custom commands, but the new Shortcuts app solves this problem. Not only it allows you to create your custom commands, but it also provides a very intuitive UI to allow even non-devs to automate tons of kinds of workflows in their iPhones.--> 
-  <title>Running Other Apps' Siri Shortcuts Through Deep Links in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Running Other Apps' Siri Shortcuts Through Deeplinks in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 18 Oct 2018 
-  </div> 
+<description><![CDATA[ 
  </div>   
  <p>Siri Shortcuts are definitely my favorite iOS 12 feature. Ever since SiriKit first came out I was very disappointed that you couldn't use it for your own custom commands, but the new Shortcuts app solves this problem. Not only it allows you to create your custom commands, but it also provides a very intuitive UI to allow even non-devs to automate tons of kinds of workflows in their iPhones.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -14914,32 +13001,7 @@ measure {
     <guid>https://swiftrocks.com/swift-associated-types-with-default-values</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Swift Associated Types With Default Values--> 
-  <!--WRITEIT_POST_HTML_NAME=swift-associated-types-with-default-values--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=I was browsing the Swift forums when I stumbled across a discussion regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value.--> 
-  <title>Swift Associated Types With Default Values</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Swift Associated Types With Default Values</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 16 Sep 2018 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <p>I was browsing the Swift forums when I stumbled across a <a href="https://forums.swift.org/t/a-question-about-associatedtype-in-protocols/16168">discussion</a> regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -15035,32 +13097,7 @@ measure {
     <guid>https://swiftrocks.com/detecting-touchid-fingerprint-changes</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Detecting TouchID fingerprint/FaceID face changes--> 
-  <!--WRITEIT_POST_HTML_NAME=detecting-touchid-fingerprint-changes--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=By default, LAContext's evaluatePolicy method will consider any registered fingerprint/face valid - even if they were added after your app was installed.--> 
-  <title>Detecting TouchID fingerprint/FaceID face changes</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Detecting TouchID fingerprint/FaceID face changes</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-ios">
-   iOS
-  </div> 
-  <div class="post-info-text">
-   Published on 20 Jan 2018 
-  </div> 
+<description><![CDATA[ 
  </div> 
  <div class="sponsor-article-ad-auto hidden"></div>  
  <p>By default, <b>LAContext's</b> <b>evaluatePolicy</b> method will consider any registered fingerprint/face valid - even if they were added after your app was installed.</p>
@@ -15093,32 +13130,7 @@ measure {
     <guid>https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Writing Custom Pattern Matching in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=writing-custom-pattern-matching-rules-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like switch cases. While regular switch cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of switches to result in really cool and short lines of code.--> 
-  <title>Writing Custom Pattern Matching in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Writing Custom Pattern Matching in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 08 Aug 2018 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <p>Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like <code>switch</code> cases. While regular <code>switch</code> cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of <code>switches</code> to result in really cool and short lines of code. One thing that interests me in particular is that pattern matching can be used for a wide variety of things.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -15239,32 +13251,7 @@ if case .friday? = nextHoliday?.weekDay {
     <guid>https://swiftrocks.com/how-caseiterable-works-internally-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=How CaseIterable Works Internally in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=how-caseiterable-works-internally-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=CaseIterable is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum.--> 
-  <title>How CaseIterable Works Internally in Swift</title> 
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>How CaseIterable Works Internally in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 21 Sep 2018 
   </div> 
@@ -15530,32 +13517,7 @@ bt</code>
     <guid>https://swiftrocks.com/the-forbidden-inline-attribute-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=The Forbidden @inline Attribute in Swift--> 
-  <!--WRITEIT_POST_HTML_NAME=the-forbidden-inline-attribute-in-swift--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=The @inline attribute is one of those obscure things in Swift - it's nowhere to be found in Apple's docs, doesn't help you write cleaner code and has no purpose but to help the compiler make optimization decisions, but it's related to a pretty important aspect of your app's performance.--> 
-  <title>The Forbidden @inline Attribute in Swift</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>The Forbidden @inline Attribute in Swift</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
-  <div class="category category-swift">
-   Swift
-  </div> 
+<description><![CDATA[ 
   <div class="post-info-text">
    Published on 26 May 2018 
   </div> 
@@ -15657,32 +13619,7 @@ func play(song: Song) {
     <guid>https://swiftrocks.com/memory-management-and-performance-of-value-types</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=Memory Management and Performance of Value Types--> 
-  <!--WRITEIT_POST_HTML_NAME=memory-management-and-performance-of-value-types--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2018-10-26T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=It's very likely that you asked yourself at least once in your iOS career what's the difference between a struct and a class. While realistically the choice between using one or another always boils down to value semantics versus reference semantics, the performance differences between the two are expressive and can heavily favor one or another depending on the contents of your object, specially when dealing with value types.--> 
-  <title>Memory Management and Performance of Value Types</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>Memory Management and Performance of Value Types</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-theory">
-   Theory
-  </div> 
-  <div class="category category-compiler">
-   Compiler
-  </div> 
+<description><![CDATA[ 
   <div class="category category-swift">
    Swift
   </div> 
@@ -15943,31 +13880,7 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
     <guid>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat</guid>
     <pubDate>Mon, 7 Nov 2016 14:42:07 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[
- 
-  
-  <!--WRITEIT_POST_NAME=iOS Security: Reverse Engineering Messenger's Chat Bubbles--> 
-  <!--WRITEIT_POST_HTML_NAME=reverse-engineering-ios-facebook-messenger-chat--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE=2016-11-07T13:42:07+00:00--> 
-  <!--Add here the additional properties that you want each page to possess.--> 
-  <!--These properties can be used to change content in the template page or in the page itself as shown here.--> 
-  <!--Properties must start with 'WRITE_IT_POST'.--> 
-  <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
-  <!--WRITEIT_POST_SHORT_DESCRIPTION=Due do the messaging nature of the Objective-C runtime, a great amount of information about your code can be extracted and manipulated during runtime by external tools.--> 
-  
-  <title>iOS Security: Reverse Engineering Messenger's Chat Bubbles</title>  
- 
-
-<div class="blog-post"> 
- <div class="post-title-index">  
-  <h1>iOS Security: Reverse Engineering Messenger's Chat Bubbles</h1>
- </div> 
- <div class="post-info"> 
-  <div class="category category-reverse">Reverse Engineering</div>
-  <div class="post-info-text">
-   Published on 07 Nov 2016 
-  </div> 
+<description><![CDATA[ 
  </div>  
  <blockquote class="margin-top-40 margin-bottom-40"> 
   <p>This article is SwiftRocks's slimmed down version of my original <a href="https://medium.com/@brunorochaesilva/how-i-hacked-messengers-ios-app-custom-chat-bubble-colors-12f1ac7f070c">2016 Medium article.</a> The Medium article is badly written and contains mistakes, but it has more information on how to reproduce each step.</p> 
