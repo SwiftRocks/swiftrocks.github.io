@@ -75,7 +75,8 @@
 <description><![CDATA[
 <p>If you have been developing for iOS for a while, chances are you had one of two issues involving <b>code signing</b>, the process where Apple/Xcode forces you to "sign" your app with a developer certificate in order to be able to archive it and submit it to the App Store.</p>
 <p>I find code signing to be interesting not just because of what it does, but because it's one of those things that iOS developers kinda just take for granted. We know it's there and we know how to deal with it, but we don't really stop to think <b>why</b> it's there or what it's doing under the hood. We just follow Apple's convoluted steps on how to make it work and move on with our lives.</p>
-<p>In practice, code signing is an incredibly important safety feature of Apple's ecosystems. Knowing what it is and why it exists makes debugging issues related to it considerably easier, so I've written this article to help you understand it.</p>]]></description>
+<p>In practice, code signing is an incredibly important safety feature of Apple's ecosystems. Knowing what it is and why it exists makes debugging issues related to it considerably easier, so I've written this article to help you understand it.</p>
+]]></description>
 </item>
 <item>
     <title>How I'm using ChatGPT for software engineering</title>
@@ -1681,7 +1682,8 @@
     <author>Bruno Rocha</author>
 <description><![CDATA[
 <p>Most mobile teams understand and appreciate the benefits of fast build times. Being able to quickly compile and test your code means quicker development and iteration, which in turn allows your team to ship more regularly and efficiently. But actually achieving fast build times, and implementing a long-term solution that keeps build times fast as your codebase grows, can be a complex undertaking. There are a number of different tactics, and while some are relatively trivial  — reducing the size of bundled resources, for example — others can be much more involved, or even kind of dangerous (think questionable compiler tricks)!</p>
-<p>Luckily, the riskiest build time improvement techniques are rarely necessary. Instead, most teams will achieve build time success by implementing some of the more common approaches incrementally as their codebase grows and resources scale.</p>]]></description>
+<p>Luckily, the riskiest build time improvement techniques are rarely necessary. Instead, most teams will achieve build time success by implementing some of the more common approaches incrementally as their codebase grows and resources scale.</p>
+]]></description>
 </item>
 <item>
     <title>Are your frameworks bulletproof?</title>
@@ -1714,7 +1716,8 @@
 <description><![CDATA[
 <p>With every mobile project, you will eventually find yourself hitting roadblocks that are less about the product and features themselves and more about the surrounding infrastructure that allows everything to exist in the first place. This can manifest in a variety of ways, but as a mobile developer you’ve certainly witnessed some of the telltale signs in areas like maintaining project and build settings, managing code signing, and resolving issues with CI/CD pipelines. These are just a few examples of tasks outside the feature development domain that you might have to deal with when working on a mobile product, and which can really slow you and your team down.</p>
 <p>While these sorts of non-product issues are often dealt with in a distributed and ad-hoc way on smaller teams, this approach breaks down as you scale. Platform infrastructure issues can quickly become the single biggest bottleneck for team productivity and have a huge impact on team happiness as the size of both the codebase and the team increases.</p>
-<p>Mobile platform teams are born out of this need to tackle infrastructure pain points head-on. The end goal is to create a robust ecosystem that the wider mobile org can reliably build within and on top of, and members of a mobile platform team dedicate their time and attention entirely towards this end. That might sound bizarre to people on smaller teams – “mobile folks not working on our actual mobile product??” – but the allocation of resources to mobile platform work can be instrumental for larger companies looking to operate and scale successfully. In this article we'll look at why that's the case, and how to know when it’s becoming an important consideration for your organization.</p>]]></description>
+<p>Mobile platform teams are born out of this need to tackle infrastructure pain points head-on. The end goal is to create a robust ecosystem that the wider mobile org can reliably build within and on top of, and members of a mobile platform team dedicate their time and attention entirely towards this end. That might sound bizarre to people on smaller teams – “mobile folks not working on our actual mobile product??” – but the allocation of resources to mobile platform work can be instrumental for larger companies looking to operate and scale successfully. In this article we'll look at why that's the case, and how to know when it’s becoming an important consideration for your organization.</p>
+]]></description>
 </item>
 <item>
     <title>Using a Macbook Pro as a gaming console</title>
@@ -1915,7 +1918,8 @@
     <pubDate>Thu, 26 May 2022 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<p>The topic of certificates and provisioning profiles is one that causes a lot of confusion and blank stares in the realm of iOS development. Luckily, in general, these things “just work". Apple has done a good job of abstracting away the inner workings of code signing so that, today, you don't need to understand the ins and outs of cryptographic theory to create a fully working iOS app and make it available to the world. But as your team grows, you'll notice that Apple’s abstraction only goes so far, and some understanding of signing and how to handle it is needed. In this post, we'll take a look at why that happens and how large-scale teams successfully navigate signing.</p>]]></description>
+<p>The topic of certificates and provisioning profiles is one that causes a lot of confusion and blank stares in the realm of iOS development. Luckily, in general, these things “just work". Apple has done a good job of abstracting away the inner workings of code signing so that, today, you don't need to understand the ins and outs of cryptographic theory to create a fully working iOS app and make it available to the world. But as your team grows, you'll notice that Apple’s abstraction only goes so far, and some understanding of signing and how to handle it is needed. In this post, we'll take a look at why that happens and how large-scale teams successfully navigate signing.</p>
+]]></description>
 </item>
 <item>
     <title>Understanding Certificates and iOS Provisioning Profiles</title>
@@ -2010,7 +2014,8 @@
 <description><![CDATA[
 <p>Ahh, the humble app version. While the act of versioning an app might seem pretty inconsequential, if you take a step back you see just how often version numbers are relied upon in the development and release lifecycle. Your entire team – engineering, product, QA, CX, and more – regularly need to refer to specific app versions in their day-to-day lives as they prepare work for new releases, track stability and health across old releases, coordinate testing efforts, and communicate changes and provide support to end users.</p>
 <p>So, perhaps app versioning is worth some thought! Versioning software has been a thing since forever and, whether you’re an engineer, a PM, or another mobile-adjacent character, you’ve definitely dealt with it firsthand at some point. But have you stopped to ask “why?” Different teams approach versioning differently and, at first glance, it might seem like there are no particular standards. There's a tendency to approach things on a gut-feeling basis: "This release contains some pretty big changes, so it’s a 2.0!" or "We’re only shipping a few small things, so this is version 1.9.1!". Is everyone just doing whatever feels right or looks the coolest? Have you ever wondered if there's a “correct" way to approach versioning?</p>
-<p>Like everything in software engineering, there's actually a concrete set of considerations and standards to follow that will help you to decide how to version your apps and get the most out of versioning for your team.</p>]]></description>
+<p>Like everything in software engineering, there's actually a concrete set of considerations and standards to follow that will help you to decide how to version your apps and get the most out of versioning for your team.</p>
+]]></description>
 </item>
 <item>
     <title>Avoiding release anxiety, part II (Runway)</title>
@@ -2019,7 +2024,8 @@
     <pubDate>Mon, 14 Mar 2022 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<p>Welcome to Part II of a topic I’ve been wanting to cover for a long time (and one which isn’t covered enough!): how to avoid burnout on a tough project, make building with a team fun again, and ship better products in the process.</p>]]></description>
+<p>Welcome to Part II of a topic I’ve been wanting to cover for a long time (and one which isn’t covered enough!): how to avoid burnout on a tough project, make building with a team fun again, and ship better products in the process.</p>
+]]></description>
 </item>
 <item>
     <title>Avoiding release anxiety, part I</title>
@@ -2028,7 +2034,8 @@
     <pubDate>Tue, 8 Mar 2022 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<p>I’ve written many pieces about the (mobile) release process and product management from a technical point of view but, in my experience, there is a strong emotional component that is often less talked about. This more human side of things can be what makes or breaks a person's interest in and excitement about working on a product, so I figured it was time to write specifically about this other side. I'd like to share a few thoughts on something we’re probably all very familiar with — how anxiety and stress can emerge in a tech org, especially when you’re working so frenetically to deliver something that you end up burning yourself out for weeks.</p>]]></description>
+<p>I’ve written many pieces about the (mobile) release process and product management from a technical point of view but, in my experience, there is a strong emotional component that is often less talked about. This more human side of things can be what makes or breaks a person's interest in and excitement about working on a product, so I figured it was time to write specifically about this other side. I'd like to share a few thoughts on something we’re probably all very familiar with — how anxiety and stress can emerge in a tech org, especially when you’re working so frenetically to deliver something that you end up burning yourself out for weeks.</p>
+]]></description>
 </item>
 <item>
     <title>Merge queues: An intro for mobile engineers (Runway)</title>
@@ -2037,7 +2044,8 @@
     <pubDate>Wed, 9 Feb 2022 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<p>As a mobile engineer, it’s quite possible you’ve never used, or even heard of, merge queues. This might be due in part to the fact that mobile teams traditionally move a bit slower than their web counterparts (merge queues are more often employed by teams who integrate code at breakneck pace), and because mobile teams tend to isolate production-ready code more protectively (merge queues are extra helpful for teams who are more trunk-based). But merge queues aren’t all that esoteric, even in the mobile context, and they can help solve problems that you and your mobile team might very well face.</p>]]></description>
+<p>As a mobile engineer, it’s quite possible you’ve never used, or even heard of, merge queues. This might be due in part to the fact that mobile teams traditionally move a bit slower than their web counterparts (merge queues are more often employed by teams who integrate code at breakneck pace), and because mobile teams tend to isolate production-ready code more protectively (merge queues are extra helpful for teams who are more trunk-based). But merge queues aren’t all that esoteric, even in the mobile context, and they can help solve problems that you and your mobile team might very well face.</p>
+]]></description>
 </item>
 <item>
     <title>How successful mobile teams release apps at scale</title>
@@ -2046,7 +2054,8 @@
     <pubDate>Tue, 25 Jan 2022 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-<p>The problem of releasing mobile apps takes many forms, and what I find most interesting is how different the processes and solutions teams put in place can be — even across companies of similar size and maturity. Despite everyone facing the same foundational problem of having to optimize the process of delivering an app to the world, I’ve never encountered two companies that approach it in the exact same way. But although technical implementations differ, the release processes of large companies seem to always focus on the same core principles: quality control and data-driven feedback loops. To understand why this is the case, we’ll take a look at the types of problems that large companies face as they scale and see how they differ from those of smaller companies.</p>]]></description>
+<p>The problem of releasing mobile apps takes many forms, and what I find most interesting is how different the processes and solutions teams put in place can be — even across companies of similar size and maturity. Despite everyone facing the same foundational problem of having to optimize the process of delivering an app to the world, I’ve never encountered two companies that approach it in the exact same way. But although technical implementations differ, the release processes of large companies seem to always focus on the same core principles: quality control and data-driven feedback loops. To understand why this is the case, we’ll take a look at the types of problems that large companies face as they scale and see how they differ from those of smaller companies.</p>
+]]></description>
 </item>
 <item>
     <title>Focus on concepts, not approaches</title>
@@ -3290,7 +3299,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <a href="https://github.com/apple/swift/blob/main/stdlib/public/Concurrency/Executor.swift">Executor.swift</a>
  <br>
  <a href="https://github.com/apple/swift/blob/main/stdlib/public/Concurrency/GlobalExecutor.cpp">GlobalExecutor.cpp</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Creating 3D Models from Photographs with RealityKit in Swift</title>
@@ -3400,7 +3410,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 <code>configuration.featureSensitivity = .high</code>
 </pre>
  <div class="sponsor-article-ad-auto hidden"></div>
- <p>The configuration struct allows you to provide more information about your photographs, which may result in a better model. <code>sampleOverlap</code> allows you to describe how much overlap there is between each photograph, <code>sampleOrdering</code> allows you to indicate whether or not your photographs are ordered (which will speed the process), and <code>featureSensitivity</code> indicates how hard RealityKit should try to search for features in your object, which should be used in cases where the object doesn't have a lot of discernible structures, edges or textures.</p>]]></description>
+ <p>The configuration struct allows you to provide more information about your photographs, which may result in a better model. <code>sampleOverlap</code> allows you to describe how much overlap there is between each photograph, <code>sampleOrdering</code> allows you to indicate whether or not your photographs are ordered (which will speed the process), and <code>featureSensitivity</code> indicates how hard RealityKit should try to search for features in your object, which should be used in cases where the object doesn't have a lot of discernible structures, edges or textures.</p>
+]]></description>
 </item>
 <item>
     <title>How necessary are the programming fundamentals?</title>
@@ -3514,7 +3525,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <h2>Moving forward</h2>
  <p>I hope this article was able to make it clear to you the importance of learning CS fundamentals and how it's important to separate it from our resentment towards bad interviewing practices. While we've seen that almost no one truly <i>requires</i> to study theory in order to have a successful career, I think it's clear how beneficial it can be to do so, so it's important for us as a community to not incorrectly drive beginners away from it.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
- <p>While I'm certain that some people will still not agree with this article, I hope that this has given you new interesting insights on the practical applications of theory and what we can do to build better interview processes.</p>]]></description>
+ <p>While I'm certain that some people will still not agree with this article, I hope that this has given you new interesting insights on the practical applications of theory and what we can do to build better interview processes.</p>
+]]></description>
 </item>
 <item>
     <title>Thread Safety in Swift</title>
@@ -3802,7 +3814,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <div class="post-image"> 
   <img src="https://i.imgur.com/V1S7N2y.png" alt="Alt"> 
  </div>
- <p>This means you should generally use <code>DispatchSemaphore</code> if you're only waiting for a single event, but in practice, the presence of the <code>notify</code> API makes a lot of people use <code>DispatchGroups</code> for individual events as well.</p>]]></description>
+ <p>This means you should generally use <code>DispatchSemaphore</code> if you're only waiting for a single event, but in practice, the presence of the <code>notify</code> API makes a lot of people use <code>DispatchGroups</code> for individual events as well.</p>
+]]></description>
 </item>
 <item>
     <title>Adding Intelligent Code Generation to Swift Projects with SourceKit</title>
@@ -4301,7 +4314,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>We can now safely activate our app's premium features for these users.</p>
  <h2>Conclusion</h2>
- <p>As a final note, remember what was said in regards to the meaning of <i>uncrackable</i> in this context. Unless your app is serving 100% of its content from a backend, it's impossible to make it uncrackable. In this case, a hacker could simply edit the assembly of the app to invert the <code>if</code> that activates the premium features. Like a physical lock, security measures in macOS apps are simply deterrents, and you should keep that in mind when implementing features like this.</p>]]></description>
+ <p>As a final note, remember what was said in regards to the meaning of <i>uncrackable</i> in this context. Unless your app is serving 100% of its content from a backend, it's impossible to make it uncrackable. In this case, a hacker could simply edit the assembly of the app to invert the <code>if</code> that activates the premium features. Like a physical lock, security measures in macOS apps are simply deterrents, and you should keep that in mind when implementing features like this.</p>
+]]></description>
 </item>
 <item>
     <title>Be careful with Obj-C bridging in Swift</title>
@@ -4404,7 +4418,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>If you don't convert the type to <code>AnyObject</code>, the very same protocol may give you two different results depending on how your method was called (for example, an argument provided in Swift versus in Obj-C). This is the most common source of bridging issues, as a similar case existed with <code>NSString</code> a few versions ago where a method had different implementations when compared to <code>String</code>, which caused issues in cases where a Swift string was automatically converted to an <code>NSString</code>.</p>
  <h2>Conclusion</h2>
- <p>I personally think that using <code>as</code> as a syntax sugar for bridging was not the best idea. From the developer's point of view it's clear that <code>string._bridgeToObjectiveC()</code> may cause the object to change, while <code>as</code> indicates the opposite. <code>_ObjectiveCBridgeable</code> is a public protocol, but it's not supported for general use. In general, be aware of custom types implementing it, and pay extra attention when you're upcasting to make sure you're not bridging types when you didn't mean to.</p>]]></description>
+ <p>I personally think that using <code>as</code> as a syntax sugar for bridging was not the best idea. From the developer's point of view it's clear that <code>string._bridgeToObjectiveC()</code> may cause the object to change, while <code>as</code> indicates the opposite. <code>_ObjectiveCBridgeable</code> is a public protocol, but it's not supported for general use. In general, be aware of custom types implementing it, and pay extra attention when you're upcasting to make sure you're not bridging types when you didn't mean to.</p>
+]]></description>
 </item>
 <item>
     <title>Understanding @inlinable in Swift</title>
@@ -4475,7 +4490,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <p>Unless you're building a framework with ABI/API stability, these attributes should be perfectly safe to use. Still, I would strongly suggest for you to <b>not</b> use them unless you know what you're doing. They are built to be used in very special cases that most applications will never experience, so unless you really have to, it may be better for you to see these as nothing more than a piece of cool Swift trivia you read at SwiftRocks.</p>
  <h2>References and Good Reads</h2>
  <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0193-cross-module-inlining-and-specialization.md">SE-0193: Cross-module inlining and specialization</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>DispatchSource: Detecting changes in files and folders in Swift</title>
@@ -4666,7 +4682,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 </pre>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>From here, creating a view that displays the latest logs like in the example picture is just a matter of creating a new <code>FileMonitor</code> and setting the feature as the delegate.</p>
- <p>You can make a feature like this without file logging/monitoring, but adding it to the mix would allow you to isolate the feature's logic from the actual logging mechanics. For something that's meant to be only used when debugging, that can be very nice in terms of architecture.</p>]]></description>
+ <p>You can make a feature like this without file logging/monitoring, but adding it to the mix would allow you to isolate the feature's logic from the actual logging mechanics. For something that's meant to be only used when debugging, that can be very nice in terms of architecture.</p>
+]]></description>
 </item>
 <item>
     <title>How Swift API Availability Works Internally</title>
@@ -4869,7 +4886,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <a href="https://github.com/apple/swift/blob/9af806e8fd93df3499b1811deae7729176879cb0/lib/Sema/TypeCheckAvailability.cpp#L400">TypeCheckAvailability.cpp</a>
  <br>
  <a href="https://github.com/apple/swift-evolution/pull/1184">SE-NNNN: Unavailability Condition</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>UI Testing Deeplinks and Universal Links in iOS</title>
@@ -5055,7 +5073,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 <code>    // Assert that the universal link worked by checking if we're in the "Profile" screen</code>
 <code>    XCTAssertTrue(app.navigationBars["Profile"].exists)</code>
 <code>}</code>
-</pre>]]></description>
+</pre>
+]]></description>
 </item>
 <item>
     <title>Improving Observer Pattern APIs in Swift With Weak Collections</title>
@@ -5204,7 +5223,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <a href="https://swiftrocks.com/weak-dictionary-values-in-swift">Weak Dictionary Values (SwiftRocks)</a>
  <br>
  <a href="https://swiftrocks.com/autoreleasepool-in-2019-swift">@autoreleasepool uses in 2019 Swift (SwiftRocks)</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>App Attest: How to prevent an iOS app's APIs from being abused</title>
@@ -5284,7 +5304,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <p>By implementing this in your client and in your backend, it should become harder for hackers to abuse your server's APIs. However, be aware of the word <b>harder</b> -- it doesn't mean impossible! As mentioned before, there's no sure way for you to detect if a user has a jailbroken device, and even fewer ways to prevent them from attacking your app. As with most security measures, the intention of App Attest is instead to make this process <b>difficult enough</b> so that only a very skilled and dedicated hacker would be able to find a way to break into your app -- someone much harder to come by.</p>
  <h2>References and Good Reads</h2>
  <a href="https://developer.apple.com/documentation/devicecheck">Official App Attest Docs covering the Backend implementation</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Entry Points in Swift: How @main and @UIApplicationMain work internally</title>
@@ -5386,7 +5407,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 <code>    }</code>
 <code>}</code>
 </pre>
- <p>Because of this addition, using <code>@UIApplicationMain</code> is now officially deprecated as Apple allows you to use the new <code>@main</code> attribute in your AppDelegates (except in the second Xcode 12 beta, where the feature was temporarily disabled).</p>]]></description>
+ <p>Because of this addition, using <code>@UIApplicationMain</code> is now officially deprecated as Apple allows you to use the new <code>@main</code> attribute in your AppDelegates (except in the second Xcode 12 beta, where the feature was temporarily disabled).</p>
+]]></description>
 </item>
 <item>
     <title>Adapting Objective-C APIs to Swift with NS_REFINED_FOR_SWIFT</title>
@@ -5464,7 +5486,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 <code>    }</code>
 <code>}</code>
 </pre>
- <p>Unfortunately you can't redefine <b>entire</b> types with <code>NS_REFINED_FOR_SWIFT</code> as only methods, properties and initializers are supported, but in my experience, that's enough to give legacy code a good Swift experience.</p>]]></description>
+ <p>Unfortunately you can't redefine <b>entire</b> types with <code>NS_REFINED_FOR_SWIFT</code> as only methods, properties and initializers are supported, but in my experience, that's enough to give legacy code a good Swift experience.</p>
+]]></description>
 </item>
 <item>
     <title>Creating Debug Menus in Swift with UIContextMenuInteraction</title>
@@ -5635,7 +5658,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/05piylJ.png" alt="Context Menu Async"> 
  </div>
- <p>If you're interested in creating debug menus, the code we created here <a href="https://github.com/rockbruno/DebugActions">is available in SPM and CocoaPods as the DebugActions library.</a></p>]]></description>
+ <p>If you're interested in creating debug menus, the code we created here <a href="https://github.com/rockbruno/DebugActions">is available in SPM and CocoaPods as the DebugActions library.</a></p>
+]]></description>
 </item>
 <item>
     <title>How to create Widgets in iOS 14 in Swift</title>
@@ -6035,7 +6059,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>With this in place, when trying to add a Widget from your app, you'll be able to see the additional Widget options by swiping.</p>
  <h2>Where to go from here?</h2>
- <p>There are further customizations you can do Widgets, including rendering different info depending on the container size of the Widget, locking the possible Widget sizes and more. Check WWDC 2020's sessions for more information on Widgets.</p>]]></description>
+ <p>There are further customizations you can do Widgets, including rendering different info depending on the container size of the Widget, locking the possible Widget sizes and more. Check WWDC 2020's sessions for more information on Widgets.</p>
+]]></description>
 </item>
 <item>
     <title>Benefits of using throwing functions (try) - Swift's most underrated feature?</title>
@@ -6169,7 +6194,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <h2>Conclusion</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Using throwing functions has been extremely beneficial in my new project, but as I said in the beginning, you might find that most of these benefits only apply if your project is <b>completely</b> using them to handle errors. Still, even if you don't have a full project, you can use <code>Result</code>'s special initializers to treat the gaps and benefit from cleaner methods and more durable unit tests.</p>
- <p>The project in question is <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>. Make sure to check it out (especially the test cases!) to see how these benefits are translated to code.</p>]]></description>
+ <p>The project in question is <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>. Make sure to check it out (especially the test cases!) to see how these benefits are translated to code.</p>
+]]></description>
 </item>
 <item>
     <title>How Random Numbers Work In Swift</title>
@@ -6281,7 +6307,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/Random.swift">Random.swift</a>
  <br>
  <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0202-random-unification.md">Random Unification</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>iOS Responder Chain: UIResponder, UIEvent, UIControl and uses</title>
@@ -6482,7 +6509,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <a href="https://developer.apple.com/documentation/uikit/uievent">UIEvent</a>
  <br>
  <a href="https://developer.apple.com/documentation/uikit/uievent">UIControl</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Unit Testing Preprocessor Macros in Swift</title>
@@ -6645,7 +6673,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <p><i>(Note that because <b>isOverridden</b> only works when a macro isn't present in the build, your testing target should not contain macros whose's presence/absence needs to be tested.)</i></p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>With this setup, we're able to test preprocessor macros while being sure that our final release builds will not contain code that's not meant to be executed. This same trick can be used to test macros in XCUITests.</p>
- <p>As a final note in the topic of security, note that if your intention is to <b>completely</b> get rid of something in runtime, everything needs to be wrapped by macro checks. In this case, if hiding the build types themselves was critical (and not just the logic of what's my current one), we would have to wrap the enum itself in macros, which would make unit testing it like this considerably harder, although still possible.</p>]]></description>
+ <p>As a final note in the topic of security, note that if your intention is to <b>completely</b> get rid of something in runtime, everything needs to be wrapped by macro checks. In this case, if hiding the build types themselves was critical (and not just the logic of what's my current one), we would have to wrap the enum itself in macros, which would make unit testing it like this considerably harder, although still possible.</p>
+]]></description>
 </item>
 <item>
     <title>Weak Dictionary Values in Swift</title>
@@ -6825,7 +6854,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 <code>                      .takeUnretainedValue()</code>
 </pre>
  <h2>Conclusion</h2>
- <p>Besides the obvious memory management differences between disposing of a value when it's not needed anymore versus keeping it alive forever, using weak collections when applicable can be very useful for performance reasons. As shown in the examples, while a bare Swift weak wrapper keeps existing when its value is gone, classes like <code>NSMapTable</code> clean their entries completely when values are disposed of. This reduced overhead can make a big difference in your app's lifecycle.</p>]]></description>
+ <p>Besides the obvious memory management differences between disposing of a value when it's not needed anymore versus keeping it alive forever, using weak collections when applicable can be very useful for performance reasons. As shown in the examples, while a bare Swift weak wrapper keeps existing when its value is gone, classes like <code>NSMapTable</code> clean their entries completely when values are disposed of. This reduced overhead can make a big difference in your app's lifecycle.</p>
+]]></description>
 </item>
 <item>
     <title>Understanding Swift's ObjectIdentifier</title>
@@ -6975,7 +7005,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <p>With this code, the array of widgets will only be iterated the first time that <code>_widgetSet</code> is accessed. On subsequent calls, the set will be provided instantly due to the <code>lazy</code> behavior or static properties.</p>
  <h2>References and Good Reads</h2>
  <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/ObjectIdentifier.swift">ObjectIdentifier.swift</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Useful Global Swift Functions</title>
@@ -7169,7 +7200,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <div class="sponsor-article-ad-auto hidden"></div>
  <p><code>swap()</code> - Swaps the value of two objects. This is not mentioned in its own section in this article because if you need to swap array elements the correct method to use is <code>Array.swapAt()</code>. However, you can still use <code>swap()</code> in other situations where you would need to create a fake "aux" property to hold a value.</p>
  <h2>Conclusion</h2>
- <p>As we can see, although none of these methods are necessary to make things happen, using them allows you write code that is easier to maintain and some times even more performant than old school solutions.</p>]]></description>
+ <p>As we can see, although none of these methods are necessary to make things happen, using them allows you write code that is easier to maintain and some times even more performant than old school solutions.</p>
+]]></description>
 </item>
 <item>
     <title>How Collection Diffing works in Swift</title>
@@ -7446,7 +7478,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/CollectionDifference.swift">CollectionDifference.swift</a>
  <br>
  <a href="https://blog.jcoglan.com/2017/02/12/the-myers-diff-algorithm-part-1/">The Myers Diff Algorithm Explanation - Great read!</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Swift Codable: Decoding / Encoding With Context</title>
@@ -7596,7 +7629,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 <code>    }</code>
 <code>}</code>
 </pre>
- <p>This decentralized behavior is especially important for modular apps (which is <code>RouterService</code>'s use case), as different targets can reference and decode <code>AnyRoutes</code> without having access to the app's real <code>Routes</code>.</p>]]></description>
+ <p>This decentralized behavior is especially important for modular apps (which is <code>RouterService</code>'s use case), as different targets can reference and decode <code>AnyRoutes</code> without having access to the app's real <code>Routes</code>.</p>
+]]></description>
 </item>
 <item>
     <title>Reducing iOS Build Times by using Interface Modules</title>
@@ -7714,7 +7748,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  </div>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p><i>(Not shown: In our case, everyone depends on something called a <code>RouterServiceInterface</code>, with the main module depending on the concrete <code>RouterService</code>, which dynamically links the interfaces to their actual classes.)</i></p>
- <p>Note how the graph is considerably more <b>horizontal</b> than its counterpart -- even though everyone depends on <code>HTTPClientInterface</code>, changes to the actual <code>HTTPClient</code> will have no repercussions on the other modules, making the app compile considerably faster. With an entire app running on this structure, you should only have bad compilation times if the interfaces themselves are changed -- something that should be a rare occurrence. In general, every module is going to be completely independent of each other, which can be especially useful and productive when developing inside the module's specific scheme in Xcode.</p>]]></description>
+ <p>Note how the graph is considerably more <b>horizontal</b> than its counterpart -- even though everyone depends on <code>HTTPClientInterface</code>, changes to the actual <code>HTTPClient</code> will have no repercussions on the other modules, making the app compile considerably faster. With an entire app running on this structure, you should only have bad compilation times if the interfaces themselves are changed -- something that should be a rare occurrence. In general, every module is going to be completely independent of each other, which can be especially useful and productive when developing inside the module's specific scheme in Xcode.</p>
+]]></description>
 </item>
 <item>
     <title>How Hashable works in Swift</title>
@@ -7909,7 +7944,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0206-hashable-enhancements.md">SE-0206 Hashable Enhancements</a>
  <br>
  <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0185-synthesize-equatable-hashable.md">SE-0185 Synthesize Hashable</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift</title>
@@ -8228,7 +8264,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <h2>Conclusion: Where to go from here?</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>The shown <code>RouterService</code> and its related components is a very simplified version of a navigation framework being tested at iFood. This can be evolved into a structure (which we use) that relies on Codable <code>Routes</code> and <code>RouteHandlers</code> instead of directly invoking features, allowing you to have a very smart deep link structure where your backend can dictate where the app's flow should go to.</p>
- <p>Type Erasures are a very nice way to temporarily tell the compiler to "stop" type-checking your code. This allows you to conceive all sorts of complex structures without giving up type safety -- as long as you are careful with where they are used.</p>]]></description>
+ <p>Type Erasures are a very nice way to temporarily tell the compiler to "stop" type-checking your code. This allows you to conceive all sorts of complex structures without giving up type safety -- as long as you are careful with where they are used.</p>
+]]></description>
 </item>
 <item>
     <title>Faster Array Operations With CollectionOfOne in Swift</title>
@@ -8332,7 +8369,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/CollectionOfOne.swift">CollectionOfOne.swift</a>
  <br>
  <a href="https://github.com/apple/swift">The Swift Source Code</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>How OptionSet works inside the Swift Compiler</title>
@@ -8470,7 +8508,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <p>The <code>OptionSet</code> protocol itself is hardly used nowadays, but its existence has some history and shows some of the importance of analyzing what you're developing in terms of performance. You can always use a regular <b>Array</b> or <b>Set</b> to define these options, but should you? For these case where you have a limited set of unique options, using a bitmask is considerably quicker and less resource-intensive, something which your user's device will be very grateful for :)</p>
  <h2>References and Good reads</h2>
  <a href="https://github.com/apple/swift">The Swift Source Code</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>NSCopying uses in Swift</title>
@@ -8619,7 +8658,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <h2>Conclusion</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Many features of iOS rely on legacy Objective-C components. As always, knowing the history of why things work the way they do can allow you to make better choices on the platform. In this case, <code>NSCopying</code> is an important aspect of Objective-C and can still be used not only for Swift-specific uses but also to unlock copy semantics in properties bridged to Objective-C.</p>
- <p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>]]></description>
+ <p>If you want to see more Swift and iOS information like this, follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any feedback, suggestions and corrections you want to share.</p>
+]]></description>
 </item>
 <item>
     <title>Swift's Sequence Inside The Compiler: How for loops work internally</title>
@@ -8772,7 +8812,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <p>---</p>
  <h2>References and Good reads</h2>
  <a href="https://github.com/apple/swift">The Swift Source Code</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Building a Face Detecting Robot with URLSessionWebSocketTask, CoreML, SwiftUI and an Arduino</title>
@@ -9309,7 +9350,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <a href="https://tools.ietf.org/html/rfc6455">RFC 6455 - The WebSocket Protocol</a>
  <br>
  <a href="https://gist.github.com/rich20bb/4190781">Python implementation of an RFC 6455 socket server</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Using SIMD Vector Types in Swift</title>
@@ -9392,7 +9434,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0229-simd.md">SIMD Proposal</a>
  <br>
  <a href="https://www.coursera.org/lecture/comparch/simd-MtZ5W">SIMD Lecture from Princeton</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Timsort and Introsort: Swift's Sorting Algorithms</title>
@@ -9642,7 +9685,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <br>
  <a href="https://svn.python.org/projects/python/trunk/Objects/listsort.txt">Timsort</a>
  <br>
- <a href="https://en.wikipedia.org/wiki/Timsort">Timsort (Wiki)</a>]]></description>
+ <a href="https://en.wikipedia.org/wiki/Timsort">Timsort (Wiki)</a>
+]]></description>
 </item>
 <item>
     <title>Advanced lldb tricks for Swift - Injecting and changing code on the fly</title>
@@ -9814,7 +9858,8 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
  <a href="https://developer.apple.com/videos/play/wwdc2019/429/">Beyond po (WWDC 19)</a>
  <br>
  <a href="http://damnvulnerableiosapp.com/">Damn Vulnerable iOS App</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Swift ExpressibleBy protocols: What they are and how they work internally in the compiler</title>
@@ -9987,7 +10032,8 @@ bb0(%0 : $*URL):</code>
  <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
  <h2>References and Good reads</h2>
  <a href="https://github.com/apple/swift">The Swift Source Code</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Useful (and obscure!) Foundation types in Swift</title>
@@ -10186,7 +10232,8 @@ bb0(%0 : $*URL):</code>
  <a href="https://developer.apple.com/documentation/foundation/nscache">NSCache</a>
  <br>
  <a href="https://developer.apple.com/documentation/corefoundation/cfbinaryheap">CFBinaryHeap</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Understanding Opaque Return Types in Swift</title>
@@ -10314,7 +10361,8 @@ bb0(%0 : $*URL):</code>
  <a href="https://developer.apple.com/videos/play/wwdc2019/402/">WWDC 2019: What's new in Swift</a>
  <br>
  <a href="https://github.com/apple/swift/pull/22072">Opaque Return Types Pull Request</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Inside SwiftUI's Declarative Syntax's Compiler Magic</title>
@@ -10532,7 +10580,8 @@ bb0(%0 : $*URL):</code>
  <a href="https://github.com/apple/swift/pull/23251">Original Returnless Expressions PR</a>
  <br>
  <a href="https://forums.swift.org/t/pitch-function-builders/25167">Result Builders Pitch</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>autoreleasepool uses in Swift</title>
@@ -10650,7 +10699,8 @@ bb0(%0 : $*URL):</code>
  <h2>Conclusion</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>To put it short, <code>autoreleasepool</code> is still useful in iOS/Swift development as there are still legacy Obj-C classes in UIKit and Foundation that call <code>autorelease</code>, but you likely don't need to worry about it when dealing with Swift classes due to ARC's optimizations.</p>
- <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>]]></description>
+ <p>Follow me on my Twitter (<a href="https://twitter.com/rockbruno_">@rockbruno_</a>), and let me know of any suggestions and corrections you want to share.</p>
+]]></description>
 </item>
 <item>
     <title>Avoiding Release Anxiety 2: On the importance of creating a code Style Guide</title>
@@ -10685,7 +10735,8 @@ bb0(%0 : $*URL):</code>
  <h2>Conclusion</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>In the end, it's all about how far you see your project going. Style guides are strict, have a learning curve and are hard to get used to initially, but if neglected, the lack of one ends up being one of the main reasons why a repository fell apart. In the long term, being able to seamlessly access and understand someone else's code in a team of 200 engineers is a large scale project's biggest strength.</p>
- <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>]]></description>
+ <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
+]]></description>
 </item>
 <item>
     <title>Avoiding Release Anxiety 1: Block-based UI Testing in Swift</title>
@@ -10907,7 +10958,8 @@ bb0(%0 : $*URL):</code>
  <h2>Conclusion</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>With everything setup, we're able to create not just UI but also Unit Tests while still being able to scale our project stress-free. By separating the test necessities from the project itself, we can develop conditions for tests without hurting the project's quality. After creating exploration methods and developing UI Tests for important flows that snap these methods together, we can rely on a resilient test suite that allows us to safely release new versions of our apps.</p>
- <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>]]></description>
+ <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
+]]></description>
 </item>
 <item>
     <title>Adding iOS Home Shortcuts to Specific Parts of An App in Swift</title>
@@ -11071,7 +11123,8 @@ bb0(%0 : $*URL):</code>
  <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
  <h2>References and Good reads</h2>
  <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">Apple's PWA docs</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Avoiding Callback Hell in Swift</title>
@@ -11372,7 +11425,8 @@ bb0(%0 : $*URL):</code>
  <br>
  <a href="https://developer.apple.com/videos/play/wwdc2015/226/">WWDC: Advanced NSOperations</a>
  <br>
- <a href="https://gist.github.com/Sorix/57bc3295dc001434fe08acbb053ed2bc">AsynchronousOperation.swift</a>]]></description>
+ <a href="https://gist.github.com/Sorix/57bc3295dc001434fe08acbb053ed2bc">AsynchronousOperation.swift</a>
+]]></description>
 </item>
 <item>
     <title>How @dynamicMemberLookup Works Internally in Swift (+ Creating Custom Swift Attributes)</title>
@@ -11644,7 +11698,8 @@ bb0(%0 : $*URL):</code>
  <a href="https://github.com/apple/swift/blob/master/docs/TypeChecker.rst">Typechecker Docs</a>
  <br>
  <a href="https://github.com/apple/swift">The Swift Source Code</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>How Never Works Internally in Swift</title>
@@ -11861,7 +11916,8 @@ bb0(%0 : $*URL):</code>
  <a href="https://github.com/apple/swift-llvm">swift-llvm</a>
  <br>
  <a href="https://llvm.org/docs/LangRef.html">LLVM Ref</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>What's .self, .Type and .Protocol? Understanding Swift Metatypes</title>
@@ -12025,7 +12081,8 @@ bb0(%0 : $*URL):</code>
  <a href="https://docs.swift.org/swift-book/ReferenceManual/Types.html#//apple_ref/swift/grammar/metatype-type">Apple Docs: Types</a>
  <br>
  <a href="https://developer.apple.com/documentation/swift/2885064-type">Apple Docs: type(of:)</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Unowned Properties in Swift</title>
@@ -12089,7 +12146,8 @@ bb0(%0 : $*URL):</code>
  <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
  <h2>References and Good reads</h2>
  <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html">Apple Docs: ARC and Keywords</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Understanding DispatchQueues</title>
@@ -12304,7 +12362,8 @@ async task ended
  <br>
  <a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/CreatingThreads/CreatingThreads.html#//apple_ref/doc/uid/10000057i-CH15-SW2">Apple Docs: Thread Management</a>
  <br>
- <a href="https://medium.com/flawless-app-stories/basics-of-parallel-programming-with-swift-93fee8425287">Basic of Parallel Programming with Swift</a>]]></description>
+ <a href="https://medium.com/flawless-app-stories/basics-of-parallel-programming-with-swift-93fee8425287">Basic of Parallel Programming with Swift</a>
+]]></description>
 </item>
 <item>
     <title>Lazy Sequences in Swift And How They Work</title>
@@ -12508,7 +12567,8 @@ async task ended
  <a href="https://developer.apple.com/documentation/swift/lazysequenceprotocol">LazySequenceProtocol</a>
  <br>
  <a href="https://developer.apple.com/documentation/swift/sequence">Sequence</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Writing Cleaner View Code in Swift By Overriding loadView()</title>
@@ -12660,7 +12720,8 @@ final class MyViewController: CustomViewController&lt;MyView&gt; {
  <p>Let me know if you have other ways of defining views in a project without storyboards, along with any other questions, comments or feedback you might have.</p>
  <h2>References and Good reads</h2>
  <a href="https://developer.apple.com/documentation/uikit/uiviewcontroller/1621454-loadview">Apple Docs: loadView()</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Competitive Programming With Swift</title>
@@ -12793,7 +12854,8 @@ measure {
  <br>
  <a href="http://jordansmith.io/on-performant-arrays-in-swift/">Performant Arrays In Swift</a>
  <br>
- <a href="https://developer.apple.com/documentation/swift/1641199-readline">Apple Docs: readLine()</a>]]></description>
+ <a href="https://developer.apple.com/documentation/swift/1641199-readline">Apple Docs: readLine()</a>
+]]></description>
 </item>
 <item>
     <title>Running Other Apps' Siri Shortcuts Through Deep Links in Swift</title>
@@ -12850,7 +12912,8 @@ measure {
  <a href="http://x-callback-url.com/">x-callback-url</a>
  <br>
  <a href="https://support.apple.com/guide/shortcuts/about-url-schemes-apd621a1ad7a/ios">Apple Docs: Shortcuts URL Schemes</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Swift Associated Types With Default Values</title>
@@ -12944,7 +13007,8 @@ measure {
  <p>Follow me on my Twitter - <a href="https://twitter.com/rockbruno_">@rockbruno_</a>, and let me know of any suggestions and corrections you want to share.</p>
  <h2>Reference</h2>
  <a href="https://bugs.swift.org/browse/SR-8761">SR-8761</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>Detecting TouchID fingerprint/FaceID face changes</title>
@@ -12975,7 +13039,8 @@ measure {
  <p>One of them is <b>biometryType</b>, which indicates which biometry system (TouchID/FaceID/none) is enabled at the user's device.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Like <b>evaluatedPolicyDomainState</b>, it starts at nil, requiring a canEvaluatePolicy or evaluatePolicy call to be filled. I personally use this property to change messages and errors, but it can be used to detect system changes as well.</p>
- <p>Due to possible stability issues, one could consider this a premature security measure. Because of that, consider if your app really needs this sort of protection - or even should have TouchID/FaceID support in first place.</p>]]></description>
+ <p>Due to possible stability issues, one could consider this a premature security measure. Because of that, consider if your app really needs this sort of protection - or even should have TouchID/FaceID support in first place.</p>
+]]></description>
 </item>
 <item>
     <title>Writing Custom Pattern Matching in Swift</title>
@@ -13094,7 +13159,8 @@ if case .friday? = nextHoliday?.weekDay {
  <p>Creation of custom patterns is a simple way to write cleaner code without too much effort, as you can leverage <code>cases</code> to jump straight to the point without having to add additional properties to your types - while making sure your code doesn't become harder to understand.</p>
  <h2>References and Good reads</h2>
  <a href="https://docs.swift.org/swift-book/ReferenceManual/Patterns.html">Apple Docs: Patterns</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>How CaseIterable Works Internally in Swift</title>
@@ -13355,7 +13421,8 @@ bt</code>
  <a href="https://github.com/apple/swift">The Swift Source Code</a>
  <br>
  <br>
- <p>Update: People were curious on how <code>first</code> acts if the enum has no cases: It crashes! We can fix it by adding a new rule to <code>derivesProtocolRequirement</code> that returns false if the requirement is <code>first</code> and the enum is empty - which would make the compiler return a <code>does not conform to CaseIterable</code> error in that case.</p>]]></description>
+ <p>Update: People were curious on how <code>first</code> acts if the enum has no cases: It crashes! We can fix it by adding a new rule to <code>derivesProtocolRequirement</code> that returns false if the requirement is <code>first</code> and the enum is empty - which would make the compiler return a <code>does not conform to CaseIterable</code> error in that case.</p>
+]]></description>
 </item>
 <item>
     <title>The Forbidden @inline Attribute in Swift</title>
@@ -13452,7 +13519,8 @@ func play(song: Song) {
  <h2>References and Good reads</h2>
  <a href="https://en.wikipedia.org/wiki/Inline_function">Inline Functions</a>
  <br>
- <a href="https://lists.swift.org/pipermail/swift-users/Week-of-Mon-20170227/004883.html">[swift-users] @inline Thread</a>]]></description>
+ <a href="https://lists.swift.org/pipermail/swift-users/Week-of-Mon-20170227/004883.html">[swift-users] @inline Thread</a>
+]]></description>
 </item>
 <item>
     <title>Memory Management and Performance of Value Types</title>
@@ -13705,7 +13773,8 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
  <a href="https://developer.apple.com/videos/play/wwdc2015/414/">WWDC: Building Better Apps with Value Types in Swift</a>
  <br>
  <a href="https://github.com/apple/swift/blob/master/docs/OptimizationTips.rst">Apple: Optimization Tips</a>
- <br>]]></description>
+ <br>
+]]></description>
 </item>
 <item>
     <title>iOS Security: Reverse Engineering Messenger's Chat Bubbles</title>
@@ -13795,6 +13864,7 @@ MS.hookMessage(FBPickerItem, @selector(initWithColor:accessibilityTitle:accessib
   <div class="sponsor-article-ad-auto hidden"></div> 
   <p>Yes! If they have analytic events for these colors, someone at Facebook will be very confused trying to figure out why there's some random guy with a black chat.</p> 
  </div>
- <p>Hopefully this can give you an idea of how easily your app's data can be tampered it. Be careful with what's inside your binary - no matter how hard you try to hide it, someone who tries hard enough will eventually find it - specially if they are being paid to screw you up. Do not try to reinvent the wheel, use actual, market proven security measures.</p>]]></description>
+ <p>Hopefully this can give you an idea of how easily your app's data can be tampered it. Be careful with what's inside your binary - no matter how hard you try to hide it, someone who tries hard enough will eventually find it - specially if they are being paid to screw you up. Do not try to reinvent the wheel, use actual, market proven security measures.</p>
+]]></description>
 </item>
 </channel></rss>
