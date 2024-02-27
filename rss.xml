@@ -1706,6 +1706,17 @@
 ]]></description>
 </item>
 <item>
+    <title>Mobile Platform Teams (Runway)</title>
+    <link>https://www.runway.team/blog/why-when-mobile-platform-teams</link>
+    <guid>https://www.runway.team/blog/why-when-mobile-platform-teams</guid>
+    <pubDate>Fri, 15 Jul 2022 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>With every mobile project, you will eventually find yourself hitting roadblocks that are less about the product and features themselves and more about the surrounding infrastructure that allows everything to exist in the first place. This can manifest in a variety of ways, but as a mobile developer you’ve certainly witnessed some of the telltale signs in areas like maintaining project and build settings, managing code signing, and resolving issues with CI/CD pipelines. These are just a few examples of tasks outside the feature development domain that you might have to deal with when working on a mobile product, and which can really slow you and your team down.</p>
+<p>While these sorts of non-product issues are often dealt with in a distributed and ad-hoc way on smaller teams, this approach breaks down as you scale. Platform infrastructure issues can quickly become the single biggest bottleneck for team productivity and have a huge impact on team happiness as the size of both the codebase and the team increases.</p>
+<p>Mobile platform teams are born out of this need to tackle infrastructure pain points head-on. The end goal is to create a robust ecosystem that the wider mobile org can reliably build within and on top of, and members of a mobile platform team dedicate their time and attention entirely towards this end. That might sound bizarre to people on smaller teams – “mobile folks not working on our actual mobile product??” – but the allocation of resources to mobile platform work can be instrumental for larger companies looking to operate and scale successfully. In this article we'll look at why that's the case, and how to know when it’s becoming an important consideration for your organization.</p>]]></description>
+</item>
+<item>
     <title>Using a Macbook Pro as a gaming console</title>
     <link>https://swiftrocks.com/using-a-macbook-pro-as-a-gaming-console</link>
     <guid>https://swiftrocks.com/using-a-macbook-pro-as-a-gaming-console</guid>
@@ -1900,6 +1911,15 @@
 ]]></description>
 </item>
 <item>
+    <title>Managing Provisioning Profiles as your team grows (Runway)</title>
+    <link>https://www.runway.team/blog/ios-certificates-provisioning-profiles-large-teams</link>
+    <guid>https://www.runway.team/blog/ios-certificates-provisioning-profiles-large-teams</guid>
+    <pubDate>Thu, 26 May 2022 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>The topic of certificates and provisioning profiles is one that causes a lot of confusion and blank stares in the realm of iOS development. Luckily, in general, these things “just work". Apple has done a good job of abstracting away the inner workings of code signing so that, today, you don't need to understand the ins and outs of cryptographic theory to create a fully working iOS app and make it available to the world. But as your team grows, you'll notice that Apple’s abstraction only goes so far, and some understanding of signing and how to handle it is needed. In this post, we'll take a look at why that happens and how large-scale teams successfully navigate signing.</p>]]></description>
+</item>
+<item>
     <title>Understanding Certificates and iOS Provisioning Profiles</title>
     <link>https://swiftrocks.com/how-certificates-work</link>
     <guid>https://swiftrocks.com/how-certificates-work</guid>
@@ -1982,6 +2002,53 @@
 <h2>Conclusion</h2>
 <p>While you needed to know absolutely nothing of this to submit an app to the App Store, this information should hopefully come in good use the next time your team faces a mystical signing-related issue in Xcode. You are now elected as your company's go-to person for certificate issues!</p>
 ]]></description>
+</item>
+<item>
+    <title>How and why to think about mobile app versioning (Runway)</title>
+    <link>https://www.runway.team/blog/how-why-mobile-app-versioning</link>
+    <guid>https://www.runway.team/blog/how-why-mobile-app-versioning</guid>
+    <pubDate>Thu, 28 Apr 2022 14:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>Ahh, the humble app version. While the act of versioning an app might seem pretty inconsequential, if you take a step back you see just how often version numbers are relied upon in the development and release lifecycle. Your entire team – engineering, product, QA, CX, and more – regularly need to refer to specific app versions in their day-to-day lives as they prepare work for new releases, track stability and health across old releases, coordinate testing efforts, and communicate changes and provide support to end users.</p>
+<p>So, perhaps app versioning is worth some thought! Versioning software has been a thing since forever and, whether you’re an engineer, a PM, or another mobile-adjacent character, you’ve definitely dealt with it firsthand at some point. But have you stopped to ask “why?” Different teams approach versioning differently and, at first glance, it might seem like there are no particular standards. There's a tendency to approach things on a gut-feeling basis: "This release contains some pretty big changes, so it’s a 2.0!" or "We’re only shipping a few small things, so this is version 1.9.1!". Is everyone just doing whatever feels right or looks the coolest? Have you ever wondered if there's a “correct" way to approach versioning?</p>
+<p>Like everything in software engineering, there's actually a concrete set of considerations and standards to follow that will help you to decide how to version your apps and get the most out of versioning for your team.</p>]]></description>
+</item>
+<item>
+    <title>Avoiding release anxiety, part II (Runway)</title>
+    <link>https://www.runway.team/blog/avoiding-release-anxiety-part-ii</link>
+    <guid>https://www.runway.team/blog/avoiding-release-anxiety-part-ii</guid>
+    <pubDate>Mon, 14 Mar 2022 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>Welcome to Part II of a topic I’ve been wanting to cover for a long time (and one which isn’t covered enough!): how to avoid burnout on a tough project, make building with a team fun again, and ship better products in the process.</p>]]></description>
+</item>
+<item>
+    <title>Avoiding release anxiety, part I</title>
+    <link>https://www.runway.team/blog/avoiding-release-anxiety-part-i-testing-automation</link>
+    <guid>https://www.runway.team/blog/avoiding-release-anxiety-part-i-testing-automation</guid>
+    <pubDate>Tue, 8 Mar 2022 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>I’ve written many pieces about the (mobile) release process and product management from a technical point of view but, in my experience, there is a strong emotional component that is often less talked about. This more human side of things can be what makes or breaks a person's interest in and excitement about working on a product, so I figured it was time to write specifically about this other side. I'd like to share a few thoughts on something we’re probably all very familiar with — how anxiety and stress can emerge in a tech org, especially when you’re working so frenetically to deliver something that you end up burning yourself out for weeks.</p>]]></description>
+</item>
+<item>
+    <title>Merge queues: An intro for mobile engineers (Runway)</title>
+    <link>https://www.runway.team/blog/merge-queues-intro-for-mobile-engineers</link>
+    <guid>https://www.runway.team/blog/merge-queues-intro-for-mobile-engineers</guid>
+    <pubDate>Wed, 9 Feb 2022 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>As a mobile engineer, it’s quite possible you’ve never used, or even heard of, merge queues. This might be due in part to the fact that mobile teams traditionally move a bit slower than their web counterparts (merge queues are more often employed by teams who integrate code at breakneck pace), and because mobile teams tend to isolate production-ready code more protectively (merge queues are extra helpful for teams who are more trunk-based). But merge queues aren’t all that esoteric, even in the mobile context, and they can help solve problems that you and your mobile team might very well face.</p>]]></description>
+</item>
+<item>
+    <title>How successful mobile teams release apps at scale</title>
+    <link>https://www.runway.team/blog/how-successful-mobile-teams-release-apps-at-scale</link>
+    <guid>https://www.runway.team/blog/how-successful-mobile-teams-release-apps-at-scale</guid>
+    <pubDate>Tue, 25 Jan 2022 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>The problem of releasing mobile apps takes many forms, and what I find most interesting is how different the processes and solutions teams put in place can be — even across companies of similar size and maturity. Despite everyone facing the same foundational problem of having to optimize the process of delivering an app to the world, I’ve never encountered two companies that approach it in the exact same way. But although technical implementations differ, the release processes of large companies seem to always focus on the same core principles: quality control and data-driven feedback loops. To understand why this is the case, we’ll take a look at the types of problems that large companies face as they scale and see how they differ from those of smaller companies.</p>]]></description>
 </item>
 <item>
     <title>Focus on concepts, not approaches</title>
