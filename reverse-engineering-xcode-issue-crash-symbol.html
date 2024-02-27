@@ -126,7 +126,7 @@
     <h1>Reverse engineering a 5 year old Xcode issue</h1>
   </div>  
   <div class="post-info">
-    <div class="category category-reverse">Reverse Engineering</div>
+    
     <div class="post-info-text">Published on 31 Aug 2021</div>
   </div>
 <p>Xcode has a feature called <b>Organizer</b> that shows you important information about builds you sent to the App Store, with the most relevant ones being crashes and energy reports (for CPU/memory usage). In my experience, this feature will work perfectly fine if you pushed the build from your <i>own</i> machine, but if that's not true for any reason (the most common being because you're using a CI pipeline to do) then you might have a frustrating experience. To be specific, if you didn't push the build from your machine, then all reports provided by Xcode will be unsymbolicated:</p>

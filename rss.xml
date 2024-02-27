@@ -1781,8 +1781,6 @@
     <pubDate>Sun, 12 Jun 2022 16:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-    <div class="post-info-text">Published on 12 Jun 2022</div>
-  </div>
 <p>I have been feeling that Reddit is well on its way to taking away from 4chan the title of <i>internet hate machine</i>, because even when a subreddit is themed around happiness it takes little to no effort to find extremely hostile comment chains with complete strangers arguing about the most pointless things. I was curious to see what this looked like across different subreddits, so I decided to use Reddit's APIs and iOS's built-in sentiment analysis tools to visualize how negative a subreddit is.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>This is not a new problem, and you can find many GitHub repos of people who've done similar things with Reddit comments in the past. I started this "project" by <a href="https://github.com/hein-j/reddit-sentiment-analysis">modifying this script made by hein-j</a>, but I wasn't satisfied with the results being given by the usual Python NL frameworks. I thought they were being way too eager at saying that a subreddit was neutral when they're in reality notorious for being negative (maybe they're not the best at detecting passive-aggressiveness?), so I wondered if I could get better results by using iOS's <code>NLTagger</code> that has been available since iOS 12.</p>
@@ -2057,7 +2055,6 @@
     <pubDate>Thu, 6 Jan 2022 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-  </div>
 <p>As long as there has been software concepts, there has been evangelism around them. More common for widely-known concepts like Clean Code and TDD, evangelists are developers who preach for the adoption of a specific pattern or platform, often with the intention of it being seen and used as some global solution that can be applied in all circumstances.</p>
 <p>As an iOS developer, I remember vividly when a then-new architecture, VIPER, started being evangelized by a group of developers. Building a rocket? VIPER. Building a calculator? VIPER. Hey there! I'm gonna make some quick prototype for my startup, what wou---- Shush, go with VIPER!</p>
 <p><i>...But do I really need to write a convoluted system of classes for a single screen prototype that I could do in MVC in a couple of minutes?</i> Of course, because the book says this is the ultimate mobile architecture! Why wouldn't you do it when it's written like that?</p>
@@ -2080,8 +2077,6 @@
     <pubDate>Mon, 22 Nov 2021 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-    <div class="post-info-text">Published on 22 Nov 2021</div>
-  </div>
 <p>Broken constraints are common, but there are good reasons you might wanted to get them sorted out. Even though iOS can sometimes provide a functional UI after breaking a constraint, the additional layout passes that this requires are usually a performance issue. If you care about your users' battery usage, you'll want to make sure your UI is always configured and rendered properly.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>In this article, I'd like to show a way you can intercept UIKit's exceptions directly in code (not using breakpoints!) and what you can use an implementation like this for.</p>
@@ -2182,7 +2177,6 @@
     <pubDate>Mon, 1 Nov 2021 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-  </div>
 <p><i>Closed: Cannot Reproduce</i></p>
 <p>Ever had a crash in which you had absolutely no idea what was going on, and no amount of testing allowed you to reproduce the issue? If so, you've come to the right place!</p>
 <div class="sponsor-article-ad-auto hidden"></div>
@@ -2249,8 +2243,6 @@
     <pubDate>Tue, 26 Oct 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-    <div class="post-info-text">Published on 26 Oct 2021</div>
-  </div>
 <p><i>Module compiled with Swift X cannot be imported by the Swift Y compiler</i></p>
 <p>Uh-oh! You've been visited by the module stability fairy. <i>"Wait a second, didn't they fix this in Swift 5?"</i> you ask, to no avail.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
@@ -2290,7 +2282,6 @@
     <pubDate>Wed, 13 Oct 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-  </div>
 <p>Code that relies on memory tricks to work can be complicated, but there's a solid way of unit testing these cases. I see people wonder about this every once in a while, so I think it's a good moment to share the trick I use to achieve this.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>Any sort of deallocation unit testing can be achieved by using <code>autoreleasepool</code>. I already wrote an article about it in the past, so if you're unfamiliar with this feature, <a href="https://swiftrocks.com/autoreleasepool-in-swift">here's a good place to start</a> before reading this article.</p>
@@ -2385,7 +2376,6 @@
     <pubDate>Tue, 28 Sep 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-  </div>
 <p>If you don't know what a CPU Usage termination is, consider yourself lucky. Not only this is one of the nastiest crashes you can get in iOS, but it's also not even considered as a crash by the system. These terminations are not reported to crash providers like Firebase, so if your app has a severe high CPU usage crash, you won't even know about it until your users start reporting it to you. Really nasty stuff!</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>If you found this article by googling "how the hell do I solve this CPU usage thing?", you're in good hands. I experienced some of these crashes recently, and after suffering due to the lack of proper documentation from Apple explaining this issue, I was able to aggregate several pieces of scattered information about this on the web. Let's explore iOS' CPU Exceptions!</p>
@@ -2470,8 +2460,6 @@
     <pubDate>Mon, 20 Sep 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-    <div class="post-info-text">Published on 20 Sep 2021</div>
-  </div>
 <p>As part of my series of articles about Swift's new <i>Structured Concurrency</i> features, let's take a look at how <code>AsyncSequence</code> works behind the curtains!</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <h2>Sequences vs AsyncSequences</h2>
@@ -2522,7 +2510,6 @@
     <pubDate>Tue, 31 Aug 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-  </div>
 <p>Xcode has a feature called <b>Organizer</b> that shows you important information about builds you sent to the App Store, with the most relevant ones being crashes and energy reports (for CPU/memory usage). In my experience, this feature will work perfectly fine if you pushed the build from your <i>own</i> machine, but if that's not true for any reason (the most common being because you're using a CI pipeline to do) then you might have a frustrating experience. To be specific, if you didn't push the build from your machine, then all reports provided by Xcode will be unsymbolicated:</p>
 <div class="post-image">
   <img src="https://i.imgur.com/9UaPOZb.png" alt="Alt">                                    
@@ -2638,7 +2625,6 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <pubDate>Tue, 17 Aug 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-  </div>
 <p>Swift always had its own documentation format, but the introduction of DocC in Xcode 13 added some cool new features. Let's take a look at what we can do now!</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <h2>Basics of Swift Documentation</h2>
@@ -2773,8 +2759,6 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <pubDate>Tue, 3 Aug 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-    <div class="post-info-text">Published on 03 Aug 2021</div>
-  </div>
 <p><code>StaticString</code> is an interesting type in Swift. It's essentially nothing more than a <code>String</code> that can't be modified for the purposes of referencing static content inside your binary.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>You can encounter <code>StaticString</code> in Swift when referencing source metadata like <code>#file</code> and <code>#function</code>, but you can also define one yourself by explicitly declaring it in a string literal:</p>
@@ -2864,8 +2848,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/extending-creating-publishers-the-right-way</guid>
     <pubDate>Tue, 27 Jul 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
 <p>I've been playing around with <b>Combine</b> for a while now and had some trouble navigating all the new protocols and types, especially when it came to extensions. In this article, I'll show you how to properly extend existing publishers and how to wrap them when creating your own custom publishers.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <h2>The Easy Case: Extending Basic Output Publishers</h2>
@@ -3033,7 +3016,6 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <pubDate>Tue, 20 Jul 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-  </div>
 <p>Hmmmm, how fast is this piece of code? Let's find out!</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>When it comes to benchmarking the speed of code, it's common for people to boot a playground, throw in a <code>Date</code> object and calculate the time difference after a piece of code runs. That may give you a rough estimate, but it can also be very misleading. The difference between code running in debug builds versus release ones can be massive, and the size of the input (assuming we're benchmarking an algorithm) can also make a huge difference in the speed of a function. In this article, we'll see how to properly benchmark your Swift code. (Note that we're not talking about things like iOS startup time -- we're talking about the speed to run a specific piece of code.)</p>
@@ -3105,11 +3087,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-actors-work-internally-in-swift</guid>
     <pubDate>Tue, 6 Jul 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 06 Jul 2021 
-  </div> 
- </div>
+<description><![CDATA[
  <blockquote><b>2023-09-28 Update:</b> Instead of reading this article, check out <a href="how-async-await-works-internally-in-swift">"How async/await works internally in Swift"</a> instead. This article was written shortly after async/await was released and is full of incorrect information. The async/await one explains the same concepts and features, but in a lot more detail and with the mistakes corrected. I'm keeping it here for preservation purposes, but you read the async/await one instead.</blockquote>
  <p><b>Actors</b> is a feature that is part of Swift's <i>Structured Concurrency</i>, bringing a brand new format to write and deal with asynchronous code. Although what Swift brings is new to the language, it's not new to tech itself. Many languages supported actors and async/await before Swift, but one interesting thing is that they are all implemented similarly. By having these features now in Swift, there's much we can learn from what developers experienced by using them in other languages.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -3320,8 +3298,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/creating-3d-models-out-of-anything-with-realitykit-in-swift</guid>
     <pubDate>Tue, 22 Jun 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <p><i>RealityKit Object Capture</i> is a feature introduced in Xcode 13 that allows you to create 3D objects from photographs using a process called photogrammetry. Although intended for retailers to enhance their online shopping experience by creating models out of things like furniture and using them in augmented reality experiences, RealityKit is incredibly easy to use for anything you may want, like 3D printing random things from your house.</p>
  <div class="post-image"> 
   <img style="height: 300px;" src="https://i.imgur.com/sp4LypF.gif" alt="Mug"> 
@@ -3432,7 +3409,6 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <pubDate>Tue, 18 May 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
- </div>
  <p>I've been meaning to write an article about computer science fundamentals and how it can improve a programmer's career for a long time, but I always had trouble finding a good way of introducing this topic. The reason I'd like to talk about this is first that, well, I really like this field and I feel that most of my programming ability today is a result of having studied this, but also because I feel like there's a lot of misinformation around this topic and I've been hoping I could address that in a way that could be convincing even for those who can't stand hearing the word "algorithms" anymore.</p>
  <h2>Developers, and their hatred for theory</h2>
  <p>The context, for those who are unaware, is that part of the tech community <i>hates</i> this topic so much that they actively fight against it, particularly due to how the interview process of large companies like Google are shaped. When regular-sized companies hire programmers, they usually look for people to perform a specific role on a specific platform (such as iOS development). In this case, it's very common for the interview processes to focus on the <i>practical</i> aspects of these platforms, such as understanding how the platform works at a high-level, the details of certain APIs, and the person's overall ability to work with that platform's tooling.</p>
@@ -3546,8 +3522,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/thread-safety-in-swift</guid>
     <pubDate>Tue, 11 May 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <div class="post-image"> 
   <img src="https://i.imgur.com/2PDjXPQ.png" alt="Lock times"> 
  </div> 
@@ -3836,8 +3811,6 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <pubDate>Mon, 12 Apr 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[
-    <div class="post-info-text">Published on 10 Aug 2021</div>
-  </div>
 <p><a href="https://www.youtube.com/watch?v=sZuI6z8qSmc">I gave a talk about scalable iOS apps at SwiftHeroes 2021</a> in which I speak about an app's four "levels" of complexity, ending by stating that we still don't know what the "fifth level" would be.</p>
 <p>I do have one guess though: I believe a "level five" iOS app will be an app that contains so many modules and architectural components that any small addition will require writing massive amounts of boilerplate code. In an app like this, the jump from level four to level five would be defined by the app's ability to generate most of its boilerplate and requirements.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
@@ -4091,11 +4064,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/creating-a-license-system-for-paid-apps-in-swift</guid>
     <pubDate>Tue, 6 Apr 2021 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 06 Apr 2021 
-  </div> 
- </div>  
+<description><![CDATA[  
  <div class="post-image"> 
   <img src="https://i.imgur.com/f2r6hL5.png" alt="License View"> 
  </div> 
@@ -4340,11 +4309,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/be-careful-with-objc-bridging-in-swift</guid>
     <pubDate>Tue, 2 Mar 2021 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 02 Mar 2021 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>Bridging to/from Objective-C is an important part of Swift development due to the Obj-C history of Apple's platforms. Unfortunately, there are some hidden caveats that could lead to bizarre situations that would be impossible in a pure Swift environment. When dealing with Objective-C types, it's useful to check if they don't have a history of being <i>too different</i> from their Swift counterparts.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>The reason for the carefulness is because bridging can be completely hidden from you. As you might know, Swift developers can use the <code>as</code> upcast operator to convert a type to one of the superclasses or protocols that it inherits from:</p>
@@ -4447,11 +4412,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/understanding-inlinable-in-swift</guid>
     <pubDate>Tue, 22 Dec 2020 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 22 Dec 2020 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>The <code>@inlinable</code> attribute is one of Swift's lesser-known attributes. Like others of its kind, its purpose is to enable a specific set of micro-optimizations that you can use to increase the performance of your application. Let's take a look at how this one works.</p>
  <h2>Inline expansion in Swift with <code>@inline</code></h2>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -4522,8 +4483,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift</guid>
     <pubDate>Tue, 24 Nov 2020 13:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <div class="post-image"> 
   <img src="https://i.imgur.com/OsWGXW5.png" alt="Debug Log View" style="height: 500px"> 
  </div> 
@@ -4714,11 +4674,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-availability-works-internally-in-swift</guid>
     <pubDate>Tue, 29 Sep 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 29 Sep 2020 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>We use API availability checks all the time to provide fallbacks for users running older iOS versions, but have you wondered <b>how the Swift compiler handles this?</b> In this article, we'll take a deep dive on how the <code>#availability</code> condition works, how the Swift compiler is able to know if a specific symbol is available for usage and what the code you wrote looks like after being optimized.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>I have recently authored an <a href="https://github.com/apple/swift-evolution/pull/1184">evolution proposal</a> to add a new <code>#unavailable</code> attribute to Swift, and while I haven't needed to do any meaningful work on Swift's availability system to implement it, this gave me the opportunity to learn a little more about things work deep down. Here's a deep dive on Swift's availability system!</p>
@@ -4921,8 +4877,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/ui-testing-deeplinks-and-universal-links-in-ios</guid>
     <pubDate>Tue, 15 Sep 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <p>Did you know it's possible to terminate your app in the <i>middle</i> of an XCUITest and launch it again from somewhere else? Let's see how to use this trick to test that deeplinks and universal links are properly launching our app when executed from Safari or iMessage.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>It's tricky to test iOS features because while you can write unit tests to guarantee that your abstraction of it works, you can't really unit test that iOS will correctly call what you think will be called. In the case of deeplinks, what iOS does differs depending on what's the current state of your app (closed or in background) and which delegates you support (AppDelegate versus SceneDelegates), which commonly leads to very confusing bug reports in the point of view of the developer who isn't aware of this fact.</p>
@@ -5108,8 +5063,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/improving-observer-pattern-apis-in-swift-with-weak-collections</guid>
     <pubDate>Tue, 25 Aug 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p>Even if you don't know what the <b>Observer</b> pattern is, there's a good chance that you applied it somewhere in the past. This design pattern is used to create APIs that notify one or more subjects about changes in a certain object, with the <code>NotificationCenter</code> being the most popular use of this pattern in iOS.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>One simple way to reproduce what the <code>NotificationCenter</code> does is to create a dictionary that maps a string (a notification) to an array of closures. Whenever that notification is "posted", all of the closures are executed.</p>
@@ -5258,8 +5212,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/app-attest-apple-protect-ios-jailbreak</guid>
     <pubDate>Tue, 11 Aug 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p>When jailbreaking of iOS devices first became popular, it was very common for iOS developers to try to defend their apps from users that altered their devices to enable piracy. There were many ways of doing that, which included checking for the existence of <b>Cydia</b>, checking if the app could read files outside its sandbox, crashing the app if it detects a debugger and more.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>As time has shown, these "defensive" measures were and still are a really <b>bad</b> idea. If an attacker has physical access to the device, there's <b>no way</b> you can trust your app's logic. It was and still is trivial for hackers to "pretend" their devices were not jailbroken and effectively bypass these measures, and besides, having a jailbroken device doesn't mean the user wants to pirate content -- some people just want to have cooler looking home screens.</p>
@@ -5339,11 +5292,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/entry-points-swift-uiapplicationmain-main</guid>
     <pubDate>Tue, 21 Jul 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 21 Jul 2020 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>In this article, we'll see how Swift determines the entry point of an app, the different attributes used to alter this behavior in iOS, how they work internally, and what Swift 5.3's new <code>@main</code> attribute brings to the table.</p>
  <h2>How Swift Scripts Work</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -5445,11 +5394,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/adapting-objectivec-apis-for-swift-using-nsrefinedforswift</guid>
     <pubDate>Tue, 14 Jul 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 14 Jul 2020 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>If your iOS project uses Objective-C SDKs, you'll find that the compiler does a good job translating those APIs to Swift. Whenever you try to use one of them in Swift, you'll be greeted with a <i>swiftified</i> version of it that has common Objective-C standards translated to Swift. <code>Foundation</code> types like <code>NSData</code> and <code>NSString</code> will be translated to their Swift variants (<code>Data</code>, <code>String</code>), <code>nullables</code> will become optionals, and the name of the method will change to follow Swift's naming conventions. If the method can fail (by having an error pointer), it will even become a throwing function:</p>
  <pre>
 <code>- (NSData *)dataForRow:(NSInteger)row error:(NSError **)error;</code>
@@ -5527,8 +5472,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/creating-debug-menus-in-swift-with-uicontextmenuinteraction</guid>
     <pubDate>Tue, 30 Jun 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/akiIA1Z.png" alt="Context Menu 2"> 
  </div> 
@@ -5699,8 +5643,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/ios-14-widget-tutorial-mini-apps</guid>
     <pubDate>Tue, 23 Jun 2020 18:10:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p>Widgets existed in iOS for a long time, but iOS 14 completely revamped them. With the new Widget APIs, not you're able to add widgets directly to your home screen, but they are also completely written in SwiftUI. iOS 14's Widgets come in a variety of shapes (literally), ranging from simple information squares to widgets that can retrieve and display information from its parent app's <b>Siri Intents</b>.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>One trick that has drawn my attention the most however is that having widgets directly in your home means that technically you're now able to make visual "mini apps". If you find yourself doing the same tasks over and over in your job such as checking the number of crashes in a release or the latest release supported by one of your apps, you can create a Widget in iOS 14 that essentially behaves like a super-charged, UI-enabled <b>Siri Shortcut</b>.</p>
@@ -6100,8 +6043,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/benefits-of-throwing-functions-try-swift-underrated-feature</guid>
     <pubDate>Tue, 16 Jun 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <p>I've always found throwing functions (<code>try/catch</code>, or <code>do/catch</code>) to be a very underrated feature in the Swift community. While many native APIs from iOS rely on it, very few people seem to actually use them in their daily projects. Most people seem to either optionally unwrap them (<code>try?</code>) or use other features like the <code>Result</code> type, and in my opinion, this stems from the fact that unless your entire project is built around throwing, the parts that do use it are somewhat annoying to deal with, and don't look very nice code-wise:</p>
  <pre>
 <code>func getAValue() -&gt; Int? {</code>
@@ -6235,11 +6177,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-random-numbers-work-in-swift</guid>
     <pubDate>Tue, 12 May 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 12 May 2020 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>Before Swift 4.2, generating random numbers involved using raw C APIs. With the addition of the <b>RandomNumberGenerator</b> protocol in Swift 4.2, developers were graced with an easy way to generate random numbers. Let's see how to use the new APIs, but most importantly, <b>how they are implemented inside the Swift compiler</b>.</p>
  <h2>RandomNumberGenerator</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -6351,8 +6289,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/understanding-the-ios-responder-chain</guid>
     <pubDate>Thu, 7 May 2020 15:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <i>What on earth is this "first responder" thing when I'm dealing with UITextFields?<br></i>
  <i>Why do UIViews subclass things like UIResponder?<br></i>
  <i>What's the point of these?<br><br></i>
@@ -6553,8 +6490,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift</guid>
     <pubDate>Tue, 5 May 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <p><b>Preprocessor macros</b> are used to bring context to a build, allowing you to transform how your app is compiled depending on why it's being built.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>In iOS, preprocessors are popularly used to determine which scheme was used to build an app. This allows you to build things such as <b>debug views</b> which are only visible in debug builds, additional logging for non-AppStore builds, and more. My favorite use of macros is using the Factory pattern to return mocked components for XCUITests:</p>
@@ -6717,8 +6653,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/weak-dictionary-values-in-swift</guid>
     <pubDate>Tue, 14 Apr 2020 14:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <p>When dealing with dictionaries and arrays in Swift, it's very important to know that any reference types used as a key or value will be <b>retained by default.</b> Let's see some interesting cases where this behavior is problematic, and how we can use types like <code>NSMapTable</code>, <code>NSHashTable</code> and <code>NSPointerArray</code> to create weak collections that perform better than their Swift counterparts.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>To visualize why the default memory management behavior of Swift dictionaries can sometimes be bad for you, let's attempt to build a system that uses dictionaries to store instances of some arbitrary types. We can use <a href="https://github.com/rockbruno/RouterService">RouterService's</a> dependency management system as an example:</p>
@@ -6898,11 +6833,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/understanding-swifts-objectidentifier</guid>
     <pubDate>Tue, 31 Mar 2020 09:25:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 31 Mar 2020 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p><code>ObjectIdentifier</code> is one of these obscure Swift types that you only see when looking at the answers for very specific problems in StackOverflow, and chances are that you have never really needed to use it. However, <code>ObjectIdentifier</code> plays an important part in Swift and is actually pretty useful as a solution to problems that involve metatypes. Let's take a look at why this type exists and what you can use it for.</p>
  <h2>Where you might have seen it</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -7052,8 +6983,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/useful-global-swift-functions</guid>
     <pubDate>Tue, 24 Mar 2020 08:25:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p><b>Global functions</b>, or functions that can be accessed from anywhere without the scope of a specific type is an old concept that was popular in languages like C and Objective-C, but unrecommended in Swift as we would rather have things that are nicely typed and scoped ("swifty").</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>For historical reasons, the Swift Standard Library still has quite a few public global functions, and some of them are still useful to this day. Let's take a look at functions like <code>zip()</code> and <code>dump()</code>.</p>
@@ -7247,11 +7177,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift</guid>
     <pubDate>Wed, 18 Mar 2020 08:25:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 18 Mar 2020 
-  </div> 
- </div>   
+<description><![CDATA[   
  <p><b>Ordered Collection Diffing</b> is a feature added in Swift 5.1 that allows you to calculate and apply the difference between two collections. Using diffing libraries is common in iOS for a few reasons, the most popular one being to handle the addition and removal of elements in <code>UITableViews</code>. With the addition of this feature, developers can now diff <code>Collections</code> without having to bother with external libraries.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Have you wondered what efficiently diffing something looks like? In this article, we'll see and analyze the diffing APIs as well as the <b>Myers's Diffing Algorithm</b> used by the Swift Standard Library -- the same used in <b>git</b>.</p>
@@ -7528,8 +7454,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/swift-codable-decodingencoding-with-context</guid>
     <pubDate>Wed, 5 Feb 2020 08:25:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p>The <code>Codable</code> protocols are one of the coolest recent additions to Swift. Even though it works similarly to its community counterparts like <code>Unbox</code>, <code>Codable</code> has the advantage of being powered by the compiler.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>One of my favorite features in <code>Unbox</code> was to give a <b>context</b> to the decoding operation. Let's take a look at how we can achieve the same with <code>Codable</code>.</p>
@@ -7679,11 +7604,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets</guid>
     <pubDate>Thu, 23 Jan 2020 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 23 Jan 2020 
-  </div> 
- </div>
+<description><![CDATA[
  <p><b>Update (2022-08-31):</b> A more detailed version of this article <a href="https://www.runway.team/blog/how-to-improve-ios-build-times-with-modularization">is available here</a>. Alternatively, you can watch <a href="https://www.youtube.com/watch?v=sZuI6z8qSmc">my SwiftHeroes talk</a> about the same subject.</p>  
  <p>While dividing an app into several modules can improve the build time of an iOS app, the result heavily depends on what is being changed. If you're not careful with how your dependency graph is laid out, you can often have results that are <b>worse</b> than non-modularized apps. Let's take a look at a technique used at iFood to have big and consistent improvements to the build times of our app.</p>
  <h2>Context: The process to modularize an app</h2>
@@ -7801,11 +7722,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-hashable-works-in-swift</guid>
     <pubDate>Mon, 13 Jan 2020 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 13 Jan 2020 
-  </div> 
- </div>   
+<description><![CDATA[   
  <p>Hashing algorithms are functions that map an arbitrary string to a seemingly "random" output with a fixed length. Commonly associated as a component of <code>Sets</code> and <code>Dictionaries</code>, hashing algorithms are a major component of several branches of computer science, including cryptography.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>In Swift, the <code>Hashable</code> protocol is the main component used to provide hashing capabilities to custom types. It is most commonly used to allow types to be used as the key of <code>Dictionaries</code> and <code>Sets</code>, but it also gives you access to `Sequence` helper methods like `contains(_:)`.</p>
@@ -8000,11 +7917,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift</guid>
     <pubDate>Thu, 2 Jan 2020 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 02 Jan 2020 
-  </div> 
- </div>
+<description><![CDATA[
  <p><b>Update (2022-09-13): This article was written before Swift 5.7 and its introduction of many new useful type-erasure-oriented features. I recommend you to first <a href="https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift">read my article about those features</a> before reading this one. The code of this article has not been updated to use the new features for preservation reasons.</b></p>
  <p>With Swift being a very type-safe and namespaced language, you'll find that certain tasks are really hard to complete if at some point you can't determine the types that are being handled -- mostly when generics are involved. Using an automatic dependency injector as an example, let's see how generic arguments and closures can be "erased" to trick the compiler into compiling code that it would otherwise claim to be impossible (when it's clearly not!).</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -8323,11 +8236,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone</guid>
     <pubDate>Mon, 23 Dec 2019 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 23 Dec 2019 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p><code>CollectionOfOne</code> is a type inside the Swift Standard Library that defines a <b>collection of a single element.</b> While this sounds a bit weird, there's a good reason for this to exist. Let's check out why.</p>
  <h2>Operating on single elements</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -8431,11 +8340,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler</guid>
     <pubDate>Tue, 3 Dec 2019 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 03 Dec 2019 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>Swift's <code>OptionSet</code> protocol is the bridged version of Objective-C's <code>NS_OPTIONS</code> enum -- a handy tool that allows you to very efficiently define a combination of "options" that can be used for a specific operation.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>If for example we were developing a JSON serializer, it would be nice if we allowed the user to control how certain aspects of the serialization process happened, such as if the keys are sorted or if indentation should be applied to the final JSON. In fact, this is how <code>Foundation's</code> <code>JSONSerialization</code> works:</p>
@@ -8573,11 +8478,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/nscopying-nszone-uses-in-swift</guid>
     <pubDate>Tue, 5 Nov 2019 07:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 05 Nov 2019 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>Even in apps written in full Swift, interfacing with Objective-C is still a very big part of iOS development. Many types and semantics from Objective-C are hidden underneath the code we write today, and understanding where they come from can help you make better code decisions and just better understand the platform in general. This time, we'll take a look at what <code>NSCopying</code> and its companion class <code>NSZone</code> are and what they can do for Swift apps.</p>
  <h2>Context: How copying objects worked in Objective-C</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -8726,11 +8627,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work</guid>
     <pubDate>Fri, 25 Oct 2019 19:50:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 26 Oct 2019 
-  </div> 
- </div>   
+<description><![CDATA[   
  <p>One of my favorite things about Swift is that almost every compiler feature is built on top of actual classes and protocols of the language. This means that if you see a native type that has some special magical property (like SwiftUI's declarative syntax, which was covered in another post here in SwiftRocks), it's likely that you can reproduce that behavior in your custom types.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>In this article, I'll cover one of my favorite syntax sugars in the language: the protocols and the internal compiler behavior that allow you to write <code>for</code> loops. You might have heard already of the <code>Sequence</code> family of protocols, and here, we'll see how the compiler uses them as the building blocks for <code>for</code> loops.</p>
@@ -9420,8 +9317,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/using-simd-vector-types-in-swift</guid>
     <pubDate>Sun, 29 Sep 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <p><b>SIMD Vector Types</b> is a feature added in Swift 5 that exposes Apple's <code>&lt;simd/simd.h&gt;</code> module to Swift, allowing you to calculate multiple results with a single instruction.</p>
  <h2>What's SIMD?</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -9504,11 +9400,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm</guid>
     <pubDate>Wed, 4 Sep 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 04 Sep 2019 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>Have you ever asked yourself which algorithm is used by Swift's sorting method? There are many sorting algorithms out there, and chances are that you'll rarely have to use something other than the language's builtin <code>sort()</code> method. However, knowing the properties of the sorting algorithm built into your language is important if you want to prevent unwanted behaviors and nasty edge cases.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>When analyzing sorting algorithms, you'll want to search for two properties:</p>
@@ -9758,8 +9650,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks</guid>
     <pubDate>Thu, 8 Aug 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <p>While Xcode provides several visual abstractions for lldb commands like adding breakpoints by clicking the lines of code and running by clicking the play button, lldb provides several useful commands that are not present in Xcode's UI. This can range from creating methods on the fly to even changing the CPU's registers to force a specific flow on the app without having to recompile it, and knowing them can greatly improve your debugging experience.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Not all Swift things are developed in Xcode -- things like the Swift Compiler or Apple's SourceKit-LSP work better through other means, and these means usually end up having you use lldb <b>manually.</b> Without Xcode to assist you, some of these tricks can prevent you from having to compile the app again to test certain changes.</p>
@@ -9931,11 +9822,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
     <guid>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler</guid>
     <pubDate>Wed, 17 Jul 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 17 Jul 2019 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p><code>ExpressibleBy</code> represents a series of protocols in the Swift Standard library that allows you to instantiate objects directly from token literals, like a string, a number, a floating-point and so on, if the object can be "expressed" like that. For example, here's the regular way of creating an URL in Swift:</p>
  <pre>
 <code>func getURL() -&gt; URL</code>
@@ -10108,8 +9995,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/useful-obscure-foundation-types-in-swift</guid>
     <pubDate>Wed, 26 Jun 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p>The <code>Foundation</code> provides you a lot of the bread-and-butter needed for your daily iOS development, ranging from structures like <code>Data</code> all the way to complete APIs like <code>URLSession</code>. But as it turns out, we only use a fraction of what <code>Foundation</code> offers.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>There's a bunch of Foundation types that are <b>so situational</b> that people doubt they even existed in the first place! In fact, they are so rarely mentioned as solutions to daily problems that developers may end up coding things that may <i>already</i> exist in these SDKs. But they do exist -- and although some of them are really old, most of these types are still very useful. Let's take a look at some of them!</p>
@@ -10308,11 +10194,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/understanding-opaque-return-types-in-swift</guid>
     <pubDate>Mon, 10 Jun 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 10 June 2019 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p><i>Why are SwiftUI's return types <code>some View</code>?</i><br> <i>Why can't it just return a regular protocol?</i><br> <i>What are Opaque Types?</i></p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p><b>Opaque Return Types</b> is a feature added in Swift 5.1 that is a big part of the new SwiftUI framework's functionality. It comes to finally fix a fundamental problem of the usage of protocols and the design of Swift APIs, opening new possibilities for the creation and usage of public APIs.</p>
@@ -10440,11 +10322,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/inside-swiftui-compiler-magic</guid>
     <pubDate>Tue, 4 Jun 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 04 Jun 2019 
-  </div> 
- </div>   
+<description><![CDATA[   
  <p>Announced in WWDC 2019, SwiftUI is an incredible UI building framework that might forever change how iOS apps are made. For years we've engaged in the war of writing views via Storyboard or View Code, and SwiftUI seems to finally end this. With its release, not only Storyboards are now pretty much irrelevant, but the old fashioned View Code is also very threatened as SwiftUI mixes the best of both worlds.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>With this new framework, you can use Xcode to define your screens visually just like in Storyboards -- but instead of generating unreadable XML files, it generates code:</p>
@@ -10662,8 +10540,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/autoreleasepool-in-swift</guid>
     <pubDate>Wed, 22 May 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p>Foundation's <code>NSAutoreleasePool</code> type, later abstracted to the <code>@autoreleasepool</code> block, is a very old concept in iOS development. During the Obj-C era of iOS, usage of this type was important to prevent your app's memory from blowing up in specific cases. As ARC and Swift came around and evolved, very few people still have to manually play around with memory, making seeing it become a rare occurrence.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Having developed tools that need to allocate enourmous amounts of memory, I asked myself if there's still a case where <code>@autoreleasepool</code> is useful in Swift. Here are the answers.</p>
@@ -10781,8 +10658,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/code-style-guides-in-swift</guid>
     <pubDate>Tue, 7 May 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <blockquote class="margin-top-40 margin-bottom-40"> 
   <p><i>This is part 2 of the Avoiding Release Anxiety series. <a href="https://swiftrocks.com/blockbased-ui-testing-in-swift">Check out part 1 here!</a></i></p> 
  </blockquote>
@@ -10817,11 +10693,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/blockbased-ui-testing-in-swift</guid>
     <pubDate>Sat, 20 Apr 2019 20:00:00 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 20 Apr 2019 
-  </div> 
- </div>   
+<description><![CDATA[   
  <p>When deadlines are tight and the product faces considerable changes, it's common for developers to make concessions in the project's quality to make sure it gets shipped in time. This leads to release anxiety - that stressful feeling where you're unsure if you're shipping something that actually works. As a result, teams resort to heavy amounts of manual testing, staying overtime to make sure nothing fell apart and an unhappy environment in general. <i>Avoiding Release Anxiety</i> is a series of posts where I show the things I do to develop durable Swift apps that allow me and my team to sleep worry-free at night.</p>
  <h2>Resilient UI Tests</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -11043,8 +10915,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen</guid>
     <pubDate>Wed, 20 Feb 2019 19:00:00 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p>Deeplinking is widely used to provide easy access to certain portions of an iOS app. While most of the uses for a deeplink are marketing purposes such as providing shortcuts inside an e-mail or push notification, they can also be used for communicating between different apps and pretty much anything that involves routing to different screens.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>iOS already allows you to add "shortcuts" to an app in the shape of 3D Touch Quick Actions, but they are very limited, hidden from the user, and let's be honest - it's one of these features that nobody remembers. You can also use Siri Extensions, but then you have to deal with Siri, and the regular Siri Shortcuts relies on the Shortcuts app, so it's not something that you can provide to your users. Wouldn't it be great if you could give your users the ability to add shortcuts to things like ordering their favorite coffee in the shape of a home icon - just like the app itself?</p>
@@ -11208,8 +11079,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/avoiding-callback-hell-in-swift</guid>
     <pubDate>Mon, 17 Dec 2018 14:42:07 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p>Being able to work in projects of the most diverse varieties gave me the chance to be in contact with several types of developers and code bases. Besides their core differences, what stood out to me during this process is that projects with a lower level of maturity will always face similar problems.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Perhaps they choose the wrong architecture, or the lack of unit tests caused a nasty bug to sneak into production, but there's a specific problem that always draws my attention - callback hell. If not treated from the very beginning, these awful pyramids of braces you get when chaining callbacks inside other callbacks or conditions plague code bases with an eternity of impossible code-reviews and distant screams of "what the hell is this method supposed to be doing?".</p>
@@ -11510,11 +11380,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift</guid>
     <pubDate>Thu, 6 Dec 2018 14:42:07 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 06 Dec 2018 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>The <code>@dynamicMemberLookup</code> attribute was introduced in Swift 4.2 to add a certain degree of dynamism into the language similar to what is seen in languages like Python. When applied to a type, properties from this type will be resolved in runtime, meaning that you can call things that don't necessarily exist like they were explicitly defined:</p>
  <pre>
 <code>@dynamicMemberLookup class MyClass {</code>
@@ -11786,11 +11652,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/how-never-works-internally-in-swift</guid>
     <pubDate>Wed, 14 Nov 2018 14:42:07 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 14 Nov 2018 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>Added in Swift 3, the <code>Never</code> type allows you to define a method that is guaranteed to crash your app. Although we rarely write methods that use this type directly, we do interact with it constantly given that it is the return type of forced-crash methods like <code>fatalError()</code>. The advantage this type brings is that a method that calls another <code>Never</code>-returning method does not need to provide a return value, after all, a crash is certain to happen:</p>
  <pre>
 <code>func getSomeNumber() -&gt; Int</code>
@@ -12007,8 +11869,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/whats-type-and-self-swift-metatypes</guid>
     <pubDate>Mon, 29 Oct 2018 13:23:13 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p>Ah metatypes. That's another one for the list of <i>things I use everyday but couldn't explain in an interview if my life depended on it</i>.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Metatypes are pretty useful in Swift, and you have certainly used it in multiple occasions. Unfortunately they look pretty weird in code, which can cause some confusion when trying to understand what they really are.</p>
@@ -12172,8 +12033,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/unowned-properties-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p>It's very common to use the <code>weak</code> keyword in order to prevent reference cycles in properties like delegates:</p>
  <pre class="language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -12237,8 +12097,7 @@ bb0(%0 : $*URL):</code>
     <guid>https://swiftrocks.com/understanding-dispatchqueues</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <i>What on earth are these "DispatchQueues"?<br></i>
  <i>Why do I have to use it to send UI code to the main thread? It clearly still works if I do nothing.<br></i>
  <i>What's the point of these "Quality of Services" queues? I use .main for everything and never had a problem.<br></i>
@@ -12453,11 +12312,7 @@ async task ended
     <guid>https://swiftrocks.com/lazy-sequences-in-swift-and-how-they-work</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 27 Aug 2018 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>Usage of high-order functions like <code>map</code> and <code>filter</code> are very common in Swift projects, as they are simple algorithms that allow you to convert extensive ideas into simple one-liners. Unfortunately, they don't solve every issue - at least not in their default implementations. High-order functions are <i>eager</i>: they use the closure immediately and return a new array, regardless if you need an early return or only going to use specific elements. When performance is important, you might be cornered into writing specialized helper methods to avoid the <i>eager</i> nature of high-orders:</p>
  <pre>
 <code>let addresses = getFirstThreeAddresses(withIdentifier: "HOME")</code>
@@ -12661,11 +12516,7 @@ async task ended
     <guid>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 23 Jul 2018 
-  </div> 
- </div>   
+<description><![CDATA[   
  <p>The choice between using Storyboards and writing views programmatically is very subjetive. Having dealt with both in the past, I personally vouch for writing projects entirely through view code as it allows multiple people to work in the same class without nasty conflicts, and easier code reviews.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>When starting with the practice of writing views programatically, a common problem people face is <i>where</i> to put the code in the first place. If you follow the regular storyboard approach of putting everything view related in your view controller, it's very easy to end up with a giant god class:</p>
@@ -12817,8 +12668,7 @@ final class MyViewController: CustomViewController&lt;MyView&gt; {
     <guid>https://swiftrocks.com/competitive-programming-with-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <p>Competitive programming is a great way to master a specific programming language. Even if you're not interested in competing in world events like the <b>Facebook Hacker Cup</b>, tackling difficult algorithm problems using nothing but the language's bread and butter will expose you to aspects/shortcuts of the language you would otherwise never see, such as how efficient certain methods/operations are and how to code better alternatives. This is a cool hobby to have, and as a bonus you'll even be indirectly preparing yourself to the feared Big 4 interviews where you have to solve algorithm problems in a whiteboard!</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Even though in a real competition coding in Swift would be a big disavantage (as it's slightly slow compared to other languages and has few native data structures), lots of popular online platforms like <a href="https://leetcode.com/">LeetCode</a>, <a href="https://www.hackerrank.com/">HackerRank</a> and <a href="https://codefights.com/">Codefights</a> support Swift and they are a great way to make yourself a better iOS developer, specially since competitive problems will only accept very fast algorithms as possible solutions. If you've never did this before, I highly recommend giving it a shot.</p>
@@ -12951,8 +12801,7 @@ measure {
     <guid>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>   
+<description><![CDATA[   
  <p>Siri Shortcuts are definitely my favorite iOS 12 feature. Ever since SiriKit first came out I was very disappointed that you couldn't use it for your own custom commands, but the new Shortcuts app solves this problem. Not only it allows you to create your custom commands, but it also provides a very intuitive UI to allow even non-devs to automate tons of kinds of workflows in their iPhones.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>We've all seen how to create a workflow and make your app expose custom actions, but one thing that I haven't seen people mention is that the Shortcuts app exposes several deep links for opening and running shortcuts - meaning that you can make an app that runs other apps' Siri Shortcuts. <a href="https://twitter.com/rockbruno_/status/1052625467147083777">I used this to make an app run my "Take Picture" shortcut every time I tapped my AirPods.</a></p>
@@ -13009,8 +12858,7 @@ measure {
     <guid>https://swiftrocks.com/swift-associated-types-with-default-values</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <p>I was browsing the Swift forums when I stumbled across a <a href="https://forums.swift.org/t/a-question-about-associatedtype-in-protocols/16168">discussion</a> regarding an undocumented feature of Swift (as of this post's date): the ability to give associated types a default value.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>I've shown associated types in action before <a href="https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview">in my article about loadView()</a> - they are a great tool to define generic behaviour inside protocols in the shape of a specific type. As the feature implies, setting a default value for an associated type will allow the children of the protocol to skip having to define a typealias for the type, unless they specifically want to use a different type.</p>
@@ -13105,7 +12953,6 @@ measure {
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
 <description><![CDATA[ 
- </div> 
  <div class="sponsor-article-ad-auto hidden"></div>  
  <p>By default, <b>LAContext's</b> <b>evaluatePolicy</b> method will consider any registered fingerprint/face valid - even if they were added after your app was installed.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
@@ -13136,8 +12983,7 @@ measure {
     <guid>https://swiftrocks.com/writing-custom-pattern-matching-rules-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <p>Pattern matching is available everywhere in Swift, and you have likely used it tons of times to deconstruct and bind values in things like <code>switch</code> cases. While regular <code>switch</code> cases are the most common use for patterns, Swift has several types of patterns which can be mixed and even used outside of <code>switches</code> to result in really cool and short lines of code. One thing that interests me in particular is that pattern matching can be used for a wide variety of things.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>At first glance, it's easy to see pattern matching as simple equality checks:</p>
@@ -13256,11 +13102,7 @@ if case .friday? = nextHoliday?.weekDay {
     <guid>https://swiftrocks.com/how-caseiterable-works-internally-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 21 Sep 2018 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p><code>CaseIterable</code> is one of my favorite features in Swift 4.2. Despite being a simple protocol, it solves the common problem (that I personally faced many times) of needing access to an array containing all the cases of a certain enum.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>If we take a look at how <code>CaseIterable</code> is implemented in the Standard Library, we can see that the protocol is just what one would expect it to be: a simple definition of an array of cases.</p>
@@ -13521,11 +13363,7 @@ bt</code>
     <guid>https://swiftrocks.com/the-forbidden-inline-attribute-in-swift</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="post-info-text">
-   Published on 26 May 2018 
-  </div> 
- </div>  
+<description><![CDATA[  
  <p>The <code>@inline</code> attribute is one of those obscure things in Swift - it's nowhere to be found in Apple's docs, doesn't help you write cleaner code and has no purpose but to help the compiler make optimization decisions, but it's related to a pretty important aspect of your app's performance.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>In programming, <b>function inlining</b> is a compiler optimization technique that removes the overhead of calling certain methods by directly replacing calls to them with the method's contents, basically pretending that the method never existed in first place. This provides a great performance boost.</p>
@@ -13622,14 +13460,7 @@ func play(song: Song) {
     <guid>https://swiftrocks.com/memory-management-and-performance-of-value-types</guid>
     <pubDate>Fri, 26 Oct 2018 15:42:07 GMT+2</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
-  <div class="category category-swift">
-   Swift
-  </div> 
-  <div class="post-info-text">
-   Published on 13 Apr 2018 
-  </div> 
- </div>    
+<description><![CDATA[    
  <p>It's very likely that you asked yourself at least once in your iOS career what's the difference between a <code>struct</code> and a <code>class</code>. While realistically the choice between using one or another always boils down to <i>value semantics</i> versus <i>reference semantics</i>, the performance differences between the two are expressive and can heavily favor one or another depending on the contents of your object, specially when dealing with value types.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Some people might say that knowledge of memory architecture is irrelevant for application level developers, and I agree <i>partially</i>. Knowing how to save a few bits here and there will make no visible difference on newer iPhones, and premature optimization is a highly shunned practice.</p>
@@ -13882,8 +13713,7 @@ CFGetRetainCount(structOfClasses.emptyClass3) // 4
     <guid>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat</guid>
     <pubDate>Mon, 7 Nov 2016 14:42:07 GMT+1</pubDate>
     <author>Bruno Rocha</author>
-<description><![CDATA[ 
- </div>  
+<description><![CDATA[  
  <blockquote class="margin-top-40 margin-bottom-40"> 
   <p>This article is SwiftRocks's slimmed down version of my original <a href="https://medium.com/@brunorochaesilva/how-i-hacked-messengers-ios-app-custom-chat-bubble-colors-12f1ac7f070c">2016 Medium article.</a> The Medium article is badly written and contains mistakes, but it has more information on how to reproduce each step.</p> 
   <div class="sponsor-article-ad-auto hidden"></div> 
