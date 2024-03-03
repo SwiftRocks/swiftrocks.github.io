@@ -7,6 +7,36 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>Software engineering book recommendations</title>
+    <link>https://swiftrocks.com/software-engineering-book-recommendations</link>
+    <guid>https://swiftrocks.com/software-engineering-book-recommendations</guid>
+    <pubDate>Sun, 3 Mar 2024 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>The following is a list of software engineering books I've read that I felt had a strong and lasting positive impact on my career. It's not a list of <i>everything</i> I enjoyed (that would be impossible to list down), but rather a special list of resources that taught/helped me so much that I still find myself think about them years later. They are my top recommendations for other software engineers.</p>
+<p>Some are about iOS development specifically, but most relate to general software engineering. If you strive to be a world-class developer, these books and resources will help you get there.</p>
+<p>(I'm constantly learning new things, so expect this list to expand. I'll post a message whenever I update it!)</p>
+<ul>
+<li><b><a href="https://nostarch.com/writegreatcode1_2e">Write Great Code: Understanding The Machine (Randall Hyde)</a></b> - Probably my favorite software engineering book. This book teaches you how modern computers work in a high-level way that is easy to understand and not overly technical. It's not going to teach you new fancy APIs, but it will give you the ability to “understand” code; an ability that has proved to be useful almost daily in my career.</li>
+<li><b><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/">Operating Systems: Three Easy Pieces (Remzi Arpaci-Dusseau, Andrea Arpaci-Dusseau)</a></b> - This is similar to Understanding The Machine, but is more technical and focused on operating systems specifically. Amazing resource to learn about core OS fundamentals such as memory, threads / concurrency, file systems, and CPU virtualisation. <b>It's also free.</b></li>
+<li><b><a href="https://newosxbook.com/home.html">*OS Internals Trilogy (Jonathan Levin)</a></b> - This trilogy about how Apple platforms work internally is an <b>absolute goldmine</b> for us who develop for said platforms, but it's not for the faint-hearted. They will teach you everything you could possibly want to know about these platforms, but they're massive and extremely technical. If you're a beginner then I'm not sure you should read these, but if you're reasonably experienced and is interested in things like linkers and kernels, then these books are a godsend. The only problem with these books is that Amazon only delivers them if you live in the US, so getting a copy can be quite the challenge. I'm still working my way through them.</li>
+<li><b><a href="https://www.crackingthecodinginterview.com/">Cracking the Coding Interview (Gayle Laakmann McDowell)</a></b> - Even if you don’t care about the interviewing bits (I’m not even sure if companies like Apple still run LeetCode puzzles), this book is still a legendary resource for getting started with computer science theory. If you’re not sure why you’d want to do that, <a href="https://swiftrocks.com/how-necessary-are-the-programming-fundamentals">check out my article about it.</a></li>
+<li><b><a href="https://www.amazon.se/-/en/Tanya-Reilly/dp/1098118731">The Staff Engineer's Path (Tanya Reilly)</a></b> - Perfect book for senior engineers looking to get to the next level. This book desmitifies the concept of a Staff Engineer and provides a gigantic amount of great advice on how to get there and how to do a good job once you’re there.</li>
+<li><b><a href="https://www.amazon.com/Effective-Objective-C-2-0-Specific-Development/dp/0321917014">Effective Objective-C 2.0 (Matt Galloway)</a></b> - Even though we don’t directly write apps in Obj-C anymore, we still have to do so indirectly when using older frameworks like UIKit. This book does a great job at explaining how Obj-C works, which is something you’ll wish you knew when dealing with issues that either originate or pass through Obj-C.</li>
+<li><b><a href="https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882">Clean Code (Robert C. Martin)</a></b> - This book gets a lot of flack in the community because some people treat it as some sort of bible that must be followed religiously, but it is nonetheless a great resource for learning how to write code that is easy to read and maintain by humans. Just don’t be like those folks.</li>
+</ul>
+<h2>Other Resources</h2>
+<p>The following are not “books” in the traditional sense, but are nonetheless great software engineering resources that I think should be present here.</p>
+<ul>
+<li><b><a href="https://github.com/donnemartin/system-design-primer">System Design Primer</a></b> - A collection of resources for learning how to design scalable backends. Great resource for learning how giant products like Twitter work. For mobile developers, this knowledge can help you make sure the client-side bits are designed properly.</li>
+<li><b><a href="https://www.nand2tetris.org/">Nand2Tetris</a></b> - A free online course that teaches you how to build a modern computer and make it run Tetris, from scratch. Another amazing resource for learning how computers work.</li>
+<li><b><a href="https://highaltitudehacks.com/2013/06/16/ios-application-security-part-1-setting-up-a-mobile-pentesting-platform.html">Prateek Gianchandani’s articles about iOS security, and DVIA</a></b> - This giant series of 50 articles teach you how to hack iOS apps and is how I learnt everything I know about iOS security. It’s quite old so I’m not sure how much of it still applies, but is an interesting read regardless. Prateek also has a project called <a href="https://github.com/prateek147/DVIA-v2">Damn Vulnerable iOS App (DVIA)</a> that is basically a playground where you can try out everything he mentions in his articles, but unfortunately it seems that the website that explained it doesn’t exist anymore. <a href="https://web.archive.org/web/20220331031231/https://damnvulnerableiosapp.com/">I was able to find it in the Internet Archive</a>, so hopefully that still allows you to try it.</li>
+<li><b><a href="https://learngitbranching.js.org/">Learn Git Branching</a></b> - A page that teaches you to use git in the CLI by presenting it as a browser game. This is how I learnt how to use git and is a resource that I greatly recommend even if you prefer using GUI apps for your git needs.</li>
+<li><b><a href="https://ocw.mit.edu/">MIT OpenCourseWare</a></b> - MIT has a lot of free content on YouTube, and the ones related to software engineering are amazing. <a href="https://www.youtube.com/watch?v=q1OF_0ICt9A&t=3794s">Here’s a link to my favorite one, which is about class about HTTPS/SSL/modern cryptography.</a>
+</ul>
+]]></description>
+</item>
+<item>
     <title>What the hell are passkeys? (Runway)</title>
     <link>https://www.runway.team/blog/an-introduction-to-passkeys</link>
     <guid>https://www.runway.team/blog/an-introduction-to-passkeys</guid>
