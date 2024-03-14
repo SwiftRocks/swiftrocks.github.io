@@ -177,6 +177,7 @@
 <code>    referenceToMyFunc()</code>
 <code>}</code>
 </pre>
+<p>(This only works if the "target" is a free function, so for things like a class's static functions you'll need to first define a function that wraps them.)</p>
 <p>Now, it should be noted that knowing a Swift function's mangled name in advance (<code>$s5MyLib6myFuncyyF</code>, in the above example) is not straight-forward as the compiler doesn't expose an easy way of predicting what these values will be, but we can fix this by using <code>@_silgen_name</code> on the declaration itself in order to modify it to something that we know and is under our control, like in the previous example where we replaced it with <code>"myCustomMangledName"</code>. Note that you only need to worry about this when referencing Swift functions; For Obj-C / C, a function's "mangled name" will be the function's actual name as those languages have no namespacing features.</p>
 <pre>
 <code>@_silgen_name("myCustomMangledName")</code>
@@ -207,7 +208,7 @@
 <code>}</code>
 </pre>
 <p>Something like this allows us to have a nice and safe system where features are unable to declare dependencies that don't exist, but it will come at the cost of <b>increased incremental build times.</b> Importing all modules like this will cause this module to be constantly invalidated, and the bigger your project gets, the worse this problem will get. In my personal experience, projects with a setup like this and with several hundred modules can easily end up with a massive <b>10~60 seconds delay</b> to incremental builds, depending on the number of modules and how slow your machine is.</p>
-<p>However, by using forward-declared <code>@_silgen_name</code> references instead of directly referencing these initializers, we can achieve the same injection behavior <b>without having to import any of the modules that define said initializers!</b></p>
+<p>However, by using forward-declared <code>@_silgen_name</code> references to a function that wraps the initializers instead of referencing these initializers directly, we can achieve the same injection behavior <b>without having to import any of the modules that define said initializers!</b></p>
 <pre>
 <code>@_silgen_name("myDepAInitializer") func makeMyDepA()</code>
 <code>@_silgen_name("myDepBInitializer") func makeMyDepB(_ depA: MyDepAProtocol)</code>
