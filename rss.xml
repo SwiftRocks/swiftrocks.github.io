@@ -7,7 +7,7 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
-    <title>Using @_silgen_name to call private Swift code and improve build times</title>
+    <title>Using @_silgen_name to forward declare functions in Swift and improve build times</title>
     <link>https://swiftrocks.com/using-silgenname-to-call-private-swift-code</link>
     <guid>https://swiftrocks.com/using-silgenname-to-call-private-swift-code</guid>
     <pubDate>Thu, 14 Mar 2024 13:00:00 GMT+1</pubDate>
