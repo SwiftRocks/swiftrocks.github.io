@@ -390,6 +390,19 @@ button {
     height: auto;
 }
 
+.logo {
+  margin-top: 32px;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+
+@media (min-width: 370px) {
+  .logo {
+    max-width: 350px;
+  }
+}
+
 .blog-post .post-image p {
     text-align: center;
     font-size: 14px;
