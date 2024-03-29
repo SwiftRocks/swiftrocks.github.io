@@ -8,7 +8,9 @@ body {
   --bold-color: #000000;
   --detail-color: #3d3d3d;
   --strong-color: #f38d03;
-  font-family: "Source Sans Pro", sans-serif;
+  --link-color: #f38d03;
+  --link-highlight-color: #f7ae4c;
+  font-family: "Source Sans 3", sans-serif;
   overflow-wrap: break-word;
   font-size: 1.1rem;
   color: var(--text-color);
@@ -20,8 +22,8 @@ body {
 }
 
 a {
-    color: var(--strong-color);
-    text-decoration: underline;
+    color: var(--link-color);
+    text-decoration: none;
 }
 
 ul {
@@ -32,7 +34,7 @@ a:hover,
 a:focus,
 a:active {
     outline: none;
-    color: var(--detail-color);
+    color: var(--link-highlight-color);
 }
 
 b {
@@ -112,14 +114,14 @@ b {
   height: 33px;
   line-height: 33px;
   background-color: white;
-  color: var(--strong-color);
+  color: var(--link-color);
   font-size: 14px;
   margin-left: 8px;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 20px;
   transition: 0.25s;
-  font-weight: 400;
+  font-weight: 600;
   z-index: 2;
 }
 
@@ -143,7 +145,7 @@ b {
   height: 33px;
   line-height: 33px;
   background-color: white;
-  color: var(--strong-color);
+  color: var(--link-color);
   font-size: 14px;
   padding-left: 10px;
   padding-right: 10px;
@@ -179,12 +181,14 @@ b {
 .post-title-index h3 {
     margin-bottom: 5px !important;
     margin-top: 20px;
-    transition: 0.25s;
+    color: var(--link-color);
+    font-weight: 600;
+   /* transition: 0.25s; */
 }
 
 .post-title-index a:hover > h3 {
-  color: var(--strong-color);
-  transition: 0.25s;
+  color: var(--link-highlight-color);
+  /* transition: 0.25s; */
 }
 
 .post-info {
@@ -299,7 +303,7 @@ blockquote {
 }
 
 .footer-share i {
-  background-color: var(--strong-color);
+  background-color: var(--link-color);
   color: white;
   padding: 8px;
   font-size: 20x;
@@ -335,7 +339,7 @@ Adapted from: http://blog.heyimcat.com/universal-signup-form/ */
 #mc_embed_signup input.email {font-size: 15px; border: 1px solid #ABB0B2;  -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: #343434; background-color: #fff; box-sizing:border-box; height:32px; padding: 0px 0.4em; display: inline-block; margin: 0; width:350px; vertical-align:top;}
 #mc_embed_signup label {display:block; font-size:16px; padding-bottom:10px; font-weight:bold;}
 #mc_embed_signup .clear {display: inline-block;} /* positions button horizontally in line with input */
-#mc_embed_signup .button {font-size: 13px; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; letter-spacing: .03em; color: #fff; background-color: var(--strong-color); box-sizing:border-box; height:32px; line-height:32px; padding:0 18px; display: inline-block; margin: 0; transition: all 0.23s ease-in-out 0s;}
+#mc_embed_signup .button {font-size: 13px; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; letter-spacing: .03em; color: #fff; background-color: var(--link-color); box-sizing:border-box; height:32px; line-height:32px; padding:0 18px; display: inline-block; margin: 0; transition: all 0.23s ease-in-out 0s;}
 #mc_embed_signup .button:hover {background-color:black; cursor:pointer;}
 #mc_embed_signup div#mce-responses {float:left; top:-1.4em; padding:0em .5em 0em .5em; overflow:hidden; width:90%;margin: 0 5%; clear: both;}
 #mc_embed_signup div.response {margin:1em 0; padding:1em .5em .5em 0; font-weight:bold; float:left; top:-1.5em; z-index:1; width:80%;}
