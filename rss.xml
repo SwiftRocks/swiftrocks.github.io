@@ -3891,6 +3891,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 <code>logLifecycle() // No crash!</code>
 </pre>
 <p>While regular locks will cause a deadlock when recursively attempting to claim the lock in the same thread, a recursive lock allows the owner of the lock to repeatedly claim it again. Because of this additional ability, <code>NSRecursiveLock</code> is slightly slower than the normal <code>NSLock</code>.</p>
+<p>Do note however that <b>recursive locks are generally seen as an anti-pattern</b> because they are often used as solutions to problems where the developer doesn't have full control over when/how the lock is acquired, which usually means the system was not designed correctly. Consider whether or not that's your case before introducing a recursive lock in your project.</p>
  <div class="post-image"> 
   <img src="https://i.imgur.com/2PDjXPQ.png" alt="Alt"> 
  </div>
