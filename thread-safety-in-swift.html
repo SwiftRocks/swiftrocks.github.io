@@ -68,7 +68,7 @@
   "https://swiftrocks.com.com/images/logo/logo.png"
 ],
 "datePublished": "2021-05-11T14:00:00+02:00",
-"dateModified": "2023-09-21T14:06:00+02:00",
+"dateModified": "2024-06-17T12:00:00+02:00",
 "author": {
   "@type": "Person",
   "name": "Bruno Rocha"
@@ -117,7 +117,7 @@
   <!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.--> 
   <!--WRITEIT_POST_SHORT_DESCRIPTION=Concurrency is the entry point for the most complicated and bizarre bugs a programmer will ever experience. In this article, I'll share my favorite methods of ensuring thread safety, as well as analyzing the performance of the different mechanisms.--> 
   <!--DateFormat example: 2020-04-12T14:00:00+02:00--> 
-  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2023-09-21T14:06:00+02:00--> 
+  <!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2024-06-17T12:00:00+02:00--> 
   <!--WRITEIT_POST_SITEMAP_DATE=2021-05-11T14:00:00+02:00--> 
   <title>Thread Safety in Swift</title>  
  
@@ -264,9 +264,10 @@
  <p>Recursively attempting to <b>synchronously</b> enter the serial <code>DispatchQueue</code> will cause the thread to wait for <i>itself</i> to finish, which doesn't make sense and will result in the app freezing for eternity. This scenario is called a <b>deadlock</b>.</p>
  <p>It's technically possible to fix this, but we will not go into details of that as it's simply not a good idea to use <code>DispatchQueues</code> for synchronous purposes. For synchronous execution, we can have better performance and more predictable safety by using an old-fashioned mutual exclusion (mutex) lock.</p>
  <p>Note: When using <code>DispatchQueues</code>, make sure to follow <a href="https://gist.github.com/tclementdev/6af616354912b0347cdf6db159c37057">these guidelines from @tclementdev</a> in order to use them efficiently. <b>Misusing queues can lead to serious performance and efficiency problems in your app</b>, and it's so easy that even Apple has been moving away from it.</p>
- <h2>os_unfair_lock</h2>
+ <h2>os_unfair_lock (a.k.a OSAllocatedUnfairLock or Mutex)</h2>
  <p>The <code>os_unfair_lock</code> mutex is currently the fastest lock in iOS. If your intention is to simply establish a critical region like in our original <code>Name</code> example, then this lock will get the job done with great performance.</p>
- <p><b>Note: Due to how Swift's memory model works, you should never use this API directly. If you're targeting iOS 15 or below, use the <code>UnfairLock</code> abstraction below when using this lock in your code. If you're targetting iOS 16, use the new built-in <a href="https://developer.apple.com/documentation/os/osallocatedunfairlock">OSAllocatedUnfairLock</a> type.</b></p>
+ <p>The way you use this lock depends on your environment. In Swift 6 you can access this via the new <code>Mutex</code> type, but as of writing this is not yet available. Thus your second approach is to use Foundation's <a href="https://developer.apple.com/documentation/os/osallocatedunfairlock">OSAllocatedUnfairLock</a> type, but it requires your app to target iOS 16.</p>
+ <p>You can still use it if you target iOS 15 or below, but it requires some extra work. Luckily, said extra work has been done for you! You can copy the following <code>UnfairLock</code> abstraction to try out this lock:</p>
  <pre>
 <code>// Read http://www.russbishop.net/the-law for more information on why this is necessary</code>
 <code>final class UnfairLock {</code>
