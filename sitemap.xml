@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/recommended-wwdc24-sessions</loc>
+    <lastmod>2024-06-17T11:20:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/recommended-wwdc24-sessions.html</loc>
+    <lastmod>2024-06-17T11:20:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/software-engineering-book-recommendations</loc>
     <lastmod>2024-05-19T14:00:00+02:00</lastmod>
     <priority>0.80</priority>

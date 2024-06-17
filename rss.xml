@@ -7,6 +7,67 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>Recommended WWDC24 Sessions</title>
+    <link>https://swiftrocks.com/recommended-wwdc24-sessions</link>
+    <guid>https://swiftrocks.com/recommended-wwdc24-sessions</guid>
+    <pubDate>Mon, 17 Jun 2024 11:20:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>Every year I watch WWDC and write down some notes. But I've just realized that I've never shared those notes and it felt like something I should do, so I've decided to do just that!</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>My approach is to pick a handful of sessions that are immediately useful / interesting to me and ignore the rest. I find this to be a good strategy because in my experience trying to keep up with things that you don't care about / don't have an immediate need for is a very easy way to burn yourself out, especially because Apple has this awful habit of announcing things and then proceeding to make them completely obsolete the next year. If in the future I happen to start working with something where one of the ignored sessions would be handy, I go back and watch it. Otherwise, it stays unwatched.</p>
+
+<p>I think the Keynote and the State of the Union should always be watched, so I won't cover them here.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10179">Meet Swift Testing</a></h2>
+<p>I really like this feature. Greatly recommend watching this as it shows not only how it works but also many interesting tricks that you can do with it. To make it better, it's open source and even works on VSCode, although I haven't tried the latter myself.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10061">What’s new in StoreKit and In-App Purchase</a></h2>
+<p>I watch StoreKit sessions because I have an app that has IAPs, so I'm always eager to see what's new in this regard. StoreKit Views aren't a new concept but I'm glad to see they made them more powerful. They also show how you can test IAPs directly in Xcode, which is pretty neat.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10136">What's new in Swift</a></h2>
+<p>This session happens every year and it's always a good watch. As someone who has been working with build systems a lot recently, I'm particularly interested in the new explicit modules feature.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10135">What's new in Xcode 16</a></h2>
+<p>This is a great watch as Xcode 16 changed quite a bit in good ways. The time profiler now has a flame graph, and the new unified backtrace view looks awesome.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10118">What's new in UIKit</a></h2>
+<p>I haven't worked directly with UI for a very long time, but I enjoy watching these to see what they're improving. I like the improved interop between SwiftUI and UIKit and the new fluid animation type. The new <code>UIUpdateLink</code> type is also very interesting.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10144">What's new in SwiftUI</a></h2>
+<p>Similarly to "What's new in UIKit", I enjoy watching these to see what's up with the frameworks. Particularly great things this year are custom containers, how things like <code>@Environment</code> and state in <code>Previews</code> have been greatly simplified, and a much better integration with scroll views.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10197">Go small with Embedded Swift</a></h2>
+<p>This is one of those things that I don't have a use for but watch anyway because it sounded cool, and indeed it was. I think this can also work as a hardcore app size optimization for your apps if you're fine with losing a bunch of Swift's features.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10157">Extend your app’s controls across the system</a></h2>
+<p>Watching sessions about new iOS features is always a good idea if they relate to something that you can potentially implement in your apps. I can think of many things that I can App Controls for and it seems also really easy to implement since it's all based on the existing Widgets infra.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10181">Xcode essentials</a></h2>
+<p>This session is great. Xcode has a ton of tools and shortcuts that we're not aware of, and many of them are extremely useful if you can remember that they exist!</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10171">Demystify explicitly built modules</a></h2>
+<p>Apart from talking about the new Swift 6 feature of the same name, this session goes into great detail about how imports work in Swift/Obj-C and how to debug them. I learned a lot from this one.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10146">Demystify SwiftUI containers</a></h2>
+<p>I am not super interested in SwiftUI improvements, but the new custom container feature is a great addition. I believe this is something that will be used a lot, so it's worth it to check this session that shows how it works and what you can do with it. This session also shares many interesting details about how subviews work in SwiftUI.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10170">Consume noncopyable types in Swift</a></h2>
+<p>Most people will probably never use this feature, but it's one of those things that are really cool in practice and worth a look. You might also want to check this out because generics involving the new <code>~Copyable</code> type are really complicated, so watching this session will help you be less confused if you end up bumping into it.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10198">Run, Break, Inspect: Explore effective debugging in LLDB</a></h2>
+<p>Every year has a session on LLDB, and this year's one is especially good. It's hard to summarize this one because they show a ton of different things, so just go there and watch it! I was surprised to find out that you can open crash logs in Xcode (maybe it was always a thing?) and that you can create "manual" breakpoints by calling <code>raise(SIGSTOP)</code>.</p>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10217">Explore Swift performance</a></h2>
+<p>This was not as actionable as I thought it would be, but I still found it to be interesting because it contains "official" evidence about how structs/protocols can be bad for performance / app size if you misuse them, which is something I've covered in a recent talk and that a lot of people wanted to know more about.</p>
+
+<div class="sponsor-article-ad-auto hidden"></div>
+
+<h2><a href="https://developer.apple.com/videos/play/wwdc2024-10173">Analyze heap memory</a></h2>
+<p>This session not only shows interesting examples of how to use the memory debugger and instrument, but also shares a lot of interesting pieces of info about the difference between <code>weak</code> and <code>unowned</code> that I believe weren't documented before, including how to debug their performance! It also now serves as an "official" source for <a href="https://swiftrocks.com/autoreleasepool-in-swift">the autoreleasepool trick I wrote an article about a long time ago</a>, which is pretty neat.</p>
+]]></description>
+</item>
+<item>
     <title>Using @_silgen_name to forward declare functions in Swift and improve build times</title>
     <link>https://swiftrocks.com/using-silgenname-to-call-private-swift-code</link>
     <guid>https://swiftrocks.com/using-silgenname-to-call-private-swift-code</guid>
