@@ -7,6 +7,21 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>What are mobile release engineering teams and when do you need one? (Runway)</title>
+    <link>https://www.runway.team/blog/what-are-mobile-release-engineering-teams-and-when-do-you-need-one</link>
+    <guid>https://www.runway.team/blog/what-are-mobile-release-engineering-teams-and-when-do-you-need-one</guid>
+    <pubDate>Fri, 28 Jun 2024 09:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>The early (and also not-so-early) days of building a tech startup means hiring and working with people who are capable of wearing a lot of hats. There are a ton of things to do and nowhere near an equal amount of resources to do them. Even if you join as a specialist, chances are you'll find yourself getting deep into other areas.</p>
+
+<p>This is true across the organization, including in mobile engineering. Early engineers don’t just write the code that builds the foundation for the app’s future success (while building up the tech debt that future engineers will pull their hair out over) but also the initial infrastructure both for how teams get things done and how they ship code out the door.</p>
+
+<p>This doesn’t last forever though. As teams grow they make the transition out of generalist, jack-of-all-trades roles and begin focusing on specialization. But one part of the org where there is often a lag in making this transition — and sometimes a very long one — is on the mobile team. Very few mobile engineers will have time to support both their team's app features and the series of Ruby scripts that support their release process, yet the expectation that they do both often lingers far beyond when other teams in the organization have fully specialized.</p>
+<p>In this article, we'll look at why this happens and how big tech companies follow-up on this problem.</p>
+]]></description>
+</item>
+<item>
     <title>Recommended WWDC24 Sessions</title>
     <link>https://swiftrocks.com/recommended-wwdc24-sessions</link>
     <guid>https://swiftrocks.com/recommended-wwdc24-sessions</guid>
