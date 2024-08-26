@@ -9,7 +9,9 @@
             ["Emerge Tools - Build better mobile apps", "https://i.imgur.com/F4ZGrLz.png", "Trusted by top mobile teams like Duolingo, Square & DoorDash to make the best apps possible. Start using Emerge Tools today!", "https://www.emergetools.com/?utm_source=swiftrocks&utm_medium=sponsor&utm_campaign=emerge"],
             ["Emerge Tools Blog - Sharing our journey building the future of mobile development", "https://i.imgur.com/F4ZGrLz.png", "The Emerge blog is dedicated to exploring the latest advancements and trends in mobile app performance. From the newest developments in mobile technology to cutting-edge optimization strategies, we cover it all.", "https://www.emergetools.com/blog?utm_source=swiftrocks&utm_medium=sponsor&utm_campaign=emerge"],
         ]
-        var activeSponsors = [0]
+        const d = new Date();
+        let month = d.getMonth();
+        var activeSponsors = (month % 2 == 1) ? [0] : [1,2]
         ///
 
         var pickedIndex = activeSponsors[Math.floor(Math.random() * activeSponsors.length)]
