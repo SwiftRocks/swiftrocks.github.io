@@ -6,7 +6,7 @@
     background-color: #18191a;
     border-radius: 8px;
     height: auto;
-    border: 2px solid #ff8e00;
+    border: 2px solid var(--sponsor-color);
     padding-left: 14px;
     padding-right: 14px;
     position: relative;
@@ -22,7 +22,7 @@
 } 
 
 .sponsor-article-ad-auto b {
-  color: white;
+  color: var(--bold-color);
 } 
 
 .sponsor-article-ad-auto-inner {
@@ -51,17 +51,17 @@
 }
 
 .sponsor-article-ad-auto .sponsor-article-ad-auto-text p {
-    color: #e2e4e9;
+    color: var(--text-color);
 }
 
 .sponsor-article-ad-auto .sponsor-article-ad-auto-header {
-    background-color: #ff8e00;
+    background-color: var(--sponsor-color);
     margin-top: -28px;
     margin-left: -4px;
     margin-bottom: 8px;
     width: 63px;
     font-weight: bold;
-    color: #e2e4e9;
+    color: black;
     font-size: 12px;
     padding: 0 5px;
     border-radius: 6px;
