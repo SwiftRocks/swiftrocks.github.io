@@ -5,11 +5,11 @@ html {
 body {
   background: #212121;
   --text-color: #f7f8f2;
-  --bold-color: #85f689;
+  --bold-color: #f6cd79;
   --detail-color: #9198a1;
-  --strong-color: #85f689;
-  --link-color: #f6cd79;
-  --link-highlight-color: #ffe1a4;
+  --strong-color: #f6cd79;
+  --link-color: #8aa8f8;
+  --link-highlight-color: #baccfd;
   --sponsor-color: #8aa8f8;
   --header-color: #85f689;
   font-family: "Source Sans 3", sans-serif;
@@ -282,7 +282,7 @@ h3 {
 code {
     padding-left: 6px !important;
     padding-right: 6px !important;
-    color: var(--strong-color);
+    color: var(--text-color);
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
