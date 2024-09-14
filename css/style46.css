@@ -5,14 +5,14 @@ html {
 body {
   --background-color: #212121;
   --text-color: #f7f8f2;
-  --bold-color: #85f689;
+  --bold-color: #f6cd79;
   --detail-color: #9198a1;
-  --strong-color: #85f689;
+  --strong-color: #f6cd79;
   --link-color: #8aa8f8;
   --link-highlight-color: #baccfd;
   --sponsor-color: #8aa8f8;
   --header-color: #f7f8f2;
-  --menu-color: #f6cd79;
+  --menu-color: #f6cd79; /* green #85f689 */
   background: var(--background-color);
   font-family: "Source Sans 3", sans-serif;
   overflow-wrap: break-word;
