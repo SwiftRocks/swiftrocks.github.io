@@ -7,6 +7,44 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>Focus not on the task, but on the problem behind the task</title>
+    <link>https://swiftrocks.com/focus-not-on-the-task-but-on-the-problem-behind-the-task</link>
+    <guid>https://swiftrocks.com/focus-not-on-the-task-but-on-the-problem-behind-the-task</guid>
+    <pubDate>Mon, 18 Nov 2024 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>Consider the following situation: A team is asked by their Product Manager to implement features X, Y, and Z into an existing system.</p>
+<p>The team then organizes itself and executes the project. After a certain amount of time, they delivered exactly what was asked of them. But then, one of these things happens (choose at least one):</p>
+<ul>
+<li>The features work only for the happy path, failing miserably at any sort of edge-case</li>
+<li>The features work as expected, but were designed so badly they are immediately considered tech debt</li>
+<li>The features work as expected, but are considered useless by the users of the system and end up completely unused (they do not solve those users' problems)</li>
+</ul>
+<p>What do you think happened here? Is this the Product Manager's fault for giving wrong requests, or the engineering team's fault for not understanding what was asked of them?</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>Some people will say this is the PM's fault, and in some cases it might be true. But the situation I want to cover here is the scenario where this is the <b>engineers' fault</b>, because it's something I've seen countless times throughout my career.</p>
+<p>The reason the scenario above happened (when the PM is not the one at fault) is because the engineers focused too much on the <i>immediate</i> task they were given, when what they should've done is <b>focus on the problem behind the task</b>, by asking themselves questions such as:
+<ul>
+<li>What's the <b>context</b> behind this ask? Is this a larger project that includes other features and tasks?</li>
+<li>Who exactly is asking for this? (Does anyone actually need this?)</li>
+<li>What <b>problem</b> are these users facing that led to this ask?</li>
+<li>Did someone attempt to solve this problem before? What did they try to do?</li>
+<li>Who is going to benefit from this ask being executed? How would they use the solution?</li>
+</ul>
+<p><b>It's only after understanding this context that you can consider yourself ready to come up with a technical solution to it.</b> But what happens a lot is that some engineers tend to <b>immediately</b> jump into problem-solving as soon as they are presented with a task, leading to solutions that despite being "accurate" when evaluating the task in isolation, completely miss the mark when looking at the bigger picture. In short, the issue was that the engineers in that situation had <b>too much tunnel vision.</b></p>
+<div class="post-image">
+  <img src="https://i.imgur.com/BfKDQC5.png" alt="Alt">                                    
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/IHGr3P5.png" alt="Alt">                                    
+</div>
+<p>Understanding the context behind tasks allows you to come up with a solution that fits the bigger picture, making it possible not only to solve your users' problems, but also to do so in a way that is clean, scalable, easy to maintain, and that benefits everyone (as opposed to being beneficial to you and your team, but a pain in the ass for everyone else in the company).</p>
+<p>In <a href="https://www.oreilly.com/library/view/the-staff-engineers/9781098118723/">The Staff Engineer's Path</a>, Tanya Reilly describes this as the <b>Local vs Global Maxima</b> problem, where the Local maxima means focusing on what's good for you or your team in an individual sense (the tunnel vision situation above), and the Global maxima means focusing on what's good <b>for the company as a whole</b>, regardless of whether or not it would be ideal for you as an individual (the big picture situation). In the book, she presents this idea to argue that this focus and ability to gather context about the bigger picture is a <b>core ability of Staff+ level engineers</b> and a minimum requirement for those aspiring to reach that level.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>Although I agree with her that only Staff+ engineers should be <i>expected</i> to be masters at this, I do also believe that this is something everyone should attempt to do, regardless of level. Doing so not only improves your knowledge of how your company works and is structured, but also teaches you how to better determine what does and doesn't matter when trying to solve a particular problem, enabling you to be more effective both at coding and at providing value for your company.</p>
+]]></description>
+</item>
+<item>
     <title>Working at startups vs large companies</title>
     <link>https://swiftrocks.com/working-at-startups-vs-large-companies</link>
     <guid>https://swiftrocks.com/working-at-startups-vs-large-companies</guid>
@@ -2106,140 +2144,6 @@
 <p>In general, <b>the only true problems I experienced were with Windows itself.</b> God, I can't stress enough how awful this OS is. To be honest, I'm not entirely sure if Bootcamp played a role in the issues I experienced, but it didn't feel like it. The issues I experienced is that if <i>anything</i> is out of place in this mess of an OS, the entire system will freak out. The biggest issue I had is that after playing flawlessly for a couple of days, I got a random BSOD in Elden Ring that <b>completely</b> destroyed the video card drivers in a way that no amount of reinstalling or nuking files managed to fix. I was rendered unable to do anything that involved the GPU without getting massive stuttering and FPS drops, and the only fix that worked was to format Windows.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>I did get other BSODs after this, but luckily none that completely destroyed the system again, and I was then able to finish Elden Ring and feel satisfied with how this project turned out. Unfortunately I can't enjoy it anymore as my laptop was recently upgraded to one with the new M1 chips (which doesn't support Bootcamp anymore), but I was able to finish many games with it and can definitely recommend this setup for those who have a Intel MacBook for work and don't feel like getting a separate gaming rig.</p>
-]]></description>
-</item>
-<item>
-    <title>Sentiment Analysis with NSTagger: Ranking popular subreddits by the negativity/hostility of its comments</title>
-    <link>https://swiftrocks.com/sentiment-analysis-reddit-negativity</link>
-    <guid>https://swiftrocks.com/sentiment-analysis-reddit-negativity</guid>
-    <pubDate>Sun, 12 Jun 2022 16:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
-<p>I have been feeling that Reddit is well on its way to taking away from 4chan the title of <i>internet hate machine</i>, because even when a subreddit is themed around happiness it takes little to no effort to find extremely hostile comment chains with complete strangers arguing about the most pointless things. I was curious to see what this looked like across different subreddits, so I decided to use Reddit's APIs and iOS's built-in sentiment analysis tools to visualize how negative a subreddit is.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>This is not a new problem, and you can find many GitHub repos of people who've done similar things with Reddit comments in the past. I started this "project" by <a href="https://github.com/hein-j/reddit-sentiment-analysis">modifying this script made by hein-j</a>, but I wasn't satisfied with the results being given by the usual Python NL frameworks. I thought they were being way too eager at saying that a subreddit was neutral when they're in reality notorious for being negative (maybe they're not the best at detecting passive-aggressiveness?), so I wondered if I could get better results by using iOS's <code>NLTagger</code> that has been available since iOS 12.</p>
-<p>With a simple setup of extracting comments and running them through a Swift script, I grabbed a couple of popular subreddits, analyzed the comments of the top 10 submissions at the time and plotted the output by pasting the results in a Google Sheets doc. If you want to try this yourself and/or tweak the parameters, you can find the code I used at the bottom of the article.</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/n14Jsmi.png" alt="Alt">                                    
-</div>
-<div class="post-image">
-  <img src="https://i.imgur.com/Xmw2WK9.png" alt="Alt">                                    
-</div>
-<div class="post-image">
-  <img src="https://i.imgur.com/JZA3vx0.png" alt="Alt">                                    
-</div>
-<h2>Info and Comments</h2>
-<ul>
-<li>Neutrality was defined as sentiment scoring between -0.5 and 0.5. The huge majority of values in this range were on the negative side.</li>
-<li><i>Happy</i> is the only subreddit that scored higher in positivity than in negativity.</li>
-<li>Despite naturally ranking high in positivity, subreddits themed around happiness showed to still contain an overwhelming amount of negative comments.</li>
-<li>Subreddits themed around advice/knowledge ranking as <i>more hostile</i> than subreddits themed around <i>actual</i> hate is interesting, but not surprising. They are famous among redditors for being hotspots for insecure individuals and often host some of the lowest-quality discussions in the platform.</li>
-</ul>
-<h2>Code</h2>
-<h3>Python</h3>
-<p>The purpose of the Python script is to connect to Reddit and dump the comments of a subreddit into a JSON file. The script requires <code>praw</code> and a <code>praw.ini</code> file in the project's root named <code>bot</code> with the following Reddit App parameters: <code>client_id</code>, <code>client_secret</code>, and <code>user_agent</code>. See <a href="https://www.geeksforgeeks.org/how-to-get-client_id-and-client_secret-for-python-reddit-api-registration/">here</a> for help with creating a Reddit App and <a href="https://praw.readthedocs.io/en/latest/getting_started/configuration/prawini.html">here</a> for help with praw.</p>
-<p>Make sure to modify the output path of this script before running.</p>
-<p>Usage example: <code>python comments.py getmotivated</code></p>
-<pre>
-<code>import praw</code>
-<code>import sys</code>
-<code>import argparse</code>
-<code></code>
-<code>def parse():</code>
-<code>    print('parsing arguments and options...')</code>
-<code></code>
-<code>    parser = argparse.ArgumentParser(description="Get the comments of a subreddit")</code>
-<code>    parser.add_argument('subreddit', type=str, help='name of subreddit')</code>
-<code></code>
-<code>    return parser.parse_args()</code>
-<code></code>
-<code></code>
-<code>def gather(subreddit):</code>
-<code>    print('searching subreddit for key phrase...')</code>
-<code>    relevant_strings = []</code>
-<code>    print('gathering texts for analysis...')</code>
-<code>    try:</code>
-<code>        for submission in subreddit.hot(limit=10):</code>
-<code>            print('...')</code>
-<code>            if submission.selftext:</code>
-<code>                relevant_strings.append(str(submission.selftext))</code>
-<code>            for comment in submission.comments.list():</code>
-<code>                if isinstance(comment, praw.models.MoreComments):</code>
-<code>                    continue</code>
-<code>                relevant_strings.append(str(comment.body))</code>
-<code>        if len(relevant_strings) == 0:</code>
-<code>            raise Exception</code>
-<code>        return relevant_strings</code>
-<code>    except:</code>
-<code>        sys.exit('ERROR: No posts were found for the provided subreddit and key phrase.')</code>
-<code></code>
-<code></code>
-<code>args = parse()</code>
-<code>subreddit_str = args.subreddit</code>
-<code></code>
-<code>print('establishing reddit instance...')</code>
-<code></code>
-<code>try:</code>
-<code>    reddit = praw.Reddit("bot")</code>
-<code>except:</code>
-<code>    sys.exit('ERROR: Failed to establish a reddit instance. Have you correctly set up your praw.ini file? See README.md for more detail.')</code>
-<code></code>
-<code>print('connecting to subreddit...')</code>
-<code>subreddit = reddit.subreddit(subreddit_str)</code>
-<code></code>
-<code># Get user inputs to analyze</code>
-<code>relevant_strings = gather(subreddit)</code>
-<code></code>
-<code>joined = "||aa||aa||aa||aa||".join(relevant_strings)</code>
-<code></code>
-<code>#open text file</code>
-<code>text_file = open("~/Desktop/r"+subreddit_str+".json", "w")</code>
-<code> </code>
-<code>#write string to file</code>
-<code>text_file.write(joined)</code>
-<code> </code>
-<code>#close file</code>
-<code>text_file.close()</code>
-</pre>
-<h3>Swift</h3>
-<p>The Swift part of the script loads the json files dumped by the Python script and runs them through iOS's <code>NSTagger</code>. Make sure to modify the input path and subreddits in the script to the subreddits you're analyzing.</p>
-<pre>
-<code>import Foundation</code>
-<code>import NaturalLanguage</code>
-<code></code>
-<code>let subreddits = ["gaming", "wholesomememes", "funny", "technology", "eyebleach", "dogswithjobs", "aww", "comedyheaven", "iamatotalpieceofshit", "mildlyinteresting", "mildlyinfuriating", "upliftingnews", "politics", "mademesmile", "interestingasfuck", "memes", "science", "animalsbeingbros", "askreddit", "relationships", "happy", "getmotivated", "rarepuppers"]</code>
-<code></code>
-<code>for sub in subreddits {</code>
-<code></code>
-<code>    let str = try! String(contentsOfFile: "~/Desktop/r\(sub).json")</code>
-<code>    let arr = str.components(separatedBy: "||aa||aa||aa||aa||")</code>
-<code></code>
-<code>    var negative: Double = 0</code>
-<code>    var neutral: Double = 0</code>
-<code>    var positive: Double = 0</code>
-<code>    for input in arr {</code>
-<code>        let tagger = NLTagger(tagSchemes: [.sentimentScore])</code>
-<code>        tagger.string = input</code>
-<code>        let (sentiment, _) = tagger.tag(at: input.startIndex, unit: .paragraph, scheme: .sentimentScore)</code>
-<code>        let score = Double(sentiment?.rawValue ?? "0") ?? 0</code>
-<code>        if score > 0.5 {</code>
-<code>            positive += 1</code>
-<code>        } else if score < -0.5 {</code>
-<code>            negative += 1</code>
-<code>        } else {</code>
-<code>            neutral += 1</code>
-<code>        }</code>
-<code>    }</code>
-<code></code>
-<code>    let total = negative + neutral + positive</code>
-<code></code>
-<code>    print(sub.capitalized)</code>
-<code>    print(negative / total * 100)</code>
-<code>    print(neutral / total * 100)</code>
-<code>    print(positive / total * 100)</code>
-<code></code>
-<code>}</code>
-</pre>
 ]]></description>
 </item>
 </channel></rss>
