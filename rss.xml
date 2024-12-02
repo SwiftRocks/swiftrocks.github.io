@@ -7,6 +7,138 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>What happens when you move a file in git?</title>
+    <link>https://swiftrocks.com/what-happens-when-you-move-a-file-in-git</link>
+    <guid>https://swiftrocks.com/what-happens-when-you-move-a-file-in-git</guid>
+    <pubDate>Mon, 2 Dec 2024 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>Recently at work we were considering renaming a folder that contains an enormous amount of files, and we wondered whether or not that would have notable negative consequences for our git repository. Would the repo become considerably larger? Would accessing git history become slower? Or would this be completely fine?</p>
+<p>After investigated this, I thought the answer was interesting enough that I felt like writing an article about it.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>To answer this question, we need to briefly explain how git works under the hood. There's also a TL;DR at the bottom if you'd like to skip the entire explanation.</p>
+<h2>How does git handle files?</h2>
+<p>It's somewhat commonly believed that git's commits are <b>diffs</b>, but this is not true. Commits are <b>snapshots</b> of your repository, meaning that when you make changes to a file, git will store a <b>full copy of that file</b> on your repository <a href="https://codewords.recurse.com/issues/three/unpacking-git-packfiles">(there is an important exception, but let's keep it simple for now)</a>. This is why you can easily switch between commits and branches no matter how old they are; git doesn't need to "replay" thousands of diffs, it just needs to read and apply the snapshot for the commit you're trying to access.</p>
+<p>Under the hood, git will store all different versions of your files in the <code>.git/objects</code> folder, and this is something we can play with in order to find out what will happen regarding the main question we're trying to answer.</p>
+<p>Let's make a new git repo and add a file called <code>swiftrocks.txt</code> with the <code>Hello World!</code> contents, and commit it:</p>
+<pre class="command-line language-bash">
+<code>git init
+echo 'Hello World!' > swiftrocks.txt
+git add swiftrocks.txt
+git commit -m "Add SwiftRocks"</code>
+</pre>
+<p>If you now go to <code>.git/objects</code>, you'll see a bunch of folders with encoded files inside of them. The file we just added is there, but which one?</p>
+<p>When you add a file to git, git will do the following things:</p>
+<ul>
+<li>Compress the file with <code>zlib</code></li>
+<li>Calculate a SHA1 hash based on the contents</li>
+<li>Place it in .git/objects/(first two hash characters)/(remaining hash characters)</li>
+</ul>
+<p>We can locate our file in the objects folder by reproducing this process, and luckily for us, we don't have to code anything to achieve this. We can find out what the resulting hash for a given file would be by running <code>git hash-object</code>:</p>
+<pre class="command-line language-bash" data-output="2">
+<code>git hash-object swiftrocks.txt
+980a0d5f19a64b4b30a87d4206aade58726b60e3</code>
+</pre>
+<p>In my case, the hash of the file was <code>980a0d5f19a64b4b30a87d4206aade58726b60e3</code>, meaning I can find the "stored" version of that file in <code>.git/objects/98/0a0d5f19a64b4b30a87d4206aade58726b60e3</code>. If you do this however, you'll notice that the file is unreadable because it's compressed. Similarly to the previous case, we don't have to code anything to de-compress this file! We just need to run <code>git cat-file -p</code> and git will do so automatically for us:</p>
+<pre class="command-line language-bash" data-output="2">
+<code>git cat-file -p 980a0d5f19a64b4b30a87d4206aade58726b60e3
+Hello World!</code>
+</pre>
+<p>There it is! Let's now make a change to this file and see what happens:</p>
+<pre class="command-line language-bash" data-output="5, 7"><code>echo 'Hello World (changed)!' > swiftrocks.txt
+git add swiftrocks.txt
+git commit -m "Change swiftrocks.txt"
+git hash-object swiftrocks.txt
+cf15f0bb6b07a66f78f6de328e3cd6ea2747de6b
+git cat-file -p cf15f0bb6b07a66f78f6de328e3cd6ea2747de6b
+Hello World (changed)!</code>
+</pre>
+<p>Since we've made a change to the file, the SHA1 of the compressed contents changed, leading to a <b>full copy</b> of that file being added to the objects folder. As already mentioned above, <b>this is because git works primarily in terms of snapshots rather than file diffs.</b> You can even see that the "original" file is still there, which is what allows git to quickly switch between commits / branches.</p>
+<pre class="command-line language-bash" data-output="2">
+<code>git cat-file -p 980a0d5f19a64b4b30a87d4206aade58726b60e3
+Hello World! # The original file is still there!</code>
+</pre>
+<p>Now here's the relevant part: <b>What happens if we change our file back to its original contents?</b></p>
+<pre class="command-line language-bash" data-output="5">
+<code>echo 'Hello World!' > swiftrocks.txt
+git add swiftrocks.txt
+git commit -m "Change swiftrocks.txt back"
+git hash-object swiftrocks.txt
+980a0d5f19a64b4b30a87d4206aade58726b60e3</code>
+</pre>
+<p><b>The hash is the same as before!</b> Even though this is a new commit making a new change to the file, the hashing process allows git to determine that the file is exactly the same as the one we had in previous commits, <b>meaning that there's no need to create a new copy.</b> This will be the case <b>even if you rename the file</b>, because the hash is calculated based on the contents, not the file's name.</p>
+<p>This is a great finding, but it doesn't fully answer the original question. We now know that renaming files will not result in new copies of those files being added to the objects folder, but what about folders? And how are those files and folders attached to actual commits?</p>
+<h2>How does git handle folders (and commits)?</h2>
+<p>The most useful thing to know right off the bat is that <b>commits are also objects in git.</b> This is why you might have seen other folders / files in <code>.git/objects</code> when first inspecting it; the other files were related to the commits you made when adding the file.</p>
+<p>Since commits are also objects, we can read them with <code>git cat-file</code> just like with "regular" files. Let's do it with our latest commit (<code>26d4302</code> in my case):</p>
+<pre class="command-line language-bash" data-output="2-7">
+<code>git cat-file -p 26d4302
+tree 350cef2a8054111568f82dc87bbd683ee14bb1a6
+parent 2891fe1393c9e1bff116c1b58a30bcf85e0596a8
+author Bruno Rocha &lt;email> 1733136171 +0100
+committer Bruno Rocha &lt;email> 1733136223 +0100
+Change swiftrocks.txt back</code>
+</pre>
+<p>As you can see, a "commit" is nothing more than a small text file containing the following bits of information:</p>
+<ul>
+<li>The author of the commit, and the commit message</li>
+<li>The hash of the parent commit</li>
+<li>The hash of the commit's "tree", containing information about the file system snapshot for that particular commit</li>
+</ul>
+<p>In this case, what we're interested in is the last point. Luckily for us, <b>trees are also objects in git.</b> Thus, if we want to see what the file system looks like for that particular commit, we just need to run <code>git cat-file -p</code> against the commit's tree hash:</p>
+<pre class="command-line language-bash" data-output="2">
+<code>git cat-file -p 350cef2a8054111568f82dc87bbd683ee14bb1a6
+100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt</code>
+</pre>
+<p>Like with commits, tree objects are also very simple text files. In this case, the tree states that there's only one file (a blob) in the repository, which is a file called <code>swiftrocks.txt</code> with the <code>980a0d5f...</code> hash. We've already uncovered that git prevents individual files from being duped, but let's see how this is reflected in the tree object:</p>
+<pre class="command-line language-bash" data-output="1-4">
+<code>(made a commit adding some copies, and did cat-file -p on the new commit / tree)</code>
+<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt</code>
+<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks2.txt</code>
+<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks3.txt</code>
+</pre>
+<p>The tree object references the new copies and their different names, but as expected, their hashes all point to the same underlying object under the hood.</p>
+<p>If we add folders to our repository, the tree object will include references to <i>other tree objects</i> (related to each of those folders), allowing you to <i>recursively</i> inspect each folder of that commit's snapshot. Here's an example:</p>
+<pre class="command-line language-bash" data-output="1-4">
+<code>100644 blob dd99cb611e0c77b2214392b253ed555fb838d8ee  .DS_Store</code>
+<code>040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1</code>
+<code>040000 tree 11ca8c2fe64b078be34824f071d32a560aba62a7  folder2</code>
+<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt</code>
+</pre>
+<p>As you can see above, the output directly identifies what each hash is so that you know exactly what you're looking at. (An alternative is to run <code>git cat-file -t</code>, which returns the "type" for a given object hash.)</p>
+<h3>So what happens if you rename / move an entire folder?</h3>
+<p>The important bit to know here is that <b>tree objects (and commits) are calculated and stored just like regular file (blob) objects</b>, meaning they follow the same rules. This means that if the contents of two folders are exactly the same, <b>git will not create a new tree object</b> for those folders; it will simply reuse the hash it had already computed in the past, just like in the case of files:</p>
+<pre class="command-line language-bash" data-output="1-2">
+<code>040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1</code>
+<code>040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1 (copy)</code>
+</pre>
+<p><b>However,</b> since tree objects contain references to a folder / file's <b>name</b>, renaming something can result in <b>new tree objects being created for that folder / file's parent tree</b> in order to account for the name change, resulting in new hashes and tree objects <b>recursively</b> all the way up to the root of the repository. This will also be the case when moving files / folders.</p>
+<p>The above snippet is one example of this. Even though git was able to avoid duplicating the internal contents of <code>folder1</code>, git still needed to generate a new tree object for its parent in order to account for the fact that a new folder called <code>folder1 (copy)</code> exists. If there are more parents up the chain, they would also require new tree objects.</p>
+<p>Whether or not this would be a problem depends on where exactly the change is being made. If the change is too "deep" into the filesystem and / or the affected trees contain a massive number of files then you'd end up with lots of potentially large new tree objects. Still, as you can see, tree objects are quite simple, so you'd need a truly gargantuan repository and / or unfortunate folder setup for this to be an actual problem.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>If you do have a setup that is bad enough for this to be an issue, then the good thing is that there are ways to improve it. By understanding how tree objects are created and which files change / move more often in your repo, it's possible to optimize the structure of your repository to minimize the "blast radius" of any given change. For example, placing files that change very often closer to the root of the repo could reduce the number of trees that would have to be regenerated and their overall size.</p>
+<h2>(Bonus) When are commits not snapshots?</h2>
+<p>At the beginning of this article, I mentioned that there are cases where commits are <b>not</b> snapshots. While this is not particularly relevant for this article, I wanted to briefly cover this as it's an important aspect of how git works.</p>
+<p>We've seen that git will make copies of your files when you change them, but this introduces a massive problem: If a particular file happens to be really big, then duplicating it for every small change could be disastrous.</p>
+<p>When this is the case, <b>git will pivot into calculating change deltas</b> instead of making full copies of the file. This feature is called <b>Packfiles</b>, and is something that is automatically managed by git for you. I recommend reading <a href="https://codewords.recurse.com/issues/three/unpacking-git-packfiles">this great write-up by Aditya Mukerjee</a> if you'd like to know more about it.</p>
+<h2>TL;DR</h2>
+<ul>
+<li>Git works in terms of snapshots (for the most part)</li>
+<li>Git knows that two files are the same and can avoid duplicating them in its internal storage, even if they have different names</li>
+<li>Similarly, Git can also determine if two folders are the same, regardless of where they are or are named</li>
+<li>Thus, renaming files or folders will not have any impact on git's internal storage for those files and folders</li>
+<li>However, git may end up needing to duplicate information regarding <b>parent folders</b>, recursively, to account for naming changes and / or new files</li>
+<li>In theory this can be an issue if the change happens very "deeply" into the file system and / or the parent folders contain massive amounts of files, but you'd need a truly gargantuan repository and / or unfortunate folder setup for this to be an actual problem</li>
+<li>Understanding how git objects work under the hood allows you to optimize your repository's folders in ways that can prevent too many unnecessary objects from being created</li>
+</ul>
+<h2>Sources / References</h2>
+<ul>
+<li><a href="https://jvns.ca/#git">Julia Evans's many articles on git</a></li>
+<li><a href="https://codewords.recurse.com/issues/three/unpacking-git-packfiles">Unpacking git packfiles</a></li>
+<li><a href="https://www.youtube.com/watch?v=fCtZWGhQBvo">Git from the inside out</a></li>
+]]></description>
+</item>
+<item>
     <title>Focus not on the task, but on the problem behind the task</title>
     <link>https://swiftrocks.com/focus-not-on-the-task-but-on-the-problem-behind-the-task</link>
     <guid>https://swiftrocks.com/focus-not-on-the-task-but-on-the-problem-behind-the-task</guid>
@@ -2086,64 +2218,6 @@
 <p>With every mobile project, you will eventually find yourself hitting roadblocks that are less about the product and features themselves and more about the surrounding infrastructure that allows everything to exist in the first place. This can manifest in a variety of ways, but as a mobile developer you’ve certainly witnessed some of the telltale signs in areas like maintaining project and build settings, managing code signing, and resolving issues with CI/CD pipelines. These are just a few examples of tasks outside the feature development domain that you might have to deal with when working on a mobile product, and which can really slow you and your team down.</p>
 <p>While these sorts of non-product issues are often dealt with in a distributed and ad-hoc way on smaller teams, this approach breaks down as you scale. Platform infrastructure issues can quickly become the single biggest bottleneck for team productivity and have a huge impact on team happiness as the size of both the codebase and the team increases.</p>
 <p>Mobile platform teams are born out of this need to tackle infrastructure pain points head-on. The end goal is to create a robust ecosystem that the wider mobile org can reliably build within and on top of, and members of a mobile platform team dedicate their time and attention entirely towards this end. That might sound bizarre to people on smaller teams – “mobile folks not working on our actual mobile product??” – but the allocation of resources to mobile platform work can be instrumental for larger companies looking to operate and scale successfully. In this article we'll look at why that's the case, and how to know when it’s becoming an important consideration for your organization.</p>
-]]></description>
-</item>
-<item>
-    <title>Using a Macbook Pro as a gaming console</title>
-    <link>https://swiftrocks.com/using-a-macbook-pro-as-a-gaming-console</link>
-    <guid>https://swiftrocks.com/using-a-macbook-pro-as-a-gaming-console</guid>
-    <pubDate>Fri, 8 Jul 2022 14:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
-<p>I had to leave my gaming computer behind when I moved to another country and have ever since felt an empty spot in my life. I watched many interesting games get released as the years went by, but I didn't feel it was enough justification to buy a gigantic gaming desktop again as I don't have enough space (or will) to have a dedicated space for one.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>The release of the Steam Deck got me really excited as it effectively solved the space problem, but it will still take several months until I can get my hands on mine. I then wondered: While my deck doesn't arrive, <b>could I somehow use my work Macbook to emulate the console gaming experience?</b></p>
-<p>It's not hard to install Windows on a Macbook as this is a built-in feature of macOS, but this is not entirely what I was looking for. I wanted to play PC games on the comfort of my sofa, <b>without removing the Macbook from my office.</b> TL;DR: It worked, and really well!</p>
-<h2>Step 1: Install Windows</h2>
-<p>As mentioned before, there's nothing special about installing a Windows partition on a Macbook. The Bootcamp Assistant software is built-in in macOS, and all you need to do is provide a Windows iso file (which you can download for free from Microsoft). You can then boot into Windows by holding the Option key during startup:</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/Ka2xWlV.jpg" alt="Alt">                                    
-</div>
-<p>While Steam does work for macOS, the huge majority of games don't, so it's easier to just install Windows and run things as originally intended. This already lets me play whatever I want, but we're not done yet.</p>
-<h2>Step 2: Streaming to the TV with Steam Link</h2>
-<p>The Steam Link is one of these weird pieces of technology that are incredibly useful, yet for some reason pretty unknown. The link was released originally as a hardware in 2015 that allowed you to <b>stream</b> whatever you're using Steam for, but it was repurposed as a mobile/smart TV app around 2018.</p>
-<p>Luckily for me, my Samsung TV has the Steam Link app on its store. It's pretty straight-forward: once you turn on Steam on your computer and open the app on your TV, the computer will be detected by the app and you'll be able to stream right away!</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/lq9Rl8j.png" alt="Alt">                                    
-</div>
-<h2>Step 3: Enjoy! ...sort of</h2>
-<p>Streaming through WiFi definitely works, but well, it sucks. Even though I have pretty good internet the input lag is <b>massive</b>, and the image is full of artifacts (not visible in this picture, but think of how YouTube videos appear to "glitch" when your connection is unstable)</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/LrWto0N.png" alt="Alt">                                    
-</div>
-<p>I was already meaning to "upgrade" my Macbook to use a wired connection, so I thought this could be an interesting motivator to go forward with it!</p>
-<h2>Step 4: Start passing wires through the apartment</h2>
-<p>I'm lucky that half of the work was already done for me. My apartment had a ~10m RJ45 cable coming from the door into the living room, but I needed to re-route it so I could get it closer to the TV and the room in which the Macbook stays. The first thing I did was move the router to behind the TV, and then move a bunch of cable tunnels around to move the cable towards it:</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/iGSkYpq.png" alt="Alt">                                    
-</div>
-<p>With the cable reaching the router, I could then use the router's outputs to wire the Macbook and the TV itself. Wiring the TV was straight-forward since the router is placed behind the TV, so all I needed to do now was pass a cable to the Macbook's room, which lied directly behind the TV's wall.</p>
-<p>As mentioned before, I got pretty lucky with this project. It seems that the previous owner tried to do something similar in the past, because the wall already had a perfectly-sized hole drilled into it! I then used a super long RJ45 cable I had laying around to connect the router through the hole and into a USB-C hub in my desk that is connected to the Macbook itself.</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/NfljPAX.png" alt="Alt">                                    
-</div>
-<h2>Step 5: Enjoy! (for real!)</h2>
-<p>The result was beyond my expectations. Both the input-lag and the artifacts were <b>completely</b> gone!</p>
-<p>I was also pleasantly surprised with how easy it was to use a controller with this setup. I'm not sure if the praise should go to Valve or Samsung, but plugging a Xbox 360 controller to the TV was all I needed to do for Steam to completely recognize it and let me play with it!</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/jEgTLZj.png" alt="Alt">                                    
-</div>
-<p>In terms of performance, I can say that this 2019 Macbook Pro is well equipped for the task. These are the games I played and I had no issues with any of them: Elden Ring, Team Fortress 2, Devil May Cry 5, Hades and Dota 2.</p>
-<p>The only downside I experienced is that the image is not as crisp as it would be if you were playing directly on your computer. It's definitely noticeable if you compare them, but to be honest, after a couple of minutes playing it I sort of "filtered" it inside my brain and stopped noticing it, so it wasn't bad at all. It's hard to tell the exact difference in these pictures because of the room's lighting, but I think you should be able to tell that the colors on the TV are a bit more "washed out" than the PC one:</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/4q6GItk.png" alt="Alt">                                    
-</div>
-<div class="post-image">
-  <img src="https://i.imgur.com/EmDmcLS.png" alt="Alt">                                    
-</div>
-<p>In general, <b>the only true problems I experienced were with Windows itself.</b> God, I can't stress enough how awful this OS is. To be honest, I'm not entirely sure if Bootcamp played a role in the issues I experienced, but it didn't feel like it. The issues I experienced is that if <i>anything</i> is out of place in this mess of an OS, the entire system will freak out. The biggest issue I had is that after playing flawlessly for a couple of days, I got a random BSOD in Elden Ring that <b>completely</b> destroyed the video card drivers in a way that no amount of reinstalling or nuking files managed to fix. I was rendered unable to do anything that involved the GPU without getting massive stuttering and FPS drops, and the only fix that worked was to format Windows.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>I did get other BSODs after this, but luckily none that completely destroyed the system again, and I was then able to finish Elden Ring and feel satisfied with how this project turned out. Unfortunately I can't enjoy it anymore as my laptop was recently upgraded to one with the new M1 chips (which doesn't support Bootcamp anymore), but I was able to finish many games with it and can definitely recommend this setup for those who have a Intel MacBook for work and don't feel like getting a separate gaming rig.</p>
 ]]></description>
 </item>
 </channel></rss>

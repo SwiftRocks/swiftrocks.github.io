@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <script src="https://use.fontawesome.com/afd448ce82.js"></script>
+    
+    <!-- Meta Tag -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO -->
+    <meta name="author" content="Bruno Rocha">
+    <meta name="keywords" content="Software, Engineering, Blog, Posts, iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
+    <meta name="description" content="Is renaming large folders in git repos an issue? Let's find out.">
+    <meta name="title" content="What happens when you move a file in git?">
+    <meta name="url" content="https://swiftrocks.com/what-happens-when-you-move-a-file-in-git">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/thumb.jpg?4">
+    <meta name="copyright" content="Bruno Rocha">
+    <meta name="robots" content="index,follow">
+
+    <meta property="og:title" content="What happens when you move a file in git?"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/thumb.jpg?4"/>
+    <meta property="og:description" content="Is renaming large folders in git repos an issue? Let's find out."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://swiftrocks.com/what-happens-when-you-move-a-file-in-git"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/thumb.jpg?4"/>
+    <meta name="twitter:image:alt" content="Page Thumbnail"/>
+    <meta name="twitter:title" content="What happens when you move a file in git?"/>
+    <meta name="twitter:description" content="Is renaming large folders in git repos an issue? Let's find out."/>
+    <meta name="twitter:site" content="@rockbruno_"/>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon/iconsmall2.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="images/favicon/iconsmall2.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+    
+
+  <!-- Bootstrap CSS Plugins --> 
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <!-- Prism CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/prism3.css"> 
+  <!-- Main CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/style47.css"> 
+  <link rel="stylesheet" type="text/css" href="css/sponsor4.css">
+    
+    <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <script type="application/ld+json">
+  {
+"@context": "https://schema.org",
+"@type": "BlogPosting",
+"mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://swiftrocks.com/what-happens-when-you-move-a-file-in-git"
+},
+"image": [
+  "https://swiftrocks.com/images/thumbs/thumb.jpg"
+],
+"datePublished": "2024-12-02T14:00:00+02:00",
+"dateModified": "2024-12-02T14:00:00+02:00",
+"author": {
+  "@type": "Person",
+  "name": "Bruno Rocha"
+},
+ "publisher": {
+  "@type": "Organization",
+  "name": "SwiftRocks",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://swiftrocks.com/images/thumbs/thumb.jpg"
+  }
+},
+"headline": "What happens when you move a file in git?",
+    "abstract": "Is renaming large folders in git repos an issue? Let's find out."
+}
+  </script>
+    
+
+  </head>
+
+ <body>
+      
+    
+    
+     
+    
+    
+  <div id="main"> 
+<!-- Blog Header --> 
+         <!-- Blog Post (Right Sidebar) Start --> 
+   <div class="container"> 
+                 <div class="col-xs-12">
+                    <div class="page-body">
+                    	<div class="row">
+         <div><a href="https://swiftrocks.com">
+           <img id="logo" class="logo" alt="SwiftRocks" src="images/bg/logo2light.png">
+         </a>
+           <div class="menu-large">
+           <div class="menu-arrow-right"></div>
+           <div class="menu-header menu-header-large">
+           <div class="menu-item">
+            <a href="blog">blog</a>
+           </div>
+           <div class="menu-item">
+            <a href="about">about</a>
+           </div>
+           <div class="menu-item">
+            <a href="talks">talks</a>
+           </div>
+           <div class="menu-item">
+            <a href="projects">projects</a>
+           </div>
+           <div class="menu-item">
+            <a href="software-engineering-book-recommendations">book recs</a>
+           </div>
+           <div class="menu-item">
+            <a href="games">game recs</a>
+           </div>
+           <div class="menu-arrow-right-2"></div>
+           </div>
+           </div>
+           <div class="menu-small">
+           <div class="menu-arrow-right"></div>
+           <div class="menu-header menu-header-small-1">
+           <div class="menu-item">
+            <a href="blog">blog</a>
+           </div>
+           <div class="menu-item">
+            <a href="about">about</a>
+           </div>
+           <div class="menu-item">
+            <a href="talks">talks</a>
+           </div>
+           <div class="menu-item">
+            <a href="projects">projects</a>
+           </div>
+           <div class="menu-arrow-right-2"></div>
+           </div>
+           <div class="menu-arrow-right"></div>
+           <div class="menu-header menu-header-small-2">
+           <div class="menu-item">
+            <a href="software-engineering-book-recommendations">book recs</a>
+           </div>
+           <div class="menu-item">
+            <a href="games">game recs</a>
+           </div>
+           <div class="menu-arrow-right-2"></div>
+           </div>
+           </div>
+       </div>
+                            <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
+<!--WRITEIT_POST_NAME=What happens when you move a file in git?-->
+<!--WRITEIT_POST_HTML_NAME=what-happens-when-you-move-a-file-in-git-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME and WRITEIT_POST_HTML_NAME by default.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=Is renaming large folders in git repos an issue? Let's find out.-->
+
+<!--DateFormat example: 2024-02-02T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2024-12-02T14:00:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE=2024-12-02T14:00:00+02:00-->
+
+<title>What happens when you move a file in git?</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>What happens when you move a file in git?</h1>
+  </div>  
+  <div class="post-info">
+    <div class="post-info-text">Published on 02 Dec 2024</div>
+  </div>
+<p>Recently at work we were considering renaming a folder that contains an enormous amount of files, and we wondered whether or not that would have notable negative consequences for our git repository. Would the repo become considerably larger? Would accessing git history become slower? Or would this be completely fine?</p>
+<p>After investigated this, I thought the answer was interesting enough that I felt like writing an article about it.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>To answer this question, we need to briefly explain how git works under the hood. There's also a TL;DR at the bottom if you'd like to skip the entire explanation.</p>
+<h2>How does git handle files?</h2>
+<p>It's somewhat commonly believed that git's commits are <b>diffs</b>, but this is not true. Commits are <b>snapshots</b> of your repository, meaning that when you make changes to a file, git will store a <b>full copy of that file</b> on your repository <a href="https://codewords.recurse.com/issues/three/unpacking-git-packfiles">(there is an important exception, but let's keep it simple for now)</a>. This is why you can easily switch between commits and branches no matter how old they are; git doesn't need to "replay" thousands of diffs, it just needs to read and apply the snapshot for the commit you're trying to access.</p>
+<p>Under the hood, git will store all different versions of your files in the <code>.git/objects</code> folder, and this is something we can play with in order to find out what will happen regarding the main question we're trying to answer.</p>
+<p>Let's make a new git repo and add a file called <code>swiftrocks.txt</code> with the <code>Hello World!</code> contents, and commit it:</p>
+<pre class="command-line language-bash">
+<code>git init
+echo 'Hello World!' > swiftrocks.txt
+git add swiftrocks.txt
+git commit -m "Add SwiftRocks"</code>
+</pre>
+<p>If you now go to <code>.git/objects</code>, you'll see a bunch of folders with encoded files inside of them. The file we just added is there, but which one?</p>
+<p>When you add a file to git, git will do the following things:</p>
+<ul>
+<li>Compress the file with <code>zlib</code></li>
+<li>Calculate a SHA1 hash based on the contents</li>
+<li>Place it in .git/objects/(first two hash characters)/(remaining hash characters)</li>
+</ul>
+<p>We can locate our file in the objects folder by reproducing this process, and luckily for us, we don't have to code anything to achieve this. We can find out what the resulting hash for a given file would be by running <code>git hash-object</code>:</p>
+<pre class="command-line language-bash" data-output="2">
+<code>git hash-object swiftrocks.txt
+980a0d5f19a64b4b30a87d4206aade58726b60e3</code>
+</pre>
+<p>In my case, the hash of the file was <code>980a0d5f19a64b4b30a87d4206aade58726b60e3</code>, meaning I can find the "stored" version of that file in <code>.git/objects/98/0a0d5f19a64b4b30a87d4206aade58726b60e3</code>. If you do this however, you'll notice that the file is unreadable because it's compressed. Similarly to the previous case, we don't have to code anything to de-compress this file! We just need to run <code>git cat-file -p</code> and git will do so automatically for us:</p>
+<pre class="command-line language-bash" data-output="2">
+<code>git cat-file -p 980a0d5f19a64b4b30a87d4206aade58726b60e3
+Hello World!</code>
+</pre>
+<p>There it is! Let's now make a change to this file and see what happens:</p>
+<pre class="command-line language-bash" data-output="5, 7"><code>echo 'Hello World (changed)!' > swiftrocks.txt
+git add swiftrocks.txt
+git commit -m "Change swiftrocks.txt"
+git hash-object swiftrocks.txt
+cf15f0bb6b07a66f78f6de328e3cd6ea2747de6b
+git cat-file -p cf15f0bb6b07a66f78f6de328e3cd6ea2747de6b
+Hello World (changed)!</code>
+</pre>
+<p>Since we've made a change to the file, the SHA1 of the compressed contents changed, leading to a <b>full copy</b> of that file being added to the objects folder. As already mentioned above, <b>this is because git works primarily in terms of snapshots rather than file diffs.</b> You can even see that the "original" file is still there, which is what allows git to quickly switch between commits / branches.</p>
+<pre class="command-line language-bash" data-output="2">
+<code>git cat-file -p 980a0d5f19a64b4b30a87d4206aade58726b60e3
+Hello World! # The original file is still there!</code>
+</pre>
+<p>Now here's the relevant part: <b>What happens if we change our file back to its original contents?</b></p>
+<pre class="command-line language-bash" data-output="5">
+<code>echo 'Hello World!' > swiftrocks.txt
+git add swiftrocks.txt
+git commit -m "Change swiftrocks.txt back"
+git hash-object swiftrocks.txt
+980a0d5f19a64b4b30a87d4206aade58726b60e3</code>
+</pre>
+<p><b>The hash is the same as before!</b> Even though this is a new commit making a new change to the file, the hashing process allows git to determine that the file is exactly the same as the one we had in previous commits, <b>meaning that there's no need to create a new copy.</b> This will be the case <b>even if you rename the file</b>, because the hash is calculated based on the contents, not the file's name.</p>
+<p>This is a great finding, but it doesn't fully answer the original question. We now know that renaming files will not result in new copies of those files being added to the objects folder, but what about folders? And how are those files and folders attached to actual commits?</p>
+<h2>How does git handle folders (and commits)?</h2>
+<p>The most useful thing to know right off the bat is that <b>commits are also objects in git.</b> This is why you might have seen other folders / files in <code>.git/objects</code> when first inspecting it; the other files were related to the commits you made when adding the file.</p>
+<p>Since commits are also objects, we can read them with <code>git cat-file</code> just like with "regular" files. Let's do it with our latest commit (<code>26d4302</code> in my case):</p>
+<pre class="command-line language-bash" data-output="2-7">
+<code>git cat-file -p 26d4302
+tree 350cef2a8054111568f82dc87bbd683ee14bb1a6
+parent 2891fe1393c9e1bff116c1b58a30bcf85e0596a8
+author Bruno Rocha &lt;email> 1733136171 +0100
+committer Bruno Rocha &lt;email> 1733136223 +0100
+Change swiftrocks.txt back</code>
+</pre>
+<p>As you can see, a "commit" is nothing more than a small text file containing the following bits of information:</p>
+<ul>
+<li>The author of the commit, and the commit message</li>
+<li>The hash of the parent commit</li>
+<li>The hash of the commit's "tree", containing information about the file system snapshot for that particular commit</li>
+</ul>
+<p>In this case, what we're interested in is the last point. Luckily for us, <b>trees are also objects in git.</b> Thus, if we want to see what the file system looks like for that particular commit, we just need to run <code>git cat-file -p</code> against the commit's tree hash:</p>
+<pre class="command-line language-bash" data-output="2">
+<code>git cat-file -p 350cef2a8054111568f82dc87bbd683ee14bb1a6
+100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt</code>
+</pre>
+<p>Like with commits, tree objects are also very simple text files. In this case, the tree states that there's only one file (a blob) in the repository, which is a file called <code>swiftrocks.txt</code> with the <code>980a0d5f...</code> hash. We've already uncovered that git prevents individual files from being duped, but let's see how this is reflected in the tree object:</p>
+<pre class="command-line language-bash" data-output="1-4">
+<code>(made a commit adding some copies, and did cat-file -p on the new commit / tree)</code>
+<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt</code>
+<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks2.txt</code>
+<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks3.txt</code>
+</pre>
+<p>The tree object references the new copies and their different names, but as expected, their hashes all point to the same underlying object under the hood.</p>
+<p>If we add folders to our repository, the tree object will include references to <i>other tree objects</i> (related to each of those folders), allowing you to <i>recursively</i> inspect each folder of that commit's snapshot. Here's an example:</p>
+<pre class="command-line language-bash" data-output="1-4">
+<code>100644 blob dd99cb611e0c77b2214392b253ed555fb838d8ee  .DS_Store</code>
+<code>040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1</code>
+<code>040000 tree 11ca8c2fe64b078be34824f071d32a560aba62a7  folder2</code>
+<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt</code>
+</pre>
+<p>As you can see above, the output directly identifies what each hash is so that you know exactly what you're looking at. (An alternative is to run <code>git cat-file -t</code>, which returns the "type" for a given object hash.)</p>
+<h3>So what happens if you rename / move an entire folder?</h3>
+<p>The important bit to know here is that <b>tree objects (and commits) are calculated and stored just like regular file (blob) objects</b>, meaning they follow the same rules. This means that if the contents of two folders are exactly the same, <b>git will not create a new tree object</b> for those folders; it will simply reuse the hash it had already computed in the past, just like in the case of files:</p>
+<pre class="command-line language-bash" data-output="1-2">
+<code>040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1</code>
+<code>040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1 (copy)</code>
+</pre>
+<p><b>However,</b> since tree objects contain references to a folder / file's <b>name</b>, renaming something can result in <b>new tree objects being created for that folder / file's parent tree</b> in order to account for the name change, resulting in new hashes and tree objects <b>recursively</b> all the way up to the root of the repository. This will also be the case when moving files / folders.</p>
+<p>The above snippet is one example of this. Even though git was able to avoid duplicating the internal contents of <code>folder1</code>, git still needed to generate a new tree object for its parent in order to account for the fact that a new folder called <code>folder1 (copy)</code> exists. If there are more parents up the chain, they would also require new tree objects.</p>
+<p>Whether or not this would be a problem depends on where exactly the change is being made. If the change is too "deep" into the filesystem and / or the affected trees contain a massive number of files then you'd end up with lots of potentially large new tree objects. Still, as you can see, tree objects are quite simple, so you'd need a truly gargantuan repository and / or unfortunate folder setup for this to be an actual problem.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>If you do have a setup that is bad enough for this to be an issue, then the good thing is that there are ways to improve it. By understanding how tree objects are created and which files change / move more often in your repo, it's possible to optimize the structure of your repository to minimize the "blast radius" of any given change. For example, placing files that change very often closer to the root of the repo could reduce the number of trees that would have to be regenerated and their overall size.</p>
+<h2>(Bonus) When are commits not snapshots?</h2>
+<p>At the beginning of this article, I mentioned that there are cases where commits are <b>not</b> snapshots. While this is not particularly relevant for this article, I wanted to briefly cover this as it's an important aspect of how git works.</p>
+<p>We've seen that git will make copies of your files when you change them, but this introduces a massive problem: If a particular file happens to be really big, then duplicating it for every small change could be disastrous.</p>
+<p>When this is the case, <b>git will pivot into calculating change deltas</b> instead of making full copies of the file. This feature is called <b>Packfiles</b>, and is something that is automatically managed by git for you. I recommend reading <a href="https://codewords.recurse.com/issues/three/unpacking-git-packfiles">this great write-up by Aditya Mukerjee</a> if you'd like to know more about it.</p>
+<h2>TL;DR</h2>
+<ul>
+<li>Git works in terms of snapshots (for the most part)</li>
+<li>Git knows that two files are the same and can avoid duplicating them in its internal storage, even if they have different names</li>
+<li>Similarly, Git can also determine if two folders are the same, regardless of where they are or are named</li>
+<li>Thus, renaming files or folders will not have any impact on git's internal storage for those files and folders</li>
+<li>However, git may end up needing to duplicate information regarding <b>parent folders</b>, recursively, to account for naming changes and / or new files</li>
+<li>In theory this can be an issue if the change happens very "deeply" into the file system and / or the parent folders contain massive amounts of files, but you'd need a truly gargantuan repository and / or unfortunate folder setup for this to be an actual problem</li>
+<li>Understanding how git objects work under the hood allows you to optimize your repository's folders in ways that can prevent too many unnecessary objects from being created</li>
+</ul>
+<h2>Sources / References</h2>
+<ul>
+<li><a href="https://jvns.ca/#git">Julia Evans's many articles on git</a></li>
+<li><a href="https://codewords.recurse.com/issues/three/unpacking-git-packfiles">Unpacking git packfiles</a></li>
+<li><a href="https://www.youtube.com/watch?v=fCtZWGhQBvo">Git from the inside out</a></li>
+</ul></div>
+                              
+   
+
+    <div class="blog-post" style="margin-top: 8px; margin-bottom: 32px;">
+      <div class="footer-text">
+        Thanks for reading! If you want to see more content like this, follow me on <a href="https://twitter.com/rockbruno_">Twitter</a> or <a href="https://mastodon.online/@rockbruno">Mastodon</a>!
+        <ul>
+          <li>        <a href="https://twitter.com/intent/tweet?via=rockbruno_&hashtags=swiftrocks,ios,swiftlang&url=https%3A%2F%2Fswiftrocks.com%2Fwhat-happens-when-you-move-a-file-in-git&text=What happens when you move a file in git?" target="_blank" class="share">Share this page</a> on Twitter</li>
+          <li>Subscribe via <a href="https://swiftrocks.com/rss.xml">RSS</a> or <a href="https://swiftrocks.us17.list-manage.com/subscribe/post?u=d6bdd39e59b8d9b8f2b8d4852&id=cbca5f3532">e-mail</a></li>
+        </ul>
+        <a href="blog">See all posts</a>
+      </div>
+
+    </div>
+
+                         </div>
+
+</div>
+                        
+                           
+                         </div>
+                     
+                     
+                  </div>
+                  <!-- Blog Post (Right Sidebar) End -->
+                
+            </div>
+         </div>
+      </div>
+    
+    
+    <!-- All Javascript Plugins  -->
+  <script type="text/javascript" src="js/jquery.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/prism3.js"></script> 
+    <!-- Main Javascript File  -->
+    <script type="text/javascript" src="js/scripts29.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8KZTWSQ1R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H8KZTWSQ1R');
+</script>
+
+   </body>
+ </html>
