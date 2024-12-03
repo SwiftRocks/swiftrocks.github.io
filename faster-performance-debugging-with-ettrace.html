@@ -206,11 +206,9 @@
   <img src="https://i.imgur.com/HclPx0t.png" alt="Emerge">
 </div>
 <p>Oops, seems like we forgot some debug code in our class!</p>
-<pre>
-<code>func viewDidLoad() {</code>
-<code>    sleep(1) // TODO: remove this!</code>
-<code>}</code>
-</pre>
+<pre><code>func viewDidLoad() {
+    sleep(1) // TODO: remove this!
+}</code></pre>
 <p>After deleting the call, the bottleneck was gone!</p>
 <p>You may find this to be a dumb example, but I find that debugging real performance issues doesn't stray too far from this. The difference is just that instead of a dumb call to <code>sleep</code>, you'd see some other expensive operation. Otherwise, the process to locate it and the different ways in which you could fix it are the same.</p>
 <h2>Other useful ETTrace features</h2>

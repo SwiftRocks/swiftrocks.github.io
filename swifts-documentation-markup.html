@@ -187,114 +187,100 @@
 <div class="sponsor-article-ad-auto hidden"></div>
 <h2>Basics of Swift Documentation</h2>
 <p>One thing I find interesting about Swift is that the documentation markup is not a feature of IDEs, but that of the compiler itself. By snipping through the source code, we can see everything that Swift supports:</p>
-<pre>
-<code>MARKUP_SIMPLE_FIELD(AttentionField, attention, Attention)</code>
-<code>MARKUP_SIMPLE_FIELD(AuthorField, author, Author)</code>
-<code>MARKUP_SIMPLE_FIELD(AuthorsField, authors, Authors)</code>
-<code>MARKUP_SIMPLE_FIELD(BugField, bug, Bug)</code>
-<code>MARKUP_SIMPLE_FIELD(Complexity, complexity, Complexity)</code>
-<code>MARKUP_SIMPLE_FIELD(CopyrightField, copyright, Copyright)</code>
-<code>MARKUP_SIMPLE_FIELD(DateField, date, Date)</code>
-<code>MARKUP_SIMPLE_FIELD(ExperimentField, experiment, Experiment)</code>
-<code>MARKUP_SIMPLE_FIELD(ImportantField, important, Important)</code>
-<code>MARKUP_SIMPLE_FIELD(InvariantField, invariant, Invariant)</code>
-<code>MARKUP_SIMPLE_FIELD(LocalizationKeyField, localizationkey, LocalizationKey)</code>
-<code>MARKUP_SIMPLE_FIELD(MutatingvariantField, mutatingvariant, Mutatingvariant)</code>
-<code>MARKUP_SIMPLE_FIELD(NonmutatingvariantField, nonmutatingvariant, Nonmutatingvariant)</code>
-<code>MARKUP_SIMPLE_FIELD(NoteField, note, Note)</code>
-<code>MARKUP_SIMPLE_FIELD(PostconditionField, postcondition, Postcondition)</code>
-<code>MARKUP_SIMPLE_FIELD(PreconditionField, precondition, Precondition)</code>
-<code>MARKUP_SIMPLE_FIELD(RemarkField, remark, Remark)</code>
-<code>MARKUP_SIMPLE_FIELD(RemarksField, remarks, Remarks)</code>
-<code>MARKUP_SIMPLE_FIELD(ReturnsField, returns, Returns)</code>
-<code>MARKUP_SIMPLE_FIELD(ThrowsField, throws, Throws)</code>
-<code>MARKUP_SIMPLE_FIELD(RequiresField, requires, Requires)</code>
-<code>MARKUP_SIMPLE_FIELD(SeeField, seealso, See)</code>
-<code>MARKUP_SIMPLE_FIELD(SinceField, since, Since)</code>
-<code>MARKUP_SIMPLE_FIELD(TagField, tag, Tag)</code>
-<code>MARKUP_SIMPLE_FIELD(TODOField, todo, TODO)</code>
-<code>MARKUP_SIMPLE_FIELD(VersionField, version, Version)</code>
-<code>MARKUP_SIMPLE_FIELD(WarningField, warning, Warning)</code>
-<code>MARKUP_SIMPLE_FIELD(KeywordField, keyword, Keyword)</code>
-<code>MARKUP_SIMPLE_FIELD(RecommendedField, recommended, Recommended)</code>
-<code>MARKUP_SIMPLE_FIELD(RecommendedoverField, recommendedover, Recommendedover)</code>
-</pre>
+<pre><code>MARKUP_SIMPLE_FIELD(AttentionField, attention, Attention)
+MARKUP_SIMPLE_FIELD(AuthorField, author, Author)
+MARKUP_SIMPLE_FIELD(AuthorsField, authors, Authors)
+MARKUP_SIMPLE_FIELD(BugField, bug, Bug)
+MARKUP_SIMPLE_FIELD(Complexity, complexity, Complexity)
+MARKUP_SIMPLE_FIELD(CopyrightField, copyright, Copyright)
+MARKUP_SIMPLE_FIELD(DateField, date, Date)
+MARKUP_SIMPLE_FIELD(ExperimentField, experiment, Experiment)
+MARKUP_SIMPLE_FIELD(ImportantField, important, Important)
+MARKUP_SIMPLE_FIELD(InvariantField, invariant, Invariant)
+MARKUP_SIMPLE_FIELD(LocalizationKeyField, localizationkey, LocalizationKey)
+MARKUP_SIMPLE_FIELD(MutatingvariantField, mutatingvariant, Mutatingvariant)
+MARKUP_SIMPLE_FIELD(NonmutatingvariantField, nonmutatingvariant, Nonmutatingvariant)
+MARKUP_SIMPLE_FIELD(NoteField, note, Note)
+MARKUP_SIMPLE_FIELD(PostconditionField, postcondition, Postcondition)
+MARKUP_SIMPLE_FIELD(PreconditionField, precondition, Precondition)
+MARKUP_SIMPLE_FIELD(RemarkField, remark, Remark)
+MARKUP_SIMPLE_FIELD(RemarksField, remarks, Remarks)
+MARKUP_SIMPLE_FIELD(ReturnsField, returns, Returns)
+MARKUP_SIMPLE_FIELD(ThrowsField, throws, Throws)
+MARKUP_SIMPLE_FIELD(RequiresField, requires, Requires)
+MARKUP_SIMPLE_FIELD(SeeField, seealso, See)
+MARKUP_SIMPLE_FIELD(SinceField, since, Since)
+MARKUP_SIMPLE_FIELD(TagField, tag, Tag)
+MARKUP_SIMPLE_FIELD(TODOField, todo, TODO)
+MARKUP_SIMPLE_FIELD(VersionField, version, Version)
+MARKUP_SIMPLE_FIELD(WarningField, warning, Warning)
+MARKUP_SIMPLE_FIELD(KeywordField, keyword, Keyword)
+MARKUP_SIMPLE_FIELD(RecommendedField, recommended, Recommended)
+MARKUP_SIMPLE_FIELD(RecommendedoverField, recommendedover, Recommendedover)</code></pre>
 <p>(Not mentioned here is the <code>Parameters</code> field, which is treated slightly differently).</p>
 <p>You can attach any of these fields to a method by adding a dash followed by the identifier of the markup. What happens when you do that will depend on Xcode, but most of these fields are supported by the Quick Look feature:</p>
-<pre>
-<code>/// Combines this with another condition publisher.</code>
-<code>///</code>
-<code>/// I'm just adding random information for an article. Carry on!</code>
-<code>///</code>
-<code>/// - Attention: This code is really cool.</code>
-<code>/// Here's why I think you should use this:</code>
-<code>///  * item 1</code>
-<code>///  * item 2</code>
-<code>///    * item 2.1</code>
-<code>/// * item 3</code>
-<code>///</code>
-<code>/// - Complexity: O(1)</code>
-<code>/// - Parameters:</code>
-<code>///   - publisher: The other publisher.</code>
-<code>/// - Returns: A combined publisher that has the condition of both publishers.</code>
-<code>func ...</code>
-</pre>
+<pre><code>/// Combines this with another condition publisher.
+///
+/// I'm just adding random information for an article. Carry on!
+///
+/// - Attention: This code is really cool.
+/// Here's why I think you should use this:
+///  * item 1
+///  * item 2
+///    * item 2.1
+/// * item 3
+///
+/// - Complexity: O(1)
+/// - Parameters:
+///   - publisher: The other publisher.
+/// - Returns: A combined publisher that has the condition of both publishers.
+func ...</code></pre>
 <div class="post-image">
   <img src="https://i.imgur.com/AMjU98I.png" alt="Alt">                                    
 </div>
 <h2>Xcode specific features</h2>
 <p>Although most of the work is inside Swift, Xcode has some features of its own. You may know by now that Xcode can render Markdown, and perhaps the most interesting use of it in my opinion is to add links to the documentation:</p>
-<pre>
-<code>/// Combines this with another condition publisher.</code>
-<code>///</code>
-<code>/// - Bug:[IOS-10395](https://myjira.com/ios/10395)</code>
-</pre>
+<pre><code>/// Combines this with another condition publisher.
+///
+/// - Bug:[IOS-10395](https://myjira.com/ios/10395)</code></pre>
 <div class="post-image">
   <img src="https://i.imgur.com/Fm3UssT.png" alt="Alt">                                    
 </div>
 <p>But Xcode also has some styling utilities. I especially like that you can create horizontal rules:</p>
-<pre>
-<code>An example of using a *horizontal rule*</code>
-<code></code>
-<code>This text is above the horizontal rule</code>
-<code></code>
-<code>*  *  *  *  *</code>
-<code> </code>
-<code>And this is below</code>
-</pre>
+<pre><code>An example of using a *horizontal rule*
+
+This text is above the horizontal rule
+
+*  *  *  *  *
+ 
+And this is below</code></pre>
 <div class="post-image">
   <img src="https://i.imgur.com/AAnJMbf.png" alt="Alt">                                    
 </div>
 <p>But unfortunately, Xcode's coolest documentation features are restricted to playgrounds. In a playground, the link markup can be used even to display videos:</p>
-<pre>
-<code>//: Watch the WWDC session introducing the San Francisco Font</code>
-<code>//: ![San Francisco font introduction](new-fonts.mp4)</code>
-</pre>
+<pre><code>//: Watch the WWDC session introducing the San Francisco Font
+//: ![San Francisco font introduction](new-fonts.mp4)</code></pre>
 <div class="post-image">
   <img src="https://i.imgur.com/oFW6TS8.png" alt="Alt">                                    
 </div>
 <p>Xcode also claims to support a heading markup to display larger text, but it doesn't seem to work in the latest Xcode versions.</p>
-<pre>
-<code>/**</code>
-<code>  An example of using a character underline for a *heading*</code>
-<code> </code>
-<code>  This is a Heading 1</code>
-<code>  ===================</code>
-<code> */</code>
-</pre>
+<pre><code>/**
+  An example of using a character underline for a *heading*
+ 
+  This is a Heading 1
+  ===================
+ */</code></pre>
 <div class="post-image">
   <img src="https://i.imgur.com/hLAFybL.png" alt="Alt">                                    
 </div>
 <h2>Changes introduced with Xcode 13 / DocC</h2>
 <p>With Apple's new documentation page generation tool released in Xcode 13, you now have the ability to <b>reference code</b>. You could already write chunks of code with <code>`</code> or <code>```swift</code> for blocks, but it didn't actually link to the references:</p>
-<pre>
-<code>/// Merges two `Publishers` of `Condition&lt;T>`.</code>
-<code>/// ```swift</code>
-<code>/// let publisher = CurrentValueSubject&lt;Condition&lt;Int>, Never>(.satisfied(1))</code>
-<code>/// let publisherB = CurrentValueSubject&lt;Condition&lt;Int>, Never>(.satisfied(2))</code>
-<code>/// let combined = publisher.combineCondition(publisherB)</code>
-<code>/// ```</code>
-</pre>
+<pre><code>/// Merges two `Publishers` of `Condition&lt;T>`.
+/// ```swift
+/// let publisher = CurrentValueSubject&lt;Condition&lt;Int>, Never>(.satisfied(1))
+/// let publisherB = CurrentValueSubject&lt;Condition&lt;Int>, Never>(.satisfied(2))
+/// let combined = publisher.combineCondition(publisherB)
+/// ```</code></pre>
 <div class="post-image">
   <img src="https://i.imgur.com/OVgrJEp.png" alt="Alt">                                    
 </div>

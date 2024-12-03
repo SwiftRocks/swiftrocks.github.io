@@ -212,13 +212,11 @@
 
 
 
-<pre>
-<code>// arr only has two elements</code>
-<code>void readArray(int arr[]) {</code>
-<code>    int i = arr[20];</code>
-<code>    printf("%i", i);</code>
-<code>}</code>
-</pre>
+<pre><code>// arr only has two elements
+void readArray(int arr[]) {
+    int i = arr[20];
+    printf("%i", i);
+}</code></pre>
 
 
 
@@ -246,9 +244,7 @@
 
 
 
-<pre>
-<code>let ptr: UnsafeMutablePointer&lt;Int&gt; = ...</code>
-</pre>
+<pre><code>let ptr: UnsafeMutablePointer&lt;Int&gt; = ...</code></pre>
 
 
 
@@ -293,18 +289,16 @@
 
 
 
-<pre>
-<code>let semaphore = DispatchSemaphore(value: 0)</code>
-<code>highPrioQueue.async {</code>
-<code>    semaphore.wait()</code>
-<code>    // …</code>
-<code>}</code>
-<code></code>
-<code>lowPrioQueue.async {</code>
-<code>    semaphore.signal()</code>
-<code>    // …</code>
-<code>}</code>
-</pre>
+<pre><code>let semaphore = DispatchSemaphore(value: 0)
+highPrioQueue.async {
+    semaphore.wait()
+    // …
+}
+
+lowPrioQueue.async {
+    semaphore.signal()
+    // …
+}</code></pre>
 
 
 
@@ -338,23 +332,21 @@
 
 
 
-<pre>
-<code>func loadWebResource(_ path: String, completionBlock: (result: Resource) -&gt; Void) { ... }</code>
-<code>func decodeImage(_ r1: Resource, _ r2: Resource, completionBlock: (result: Image) -&gt; Void)</code>
-<code>func dewarpAndCleanupImage(_ i : Image, completionBlock: (result: Image) -&gt; Void)</code>
-<code></code>
-<code>func processImageData1(completionBlock: (result: Image) -&gt; Void) {</code>
-<code>    loadWebResource("dataprofile.txt") { dataResource in</code>
-<code>        loadWebResource("imagedata.dat") { imageResource in</code>
-<code>            decodeImage(dataResource, imageResource) { imageTmp in</code>
-<code>                dewarpAndCleanupImage(imageTmp) { imageResult in</code>
-<code>                    completionBlock(imageResult)</code>
-<code>                }</code>
-<code>            }</code>
-<code>        }</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+<pre><code>func loadWebResource(_ path: String, completionBlock: (result: Resource) -&gt; Void) { ... }
+func decodeImage(_ r1: Resource, _ r2: Resource, completionBlock: (result: Image) -&gt; Void)
+func dewarpAndCleanupImage(_ i : Image, completionBlock: (result: Image) -&gt; Void)
+
+func processImageData1(completionBlock: (result: Image) -&gt; Void) {
+    loadWebResource("dataprofile.txt") { dataResource in
+        loadWebResource("imagedata.dat") { imageResource in
+            decodeImage(dataResource, imageResource) { imageTmp in
+                dewarpAndCleanupImage(imageTmp) { imageResult in
+                    completionBlock(imageResult)
+                }
+            }
+        }
+    }
+}</code></pre>
 
 
 
@@ -362,19 +354,17 @@
 
 
 
-<pre>
-<code>func loadWebResource(_ path: String) async -&gt; Resource</code>
-<code>func decodeImage(_ r1: Resource, _ r2: Resource) async -&gt; Image</code>
-<code>func dewarpAndCleanupImage(_ i : Image) async -&gt; Image</code>
-<code></code>
-<code>func processImageData1() async -&gt; Image {</code>
-<code>    let dataResource  = await loadWebResource("dataprofile.txt")</code>
-<code>    let imageResource = await loadWebResource("imagedata.dat")</code>
-<code>    let imageTmp      = await decodeImage(dataResource, imageResource)</code>
-<code>    let imageResult   = await dewarpAndCleanupImage(imageTmp)</code>
-<code>    return imageResult</code>
-<code>}</code>
-</pre>
+<pre><code>func loadWebResource(_ path: String) async -&gt; Resource
+func decodeImage(_ r1: Resource, _ r2: Resource) async -&gt; Image
+func dewarpAndCleanupImage(_ i : Image) async -&gt; Image
+
+func processImageData1() async -&gt; Image {
+    let dataResource  = await loadWebResource("dataprofile.txt")
+    let imageResource = await loadWebResource("imagedata.dat")
+    let imageTmp      = await decodeImage(dataResource, imageResource)
+    let imageResult   = await dewarpAndCleanupImage(imageTmp)
+    return imageResult
+}</code></pre>
 
 
 
@@ -466,11 +456,9 @@
 
 
 
-<pre>
-<code>constexpr size_t dispatchQueueCooperativeFlag = 4;</code>
-<code>queue = dispatch_get_global_queue((dispatch_qos_class_t)priority,</code>
-<code>                                  dispatchQueueCooperativeFlag);</code>
-</pre>
+<pre><code>constexpr size_t dispatchQueueCooperativeFlag = 4;
+queue = dispatch_get_global_queue((dispatch_qos_class_t)priority,
+                                  dispatchQueueCooperativeFlag);</code></pre>
 
 
 
@@ -478,12 +466,10 @@
 
 
 
-<pre>
-<code>JobPriority priority = job-&gt;getPriority();</code>
-<code>auto queue = getGlobalQueue(priority);</code>
-<code>  dispatch_async_swift_job(queue, job, (dispatch_qos_class_t)priority,</code>
-<code>                  DISPATCH_QUEUE_GLOBAL_EXECUTOR);</code>
-</pre>
+<pre><code>JobPriority priority = job-&gt;getPriority();
+auto queue = getGlobalQueue(priority);
+  dispatch_async_swift_job(queue, job, (dispatch_qos_class_t)priority,
+                  DISPATCH_QUEUE_GLOBAL_EXECUTOR);</code></pre>
 
 
 
@@ -515,29 +501,27 @@
 
 
 
-<pre>
-<code>class DefaultActorImpl : public HeapObject {</code>
-<code>public:</code>
-<code>  void initialize();</code>
-<code>  void destroy();</code>
-<code>  void enqueue(Job *job);</code>
-<code>  bool tryAssumeThread(RunningJobInfo runner);</code>
-<code>  void giveUpThread(RunningJobInfo runner);</code>
-<code>}</code>
-<code></code>
-<code>struct alignas(2 * sizeof(void*)) State {</code>
-<code>  JobRef FirstJob;</code>
-<code>  struct Flags Flags;</code>
-<code>};</code>
-<code></code>
-<code>enum class Status {</code>
-<code>  Idle,</code>
-<code>  Scheduled,</code>
-<code>  Running,</code>
-<code>};</code>
-<code></code>
-<code>swift::atomic&lt;State&gt; CurrentState;</code>
-</pre>
+<pre><code>class DefaultActorImpl : public HeapObject {
+public:
+  void initialize();
+  void destroy();
+  void enqueue(Job *job);
+  bool tryAssumeThread(RunningJobInfo runner);
+  void giveUpThread(RunningJobInfo runner);
+}
+
+struct alignas(2 * sizeof(void*)) State {
+  JobRef FirstJob;
+  struct Flags Flags;
+};
+
+enum class Status {
+  Idle,
+  Scheduled,
+  Running,
+};
+
+swift::atomic&lt;State&gt; CurrentState;</code></pre>
 
 
 
@@ -545,11 +529,9 @@
 
 
 
-<pre>
-<code>static void setNextJobInQueue(Job *job, JobRef next) {</code>
-<code>  *reinterpret_cast&lt;JobRef*&gt;(job-&gt;SchedulerPrivate) = next;</code>
-<code>}</code>
-</pre>
+<pre><code>static void setNextJobInQueue(Job *job, JobRef next) {
+  *reinterpret_cast&lt;JobRef*&gt;(job-&gt;SchedulerPrivate) = next;
+}</code></pre>
 
 
 
@@ -561,11 +543,9 @@
 
 
 
-<pre>
-<code>if (priority &gt; oldState.getMaxPriority()) {</code>
-<code>  newState = newState.withEscalatedPriority(priority);</code>
-<code>}</code>
-</pre>
+<pre><code>if (priority &gt; oldState.getMaxPriority()) {
+  newState = newState.withEscalatedPriority(priority);
+}</code></pre>
 
 
 
@@ -581,11 +561,9 @@
 
 
 
-<pre>
-<code>public protocol Executor: AnyObject, Sendable {</code>
-<code>    func enqueue(_ job: consuming Job)</code>
-<code>}</code>
-</pre>
+<pre><code>public protocol Executor: AnyObject, Sendable {
+    func enqueue(_ job: consuming Job)
+}</code></pre>
 
 
 
@@ -593,9 +571,7 @@
 
 
 
-<pre>
-<code>public protocol SerialExecutor: Executor { ... }</code>
-</pre>
+<pre><code>public protocol SerialExecutor: Executor { ... }</code></pre>
 
 
 
@@ -619,21 +595,19 @@
 
 
 
-<pre>
-<code>func example() async {</code>
-<code>    let fooResult = await foo()</code>
-<code>    let barResult = await bar()</code>
-<code>    doSomething(fooResult, barResult)</code>
-<code>}</code>
-<code></code>
-<code>func foo() async -&gt; FooResult {</code>
-<code>    // Some async code</code>
-<code>}</code>
-<code></code>
-<code>func bar() async -&gt; BarResult {</code>
-<code>    // Some async code</code>
-<code>}</code>
-</pre>
+<pre><code>func example() async {
+    let fooResult = await foo()
+    let barResult = await bar()
+    doSomething(fooResult, barResult)
+}
+
+func foo() async -&gt; FooResult {
+    // Some async code
+}
+
+func bar() async -&gt; BarResult {
+    // Some async code
+}</code></pre>
 
 
 
@@ -653,12 +627,10 @@
 
 
 
-<pre>
-<code>func foo() async throws {</code>
-<code>    // …</code>
-<code>    throw MyError.failed // Can’t do this without async/await!</code>
-<code>}</code>
-</pre>
+<pre><code>func foo() async throws {
+    // …
+    throw MyError.failed // Can’t do this without async/await!
+}</code></pre>
 
 
 
@@ -674,19 +646,17 @@
 
 
 
-<pre>
-<code>// example()</code>
-<code>sil hidden @$s4test7exampleyyYaF : $@convention(thin) @async () -&gt; () {</code>
-<code>bb0:</code>
-<code>  hop_to_executor foo</code>
-<code>  foo()</code>
-<code>  hop_to_executor example</code>
-<code>  hop_to_executor bar</code>
-<code>  bar()</code>
-<code>  hop_to_executor example</code>
-<code>  return void</code>
-<code>} // end sil function '$s4test7exampleyyYaF'</code>
-</pre>
+<pre><code>// example()
+sil hidden @$s4test7exampleyyYaF : $@convention(thin) @async () -&gt; () {
+bb0:
+  hop_to_executor foo
+  foo()
+  hop_to_executor example
+  hop_to_executor bar
+  bar()
+  hop_to_executor example
+  return void
+} // end sil function '$s4test7exampleyyYaF'</code></pre>
 
 
 
@@ -706,16 +676,14 @@
 
 
 
-<pre>
-<code>func example() async {</code>
-<code>    (original executor)</code>
-<code>    let fooResult = await foo() // POTENTIAL job 1 (go to foo’s executor)</code>
-<code>    // POTENTIAL job 2 (back to original context)</code>
-<code>    let barResult = await bar()  // POTENTIAL job 3 (go to bar’s executor)</code>
-<code>    // POTENTIAL job 4 (back to original context)</code>
-<code>    doSomething(fooResult, barResult)</code>
-<code>}</code>
-</pre>
+<pre><code>func example() async {
+    (original executor)
+    let fooResult = await foo() // POTENTIAL job 1 (go to foo’s executor)
+    // POTENTIAL job 2 (back to original context)
+    let barResult = await bar()  // POTENTIAL job 3 (go to bar’s executor)
+    // POTENTIAL job 4 (back to original context)
+    doSomething(fooResult, barResult)
+}</code></pre>
 
 
 
@@ -727,19 +695,17 @@
 
 
 
-<pre>
-<code>protocol MyProto {</code>
-<code>    func asyncFunction() async</code>
-<code>}</code>
-<code></code>
-<code>struct MyType: MyProto {</code>
-<code>    func asyncFunction() {</code>
-<code>        // This is not an async function, but the Swift is fine with it</code>
-<code>        // because `async` and `await` doesn’t mean that the</code>
-<code>        // function is _actually_ async, only that it _may_ be.</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+<pre><code>protocol MyProto {
+    func asyncFunction() async
+}
+
+struct MyType: MyProto {
+    func asyncFunction() {
+        // This is not an async function, but the Swift is fine with it
+        // because `async` and `await` doesn’t mean that the
+        // function is _actually_ async, only that it _may_ be.
+    }
+}</code></pre>
 
 
 
@@ -759,14 +725,12 @@
 
 
 
-<pre>
-<code>func example() async {</code>
-<code>    doSomething() // Running in thread A</code>
-<code>    await somethingElse()</code>
-<code>    doSomethingAgain() // This COULD also be running in thread A, but it’s probably not!</code>
-<code>    // Also, thread A has likely moved on to do other things while we were waiting for somethingElse()!</code>
-<code>}</code>
-</pre>
+<pre><code>func example() async {
+    doSomething() // Running in thread A
+    await somethingElse()
+    doSomethingAgain() // This COULD also be running in thread A, but it’s probably not!
+    // Also, thread A has likely moved on to do other things while we were waiting for somethingElse()!
+}</code></pre>
 
 
 
@@ -790,11 +754,9 @@
 
 
 
-<pre>
-<code>Task {</code>
-<code>    await foo()</code>
-<code>}</code>
-</pre>
+<pre><code>Task {
+    await foo()
+}</code></pre>
 
 
 
@@ -811,23 +773,21 @@
 
 
 
-<pre>
-<code>extension Task where Failure == Never {</code>
-<code>  public init(</code>
-<code>    priority: TaskPriority? = nil,</code>
-<code>    @_inheritActorContext @_implicitSelfCapture operation: __owned @Sendable @escaping () async -&gt; Success</code>
-<code>  ) {</code>
-<code>    let flags = taskCreateFlags(</code>
-<code>      priority: priority, isChildTask: false, copyTaskLocals: true,</code>
-<code>      inheritContext: true, enqueueJob: true,</code>
-<code>      addPendingGroupTaskUnconditionally: false,</code>
-<code>      isDiscardingTask: false)</code>
-<code></code>
-<code>    let (task, _) = Builtin.createAsyncTask(flags, operation)</code>
-<code>    self._task = task</code>
-<code>  }</code>
-<code>}</code>
-</pre>
+<pre><code>extension Task where Failure == Never {
+  public init(
+    priority: TaskPriority? = nil,
+    @_inheritActorContext @_implicitSelfCapture operation: __owned @Sendable @escaping () async -&gt; Success
+  ) {
+    let flags = taskCreateFlags(
+      priority: priority, isChildTask: false, copyTaskLocals: true,
+      inheritContext: true, enqueueJob: true,
+      addPendingGroupTaskUnconditionally: false,
+      isDiscardingTask: false)
+
+    let (task, _) = Builtin.createAsyncTask(flags, operation)
+    self._task = task
+  }
+}</code></pre>
 
 
 
@@ -835,20 +795,18 @@
 
 
 
-<pre>
-<code>static AsyncTaskAndContext swift_task_create_commonImpl(…) {</code>
-<code>  // The actual function is a lot more complicated than this.</code>
-<code>  // This is just a pseudo-coded simplification for learning purposes.</code>
-<code></code>
-<code>  task.executor = task.parent.executor ?? globalConcurrentExecutor;</code>
-<code></code>
-<code>  task.checkIfItsChildTask(flags);</code>
-<code>  task.checkIfItsTaskGroup(flags);</code>
-<code>  task.inheritPriorityFromParentIfNeeded(flags);</code>
-<code></code>
-<code>  task.asJob.submitToExecutor();</code>
-<code>}</code>
-</pre>
+<pre><code>static AsyncTaskAndContext swift_task_create_commonImpl(…) {
+  // The actual function is a lot more complicated than this.
+  // This is just a pseudo-coded simplification for learning purposes.
+
+  task.executor = task.parent.executor ?? globalConcurrentExecutor;
+
+  task.checkIfItsChildTask(flags);
+  task.checkIfItsTaskGroup(flags);
+  task.inheritPriorityFromParentIfNeeded(flags);
+
+  task.asJob.submitToExecutor();
+}</code></pre>
 
 
 
@@ -857,29 +815,25 @@
 
 
 
-<pre>
-<code>func synchronous() {</code>
-<code>  withUnsafeCurrentTask { maybeUnsafeCurrentTask in </code>
-<code>    if let unsafeCurrentTask = maybeUnsafeCurrentTask {</code>
-<code>      print("Seems I was invoked as part of a Task!")</code>
-<code>    } else {</code>
-<code>      print("Not part of a task.")</code>
-<code>    }</code>
-<code>  }</code>
-<code>}</code>
-</pre>
+<pre><code>func synchronous() {
+  withUnsafeCurrentTask { maybeUnsafeCurrentTask in 
+    if let unsafeCurrentTask = maybeUnsafeCurrentTask {
+      print("Seems I was invoked as part of a Task!")
+    } else {
+      print("Not part of a task.")
+    }
+  }
+}</code></pre>
 
 <h3>Gotcha: Accidental Task Inheritance</h3>
 
 <p>Because child tasks by default inherit the properties of their parent, and because the runtime handles that automatically for you, you might end up in situations where a task is inheriting things you didn't mean to:</p>
 
-<pre>
-<code>func example() async {</code>
-<code>  Task {</code>
-<code>    // This is NOT a parentless task, as much as it looks like one!</code>
-<code>  }</code>
-<code>}</code>
-</pre>
+<pre><code>func example() async {
+  Task {
+    // This is NOT a parentless task, as much as it looks like one!
+  }
+}</code></pre>
 
 <p>In the example above, what looks like a "bland" task is actually a <b>child task</b> of whatever job led to <code>example()</code> being called! This means this task will inherit that parent's properties, which <i>may</i> include things you don't want this particular task to inherit, such as the executor. One example case where this can be a problem is when dealing with code that interacts with the <code>MainActor</code>, which we will explore in detail further below.</p>
 <p>In order to avoid this, you must use alternate task initializers like <code>Task.detached</code> which define "unstructured" tasks with no parent, but it must be noted that they <i>also</i> have their own gotchas, so make sure to read their API documentation before using them.</p>
@@ -904,11 +858,9 @@
 
 
 
-<pre>
-<code>actor MyExample {</code>
-<code>    var fooInt = 0</code>
-<code>}</code>
-</pre>
+<pre><code>actor MyExample {
+    var fooInt = 0
+}</code></pre>
 
 
 
@@ -916,13 +868,11 @@
 
 
 
-<pre>
-<code>func foo() {</code>
-<code>    let example = MyExample()</code>
-<code>    example.fooInt = 1 // Error: Actor-isolated `fooInt`</code>
-<code>    // cannot be mutated from a non-isolated context</code>
-<code>}</code>
-</pre>
+<pre><code>func foo() {
+    let example = MyExample()
+    example.fooInt = 1 // Error: Actor-isolated `fooInt`
+    // cannot be mutated from a non-isolated context
+}</code></pre>
 
 
 
@@ -930,14 +880,12 @@
 
 
 
-<pre>
-<code>actor MyExample {</code>
-<code>    var fooInt = 0</code>
-<code>    func mutateFooInt() {</code>
-<code>        fooInt = 1</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+<pre><code>actor MyExample {
+    var fooInt = 0
+    func mutateFooInt() {
+        fooInt = 1
+    }
+}</code></pre>
 
 
 
@@ -945,16 +893,14 @@
 
 
 
-<pre>
-<code>func foo() {</code>
-<code>    let example = MyExample()</code>
-<code>    Task {</code>
-<code>        await example.mutateFooInt()</code>
-<code>        // The actor itself is allowed to call mutateFooInt() synchronously,</code>
-<code>        // but the example() function is not.</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+<pre><code>func foo() {
+    let example = MyExample()
+    Task {
+        await example.mutateFooInt()
+        // The actor itself is allowed to call mutateFooInt() synchronously,
+        // but the example() function is not.
+    }
+}</code></pre>
 
 
 
@@ -970,11 +916,9 @@
 
 
 
-<pre>
-<code>public protocol Actor: AnyObject, Sendable {</code>
-<code>    nonisolated var unownedExecutor: UnownedSerialExecutor { get }</code>
-<code>}</code>
-</pre>
+<pre><code>public protocol Actor: AnyObject, Sendable {
+    nonisolated var unownedExecutor: UnownedSerialExecutor { get }
+}</code></pre>
 
 
 
@@ -982,14 +926,12 @@
 
 
 
-<pre>
-<code>public struct UnownedSerialExecutor: Sendable {</code>
-<code>    internal var executor: Builtin.Executor</code>
-<code>    public init&lt;E: SerialExecutor&gt;(ordinary executor: __shared E) {</code>
-<code>      self.executor = Builtin.buildOrdinarySerialExecutorRef(executor)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+<pre><code>public struct UnownedSerialExecutor: Sendable {
+    internal var executor: Builtin.Executor
+    public init&lt;E: SerialExecutor&gt;(ordinary executor: __shared E) {
+      self.executor = Builtin.buildOrdinarySerialExecutorRef(executor)
+    }
+}</code></pre>
 
 
 
@@ -997,27 +939,25 @@
 
 
 
-<pre>
-<code>// What you write:</code>
-<code>actor MyActor {}</code>
-<code></code>
-<code>// What is compiled:</code>
-<code>final class MyActor: Actor {</code>
-<code></code>
-<code>    nonisolated var unownedExecutor: UnownedSerialExecutor {</code>
-<code>        return Builtin.buildDefaultActorExecutorRef(self)</code>
-<code>    }</code>
-<code></code>
-<code>    init() {</code>
-<code>        _defaultActorInitialize(self)</code>
-<code>    }</code>
-<code></code>
-<code>    deinit {</code>
-<code>        _defaultActorDestroy(self)</code>
-<code>    }</code>
-<code></code>
-<code>}</code>
-</pre>
+<pre><code>// What you write:
+actor MyActor {}
+
+// What is compiled:
+final class MyActor: Actor {
+
+    nonisolated var unownedExecutor: UnownedSerialExecutor {
+        return Builtin.buildDefaultActorExecutorRef(self)
+    }
+
+    init() {
+        _defaultActorInitialize(self)
+    }
+
+    deinit {
+        _defaultActorDestroy(self)
+    }
+
+}</code></pre>
 
 
 
@@ -1053,9 +993,7 @@
 
 
 
-<pre>
-<code>public protocol Sendable { }</code>
-</pre>
+<pre><code>public protocol Sendable { }</code></pre>
 
 
 
@@ -1093,11 +1031,9 @@
 
 
 
-<pre>
-<code>actor BankAccount {</code>
-<code>    nonisolated let accountNumber: Int</code>
-<code>}</code>
-</pre>
+<pre><code>actor BankAccount {
+    nonisolated let accountNumber: Int
+}</code></pre>
 
 
 
@@ -1121,19 +1057,17 @@
 
 
 
-<pre>
-<code>@globalActor public final actor MainActor: GlobalActor {</code>
-<code>  public static let shared = MainActor()</code>
-<code></code>
-<code>  public nonisolated var unownedExecutor: UnownedSerialExecutor {</code>
-<code>    return UnownedSerialExecutor(Builtin.buildMainActorExecutorRef())</code>
-<code>  }</code>
-<code></code>
-<code>  public nonisolated func enqueue(_ job: UnownedJob) {</code>
-<code>    _enqueueOnMain(job)</code>
-<code>  }</code>
-<code>}</code>
-</pre>
+<pre><code>@globalActor public final actor MainActor: GlobalActor {
+  public static let shared = MainActor()
+
+  public nonisolated var unownedExecutor: UnownedSerialExecutor {
+    return UnownedSerialExecutor(Builtin.buildMainActorExecutorRef())
+  }
+
+  public nonisolated func enqueue(_ job: UnownedJob) {
+    _enqueueOnMain(job)
+  }
+}</code></pre>
 
 
 
@@ -1145,19 +1079,17 @@
 
 
 
-<pre>
-<code>// The function where “regular” async/await jobs ends up in</code>
-<code>static void swift_task_enqueueGlobalImpl(Job *job) {</code>
-<code>  auto queue = getCooperativeThreadPool();</code>
-<code>  dispatchEnqueue(queue, job);</code>
-<code>}</code>
-<code></code>
-<code>// The function where MainActor jobs ends up in</code>
-<code>static void swift_task_enqueueMainExecutorImpl(Job *job) {</code>
-<code>  auto mainQueue = dispatch_get_main_queue();</code>
-<code>  dispatchEnqueue(mainQueue, job);</code>
-<code>}</code>
-</pre>
+<pre><code>// The function where “regular” async/await jobs ends up in
+static void swift_task_enqueueGlobalImpl(Job *job) {
+  auto queue = getCooperativeThreadPool();
+  dispatchEnqueue(queue, job);
+}
+
+// The function where MainActor jobs ends up in
+static void swift_task_enqueueMainExecutorImpl(Job *job) {
+  auto mainQueue = dispatch_get_main_queue();
+  dispatchEnqueue(mainQueue, job);
+}</code></pre>
 
 
 
@@ -1165,20 +1097,18 @@
 
 
 
-<pre>
-<code>// What you write:</code>
-<code>Task {</code>
-<code>    await myMainActorMethod()</code>
-<code>}</code>
-<code></code>
-<code>// What (sort of) actually happens:</code>
-<code>// (Actual behavior explained above)</code>
-<code>Task {</code>
-<code>    DispatchQueue.main.async {</code>
-<code>        myMainActorMethod()</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+<pre><code>// What you write:
+Task {
+    await myMainActorMethod()
+}
+
+// What (sort of) actually happens:
+// (Actual behavior explained above)
+Task {
+    DispatchQueue.main.async {
+        myMainActorMethod()
+    }
+}</code></pre>
 
 
 
@@ -1190,29 +1120,27 @@
 
 
 
-<pre>
-<code>extension MainActor {</code>
-<code>    func myMainActorMethod() {}</code>
-<code>}</code>
-<code></code>
-<code>func example() {</code>
-<code>    Task {</code>
-<code>        await MainActor.shared.myMainActorMethod()</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>///////////// or:</code>
-<code></code>
-<code>func example() {</code>
-<code>    Task {</code>
-<code>        await MainActor.run {</code>
-<code>            myMainActorMethod()</code>
-<code>        }</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>func myMainActorMethod() {}</code>
-</pre>
+<pre><code>extension MainActor {
+    func myMainActorMethod() {}
+}
+
+func example() {
+    Task {
+        await MainActor.shared.myMainActorMethod()
+    }
+}
+
+///////////// or:
+
+func example() {
+    Task {
+        await MainActor.run {
+            myMainActorMethod()
+        }
+    }
+}
+
+func myMainActorMethod() {}</code></pre>
 
 
 
@@ -1220,10 +1148,8 @@
 
 
 
-<pre>
-<code>@MainActor</code>
-<code>func myMainActorMethod() {}</code>
-</pre>
+<pre><code>@MainActor
+func myMainActorMethod() {}</code></pre>
 
 
 
@@ -1231,12 +1157,10 @@
 
 
 
-<pre>
-<code>func example() {</code>
-<code>    await myMainActorMethod() // This method is annotated as @MainActor,</code>
-<code>    // so it will run in the MainActor’s context.</code>
-<code>}</code>
-</pre>
+<pre><code>func example() {
+    await myMainActorMethod() // This method is annotated as @MainActor,
+    // so it will run in the MainActor’s context.
+}</code></pre>
 
 
 
@@ -1246,12 +1170,10 @@
 
 
 
-<pre>
-<code>public protocol GlobalActor {</code>
-<code>  associatedtype ActorType: Actor</code>
-<code>  static var shared: ActorType { get }</code>
-<code>}</code>
-</pre>
+<pre><code>public protocol GlobalActor {
+  associatedtype ActorType: Actor
+  static var shared: ActorType { get }
+}</code></pre>
 
 
 
@@ -1259,13 +1181,11 @@
 
 
 
-<pre>
-<code>func example() {</code>
-<code>    // SIL: hop_to_executor(MainActor.shared)</code>
-<code>    await myMainActorMethod()</code>
-<code>    // SIL: hop_to_executor(DefaultExecutor)</code>
-<code>}</code>
-</pre>
+<pre><code>func example() {
+    // SIL: hop_to_executor(MainActor.shared)
+    await myMainActorMethod()
+    // SIL: hop_to_executor(DefaultExecutor)
+}</code></pre>
 
 
 

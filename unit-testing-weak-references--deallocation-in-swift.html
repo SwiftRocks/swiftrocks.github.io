@@ -188,85 +188,77 @@
 <p>Any sort of deallocation unit testing can be achieved by using <code>autoreleasepool</code>. I already wrote an article about it in the past, so if you're unfamiliar with this feature, <a href="https://swiftrocks.com/autoreleasepool-in-swift">here's a good place to start</a> before reading this article.</p>
 <p>In short, while in normal development a property's release is done at the <code>autoreleasepool</code> of the thread's <code>RunLoop</code>, you can create your own pools to have finer-grained control. For tests, pools can be used to validate <code>weak</code> references and test code that runs in a class' <code>deinit</code>.</p>
 <p>Here's a simple example where we can see it in action. Let's assume that we want to test that a class' deinit is being called:</p>
-<pre>
-<code>func testClassDeinitIsCalled() {</code>
-<code>    let semaphore = DispatchSemaphore(value: 0)</code>
-<code>    final class TestClass {</code>
-<code>        let semaphore: DispatchSemaphore</code>
-<code>        init(semaphore: DispatchSemaphore) { self.semaphore = semaphore }</code>
-<code>        deinit {</code>
-<code>            semaphore.signal()</code>
-<code>        }</code>
-<code>    }</code>
-<code></code>
-<code>    var cls: TestClass? = TestClass(semaphore: semaphore)</code>
-<code>    cls = nil</code>
-<code></code>
-<code>    semaphore.wait()</code>
-<code>}</code>
-</pre>
+<pre><code>func testClassDeinitIsCalled() {
+    let semaphore = DispatchSemaphore(value: 0)
+    final class TestClass {
+        let semaphore: DispatchSemaphore
+        init(semaphore: DispatchSemaphore) { self.semaphore = semaphore }
+        deinit {
+            semaphore.signal()
+        }
+    }
+
+    var cls: TestClass? = TestClass(semaphore: semaphore)
+    cls = nil
+
+    semaphore.wait()
+}</code></pre>
 <p>This test will never succeed. While setting the property to <code>nil</code> does result in a <code>cls.release()</code> call by the compiler, the resources won't be freed until the main thread's current loop ends, which is going to be blocked by the test's execution. You could technically make this work by initializing the class in a different thread, but there's a much easier way!</p>
-<pre>
-<code>func testClassDeinitIsCalled() {</code>
-<code>    let semaphore = DispatchSemaphore(value: 0)</code>
-<code>    final class TestClass {</code>
-<code>        let semaphore: DispatchSemaphore</code>
-<code>        init(semaphore: DispatchSemaphore) { self.semaphore = semaphore }</code>
-<code>        deinit {</code>
-<code>            semaphore.signal()</code>
-<code>        }</code>
-<code>    }</code>
-<code></code>
-<code>    autoreleasepool {</code>
-<code>        let cls = TestClass(semaphore: semaphore)</code>
-<code>    }</code>
-<code></code>
-<code>    semaphore.wait()</code>
-<code>}</code>
-</pre>
+<pre><code>func testClassDeinitIsCalled() {
+    let semaphore = DispatchSemaphore(value: 0)
+    final class TestClass {
+        let semaphore: DispatchSemaphore
+        init(semaphore: DispatchSemaphore) { self.semaphore = semaphore }
+        deinit {
+            semaphore.signal()
+        }
+    }
+
+    autoreleasepool {
+        let cls = TestClass(semaphore: semaphore)
+    }
+
+    semaphore.wait()
+}</code></pre>
 <p>The test now passes, because any resources created by <code>cls</code> will be freed when the pool ends, resulting in <code>deinit</code> being called.</p>
 <p>My favorite use of this trick is to test that a particular component isn't causing a retain cycle. If we have two types that use each other, you can test for a retain cycle by initializing both and checking that eliminating one doesn't result in the other keeping it alive:</p>
-<pre>
-<code>class TypeA {</code>
-<code>    weak var typeB: TypeB?</code>
-<code>}</code>
-<code></code>
-<code>class TypeB {</code>
-<code>    var typeA: TypeA?</code>
-<code>}</code>
-<code></code>
-<code>func testNoRetainCycle() {</code>
-<code></code>
-<code>    let typeA = TypeA()</code>
-<code>    weak var _typeB: TypeB? = nil</code>
-<code></code>
-<code>    autoreleasepool {</code>
-<code>        let typeB = TypeB()</code>
-<code>        typeB.typeA = typeA</code>
-<code>        typeA.typeB = typeB</code>
-<code>        _typeB = typeB</code>
-<code>    }</code>
-<code></code>
-<code>    XCTAssertNil(_typeB)</code>
-<code>}</code>
-</pre>
+<pre><code>class TypeA {
+    weak var typeB: TypeB?
+}
+
+class TypeB {
+    var typeA: TypeA?
+}
+
+func testNoRetainCycle() {
+
+    let typeA = TypeA()
+    weak var _typeB: TypeB? = nil
+
+    autoreleasepool {
+        let typeB = TypeB()
+        typeB.typeA = typeA
+        typeA.typeB = typeB
+        _typeB = typeB
+    }
+
+    XCTAssertNil(_typeB)
+}</code></pre>
 <p>Try modifying this test yourself to see what happens! If you modify <code>TypeA</code> to cause a retain cycle, the test will fail as the test's weak reference will be unable to deallocate.</p>
 <p>This trick can also be done in reverse. In this case, we're using a weak property to test that <code>TypeA</code> <b>does</b> keep <code>TypeB</code> alive:</p>
-<pre>
-<code>func testKeepsValueAlive() {</code>
-<code></code>
-<code>    let typeA = TypeA()</code>
-<code>    weak var _typeB: TypeB? = nil</code>
-<code></code>
-<code>    autoreleasepool {</code>
-<code>        let typeB = TypeB()</code>
-<code>        typeA.typeB = typeB</code>
-<code>        _typeB = typeB</code>
-<code>    }</code>
-<code></code>
-<code>    XCTAssertNotNil(_typeB)</code>
-<code>}</code>
-</pre>
+<pre><code>func testKeepsValueAlive() {
+
+    let typeA = TypeA()
+    weak var _typeB: TypeB? = nil
+
+    autoreleasepool {
+        let typeB = TypeB()
+        typeA.typeB = typeB
+        _typeB = typeB
+    }
+
+    XCTAssertNotNil(_typeB)
+}</code></pre>
 <p>If <code>TypeA</code> has a weak reference or disposes of <code>TypeB</code> after it's set, the test will fail.</p>
 </div>
 </div>

@@ -217,31 +217,29 @@
 <p>I find that the best way to learn how to use this particular instrument is to <a href="https://developer.apple.com/videos/play/wwdc2016/411/">watch Apple's WWDC session about it</a>, but if you've watched it and still feel lost, the example below may help you.</p>
 <p>The System Trace instrument is basically the Time Profiler on steroids. While the latter (which I'm assuming you have prior experience with) allows you to analyze the CPU usage and memory footprint of an app, System Trace does that <b>in addition</b> to providing detailed information about the state of the different threads in the app, including what's causing them to not run code (if applicable). When facing performance issues, this additional threading information can usually point you to the exact source of the problem!</p>
 <p>Here's an example that shows how I usually approach performance issues. Consider this intentionally slow horrible piece of code:</p>
-<pre>
-<code>final class ViewController: UIViewController {</code>
-<code>    let queue = DispatchQueue(label: "slow-queue")</code>
-<code>    let waitSemaphore = DispatchSemaphore(value: 0)</code>
-<code></code>
-<code>    override func viewWillAppear(_ animated: Bool) {</code>
-<code>        super.viewWillAppear(animated)</code>
-<code>        queue.async {</code>
-<code>            self.runVerySlowCode()</code>
-<code>            self.waitSemaphore.signal()</code>
-<code>        }</code>
-<code>        waitSemaphore.wait()</code>
-<code>        runVerySlowCode()</code>
-<code>    }</code>
-<code></code>
-<code>    func runVerySlowCode() {</code>
-<code>        var arr = Array(0...100_000)</code>
-<code>        for i in (1..&lt;arr.count).reversed() {</code>
-<code>            for j in 0..&lt;i where arr[j] > arr[j + 1] {</code>
-<code>                arr.swapAt(j, j + 1)</code>
-<code>            }</code>
-<code>        }</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+<pre><code>final class ViewController: UIViewController {
+    let queue = DispatchQueue(label: "slow-queue")
+    let waitSemaphore = DispatchSemaphore(value: 0)
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        queue.async {
+            self.runVerySlowCode()
+            self.waitSemaphore.signal()
+        }
+        waitSemaphore.wait()
+        runVerySlowCode()
+    }
+
+    func runVerySlowCode() {
+        var arr = Array(0...100_000)
+        for i in (1..&lt;arr.count).reversed() {
+            for j in 0..&lt;i where arr[j] > arr[j + 1] {
+                arr.swapAt(j, j + 1)
+            }
+        }
+    }
+}</code></pre>
 <p>When displayed, this view controller will run some very expensive code in a background thread, <b>block itself</b> until that finishes (because why not?), and then proceed to run the same expensive code again because we really like it. This code, which results in the main thread hanging for several seconds, is obviously terrible, but pretend that somehow this slipped into production without your knowledge, your users are now complaining, and you had someone send you a performance trace. After opening the trace, you'll see something like this:</p>
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/NbmMGSM.png" alt=""> 

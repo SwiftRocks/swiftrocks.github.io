@@ -187,9 +187,7 @@
  <h2>Operating on single elements</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Personally, I am guilty of creating single-element arrays to make simple operations like this:</p>
- <pre>
-<code>someArray += [someElement]</code>
-</pre>
+ <pre><code>someArray += [someElement]</code></pre>
  <p>I used to do things like this for readability reasons (as you may or may not agree that this looks better than an <code>append()</code> call in some cases), but it turns out <b>this is bad</b> for multiple reasons. Here's what happens internally when you do something like this:</p>
  <p>* The compiler translates the array literal into <code>Array's</code> <code>ExpressibleByArrayLiteral</code> initializer.</p>
  <p>* The array initializer will create a buffer to hold the single element.</p>
@@ -198,76 +196,62 @@
  <p>* Finally, the elements are copied from their original buffer to the one of the array they're being added to.</p>
  <p>That's an enormous amount of stuff for something as simple as dealing with a single element! We're creating the entire stack for an array structure just for a simple <code>append()</code> when all we needed to do was get a hold of the single element and copy it into the original buffer.</p>
  <p>Usually, this sort of innocent mistake is optimized by the compiler, but in this case, even with higher optimization levels, the <b>compiler does not appear to know how to optimize the array allocation part out of single-element operations.</b> If we extract the SIL out of that line of code, we'll get multiple references for array allocations:</p>
- <pre>
-<code>// function_ref _allocateUninitializedArray&lt;A&gt;(_:)</code>
-</pre>
+ <pre><code>// function_ref _allocateUninitializedArray&lt;A&gt;(_:)</code></pre>
  <h2>CollectionOfOne - Collections, but not really</h2>
  <p>To treat cases like this where the operation relies on a collection but you're only dealing with one element, the <code>CollectionOfOne</code> type can be used to efficiently represent these elements without having to worry about anything else that would normally come from the <code>Collection</code> protocol.</p>
  <p>The way this works is straight-forward: the <code>CollectionOfOne</code> type implements <code>Collection</code>, meaning that it's able to respond to iterations and more. But instead of implementing these things with buffers like in an <code>Array</code>, the <code>CollectionOfOne</code> type simply holds a reference to the element:</p>
- <pre>
-<code>@frozen // trivial-implementation</code>
-<code>public struct CollectionOfOne&lt;Element&gt; {</code>
-<code>  @usableFromInline // trivial-implementation</code>
-<code>  internal var _element: Element</code>
-<code></code>
-<code>  /// Creates an instance containing just the given element.</code>
-<code>  ///</code>
-<code>  /// - Parameter element: The element to store in the collection.</code>
-<code>  @inlinable // trivial-implementation</code>
-<code>  public init(_ element: Element) {</code>
-<code>    self._element = element</code>
-<code>  }</code>
-<code>}</code>
-</pre>
+ <pre><code>@frozen // trivial-implementation
+public struct CollectionOfOne&lt;Element&gt; {
+  @usableFromInline // trivial-implementation
+  internal var _element: Element
+
+  /// Creates an instance containing just the given element.
+  ///
+  /// - Parameter element: The element to store in the collection.
+  @inlinable // trivial-implementation
+  public init(_ element: Element) {
+    self._element = element
+  }
+}</code></pre>
  <p>Because it doesn't need to rely on buffers and all of that, it can directly return the element when being iterated:</p>
- <pre>
-<code>public mutating func next() -&gt; Element? {</code>
-<code>  let result = _elements</code>
-<code>  _elements = nil</code>
-<code>  return result</code>
-<code>}</code>
-</pre>
+ <pre><code>public mutating func next() -&gt; Element? {
+  let result = _elements
+  _elements = nil
+  return result
+}</code></pre>
  <p>And because we're dealing with a single element, we don't need to worry about moving indexes or keeping track of element counts:</p>
- <pre>
-<code>public var startIndex: Index {</code>
-<code>  return 0</code>
-<code>}</code>
-<code></code>
-<code>public var endIndex: Index {</code>
-<code>  return 1</code>
-<code>}</code>
-<code></code>
-<code>public func index(after i: Index) -&gt; Index {</code>
-<code>  _precondition(i == startIndex)</code>
-<code>  return 1</code>
-<code>}</code>
-<code></code>
-<code>public func index(before i: Index) -&gt; Index {</code>
-<code>  _precondition(i == endIndex)</code>
-<code>  return 0</code>
-<code>}</code>
-<code></code>
-<code>public var count: Int {</code>
-<code>  return 1</code>
-<code>}</code>
-</pre>
+ <pre><code>public var startIndex: Index {
+  return 0
+}
+
+public var endIndex: Index {
+  return 1
+}
+
+public func index(after i: Index) -&gt; Index {
+  _precondition(i == startIndex)
+  return 1
+}
+
+public func index(before i: Index) -&gt; Index {
+  _precondition(i == endIndex)
+  return 0
+}
+
+public var count: Int {
+  return 1
+}</code></pre>
  <p>This makes <code>CollectionOfOne</code> a very efficient way to represent a single element. If we modify the original example to use <code>CollectionOfOne</code>, we can give our app a small performance boost.</p>
- <pre>
-<code>// Adding 10 million elements</code>
-<code>someArray += [someElement]                // 8 seconds</code>
-<code>someArray += CollectionOfOne(someElement) // 6.9 seconds</code>
-</pre>
+ <pre><code>// Adding 10 million elements
+someArray += [someElement]                // 8 seconds
+someArray += CollectionOfOne(someElement) // 6.9 seconds</code></pre>
  <p><b>Note:</b> Adding to an array was used as the example because I believe it's the most common way of reaching this problem, but this is actually a bad use case of <code>CollectionOfOne</code>. In this case, the best performance you can get is by using <code>append()</code> directly as that'll ensure the element is directly copied into the array's buffer without any overhead.</p>
- <pre>
-<code>someArray.append(someElement) // 4.9 seconds</code>
-</pre>
+ <pre><code>someArray.append(someElement) // 4.9 seconds</code></pre>
  <p>The cases where using <code>CollectionOfOne</code> is the best approach possible is when you are forced to operate on <code>Collections</code>. In the Standard Library for example, <code>CollectionOfOne</code> is used to insert elements in specific positions of an <code>Array</code>:</p>
- <pre>
-<code>public mutating func insert(_ newElement: __owned Element, at i: Int) {</code>
-<code>  _checkIndex(i)</code>
-<code>  self.replaceSubrange(i..&lt;i, with: CollectionOfOne(newElement))</code>
-<code>}</code>
-</pre>
+ <pre><code>public mutating func insert(_ newElement: __owned Element, at i: Int) {
+  _checkIndex(i)
+  self.replaceSubrange(i..&lt;i, with: CollectionOfOne(newElement))
+}</code></pre>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Because <code>replaceSubrange</code> replaces a <code>Collection</code> with another one, cases where the replacement is only a single element can greatly benefit from using <code>CollectionOfOne</code>.</p>
  <h2>Conclusion</h2>

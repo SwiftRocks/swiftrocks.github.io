@@ -193,8 +193,7 @@
 <pre class="command-line language-bash"><code>git init
 echo 'Hello World!' > swiftrocks.txt
 git add swiftrocks.txt
-git commit -m "Add SwiftRocks"</code>
-</pre>
+git commit -m "Add SwiftRocks"</code></pre>
 <p>If you now go to <code>.git/objects</code>, you'll see a bunch of folders with encoded files inside of them. The file we just added is there, but which one?</p>
 <p>When you add a file to git, git will do the following things:</p>
 <ul>
@@ -203,15 +202,11 @@ git commit -m "Add SwiftRocks"</code>
 <li>Place it in .git/objects/(first two hash characters)/(remaining hash characters)</li>
 </ul>
 <p>We can locate our file in the objects folder by reproducing this process, and luckily for us, we don't have to code anything to achieve this. We can find out what the resulting hash for a given file would be by running <code>git hash-object</code>:</p>
-<pre class="command-line language-bash" data-output="2">
-<code>git hash-object swiftrocks.txt
-980a0d5f19a64b4b30a87d4206aade58726b60e3</code>
-</pre>
+<pre class="command-line language-bash" data-output="2"><code>git hash-object swiftrocks.txt
+980a0d5f19a64b4b30a87d4206aade58726b60e3</code></pre>
 <p>In my case, the hash of the file was <code>980a0d5f19a64b4b30a87d4206aade58726b60e3</code>, meaning I can find the "stored" version of that file in <code>.git/objects/98/0a0d5f19a64b4b30a87d4206aade58726b60e3</code>. If you do this however, you'll notice that the file is unreadable because it's compressed. Similarly to the previous case, we don't have to code anything to de-compress this file! We just need to run <code>git cat-file -p</code> and git will do so automatically for us:</p>
-<pre class="command-line language-bash" data-output="2">
-<code>git cat-file -p 980a0d5f19a64b4b30a87d4206aade58726b60e3
-Hello World!</code>
-</pre>
+<pre class="command-line language-bash" data-output="2"><code>git cat-file -p 980a0d5f19a64b4b30a87d4206aade58726b60e3
+Hello World!</code></pre>
 <p>There it is! Let's now make a change to this file and see what happens:</p>
 <pre class="command-line language-bash" data-output="5, 7"><code>echo 'Hello World (changed)!' > swiftrocks.txt
 git add swiftrocks.txt
@@ -219,34 +214,27 @@ git commit -m "Change swiftrocks.txt"
 git hash-object swiftrocks.txt
 cf15f0bb6b07a66f78f6de328e3cd6ea2747de6b
 git cat-file -p cf15f0bb6b07a66f78f6de328e3cd6ea2747de6b
-Hello World (changed)!</code>
-</pre>
+Hello World (changed)!</code></pre>
 <p>Since we've made a change to the file, the SHA1 of the compressed contents changed, leading to a <b>full copy</b> of that file being added to the objects folder. As already mentioned above, <b>this is because git works primarily in terms of snapshots rather than file diffs.</b> You can even see that the "original" file is still there, which is what allows git to quickly switch between commits / branches.</p>
-<pre class="command-line language-bash" data-output="2">
-<code>git cat-file -p 980a0d5f19a64b4b30a87d4206aade58726b60e3
-Hello World! # The original file is still there!</code>
-</pre>
+<pre class="command-line language-bash" data-output="2"><code>git cat-file -p 980a0d5f19a64b4b30a87d4206aade58726b60e3
+Hello World! # The original file is still there!</code></pre>
 <p>Now here's the relevant part: <b>What happens if we change our file back to its original contents?</b></p>
-<pre class="command-line language-bash" data-output="5">
-<code>echo 'Hello World!' > swiftrocks.txt
+<pre class="command-line language-bash" data-output="5"><code>echo 'Hello World!' > swiftrocks.txt
 git add swiftrocks.txt
 git commit -m "Change swiftrocks.txt back"
 git hash-object swiftrocks.txt
-980a0d5f19a64b4b30a87d4206aade58726b60e3</code>
-</pre>
+980a0d5f19a64b4b30a87d4206aade58726b60e3</code></pre>
 <p><b>The hash is the same as before!</b> Even though this is a new commit making a new change to the file, the hashing process allows git to determine that the file is exactly the same as the one we had in previous commits, <b>meaning that there's no need to create a new copy.</b> This will be the case <b>even if you rename the file</b>, because the hash is calculated based on the contents, not the file's name.</p>
 <p>This is a great finding, but it doesn't fully answer the original question. We now know that renaming files will not result in new copies of those files being added to the objects folder, but what about folders? And how are those files and folders attached to actual commits?</p>
 <h2>How does git handle folders (and commits)?</h2>
 <p>The most useful thing to know right off the bat is that <b>commits are also objects in git.</b> This is why you might have seen other folders / files in <code>.git/objects</code> when first inspecting it; the other files were related to the commits you made when adding the file.</p>
 <p>Since commits are also objects, we can read them with <code>git cat-file</code> just like with "regular" files. Let's do it with our latest commit (<code>26d4302</code> in my case):</p>
-<pre class="command-line language-bash" data-output="2-7">
-<code>git cat-file -p 26d4302
+<pre class="command-line language-bash" data-output="2-7"><code>git cat-file -p 26d4302
 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6
 parent 2891fe1393c9e1bff116c1b58a30bcf85e0596a8
 author Bruno Rocha &lt;email> 1733136171 +0100
 committer Bruno Rocha &lt;email> 1733136223 +0100
-Change swiftrocks.txt back</code>
-</pre>
+Change swiftrocks.txt back</code></pre>
 <p>As you can see, a "commit" is nothing more than a small text file containing the following bits of information:</p>
 <ul>
 <li>The author of the commit, and the commit message</li>
@@ -254,32 +242,24 @@ Change swiftrocks.txt back</code>
 <li>The hash of the commit's "tree", containing information about the file system snapshot for that particular commit</li>
 </ul>
 <p>In this case, what we're interested in is the last point. Luckily for us, <b>trees are also objects in git.</b> Thus, if we want to see what the file system looks like for that particular commit, we just need to run <code>git cat-file -p</code> against the commit's tree hash:</p>
-<pre class="command-line language-bash" data-output="2">
-<code>git cat-file -p 350cef2a8054111568f82dc87bbd683ee14bb1a6
-100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt</code>
-</pre>
+<pre class="command-line language-bash" data-output="2"><code>git cat-file -p 350cef2a8054111568f82dc87bbd683ee14bb1a6
+100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt</code></pre>
 <p>Like with commits, tree objects are also very simple text files. In this case, the tree states that there's only one file (a blob) in the repository, which is a file called <code>swiftrocks.txt</code> with the <code>980a0d5f...</code> hash. We've already uncovered that git prevents individual files from being duped, but let's see how this is reflected in the tree object:</p>
-<pre class="command-line language-bash" data-output="1-4">
-<code>(made a commit adding some copies, and did cat-file -p on the new commit / tree)</code>
-<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt</code>
-<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks2.txt</code>
-<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks3.txt</code>
-</pre>
+<pre class="command-line language-bash" data-output="1-4"><code>(made a commit adding some copies, and did cat-file -p on the new commit / tree)
+100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt
+100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks2.txt
+100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks3.txt</code></pre>
 <p>The tree object references the new copies and their different names, but as expected, their hashes all point to the same underlying object under the hood.</p>
 <p>If we add folders to our repository, the tree object will include references to <i>other tree objects</i> (related to each of those folders), allowing you to <i>recursively</i> inspect each folder of that commit's snapshot. Here's an example:</p>
-<pre class="command-line language-bash" data-output="1-4">
-<code>100644 blob dd99cb611e0c77b2214392b253ed555fb838d8ee  .DS_Store</code>
-<code>040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1</code>
-<code>040000 tree 11ca8c2fe64b078be34824f071d32a560aba62a7  folder2</code>
-<code>100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt</code>
-</pre>
+<pre class="command-line language-bash" data-output="1-4"><code>100644 blob dd99cb611e0c77b2214392b253ed555fb838d8ee  .DS_Store
+040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1
+040000 tree 11ca8c2fe64b078be34824f071d32a560aba62a7  folder2
+100644 blob 980a0d5f19a64b4b30a87d4206aade58726b60e3  swiftrocks.txt</code></pre>
 <p>As you can see above, the output directly identifies what each hash is so that you know exactly what you're looking at. (An alternative is to run <code>git cat-file -t</code>, which returns the "type" for a given object hash.)</p>
 <h3>So what happens if you rename / move an entire folder?</h3>
 <p>The important bit to know here is that <b>tree objects (and commits) are calculated and stored just like regular file (blob) objects</b>, meaning they follow the same rules. This means that if the contents of two folders are exactly the same, <b>git will not create a new tree object</b> for those folders; it will simply reuse the hash it had already computed in the past, just like in the case of files:</p>
-<pre class="command-line language-bash" data-output="1-2">
-<code>040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1</code>
-<code>040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1 (copy)</code>
-</pre>
+<pre class="command-line language-bash" data-output="1-2"><code>040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1
+040000 tree 350cef2a8054111568f82dc87bbd683ee14bb1a6  folder1 (copy)</code></pre>
 <p><b>However,</b> since tree objects contain references to a folder / file's <b>name</b>, renaming something can result in <b>new tree objects being created for that folder / file's parent tree</b> in order to account for the name change, resulting in new hashes and tree objects <b>recursively</b> all the way up to the root of the repository. This will also be the case when moving files / folders.</p>
 <p>The above snippet is one example of this. Even though git was able to avoid duplicating the internal contents of <code>folder1</code>, git still needed to generate a new tree object for its parent in order to account for the fact that a new folder called <code>folder1 (copy)</code> exists. If there are more parents up the chain, they would also require new tree objects.</p>
 <p>Whether or not this would be a problem depends on where exactly the change is being made. If the change is too "deep" into the filesystem and / or the affected trees contain a massive number of files then you'd end up with lots of potentially large new tree objects. Still, as you can see, tree objects are quite simple, so you'd need a truly gargantuan repository and / or unfortunate folder setup for this to be an actual problem.</p>

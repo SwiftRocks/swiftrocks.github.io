@@ -199,11 +199,9 @@
   <img src="https://i.imgur.com/NJJw17V.png" alt="Alt">                                    
 </div>
 <p>I then <code>grep</code>'d the entire Xcode archive for this string. It took a very long time for it to finish given that my Xcode is about 30 gigabytes in size, but it did find the reference inside the <code>IDEAnalyticsKit</code> framework:</p>
-<pre>
-Binary file .//PlugIns/IDEAnalyticsKit.framework/Versions/A/IDEAnalyticsKit matches
+<pre><code>Binary file .//PlugIns/IDEAnalyticsKit.framework/Versions/A/IDEAnalyticsKit matches
 Binary file .//PlugIns/IDEAnalyticsKit.framework/Versions/Current/IDEAnalyticsKit matches
-Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
-</pre>
+Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches</code></pre>
 <p>Xcode is not one giant binary, but a collection of many smaller specialized frameworks. In fact, the main Xcode binary seems to do almost nothing but launch the other frameworks.</p>
 <p>After opening the <code>IDEAnalyticsKit</code> binary in Hopper, I was easily able to locate the Obj-C method that hardcoded the error string:</p>
 <div class="post-image">
@@ -232,41 +230,33 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
   <img src="https://i.imgur.com/Fuw2J77.png" alt="Alt">                                    
 </div>
 <p>This is essentially saying that Xcode is fetching and calling the <code>symbolicatecrash</code> utility, which is not a surprise given that this is exactly the workaround that we mentioned in the beginning. However, I could immediately tell what the problem was -- when this workaround is suggested, the correct way of invoking this utility is by sending the dSYM that contains the symbols you're trying to translate:</p>
-<pre>
-<code>symbolicatecrash --dsym ./symbols.dSYM --output ./symbolicated.txt</code>
-</pre>
+<pre><code>symbolicatecrash --dsym ./symbols.dSYM --output ./symbolicated.txt</code></pre>
 <p>However, Xcode doesn't do that -- it just sets the output and hopes for the best. What happens essentially is that this tool is capable of searching for dSYMs on its own, but for some reason sometimes it just fails to do so. I could easily reproduce the issue by trying to symbolicate a regular crash without passing the dsym argument:</p>
-<pre>
-<code>Did not find dsym for (uuid)</code>
-</pre>
+<pre><code>Did not find dsym for (uuid)</code></pre>
 <p>My first assumption was that this tool was probably looking for specific names or in specific folders, and we could confirm that by opening <code>symbolicatecrash</code> in Hopper and reverse engineering that logic. But quickly I realized that there was something fishy going on, because what I found instead was... nothing?</p>
 <div class="post-image">
   <img src="https://i.imgur.com/RAdUFL8.png" alt="Alt">                                    
 </div>
 <p>After being stumped for a while, my colleague Åke quickly noticed that although macOS says that this file is a binary, it's actually just a really big perl script!</p>
-<pre>
-<code>#!/usr/bin/perl -w</code>
-<code>#</code>
-<code># This script parses a crashdump file and attempts to resolve addresses into function names.</code>
-<code>#</code>
-<code># It finds symbol-rich binaries by:</code>
-<code>#   a) searching in Spotlight to find .dSYM files by UUID, then finding the executable from there.</code>
-<code>#       That finds the symbols for binaries that a developer has built with "DWARF with dSYM File".</code>
-<code>#   b) searching in various SDK directories.</code>
-<code>#</code>
-<code># Copyright (c) 2008-2015 Apple Inc. All Rights Reserved.</code>
-<code>#</code>
-<code>#</code>
-</pre>
+<pre><code>#!/usr/bin/perl -w
+#
+# This script parses a crashdump file and attempts to resolve addresses into function names.
+#
+# It finds symbol-rich binaries by:
+#   a) searching in Spotlight to find .dSYM files by UUID, then finding the executable from there.
+#       That finds the symbols for binaries that a developer has built with "DWARF with dSYM File".
+#   b) searching in various SDK directories.
+#
+# Copyright (c) 2008-2015 Apple Inc. All Rights Reserved.
+#
+#</code></pre>
 <p>This made everything else easier, because we could now freely modify this script and test our changes without having to generate new binaries. The first thing we did was locate the part of the code that parsed the arguments, which was right in the beginning:</p>
-<pre>
-<code># read and parse command line</code>
-<code>my $opt_help = 0;</code>
-<code>my $opt_verbose = 0;</code>
-<code>my $opt_output = "-";</code>
-<code>my @opt_dsyms = ();</code>
-<code>my $opt_spotlight = 1;</code>
-</pre>
+<pre><code># read and parse command line
+my $opt_help = 0;
+my $opt_verbose = 0;
+my $opt_output = "-";
+my @opt_dsyms = ();
+my $opt_spotlight = 1;</code></pre>
 <p>If we know that <code>symbolicatecrash</code> works by sending the dSYM manually, could we simply override the <code>opt_dsyms</code> param and fix the issue? The answer is <b>yes!</b></p>
 <div class="post-image">
   <img src="https://i.imgur.com/uSdkNsU.png" alt="Alt">                                    
@@ -278,9 +268,7 @@ Binary file .//PlugIns/IDEAnalyticsKit.framework/IDEAnalyticsKit matches
 <li>The <code>Symbols</code> folder inside of every iOS/macOS SDK you have installed</li>
 </ul>
 <p>If neither of those returned a valid result, <b>it attempts to search the symbols through Spotlight, your macOS's search engine.</b> More specifically, it runs the following command:</p>
-<pre>
-<code>mdfind \"com_apple_xcode_dsym_uuids == $canonical_uuid\"</code>
-</pre>
+<pre><code>mdfind \"com_apple_xcode_dsym_uuids == $canonical_uuid\"</code></pre>
 <p>This means that the failure to symbolicate crashes isn't a problem with Xcode, but that for some reason Spotlight failed to add the dSYM to its search index. After some quick searches about Spotlight issues, I found three ways to force Spotlight to re-index a folder (thus allowing the symbolication to work properly):</p>
 <ul>
 <li>Running the <code>mdimport</code> CLI tool, pointing directly to where the dSYM is stored.</li>

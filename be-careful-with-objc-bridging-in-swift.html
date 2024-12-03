@@ -187,94 +187,70 @@
  <p>Bridging to/from Objective-C is an important part of Swift development due to the Obj-C history of Apple's platforms. Unfortunately, there are some hidden caveats that could lead to bizarre situations that would be impossible in a pure Swift environment. When dealing with Objective-C types, it's useful to check if they don't have a history of being <i>too different</i> from their Swift counterparts.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>The reason for the carefulness is because bridging can be completely hidden from you. As you might know, Swift developers can use the <code>as</code> upcast operator to convert a type to one of the superclasses or protocols that it inherits from:</p>
- <pre>
-<code>let myViewController = MyViewController()</code>
-<code>let viewController = myViewController as UIViewController</code>
-</pre>
+ <pre><code>let myViewController = MyViewController()
+let viewController = myViewController as UIViewController</code></pre>
  <p>There is no change in functionality between <code>myViewController</code> and <code>viewController</code> because all the operator does is limit what you can access from that type. Deep down, they are still the same object.</p>
  <p>However, <code>as</code> is <b>also the Obj-C bridging operator:</b></p>
- <pre>
-<code>let string = "MyString"</code>
-<code>let nsstring = string as NSString</code>
-</pre>
+ <pre><code>let string = "MyString"
+let nsstring = string as NSString</code></pre>
  <p>While visually the same, this case is completely different from the view controllers one! <code>String</code> does not inherit or uses <code>NSString</code> in any way -- they are different objects with different implementations. The way this works is that <code>as</code> in this case is a syntax sugar for the following:</p>
- <pre>
-<code>let string = "MyString"</code>
-<code>let nsstring: NSString = string._bridgeToObjectiveC()</code>
-</pre>
+ <pre><code>let string = "MyString"
+let nsstring: NSString = string._bridgeToObjectiveC()</code></pre>
  <p>This method comes from the <code>_ObjectiveCBridgeable</code> protocol, which allows objects the automatically convert a Swift type to an Objective-C equivalent when needed, as well as giving the free <code>as</code> cast behavior we've seen:</p>
- <pre>
-<code>extension Int8 : _ObjectiveCBridgeable {</code>
-<code>    @_semantics("convertToObjectiveC")</code>
-<code>    public func _bridgeToObjectiveC() -&gt; NSNumber {</code>
-<code>        return NSNumber(value: self)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>extension Int8 : _ObjectiveCBridgeable {
+    @_semantics("convertToObjectiveC")
+    public func _bridgeToObjectiveC() -&gt; NSNumber {
+        return NSNumber(value: self)
+    }
+}</code></pre>
  <p>What can go wrong with this? Unfortunately, everything. Consider the following example:</p>
- <pre>
-<code>let string = "MyString"</code>
-<code>let range = string.startIndex..&lt;string.endIndex</code>
-<code></code>
-<code>let roundTrip = (string as NSString) as String</code>
-<code>roundTrip[range]</code>
-</pre>
+ <pre><code>let string = "MyString"
+let range = string.startIndex..&lt;string.endIndex
+
+let roundTrip = (string as NSString) as String
+roundTrip[range]</code></pre>
  <p>What do you think will happen in the last line?</p>
  <p>This code works fine today, but it was actually a source of crashes around Swift 4! From a Swift point of view there's nothing wrong with this code, because converting <code>String</code> to <code>NSString</code> and back to <code>String</code> again technically does nothing. But from a bridging point of view, the final <code>String</code> is a <b>different</b> object from the first one! The act of "converting" <code>String</code> to <code>NSString</code> is actually the creation of a brand new <code>NSString</code> that has its own storage, which will repeat when it gets "converted" back to String. This makes the range values incompatible with the final string, resulting in a crash.</p>
  <p>Let's take a look at a different example. Protocols can be exposed to Obj-C by using <code>@objc</code>, which from the Swift side allows metatypes to be used as Obj-C's <code>Protocol</code> pointers.</p>
- <pre>
-<code>@objc(OBJCProto) protocol SwiftProto {}</code>
-<code></code>
-<code>let swiftProto: SwiftProto.Type = SwiftProto.self</code>
-<code>let objcProto: Protocol = SwiftProto.self as Protocol</code>
-<code>// or, from the Obj-C side, NSProtocolFromString("OBJCProto")</code>
-</pre>
+ <pre><code>@objc(OBJCProto) protocol SwiftProto {}
+
+let swiftProto: SwiftProto.Type = SwiftProto.self
+let objcProto: Protocol = SwiftProto.self as Protocol
+// or, from the Obj-C side, NSProtocolFromString("OBJCProto")</code></pre>
  <p>If we compare two swift metatypes, they will trivially be equal:</p>
- <pre>
-<code>ObjectIdentifier(SwiftProto.self) == ObjectIdentifier(SwiftProto.self)</code>
-<code>// true</code>
-</pre>
+ <pre><code>ObjectIdentifier(SwiftProto.self) == ObjectIdentifier(SwiftProto.self)
+// true</code></pre>
  <p>Likewise, if we upcast a metatype to <code>Any.Type</code>, the condition will still be true as they are still the same object:</p>
- <pre>
-<code>ObjectIdentifier(SwiftProto.self as Any.Type) == ObjectIdentifier(SwiftProto.self)</code>
-<code>// true</code>
-</pre>
+ <pre><code>ObjectIdentifier(SwiftProto.self as Any.Type) == ObjectIdentifier(SwiftProto.self)
+// true</code></pre>
  <p>So if, say, I upcast it to something else like <code>AnyObject</code>, this will still be true, right?</p>
- <pre>
-<code>ObjectIdentifier(SwiftProto.self as AnyObject) == ObjectIdentifier(SwiftProto.self)</code>
-<code>// false</code>
-</pre>
+ <pre><code>ObjectIdentifier(SwiftProto.self as AnyObject) == ObjectIdentifier(SwiftProto.self)
+// false</code></pre>
  <p>No, because we're not upcasting anymore! "Casting" to <code>AnyObject</code> is also a bridge syntax sugar that converts the metatype to <code>Protocol</code>, and because they are not the same object, the condition stops being true. The same thing happens if we treat it as <code>Protocol</code> directly:</p>
- <pre>
-<code>ObjectIdentifier(SwiftProto.self) == ObjectIdentifier(SwiftProto.self)</code>
-<code>// true</code>
-<code>ObjectIdentifier(SwiftProto.self as Protocol) == ObjectIdentifier(SwiftProto.self)</code>
-<code>// false</code>
-</pre>
+ <pre><code>ObjectIdentifier(SwiftProto.self) == ObjectIdentifier(SwiftProto.self)
+// true
+ObjectIdentifier(SwiftProto.self as Protocol) == ObjectIdentifier(SwiftProto.self)
+// false</code></pre>
  <p>Cases like this can be extremely confusing if your Swift method cannot predict <b>where</b> its arguments are coming from, because as we can see above, the very same object can completely change the result of an operation depending on if it was bridged or not. If it wasn't enough, things get even worse when you deal with the fact that the very same method can have different implementations across languages:</p>
- <pre>
-<code>String(reflecting: Proto.self) // __C.OBJCProto</code>
-<code>String(reflecting: Proto.self as Any.Type) // __C.OBJCProto</code>
-<code>String(reflecting: Proto.self as AnyObject) // Protocol 0x...</code>
-<code>String(reflecting: Proto.self as Protocol) // Protocol 0x...</code>
-</pre>
+ <pre><code>String(reflecting: Proto.self) // __C.OBJCProto
+String(reflecting: Proto.self as Any.Type) // __C.OBJCProto
+String(reflecting: Proto.self as AnyObject) // Protocol 0x...
+String(reflecting: Proto.self as Protocol) // Protocol 0x...</code></pre>
  <p>Even though from a Swift point of view it looks like these are all the same object, the results differ when bridging kicks in because <code>Protocol</code> descriptions are implemented differently than Swift's metatypes'. If you're trying to convert types to strings, you need to make sure you're always using their bridged version:</p>
- <pre>
-<code>func identifier(forProtocol proto: Any) -&gt; String {</code>
-<code>    // We NEED to use this as an AnyObject to force Swift to convert metatypes</code>
-<code>    // to their Objective-C counterparts. If we don't do this, they are treated as</code>
-<code>    // different objects and we get different results.</code>
-<code>    let object = proto as AnyObject</code>
-<code>    //</code>
-<code>    if let objcProtocol = object as? Protocol {</code>
-<code>        return NSStringFromProtocol(objcProtocol)</code>
-<code>    } else if let swiftMetatype = object as? Any.Type {</code>
-<code>        return String(reflecting: swiftMetatype)</code>
-<code>    } else {</code>
-<code>        crash("Type identifiers must be metatypes -- got \(proto) of type \(type(of: proto))")</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>func identifier(forProtocol proto: Any) -&gt; String {
+    // We NEED to use this as an AnyObject to force Swift to convert metatypes
+    // to their Objective-C counterparts. If we don't do this, they are treated as
+    // different objects and we get different results.
+    let object = proto as AnyObject
+    //
+    if let objcProtocol = object as? Protocol {
+        return NSStringFromProtocol(objcProtocol)
+    } else if let swiftMetatype = object as? Any.Type {
+        return String(reflecting: swiftMetatype)
+    } else {
+        crash("Type identifiers must be metatypes -- got \(proto) of type \(type(of: proto))")
+    }
+}</code></pre>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>If you don't convert the type to <code>AnyObject</code>, the very same protocol may give you two different results depending on how your method was called (for example, an argument provided in Swift versus in Obj-C). This is the most common source of bridging issues, as a similar case existed with <code>NSString</code> a few versions ago where a method had different implementations when compared to <code>String</code>, which caused issues in cases where a Swift string was automatically converted to an <code>NSString</code>.</p>
  <h2>Conclusion</h2>

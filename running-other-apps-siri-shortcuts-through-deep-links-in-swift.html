@@ -191,10 +191,8 @@
  <p><code>shortcuts://run-shortcut?name=[name]&amp;input=[input]</code></p>
  <p>For this deep link, <code>name</code> is the URL-encoded name of the shortcut you're trying to run, and <code>input</code> is the string input of the shortcut, if applicable. (You can type <code>clipboard</code> as the input to use the clipboard's contents!)</p>
  <p>To run my "Take Picture" shortcut, we just have to tell iOS to open this deep link:</p>
- <pre>
-<code>let shortcut = URL(string: "shortcuts://run-shortcut?name=Take%20Picture")!</code>
-<code>UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)</code>
-</pre>
+ <pre><code>let shortcut = URL(string: "shortcuts://run-shortcut?name=Take%20Picture")!
+UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)</code></pre>
  <p><img class="margin-top-40 margin-bottom-40" src="https://i.imgur.com/MS6hRNW.gif"></p>
  <br>
  <h2>Returning to your app after a Shortcut ends</h2>
@@ -202,9 +200,8 @@
  <p>Luckily for us, the Shortcuts app supports the <code>x-callback-url</code> standard, which is a standardized way for you to send data to other apps through URLs and get something back - in the shape of another URL. It looks like this:</p>
  <p><code>shortcuts://x-callback-url/run-shortcut?name=[name]&amp;x-success=[url]</code></p>
  <p>When the <code>[name]</code> shortcut succeeds, the Shortcuts app will automatically try to open the URL passed to the <code>x-success</code> argument. This can be any url, and we can use this to return to our app by registering a URL scheme of our own. Assuming that our app is listening to a <code>myapp://</code> URL scheme, we can make the Shortcuts app route back to our app by running:</p>
- <pre><code>let shortcut = URL(string: "shortcuts://x-callback-url/run-shortcut?name=Take%20Picture&amp;x-success=myapp://")!</code>
-<code>UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)</code>
-</pre>
+ <pre><code>let shortcut = URL(string: "shortcuts://x-callback-url/run-shortcut?name=Take%20Picture&amp;x-success=myapp://")!
+UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)</code></pre>
  <p><img class="margin-top-40 margin-bottom-40" src="https://i.imgur.com/WLbQrLD.gif"></p>
  <br>
  <p>Besides <code>x-success</code>, <code>x-cancel</code> and <code>x-error</code> can be used to treat interruptions and errors, respectively.</p>

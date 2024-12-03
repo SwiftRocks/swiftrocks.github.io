@@ -200,20 +200,18 @@
  </div>
  <p>Make sure to uncheck the <b>Include Configuration Intent</b> checkbox, as this involves a feature that will be presented only later in this article! After generating the target, make sure to erase the example code so we can inspect it step by step.</p>
  <p>To define a Widget, all you have to do is create a struct that inherits from <b>Widget</b> and configures its capabilities:</p>
- <pre>
-<code>@main</code>
-<code>struct CommitCheckerWidget: Widget {</code>
-<code>    private let kind: String = "CommitCheckerWidget"</code>
-<code></code>
-<code>    public var body: some WidgetConfiguration {</code>
-<code>        StaticConfiguration(kind: kind, provider: CommitTimeline(), placeholder: PlaceholderView()) { entry in</code>
-<code>            CommitCheckerWidgetView(entry: entry)</code>
-<code>        }</code>
-<code>        .configurationDisplayName("Swift's Latest Commit")</code>
-<code>        .description("Shows the last commit at the Swift repo.")</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>@main
+struct CommitCheckerWidget: Widget {
+    private let kind: String = "CommitCheckerWidget"
+
+    public var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: CommitTimeline(), placeholder: PlaceholderView()) { entry in
+            CommitCheckerWidgetView(entry: entry)
+        }
+        .configurationDisplayName("Swift's Latest Commit")
+        .description("Shows the last commit at the Swift repo.")
+    }
+}</code></pre>
  <p>This code will not compile before we define such capabilities, but this is important as a first step because this is the Widget itself. The <code>WidgetConfiguration</code> return value describes what this widget is and how it's built, but most importantly, how it fetches its content.</p>
  <h2>Types of Widgets</h2>
  <p>The <code>StaticConfiguration</code> <code>WidgetConfiguration</code> defines a Widget that can resolve itself without any input from the user. You could fetch any relevant data in the Widget's parent app and send the result to the Widget module as an "user input", but as you are allowed to make API calls when configuring your Widget, there's no need to do so if there's no contextual information involved in the request.</p>
@@ -222,59 +220,53 @@
  <p>The content displayed by iOS 14's Widgets works similarly to watchOS's complications in the sense that instead of having an extension that is running all the time, you provide, at once, a "timeline" of events that the OS should display throughout the hours, days or even weeks. This is useful for apps like <b>Weather</b> and <b>Calendar</b> where you can "predict" what is going to be displayed in the future as you already have that information.</p>
  <p>In our case, since we are unable to predict Swift's commits, we'll provide a timeline that contains only a single event -- making iOS refresh our Widget in a more regular basis.</p>
  <p>To create a <code>Timeline</code>, we first need to define a <code>TimelineEntry</code>. A <code>TimelineEntry</code> only requires the <code>Date</code> when this entry is expected to be rendered in the Widget, but it can also contain any additional information that you require. In our case, our entries will contain the <code>Commit</code> that we want to display in the Widget.</p>
- <pre>
-<code>struct Commit {</code>
-<code>    let message: String</code>
-<code>    let author: String</code>
-<code>    let date: String</code>
-<code>}</code>
-<code></code>
-<code>struct LastCommitEntry: TimelineEntry {</code>
-<code>    public let date: Date</code>
-<code>    public let commit: Commit</code>
-<code>}</code>
-</pre>
+ <pre><code>struct Commit {
+    let message: String
+    let author: String
+    let date: String
+}
+
+struct LastCommitEntry: TimelineEntry {
+    public let date: Date
+    public let commit: Commit
+}</code></pre>
  <p>But before creating the timeline, we need to be able to fetch such commits. Let's create a <code>CommitLoader</code> class that fetches and parses Swift's latest commit:</p>
- <pre>
-<code>struct Commit {</code>
-<code>    let message: String</code>
-<code>    let author: String</code>
-<code>    let date: String</code>
-<code>}</code>
-<code></code>
-<code>struct CommitLoader {</code>
-<code>    static func fetch(completion: @escaping (Result&lt;Commit, Error&gt;) -&gt; Void) {</code>
-<code>        let branchContentsURL = URL(string: "https://api.github.com/repos/apple/swift/branches/main")!</code>
-<code>        let task = URLSession.shared.dataTask(with: branchContentsURL) { (data, response, error) in</code>
-<code>            guard error == nil else {</code>
-<code>                completion(.failure(error!))</code>
-<code>                return</code>
-<code>            }</code>
-<code>            let commit = getCommitInfo(fromData: data!)</code>
-<code>            completion(.success(commit))</code>
-<code>        }</code>
-<code>        task.resume()</code>
-<code>    }</code>
-<code></code>
-<code>    static func getCommitInfo(fromData data: Foundation.Data) -&gt; Commit {</code>
-<code>        let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]</code>
-<code>        let commitParentJson = json["commit"] as! [String: Any]</code>
-<code>        let commitJson = commitParentJson["commit"] as! [String: Any]</code>
-<code>        let authorJson = commitJson["author"] as! [String: Any]</code>
-<code>        let message = commitJson["message"] as! String</code>
-<code>        let author = authorJson["name"] as! String</code>
-<code>        let date = authorJson["date"] as! String</code>
-<code>        return Commit(message: message, author: author, date: date)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>struct Commit {
+    let message: String
+    let author: String
+    let date: String
+}
+
+struct CommitLoader {
+    static func fetch(completion: @escaping (Result&lt;Commit, Error&gt;) -&gt; Void) {
+        let branchContentsURL = URL(string: "https://api.github.com/repos/apple/swift/branches/main")!
+        let task = URLSession.shared.dataTask(with: branchContentsURL) { (data, response, error) in
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            let commit = getCommitInfo(fromData: data!)
+            completion(.success(commit))
+        }
+        task.resume()
+    }
+
+    static func getCommitInfo(fromData data: Foundation.Data) -&gt; Commit {
+        let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+        let commitParentJson = json["commit"] as! [String: Any]
+        let commitJson = commitParentJson["commit"] as! [String: Any]
+        let authorJson = commitJson["author"] as! [String: Any]
+        let message = commitJson["message"] as! String
+        let author = authorJson["name"] as! String
+        let date = authorJson["date"] as! String
+        return Commit(message: message, author: author, date: date)
+    }
+}</code></pre>
  <p>When <code>fetch</code> is called, this loader type sends a request to GitHub's public API and parses the latest commit -- giving us the message, author and its timestamp. We can now create a <code>Timeline</code> that fetches the latest commit, adds it as an entry and schedules itself to be updated after a while.</p>
- <pre>
-<code>struct CommitTimeline: TimelineProvider {</code>
-<code>    typealias Entry = LastCommitEntry</code>
-<code>    /* protocol methods implemented below! */</code>
-<code>}</code>
-</pre>
+ <pre><code>struct CommitTimeline: TimelineProvider {
+    typealias Entry = LastCommitEntry
+    /* protocol methods implemented below! */
+}</code></pre>
  <p>The <code>TimelineProvider</code> protocol has two methods that we need to implement:</p>
  <h3><code>snapshot()</code> - The fake information of the Widget</h3>
  <p>The <code>snapshot()</code> required method of the <code>TimelineProvider</code> protocol defines how your Widget should be configured when your Widget appears in transient situations, such as the Widget selection screen. This configuration will be used when showing correct information doesn't matter:</p>
@@ -282,124 +274,108 @@
   <img src="https://i.imgur.com/CpKrwmv.jpg" alt=""> 
  </div>
  <p>To create a snapshot configuration, all you have to do is create and return a fake entry of your <code>TimelineEntry</code> object.</p>
- <pre>
-<code></code>
-<code>public func snapshot(with context: Context, completion: @escaping (LastCommitEntry) -&gt; ()) {</code>
-<code>    let fakeCommit = Commit(message: "Fixed stuff", author: "John Appleseed", date: "2020-06-23")</code>
-<code>    let entry = LastCommitEntry(date: Date(), commit: fakeCommit)</code>
-<code>    completion(entry)</code>
-<code>}</code>
-<code></code>
-</pre>
+ <pre><code>public func snapshot(with context: Context, completion: @escaping (LastCommitEntry) -&gt; ()) {
+    let fakeCommit = Commit(message: "Fixed stuff", author: "John Appleseed", date: "2020-06-23")
+    let entry = LastCommitEntry(date: Date(), commit: fakeCommit)
+    completion(entry)
+}</code></pre>
  <h3><code>timeline()</code> - The true information of the Widget</h3>
  <p>The <code>timeline()</code> method, however, defines the real information that should be used by your widget. The objective is for you to return a <code>Timeline</code> instance that contains all the entries you want to display, <b>when</b> they are expected to be displayed (the <code>date</code> of the entry) and when the timeline "expires".</p>
  <p>Because our app can't "predict" its future state like a Weather app, it suffices for us to create a timeline with a single entry that should be displayed immediately, which can be done by setting the entry's <code>date</code> to the current <code>Date()</code>:</p>
- <pre>
-<code>public func timeline(with context: Context, completion: @escaping (Timeline&lt;LastCommitEntry&gt;) -&gt; ()) {</code>
-<code>    let currentDate = Date()</code>
-<code>    let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!</code>
-<code></code>
-<code>    CommitLoader.fetch { result in</code>
-<code>        let commit: Commit</code>
-<code>        if case .success(let fetchedCommit) = result {</code>
-<code>            commit = fetchedCommit</code>
-<code>        } else {</code>
-<code>            commit = Commit(message: "Failed to load commits", author: "", date: "")</code>
-<code>        }</code>
-<code>        let entry = LastCommitEntry(date: currentDate, commit: commit)</code>
-<code>        let timeline = Timeline(entries: [entry], policy: .after(refreshDate))</code>
-<code>        completion(timeline)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>public func timeline(with context: Context, completion: @escaping (Timeline&lt;LastCommitEntry&gt;) -&gt; ()) {
+    let currentDate = Date()
+    let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!
+
+    CommitLoader.fetch { result in
+        let commit: Commit
+        if case .success(let fetchedCommit) = result {
+            commit = fetchedCommit
+        } else {
+            commit = Commit(message: "Failed to load commits", author: "", date: "")
+        }
+        let entry = LastCommitEntry(date: currentDate, commit: commit)
+        let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+        completion(timeline)
+    }
+}</code></pre>
  <p>The <code>policy</code> property of the timeline is what defines <b>when</b> should iOS attempt to discard this timeline and fetch a new one. Currently, they can be <code>.never</code> (Widgets displaying a static content that never changes), <code>.atEnd</code> (when the last entry in the timeline is displayed), or <code>.after(Date)</code>, which is after a specific amount of time after displaying the timeline for the first time. Since our timeline only has one entry, I decided to use <code>.after</code> to tell iOS that this widget should be reloaded every 5 minutes.</p>
  <p>Note, however, that the Widget API's documentation states that you <b>can't predict when the Widget will be updated.</b> Even though the timeline itself will be indeed fetched again after 5 minutes, there's no guarantee that the iOS will update the view at the same time. From my personal experience when writing this, the view actually took around <b>~20 minutes</b> to update by itself. The update time is based on a few factors, which includes how often the Widget is seen by the user. If you need to <b>force</b> a Widget to update, you can use the <code>WidgetCenter</code> APIs from your main app to reload all timelines (or a specific one):</p>
- <pre>
-<code>WidgetCenter.shared.reloadAllTimelines()</code>
-</pre>
+ <pre><code>WidgetCenter.shared.reloadAllTimelines()</code></pre>
  <p>While not necessary by our Widget, it's important to mention that timelines and entries have other interesting capabilities. For example, it's possible to set a <b>relevance</b> value to an entry, which will allow iOS to determine how important your Widget is. This is used, for example, to determine the order of Widgets inside a stack:</p>
- <pre>
-<code>struct LastCommit: TimelineEntry {</code>
-<code>    public let date: Date</code>
-<code>    public let commit: Commit</code>
-<code></code>
-<code>    var relevance: TimelineEntryRelevance? {</code>
-<code>        return TimelineEntryRelevance(score: 10) // 0 - not important | 100 - very important</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>struct LastCommit: TimelineEntry {
+    public let date: Date
+    public let commit: Commit
+
+    var relevance: TimelineEntryRelevance? {
+        return TimelineEntryRelevance(score: 10) // 0 - not important | 100 - very important
+    }
+}</code></pre>
  <h2>Creating a Widget View</h2>
  <p>Now that our timeline is configured, we can create the Widget's visual components. We need to create <b>two</b> views: A <b>placeholder</b> that is displayed while the timeline is loading, and the actual Widget view that is capable of rendering our timeline entry.</p>
- <pre>
-<code>struct PlaceholderView : View {</code>
-<code>    var body: some View {</code>
-<code>        Text("Loading...")</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>struct CommitCheckerWidgetView : View {</code>
-<code>    let entry: LastCommitEntry</code>
-<code></code>
-<code>    var body: some View {</code>
-<code>        VStack(alignment: .leading, spacing: 4) {</code>
-<code>            Text("apple/swift's Latest Commit")</code>
-<code>                .font(.system(.title3))</code>
-<code>                .foregroundColor(.black)</code>
-<code>            Text(entry.commit.message)</code>
-<code>                .font(.system(.callout))</code>
-<code>                .foregroundColor(.black)</code>
-<code>                .bold()</code>
-<code>            Text("by \(entry.commit.author) at \(entry.commit.date)")</code>
-<code>                .font(.system(.caption))</code>
-<code>                .foregroundColor(.black)</code>
-<code>            Text("Updated at \(Self.format(date:entry.date))")</code>
-<code>                .font(.system(.caption2))</code>
-<code>                .foregroundColor(.black)</code>
-<code>        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)</code>
-<code>            .padding()</code>
-<code>            .background(LinearGradient(gradient: Gradient(colors: [.orange, .yellow]), startPoint: .top, endPoint: .bottom))</code>
-<code>    }</code>
-<code></code>
-<code>    static func format(date: Date) -&gt; String {</code>
-<code>        let formatter = DateFormatter()</code>
-<code>        formatter.dateFormat = "MM-dd-yyyy HH:mm"</code>
-<code>        return formatter.string(from: date)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>struct PlaceholderView : View {
+    var body: some View {
+        Text("Loading...")
+    }
+}
+
+struct CommitCheckerWidgetView : View {
+    let entry: LastCommitEntry
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("apple/swift's Latest Commit")
+                .font(.system(.title3))
+                .foregroundColor(.black)
+            Text(entry.commit.message)
+                .font(.system(.callout))
+                .foregroundColor(.black)
+                .bold()
+            Text("by \(entry.commit.author) at \(entry.commit.date)")
+                .font(.system(.caption))
+                .foregroundColor(.black)
+            Text("Updated at \(Self.format(date:entry.date))")
+                .font(.system(.caption2))
+                .foregroundColor(.black)
+        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
+            .padding()
+            .background(LinearGradient(gradient: Gradient(colors: [.orange, .yellow]), startPoint: .top, endPoint: .bottom))
+    }
+
+    static func format(date: Date) -&gt; String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yyyy HH:mm"
+        return formatter.string(from: date)
+    }
+}</code></pre>
  <h3>Interacting with a Widget View</h3>
  <p>Optionally, you can detect taps in your Widget and redirect them to a deeplink. This is unfortunately the only interaction you're allowed to have in your widget, so no scrolling or other forms of interaction are possible.</p>
  <p>You can configure which deeplink is triggered when your Widget is tapped through the <code>.widgetURL(myDeeplink)</code> method, but you can also make different parts of the widget trigger different deeplinks by using a <code>Link</code>. Note that since widgets are small, you shouldn't pack a ton of actions into a single Widget.</p>
  <p>Here's an example of a Widget View that redirects to the app's home screen when tapped, but also contains two labels that redirect to different parts of the app when tapped.</p>
- <pre>
-<code>var body: some View {</code>
-<code>    VStack {</code>
-<code>        Link(destination: homeDeepLink) {</code>
-<code>            Text("Home")</code>
-<code>        }</code>
-<code>        Link(destination: settingsDeepLink) {</code>
-<code>            Text("Settings")</code>
-<code>        }</code>
-<code>    }.widgetURL(homeDeeplink)</code>
-<code>}</code>
-</pre>
+ <pre><code>var body: some View {
+    VStack {
+        Link(destination: homeDeepLink) {
+            Text("Home")
+        }
+        Link(destination: settingsDeepLink) {
+            Text("Settings")
+        }
+    }.widgetURL(homeDeeplink)
+}</code></pre>
  <p>If you don't provide a <code>widgetURL</code>, your app will simply open when tapped.</p>
  <h2>Seeing the Widget in action</h2>
  <p>You should be able to compile your code, and now that all components were provided, we can take a second look at our configuration method to see how this is all wrapped together:</p>
- <pre>
-<code>@main</code>
-<code>struct CommitCheckerWidget: Widget {</code>
-<code>    private let kind: String = "CommitCheckerWidget"</code>
-<code></code>
-<code>    public var body: some WidgetConfiguration {</code>
-<code>        StaticConfiguration(kind: kind, provider: CommitTimeline(), placeholder: PlaceholderView()) { entry in</code>
-<code>            CommitCheckerWidgetView(entry: entry)</code>
-<code>        }</code>
-<code>        .configurationDisplayName("Swift's Latest Commit")</code>
-<code>        .description("Shows the last commit at the Swift repo.")</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>@main
+struct CommitCheckerWidget: Widget {
+    private let kind: String = "CommitCheckerWidget"
+
+    public var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: CommitTimeline(), placeholder: PlaceholderView()) { entry in
+            CommitCheckerWidgetView(entry: entry)
+        }
+        .configurationDisplayName("Swift's Latest Commit")
+        .description("Shows the last commit at the Swift repo.")
+    }
+}</code></pre>
  <p>We've created a static widget that fetches its content from our <code>CommitTimeline</code>, has a <code>PlaceholderView</code> as a placeholder and generates a <code>CommitCheckerWidgetView</code> when an entry is ready to be displayed.</p>
  <p>After running our app and adding the Widget to our home, we're now able to see an auto-updating Swift commit displayer!</p>
  <div class="post-image margin-top-40 margin-bottom-40"> 
@@ -414,133 +390,123 @@
  </div>
  <p>It's possible to use Widgets with the data of any donated Siri Intent, but the magic lies in not needing to. If the intent has widget capabilities, like the one we created, you're able to set the parameters <b>directly at the Widget</b> as we'll see later on.</p>
  <p>Before upgrading our Widget, let's make sure our code supports fetching commits from other repos. Let's upgrade our timeline entry to support a repo configuration:</p>
- <pre>
-<code>struct RepoBranch {</code>
-<code>    let account: String</code>
-<code>    let repo: String</code>
-<code>    let branch: String</code>
-<code>}</code>
-<code></code>
-<code>struct LastCommit: TimelineEntry {</code>
-<code>    public let date: Date</code>
-<code>    public let commit: Commit</code>
-<code>    public let branch: RepoBranch</code>
-<code>}</code>
-</pre>
+ <pre><code>struct RepoBranch {
+    let account: String
+    let repo: String
+    let branch: String
+}
+
+struct LastCommit: TimelineEntry {
+    public let date: Date
+    public let commit: Commit
+    public let branch: RepoBranch
+}</code></pre>
  <p>From here, we can upgrade our fetcher's <code>fetch()</code> method to download any branch from any repo:</p>
- <pre>
-<code>static func fetch(account: String, repo: String, branch: String, completion: @escaping (Result
+ <pre><code>static func fetch(account: String, repo: String, branch: String, completion: @escaping (Result
    <commit, error>
     ) -&gt; Void) {
-   </commit,></code>
-<code>    let branchContentsURL = URL(string: "https://api.github.com/repos/\(account)/\(repo)/branches/\(branch)")!</code>
-<code>    // ...</code>
-<code>}</code>
-</pre>
+   </commit,>
+    let branchContentsURL = URL(string: "https://api.github.com/repos/\(account)/\(repo)/branches/\(branch)")!
+    // ...
+}</code></pre>
  <p>As mentioned before, intents-based Widgets require the usage of <code>IntentConfiguration</code>, whose's only major difference from our previous static approach is that we have to provide the intent which this widget is linked to. Let's update our Widget to use <code>IntentConfiguration</code> and <code>LastCommitIntent</code>:</p>
- <pre>
-<code>@main</code>
-<code>struct CommitCheckerWidget: Widget {</code>
-<code>    private let kind: String = "CommitCheckerWidget"</code>
-<code></code>
-<code>    public var body: some WidgetConfiguration {</code>
-<code>        IntentConfiguration(kind: kind, intent: LastCommitIntent.self, provider: CommitTimeline(), placeholder: PlaceholderView()) { entry in</code>
-<code>            CommitCheckerWidgetView(entry: entry)</code>
-<code>        }</code>
-<code>        .configurationDisplayName("A Repo's Latest Commit")</code>
-<code>        .description("Shows the last commit at the a repo/branch combination.")</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>@main
+struct CommitCheckerWidget: Widget {
+    private let kind: String = "CommitCheckerWidget"
+
+    public var body: some WidgetConfiguration {
+        IntentConfiguration(kind: kind, intent: LastCommitIntent.self, provider: CommitTimeline(), placeholder: PlaceholderView()) { entry in
+            CommitCheckerWidgetView(entry: entry)
+        }
+        .configurationDisplayName("A Repo's Latest Commit")
+        .description("Shows the last commit at the a repo/branch combination.")
+    }
+}</code></pre>
  <p>One additional modification we have to make is updating our timeline to inherit from <code>IntentTimelineProvider</code> instead of <code>TimelineProvider</code>. They work mostly the same way, with the difference being that the intents variant provides access to an instance of our intent, allowing us to grab a hold of any customizations made by our users. In this case, we'll update <code>snapshot()</code> to additionally return a fake repo and our timeline method to fetch the user's repo configuration and fetch the commit using those parameters.</p>
- <pre>
-<code>struct CommitTimeline: IntentTimelineProvider {</code>
-<code>    typealias Entry = LastCommit</code>
-<code>    typealias Intent = LastCommitIntent</code>
-<code></code>
-<code>    public func snapshot(for configuration: LastCommitIntent, with context: Context, completion: @escaping (LastCommit) -&gt; ()) {</code>
-<code>        let fakeCommit = Commit(message: "Fixed stuff", author: "John Appleseed", date: "2020-06-23")</code>
-<code>        let entry = LastCommit(</code>
-<code>            date: Date(),</code>
-<code>            commit: fakeCommit,</code>
-<code>            branch: RepoBranch(</code>
-<code>                account: "apple",</code>
-<code>                repo: "swift",</code>
-<code>                branch: "main"</code>
-<code>            )</code>
-<code>        )</code>
-<code>        completion(entry)</code>
-<code>    }</code>
-<code></code>
-<code>    public func timeline(for configuration: LastCommitIntent, with context: Context, completion: @escaping (Timeline&lt;Entry&gt;) -&gt; ()) {</code>
-<code>        let currentDate = Date()</code>
-<code>        let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!</code>
-<code></code>
-<code>        guard let account = configuration.account,</code>
-<code>              let repo = configuration.repo,</code>
-<code>              let branch = configuration.branch</code>
-<code>        else {</code>
-<code>            let commit = Commit(message: "Failed to load commits", author: "", date: "")</code>
-<code>            let entry = LastCommit(date: currentDate, commit: commit, branch: RepoBranch(</code>
-<code>                account: "???",</code>
-<code>                repo: "???",</code>
-<code>                branch: "???"</code>
-<code>            ))</code>
-<code>            let timeline = Timeline(entries: [entry], policy: .after(refreshDate))</code>
-<code>            completion(timeline)</code>
-<code>            return</code>
-<code>        }</code>
-<code></code>
-<code>        CommitLoader.fetch(account: account, repo: repo, branch: branch) { result in</code>
-<code>            let commit: Commit</code>
-<code>            if case .success(let fetchedCommit) = result {</code>
-<code>                commit = fetchedCommit</code>
-<code>            } else {</code>
-<code>                commit = Commit(message: "Failed to load commits", author: "", date: "")</code>
-<code>            }</code>
-<code>            let entry = LastCommit(date: currentDate, commit: commit, branch: RepoBranch(</code>
-<code>                account: account,</code>
-<code>                repo: repo,</code>
-<code>                branch: branch</code>
-<code>            ))</code>
-<code>            let timeline = Timeline(entries: [entry], policy: .after(refreshDate))</code>
-<code>            completion(timeline)</code>
-<code>        }</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>struct CommitTimeline: IntentTimelineProvider {
+    typealias Entry = LastCommit
+    typealias Intent = LastCommitIntent
+
+    public func snapshot(for configuration: LastCommitIntent, with context: Context, completion: @escaping (LastCommit) -&gt; ()) {
+        let fakeCommit = Commit(message: "Fixed stuff", author: "John Appleseed", date: "2020-06-23")
+        let entry = LastCommit(
+            date: Date(),
+            commit: fakeCommit,
+            branch: RepoBranch(
+                account: "apple",
+                repo: "swift",
+                branch: "main"
+            )
+        )
+        completion(entry)
+    }
+
+    public func timeline(for configuration: LastCommitIntent, with context: Context, completion: @escaping (Timeline&lt;Entry&gt;) -&gt; ()) {
+        let currentDate = Date()
+        let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!
+
+        guard let account = configuration.account,
+              let repo = configuration.repo,
+              let branch = configuration.branch
+        else {
+            let commit = Commit(message: "Failed to load commits", author: "", date: "")
+            let entry = LastCommit(date: currentDate, commit: commit, branch: RepoBranch(
+                account: "???",
+                repo: "???",
+                branch: "???"
+            ))
+            let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+            completion(timeline)
+            return
+        }
+
+        CommitLoader.fetch(account: account, repo: repo, branch: branch) { result in
+            let commit: Commit
+            if case .success(let fetchedCommit) = result {
+                commit = fetchedCommit
+            } else {
+                commit = Commit(message: "Failed to load commits", author: "", date: "")
+            }
+            let entry = LastCommit(date: currentDate, commit: commit, branch: RepoBranch(
+                account: account,
+                repo: repo,
+                branch: branch
+            ))
+            let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+            completion(timeline)
+        }
+    }
+}</code></pre>
  <p>While this code works, our view still has "apple/swift" hardcoded into it. Let's update it to use the new parameters the entry now possesses:</p>
- <pre>
-<code>struct RepoBranchCheckerEntryView : View {</code>
-<code>    var entry: Provider.Entry</code>
-<code></code>
-<code>    var body: some View {</code>
-<code>        VStack(alignment: .leading, spacing: 4) {</code>
-<code>            Text("\(entry.branch.account)/\(entry.branch.repo)'s \(entry.branch.branch) Latest Commit")</code>
-<code>                .font(.system(.title3))</code>
-<code>                .foregroundColor(.black)</code>
-<code>            Text("\(entry.commit.message)")</code>
-<code>                .font(.system(.callout))</code>
-<code>                .foregroundColor(.black)</code>
-<code>                .bold()</code>
-<code>            Text("by \(entry.commit.author) at \(entry.commit.date)")</code>
-<code>                .font(.system(.caption))</code>
-<code>                .foregroundColor(.black)</code>
-<code>            Text("Updated at \(Self.format(date:entry.date))")</code>
-<code>                .font(.system(.caption2))</code>
-<code>                .foregroundColor(.black)</code>
-<code>        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)</code>
-<code>            .padding()</code>
-<code>            .background(LinearGradient(gradient: Gradient(colors: [.orange, .yellow]), startPoint: .top, endPoint: .bottom))</code>
-<code>    }</code>
-<code></code>
-<code>    static func format(date: Date) -&gt; String {</code>
-<code>        let formatter = DateFormatter()</code>
-<code>        formatter.dateFormat = "MM-dd-yyyy HH:mm"</code>
-<code>        return formatter.string(from: date)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>struct RepoBranchCheckerEntryView : View {
+    var entry: Provider.Entry
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("\(entry.branch.account)/\(entry.branch.repo)'s \(entry.branch.branch) Latest Commit")
+                .font(.system(.title3))
+                .foregroundColor(.black)
+            Text("\(entry.commit.message)")
+                .font(.system(.callout))
+                .foregroundColor(.black)
+                .bold()
+            Text("by \(entry.commit.author) at \(entry.commit.date)")
+                .font(.system(.caption))
+                .foregroundColor(.black)
+            Text("Updated at \(Self.format(date:entry.date))")
+                .font(.system(.caption2))
+                .foregroundColor(.black)
+        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
+            .padding()
+            .background(LinearGradient(gradient: Gradient(colors: [.orange, .yellow]), startPoint: .top, endPoint: .bottom))
+    }
+
+    static func format(date: Date) -&gt; String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yyyy HH:mm"
+        return formatter.string(from: date)
+    }
+}</code></pre>
  <p>Now, run your app and check the Widget. The repo configuration you see will be determined by the default value you added in the intents file, but if you long press your Widget and click the <b>Edit</b> button, you will now be able to customize the intent's parameters and change the repo that is fetched!</p>
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/NvMfu2e.jpg" alt=""> 
@@ -550,27 +516,23 @@
  </div>
  <h2>Supporting Multiple Widgets</h2>
  <p>It's possible to make your app provide <b>multiple</b> choices of Widgets by creating a <code>WidgetBundle</code> that returns the <code>WidgetConfiguration</code> of one or more Widgets. To do so, you need to remove the <code>@main</code> declaration of your main Widget's configuration and instead add it to a new bundle struct:</p>
- <pre>
-<code>@main</code>
-<code>struct SwiftWidgetsBundle: WidgetBundle {</code>
-<code>    @WidgetBundleBuilder</code>
-<code>    var body: some Widget {</code>
-<code>        RepoBranchChecker()</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>@main
+struct SwiftWidgetsBundle: WidgetBundle {
+    @WidgetBundleBuilder
+    var body: some Widget {
+        RepoBranchChecker()
+    }
+}</code></pre>
  <p>You can then support multiple Widgets by simply adding more configurations to this bundle:</p>
- <pre>
-<code>@main</code>
-<code>struct SwiftWidgetsBundle: WidgetBundle {</code>
-<code>    @WidgetBundleBuilder</code>
-<code>    var body: some Widget {</code>
-<code>        RepoBranchChecker()</code>
-<code>        CommitNumberChecker()</code>
-<code>        AppleOpenSourceProjectsChecker()</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>@main
+struct SwiftWidgetsBundle: WidgetBundle {
+    @WidgetBundleBuilder
+    var body: some Widget {
+        RepoBranchChecker()
+        CommitNumberChecker()
+        AppleOpenSourceProjectsChecker()
+    }
+}</code></pre>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>With this in place, when trying to add a Widget from your app, you'll be able to see the additional Widget options by swiping.</p>
  <h2>Where to go from here?</h2>

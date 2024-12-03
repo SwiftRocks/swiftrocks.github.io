@@ -189,175 +189,147 @@
  <h2>zip()</h2>
  <p>Perhaps the most known global function, the <code>zip</code> function allows you to take two or more arrays and merge them into a single <code>Sequence</code> of a tuple. This is extremely useful if you need to iterate two things at the same time, as without <code>zip</code> you would have to manually build a <b>for</b> loop and access each index from each array individually. Using <code>zip</code> allows you access elements from all arrays in the more useful <b>for-in</b> fashion.</p>
  <p>For example, if we had a user registration form screen and we would like to update our textFields to render a list of validation results fetched from the backend, we could do something like this:</p>
- <pre>
-<code>func present(validationResults: [FieldValidationResult],</code>
-<code>             inTextFields textFields: [MyTextField]) {</code>
-<code>    for i in 0..&lt;textFields.count {</code>
-<code>        let field = textFields[i]</code>
-<code>        let result = validationResults[i]</code>
-<code>        field.render(validationResult: result)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>func present(validationResults: [FieldValidationResult],
+             inTextFields textFields: [MyTextField]) {
+    for i in 0..&lt;textFields.count {
+        let field = textFields[i]
+        let result = validationResults[i]
+        field.render(validationResult: result)
+    }
+}</code></pre>
  <p>With <code>zip</code>, we can remove all the manual indexing.</p>
- <pre>
-<code>func present(validationResults: [FieldValidationResult],</code>
-<code>             inTextFields textFields: [MyTextField]) {</code>
-<code>    for (field, result) in zip(textFields, validationResults) {</code>
-<code>        field.render(validationResult: result)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>func present(validationResults: [FieldValidationResult],
+             inTextFields textFields: [MyTextField]) {
+    for (field, result) in zip(textFields, validationResults) {
+        field.render(validationResult: result)
+    }
+}</code></pre>
  <p>The return type of <code>zip</code> is a <code>Zip2Sequence</code> object that conforms to <code>Sequence</code>, and so all other sequence-related methods are applicable to it, including transforming it to a real array.</p>
  <h2>dump()</h2>
  <p>The <code>dump</code> function is a neat alternative to printing objects. While printing objects is just a syntax sugar for a type's <code>description</code> or <code>debugDescription</code> property, <code>dump</code> is a supercharged version of <code>Mirror(reflecting:)</code> that prints the contents of an object using reflection, which will usually result in considerably more info, including the hierarchy of the object.</p>
- <pre>
-<code>class Foo: NSObject {</code>
-<code>    let bar: String = "bar"</code>
-<code>}</code>
-<code></code>
-<code>let foo = Foo()</code>
-<code>print(foo)</code>
-<code>// &lt;SwiftRocks.Foo: 0x1030b9250&gt;</code>
-<code></code>
-<code>dump(foo)</code>
-<code>// ▿ &lt;SwiftRocks.Foo: 0x1030b9250&gt; #0</code>
-<code>//     - super: NSObject</code>
-<code>//    - bar: "bar"</code>
-</pre>
+ <pre><code>class Foo: NSObject {
+    let bar: String = "bar"
+}
+
+let foo = Foo()
+print(foo)
+// &lt;SwiftRocks.Foo: 0x1030b9250&gt;
+
+dump(foo)
+// ▿ &lt;SwiftRocks.Foo: 0x1030b9250&gt; #0
+//     - super: NSObject
+//    - bar: "bar"</code></pre>
  <h2>sequence()</h2>
  <p>The global <code>sequence()</code> function is a bit obscure, but it's a very cool function that lets you write recursive functions in a nicer syntax.</p>
  <p>Let's pretend that we're changing the background color of a subview and all of its parents. Perhaps you would build a <code>while</code> loop like this:</p>
- <pre>
-<code>var currentView: UIView? = self</code>
-<code>while currentView != nil {</code>
-<code>    currentView?.backgroundColor = .green</code>
-<code>    currentView = currentView?.superview</code>
-<code>}</code>
-</pre>
+ <pre><code>var currentView: UIView? = self
+while currentView != nil {
+    currentView?.backgroundColor = .green
+    currentView = currentView?.superview
+}</code></pre>
  <p>This is the best use case for <code>sequence()</code>, as the purpose of this function is to give you a <code>Sequence</code> that applies a specific closure over and over. As the recursive aspect of this method (<code>currentView = currentView?.superview</code>) is always the same, we can use <code>sequence()</code> to turn it into a simple <code>for</code> loop:</p>
- <pre>
-<code>for view in sequence(first: self, next: { $0.superview } ) {</code>
-<code>    view.backgroundColor = .green</code>
-<code>}</code>
-</pre>
+ <pre><code>for view in sequence(first: self, next: { $0.superview } ) {
+    view.backgroundColor = .green
+}</code></pre>
  <p>The way this works is that <code>sequence()</code> returns a custom <code>UnfoldFirstSequence</code> type, a simple wrapper for a <code>Sequence</code> that keeps applying the closure over and over in its <code>next()</code> function.</p>
  <h2>isKnownUniquelyReferenced()</h2>
  <p>The <code>isKnownUniquelyReferenced</code> function receives a <code>class</code> object and returns a boolean that indicates if the object is being reference only one time, with the purpose of enabling you to implement <b>value semantics</b> to <b>reference types</b>. Although structs are value types themselves, the contents inside of it might not be. You might know that putting a class inside a struct doesn't mean it will be copied on assignment:</p>
- <pre>
-<code>class Foo: NSObject {</code>
-<code>    var bar: String = "bar"</code>
-<code>}</code>
-<code></code>
-<code>struct FooHolder {</code>
-<code>    let foo: Foo = Foo()</code>
-<code>    var intValue: Int = 1</code>
-<code>}</code>
-<code></code>
-<code>var fooHolder = FooHolder()</code>
-<code>var fooHolder2 = fooHolder</code>
-<code></code>
-<code>fooHolder2.foo.bar = "bar2"</code>
-<code>fooHolder2.intValue = 2</code>
-<code></code>
-<code>print(fooHolder.intValue)</code>
-<code>// 1</code>
-<code>print(fooHolder2.intValue)</code>
-<code>// 2</code>
-<code></code>
-<code>print(fooHolder.foo.bar)</code>
-<code>// bar2</code>
-<code>print(fooHolder2.foo.bar)</code>
-<code>// bar2</code>
-</pre>
+ <pre><code>class Foo: NSObject {
+    var bar: String = "bar"
+}
+
+struct FooHolder {
+    let foo: Foo = Foo()
+    var intValue: Int = 1
+}
+
+var fooHolder = FooHolder()
+var fooHolder2 = fooHolder
+
+fooHolder2.foo.bar = "bar2"
+fooHolder2.intValue = 2
+
+print(fooHolder.intValue)
+// 1
+print(fooHolder2.intValue)
+// 2
+
+print(fooHolder.foo.bar)
+// bar2
+print(fooHolder2.foo.bar)
+// bar2</code></pre>
  <p>In this example, although <code>fooHolder2</code> and its underlying number are separate entities from the original holder, the underlying class is still shared between them. To fix this, we can use <code>isKnownUniquelyReferenced</code> to detect when this property is being accessed and create a new instance of the class if necessary:</p>
- <pre>
-<code>struct FooHolder {</code>
-<code>    private var _foo: Foo = Foo()</code>
-<code></code>
-<code>    var foo: Foo {</code>
-<code>        mutating get {</code>
-<code>            if isKnownUniquelyReferenced(&amp;_foo) {</code>
-<code>                return _foo</code>
-<code>            } else {</code>
-<code>                let newFoo = Foo()</code>
-<code>                newFoo.bar = _foo.bar</code>
-<code>                _foo = newFoo</code>
-<code>                return _foo</code>
-<code>            }</code>
-<code>        } set {</code>
-<code>            _foo = newValue</code>
-<code>        }</code>
-<code>    }</code>
-<code></code>
-<code>    var intValue: Int = 1</code>
-<code>}</code>
-</pre>
+ <pre><code>struct FooHolder {
+    private var _foo: Foo = Foo()
+
+    var foo: Foo {
+        mutating get {
+            if isKnownUniquelyReferenced(&amp;_foo) {
+                return _foo
+            } else {
+                let newFoo = Foo()
+                newFoo.bar = _foo.bar
+                _foo = newFoo
+                return _foo
+            }
+        } set {
+            _foo = newValue
+        }
+    }
+
+    var intValue: Int = 1
+}</code></pre>
  <p>You might be interested to know that this is exactly how the Swift Standard Library enables <b>copy-on-write</b> semantics to Arrays and Strings -- <a href="https://swiftrocks.com/memory-management-and-performance-of-value-types">something that I've mentioned in my article about the memory management of value types.</a></p>
  <h2>repeatElement()</h2>
  <p>The <code>repeatElement()</code> does exactly what it says. Given an object and a number, the result is a <code>Sequence</code> that can be iterated to give you that object that specific amount of times.</p>
- <pre>
-<code>let repeated: Repeated&lt;String&gt; = repeatElement("SwiftRocks", count: 3)</code>
-<code>for value in repeated {</code>
-<code>    print(value)</code>
-<code>}</code>
-<code>//SwiftRocks</code>
-<code>//SwiftRocks</code>
-<code>//SwiftRocks</code>
-</pre>
+ <pre><code>let repeated: Repeated&lt;String&gt; = repeatElement("SwiftRocks", count: 3)
+for value in repeated {
+    print(value)
+}
+//SwiftRocks
+//SwiftRocks
+//SwiftRocks</code></pre>
  <p>Repeating elements is a common operation in Swift, especially to fill in gaps in <code>Strings</code> and <code>Arrays</code>. in fact, most of these types even have a specific initializer for this:</p>
- <pre>
-<code>let array = [Int](repeating: 0, count: 10)</code>
-</pre>
+ <pre><code>let array = [Int](repeating: 0, count: 10)</code></pre>
  <p><b>So why would you use repeatElement?</b> The reason is performance. The return type of <code>repeatElement()</code> is a <code>Repeated&lt;T&gt;</code> <code>Sequence</code> type, similar to <code>Zip2Sequence</code> in terms that it does nothing besides provide this "repeating" functionality. Let's say you would like to replace a specific section of the array of numbers with another number; one way to achieve this would be to use <code>replaceSubrange</code> with another array:</p>
- <pre>
-<code>array.replaceSubrange(2...7, with: [Int](repeating: 1, count: 6))</code>
-<code>print(array)</code>
-<code>// [0, 0, 1, 1, 1, 1, 1, 1, 0, 0]</code>
-</pre>
+ <pre><code>array.replaceSubrange(2...7, with: [Int](repeating: 1, count: 6))
+print(array)
+// [0, 0, 1, 1, 1, 1, 1, 1, 0, 0]</code></pre>
  <p>While this works, the usage of <code>[Int](repeating:)</code> comes with all the overhead of having to initialize array buffers that will serve no purpose here. If you <b>only</b> need the repeating functionality, then using <code>repeatElement</code> will perform much better.</p>
- <pre>
-<code>array.replaceSubrange(2...7, with: repeatElement(1, count: 6))</code>
-</pre>
+ <pre><code>array.replaceSubrange(2...7, with: repeatElement(1, count: 6))</code></pre>
  <h2>stride()</h2>
  <p>Also fairly popular, the <code>stride()</code> function was added to Swift as a way to create for loops that could skip certain elements, as the equivalent C-style way to do so was removed from the language:</p>
- <pre>
-<code>for (int i = 0; i &lt; 10; i += 2) { ... }</code>
-</pre>
+ <pre><code>for (int i = 0; i &lt; 10; i += 2) { ... }</code></pre>
  <p>Now, you can use <code>stride()</code> to achieve the same behavior:</p>
- <pre>
-<code>for i in stride(from: 0, to: 10, by: 2) {</code>
-<code>    // from 0 to 9, skipping odd numbers.</code>
-<code>}</code>
-</pre>
+ <pre><code>for i in stride(from: 0, to: 10, by: 2) {
+    // from 0 to 9, skipping odd numbers.
+}</code></pre>
  <p>The arguments for <code>stride()</code> are arguments that conform to the <code>Strideable</code> protocol, which represents objects that can represent the concept of distances. For example, here's how we could add the concept of "day difference" in <code>Date</code> objects to that they can be used in <code>stride()</code>:</p>
- <pre>
-<code>extension Date: Strideable {</code>
-<code>    func advanced(by n: Int) -&gt; Date {</code>
-<code>        return Calendar.current.date(byAdding: .day,</code>
-<code>                                     value: n,</code>
-<code>                                     to: self)!</code>
-<code>    }</code>
-<code></code>
-<code>    func distance(to other: Date) -&gt; Int {</code>
-<code>        return Calendar.current.dateComponents([.day],</code>
-<code>                                               from: other,</code>
-<code>                                               to: self).day!</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>let startDate = Date()</code>
-<code>let finalDate = startDate.advanced(by: 5)</code>
-<code></code>
-<code>for date in stride(from: startDate, to: finalDate, by: 1) {</code>
-<code>    print(date)</code>
-<code>}</code>
-<code>// March 24th</code>
-<code>// March 25th</code>
-<code>// March 26th</code>
-<code>// March 27th</code>
-<code>// March 28th</code>
-</pre>
+ <pre><code>extension Date: Strideable {
+    func advanced(by n: Int) -&gt; Date {
+        return Calendar.current.date(byAdding: .day,
+                                     value: n,
+                                     to: self)!
+    }
+
+    func distance(to other: Date) -&gt; Int {
+        return Calendar.current.dateComponents([.day],
+                                               from: other,
+                                               to: self).day!
+    }
+}
+
+let startDate = Date()
+let finalDate = startDate.advanced(by: 5)
+
+for date in stride(from: startDate, to: finalDate, by: 1) {
+    print(date)
+}
+// March 24th
+// March 25th
+// March 26th
+// March 27th
+// March 28th</code></pre>
  <p><i>(Note that Date already has an implementation of Strideable methods that strides in seconds, so copying this to a project won't work.)</i></p>
  <h2>Other Useful Functions</h2>
  <h3>Math</h3>

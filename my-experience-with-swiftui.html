@@ -200,85 +200,71 @@
 <p>SwiftUI is the opposite on steroids. It's <b>very, very easy</b> to build UI with, and <b>very, very hard</b> to build any piece of real business logic that you wouldn't see in a simple Hello World tutorial.</p>
 <p>My first thought when SwiftUI was announced was that there's <i>no way</i> it works seamlessly for complex apps, and I imagine that anyone who ever had experience with React on the web front had the same thought. The reason for that is because data-drivenness, SwiftUI's main concept that some people already were experienced with due to React functioning roughly in the same way, doesn't scale very well. SwiftUI forces you to shape your model in a way so that the complete structure and state of all views are static and known well in advance, which while not an impossible task, can be insanely difficult for views that have lots of moving parts and conditions.</p>
 <p>The best example I can show of how data-drivenness can massively spike the complexity of an app is SwiftUI's <code>ForEach</code> API:</p>
-<pre>
-<code>ForEach(0..<7) { i in</code>
-<code>    MyObject(myStrings[i])</code>
-<code>}</code>
-</pre>
+<pre><code>ForEach(0..<7) { i in
+    MyObject(myStrings[i])
+}</code></pre>
 <p>If all you're doing is iterating a static list of elements, everything will work like in UIKit. You can build a loop that takes a fixed integer range and access the indexes without any additional trouble.</p> 
 <p>Iterating the <b>mutable state</b> of your view is a bit trickier, but still doable. While in UIKit this doesn't incur any extra architectural cost on your behalf, SwiftUI forbids you from doing so unless the content conforms to <code>Identifiable</code>. This can be quite annoying given that almost nothing in Swift's Standard Library conforms to this protocol, but the requirement makes sense in the context of SwiftUI where the framework relies on the concept of model identity and uniqueness in order to determine when the UI should be re-drawn.</p>
-<pre>
-<code>ForEach(myStrings) { string in</code>
-<code>    MyObject(string)</code>
-<code>} // Error: String does not conform to Identifiable</code>
-<code></code>
-<code>// Solution: Replace "myStrings" with:</code>
-<code>struct MyModel: Identifiable {</code>
-<code>    let id = ... // How this is implemented depends</code>
-<code>    // on what the model represents in practice and how it should be updated</code>
-<code>    let string: String</code>
-<code>}</code>
-</pre>
+<pre><code>ForEach(myStrings) { string in
+    MyObject(string)
+} // Error: String does not conform to Identifiable
+
+// Solution: Replace "myStrings" with:
+struct MyModel: Identifiable {
+    let id = ... // How this is implemented depends
+    // on what the model represents in practice and how it should be updated
+    let string: String
+}</code></pre>
 <p>Try to do anything more complicated than that though and you'll face the wrath of data-drivenness. Consider the simple use-case of keeping track of the position of an item in a list while iterating it, something which is very common in iOS to implement features like alternating background colors in views: While this is trivial to pull off in UIKit, attempting to introduce dynamic behavior like this in SwiftUI can result in your view's entire architecture being body slammed!</p>
-<pre>
-<code>ForEach(contentList.enumerated()) { info in</code>
-<code>    MyObject(info.element, info.offset)</code>
-<code>} // Error: Arbitrary sequences cannot be iterated in SwiftUI, only RandomAccessCollections</code>
-<code></code>
-<code>ForEach(Array(strings.enumerated())) { info in</code>
-<code>    MyObject(info.element, info.offset)</code>
-<code>} // Error: Tuples don't conform to Identifiable, the model must expose some form of unique id</code>
-</pre>
+<pre><code>ForEach(contentList.enumerated()) { info in
+    MyObject(info.element, info.offset)
+} // Error: Arbitrary sequences cannot be iterated in SwiftUI, only RandomAccessCollections
+
+ForEach(Array(strings.enumerated())) { info in
+    MyObject(info.element, info.offset)
+} // Error: Tuples don't conform to Identifiable, the model must expose some form of unique id</code></pre>
 <p>Because the concept of object identity is critical in SwiftUI, if the position of an item is relevant to the UI, we must architecture our view's state model around this fact and provide/predict it in advance alongside everything else that is relevant to the view:</p>
-<pre>
-<code>struct ListIndexable&lt;T>: Identifiable {</code>
-<code>    let id = ... // How this is implemented depends</code>
-<code>    // on what the model represents in practice and how it should be updated</code>
-<code>    let index: Int</code>
-<code>    let object: T</code>
-<code>}</code>
-</pre>
+<pre><code>struct ListIndexable&lt;T>: Identifiable {
+    let id = ... // How this is implemented depends
+    // on what the model represents in practice and how it should be updated
+    let index: Int
+    let object: T
+}</code></pre>
 <p>This means that trying to add new behavior to views can result in the <i>entire architecture</i> of that view needing to be refactored, which is a trade-off that developers creating complicated apps would want to avoid at all costs.</p>
 <p>But before we continue, we must mention something very important in this area. Astute readers that have used SwiftUI before might look at this example and point out that you don't really need to do any of these, because there's a variation of <code>ForEach</code> that allows you to manually provide the <code>Hashable</code> value that SwiftUI will use deep-down to enforce uniqueness. This allows you to skip the <code>Identifiable</code> requirement and solve the <code>.enumerated()</code> problem with zero extra code, and if you look up this problem in StackOverflow you can even find plug-and-play extensions for this exact use-case:</p>
-<pre>
-<code>private func ForEachEnumerated&lt;T: Hashable, U: View>(_ arr: Binding<[T]>, @ViewBuilder content: @escaping (Int, Binding&lt;T>) -> U) -> some View {</code>
-<code>    let arr = Array(arr.enumerated())</code>
-<code>    return ForEach(arr, id: \.offset, content: content)</code>
-<code>}</code>
-</pre>
+<pre><code>private func ForEachEnumerated&lt;T: Hashable, U: View>(_ arr: Binding<[T]>, @ViewBuilder content: @escaping (Int, Binding&lt;T>) -> U) -> some View {
+    let arr = Array(arr.enumerated())
+    return ForEach(arr, id: \.offset, content: content)
+}</code></pre>
 <p><b>You need to be very careful when using snippets like this in SwiftUI</b>, because trying to out-smart the framework is a very easy way to end up with cryptic and undebuggable rendering problems. In this case the problem with the snippet is that using the index itself as the definition of uniqueness has serious implications for how SwiftUI will draw updates to that particular list, which might not be what you're expecting for your particular use-case. This is the same reason why I've refrained from implementing <code>let id</code> in the examples above.</p>
 <p>When working with frameworks like SwiftUI and React, you should always avoid shortcuts and take the extra time to think how to architect your view's state in a static and predictable way. I've found that this forces you to put quite a lot of pre-thinking into what you want a certain view to do, because if you forget something down the line it can be very hard to recover from it. This won't be a big deal for simple products, but if you're developing a very complicated app, you might not be willing to make that trade-off.</p>
 <h3>Rendering issues are impossible to debug</h3>
 <p>Almost nothing you write in SwiftUI is "real" Swift code. With <a href="https://swiftrocks.com/inside-swiftui-compiler-magic">Property Wrappers and Function Builders</a> at its core, almost everything you write will result in the compiler generating additional wiring code for you.</p>
 <p>The fact that SwiftUI relies heavily on generated code is not a problem by itself, because as long you know what that wiring code is, you can generally follow along and debug issues just as if that wasn't the case. When the wiring code leads to closed source code however, the story is different.</p>
 <p>Here's an example of how this can negatively affect your work. In Burnout Buddy, it's possible to shortcut your way into configuring time schedules for an entire week by setting just one of them and asking the tool to copy the values into the remaining days. In code, I attempted to achieve this by creating a custom <code>Binding</code> object that pastes Monday's schedule into the rest of the week:</p>
-<pre>
-<code>let weekdayBinding = Binding<[TimeRange]> {</code>
-<code>    schedule.days[0]</code>
-<code>} set: { range, transaction in</code>
-<code>    schedule.days[0] = range</code>
-<code>    schedule.days[1] = range</code>
-<code>    schedule.days[2] = range</code>
-<code>    schedule.days[3] = range</code>
-<code>    schedule.days[4] = range</code>
-<code>}</code>
-</pre>
+<pre><code>let weekdayBinding = Binding<[TimeRange]> {
+    schedule.days[0]
+} set: { range, transaction in
+    schedule.days[0] = range
+    schedule.days[1] = range
+    schedule.days[2] = range
+    schedule.days[3] = range
+    schedule.days[4] = range
+}</code></pre>
 <p>The code above however did not work. To be very specific, it does quite literally nothing. While I could breakpoint the <code>set</code> closure and see that it was being called correctly with the right values, the view was not being updated accordingly. To make things worse, I was also seeing other completely unrelated things being updated as a result of this code that made no sense whatsoever!</p>
 <p>The reason it didn't work? I don't know, because <code>Binding</code> is closed source. It took me multiple hours to even realize that this particular piece of code was the source of the problem as there was no feedback from SwiftUI itself that there was something wrong, meaning the only thing I could do was re-write parts of the app aimlessly and hope for the best.</p>
 <p>I eventually managed to solve the problem by slightly re-shaping how the closure is executed. Instead of setting each array entry one by one, I chose to copy the entire structure, change it accordingly, and then apply it back to the original bound state object. Because I couldn't actually debug the problem, I can only speculate that the bug has something to do with <code>State</code> not being able to process more than one update in a single stack frame.</p>
-<pre>
-<code>let weekdayBinding = Binding<[TimeRange]> {</code>
-<code>    schedule.days[0]</code>
-<code>} set: { range, transaction in</code>
-<code>    var days = schedule.days</code>
-<code>    days[0] = range</code>
-<code>    days[1] = range</code>
-<code>    days[2] = range</code>
-<code>    days[3] = range</code>
-<code>    days[4] = range</code>
-<code>    schedule.days = days</code>
-<code>}</code>
-</pre>
+<pre><code>let weekdayBinding = Binding<[TimeRange]> {
+    schedule.days[0]
+} set: { range, transaction in
+    var days = schedule.days
+    days[0] = range
+    days[1] = range
+    days[2] = range
+    days[3] = range
+    days[4] = range
+    schedule.days = days
+}</code></pre>
 <p>This is not a problem with SwiftUI itself, but with Apple deciding to hide critical logic (in this case, what causes a view to re-render) from you. In contrast, you'd not see problems like this in UIKit because the important bits are always handled on your side of the field (e.g when to call <code>addSubview</code>, <code>layoutIfNeeded</code>, etc).</p>
 <p>The good news is that SwiftUI is already able to warn you when you make a rendering mistake in certain cases, so Apple is definitely aware of this problem and is working on ways to make it less disruptive.</p>
 <h2>Should I learn SwiftUI?</h2>

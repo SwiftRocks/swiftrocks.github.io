@@ -190,177 +190,163 @@
  <h2>UI Testing Deeplinks (from a backgrounded app)</h2>
  <p>To begin, let's UI test a Safari deeplink when our app is already running in the background.</p>
  <p>Launching other apps in the middle of a UI test is similar to launching our own, with the simple difference that you pass a different bundle identifier instead. In the case of Safari, the bundle identifier is <code>"com.apple.mobilesafari"</code>:</p>
- <pre>
-<code>func testDeeplinkFromSafari() {</code>
-<code>    let app = XCUIApplication()</code>
-<code>    app.launch()</code>
-<code>    let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")</code>
-<code>    safari.launch()</code>
-<code>}</code>
-</pre>
+ <pre><code>func testDeeplinkFromSafari() {
+    let app = XCUIApplication()
+    app.launch()
+    let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
+    safari.launch()
+}</code></pre>
  <p>If you run this, you'll get a simple test that launches your app and switches to Safari right after.</p>
  <p>Now, to deeplink back to our app, we can control Safari just like we would in a regular UI test. In this case, we can grab a hold of the address bar, type our link and press the "go" button. If everything works correctly Safari will deeplink back to our app, allowing us to assert that the deeplink logic in our app is working as expected.</p>
- <pre>
-<code>func testDeeplinkFromSafari() {</code>
-<code>    // Launch our app</code>
-<code>    let app = XCUIApplication()</code>
-<code>    app.launch()</code>
-<code>    // Launch Safari and deeplink back to our app</code>
-<code>    openFromSafari("swiftrocks://profile")</code>
-<code>    // Make sure Safari properly switched back to our app before asserting</code>
-<code>    XCTAssert(app.wait(for: .runningForeground, timeout: 5))</code>
-<code>    // Assert that the deeplink worked by checking if we're in the "Profile" screen</code>
-<code>    XCTAssertTrue(app.navigationBars["Profile"].exists)</code>
-<code>}</code>
-<code></code>
-<code>private func openFromSafari(_ urlString: String) {</code>
-<code>    let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")</code>
-<code>    safari.launch()</code>
-<code>    // Make sure Safari is really running before asserting</code>
-<code>    XCTAssert(safari.wait(for: .runningForeground, timeout: 5))</code>
-<code>    // Type the deeplink and execute it</code>
-<code>    let firstLaunchContinueButton = safari.buttons["Continue"]</code>
-<code>    if firstLaunchContinueButton.exists {</code>
-<code>        firstLaunchContinueButton.tap()</code>
-<code>    }</code>
-<code>    safari.buttons["URL"].tap()</code>
-<code>    let keyboardTutorialButton = safari.buttons["Continue"]</code>
-<code>    if keyboardTutorialButton.exists {</code>
-<code>        keyboardTutorialButton.tap()</code>
-<code>    }</code>
-<code>    safari.typeText(urlString)</code>
-<code>    safari.buttons["Go"].tap()</code>
-<code>    _ = confirmationButton.waitForExistence(timeout: 2)</code>
-<code>    if confirmationButton.exists {</code>
-<code>        confirmationButton.tap()</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>func testDeeplinkFromSafari() {
+    // Launch our app
+    let app = XCUIApplication()
+    app.launch()
+    // Launch Safari and deeplink back to our app
+    openFromSafari("swiftrocks://profile")
+    // Make sure Safari properly switched back to our app before asserting
+    XCTAssert(app.wait(for: .runningForeground, timeout: 5))
+    // Assert that the deeplink worked by checking if we're in the "Profile" screen
+    XCTAssertTrue(app.navigationBars["Profile"].exists)
+}
+
+private func openFromSafari(_ urlString: String) {
+    let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
+    safari.launch()
+    // Make sure Safari is really running before asserting
+    XCTAssert(safari.wait(for: .runningForeground, timeout: 5))
+    // Type the deeplink and execute it
+    let firstLaunchContinueButton = safari.buttons["Continue"]
+    if firstLaunchContinueButton.exists {
+        firstLaunchContinueButton.tap()
+    }
+    safari.buttons["URL"].tap()
+    let keyboardTutorialButton = safari.buttons["Continue"]
+    if keyboardTutorialButton.exists {
+        keyboardTutorialButton.tap()
+    }
+    safari.typeText(urlString)
+    safari.buttons["Go"].tap()
+    _ = confirmationButton.waitForExistence(timeout: 2)
+    if confirmationButton.exists {
+        confirmationButton.tap()
+    }
+}</code></pre>
  <p>It's good to add the additional <code>wait(for: .runningForeground)</code> assertion for safety as that makes the test check that the app switching actually worked before attempting to assert anything else. If it fails for some reason, you'll know it was because the app failed to switch instead of something not being present in the UI of your app.</p>
  <p>You may also notice that there's some additional logic in our Safari handling; Safari sometimes shows a "What's new" screen, which we treat by first finding and tapping the <code>"Continue"</code> button, if it exists, which can also happen when opening the keyboard for the same time. Additionally, when executing deeplinks you might sometimes get a "Open in X?" confirmation, which is treated by finding and tapping the <code>"Open"</code> button.</p>
  <h2>UI Testing Deeplinks (that launches the app / from a killed app)</h2>
  <p>The issue I faced that prompted me to write this article is that iOS processes deeplinks differently according to the current state of the app. For example, in SceneDelegates, deeplinks will trigger your <code>scene(_:openURLContexts:)</code> method, but if the app is <b>launched</b> as a result of the deeplink, no method is called. Instead, you need to access it from the <code>urlContexts</code> property of your scene. Thus, when UI testing, you also need to have a test that operates on an app that is <b>not</b> running.</p>
  <p>One may think that a UI test would fail if your app terminates, but that's actually not the case! You can make a test that terminates and reboots an app as much as you like by using these special methods from <code>XCUIApplication</code>:</p>
- <pre>
-<code>app.launch() // Launches the app (or reboots it/launches it again)</code>
-<code>app.terminate() // Terminates the app (which does not stops the test!)</code>
-<code>app.activate() // Puts the app in the foreground, if it was backgrounded</code>
-</pre>
+ <pre><code>app.launch() // Launches the app (or reboots it/launches it again)
+app.terminate() // Terminates the app (which does not stops the test!)
+app.activate() // Puts the app in the foreground, if it was backgrounded</code></pre>
  <p>As mentioned, if you terminate the app, you're free to launch it again in the same test. It's not necessary to reassign your <code>XCUIApplication</code> instance -- all assertions will work normally as if the app was never terminated in the first place.</p>
  <p>Thus, to test that our deeplinks work correctly when the app <b>isn't</b> launched, we can simply close the app before opening Safari. It's not necessary to launch it again, as that will happen naturally as iOS attempts to open our deeplink.</p>
- <pre>
-<code>func testDeeplinkFromSafari_fromBackgroundedApp() {</code>
-<code>    openSafariDeeplink(terminateFirst: false)</code>
-<code>}</code>
-<code></code>
-<code>func testDeeplinkFromSafari_thatLaunchesTheApp() {</code>
-<code>    openSafariDeeplink(terminateFirst: true)</code>
-<code>}</code>
-<code></code>
-<code>func openSafariDeeplink(terminateFirst: Bool) {</code>
-<code>    let app = XCUIApplication()</code>
-<code>    app.launch()</code>
-<code></code>
-<code>    if terminateFirst {</code>
-<code>        app.terminate()</code>
-<code>    }</code>
-<code></code>
-<code>    // Launch Safari and deeplink back to our app</code>
-<code>    openFromSafari("swiftrocks://profile")</code>
-<code>    // Make sure Safari properly switched back to our app before asserting</code>
-<code>    XCTAssert(app.wait(for: .runningForeground, timeout: 5))</code>
-<code>    // Assert that the deeplink worked by checking if we're in the "Profile" screen</code>
-<code>    XCTAssertTrue(app.navigationBars["Profile"].exists)</code>
-<code>}</code>
-</pre>
+ <pre><code>func testDeeplinkFromSafari_fromBackgroundedApp() {
+    openSafariDeeplink(terminateFirst: false)
+}
+
+func testDeeplinkFromSafari_thatLaunchesTheApp() {
+    openSafariDeeplink(terminateFirst: true)
+}
+
+func openSafariDeeplink(terminateFirst: Bool) {
+    let app = XCUIApplication()
+    app.launch()
+
+    if terminateFirst {
+        app.terminate()
+    }
+
+    // Launch Safari and deeplink back to our app
+    openFromSafari("swiftrocks://profile")
+    // Make sure Safari properly switched back to our app before asserting
+    XCTAssert(app.wait(for: .runningForeground, timeout: 5))
+    // Assert that the deeplink worked by checking if we're in the "Profile" screen
+    XCTAssertTrue(app.navigationBars["Profile"].exists)
+}</code></pre>
  <p>An alternative for this is to simply never call <code>app.launch()</code>, but personally I had mixed results with it. Launching the app also installs it, so never launching it resulted in flaky tests. Launching and terminating it however works 100% of the time.</p>
  <h2>UI Testing Universal Links (from a backgrounded app)</h2>
  <p>The testing process of universal links is very similar to the deeplinks' one, with an important difference: for some <i>god knows why</i> reason, universal links don't work in the simulator's Safari. It's unclear if that's on purpose or if it's really a bug, but while universal links work fine on your device's Safari, they will not work on the simulator's one.</p>
  <p>This means we unfortunately can't use our Safari wrapper for them, but luckily you can still test universal links by using the <b>Messages</b> app. We can then test our universal links by opening the Messages app, clicking on a contact, sending them a universal link and tapping the newly sent message's link bubble to trigger it.</p>
  <p>To launch Messages, we use the bundle identifier <code>"com.apple.MobileSMS"</code>.</p>
- <pre>
-<code>private func openFromMessages(_ urlString: String) {</code>
-<code>    let messages = XCUIApplication(bundleIdentifier: "com.apple.MobileSMS")</code>
-<code>    messages.launch()</code>
-<code>    XCTAssert(messages.wait(for: .runningForeground, timeout: 5))</code>
-<code></code>
-<code>    // Dismiss "What's New" if needed</code>
-<code>    let continueButton = messages.buttons["Continue"]</code>
-<code>    if continueButton.exists {</code>
-<code>        continueButton.tap()</code>
-<code>    }</code>
-<code>    // Dismiss iOS 13's "New Messages" if needed</code>
-<code>    let cancelButton = messages.navigationBars.buttons["Cancel"]</code>
-<code>    if cancelButton.exists {</code>
-<code>        cancelButton.tap()</code>
-<code>    }</code>
-<code></code>
-<code>    // Open the first available chat</code>
-<code>    let chat = messages.cells.firstMatch</code>
-<code>    XCTAssertTrue(chat.waitForExistence(timeout: 5))</code>
-<code>    chat.tap()</code>
-<code>    // Tap the text field</code>
-<code>    messages.textFields["iMessage"].tap()</code>
-<code></code>
-<code>    // Dismiss Keyboard tutorial if needed</code>
-<code>    let keyboardTutorialButton = messages.buttons["Continue"]</code>
-<code>    if keyboardTutorialButton.exists {</code>
-<code>        keyboardTutorialButton.tap()</code>
-<code>    }</code>
-<code></code>
-<code>    messages.typeText("Link: \(urlString)")</code>
-<code>    messages.buttons["sendButton"].tap()</code>
-<code></code>
-<code>    let bubble = messages.links.firstMatch</code>
-<code>    XCTAssertTrue(bubble.waitForExistence(timeout: 5))</code>
-<code>    sleep(3)</code>
-<code>    bubble.tap()</code>
-<code>}</code>
-</pre>
+ <pre><code>private func openFromMessages(_ urlString: String) {
+    let messages = XCUIApplication(bundleIdentifier: "com.apple.MobileSMS")
+    messages.launch()
+    XCTAssert(messages.wait(for: .runningForeground, timeout: 5))
+
+    // Dismiss "What's New" if needed
+    let continueButton = messages.buttons["Continue"]
+    if continueButton.exists {
+        continueButton.tap()
+    }
+    // Dismiss iOS 13's "New Messages" if needed
+    let cancelButton = messages.navigationBars.buttons["Cancel"]
+    if cancelButton.exists {
+        cancelButton.tap()
+    }
+
+    // Open the first available chat
+    let chat = messages.cells.firstMatch
+    XCTAssertTrue(chat.waitForExistence(timeout: 5))
+    chat.tap()
+    // Tap the text field
+    messages.textFields["iMessage"].tap()
+
+    // Dismiss Keyboard tutorial if needed
+    let keyboardTutorialButton = messages.buttons["Continue"]
+    if keyboardTutorialButton.exists {
+        keyboardTutorialButton.tap()
+    }
+
+    messages.typeText("Link: \(urlString)")
+    messages.buttons["sendButton"].tap()
+
+    let bubble = messages.links.firstMatch
+    XCTAssertTrue(bubble.waitForExistence(timeout: 5))
+    sleep(3)
+    bubble.tap()
+}</code></pre>
  <p>The logic to open a link from Messages is a little longer because it sometimes takes a couple more taps before being able to click our link. In this case, we may need to dismiss up to three 3 onboarding screens before being able to send a message. Additionally, before tapping the link, we <code>sleep(3)</code> to give iOS enough time to load our app's metadata. If you don't wait, sometimes iOS will fail to properly open your app.</p>
  <p>The result, however, is the same from when we tested deeplinks in Safari. When you call this method, iOS will switch to Messages and attempt to switch back to your app via your universal link.</p>
- <pre>
-<code>func testUniversalLinkFromMessages() {</code>
-<code>    // Launch our app</code>
-<code>    let app = XCUIApplication()</code>
-<code>    app.launch()</code>
-<code>    // Launch Messages and univesal link back to our app</code>
-<code>    openFromMessages("https://swiftrocks.com/profile")</code>
-<code>    // Make sure Messages properly switched back to our app before asserting</code>
-<code>    XCTAssert(app.wait(for: .runningForeground, timeout: 5))</code>
-<code>    // Assert that the universal link worked by checking if we're in the "Profile" screen</code>
-<code>    XCTAssertTrue(app.navigationBars["Profile"].exists)</code>
-<code>}</code>
-</pre>
+ <pre><code>func testUniversalLinkFromMessages() {
+    // Launch our app
+    let app = XCUIApplication()
+    app.launch()
+    // Launch Messages and univesal link back to our app
+    openFromMessages("https://swiftrocks.com/profile")
+    // Make sure Messages properly switched back to our app before asserting
+    XCTAssert(app.wait(for: .runningForeground, timeout: 5))
+    // Assert that the universal link worked by checking if we're in the "Profile" screen
+    XCTAssertTrue(app.navigationBars["Profile"].exists)
+}</code></pre>
  <h2>UI Testing Universal Links (that launches the app / from a killed app)</h2>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Like with deeplinks, iOS's behavior differs slightly when launching your app as a result of tapping a universal link. When using SceneDelegates for example, you need to instead fetch them from a scene's <code>userActivities</code> property.</p>
  <p>To confirm that our app can properly handle this, we can use the same trick we used for the deeplinks and terminate our app before executing the test.</p>
- <pre>
-<code>func testUniversalLinkFromMessages_fromBackgroundedApp() {</code>
-<code>    openMessagesUniversalLink(terminateFirst: false)</code>
-<code>}</code>
-<code></code>
-<code>func testUniversalLinkFromMessages_thatLaunchesTheApp() {</code>
-<code>    openMessagesUniversalLink(terminateFirst: true)</code>
-<code>}</code>
-<code></code>
-<code>func openMessagesUniversalLink(terminateFirst: Bool) {</code>
-<code>    let app = XCUIApplication()</code>
-<code>    app.launch()</code>
-<code></code>
-<code>    if terminateFirst {</code>
-<code>        app.terminate()</code>
-<code>    }</code>
-<code></code>
-<code>    // Launch Messages and univesal link back to our app</code>
-<code>    openFromMessages("https://swiftrocks.com/profile")</code>
-<code>    // Make sure Messages properly switched back to our app before asserting</code>
-<code>    XCTAssert(app.wait(for: .runningForeground, timeout: 5))</code>
-<code>    // Assert that the universal link worked by checking if we're in the "Profile" screen</code>
-<code>    XCTAssertTrue(app.navigationBars["Profile"].exists)</code>
-<code>}</code>
-</pre>
+ <pre><code>func testUniversalLinkFromMessages_fromBackgroundedApp() {
+    openMessagesUniversalLink(terminateFirst: false)
+}
+
+func testUniversalLinkFromMessages_thatLaunchesTheApp() {
+    openMessagesUniversalLink(terminateFirst: true)
+}
+
+func openMessagesUniversalLink(terminateFirst: Bool) {
+    let app = XCUIApplication()
+    app.launch()
+
+    if terminateFirst {
+        app.terminate()
+    }
+
+    // Launch Messages and univesal link back to our app
+    openFromMessages("https://swiftrocks.com/profile")
+    // Make sure Messages properly switched back to our app before asserting
+    XCTAssert(app.wait(for: .runningForeground, timeout: 5))
+    // Assert that the universal link worked by checking if we're in the "Profile" screen
+    XCTAssertTrue(app.navigationBars["Profile"].exists)
+}</code></pre>
 </div></div>
                               
    

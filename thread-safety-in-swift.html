@@ -193,18 +193,16 @@
  <h2>What is Thread Safety?</h2>
  <p>I personally define thread safety as a system's ability to ensure "correctness" when multiple threads attempt to use it at the same time. Look at a specific class you have that contains logic that can be accessed by background threads and ask yourself: Is it possible for <b>any</b> two lines of code in this class to run in parallel? If so, would that be fine or would that be <i>really</i> bad?</p>
  <p>One thing I've noticed is that while developers generally don't have trouble understanding the concept of thread safety, a lot of people have trouble applying it in practice. Consider the following example of a class that stores a person's full name:</p>
- <pre>
-<code>final class Name {</code>
-<code></code>
-<code>    private(set) var firstName: String = ""</code>
-<code>    private(set) var lastName: String  = ""</code>
-<code></code>
-<code>    func setFullName(firstName: String, lastName: String) {</code>
-<code>        self.firstName = firstName</code>
-<code>        self.lastName = lastName</code>
-<code>    }</code>
-<code>}</code>
- </pre>
+ <pre><code>final class Name {
+
+    private(set) var firstName: String = ""
+    private(set) var lastName: String  = ""
+
+    func setFullName(firstName: String, lastName: String) {
+        self.firstName = firstName
+        self.lastName = lastName
+    }
+}</code></pre>
  <p>Try asking yourself the same question as before. What would happen if two threads called <code>setFullName</code> at the same time?</code> Would that work fine or would that be really bad?</p>
  <p>The answer is the latter. Because we're not synchronizing the threads' access to this class's state, you could have the following scenario happen:</p>
  <blockquote>
@@ -219,30 +217,26 @@
  <p>This is called a <b>race condition</b>, and it's the least-worst scenario in this case. In reality, what would probably happen is that having two threads attempt to access the strings' memory addresses at the same time would trigger a EXC_BAD_ACCESS exception and crash your app.</p>
  <p>In short, this means that the <code>Name</code> class is not thread-safe. To fix the above race condition, we need to <b>synchronize how threads get to access and modify the state of this class</b>. If we make it so that <i>Thread 2</i> cannot start running <code>setFullName</code> until <i>Thread 1</i> finishes doing so, the scenario above would become impossible.</p>
  <p>In practice, many developers have trouble getting this right because they <b>confuse atomicity with thread safety.</b> Consider the following attempt to fix the race condition:</p>
- <pre>
-<code>var dontLetSomeoneElseInPlease = false</code>
-<code>func setFullName(firstName: String, lastName: String) {</code>
-<code>    guard !dontLetSomeoneElseInPlease else {</code>
-<code>        return</code>
-<code>    }</code>
-<code>    dontLetSomeoneElseInPlease = true</code>
-<code>    self.firstName = firstName</code>
-<code>    self.lastName = lastName</code>
-<code>    dontLetSomeoneElseInPlease = false</code>
-<code>}</code>
- </pre>
+ <pre><code>var dontLetSomeoneElseInPlease = false
+func setFullName(firstName: String, lastName: String) {
+    guard !dontLetSomeoneElseInPlease else {
+        return
+    }
+    dontLetSomeoneElseInPlease = true
+    self.firstName = firstName
+    self.lastName = lastName
+    dontLetSomeoneElseInPlease = false
+}</code></pre>
  <p>Many developers would look at this and think it solves the problem, while in reality, it achieves quite literally nothing. First of all, <b>booleans in Swift are not atomic like in Obj-C</b>, meaning that this code would give you the exact same memory corruption crash you'd have if you didn't have this logic in place. You need to use OS-level synchronization APIs, which we'll mention further below in the article in detail.</p>
  <p>Second of all, even if you <b>did</b> create your own custom <code>AtomicBool</code> class, you'd still not be solving the race condition. While making <code>dontLetSomeoneElseInPlease</code> atomic would result in the boolean <i>itself</i> being thread-safe, that doesn't mean that the <code>Name</code> class <i>as a whole</i> is. What's difficult to grasp here is that thread safety is <b>relative</b>; while something might be thread-safe in relation to itself, it might not be in relation to something else. When evaluating thread safety from the point of view of <code>Name</code>, <code>setFullName</code> is still unsafe because it's still possible for multiple threads to go past the guard check at the same time and cause the same race condition scenario from before.</p>
  <p>To prevent a race condition in the state of the <code>Name</code> class, you need to prevent the <b>entire</b> <code>setFullName</code> logic from running in parallel. There are many different APIs which you can use to achieve this (iOS 15's async/await set of features being the most popular one as of writing), but here's one example that uses basic synchonization locks:</p>
-<pre>
-<code>var stateLock = OSAllocatedUnfairLock()</code>
-<code>func setFullName(firstName: String, lastName: String) {</code>
-<code>    stateLock.lock()</code>
-<code>    self.firstName = firstName</code>
-<code>    self.lastName = lastName</code>
-<code>    stateLock.unlock()</code>
-<code>}</code>
-</pre>
+<pre><code>var stateLock = OSAllocatedUnfairLock()
+func setFullName(firstName: String, lastName: String) {
+    stateLock.lock()
+    self.firstName = firstName
+    self.lastName = lastName
+    stateLock.unlock()
+}</code></pre>
 <p>In theoretical terms, what we did by wrapping the logic around calls to <code>lock()</code> and <code>unlock()</code> was to establish a <b>critical region</b> within <code>setFullName</code> which only one thread can access at any given time (a guarantee made by the <code>OSAllocatedUnfairLock</code> API in this case). The logic within <code>setFullName</code> is now thread-safe.</p>
 <p>Does this mean that the <code>Name</code> class itself is now thread-safe? <b>It depends on the point of view.</b> While the <code>setFullName</code> method itself is safe from race conditions, we still technically could have a race condition if some external object attempted to read the user's name in parallel with a new name being written. This is why the most important thing for you to keep in mind is the <b>relativity</b> of this problem: While you could say that <code>Name</code> is technically thread-safe in relation to itself, it could very well be the case that whatever class that would be using this in a real application could be doing so in a way that is not. Even the reverse can happen: Although the strings in this example are technically not thread-safe themselves, they are if you consider that they cannot be modified outside <code>setFullName</code>. To fix thread safety issues in the real world, you'll need to first rationalize the problem this way to determine what exactly needs to be made thread-safe in order to fix the problem.</p>
  <h2>Other concurrency problems</h2>
@@ -278,42 +272,38 @@
  <p>If you cannot use async/await, here are some of the "old school" synchronization APIs in iOS:</p>
  <h3>Serial DispatchQueues</h3>
  <p>Despite not being generally connected to the topic of thread safety, <code>DispatchQueues</code> can be great tools for thread safety. By creating a queue of tasks where only one task can be processed at any given time, you are indirectly introducing thread safety to the component that is using the queue.</p>
- <pre>
-<code>let queue = DispatchQueue(label: "my-queue", qos: .userInteractive)</code>
-<code></code>
-<code>queue.async {</code>
-<code>    // Critical region 1</code>
-<code>}</code>
-<code></code>
-<code>queue.async {</code>
-<code>    // Critical region 2</code>
-<code>}</code>
-</pre>
+ <pre><code>let queue = DispatchQueue(label: "my-queue", qos: .userInteractive)
+
+queue.async {
+    // Critical region 1
+}
+
+queue.async {
+    // Critical region 2
+}</code></pre>
  <p>The greatest feature of <code>DispatchQueue</code> is how it completely manages any threading-related tasks like locking and prioritization for you. Apple advises you to never create your own <code>Thread</code> types for resource management reasons -- threads are not cheap, and they must be prioritized between each other. <code>DispatchQueues</code> handle all of that for you, and in the case of a serial queue specifically, the state of the queue itself and the execution order of the tasks will also be managed for you, making it perfect as a thread safety tool.</p>
  <p>Queues, however, are only great if the tasks are meant to be completely asynchronous. If you need to synchronously wait for a task to finish before proceeding, you should probably be using one of the lower-level APIs mentioned below instead. Not only running code synchronously means that we have no use for its threading features, resulting in wasted precious resources, but the <code>DispatchQueue.sync</code> synchronous variant is also a relatively dangerous API as it cannot deal with the fact that you might <b>already</b> be inside the queue:</p>
- <pre>
-<code>func logEntered() {</code>
-<code>    queue.sync {</code>
-<code>        print("Entered!")</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>func logExited() {</code>
-<code>    queue.sync {</code>
-<code>        print("Exited!")</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>func logLifecycle() {</code>
-<code>    queue.sync {</code>
-<code>        logEntered()</code>
-<code>        print("Running!")</code>
-<code>        logExited()</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>logLifecycle() // Crash!</code>
-</pre>
+ <pre><code>func logEntered() {
+    queue.sync {
+        print("Entered!")
+    }
+}
+
+func logExited() {
+    queue.sync {
+        print("Exited!")
+    }
+}
+
+func logLifecycle() {
+    queue.sync {
+        logEntered()
+        print("Running!")
+        logExited()
+    }
+}
+
+logLifecycle() // Crash!</code></pre>
  <p>Recursively attempting to <b>synchronously</b> enter the serial <code>DispatchQueue</code> will cause the thread to wait for <i>itself</i> to finish, which doesn't make sense and will result in the app freezing for eternity. This scenario is called a <b>deadlock</b>.</p>
  <p>It's technically possible to fix this, but we will not go into details of that as it's simply not a good idea to use <code>DispatchQueues</code> for synchronous purposes. For synchronous execution, we can have better performance and more predictable safety by using an old-fashioned mutual exclusion (mutex) lock.</p>
  <p>Note: When using <code>DispatchQueues</code>, make sure to follow <a href="https://gist.github.com/tclementdev/6af616354912b0347cdf6db159c37057">these guidelines from @tclementdev</a> in order to use them efficiently. <b>Misusing queues can lead to serious performance and efficiency problems in your app</b>, and it's so easy that even Apple has been moving away from it.</p>
@@ -321,32 +311,30 @@
  <p>The <code>os_unfair_lock</code> mutex is currently the fastest lock in iOS. If your intention is to simply establish a critical region like in our original <code>Name</code> example, then this lock will get the job done with great performance.</p>
  <p>The way you use this lock depends on your environment. In Swift 6 you can access this via the new <code>Mutex</code> type, but as of writing this is not yet available. Thus your second approach is to use Foundation's <a href="https://developer.apple.com/documentation/os/osallocatedunfairlock">OSAllocatedUnfairLock</a> type, but it requires your app to target iOS 16.</p>
  <p>You can still use it if you target iOS 15 or below, but it requires some extra work. Luckily, said extra work has been done for you! You can copy the following <code>UnfairLock</code> abstraction to try out this lock:</p>
- <pre>
-<code>// Read http://www.russbishop.net/the-law for more information on why this is necessary</code>
-<code>final class UnfairLock {</code>
-<code>    private var _lock: UnsafeMutablePointer&lt;os_unfair_lock></code>
-<code></code>
-<code>    init() {</code>
-<code>        _lock = UnsafeMutablePointer&lt;os_unfair_lock>.allocate(capacity: 1)</code>
-<code>        _lock.initialize(to: os_unfair_lock())</code>
-<code>    }</code>
-<code></code>
-<code>    deinit {</code>
-<code>        _lock.deallocate()</code>
-<code>    }</code>
-<code></code>
-<code>    func locked&lt;ReturnValue>(_ f: () throws -> ReturnValue) rethrows -> ReturnValue {</code>
-<code>        os_unfair_lock_lock(_lock)</code>
-<code>        defer { os_unfair_lock_unlock(_lock) }</code>
-<code>        return try f()</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>let lock = UnfairLock()</code>
-<code>lock.locked {</code>
-<code>    // Critical region</code>
-<code>}</code>
-</pre>
+ <pre><code>// Read http://www.russbishop.net/the-law for more information on why this is necessary
+final class UnfairLock {
+    private var _lock: UnsafeMutablePointer&lt;os_unfair_lock>
+
+    init() {
+        _lock = UnsafeMutablePointer&lt;os_unfair_lock>.allocate(capacity: 1)
+        _lock.initialize(to: os_unfair_lock())
+    }
+
+    deinit {
+        _lock.deallocate()
+    }
+
+    func locked&lt;ReturnValue>(_ f: () throws -> ReturnValue) rethrows -> ReturnValue {
+        os_unfair_lock_lock(_lock)
+        defer { os_unfair_lock_unlock(_lock) }
+        return try f()
+    }
+}
+
+let lock = UnfairLock()
+lock.locked {
+    // Critical region
+}</code></pre>
  <div class="post-image"> 
   <img src="https://i.imgur.com/VR72J4H.png" alt="Alt"> 
  </div>
@@ -356,20 +344,18 @@
  <h2>NSLock</h2>
  <p>Despite also being a mutex, <code>NSLock</code> is different from <code>os_unfair_lock</code> in the sense that it's an Obj-C abstraction for a completely different locking API (<code>pthread_mutex</code>, in this case). While the functionality of locking and unlocking is the same, you might want to choose <code>NSLock</code> over <code>os_unfair_lock</code> for two reasons. The first one is that, well, unlike <code>os_unfair_lock</code>, you can actually use this API without having to abstract it.</p>
  <p>But lastly and perhaps more interestingly, <code>NSLock</code> contains additional features you might find very handy. The one I like the most is the ability to set a <b>timeout</b>:</p>
- <pre>
-<code>let nslock = NSLock()</code>
-<code></code>
-<code>func synchronize(action: () -&gt; Void) {</code>
-<code>    if nslock.lock(before: Date().addingTimeInterval(5)) {</code>
-<code>        action()</code>
-<code>        nslock.unlock()</code>
-<code>    } else {</code>
-<code>        print("Took to long to lock, did we deadlock?")</code>
-<code>        reportPotentialDeadlock() // Raise a non-fatal assertion to the crash reporter</code>
-<code>        action() // Continue and hope the user's session won't be corrupted</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>let nslock = NSLock()
+
+func synchronize(action: () -&gt; Void) {
+    if nslock.lock(before: Date().addingTimeInterval(5)) {
+        action()
+        nslock.unlock()
+    } else {
+        print("Took to long to lock, did we deadlock?")
+        reportPotentialDeadlock() // Raise a non-fatal assertion to the crash reporter
+        action() // Continue and hope the user's session won't be corrupted
+    }
+}</code></pre>
  <p>We saw that deadlocking yourself with a <code>DispatchQueue</code> at least will eventually cause the app to crash, but that's not the case with your friendly neighborhood mutexes. If you fall into a deadlock with them, they will do nothing and leave you with a completely unresponsive app. Yikes!</p>
  <p>However, in the case of <code>NSLock</code>, I actually find this to be a good thing. This is because the timeout feature allows you to be smarter and implement your own fallbacks when things don't go as planned; in the case of a potential deadlock, one thing I've done in the past with great success was to report this occurrence to our crash reporter and actually <i>allow the app to proceed</i> as an attempt to not ruin the user's experience with a crash. Note however that the reason why I could gamble on that was that what was being synchronized was purely some innocent client-side logic that doesn't get carried over to the next session. For anything serious and persistent, this would be a horrible thing to do.</p>
  <div class="post-image"> 
@@ -378,37 +364,35 @@
  <p>Despite being the same type of lock as <code>os_unfair_lock</code>, you'll find <code>NSLock</code> to be slightly slower due to the hidden cost of Obj-C's messaging system.</p>
  <h2>NSRecursiveLock</h2>
  <p>If your class is structured in a way where claiming a lock can cause a thread to recursively try to claim it again, you'll need to use a <b>recursive lock</b> to prevent your app from deadlocking. <code>NSRecursiveLock</code> is exactly <code>NSLock</code> but with the additional ability to handle recursion:</p>
- <pre>
-<code>let recursiveLock = NSRecursiveLock()</code>
-<code></code>
-<code>func synchronize(action: () -&gt; Void) {</code>
-<code>    recursiveLock.lock()</code>
-<code>    action()</code>
-<code>    recursiveLock.unlock()</code>
-<code>}</code>
-<code></code>
-<code>func logEntered() {</code>
-<code>    synchronize {</code>
-<code>        print("Entered!")</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>func logExited() {</code>
-<code>    synchronize {</code>
-<code>        print("Exited!")</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>func logLifecycle() {</code>
-<code>    synchronize {</code>
-<code>        logEntered()</code>
-<code>        print("Running!")</code>
-<code>        logExited()</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>logLifecycle() // No crash!</code>
-</pre>
+ <pre><code>let recursiveLock = NSRecursiveLock()
+
+func synchronize(action: () -&gt; Void) {
+    recursiveLock.lock()
+    action()
+    recursiveLock.unlock()
+}
+
+func logEntered() {
+    synchronize {
+        print("Entered!")
+    }
+}
+
+func logExited() {
+    synchronize {
+        print("Exited!")
+    }
+}
+
+func logLifecycle() {
+    synchronize {
+        logEntered()
+        print("Running!")
+        logExited()
+    }
+}
+
+logLifecycle() // No crash!</code></pre>
 <p>While regular locks will cause a deadlock when recursively attempting to claim the lock in the same thread, a recursive lock allows the owner of the lock to repeatedly claim it again. Because of this additional ability, <code>NSRecursiveLock</code> is slightly slower than the normal <code>NSLock</code>.</p>
 <p>Do note however that <b>recursive locks are generally seen as an anti-pattern</b> because they are often used as solutions to problems where the developer doesn't have full control over when/how the lock is acquired, which usually means the system was not designed correctly. Consider whether or not that's your case before introducing a recursive lock in your project.</p>
  <div class="post-image"> 
@@ -416,49 +400,41 @@
  </div>
  <h2>DispatchSemaphore</h2>
  <p>So far we've only looked at the problem of preventing two threads from running conflicting code at the same time, but another very common thread safety issue is when you need one thread to <b>wait</b> until another thread finishes a particular task before it can continue:
-<pre>
-<code>getUserInformation {</code>
-<code>    // Done</code>
-<code>}</code>
-<code></code>
-<code>// Pause the thread until the callback in getUserInformation is called</code>
-<code>print("Did finish fetching user information! Proceeding...")</code>
-</pre> 
+<pre><code>getUserInformation {
+    // Done
+}
+
+// Pause the thread until the callback in getUserInformation is called
+print("Did finish fetching user information! Proceeding...")</code></pre> 
 <p>Although this may sound very similar to a lock, you'll find that you cannot implement such a thing with them. This is because what you're looking for here is the <i>opposite</i> of a lock: instead of claiming a region and preventing other threads from doing so, we want to <b>intentionally</b> block ourselves and wait for a completely different thread to release us. This is what a <b>semaphore</b> is for:</p>
-<pre>
-<code>let semaphore = DispatchSemaphore(value: 0)</code>
-<code></code>
-<code>mySlowAsynchronousTask {</code>
-<code>    semaphore.signal()</code>
-<code>}</code>
-<code></code>
-<code>semaphore.wait()</code>
-<code>print("Did finish fetching user information! Proceeding...")</code>
-</pre>
+<pre><code>let semaphore = DispatchSemaphore(value: 0)
+
+mySlowAsynchronousTask {
+    semaphore.signal()
+}
+
+semaphore.wait()
+print("Did finish fetching user information! Proceeding...")</code></pre>
  <p>The most common example of a semaphore in iOS is <code>DispatchQueue.sync</code> -- we have some code running in another thread, but we want to wait for it to finish before continuing our thread. The example here is exactly what <code>DispatchQueue.sync</code> does, except we're building the semaphore ourselves.</p>
  <p><code>DispatchSemaphore</code> is generally quick and contains the same features that <code>NSLock</code> has. You can additionally use the <code>value</code> property to control the number of threads that are allowed to go through <code>wait()</code> before they're blocked and <code>signal()</code> has to be called; in this case, a value of 0 means that they will always be blocked.</p>
  <h2>DispatchGroup</h2>
  <p>A <code>DispatchGroup</code> is exactly like a <code>DispatchSemaphore</code>, but for <b>groups</b> of tasks. While a semaphore waits for one event, a group can wait for an infinite number of events:</p>
- <pre>
-<code>let group = DispatchGroup()</code>
-<code></code>
-<code>for _ in 0..&lt;6 {</code>
-<code>    group.enter()</code>
-<code>    mySlowAsynchronousTask {</code>
-<code>        group.leave()</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>group.wait()</code>
-<code>print("ALL tasks done!")</code>
-</pre>
+ <pre><code>let group = DispatchGroup()
+
+for _ in 0..&lt;6 {
+    group.enter()
+    mySlowAsynchronousTask {
+        group.leave()
+    }
+}
+
+group.wait()
+print("ALL tasks done!")</code></pre>
  <p>In this case, the thread will only be unlocked when <b>all</b> 6 tasks have finished.</p>
  <p>One really neat feature of <code>DispatchGroups</code> is that you have the additional ability to wait <b>asynchronously</b> by calling <code>group.notify</code>:</p>
- <pre>
-<code>group.notify(queue: .main) {</code>
-<code>    print("ALL tasks done!")</code>
-<code>}</code>
-</pre>
+ <pre><code>group.notify(queue: .main) {
+    print("ALL tasks done!")
+}</code></pre>
  <p>This lets you be notified of the result in a <code>DispatchQueue</code> instead of blocking the thread, which can be extremely useful if you don't need the result synchronously.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Because of the group mechanism, you'll find groups to be usually slower than plain semaphores:</p>

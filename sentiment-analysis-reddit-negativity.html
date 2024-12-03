@@ -209,106 +209,102 @@
 <p>The purpose of the Python script is to connect to Reddit and dump the comments of a subreddit into a JSON file. The script requires <code>praw</code> and a <code>praw.ini</code> file in the project's root named <code>bot</code> with the following Reddit App parameters: <code>client_id</code>, <code>client_secret</code>, and <code>user_agent</code>. See <a href="https://www.geeksforgeeks.org/how-to-get-client_id-and-client_secret-for-python-reddit-api-registration/">here</a> for help with creating a Reddit App and <a href="https://praw.readthedocs.io/en/latest/getting_started/configuration/prawini.html">here</a> for help with praw.</p>
 <p>Make sure to modify the output path of this script before running.</p>
 <p>Usage example: <code>python comments.py getmotivated</code></p>
-<pre>
-<code>import praw</code>
-<code>import sys</code>
-<code>import argparse</code>
-<code></code>
-<code>def parse():</code>
-<code>    print('parsing arguments and options...')</code>
-<code></code>
-<code>    parser = argparse.ArgumentParser(description="Get the comments of a subreddit")</code>
-<code>    parser.add_argument('subreddit', type=str, help='name of subreddit')</code>
-<code></code>
-<code>    return parser.parse_args()</code>
-<code></code>
-<code></code>
-<code>def gather(subreddit):</code>
-<code>    print('searching subreddit for key phrase...')</code>
-<code>    relevant_strings = []</code>
-<code>    print('gathering texts for analysis...')</code>
-<code>    try:</code>
-<code>        for submission in subreddit.hot(limit=10):</code>
-<code>            print('...')</code>
-<code>            if submission.selftext:</code>
-<code>                relevant_strings.append(str(submission.selftext))</code>
-<code>            for comment in submission.comments.list():</code>
-<code>                if isinstance(comment, praw.models.MoreComments):</code>
-<code>                    continue</code>
-<code>                relevant_strings.append(str(comment.body))</code>
-<code>        if len(relevant_strings) == 0:</code>
-<code>            raise Exception</code>
-<code>        return relevant_strings</code>
-<code>    except:</code>
-<code>        sys.exit('ERROR: No posts were found for the provided subreddit and key phrase.')</code>
-<code></code>
-<code></code>
-<code>args = parse()</code>
-<code>subreddit_str = args.subreddit</code>
-<code></code>
-<code>print('establishing reddit instance...')</code>
-<code></code>
-<code>try:</code>
-<code>    reddit = praw.Reddit("bot")</code>
-<code>except:</code>
-<code>    sys.exit('ERROR: Failed to establish a reddit instance. Have you correctly set up your praw.ini file? See README.md for more detail.')</code>
-<code></code>
-<code>print('connecting to subreddit...')</code>
-<code>subreddit = reddit.subreddit(subreddit_str)</code>
-<code></code>
-<code># Get user inputs to analyze</code>
-<code>relevant_strings = gather(subreddit)</code>
-<code></code>
-<code>joined = "||aa||aa||aa||aa||".join(relevant_strings)</code>
-<code></code>
-<code>#open text file</code>
-<code>text_file = open("~/Desktop/r"+subreddit_str+".json", "w")</code>
-<code> </code>
-<code>#write string to file</code>
-<code>text_file.write(joined)</code>
-<code> </code>
-<code>#close file</code>
-<code>text_file.close()</code>
-</pre>
+<pre><code>import praw
+import sys
+import argparse
+
+def parse():
+    print('parsing arguments and options...')
+
+    parser = argparse.ArgumentParser(description="Get the comments of a subreddit")
+    parser.add_argument('subreddit', type=str, help='name of subreddit')
+
+    return parser.parse_args()
+
+
+def gather(subreddit):
+    print('searching subreddit for key phrase...')
+    relevant_strings = []
+    print('gathering texts for analysis...')
+    try:
+        for submission in subreddit.hot(limit=10):
+            print('...')
+            if submission.selftext:
+                relevant_strings.append(str(submission.selftext))
+            for comment in submission.comments.list():
+                if isinstance(comment, praw.models.MoreComments):
+                    continue
+                relevant_strings.append(str(comment.body))
+        if len(relevant_strings) == 0:
+            raise Exception
+        return relevant_strings
+    except:
+        sys.exit('ERROR: No posts were found for the provided subreddit and key phrase.')
+
+
+args = parse()
+subreddit_str = args.subreddit
+
+print('establishing reddit instance...')
+
+try:
+    reddit = praw.Reddit("bot")
+except:
+    sys.exit('ERROR: Failed to establish a reddit instance. Have you correctly set up your praw.ini file? See README.md for more detail.')
+
+print('connecting to subreddit...')
+subreddit = reddit.subreddit(subreddit_str)
+
+# Get user inputs to analyze
+relevant_strings = gather(subreddit)
+
+joined = "||aa||aa||aa||aa||".join(relevant_strings)
+
+#open text file
+text_file = open("~/Desktop/r"+subreddit_str+".json", "w")
+ 
+#write string to file
+text_file.write(joined)
+ 
+#close file
+text_file.close()</code></pre>
 <h3>Swift</h3>
 <p>The Swift part of the script loads the json files dumped by the Python script and runs them through iOS's <code>NSTagger</code>. Make sure to modify the input path and subreddits in the script to the subreddits you're analyzing.</p>
-<pre>
-<code>import Foundation</code>
-<code>import NaturalLanguage</code>
-<code></code>
-<code>let subreddits = ["gaming", "wholesomememes", "funny", "technology", "eyebleach", "dogswithjobs", "aww", "comedyheaven", "iamatotalpieceofshit", "mildlyinteresting", "mildlyinfuriating", "upliftingnews", "politics", "mademesmile", "interestingasfuck", "memes", "science", "animalsbeingbros", "askreddit", "relationships", "happy", "getmotivated", "rarepuppers"]</code>
-<code></code>
-<code>for sub in subreddits {</code>
-<code></code>
-<code>    let str = try! String(contentsOfFile: "~/Desktop/r\(sub).json")</code>
-<code>    let arr = str.components(separatedBy: "||aa||aa||aa||aa||")</code>
-<code></code>
-<code>    var negative: Double = 0</code>
-<code>    var neutral: Double = 0</code>
-<code>    var positive: Double = 0</code>
-<code>    for input in arr {</code>
-<code>        let tagger = NLTagger(tagSchemes: [.sentimentScore])</code>
-<code>        tagger.string = input</code>
-<code>        let (sentiment, _) = tagger.tag(at: input.startIndex, unit: .paragraph, scheme: .sentimentScore)</code>
-<code>        let score = Double(sentiment?.rawValue ?? "0") ?? 0</code>
-<code>        if score > 0.5 {</code>
-<code>            positive += 1</code>
-<code>        } else if score < -0.5 {</code>
-<code>            negative += 1</code>
-<code>        } else {</code>
-<code>            neutral += 1</code>
-<code>        }</code>
-<code>    }</code>
-<code></code>
-<code>    let total = negative + neutral + positive</code>
-<code></code>
-<code>    print(sub.capitalized)</code>
-<code>    print(negative / total * 100)</code>
-<code>    print(neutral / total * 100)</code>
-<code>    print(positive / total * 100)</code>
-<code></code>
-<code>}</code>
-</pre>
+<pre><code>import Foundation
+import NaturalLanguage
+
+let subreddits = ["gaming", "wholesomememes", "funny", "technology", "eyebleach", "dogswithjobs", "aww", "comedyheaven", "iamatotalpieceofshit", "mildlyinteresting", "mildlyinfuriating", "upliftingnews", "politics", "mademesmile", "interestingasfuck", "memes", "science", "animalsbeingbros", "askreddit", "relationships", "happy", "getmotivated", "rarepuppers"]
+
+for sub in subreddits {
+
+    let str = try! String(contentsOfFile: "~/Desktop/r\(sub).json")
+    let arr = str.components(separatedBy: "||aa||aa||aa||aa||")
+
+    var negative: Double = 0
+    var neutral: Double = 0
+    var positive: Double = 0
+    for input in arr {
+        let tagger = NLTagger(tagSchemes: [.sentimentScore])
+        tagger.string = input
+        let (sentiment, _) = tagger.tag(at: input.startIndex, unit: .paragraph, scheme: .sentimentScore)
+        let score = Double(sentiment?.rawValue ?? "0") ?? 0
+        if score > 0.5 {
+            positive += 1
+        } else if score < -0.5 {
+            negative += 1
+        } else {
+            neutral += 1
+        }
+    }
+
+    let total = negative + neutral + positive
+
+    print(sub.capitalized)
+    print(negative / total * 100)
+    print(neutral / total * 100)
+    print(positive / total * 100)
+
+}</code></pre>
 </div>
 </div>
                               

@@ -228,63 +228,49 @@
  </div>
  <p>"Interface" modules don't contain any concrete code or dependencies -- they just contain protocols that are used by the modules that depend on it to reference some piece of code that is defined in the real, concrete module.</p>
  <p>For example, assuming that <code>AppFeature1</code> wants to push a <code>UIViewController</code> that lives in <code>AppFeature2</code>, instead of having <code>AppFeature1</code> depend on <code>AppFeature2</code> and directly reference such <code>UIViewController</code>, we can have it depend on a hypothetical <code>AppFeature2Interface</code> module that has a protocol that serves no purpose but to expose the existence of that view to <code>AppFeature1</code>:</p>
- <pre>
-<code>protocol Feature2ViewProtocol {}</code>
-</pre>
+ <pre><code>protocol Feature2ViewProtocol {}</code></pre>
  <p><code>AppFeature2</code> can then implement this protocol into the related, concrete <code>UIViewController</code>:</p>
- <pre>
-<code>import AppFeature2Interface</code>
-<code>class Feature2ViewController: UIViewController, Feature2ViewProtocol</code>
-</pre>
+ <pre><code>import AppFeature2Interface
+class Feature2ViewController: UIViewController, Feature2ViewProtocol</code></pre>
  <p>With this setup, <code>AppFeature1</code> can now reference <code>AppFeature2's</code> <code>UIViewController</code> without actually importing it:</p>
- <pre>
-<code>import AppFeature2Interface</code>
-<code>let viewTypeToBePushed = Feature2ViewProtocol.self</code>
-</pre>
+ <pre><code>import AppFeature2Interface
+let viewTypeToBePushed = Feature2ViewProtocol.self</code></pre>
  <p>While <code>AppFeature1</code> still imports the interface itself, its size is considerably smaller than the actual feature's module, while the final result (getting a view to be pushed) is the same. <code>AppFeature1</code> now imports only what it really needs, making so it will only be recompiled by changes that actually affect it. </p>
  <p>However, there's a small catch. You might notice that this example doesn't make sense: While <code>AppFeature1</code> has access to the protocol that references <code>AppFeature2's</code> <code>UIViewController</code>, it can't actually push it. If we only have access to the bare <code>protocol</code>, we are unable to create an instance of the concrete <code>class</code> that only exists in <code>AppFeature2</code>.</p>
  <p>This is because we're missing a key component in this structure: <b>a dependency injector.</b> In an app like this, because there's no way for modules to reference the concrete information from other modules, there needs to be a global system that is capable of returning the (now hidden) concrete information to modules when a certain protocol is given. At iFood, we solved this by creating a dependency injector called <code>RouterService</code> -- here, each feature's module's interface only exposes a series of <code>Route</code> structs, while each feature's concrete module connects these <code>Routes</code> to the related <code>UIViewController</code>.</p>
  <p>With this information exposed, iFood's AppDelegate creates an instance of a <code>RouterService</code> which receives every feature's routes and related <code>UIViewControllers</code>. When a feature asks for a specific <code>Route</code> from another feature's interface to be executed, the <code>RouterService</code> automatically locates which <code>UIViewController</code> should be pushed. The process to create something like was detailed in my previous article, <a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift">Using Type Erasure to Build a Dependency Injecting Routing Framework in Swift.</a> Here's a simplified example of how the previous example looks like in our app:</p>
- <pre>
-<code>// AppFeature2Interface, which depends on RouterServiceInterface</code>
-<code>public struct Feature2Route: Route { ... }</code>
-</pre>
- <pre>
-<code>// AppFeature2</code>
-<code>import AppFeature2Interface</code>
-<code></code>
-<code>class Feature2ViewController: Feature { ... }</code>
-<code></code>
-<code>public class Feature2RouteHandler: RouteHandler { </code>
-<code>    var routes: [Route.Type] {</code>
-<code>        return [Feature2Route.self]</code>
-<code>    }</code>
-<code></code>
-<code>    func featureFor(route: Route) -&gt; AnyFeature {</code>
-<code>        return AnyFeature(Feature2ViewController.self)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
- <pre>
-<code>// iFood's AppDelegate</code>
-<code>import AppFeature1</code>
-<code>import AppFeature2</code>
-<code></code>
-<code>let routerService = RouterService()</code>
-<code>routerService.register(Feature1RouteHandler())</code>
-<code>routerService.register(Feature2RouteHandler())</code>
-<code>routerService.start(fromRoute: Feature1Route.self)</code>
-</pre>
- <pre>
-<code>// AppFeature1</code>
-<code>import AppFeature2Interface</code>
-<code></code>
-<code>func goToFeature2() {</code>
-<code>    routerService.navigate(toRoute: Feature2Route())</code>
-<code>    // RouterService translates Feature2Route into the actual Feature2ViewController</code>
-<code>    // and pushes the related UIViewController.</code>
-<code>}</code>
-</pre>
+ <pre><code>// AppFeature2Interface, which depends on RouterServiceInterface
+public struct Feature2Route: Route { ... }</code></pre>
+ <pre><code>// AppFeature2
+import AppFeature2Interface
+
+class Feature2ViewController: Feature { ... }
+
+public class Feature2RouteHandler: RouteHandler { 
+    var routes: [Route.Type] {
+        return [Feature2Route.self]
+    }
+
+    func featureFor(route: Route) -&gt; AnyFeature {
+        return AnyFeature(Feature2ViewController.self)
+    }
+}</code></pre>
+ <pre><code>// iFood's AppDelegate
+import AppFeature1
+import AppFeature2
+
+let routerService = RouterService()
+routerService.register(Feature1RouteHandler())
+routerService.register(Feature2RouteHandler())
+routerService.start(fromRoute: Feature1Route.self)</code></pre>
+ <pre><code>// AppFeature1
+import AppFeature2Interface
+
+func goToFeature2() {
+    routerService.navigate(toRoute: Feature2Route())
+    // RouterService translates Feature2Route into the actual Feature2ViewController
+    // and pushes the related UIViewController.
+}</code></pre>
  <p>In terms of build time, because <code>AppFeature1</code> doesn't depend on <code>AppFeature2</code> anymore, changes to <code>AppFeature2</code> will <b>not</b> recompile <code>AppFeature1</code>. If you had multiple modules depending on each other, an app that runs entirely on this structure will provide a massive boost in build performance!</p>
  <p>As a bonus, this structure can be applied to everything that can be injected. Using the previous complete diagram as an example, we could also add an interface to the <code>HTTPClient</code> that contains only the protocol that defines how requests are made. This allows modules to only reference this protocol, while the dependency injector becomes responsible for injecting the actual concrete class into the modules that reference such protocol. In the end, we can end up with the following diagram:</p>
  <div class="post-image margin-top-40 margin-bottom-40" style="text-align: center;"> 

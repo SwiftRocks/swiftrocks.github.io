@@ -209,67 +209,63 @@
 <p>The <code>engine:willBreakConstraint:dueToMutuallyExclusiveConstraints:</code> private method does nothing but to call the relevant C function, making it a perfect swizzling candidate.</p>
 <h2>Swizzling in Swift</h2>
 <p>To swizzle this method, I've decided to create a central "interception" object that would bootstrap the swizzling and listen for any broken constraints in the form of a notification. This is because the method above is inside <code>UIView</code>, so notifications work as an easy way to transmit that information somewhere else.</p>
-<pre>
-<code>import Foundation</code>
-<code>import UIKit</code>
-<code></code>
-<code>extension Notification.Name {</code>
-<code>    static let willBreakConstraint = Notification.Name(</code>
-<code>        rawValue: "NSISEngineWillBreakConstraint"</code>
-<code>    )</code>
-<code>}</code>
-<code></code>
-<code>final class ConstraintWarningCatcher {</code>
-<code></code>
-<code>    func startListening() {</code>
-<code>        // Note: Only call this **once**!</code>
-<code>        let sel = NSSelectorFromString("engine:willBreakConstraint:dueToMutuallyExclusiveConstraints:")</code>
-<code>        let method = class_getInstanceMethod(UIView.self, sel)!</code>
-<code>        let impl = method_getImplementation(method)</code>
-<code></code>
-<code>        let replSel = #selector(UIView.willBreakConstraint(_:_:_:))</code>
-<code>        let replMethod = class_getInstanceMethod(UIView.self, replSel)!</code>
-<code>        let replImpl = method_getImplementation(replMethod)</code>
-<code></code>
-<code>        class_replaceMethod(UIView.self, sel, replImpl, method_getTypeEncoding(replImpl))</code>
-<code>        class_replaceMethod(UIView.self, replSel, impl, method_getTypeEncoding(impl))</code>
-<code></code>
-<code>        NotificationCenter.default.addObserver(</code>
-<code>            self,</code>
-<code>            selector: #selector(didReceiveBrokenConstraintNotification),</code>
-<code>            name: .willBreakConstraint,</code>
-<code>            object: nil</code>
-<code>        )</code>
-<code>    }</code>
-<code></code>
-<code>    @objc func didReceiveBrokenConstraintNotification(notification: NSNotification) {</code>
-<code>        guard let constraint = notification.object as? NSLayoutConstraint else {</code>
-<code>            return</code>
-<code>        }</code>
-<code>        // do something with this information</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>extension UIView {</code>
-<code>    @objc func willBreakConstraint(_ engine: Any, _ constraint: NSLayoutConstraint, _ conflict: Any) {</code>
-<code>        willBreakConstraint(engine, constraint, conflict) // swizzled, will call original impl instead</code>
-<code>        NotificationCenter.default.post(</code>
-<code>            name: .willBreakConstraint,</code>
-<code>            object: constraint</code>
-<code>        )</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+<pre><code>import Foundation
+import UIKit
+
+extension Notification.Name {
+    static let willBreakConstraint = Notification.Name(
+        rawValue: "NSISEngineWillBreakConstraint"
+    )
+}
+
+final class ConstraintWarningCatcher {
+
+    func startListening() {
+        // Note: Only call this **once**!
+        let sel = NSSelectorFromString("engine:willBreakConstraint:dueToMutuallyExclusiveConstraints:")
+        let method = class_getInstanceMethod(UIView.self, sel)!
+        let impl = method_getImplementation(method)
+
+        let replSel = #selector(UIView.willBreakConstraint(_:_:_:))
+        let replMethod = class_getInstanceMethod(UIView.self, replSel)!
+        let replImpl = method_getImplementation(replMethod)
+
+        class_replaceMethod(UIView.self, sel, replImpl, method_getTypeEncoding(replImpl))
+        class_replaceMethod(UIView.self, replSel, impl, method_getTypeEncoding(impl))
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didReceiveBrokenConstraintNotification),
+            name: .willBreakConstraint,
+            object: nil
+        )
+    }
+
+    @objc func didReceiveBrokenConstraintNotification(notification: NSNotification) {
+        guard let constraint = notification.object as? NSLayoutConstraint else {
+            return
+        }
+        // do something with this information
+    }
+}
+
+extension UIView {
+    @objc func willBreakConstraint(_ engine: Any, _ constraint: NSLayoutConstraint, _ conflict: Any) {
+        willBreakConstraint(engine, constraint, conflict) // swizzled, will call original impl instead
+        NotificationCenter.default.post(
+            name: .willBreakConstraint,
+            object: constraint
+        )
+    }
+}</code></pre>
 <p>From here, you can keep an instance of <code>ConstraintWarningCatcher</code> alive and start the observation. When a constraint breaks, the instance will receive a notification.</p>
-<pre>
-<code>let catcher = ConstraintWarningCatcher()</code>
-<code>catcher.startListening()</code>
-<code></code>
-<code>let v = UIView()</code>
-<code>v.heightAnchor.constraint(equalToConstant: 50).isActive = true</code>
-<code>v.heightAnchor.constraint(equalToConstant: 100).isActive = true</code>
-<code>view.addSubview(v) // A constraint will break and the catcher will be notified</code>
-</pre>
+<pre><code>let catcher = ConstraintWarningCatcher()
+catcher.startListening()
+
+let v = UIView()
+v.heightAnchor.constraint(equalToConstant: 50).isActive = true
+v.heightAnchor.constraint(equalToConstant: 100).isActive = true
+view.addSubview(v) // A constraint will break and the catcher will be notified</code></pre>
 <p><b>An important note to be made is that you should never push code involving private APIs to production.</b> In the event that Apple doesn't reject your app (they probably will), there's nothing guaranteeing that Apple won't change how this API works, which could have immediate and devastating effects in your app. Keep this only in your debug builds.</p>
 <h2>What can you use this for?</h2>
 <div class="sponsor-article-ad-auto hidden"></div>

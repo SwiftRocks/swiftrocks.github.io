@@ -186,7 +186,7 @@
  <p>The choice between using Storyboards and writing views programmatically is very subjetive. Having dealt with both in the past, I personally vouch for writing projects entirely through view code as it allows multiple people to work in the same class without nasty conflicts, and easier code reviews.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>When starting with the practice of writing views programatically, a common problem people face is <i>where</i> to put the code in the first place. If you follow the regular storyboard approach of putting everything view related in your view controller, it's very easy to end up with a giant god class:</p>
- <pre class="language-swift"><code class="language-swift">final class MyViewController: UIViewController {
+ <pre class="language-swift"><code><code class="language-swift">final class MyViewController: UIViewController {
     private let myButton: UIButton = {
     	//
     }()
@@ -223,10 +223,9 @@
   	//All ViewModel logic
   
   	//All the button clicking logic and stuff...
-}
-</code></pre>
+}</code></pre>
  <p>You can make this better by moving the views to a different file and adding a reference back to the View Controller, but you'll still have to fill your View Controller with things that are not supposed to be in it, such as constraint code and other forms of view setup - not to mention you now have two different view properties (<code>myView</code> and the native <code>view</code>) in it for no good reason:</p>
- <pre class="language-swift"><code class="language-swift">final class MyViewController: UIViewController {
+ <pre class="language-swift"><code><code class="language-swift">final class MyViewController: UIViewController {
     
 	let myView = MyView()
   
@@ -241,13 +240,12 @@
     	myView.delegate = self
     	//We now have both 'view' and 'myView'...
     }
-}
-</code></pre>
+}</code></pre>
  <p>Giant View Controllers and View Controllers that know <i>too much</i> are very difficult to maintain and scale. In architectures like MVVM, the View Controller should act mostly as a router between the View itself and the View Model - it's not its job to know how to setup the views or constrain them, it should merely <b>route</b> information back and forth.</p>
  <p>In a View Code project where most of the code are the views themselves, it's very important to have a clear separation of responsibilities between the aspects of your architecture in order to have a maintainable project. You want your actual view code to be completely separate from your View Controller - and fortunately, there is a very simple way to override the original <code>view</code> property of an <code>UIViewController</code>, allowing you to maintain separate files for your views while still making sure your view controller doesn't have to do any kind of view setup.</p>
  <h2>loadView()</h2>
  <p><code>loadView()</code> is an <code>UIViewController</code> method that you don't see very often, but it is very important to a view controller's lifecycle since it is responsible for making the <code>view</code> property exist in the first place. When using Storyboards, this is the method that will load your nib and attach it to the <code>view</code>, but when instantiating view controllers manually, all this method does is create an empty <code>UIView</code>. You can override it to change this behaviour and add any kind of view to the view controller's <code>view</code> property.</p>
- <pre class="language-swift"><code class="language-swift">final class MyViewController: UIViewController {
+ <pre class="language-swift"><code><code class="language-swift">final class MyViewController: UIViewController {
 	override func loadView() {
 	    let myView = MyView()
 	    myView.delegate = self
@@ -258,18 +256,16 @@
         super.viewDidLoad()
 		print(view) // a MyView instance
 	}
-}
-</code></pre>
+}</code></pre>
  <p>Notice that <code>view</code> will automatically constrain itself to the edges of the View Controller, so no constraints are needed for the outer <code>myView</code>!</p>
  <p>Now, <code>view</code> is a reference to my custom view (<code>MyView</code> in this case). You can build the entire functionality of the view inside its own separate file without the View Controller having to know anything about it. Nice!</p>
  <p>To access the contents of <code>MyView</code>, you can cast <code>view</code> to your custom type:</p>
- <pre class="language-swift"><code class="language-swift">var myView: MyView {
+ <pre class="language-swift"><code><code class="language-swift">var myView: MyView {
     return view as! MyView
-}
-</code></pre>
+}</code></pre>
  <p>This looks a bit weird, but it's because <code>view</code> will still be defined as an <code>UIView</code> regardless of the type you change it for.</p>
  <p>To avoid duplicating this code across my View Controllers, I like defining this behaviour inside a <code>CustomView</code> protocol with an associated type requirement:</p>
- <pre class="language-swift"><code class="language-swift">/// The HasCustomView protocol defines a customView property for UIViewControllers to be used in exchange of the regular view property.
+ <pre class="language-swift"><code><code class="language-swift">/// The HasCustomView protocol defines a customView property for UIViewControllers to be used in exchange of the regular view property.
 /// In order for this to work, you have to provide a custom view to your UIViewController at the loadView() method.
 public protocol HasCustomView {
     associatedtype CustomView: UIView
@@ -283,10 +279,9 @@ extension HasCustomView where Self: UIViewController {
         }
         return customView
     }
-}
-</code></pre>
+}</code></pre>
  <p>Which results in:</p>
- <pre class="language-swift"><code class="language-swift">final class MyViewController: UIViewController, HasCustomView {
+ <pre class="language-swift"><code><code class="language-swift">final class MyViewController: UIViewController, HasCustomView {
 	typealias CustomView = MyView
 
 	override func loadView() {
@@ -299,10 +294,9 @@ extension HasCustomView where Self: UIViewController {
     	super.viewDidLoad()
     	customView.render() //some MyView method
 	}
-}
-</code></pre>
+}</code></pre>
  <p>If defining this <code>CustomView</code> typealias every time is something that would bother you, you can go further and define this behaviour inside a generic class: </p>
- <pre class="language-swift"><code class="language-swift">class CustomViewController&lt;CustomView: UIView&gt;: UIViewController {
+ <pre class="language-swift"><code><code class="language-swift">class CustomViewController&lt;CustomView: UIView&gt;: UIViewController {
     var customView: CustomView {
         return view as! CustomView //Will never fail as we're overriding 'view'
     }
@@ -317,8 +311,7 @@ final class MyViewController: CustomViewController&lt;MyView&gt; {
 		super.loadView()
 	    customView.delegate = self
     }
-}
-</code></pre>
+}</code></pre>
  <p>I personally don't like the generic approach because the compiler doesn't allow generic classes to have extensions with <code>@objc</code> methods, which forbids you from having protocols like <code>UITableViewDataSource</code> in extensions. However, it allows you to skip overriding <code>loadView()</code> unless something special needs to be done (like setting delegates), which really helps keep your View Controllers clean.</p>
  <h2>Conclusion</h2>
  <div class="sponsor-article-ad-auto hidden"></div>

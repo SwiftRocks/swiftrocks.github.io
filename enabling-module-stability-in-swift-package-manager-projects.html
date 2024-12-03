@@ -199,9 +199,7 @@
   <li>-enable-library-evolution</li> 
 </ul>
 <p>For SPM, you can do it by passing <code>Xswiftc</code> flags like this:</p>
-<pre>
-<code>swift build -c release -Xswiftc -emit-module-interface -Xswiftc -enable-library-evolution</code>
-</pre>
+<pre><code>swift build -c release -Xswiftc -emit-module-interface -Xswiftc -enable-library-evolution</code></pre>
 <p>This will result in a series of <code>.swiftinterface</code> files being generated, which you need ship alongside the binary.</p>
 <h2>Library Evolution Implications</h2>
 <p>While this is straight-forward, enabling module stability / library evolution means you now need to be careful about how you make changes to your library. Because clients can now technically swap versions of your framework without being recompiled, you cannot introduce binary breaking changes in future updates. The compiler has features to assist you with this, so you'll know exactly when this happens.</p>
@@ -209,9 +207,7 @@
 <h2>Module Stability Limitations</h2>
 <p>If you enable module stability, you need to make sure you don't have types with the same name as your module. Basically, interface files will reference types with the qualified format <code>Module.Type</code>, which you can't do in Swift if they have the same name. This is a limitation of the compiler that has not yet been resolved, <a href="https://forums.swift.org/t/frameworkname-is-not-a-member-type-of-frameworkname-errors-inside-swiftinterface/28962">and you can read more about it here.</a>
 <p>One way to workaround this is to modify the <code>.swiftinterface</code> file after compiling the framework to remove all broken module references. My colleague André Alves added the following script to solve this in SwiftInfo, which depends on a framework called <code>XcodeProj</code> that has this issue:</p>
-<pre>
-<code>sed -i '' 's/XcodeProj\.//g' XcodeProj.swiftinterface</code>
-</pre>
+<pre><code>sed -i '' 's/XcodeProj\.//g' XcodeProj.swiftinterface</code></pre>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>Essentially, this transforms references to <code>XcodeProj.XcodeProj</code> into <code>XcodeProj</code>, countering the limitation.</p>
 </div>

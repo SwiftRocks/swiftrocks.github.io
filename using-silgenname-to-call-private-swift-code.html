@@ -185,58 +185,44 @@
 <blockquote>Disclaimer: The trick I'm going to show here is quite powerful, but like every other underscored attribute in Swift, this is something you should avoid messing with unless you know exactly what you're doing. There are lots of pitfalls attached to these attributes, and the behavior of underscored attributes can change at any time and even stop existing entirely without warning. Don't go around sprinkling this in your projects if you don't fully understand the consequences of doing so!</blockquote>
 <p>Swift is regarded for its type safety, meaning the compiler (usually) doesn't allow you to reference or do things that might potentially not exist / be invalid; the complete opposite of languages like Obj-C where the compiler allows you to do pretty much whatever you want in exchange for compile-time safety.</p>
 <p>But here's an obscure fact about Swift: The language <i>does</i> support ObjC-like <code>Selectors</code> / forward declarations, it's just that we're not supposed to use it. If you know how a function is going to be named in the compiled binary, you can use the <code>@_silgen_name</code> attribute to craft a <b>direct reference</b> to that function, allowing a module to reference and call it regardless of whether or not it actually has "visibility" of it:</p>
-<pre>
-<code>@_silgen_name("somePrivateFunctionSomewhereThatICantSee")</code>
-<code>func refToThatFuncIReallyWantToCall()</code>
-<code></code>
-<code>func foo() {</code>
-<code>    refToThatFuncIReallyWantToCall() // Just called something I wasn't suposed to be able to!</code>
-<code>}</code>
-</pre>
+<pre><code>@_silgen_name("somePrivateFunctionSomewhereThatICantSee")
+func refToThatFuncIReallyWantToCall()
+
+func foo() {
+    refToThatFuncIReallyWantToCall() // Just called something I wasn't suposed to be able to!
+}</code></pre>
 <p>This is used extensively by the Swift standard library to create something akin to the old-school <b>forward declarations</b> in Obj-C / C, allowing it to call functions that live deeper in the Swift Runtime even though it shouldn't be able to. As denoted by the underscore, this is <b>not</b> an official feature of Swift, but rather an internal detail of the compiler that <b>is not meant to be used outside of this specific internal case.</b> Nonetheless, you <i>can</i> use it in your regular Swift apps, so if you know what you're doing and is aware of the consequences / implications, you can do some pretty neat stuff with it.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <h2><code>@_silgen_name</code> and symbol mangling</h2>
 <p>Since Swift has namespacing features, the names you give to your Swift functions are not actually what they will be called in the compiled binary. To prevent naming collisions, Swift injects a bunch of context-specific information into a function's symbol that allows it to differentiate it from other functions in the app that might have the same name, in a process referred to as <b>symbol mangling</b>:</p>
-<pre>
-<code>// Module name: MyLib</code>
-<code>func myFunc() { print("foo") }</code>
-</pre>
-<pre class="command-line language-bash" data-host="SwiftRocks">
-<code>swiftc -emit-library -module-name MyLib test.swift</code>
-<code>nm libMyLib.dylib</code>
-<code># MyLib.myFunc()'s "real" name is:</code>
-<code>$s5MyLib6myFuncyyF</code>
-</pre>
+<pre><code>// Module name: MyLib
+func myFunc() { print("foo") }</code></pre>
+<pre class="command-line language-bash" data-output="3-4"><code>swiftc -emit-library
+nm libMyLib.dylib
+MyLib.myFunc()'s "real" name is:
+$s5MyLib6myFuncyyF</code></pre>
 <p>What <code>@_silgen_name</code> does under the hood is <b>override a function's mangled symbol</b> with something of your choosing, giving us the ability to reference functions in ways that Swift generally wouldn't allow us to (which I'll show further below).</p>
 <p>The attribute can be used in two ways: to override the symbol of a declaration and to override the symbol of a <i>reference</i> to a declaration. When added to a <b>declaration</b>, as in, a function with a body, the attribute overrides that function's mangled name with whatever it is that you passed to the attribute:</p>
-<pre>
-<code>@_silgen_name("myCustomMangledName")</code>
-<code>func myFunc() { print("foo") }</code>
-</pre>
-<pre class="command-line language-bash" data-host="SwiftRocks">
-<code>swiftc -emit-library -module-name MyLib test.swift</code>
-<code>nm libMyLib.dylib</code>
-<code># MyLib.myFunc()'s name now is:</code>
-<code>myCustomMangledName</code>
-</pre>
+<pre><code>@_silgen_name("myCustomMangledName")
+func myFunc() { print("foo") }</code></pre>
+<pre class="command-line language-bash" data-output="3-4"><code>swiftc -emit-library -module-name MyLib test.swift
+nm libMyLib.dylib
+MyLib.myFunc()'s name now is:
+myCustomMangledName</code></pre>
 <p>This is interesting, but what we truly care about here is what happens when you add it to a function that <b>doesn't</b> have a body. This would usually be invalid Swift code, but because we've added <code>@_silgen_name</code> to it, the compiler will treat it as valid code and assume that this function is <i>somehow</i> being declared somewhere else under the name we passed to the attribute, effectively <b>allowing us to build forward declarations in pure Swift:</b></p>
-<pre>
-<code>@_silgen_name("$s5MyLib6myFuncyyF")</code>
-<code>func referenceToMyFunc()</code>
-<code></code>
-<code>func foo() {</code>
-<code>    // Successfully compiles and calls MyLib.myFunc(), even though</code>
-<code>    // this module doesn't actually import the MyLib module</code>
-<code>    // that defines myFunc()</code>
-<code>    referenceToMyFunc()</code>
-<code>}</code>
-</pre>
+<pre><code>@_silgen_name("$s5MyLib6myFuncyyF")
+func referenceToMyFunc()
+
+func foo() {
+    // Successfully compiles and calls MyLib.myFunc(), even though
+    // this module doesn't actually import the MyLib module
+    // that defines myFunc()
+    referenceToMyFunc()
+}</code></pre>
 <p>(This only works if the "target" is a free function, so for things like a class's static functions you'll need to first define a function that wraps them.)</p>
 <p>Now, it should be noted that knowing a Swift function's mangled name in advance (<code>$s5MyLib6myFuncyyF</code>, in the above example) is not straight-forward as the compiler doesn't expose an easy way of predicting what these values will be, but we can fix this by using <code>@_silgen_name</code> on the declaration itself in order to modify it to something that we know and is under our control, like in the previous example where we replaced it with <code>"myCustomMangledName"</code>. Note that you only need to worry about this when referencing Swift functions; For Obj-C / C, a function's "mangled name" will be the function's actual name as those languages have no namespacing features.</p>
-<pre>
-<code>@_silgen_name("myCustomMangledName")</code>
-<code>func referenceToFooMyFunc()</code>
-</pre>
+<pre><code>@_silgen_name("myCustomMangledName")
+func referenceToFooMyFunc()</code></pre>
 <p>It's critical to note that this is extremely <b>unsafe</b> by Swift compiler standards as it sidesteps any and every type safety check that would normally apply here. <b>The compiler will not run any validations here</b>; it will instead completely trust that you know <i>exactly</i> what you're doing, that somehow these functions will exist in runtime even though this doesn't seem to be the case during compilation, that any custom names you're using are unique and not causing any potential conflicts with other parts of the codebase, and that whatever parameters you're passing to the forward-declared functions are correct and managed properly memory-wise (if your target is a C function, you need to do manual memory management with <code>Unmanaged&lt;T></code>).</p>
 <p>If everything is done correctly, you just got yourself a nice forward-declared function, but if not, you'll experience undefined behavior. You <i>do</i> get a compile-time linker error though if the functions don't exist at all, which is pretty handy as I've noticed that in addition to all of the above concerns, the compiler also may sometimes accidentally tag these functions as "unused" depending on how you declare them, causing them to be stripped out of the compiled binary when they should not. I am sure that there are way more things that can go wrong here that I'm not aware of.</p>
 <h2>Cool, but why?</h2>
@@ -244,30 +230,26 @@
 <h3>Trading safety for better build times</h3>
 <p>The second one however, which is what I have been using this for, is that when applied strategically, you can use this attribute to <b>greatly improve your app's incremental build times.</b></p>
 <p>Let's assume that we're developers of a large modularized Swift app that has some sort of type safe dependency injection mechanism to pass values around. For this mechanism to work, we might end up with a "central" registry of dependencies that imports every module and configures every possible dependency these modules might request:</p>
-<pre>
-<code>import MyDepAImplModule</code>
-<code>import MyDepBImplModule</code>
-<code>import MyDepCImplModule</code>
-<code>...</code>
-<code></code>
-<code>func setupRegistry() {</code>
-<code>    myRegistry.register(MyDepA(), forType: MyDepAProtocol.self)</code>
-<code>    myRegistry.register(MyDepB(</code>
-<code>        depA: myRegistry.depA,</code>
-<code>    ), forType: MyDepBProtocol.self)</code>
-<code>    myRegistry.register(MyDepC(</code>
-<code>        depA: myRegistry.depA,</code>
-<code>        depB: myRegistry.depB,</code>
-<code>    ), forType: MyDepCProtocol.self)</code>
-<code>}</code>
-</pre>
+<pre><code>import MyDepAImplModule
+import MyDepBImplModule
+import MyDepCImplModule
+...
+
+func setupRegistry() {
+    myRegistry.register(MyDepA(), forType: MyDepAProtocol.self)
+    myRegistry.register(MyDepB(
+        depA: myRegistry.depA,
+    ), forType: MyDepBProtocol.self)
+    myRegistry.register(MyDepC(
+        depA: myRegistry.depA,
+        depB: myRegistry.depB,
+    ), forType: MyDepCProtocol.self)
+}</code></pre>
 <p>Something like this allows us to have a nice and safe system where features are unable to declare dependencies that don't exist, but it will come at the cost of <b>increased incremental build times.</b> Importing all modules like this will cause this module to be constantly invalidated, and the bigger your project gets, the worse this problem will get. In my personal experience, projects with a setup like this and with several hundred modules can easily end up with a massive <b>10~60 seconds delay</b> to incremental builds, depending on the number of modules and how slow your machine is.</p>
 <p>However, by using forward-declared <code>@_silgen_name</code> references to a function that wraps the initializers instead of referencing these initializers directly, we can achieve the same injection behavior <b>without having to import any of the modules that define said initializers!</b></p>
-<pre>
-<code>@_silgen_name("myDepAInitializer") func makeMyDepA()</code>
-<code>@_silgen_name("myDepBInitializer") func makeMyDepB(_ depA: MyDepAProtocol)</code>
-<code>@_silgen_name("myDepCInitializer") func makeMyDepC(_ depA: MyDepAProtocol, _ depB: MyDepBProtocol)</code>
-</pre>
+<pre><code>@_silgen_name("myDepAInitializer") func makeMyDepA()
+@_silgen_name("myDepBInitializer") func makeMyDepB(_ depA: MyDepAProtocol)
+@_silgen_name("myDepCInitializer") func makeMyDepC(_ depA: MyDepAProtocol, _ depB: MyDepBProtocol)</code></pre>
 <p>This allows projects like this to completely eliminate these build time bottlenecks, but it comes at the price of losing all type safety around this code. This might sound like a bad trade-off since type safety is the reason why a developer would want to have a dependency injection setup like this in the first place, but if you have other ways of validating those types and dependencies (such as a CLI that scans your app and automatically generates / validates this registry), you can abstract the dangerous bits away from your developers and effectively enjoy all the build time improvements without having to worry about any negatives other than having to be extra careful when making changes to this part of the code.</p>
 <h2>Conclusion</h2>
 <p>Forward-declaring Swift functions allow you to do all sorts of crazy things, but remember, <b>this is not an official feature of the language</b>. As mentioned in the beginning, my recommendation is that you should avoid messing with internal compiler features unless you're familiar with how Swift works under the hood and know exactly what you're doing.</p>

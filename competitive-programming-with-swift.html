@@ -196,19 +196,17 @@
  </div>
  <p>Be aware that a Command Line Tool is not a Cocoa app, so you'll have no access to things like <code>UIKit</code>! The core frameworks like <code>Foundation</code> are all you have here.</p>
  <p>In <code>main.swift</code>, type and run the following code:</p>
- <pre class="language-swift"><code class="language-swift">let line = readLine()
-print("Got something! \(line)")
-</code></pre>
+ <pre class="language-swift"><code><code class="language-swift">let line = readLine()
+print("Got something! \(line)")</code></pre>
  <p>At this point, the program will be frozen. <code>readLine()</code> is a Standard Library method that synchronously reads the standard input and returns a <code>String?</code> once a full line is retrieved or <code>nil</code> if EOF is reached.</p>
  <p>If you type something in Xcode's console, the program's execution will continue and print what you wrote:</p>
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/U5IwGnn.png" alt=""> 
  </div>
  <p>However, a competitive programming problem will likely have several hundred lines of input. You can use a <code>while</code> loop to make your code run until the input ends:</p>
- <pre class="language-swift"><code class="language-swift">while let line = readLine() {
+ <pre class="language-swift"><code><code class="language-swift">while let line = readLine() {
     print("Got something! \(line)")
-}
-</code></pre>
+}</code></pre>
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/KLUwiBK.png" alt=""> 
  </div>
@@ -222,14 +220,13 @@ print("Got something! \(line)")
  <h3>Output Format</h3>
  <p>Print the sum of the array's elements as a single integer.</p>
  <h3>Sample Input</h3>
- <pre class="language-swift"><code class="language-swift">6
-1 2 3 4 10 11
-</code></pre>
+ <pre class="language-swift"><code><code class="language-swift">6
+1 2 3 4 10 11</code></pre>
  <h3>Sample Output</h3>
  <p><code>31</code></p>
  <h2>Solution</h2>
  <p>Every problem has multiple possible solutions. For this one, we can harness the power of <code>reduce</code>:</p>
- <pre class="language-swift"><code class="language-swift">import Foundation
+ <pre class="language-swift"><code><code class="language-swift">import Foundation
 
 _ = readLine() //Read and drop the array size line.
 //Knowing the size of the array beforehand is needed for some languages
@@ -237,22 +234,20 @@ _ = readLine() //Read and drop the array size line.
 
 let array = readLine()!.components(separatedBy: " ").map { Int($0)! }
 let result = array.reduce(0, +)
-print(result)
-</code></pre>
+print(result)</code></pre>
  <h2>Swift tips for Competitive Programming</h2>
  <p>The beauty of competitive programming is that merely solving the problem is not enough - your program must solve it as fast as possible.</p>
  <p>There's a lot to talk about <a href="https://pt.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/big-o-notation">runtime complexity</a>, but this section is supposed to cover Swift tips that are useful when things need to be quick.</p>
  <p><b>If you have a tip that is not here, feel free to contact me and I'll add it and credit you!</b></p>
  <h3>Use Overflow Operators</h3>
  <p>Swift naturally protects you from numbers overflowing at the cost of performance. This can cost you some valuable nano-seconds, and some problems might even <b>want</b> you to overflow numbers. Luckily, Swift has special arithmetic operators that ignore overflow checks, making them faster than the regular operators:</p>
- <pre class="language-swift"><code class="language-swift">1 &amp;+ 1
+ <pre class="language-swift"><code><code class="language-swift">1 &amp;+ 1
 1 &amp;- 1
 1 &amp;* 1
-1 &amp;&gt;&gt; 1
-</code></pre>
+1 &amp;&gt;&gt; 1</code></pre>
  <h3>Printing is slow</h3>
  <p>The <code>print(_:)</code> method is very slow, and it can be particularly painful when printing things like <code>Arrays</code>. You can gain some performance if you print everything at once.</p>
- <pre class="language-swift"><code class="language-swift">let array = [String](repeating: "A", count: 1000)
+ <pre class="language-swift"><code><code class="language-swift">let array = [String](repeating: "A", count: 1000)
 
 for a in array {
     print(separated, terminator: " ") // slow
@@ -261,29 +256,26 @@ for a in array {
 /////
 
 let separated = array.joined(separator: " ")
-print(separated) // a lot quicker, even though we're processing the array beforehand
-</code></pre>
+print(separated) // a lot quicker, even though we're processing the array beforehand</code></pre>
  <h3>Allocate Array capacities in advance</h3>
  <p>Swift's <code>Arrays</code> have dynamic sizes, meaning that the language automatically allocates more memory space for it as it increases in size. Even if this is quite fast, you can make it even faster if you know the array size in advance by using the <code>Array.reserveCapacity(_:)</code> method. This is useful if you have a problem where the solution is an <code>Array</code> with a specific size.</p>
- <pre class="language-swift"><code class="language-swift">let arraySize = Int(readLine()!)!
+ <pre class="language-swift"><code><code class="language-swift">let arraySize = Int(readLine()!)!
 var array = [Int]()
 array.reserveCapacity(arraySize) //Runtime is slightly slower without manually setting the array's capacity.
 for i in 0..&lt;arraySize {
     array.append(solve(for: i))
-}
-</code></pre>
+}</code></pre>
  <p>Alternatively, you can use the <code>repeating:count:</code> initializer when you need a pre-filled array:</p>
- <pre class="language-swift"><code class="language-swift">let fiveZs = Array(repeating: "Z", count: 5)
+ <pre class="language-swift"><code><code class="language-swift">let fiveZs = Array(repeating: "Z", count: 5)
 print(fiveZs)
-// Prints "["Z", "Z", "Z", "Z", "Z"]"
-</code></pre>
+// Prints "["Z", "Z", "Z", "Z", "Z"]"</code></pre>
  <h3>Abuse Implicitly Unwrapped Optionals</h3>
  <p>While the dreaded <code>!</code> should be avoided in real applications, safety is not a concern in competitive programming. Since inputs are guaranteed to always be the same, you can completely skip the overhead of unwrapping optionals.</p>
  <h3>Use <code>inout</code> - Dmitry Volevodz</h3>
  <p>Using <code>inout</code> arguments can be really useful when passing data around recursive functions, and I was able to confirm that <code>inout</code> arguments are even faster to create than regular ones when passing around value types with inner reference types.</p>
  <h3>Subtract Dates to measure performance - Rodrigo Carvalho</h3>
  <p>The following snippet will measure how long it takes to run something:</p>
- <pre class="language-swift"><code class="language-swift">func measure(function: () -&gt; Void) {
+ <pre class="language-swift"><code><code class="language-swift">func measure(function: () -&gt; Void) {
     let start = Date()
     function()
     let end = Date()
@@ -292,8 +284,7 @@ print(fiveZs)
 
 measure {
     timeIntensiveTask()
-}
-</code></pre>
+}</code></pre>
  <p>This can be useful when you have multiple approaches and is not sure which one is faster. Be sure to run this with optimizations turned on to properly measure things, as most of the Swift compiler's tricks require it.</p>
  <h2>Swift Algorithm Club</h2>
  <p>Most competitive programming problems will rely on a specific data structure, and since Swift unfortunately has no native support for most of them, that means you'll have to code them yourself.</p>

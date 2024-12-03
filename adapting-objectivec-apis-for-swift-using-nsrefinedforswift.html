@@ -184,74 +184,58 @@
   </div> 
  </div>  
  <p>If your iOS project uses Objective-C SDKs, you'll find that the compiler does a good job translating those APIs to Swift. Whenever you try to use one of them in Swift, you'll be greeted with a <i>swiftified</i> version of it that has common Objective-C standards translated to Swift. <code>Foundation</code> types like <code>NSData</code> and <code>NSString</code> will be translated to their Swift variants (<code>Data</code>, <code>String</code>), <code>nullables</code> will become optionals, and the name of the method will change to follow Swift's naming conventions. If the method can fail (by having an error pointer), it will even become a throwing function:</p>
- <pre>
-<code>- (NSData *)dataForRow:(NSInteger)row error:(NSError **)error;</code>
-<code>// becomes:</code>
-<code>let data: Data = try data(for: row)</code>
-</pre>
+ <pre><code>- (NSData *)dataForRow:(NSInteger)row error:(NSError **)error;
+// becomes:
+let data: Data = try data(for: row)</code></pre>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>For most cases, this does the trick. While I'm not a fan of how the naming can end up sometimes, there are attributes that you can use to finetune the final result, like <code>NS_SWIFT_NAME(customName)</code> to use a customized name or <code>NS_SWIFT_NOTHROW</code> to disable the <b>error pointer -&gt; throws</b> conversion.</p>
  <p>However, what if you want that Objective-C API to become something <b>completely</b> different? One example of a common architectural difference between the languages is the usage of methods versus properties -- most things in Objective-C are methods, while Swift will advise you to use <b>computed properties</b> for things that are computed but yet don't involve actually processing data. The compiler isn't <b>that</b> smart, so by default you'll end up with methods even if they are better defined as something else in Swift:</p>
- <pre>
-<code>MyClass.sharedInstance() // would work better in Swift as `MyClass.shared`!</code>
-</pre>
+ <pre><code>MyClass.sharedInstance() // would work better in Swift as `MyClass.shared`!</code></pre>
  <p>Additionally, the automatic API translation doesn't consider Swift-only features like default arguments and generics in methods, which are really good tools for developing APIs in Swift. Fortunately, the compiler provides you a way to completely customize how Objective-C APIs end up in Swift.</p>
  <h2>NS_REFINED_FOR_SWIFT</h2>
  <p>The <code>NS_REFINED_FOR_SWIFT</code> attribute can be added to Objective-C methods to indicate that you want to have full control on how this API is translated to Swift. When added to an Objective-C API, the compiler will still port it, but it will do so in the shape of a <b>special hidden method</b> that you can use to redefine it as something else. Here's an example of a singleton in Objective-C:</p>
- <pre>
-<code>@interface SRMyClass : NSObject</code>
-<code>+ (instancetype)sharedInstance;</code>
-<code>@end</code>
-</pre>
+ <pre><code>@interface SRMyClass : NSObject
++ (instancetype)sharedInstance;
+@end</code></pre>
  <p>By default this will be converted to a <code>sharedInstance()</code> method in Swift, but in Swift standards, this would look better as a computed property instead.</p>
  <p>To customize how it'll be translated, let's add the attribute to the Objective-C definition:</p>
- <pre>
-<code>@interface SRMyClass : NSObject</code>
-<code>+ (instancetype)sharedInstance NS_REFINED_FOR_SWIFT;</code>
-<code>@end</code>
-</pre>
+ <pre><code>@interface SRMyClass : NSObject
++ (instancetype)sharedInstance NS_REFINED_FOR_SWIFT;
+@end</code></pre>
  <p>As mentioned, using this attribute won't stop the method from being migrated to Swift -- but it'll be done in a special way. In the case of methods, this special way will be that the method's name will be prefixed by two underscores (<code>__</code>):</p>
- <pre>
-<code>let instance = SRMyClass.__sharedInstance()</code>
-</pre>
+ <pre><code>let instance = SRMyClass.__sharedInstance()</code></pre>
  <p>The reason for this is precisely to indicate that this method shouldn't be used as-is. In fact, if you try to implement this example you'll notice that while you <b>can</b> use it, it will <b>not</b> show in code completion at all. The intention, instead, is for you to <b>abstract</b> this special method into what you actually want this to look like in Swift. In the case of our singleton example, if we want it to become a computed property, we should define that property in our Swift code and implement it by calling the exposed unrefined method:</p>
- <pre>
-<code>extension SRMyClass {</code>
-<code>    var shared: SRMySingleton {</code>
-<code>        return __sharedInstance()</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>extension SRMyClass {
+    var shared: SRMySingleton {
+        return __sharedInstance()
+    }
+}</code></pre>
  <p>Because the original unrefined method doesn't even show up in code completion, you can be sure that the developers will always use the correct <i>swiftified</i> version of it.</p>
  <p>My personal favorite use of this attribute is to add default parameters to methods, which is something normally ignored in Objective-C for not being easy to implement, but extremely simple and useful in Swift. To do, we just need to create a version of the method that contains default parameters and internally call the original unrefined one:</p>
- <pre>
-<code>public extension SRKeychain {</code>
-<code>    func data(</code>
-<code>        forDomain domain: String,</code>
-<code>        andKey key: String,</code>
-<code>        accessGroup: String? = nil,</code>
-<code>        accessAttr: String? = nil,</code>
-<code>        synchronizable: Bool = false</code>
-<code>    ) -&gt; Data? {</code>
-<code>        return __data(</code>
-<code>            forDomain: domain,</code>
-<code>            andKey: key,</code>
-<code>            accessGroup: accessGroup,</code>
-<code>            accessAttr: accessAttr,</code>
-<code>            synchronizable: synchronizable</code>
-<code>        )</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>public extension SRKeychain {
+    func data(
+        forDomain domain: String,
+        andKey key: String,
+        accessGroup: String? = nil,
+        accessAttr: String? = nil,
+        synchronizable: Bool = false
+    ) -&gt; Data? {
+        return __data(
+            forDomain: domain,
+            andKey: key,
+            accessGroup: accessGroup,
+            accessAttr: accessAttr,
+            synchronizable: synchronizable
+        )
+    }
+}</code></pre>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p><code>NS_REFINED_FOR_SWIFT</code> is also a great way to enforce type-safety in places where it wouldn't be applicable in Objective-C. In Swift, you can easily abstract unsafe <code>id</code> (<code>Any</code> / <code>AnyObject</code>) Objective-C methods, for example, under generics.</p>
- <pre>
-<code>public extension SRPersistance {</code>
-<code>    func object&lt;T&gt;(forKey key: String) -&gt; T? {</code>
-<code>        return __object(forKey: key) as? T</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>public extension SRPersistance {
+    func object&lt;T&gt;(forKey key: String) -&gt; T? {
+        return __object(forKey: key) as? T
+    }
+}</code></pre>
  <p>Unfortunately you can't redefine <b>entire</b> types with <code>NS_REFINED_FOR_SWIFT</code> as only methods, properties and initializers are supported, but in my experience, that's enough to give legacy code a good Swift experience.</p>
 </div></div>
                               

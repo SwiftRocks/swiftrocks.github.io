@@ -204,129 +204,113 @@
  <p>Replicating this requires a bit of tinkering since that's not an official iOS feature, but the end result is exactly the same and easier than it sounds. With this, you can make your app create home shortcuts to virtually anything that's bootable via deeplinks.</p>
  <p>The reason this is possible comes from the fact that Safari doesn't need an URL to display a page - it can render raw encoded data of many kinds, including HTML and images.</p>
  <p>Have your Safari open this, for example. You should see a <code>SwiftRocks!</code> page:</p>
- <pre>
-<code>data:text/html;base64,PGJvZHk+PHA+U3dpZnRSb2NrcyE8L3A+PC9ib2R5Pg==</code>
-</pre>
+ <pre><code>data:text/html;base64,PGJvZHk+PHA+U3dpZnRSb2NrcyE8L3A+PC9ib2R5Pg==</code></pre>
  <p>There's no page hosting this content, it's simply Safari directly rendering the base 64 encoding of <code>&lt;body&gt;&lt;p&gt;SwiftRocks!&lt;/p&gt;&lt;/body&gt;</code>. As expected, you can render entires pages using this format, including their scripts.</p>
  <p>Routing to a deeplink can be achieved with a simple JavaScript snippet - if you've been around during the iOS days before Apple added Universal Links, you probably had to deal with making an arbitrary page redirect to its deeplink equivalent if the user happened to have the app installed. We can use a similar approach here to achieve this effect:</p>
- <pre>
-<code>&lt;html&gt;</code>
-<code>  &lt;body&gt;</code>
-<code>    &lt;p&gt;SwiftRocks!&lt;/p&gt;</code>
-<code>    &lt;a id="redirect" href="https://apple.com/"&gt;&lt;/a&gt;</code>
-<code>  &lt;/body&gt;</code>
-<code>&lt;/html&gt;</code>
-<code>&lt;script type="text/javascript"&gt;</code>
-<code>  var element = document.getElementById('redirect');</code>
-<code>  var event = document.createEvent('MouseEvents');</code>
-<code>  event.initEvent('click', true, true, document.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null);</code>
-<code>  setTimeout(function() { element.dispatchEvent(event); }, 25);</code>
-<code>&lt;/script&gt;</code>
-</pre>
+ <pre><code>&lt;html&gt;
+  &lt;body&gt;
+    &lt;p&gt;SwiftRocks!&lt;/p&gt;
+    &lt;a id="redirect" href="https://apple.com/"&gt;&lt;/a&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+&lt;script type="text/javascript"&gt;
+  var element = document.getElementById('redirect');
+  var event = document.createEvent('MouseEvents');
+  event.initEvent('click', true, true, document.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+  setTimeout(function() { element.dispatchEvent(event); }, 25);
+&lt;/script&gt;</code></pre>
  <p>This adds an invisible button link to the Apple website and immediatly runs a script that touches it after a small amount of time. You can try it out here:</p>
- <pre>
-<code>data:text/html;base64,PGh0bWw+CiAgPGJvZHk+CiAgICA8cD5Td2lmdFJvY2tzITwvcD4KICAgIDxhIGlkPSJyZWRpcmVjdCIgaHJlZj0iaHR0cHM6Ly9hcHBsZS5jb20vIj48L2E+CiAgPC9ib2R5Pgo8L2h0bWw+CjxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4KICB2YXIgZWxlbWVudCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdyZWRpcmVjdCcpOwogIHZhciBldmVudCA9IGRvY3VtZW50LmNyZWF0ZUV2ZW50KCdNb3VzZUV2ZW50cycpOwogIGV2ZW50LmluaXRFdmVudCgnY2xpY2snLCB0cnVlLCB0cnVlLCBkb2N1bWVudC5kZWZhdWx0VmlldywgMSwgMCwgMCwgMCwgMCwgZmFsc2UsIGZhbHNlLCBmYWxzZSwgZmFsc2UsIDAsIG51bGwpOwogIHNldFRpbWVvdXQoZnVuY3Rpb24oKSB7IGVsZW1lbnQuZGlzcGF0Y2hFdmVudChldmVudCk7IH0sIDI1KTsKPC9zY3JpcHQ+</code>
-</pre>
+ <pre><code>data:text/html;base64,PGh0bWw+CiAgPGJvZHk+CiAgICA8cD5Td2lmdFJvY2tzITwvcD4KICAgIDxhIGlkPSJyZWRpcmVjdCIgaHJlZj0iaHR0cHM6Ly9hcHBsZS5jb20vIj48L2E+CiAgPC9ib2R5Pgo8L2h0bWw+CjxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4KICB2YXIgZWxlbWVudCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdyZWRpcmVjdCcpOwogIHZhciBldmVudCA9IGRvY3VtZW50LmNyZWF0ZUV2ZW50KCdNb3VzZUV2ZW50cycpOwogIGV2ZW50LmluaXRFdmVudCgnY2xpY2snLCB0cnVlLCB0cnVlLCBkb2N1bWVudC5kZWZhdWx0VmlldywgMSwgMCwgMCwgMCwgMCwgZmFsc2UsIGZhbHNlLCBmYWxzZSwgZmFsc2UsIDAsIG51bGwpOwogIHNldFRpbWVvdXQoZnVuY3Rpb24oKSB7IGVsZW1lbnQuZGlzcGF0Y2hFdmVudChldmVudCk7IH0sIDI1KTsKPC9zY3JpcHQ+</code></pre>
  <p>That looks great! But if you take a look at the Shortcuts's app behavior, you'll see that the redirecting starts only <i>after</i> the icon is generated. How does that work?</p>
  <p>When Apple first added PWA support for Safari, a "standalone" or "app mode" function was added in order to make the web app experience better for users by hiding normal Safari functions such as the URL bar and navigation arrows. This mode is initiated when a PWA is opened from the home screen, and its usage can be detected by the page. That's exactly what the Shortcuts app uses to make sure the redirecting only happens when the page is opened from the home screen!</p>
  <p>In the following example, the <code>SwiftRocks!</code> text is only added if the page was opened inside Safari. If the page was opened in PWA mode, the user will be redirected instead. Metadata was also added to indicate Safari that this page can be opened in PWA mode, as well as a simple <code>title</code> tag so a default name is provided inside the share sheet.</p>
- <pre>
-<code>&lt;html&gt;</code>
-<code>&lt;head&gt;</code>
-<code>  &lt;title&gt;Apple Page&lt;/title&gt;</code>
-<code>  &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</code>
-<code>  &lt;meta name="apple-mobile-web-app-status-bar-style" content="#ffffff"&gt;</code>
-<code>  &lt;meta name="apple-mobile-web-app-title" content="Apple Page"&gt;</code>
-<code>&lt;/head&gt;</code>
-<code>  &lt;body&gt;</code>
-<code>    &lt;a id="redirect" href="https://apple.com/"&gt;&lt;/a&gt;</code>
-<code>  &lt;/body&gt;</code>
-<code>&lt;/html&gt;</code>
-<code>&lt;script type="text/javascript"&gt;</code>
-<code>  if (window.navigator.standalone) {</code>
-<code>    var element = document.getElementById('redirect');</code>
-<code>    var event = document.createEvent('MouseEvents');</code>
-<code>    event.initEvent('click', true, true, document.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null);</code>
-<code>    setTimeout(function() { element.dispatchEvent(event); }, 25);</code>
-<code>  } else {</code>
-<code>    var p = document.createElement('p');</code>
-<code>    var node = document.createTextNode('SwiftRocks!');</code>
-<code>    p.appendChild(node);</code>
-<code>    document.body.appendChild(p);</code>
-<code>  }</code>
-<code>&lt;/script&gt;</code>
-</pre>
+ <pre><code>&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Apple Page&lt;/title&gt;
+  &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+  &lt;meta name="apple-mobile-web-app-status-bar-style" content="#ffffff"&gt;
+  &lt;meta name="apple-mobile-web-app-title" content="Apple Page"&gt;
+&lt;/head&gt;
+  &lt;body&gt;
+    &lt;a id="redirect" href="https://apple.com/"&gt;&lt;/a&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+&lt;script type="text/javascript"&gt;
+  if (window.navigator.standalone) {
+    var element = document.getElementById('redirect');
+    var event = document.createEvent('MouseEvents');
+    event.initEvent('click', true, true, document.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+    setTimeout(function() { element.dispatchEvent(event); }, 25);
+  } else {
+    var p = document.createElement('p');
+    var node = document.createTextNode('SwiftRocks!');
+    p.appendChild(node);
+    document.body.appendChild(p);
+  }
+&lt;/script&gt;</code></pre>
  <p>Try it out! Open this in Safari, press the Share button, add it to your home screen and touch it to see how it works. For a real example, change the link to a deeplink to your app and encode it to base64 to see it in action. The page still looks terrible, but we'll see how to add icons and splash screens later on.</p>
- <pre>
-<code>data:text/html;base64,PGh0bWw+CjxoZWFkPgogIDx0aXRsZT5BcHBsZSBQYWdlPC90aXRsZT4KICA8bWV0YSBuYW1lPSJhcHBsZS1tb2JpbGUtd2ViLWFwcC1jYXBhYmxlIiBjb250ZW50PSJ5ZXMiPgogIDxtZXRhIG5hbWU9ImFwcGxlLW1vYmlsZS13ZWItYXBwLXN0YXR1cy1iYXItc3R5bGUiIGNvbnRlbnQ9IiNmZmZmZmYiPgogIDxtZXRhIG5hbWU9ImFwcGxlLW1vYmlsZS13ZWItYXBwLXRpdGxlIiBjb250ZW50PSJBcHBsZSBQYWdlIj4KPC9oZWFkPgogIDxib2R5PgogICAgPGEgaWQ9InJlZGlyZWN0IiBocmVmPSJodHRwczovL2FwcGxlLmNvbS8iPjwvYT4KICA8L2JvZHk+CjwvaHRtbD4KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPgogIGlmICh3aW5kb3cubmF2aWdhdG9yLnN0YW5kYWxvbmUpIHsKICAgIHZhciBlbGVtZW50ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3JlZGlyZWN0Jyk7CiAgICB2YXIgZXZlbnQgPSBkb2N1bWVudC5jcmVhdGVFdmVudCgnTW91c2VFdmVudHMnKTsKICAgIGV2ZW50LmluaXRFdmVudCgnY2xpY2snLCB0cnVlLCB0cnVlLCBkb2N1bWVudC5kZWZhdWx0VmlldywgMSwgMCwgMCwgMCwgMCwgZmFsc2UsIGZhbHNlLCBmYWxzZSwgZmFsc2UsIDAsIG51bGwpOwogICAgc2V0VGltZW91dChmdW5jdGlvbigpIHsgZWxlbWVudC5kaXNwYXRjaEV2ZW50KGV2ZW50KTsgfSwgMjUpOwogIH0gZWxzZSB7CiAgICB2YXIgcCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ3AnKTsKICAgIHZhciBub2RlID0gZG9jdW1lbnQuY3JlYXRlVGV4dE5vZGUoJ1N3aWZ0Um9ja3MhJyk7CiAgICBwLmFwcGVuZENoaWxkKG5vZGUpOwogICAgZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChwKTsKICB9Cjwvc2NyaXB0Pg==</code>
-</pre>
+ <pre><code>data:text/html;base64,PGh0bWw+CjxoZWFkPgogIDx0aXRsZT5BcHBsZSBQYWdlPC90aXRsZT4KICA8bWV0YSBuYW1lPSJhcHBsZS1tb2JpbGUtd2ViLWFwcC1jYXBhYmxlIiBjb250ZW50PSJ5ZXMiPgogIDxtZXRhIG5hbWU9ImFwcGxlLW1vYmlsZS13ZWItYXBwLXN0YXR1cy1iYXItc3R5bGUiIGNvbnRlbnQ9IiNmZmZmZmYiPgogIDxtZXRhIG5hbWU9ImFwcGxlLW1vYmlsZS13ZWItYXBwLXRpdGxlIiBjb250ZW50PSJBcHBsZSBQYWdlIj4KPC9oZWFkPgogIDxib2R5PgogICAgPGEgaWQ9InJlZGlyZWN0IiBocmVmPSJodHRwczovL2FwcGxlLmNvbS8iPjwvYT4KICA8L2JvZHk+CjwvaHRtbD4KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPgogIGlmICh3aW5kb3cubmF2aWdhdG9yLnN0YW5kYWxvbmUpIHsKICAgIHZhciBlbGVtZW50ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3JlZGlyZWN0Jyk7CiAgICB2YXIgZXZlbnQgPSBkb2N1bWVudC5jcmVhdGVFdmVudCgnTW91c2VFdmVudHMnKTsKICAgIGV2ZW50LmluaXRFdmVudCgnY2xpY2snLCB0cnVlLCB0cnVlLCBkb2N1bWVudC5kZWZhdWx0VmlldywgMSwgMCwgMCwgMCwgMCwgZmFsc2UsIGZhbHNlLCBmYWxzZSwgZmFsc2UsIDAsIG51bGwpOwogICAgc2V0VGltZW91dChmdW5jdGlvbigpIHsgZWxlbWVudC5kaXNwYXRjaEV2ZW50KGV2ZW50KTsgfSwgMjUpOwogIH0gZWxzZSB7CiAgICB2YXIgcCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ3AnKTsKICAgIHZhciBub2RlID0gZG9jdW1lbnQuY3JlYXRlVGV4dE5vZGUoJ1N3aWZ0Um9ja3MhJyk7CiAgICBwLmFwcGVuZENoaWxkKG5vZGUpOwogICAgZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChwKTsKICB9Cjwvc2NyaXB0Pg==</code></pre>
  <h2>iOS: Opening the raw page from Swift</h2>
  <p>Now that we've seen how to make a shortcut PWA, we can make an app generate and trigger it.</p>
  <p>I'm assuming you already know how to create and process deeplinks in iOS, so I'll go straight to the point. In this example, I'm going to make a simple <code>UIViewController</code> that represents a "profile" screen trigger a shortcut page that opens an <code>shortcutTestApp://profile</code> deeplink that my app listens to in order to route the user to this same view controller:</p>
- <pre>
-<code>final class ProfileViewController: UIViewController {</code>
-<code>    @IBAction func shortcutButtonTouched(_ sender: Any) {</code>
-<code>    	showShortcutScreen(forDeepLink: "shortcutTestApp://profile")</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>final class ProfileViewController: UIViewController {
+    @IBAction func shortcutButtonTouched(_ sender: Any) {
+    	showShortcutScreen(forDeepLink: "shortcutTestApp://profile")
+    }
+}</code></pre>
  <p>Inside <code>showShortcutScreen</code>, I'm going to generate the HTML for that shortcut, encode it and attempt to open it:</p>
- <pre>
-<code>func showShortcutScreen(forDeepLink deepLink: String) {</code>
-<code>    guard let deepLinkUrl = URL(string: deepLink) else {</code>
-<code>        return</code>
-<code>    }</code>
-<code>    let html = getHtml(title: "Profile", urlToRedirect: deepLinkUrl)</code>
-<code>    guard let data = html.data(using: .utf8) else {</code>
-<code>        return</code>
-<code>    }</code>
-<code>    let base64 = data.base64EncodedString()</code>
-<code>    guard let shortcutPage = URL(string: "data:text/html;base64,\(base64)") else {</code>
-<code>        return</code>
-<code>    }</code>
-<code>    UIApplication.shared.open(shortcutPage)</code>
-<code>}</code>
-<code></code>
-<code>func getHtml(title: String, urlToRedirect: URL) -&gt; String {</code>
-<code>	return</code>
-<code>	"""</code>
-<code>	    &lt;head&gt;</code>
-<code>	      &lt;body&gt;</code>
-<code>	        .. //Rest of the HTML, replacing the relevant data with the properties.</code>
-<code>	"""</code>
-<code>}</code>
-</pre>
+ <pre><code>func showShortcutScreen(forDeepLink deepLink: String) {
+    guard let deepLinkUrl = URL(string: deepLink) else {
+        return
+    }
+    let html = getHtml(title: "Profile", urlToRedirect: deepLinkUrl)
+    guard let data = html.data(using: .utf8) else {
+        return
+    }
+    let base64 = data.base64EncodedString()
+    guard let shortcutPage = URL(string: "data:text/html;base64,\(base64)") else {
+        return
+    }
+    UIApplication.shared.open(shortcutPage)
+}
+
+func getHtml(title: String, urlToRedirect: URL) -&gt; String {
+	return
+	"""
+	    &lt;head&gt;
+	      &lt;body&gt;
+	        .. //Rest of the HTML, replacing the relevant data with the properties.
+	"""
+}</code></pre>
  <p>This looks straightforward, but there's a big problem: If you try to run this, you'll see that it will simply not work.</p>
  <p>If you try to open a <code>data:</code> page from Swift using <code>open(url)</code>, nothing will happen, and if you try to use <code>SFSafariViewController</code>, it will crash stating that it doesn't understand the URL. There's no clear reason why this happens since Safari itself can open these links - it honestly just sounds like a bug in Apple's side. However, it does mean that we need to do a small workaround to make it work, but the good news is that even the Shortcuts app needs to do this, so you're not going to be alone.</p>
  <p>A solution for this is that instead of trying to directly open the raw content, you can create a localhost server that redirects to it. To make things easy, I'm going to use the <a href="https://github.com/httpswift/swifter">Swifter library</a> to create this server:</p>
- <pre>
-<code>var localServer: HttpServer?</code>
-<code></code>
-<code>func showShortcutScreen(forDeepLink deepLink: String) {</code>
-<code>    localServer = HttpServer()</code>
-<code>    guard let deepLinkUrl = URL(string: deepLink) else {</code>
-<code>        return</code>
-<code>    }</code>
-<code>    let html = getHtml(title: "Profile", urlToRedirect: deepLinkUrl)</code>
-<code>    guard let data = html.data(using: .utf8) else {</code>
-<code>        return</code>
-<code>    }</code>
-<code>    let base64 = data.base64EncodedString()</code>
-<code>    guard let shortcutPage = URL(string: "http://localhost:8245/shortcut") else {</code>
-<code>        return</code>
-<code>    }</code>
-<code>    localServer?["/shortcut"] = { request in</code>
-<code>        return .movedPermanently("data:text/html;base64,\(base64)")</code>
-<code>    }</code>
-<code>    try? localServer?.start(8245)</code>
-<code>    UIApplication.shared.open(shortcutPage)</code>
-<code>}</code>
-<code></code>
-<code>deinit {</code>
-<code>    localServer?.stop()</code>
-<code>    localServer = nil</code>
-<code>}</code>
-</pre>
+ <pre><code>var localServer: HttpServer?
+
+func showShortcutScreen(forDeepLink deepLink: String) {
+    localServer = HttpServer()
+    guard let deepLinkUrl = URL(string: deepLink) else {
+        return
+    }
+    let html = getHtml(title: "Profile", urlToRedirect: deepLinkUrl)
+    guard let data = html.data(using: .utf8) else {
+        return
+    }
+    let base64 = data.base64EncodedString()
+    guard let shortcutPage = URL(string: "http://localhost:8245/shortcut") else {
+        return
+    }
+    localServer?["/shortcut"] = { request in
+        return .movedPermanently("data:text/html;base64,\(base64)")
+    }
+    try? localServer?.start(8245)
+    UIApplication.shared.open(shortcutPage)
+}
+
+deinit {
+    localServer?.stop()
+    localServer = nil
+}</code></pre>
  <p>Compared to the previous example, this will boot a localhost server that listens to <code>/shortcut</code> and redirects to the original data URL. The result of this is the gif at the beginning of the article, and you can add this to different screens of your app in order to add shortcuts to pre-defined deeplinks that your or other's apps supports.</p>
  <p><a href="https://github.com/SwiftRocks/adding-deeplink-shortcuts-to-the-iOS-home-screen">Full project available here.</a></p>
  <h2>Pimp my PWA: Icons, Splash Screens and Conclusion</h2>

@@ -188,7 +188,7 @@
  <p>Some people might say that knowledge of memory architecture is irrelevant for application level developers, and I agree <i>partially</i>. Knowing how to save a few bits here and there will make no visible difference on newer iPhones, and premature optimization is a highly shunned practice.</p>
  <p>However, both reference and value types can severely slow down your app when misused, and such knowledge will define whether or not you can fix the problem efficiently.</p>
  <p>To understand the deeper differences between the two, let's look back at the address space of a process: (single thread for simplicity)</p>
- <pre>|- - - - - - - - - - - - - - - - - - - - - - - - - - |
+ <pre><code>|- - - - - - - - - - - - - - - - - - - - - - - - - - |
 |                    Instructions                    |
 |- - - - - - - - - - - - - - - - - - - - - - - - - - -
 |                    Global Data                     |
@@ -198,14 +198,14 @@
 |      Nothing (Stack and heap grow towards here)    |
 |- - - - - - - - - - - - - - - - - - - - - - - - - - -
 |                        Stack                       |
-|- - - - - - - - - - - - - - - - - - - - - - - - - - -</pre>
+|- - - - - - - - - - - - - - - - - - - - - - - - - - -</code></pre>
  <h2>Stack Allocation</h2>
  <p>In memory architecture, the stack is no different from the data structure you already know, and Stack Allocation is a simple and fast way to allocate/deallocate memory that involves the stack.</p>
  <p>Each "scope" in your app (like the inner contents of a method) will provide the amount of memory it needs to run, move the stack pointer in memory by such amount and run - adding data to the empty memory addresses it now posesses. After the scope is lost, the stack pointer will simply decrease by the same amount - safely deallocating all the scope's data. The cost of allocating/deallocating stack memory is literally the cost of assigning an integer.</p>
  <h3>Stack Allocated Value Types</h3>
  <p>In Stack Allocation, the data gathered by the scope means everything attributed to it - like method arguments, return values, but more importantly: <b>value types</b>. As long as the size of the value type is known during compile time and it doesn't contain / is not contained, recursively, by a reference type, it will not need reference counting, and its life will be <b>static</b> - equal to the life of its scope. It will be allocated completely on the stack, and when the scope is deallocated, so is the value type. The absence of reference counting overhead and the presence of stack allocation is a considerable performance boost.</p>
  <p><i>PS: All benchmarks done with -O. I had to add some special logic and keywords/attributes to prevent the compiler from skipping my methods, but I've hidden them in the examples to make the code easy to read.</i></p>
- <pre class="language-swift"><code class="language-swift">struct EmptyStruct {
+ <pre class="language-swift"><code><code class="language-swift">struct EmptyStruct {
 	private let number: Int64 = 1
 	//Empty classes have 64bits of storage by default for the pointer
 	//so we're adding 64bits to our struct to make fair comparisons.
@@ -225,7 +225,7 @@ createABunchOfEmptyStructs()
  <p>If the contents of your value type are other stack allocated, static size value types, then your value type also is also static sized. That means your value type will also leverage full stack allocation as well as having a performance boost in copying operations.</p>
  <p>We once asked a candidate why he chose to use a <code>class</code> for something that was clearly immutable and meant to be treated with value semantics. His reasoning was that the object was being constantly sent as a parameter inside methods, and so he was concerned about the potential performance implications of copying that several times.</p>
  <p>Assigning a property to most value types will indeed create a full copy of the object. However, this <b>copy-on-assignment</b> behaviour for fully stack allocated value types is so fast and so cheap that Apple claims it runs in constant time:</p>
- <pre class="language-swift"><code class="language-swift">struct BigStaticStruct {
+ <pre class="language-swift"><code><code class="language-swift">struct BigStaticStruct {
     let fp1: Int64 = 1
     let fp2: Int64 = 1
     let fp3: Int64 = 1
@@ -252,7 +252,7 @@ createABunchOfCopiesOfHugeStruct() // ~0.0033 secs
  <p>When the process requests a certain amount of memory, the heap will search for a memory address that fulfills this request and return it to the process. When the memory is not being used anymore, the process must tell the heap to free that section of memory.</p>
  <p>In iOS, "not being used anymore" works in the shape of reference counting, and luckily the existence of ARC means that most things are automatically handled for you unless you have to deal with the <a href="https://developer.apple.com/documentation/swift/manual_memory_management">RawPointer family</a>.</p>
  <p>Heap Allocation is slower than Stack Allocation not just because of the more complex data structure - it also requires thread safety. Each thread has its own stack, but the heap is shared with everybody, demanding synchronization. However, it allows reference types and things like dynamic size arrays to exist.</p>
- <pre class="language-swift"><code class="language-swift">final class EmptyClass {}
+ <pre class="language-swift"><code><code class="language-swift">final class EmptyClass {}
 
 @inline(never) func createABunchOfEmptyClasses() {
     for _ in 0..&lt;1_000_000 {
@@ -277,7 +277,7 @@ createABunchOfEmptyClasses()
  <p>In the Standard Library, examples of value types with child references are <code>String</code>, <code>Array</code>, <code>Dictionary</code> and <code>Set</code>. These value types contain internal reference types that manage the storage of elements in the heap, allowing them to increase/decrease in size as needed.</p>
  <p>Since heap operations are more expensive than stack ones, copying heap allocated value types is not a constant operation like in stack allocated ones. To prevent this from hurting performance, the Standard Library's extensible data structures are <b>copy-on-write</b>.</p>
  <p>With this capability, merely assigning properties will not copy the value type - instead, it will create a reference just like if it was a regular reference type. The actual copying will only happen when it's really necessary.</p>
- <pre class="language-swift"><code class="language-swift">//Copy on Assignment
+ <pre class="language-swift"><code><code class="language-swift">//Copy on Assignment
 let emptyStruct = EmptyStruct() //address A
 let copy = emptyStruct //address B
 
@@ -289,7 +289,7 @@ notACopy = [4,5,6] //now address D</code></pre>
  <h2>Problematic Reference Counting in Value Types With Inner References</h2>
  <p>A fully stack allocated value type will not need reference counting, but a value type with inner references <b>will</b> unfortunately inherit this ability.</p>
  <p>Consider two objects: a <code>struct</code> full of <code>classes</code> and a <code>class</code> full of the same <code>classes</code>:</p>
- <pre class="language-swift"><code class="language-swift">struct HugeDynamicStruct {
+ <pre class="language-swift"><code><code class="language-swift">struct HugeDynamicStruct {
     var emptyClass = EmptyClass()
     var emptyClass2 = EmptyClass()
     var emptyClass3 = EmptyClass()
@@ -313,10 +313,9 @@ class HugeClass {
     var emptyClass8 = EmptyClass()
     var emptyClass9 = EmptyClass()
     var emptyClass10 = EmptyClass()
-}
-</code></pre>
+}</code></pre>
  <p>The following snippet will check how long it takes to create a <code>HugeClass</code>, reference it ten million times, add all these references to an array and deallocate everything. Then it will do the same to a <code>struct</code> variant.</p>
- <pre class="language-swift"><code class="language-swift">func createABunchOfReferencesOfClass() {
+ <pre class="language-swift"><code><code class="language-swift">func createABunchOfReferencesOfClass() {
     var array = [HugeClass]()
     let object = HugeClass()
     for _ in 0..&lt;10_000_000 {
@@ -335,19 +334,17 @@ func createABunchOfCopiesOfStruct() {
 //Each object contains ten EmptyClasses
 
 createABunchOfReferencesOfClass() // ~1.71 seconds
-createABunchOfCopiesOfStruct() // ~5.1 seconds
-</code></pre>
+createABunchOfCopiesOfStruct() // ~5.1 seconds</code></pre>
  <p>Judging from what was previously said it's somewhat expected that the <code>struct</code> version would take longer as it is <b>copy-on-assignment</b>, compared to the <code>class</code> version which is only increasing a reference count value.</p>
  <p>However, consider what happens when we increase the amount of <code>EmptyClasses</code> inside of each object:</p>
- <pre class="language-swift"><code class="language-swift">//Each object now contains TWENTY EmptyClasses
+ <pre class="language-swift"><code><code class="language-swift">//Each object now contains TWENTY EmptyClasses
 
 createABunchOfReferencesOfClass() // ~1.75 seconds
-createABunchOfCopiesOfStruct() // ~14.5 seconds
-</code></pre>
+createABunchOfCopiesOfStruct() // ~14.5 seconds</code></pre>
  <p>Adding more classes to <code>HugeClass</code> did nothing to the runtime of the algorithm, but <code>HugeDynamicStruct</code>'s version took <b>more than twice</b> as much to run!</p>
  <p>Since all reference types require reference counting, increasing the amount of properties of a <code>class</code> of <code>classes</code> will not change the runtime of this algorithm, as merely increasing the reference count of the parent reference will be enough to keep it's inner references alive.</p>
  <p>However, value types do not naturally have a reference count. If your value type contains inner references, copying it will require increasing the reference count of it's children instead - not the first, not the second, but literally <b>every single one</b> of them.</p>
- <pre class="language-swift"><code class="language-swift">final class ClassOfClasses {
+ <pre class="language-swift"><code><code class="language-swift">final class ClassOfClasses {
     let emptyClass = EmptyClass()
     let emptyClass2 = EmptyClass()
     let emptyClass3 = EmptyClass()
@@ -377,19 +374,18 @@ let copy3 = structOfClasses
 CFGetRetainCount(structOfClasses) // Doesn't compile, structs themselves don't have a reference count.
 CFGetRetainCount(structOfClasses.emptyClass) // 4
 CFGetRetainCount(structOfClasses.emptyClass2) // 4
-CFGetRetainCount(structOfClasses.emptyClass3) // 4
-</code></pre>
+CFGetRetainCount(structOfClasses.emptyClass3) // 4</code></pre>
  <p>The more reference types you have inside of a value type, the more reference counting overhead you are going to have when copying it, leading to potentially nasty performance issues.</p>
  <h2>Avoiding Reference Counting Overhead in Value Types</h2>
  <p>You can improve your app's performance by swapping unnecessary references with proper static size value types.</p>
  <p>Consider the following value type with inner references:</p>
- <pre class="language-swift"><code class="language-swift">struct DeliveryAddress {
+ <pre class="language-swift"><code><code class="language-swift">struct DeliveryAddress {
     let identifier: String
     let type: String
 }</code></pre>
  <p>If <code>identifier</code> represents an UUID, it can be safely replaced by <code>Foundation</code>'s <code>UUID</code> struct, which is statically sized.</p>
  <p>In a similar fashion, <code>type</code> could easily be a pre-defined <code>enum</code> instead.</p>
- <pre class="language-swift"><code class="language-swift">struct DeliveryAddress {
+ <pre class="language-swift"><code><code class="language-swift">struct DeliveryAddress {
     enum AddressType {
         case home
         case work

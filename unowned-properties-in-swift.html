@@ -184,10 +184,10 @@
   </div> 
  </div>   
  <p>It's very common to use the <code>weak</code> keyword in order to prevent reference cycles in properties like delegates:</p>
- <pre class="language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
+ <pre class="language-swift"><code><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Unfortunately, since it protects you from references being lost, the <code>weak</code> keyword forces the usage of <code>var</code> and an optional type, which can be quite jarring if you're building something like an <code>UIView</code> that is not supposed to be used without a delegate - much less change delegates suddenly:</p>
- <pre class="language-swift"><code class="language-swift">class HomeView: UIView {
+ <pre class="language-swift"><code><code class="language-swift">class HomeView: UIView {
     weak var delegate: HomeViewDelegate?
 
     func renderView() {
@@ -199,12 +199,11 @@
         categoryView.render(category: category)
         delegate.homeViewDidUpdate()
     }
-}
-</code></pre>
+}</code></pre>
  <p>But <code>weak</code> is not the only way of breaking reference cycles. Just like in capture lists, the <code>unowned</code> keyword can be used in properties to create non-strong references:</p>
- <pre class="language-swift"><code class="language-swift">unowned let delegate: HomeViewModelDelegate</code></pre>
+ <pre class="language-swift"><code><code class="language-swift">unowned let delegate: HomeViewModelDelegate</code></pre>
  <p>Unlike <code>weak</code>, <code>unowned</code> references are expected to always have a value. This allows you to not only use non-optional types when declaring them, but also to do so with <code>let</code>, bringing back immutability and making sure your objects won't act in unexpected ways:</p>
- <pre class="language-swift"><code class="language-swift">class HomeView: UIView {
+ <pre class="language-swift"><code><code class="language-swift">class HomeView: UIView {
     private unowned let delegate: HomeViewDelegate
 
     init(delegate: HomeViewDelegate) {
@@ -217,8 +216,7 @@
         categoryView.render(category: category)
         delegate.homeViewDidUpdate()
     }
-}
-</code></pre>
+}</code></pre>
  <p>With <code>weak</code>, there's nothing stopping <code>HomeView</code> from being used without a delegate, and a <code>guard</code> is required to unwrap values retrieved from the delegate due to the optional requirement of the keyword. On the other hand, <code>unowned</code> allows you to break reference cycles while still using the reference just like if it was strong.</p>
  <p>However, be aware that <code>unowned</code> properties will work just like the capture list keyword. If you try to access an unowned reference that has already deallocated, your app will crash.</p>
  <p>If your object is guaranteed to never outlive its unowned reference (like a <code>ViewModel</code>, for example), usage of <code>unowned</code> can greatly improve both code quality and performance.</p>

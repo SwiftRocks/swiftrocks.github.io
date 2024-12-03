@@ -189,209 +189,181 @@
  <p>I feel that UI Tests are very underrated by the community when compared to other forms of testing, but they're my favorite. When the subject is making sure that a feature works, my opinion is that users don't care if a button isn't the right color or if a font is slightly off -- they only care if it does what it should do. UI Testing is the closest you can get to the actual user experience, so if the UI Tests are working, it's likely that the user's experience in these flows will work as well. As a complement to the usual unit tests, I make sure to always write UI tests that navigate through all variations of the important flows of the app to reduce stress in release days.</p>
  <p>With that said, how can you effectively write and maintain these tests if your app has several screens and variations of them?</p>
  <p>I deal with this by implementing something that I call block-based testing. Instead of putting all the test logic directly in the test method, I instead divide each step of the navigation into its own "exploration" method. Here's an example:</p>
- <pre>
-<code>private func exploreBalanceDetailsScreen() {</code>
-<code>    let balanceView = app.tables.buttons["WALLET_HEADER"]</code>
-<code>    expect(balanceView.isHittable) == true</code>
-<code>    balanceView.tap()</code>
-<code>    let detailsView = app.otherElements["BALANCE_DETAILS_VC_ROOT_VIEW"]</code>
-<code>    detailsView.waitForExistence("Expected to be in the Balance Details Screen!")</code>
-<code>    //Conditions that test if "Balance Details" is behaving correctly</code>
-<code>    app.tapNavigationBackButton()</code>
-<code>}</code>
-</pre>
+ <pre><code>private func exploreBalanceDetailsScreen() {
+    let balanceView = app.tables.buttons["WALLET_HEADER"]
+    expect(balanceView.isHittable) == true
+    balanceView.tap()
+    let detailsView = app.otherElements["BALANCE_DETAILS_VC_ROOT_VIEW"]
+    detailsView.waitForExistence("Expected to be in the Balance Details Screen!")
+    //Conditions that test if "Balance Details" is behaving correctly
+    app.tapNavigationBackButton()
+}</code></pre>
  <p>Exploration methods start by moving to the relevant screen of the method (assuming that the app is already in a position to do so). After it's confirmed that the relevant screen is working, the app is moved back to where it was before the exploration started.</p>
  <p>To confirm that a screen change happened, I like to use this <code>waitForExistence()</code> helper in a view controller's root <code>view</code> property:</p>
- <pre>
-<code>extension XCUIElement {</code>
-<code>    func waitForExistence(_ description: String? = nil, timeout: TimeInterval = 0.2) {</code>
-<code>        let predicate = NSPredicate(format: "exists == true")</code>
-<code>        let hasAppeared = XCTNSPredicateExpectation(predicate: predicate,</code>
-<code>                                                    object: self)</code>
-<code>        _ = XCTWaiter.wait(for: [hasAppeared], timeout: timeout)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>extension XCUIElement {
+    func waitForExistence(_ description: String? = nil, timeout: TimeInterval = 0.2) {
+        let predicate = NSPredicate(format: "exists == true")
+        let hasAppeared = XCTNSPredicateExpectation(predicate: predicate,
+                                                    object: self)
+        _ = XCTWaiter.wait(for: [hasAppeared], timeout: timeout)
+    }
+}</code></pre>
  <p>When all relevant flows are created in this structure, building test cases is just a matter of connecting your LEGO bricks:</p>
- <pre>
-<code>class BaseUITestCase: XCTestCase {</code>
-<code></code>
-<code>    private(set) var app: XCUIApplication! = nil</code>
-<code></code>
-<code>    override func setUp() {</code>
-<code>        super.setUp()</code>
-<code>        continueAfterFailure = false</code>
-<code>        if app == nil {</code>
-<code>            app = XCUIApplication()</code>
-<code>            app.add(MockFlags.Environment.isUITest)</code>
-<code>        }</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>class WalletViewUITests: BaseUITestCase {</code>
-<code>    func testLoggedOnHomeToQRScannerFlow() {</code>
-<code>        app.launch()</code>
-<code>        expectToBeInHome()</code>
-<code>        exploreAvailableCardsWidget()</code>
-<code>        exploreBalanceDetailsScreen()</code>
-<code>        explorePaymentDetailsScreen()</code>
-<code>        exploreTransactionsListScreen()</code>
-<code>        goToQRScanner()</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>class BaseUITestCase: XCTestCase {
+
+    private(set) var app: XCUIApplication! = nil
+
+    override func setUp() {
+        super.setUp()
+        continueAfterFailure = false
+        if app == nil {
+            app = XCUIApplication()
+            app.add(MockFlags.Environment.isUITest)
+        }
+    }
+}
+
+class WalletViewUITests: BaseUITestCase {
+    func testLoggedOnHomeToQRScannerFlow() {
+        app.launch()
+        expectToBeInHome()
+        exploreAvailableCardsWidget()
+        exploreBalanceDetailsScreen()
+        explorePaymentDetailsScreen()
+        exploreTransactionsListScreen()
+        goToQRScanner()
+    }
+}</code></pre>
  <p>By reorganizing these blocks, you can test several variations of a flow with little effort. Here's an example of how I test the logged out version of the previous test:</p>
- <pre>
-<code>func testLoggedOffHomeToQRScannerFlow() {</code>
-<code>    app.add(MockFlags.User.isNotLogged)</code>
-<code>    app.launch()</code>
-<code>    expectToBeInHome(canInteract: false) //There should be a "logged off" empty state covering the screen.</code>
-<code>    exploreLoggedOffScreen(shouldLogin: true)</code>
-<code>    testLoggedOnHomeToQRScannerFlow() //Being logged out initially should not affect the rest of the app.</code>
-<code>}</code>
-</pre>
+ <pre><code>func testLoggedOffHomeToQRScannerFlow() {
+    app.add(MockFlags.User.isNotLogged)
+    app.launch()
+    expectToBeInHome(canInteract: false) //There should be a "logged off" empty state covering the screen.
+    exploreLoggedOffScreen(shouldLogin: true)
+    testLoggedOnHomeToQRScannerFlow() //Being logged out initially should not affect the rest of the app.
+}</code></pre>
  <p>One of the things that bothers me the most in programming is when the tests are so complicated that they end up becoming a burden. Developing tests with a defined structure like this makes them a lot easier to maintain and expand from.</p>
  <h2>Extra: Typesafe Mocks</h2>
  <p>Although the block structure helps with the development of the tests themselves, we still need to make sure the app can properly navigate the screens and understand when an alternate flow is required.</p>
  <p>As spoiled by the previous example, the way we chose to handle the latter is by using <code>MockFlags</code>, which is a simple enum created to represent launch arguments:</p>
- <pre>
-<code>public protocol MockFlag {</code>
-<code>    var value: String { get }</code>
-<code>}</code>
-<code></code>
-<code>extension MockFlag {</code>
-<code>    public var value: String {</code>
-<code>        return "\(String(describing: type(of: self)))-\(String(describing: self))"</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>public enum MockFlags {</code>
-<code>    public enum Environment: MockFlag {</code>
-<code>        case isUITest</code>
-<code>        case isUnitTest</code>
-<code>    }</code>
-<code></code>
-<code>    public enum User: MockFlag {</code>
-<code>        case isNotLogged</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>extension XCUIApplication {</code>
-<code>    func add(_ mockFlag: MockFlag) {</code>
-<code>        launchArguments.append(mockFlag.value)</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>public func has(_ mockFlag: MockFlag) -&gt; Bool {</code>
-<code>    return CommandLine.arguments.contains(mockFlag.value)</code>
-<code>}</code>
-</pre>
+ <pre><code>public protocol MockFlag {
+    var value: String { get }
+}
+
+extension MockFlag {
+    public var value: String {
+        return "\(String(describing: type(of: self)))-\(String(describing: self))"
+    }
+}
+
+public enum MockFlags {
+    public enum Environment: MockFlag {
+        case isUITest
+        case isUnitTest
+    }
+
+    public enum User: MockFlag {
+        case isNotLogged
+    }
+}
+
+extension XCUIApplication {
+    func add(_ mockFlag: MockFlag) {
+        launchArguments.append(mockFlag.value)
+    }
+}
+
+public func has(_ mockFlag: MockFlag) -&gt; Bool {
+    return CommandLine.arguments.contains(mockFlag.value)
+}</code></pre>
  <p>By running <code>app.add(theFlagIWantToTest)</code> before launching the UI test, the desired flag becomes available for inspection during runtime as a launch argument. The tough part is how you efficiently react to these flags, but developing a system that can do this well is very beneficial to the evolution of your project.</p>
  <p>The way I like to do this is by using <b>protocols</b> in all important components of the app. Every one of these components, such as clients and persistence modules, are initialized once in the app's launch and propagated through the app -- but when the app is in the Unit/UI test environment, different, mocked versions of them are created instead. This is the usual stuff, but the catch here is that since everything is done with protocols, the app itself is completely isolated from the environment peculiarities. This prevents the tests from making the project's maintenance harder.</p>
  <p>Here's a basic example of how a client is mocked in this structure:</p>
- <pre>
-<code>protocol HTTPRequest {</code>
-<code>    associatedtype Response //Omitting paths, parameters, headers and etc for simplicity</code>
-<code>}</code>
-<code></code>
-<code>protocol HTTPClient: AnyObject {</code>
-<code>    func send&lt;R&gt;(_ request: R) -&gt; Promise&lt;R.Response&gt; where R: HTTPRequest</code>
-<code>}</code>
-<code></code>
-<code>final class MockClient: HTTPClient {</code>
-<code>    func send&lt;R&gt;(_ request: R) -&gt; Promise&lt;R.Response&gt; where R: HTTPRequest {</code>
-<code>        guard let value = (request as? Mockable)?.mockedValue else {</code>
-<code>            Logger.log("Request \(request) has no mocked version!")</code>
-<code>            return Promise(error: HTTPError.generic)</code>
-<code>        }</code>
-<code>        return Promise(value: value)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>protocol HTTPRequest {
+    associatedtype Response //Omitting paths, parameters, headers and etc for simplicity
+}
+
+protocol HTTPClient: AnyObject {
+    func send&lt;R&gt;(_ request: R) -&gt; Promise&lt;R.Response&gt; where R: HTTPRequest
+}
+
+final class MockClient: HTTPClient {
+    func send&lt;R&gt;(_ request: R) -&gt; Promise&lt;R.Response&gt; where R: HTTPRequest {
+        guard let value = (request as? Mockable)?.mockedValue else {
+            Logger.log("Request \(request) has no mocked version!")
+            return Promise(error: HTTPError.generic)
+        }
+        return Promise(value: value)
+    }
+}</code></pre>
  <p>To make the mocks typesafe, we created a <code>Mockable</code> protocol that allows anything to expose a mocked version of itself based on the available <code>MockFlags</code>. This way, we don't have to deal with HTTP stub libraries and raw json strings that need to be replaced every now and then, and changes in the app's models will make so the mocks have to be updated in compile time as well. The mocked client ends up being simply a class that retrieves these <code>Mockable</code> <code>HTTPRequest's</code> properties.</p>
- <pre>
-<code>protocol Mockable {</code>
-<code>    associatedtype MockValue</code>
-<code>    var mockedValue: MockValue { get }</code>
-<code>}</code>
-<code></code>
-<code>extension HTTPRequest where Self: Mockable {</code>
-<code>    typealias MockValue = Response</code>
-<code>}</code>
-</pre>
- <pre>
-<code>extension UserBalanceRequest: Mockable {</code>
-<code>    var mockedValue: UserBalanceResponse {</code>
-<code>        return UserBalanceResponse(balance: has(MockFlag.User.noBalance) ? 0 : 1_000_000)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>protocol Mockable {
+    associatedtype MockValue
+    var mockedValue: MockValue { get }
+}
+
+extension HTTPRequest where Self: Mockable {
+    typealias MockValue = Response
+}</code></pre>
+ <pre><code>extension UserBalanceRequest: Mockable {
+    var mockedValue: UserBalanceResponse {
+        return UserBalanceResponse(balance: has(MockFlag.User.noBalance) ? 0 : 1_000_000)
+    }
+}</code></pre>
  <p>To start the logic that propagates the mocked components forward, I like to use the <b>factory</b> pattern to hide the decision that results in their creation. In the case of the client, we allow the <code>AppDelegate</code> to create and retain these components before injecting them to the app's first screen.</p>
- <pre>
-<code>func isTestEnvironment() -&gt; Bool {</code>
-<code>    return has(MockFlags.Environment.isUITest) || has(MockFlags.Environment.isUnitTest)</code>
-<code>}</code>
-</pre>
- <pre>
-<code>enum HTTPClientFactory {</code>
-<code>   static func create() -&gt; HTTPClient {</code>
-<code>        if isTestEnvironment() {</code>
-<code>            return MockClient()</code>
-<code>        }</code>
-<code>        return URLSessionHTTPClient() //The regular HTTPClient</code>
-<code>    }</code>
-<code>}</code>
-</pre>
- <pre>
-<code>class AppDelegate: UIResponder, UIApplicationDelegate {</code>
-<code>    let client = HTTPClientFactory.create()</code>
-<code>    ...</code>
-</pre>
+ <pre><code>func isTestEnvironment() -&gt; Bool {
+    return has(MockFlags.Environment.isUITest) || has(MockFlags.Environment.isUnitTest)
+}</code></pre>
+ <pre><code>enum HTTPClientFactory {
+   static func create() -&gt; HTTPClient {
+        if isTestEnvironment() {
+            return MockClient()
+        }
+        return URLSessionHTTPClient() //The regular HTTPClient
+    }
+}</code></pre>
+ <pre><code>class AppDelegate: UIResponder, UIApplicationDelegate {
+    let client = HTTPClientFactory.create()
+    ...</code></pre>
  <p>Although creating the components is easy enough, how you efficiently push them forward to the rest of the app depends on your architecture. We use MVVM-C, so in our case we chose to never use singletons to instead have each Coordinator/ViewModel directly receive and retain the components that are important to them.</p>
- <pre>
-<code>final class WalletCoordinator: Coordinator {</code>
-<code></code>
-<code>    let client: HTTPClient</code>
-<code>    let persistence: Persistence</code>
-<code></code>
-<code>    init(client: HTTPClient, persistence: Persistence) {</code>
-<code>        self.client = client</code>
-<code>        self.persistence = persistence</code>
-<code>        let viewModel = WalletViewModel(client: client, persistence: persistence)</code>
-<code>        let viewController = WalletViewController(viewModel: viewModel)</code>
-<code>        super.init(rootViewController: viewController, delegate: delegate)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>final class WalletCoordinator: Coordinator {
+
+    let client: HTTPClient
+    let persistence: Persistence
+
+    init(client: HTTPClient, persistence: Persistence) {
+        self.client = client
+        self.persistence = persistence
+        let viewModel = WalletViewModel(client: client, persistence: persistence)
+        let viewController = WalletViewController(viewModel: viewModel)
+        super.init(rootViewController: viewController, delegate: delegate)
+    }
+}</code></pre>
  <p>This is beneficial to the development of Unit/UI tests as testing certain interactions can be done by simply passing custom versions of the components to each class.</p>
- <pre>
-<code>func testViewStates() {</code>
-<code>    let mockedClient = MockClient()</code>
-<code>    mockedClient.alwaysFail = true</code>
-<code>    let viewModel = WalletViewModel(client: mockedClient, persistence: MockPersistence())</code>
-<code>    expect(viewModel.state) == .none</code>
-<code>    viewModel.load()</code>
-<code>    expect(viewModel.state) == .failed</code>
-<code>}</code>
-</pre>
- <pre>
-<code>func testLockId() {</code>
-<code>    class FailableClient: MockClient {</code>
-<code>        var shouldFail = false</code>
-<code>        func send&lt;R&gt;(_ resource: R) -&gt; Promise&lt;R.Value&gt; where R : HTTPRequest {</code>
-<code>            guard shouldFail else {</code>
-<code>                return super.send(resource)</code>
-<code>            }</code>
-<code>            return Promise(error: HTTPError.generic)</code>
-<code>        }</code>
-<code>    }</code>
-<code>    let client = FailableClient()</code>
-<code>    let viewModel = CheckoutViewModel(client: client)</code>
-<code>    // some tests</code>
-<code>    client.shouldFail = true</code>
-<code>    // more tests</code>
-<code>}</code>
-</pre>
+ <pre><code>func testViewStates() {
+    let mockedClient = MockClient()
+    mockedClient.alwaysFail = true
+    let viewModel = WalletViewModel(client: mockedClient, persistence: MockPersistence())
+    expect(viewModel.state) == .none
+    viewModel.load()
+    expect(viewModel.state) == .failed
+}</code></pre>
+ <pre><code>func testLockId() {
+    class FailableClient: MockClient {
+        var shouldFail = false
+        func send&lt;R&gt;(_ resource: R) -&gt; Promise&lt;R.Value&gt; where R : HTTPRequest {
+            guard shouldFail else {
+                return super.send(resource)
+            }
+            return Promise(error: HTTPError.generic)
+        }
+    }
+    let client = FailableClient()
+    let viewModel = CheckoutViewModel(client: client)
+    // some tests
+    client.shouldFail = true
+    // more tests
+}</code></pre>
  <p>The downside of this approach is that the initializers tend to get really big when a screen has tons of responsibilities, which can be a bit jarring. There are several alternatives to dependency injection out there that don't hurt the testability of the classes, but that's a topic for another blog post.</p>
  <h2>Conclusion</h2>
  <div class="sponsor-article-ad-auto hidden"></div>

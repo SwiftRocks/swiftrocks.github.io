@@ -187,7 +187,7 @@
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>In programming, <b>function inlining</b> is a compiler optimization technique that removes the overhead of calling certain methods by directly replacing calls to them with the method's contents, basically pretending that the method never existed in first place. This provides a great performance boost.</p>
  <p>For example, consider the following code:</p>
- <pre class="language-swift"><code class="language-swift">func calculateAndPrintSomething() {
+ <pre class="language-swift"><code><code class="language-swift">func calculateAndPrintSomething() {
     var num = 1
     num *= 10
     num /= 5
@@ -196,18 +196,16 @@
 
 print("I'm going to do print some number")
 calculateAndPrintSomething()
-print("Done!")
-</code></pre>
+print("Done!")</code></pre>
  <p>Assuming that <code>calculateAndPrintSomething()</code> isn't used anywhere else, it's clear that the method doesn't need to exist in the compiled binary - it's purpose is purely to make the code easier to read.</p>
  <p>With function inlining, the Swift compiler can remove the overhead of calling an useless method by replacing it with it's contents:</p>
- <pre class="language-swift"><code class="language-swift">//The compiled binary version of the above example
+ <pre class="language-swift"><code><code class="language-swift">//The compiled binary version of the above example
 print("I'm going to do print some number")
 var num = 1
 num *= 10
 num /= 5
 print("My number: \(num)")
-print("Done!")
-</code></pre>
+print("Done!")</code></pre>
  <p>Based on your optimization level, this is done automatically by the Swift compiler - favoring inlining if optimizing for speed (<code>-O</code>), or favoring <b>not</b> inlining if optimizing for binary size (<code>-Osize</code>), since inlining a long method that is called in several places would result in duplicated code, and a larger binary.</p>
  <p>Even though the compiler can make its own inlining decisions, the <code>@inline</code> attribute can be used in Swift to <b>force</b> its decision. It can be used in two ways:</p>
  <p><code>@inline(__always)</code>: Signals the compiler to always inline the method, if possible.</p>
@@ -220,7 +218,7 @@ print("Done!")
  <p>Another more practical example is that you might want a method to be hidden from possible hackers for containing some sort of sensitive info, regardless if it will make your code slower or bigger. You can try to make the code harder to understand or use some obfuscation tool like <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>, but <code>@inline(__always)</code> can achieve this without hurting your code. I've detailed this example below.</p>
  <h2>Using <code>@inline(__always)</code> to obfuscate Premium content</h2>
  <p>Let's pretend we have a music player in our app and some actions are premium-only. The <code>isUserSubscribed(_:)</code> method validates the user subscription and returns a boolean stating if the user is subscribed or not:</p>
- <pre class="language-swift"><code class="language-swift">func isUserSubscribed() -&gt; Bool {
+ <pre class="language-swift"><code><code class="language-swift">func isUserSubscribed() -&gt; Bool {
     //Some very complex validation
     return true
 }
@@ -231,8 +229,7 @@ func play(song: Song) {
     } else {
         //Ask user to subscribe
     }
-}
-</code></pre>
+}</code></pre>
  <p>This works great for our code, but look what happens if I disassemble this app and search for the <code>play(_:)</code> method's assembly:</p>
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/3kqUFaF.png" alt=""> 
@@ -244,7 +241,7 @@ func play(song: Song) {
  </div>
  <p>In this case, likely because the method is widely used around the app, the compiler decided to not inline it. This naive decision created a security flaw that allowed the app to be quickly reverse-engineered.</p>
  <p>Now look what happens when <code>@inline(__always)</code> is applied to <code>isUserSubscribed(_:)</code>:</p>
- <pre class="language-swift"><code class="language-swift">@inline(__always) func isUserSubscribed() -&gt; Bool {
+ <pre class="language-swift"><code><code class="language-swift">@inline(__always) func isUserSubscribed() -&gt; Bool {
     //Some very complex validation
     return true
 }
@@ -255,8 +252,7 @@ func play(song: Song) {
     } else {
         //Ask user to subscribe
     }
-}
-</code></pre>
+}</code></pre>
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/JwkToz8.png" alt=""> 
  </div>

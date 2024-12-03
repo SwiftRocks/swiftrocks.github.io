@@ -189,101 +189,83 @@
  <h2>What is <code>@autoreleasepool</code>? (Objective-C)</h2>
  <p>In the pre-ARC Obj-C days of manual memory management, <code>retain()</code> and <code>release()</code> had to be used to control the memory flow of an iOS app. As iOS's memory management works based on the retain count of an object, users could use these methods to signal how many times an object is being referenced so it can be safely dealloced if this value ever reaches zero.</p>
  <p>However, consider the following situation where we have a <code>getCoolLabel</code> method that someone can use to get a really cool label:</p>
- <pre>
-<code>-(NSString *)getCoolLabel {</code>
-<code>    NSString *label = [[NSString alloc] initWithString:@"SwiftRocks"];</code>
-<code>    return label;</code>
-<code>}</code>
-</pre>
+ <pre><code>-(NSString *)getCoolLabel {
+    NSString *label = [[NSString alloc] initWithString:@"SwiftRocks"];
+    return label;
+}</code></pre>
  <p><code>NSString alloc</code> automatically calls <code>retain()</code> to make sure <code>label</code> is able to exist (retain count of 1), and the label is then returned to someone else that wants to reference it, retaining it again (retain count 2) until nobody uses it anymore.</p>
  <p>But there's a huge problem here. After the stack that called <code>getCoolLabel</code> calls <code>release()</code> to signal that it doesn't need it anymore, the retain count won't be 0, but 1. The internal <code>NSString *label</code> that was created to hold is <b>also</b> retaining it, and it needs to be released as well if we want the NSString itself to dealloc. The thing is, as <code>label</code> is unreachable outside of this method, there's no way we can release it:</p>
- <pre>
-<code>-(NSString *)getCoolLabel {</code>
-<code>    NSString *label = [[NSString alloc] initWithString:@"SwiftRocks"];</code>
-<code>    [label release]; // Oopsie, nope!</code>
-<code>    return label;</code>
-<code>    [label release]; // Oopsie, nope!</code>
-<code>}</code>
-</pre>
+ <pre><code>-(NSString *)getCoolLabel {
+    NSString *label = [[NSString alloc] initWithString:@"SwiftRocks"];
+    [label release]; // Oopsie, nope!
+    return label;
+    [label release]; // Oopsie, nope!
+}</code></pre>
  <p>If <code>release()</code> is called before <code>return</code>, the NSString will dealloc before it can be used which will crash the app, and calling after <code>return</code> means it will never be executed, causing a memory leak.</p>
  <p>The solution for this edge case is to use a neat method called <code>autorelease()</code>:</p>
- <pre>
-<code>-(NSString *)getCoolLabel {</code>
-<code>    NSString *label = [[NSString alloc] initWithString:@"SwiftRocks"];</code>
-<code>    return [label autorelease];</code>
-<code>}</code>
-</pre>
+ <pre><code>-(NSString *)getCoolLabel {
+    NSString *label = [[NSString alloc] initWithString:@"SwiftRocks"];
+    return [label autorelease];
+}</code></pre>
  <p>Instead of instantly reducing the retain count of an object, <code>autorelease()</code> adds the object to a pool of objects that need to be released <b>sometime in the future, but not now.</b> By default, the pool will release these objects at the end of the run loop of the thread being executed, which is more than enough time to cover all usages of <code>getCoolLabel()</code> without causing memory leaks. Great, right?</p>
  <p>Well, kinda. This will indeed solve your problem in 99% of the times, but consider this:</p>
- <pre>
-<code>-(void)emojifyAllFiles {</code>
-<code>    int numberOfFiles = 1000000;</code>
-<code>    for(i=0;i&lt;numberOfFiles;i++) {</code>
-<code>        NSString *contents = [self getFileContents:files[i]];</code>
-<code>        NSString *emojified = [contents emojified];</code>
-<code>        [self writeContents:contents toFile:files[i]];</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>-(void)emojifyAllFiles {
+    int numberOfFiles = 1000000;
+    for(i=0;i&lt;numberOfFiles;i++) {
+        NSString *contents = [self getFileContents:files[i]];
+        NSString *emojified = [contents emojified];
+        [self writeContents:contents toFile:files[i]];
+    }
+}</code></pre>
  <p>Assuming that <code>getFileContents</code> and <code>emojified</code> return autoreleased instances, the app will be holding <b>two million</b> instances of NSStrings <b>at once</b> even though the individual properties could be safely released after their respective loops!</p>
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/ztWib4b.png" alt=""> 
  </div>
  <p>Because <code>autorelease</code> defers the release of these objects, they will only be released after the run loop ends -- which is way after the execution of <code>emojifyAllFiles</code>. If the contents of these files are large, this would cause serious issues if not crash the app entirely.</p>
  <p>The solution to prevent this is the <code>@autoreleasepool</code> block; when used, every autoreleased property defined inside of it will be released <b>exactly at the end of block</b>:</p>
- <pre>
-<code>-(void)emojifyAllFiles {</code>
-<code>    int numberOfFiles = 1000000;</code>
-<code>    for(i=0;i&lt;numberOfFiles;i++) {</code>
-<code>        @autoreleasepool {</code>
-<code>            NSString *contents = [self getFileContents:files[i]];</code>
-<code>            NSString *emojified = [contents emojified];</code>
-<code>            [self writeContents:contents toFile:files[i]];</code>
-<code>        }</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>-(void)emojifyAllFiles {
+    int numberOfFiles = 1000000;
+    for(i=0;i&lt;numberOfFiles;i++) {
+        @autoreleasepool {
+            NSString *contents = [self getFileContents:files[i]];
+            NSString *emojified = [contents emojified];
+            [self writeContents:contents toFile:files[i]];
+        }
+    }
+}</code></pre>
  <p>Instead of waiting until the end of the thread's run loop, the two NSStrings now receive a <code>release</code> message <b>right after</b> <code>writeContents</code> is called, keeping the memory usage stable.</p>
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/RoLTwYW.png" alt=""> 
  </div>
  <p>In fact, "releasing after the thread's run loop" isn't compiler magic, this is simply because the threads themselves are surrounded by <code>@autoreleasepools</code>! You can see this partially in the main.m of any Obj-C project.</p>
- <pre>
-<code>int main(int argc, char * argv[]) {</code>
-<code>    @autoreleasepool {</code>
-<code>        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>int main(int argc, char * argv[]) {
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    }
+}</code></pre>
  <p>What about Swift though?</p>
  <h2>Is @autoreleasepool needed in ARC-era Swift?</h2>
  <p>The answer is <b>it depends.</b></p>
  <p>In theory, yes, as the problem shown still exists since <code>autorelease</code> is still a thing, but these problems are harder to come by. The ARC optimizations for Swift evolved a lot in the past few years, and as far as I tested it seems that ARC for Swift is now smart enough to simply never call <code>autorelease</code>, editing your code so that objects call <code>release</code> multiple times instead. The language itself doesn't even appear to have a definition for <code>autorelease</code> outside of the Obj-C bridging -- the one we can use in Swift is in fact the one from Obj-C. This means that for <b>pure Swift objects</b>, <code>@autoreleasepool</code> appears to be useless as nothing is never going to be <code>autoreleased</code>. The following code stays at a stable memory level even though it's looping millions of times.</p>
- <pre>
-<code>for _ in 0...9999999 {</code>
-<code>    let obj = getGiantSwiftClass()</code>
-<code>}</code>
-</pre>
+ <pre><code>for _ in 0...9999999 {
+    let obj = getGiantSwiftClass()
+}</code></pre>
  <h3>Swift code calling Foundation / Legacy Objective-C code</h3>
  <p>However, it's a different story if your code is dealing with legacy Obj-C code, specially old Foundation classes in iOS. Consider the following code that loads a big image tons of times:</p>
- <pre>
-<code>func run() {</code>
-<code>    guard let file = Bundle.main.path(forResource: "bigImage", ofType: "png") else {</code>
-<code>        return</code>
-<code>    }</code>
-<code>    for i in 0..&lt;1000000 {</code>
-<code>        let url = URL(fileURLWithPath: file)</code>
-<code>        let imageData = try! Data(contentsOf: url)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>func run() {
+    guard let file = Bundle.main.path(forResource: "bigImage", ofType: "png") else {
+        return
+    }
+    for i in 0..&lt;1000000 {
+        let url = URL(fileURLWithPath: file)
+        let imageData = try! Data(contentsOf: url)
+    }
+}</code></pre>
  <p>Even though we're in Swift, this will result in the same absurd memory spike shown in the Obj-C example! This is because the <code>Data</code> init is a bridge to the original Obj-C <code>[NSData dataWithContentsOfURL]</code> -- which unfortunately still calls <code>autorelease</code> somewhere inside of it. Just like in Obj-C, you can solve this with the Swift version of <code>@autoreleasepool</code>; <code>autoreleasepool</code> without the @:</p>
- <pre>
-<code>autoreleasepool {</code>
-<code>    let url = URL(fileURLWithPath: file)</code>
-<code>    let imageData = try! Data(contentsOf: url)</code>
-<code>}</code>
-</pre>
+ <pre><code>autoreleasepool {
+    let url = URL(fileURLWithPath: file)
+    let imageData = try! Data(contentsOf: url)
+}</code></pre>
  <p>The memory usage will now again be at a low, stable level.</p>
  <h2>How to know if a legacy UIKit/Foundation init/method returned an autoreleased instance?</h2>
  <p>Because these frameworks are closed source at Apple, there's no way to look their source code to see where <code>autorelease</code> is used.</p>

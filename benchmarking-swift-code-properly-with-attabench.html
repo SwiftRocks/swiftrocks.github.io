@@ -203,47 +203,39 @@
 <p>One interesting configuration you can play with is the <b>input size</b> in the top left of the app, which controls the minimum and maximum value that Attabench will use in its runs. In this case, the value between 1 and 1 million dictates the number of elements in the array that is going to be parsed.</p>
 <p>Another important configuration is <i>how</i> is shown to you, available at the top right. By default the graph shows the average of how long it takes and on a logarithmic scale, but I'm not smart enough to understand what I'm supposed to do with that information. I personally like to disable everything and see precisely how long the code takes to run for each input size.</p>
 <p>Now that you know how to use Attabench, let's see how you can create your own benchmarks. The <b>.attabench</b> file is a workspace that you can open as a folder, and inside you'll find a SPM <b>Package.swift</b> file. If you open it in Xcode, you'll be able to see and modify the benchmark:</p>
-<pre>
-<code>let benchmark = Benchmark&lt;[Int]>(title: "Sorting")</code>
-<code>benchmark.descriptiveTitle = "Time spent sorting elements"</code>
-<code>benchmark.descriptiveAmortizedTitle = "Average time spent sorting elements"</code>
-<code></code>
-<code>benchmark.addSimpleTask(title: "Swift.sort") { input in</code>
-<code>    _ = input.sorted()</code>
-<code>}</code>
-<code></code>
-<code>benchmark.addTimerTask(title: "Quicksort") { (input, timer) in</code>
-<code>    var input = input</code>
-<code>    timer.measure {</code>
-<code>        input.quicksort()</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>benchmark.start()</code>
-</pre>
+<pre><code>let benchmark = Benchmark&lt;[Int]>(title: "Sorting")
+benchmark.descriptiveTitle = "Time spent sorting elements"
+benchmark.descriptiveAmortizedTitle = "Average time spent sorting elements"
+
+benchmark.addSimpleTask(title: "Swift.sort") { input in
+    _ = input.sorted()
+}
+
+benchmark.addTimerTask(title: "Quicksort") { (input, timer) in
+    var input = input
+    timer.measure {
+        input.quicksort()
+    }
+}
+
+benchmark.start()</code></pre>
 <p>As you can see from the snippet, the benchmarking process is as simple as defining a benchmark object and registering the code that you want to measure.</p>
 <p>The generic argument of the <code>Benchmark</code> represents the type of the input, which in this case is an array. You can modify it to be anything you want, as long you provide a function that generates the input for a given provided size. For example, if you'd like to create a benchmark where the input is a number, here's how we could define the <code>Benchmark</code> object:</p>
-<pre>
-<code>let benchmark = Benchmark&lt;Int>(title: "Calculate number of digits in a number") { size in</code>
-<code>    return size</code>
-<code>}</code>
-</pre>
+<pre><code>let benchmark = Benchmark&lt;Int>(title: "Calculate number of digits in a number") { size in
+    return size
+}</code></pre>
 <p>As you might've realized by now, <code>size</code> is a random number between the range you defined previously in Attabench.</p>
 <p>To define a block of code to be measured, simply add a call to <code>addSimpleTask</code> (heh) with the measured content inside a closure:</p>
-<pre>
-<code>benchmark.addSimpleTask(title: "Swift.sort") { input in</code>
-<code>    _ = input.sorted()</code>
-<code>}</code>
-</pre>
+<pre><code>benchmark.addSimpleTask(title: "Swift.sort") { input in
+    _ = input.sorted()
+}</code></pre>
 <p>By default, the entire content of the closure will be measured. If you'd like to have finer-grained control over what's being measured, you can use one of the lower-level abstractions like <code>addTimerTask</code>. In this example case, I use a timer task to make sure Quicksort's benchmarking includes only the time it takes to run the algorithm itself, and not the setup needed to run it (creating a mutable copy):</p>
-<pre>
-<code>benchmark.addTimerTask(title: "Quicksort") { (input, timer) in</code>
-<code>    var input = input</code>
-<code>    timer.measure {</code>
-<code>        input.quicksort()</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+<pre><code>benchmark.addTimerTask(title: "Quicksort") { (input, timer) in
+    var input = input
+    timer.measure {
+        input.quicksort()
+    }
+}</code></pre>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>Finally, you can call <code>benchmark.start()</code> to run the benchmark. To update the Attabench app after changing the code, simply click the refresh button at the top-left corner.</p>
 </div>

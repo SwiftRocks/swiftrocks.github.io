@@ -189,134 +189,102 @@
  <p>Objective-C is notable for its weird syntax and for being completely dynamic, but the superset of C was very clever in the way its problems were solved. I mentioned in previous articles that one of my favorite things in Swift is that many compiler features are tied to actual protocols inside the language, and this is the case for Objective-C as well.</p>
  <p>In Objective-C, everything was an <b>object.</b> To support the language's dynamic features, objects provided type information to the run time by subclassing <code>NSObject</code>. Subclassing it also provided multiple helper methods like equality methods like <code>isEqual</code>, message routing methods like <code>respondsToSelector</code>, memory management methods like <code>retain/release</code> and type helper methods like <code>isKindOfClass</code>. <code>NSObject</code> is still used to this day in Swift -- many old iOS delegate protocols require the receiver to be an object as they need to check which methods the object can respond to.</p>
  <p>An important aspect of the language was that in Objective-C, <b>every object is a reference type</b>. Because the language is insanely dynamic, there's no way to know if the object you're creating in compile time is actually going to look like that in runtime. Everything can be changed in runtime, and because of that, allocating objects on the stack was simply not possible. Everything has to work through shared pointers and dynamic heap allocations, similar to how <code>classes</code> behave in Swift.</p>
- <pre>
-<code>NSString blogName;</code>
-<code>// Compiler error: Interface type cannot be statically allocated</code>
-</pre>
- <pre>
-<code>NSMutableString *blogNameBuilder = [[NSMutableString alloc] initWithString:@"Swift"];</code>
-<code>NSString* blogName = blogNameBuilder;</code>
-<code>[blogNameBuilder appendString:@"Rocks"];</code>
-<code>NSLog(@"%@", blogNameBuilder); // SwiftRocks</code>
-<code>NSLog(@"%@", blogName); // SwiftRocks</code>
-</pre>
+ <pre><code>NSString blogName;
+// Compiler error: Interface type cannot be statically allocated</code></pre>
+ <pre><code>NSMutableString *blogNameBuilder = [[NSMutableString alloc] initWithString:@"Swift"];
+NSString* blogName = blogNameBuilder;
+[blogNameBuilder appendString:@"Rocks"];
+NSLog(@"%@", blogNameBuilder); // SwiftRocks
+NSLog(@"%@", blogName); // SwiftRocks</code></pre>
  <p>Because working with references is not always a good idea, languages have means to differentiate between reference semantics and value semantics, and the common way of achieving <b>value semantics</b> in Swift is to use a <code>struct</code>. Because Objective-C doesn't have those for objects, its is very different -- instead of having a clear distinction of reference types versus value types like in Swift, Objective-C allowed reference types to <b>opt-in</b> to value semantics through the <code>copy</code> property accessor:</p>
- <pre>
-<code>@property (copy, nonatomic) NSString* blogName;</code>
-<code></code>
-<code>---</code>
-<code></code>
-<code>_blogName = @""; // Initialize the ivar</code>
-<code>NSMutableString *blogNameBuilder = [[NSMutableString alloc] initWithString:@"Swift"];</code>
-<code>self.blogName = blogNameBuilder;</code>
-<code>[blogNameBuilder appendString:@"Rocks"];</code>
-<code>NSLog(@"%@", blogNameBuilder); // SwiftRocks</code>
-<code>NSLog(@"%@", self.blogName); // Swift</code>
-</pre>
+ <pre><code>@property (copy, nonatomic) NSString* blogName;
+
+---
+
+_blogName = @""; // Initialize the ivar
+NSMutableString *blogNameBuilder = [[NSMutableString alloc] initWithString:@"Swift"];
+self.blogName = blogNameBuilder;
+[blogNameBuilder appendString:@"Rocks"];
+NSLog(@"%@", blogNameBuilder); // SwiftRocks
+NSLog(@"%@", self.blogName); // Swift</code></pre>
  <p>With <code>copy</code> as one of the property's accessors, attributing a value to the property's generated setter will instead attribute a copy-on-write copy of the original value instead of the regular pointer. <code>copy</code> in Objective-C works by changing the synthesized setter of the property -- instead of simply assigning the new value to the <i>ivar</i>, the synthesized setter calls a <code>copy()</code> method on the value:</p>
- <pre>
-<code>// Created by the runtime:</code>
-<code>- (void)setBlogName:(NSString *)blogName {</code>
-<code>    _blogName = [blogName copy];</code>
-<code>}</code>
-</pre>
+ <pre><code>// Created by the runtime:
+- (void)setBlogName:(NSString *)blogName {
+    _blogName = [blogName copy];
+}</code></pre>
  <p>Calling <code>copy()</code> returns a new instance of the type, completely separated from the original one. But where does this method comes from?</p>
  <h2><code>NSCopying</code></h2>
  <p>The <code>copy()</code> method comes from <code>NSCopying</code> -- a protocol built to do exactly what it implies: giving objects the ability to generate copies of themselves. Instead of tying the accessor to an internal compiler feature, The <code>copy</code> accessor works through <code>NSCopying</code> so value semantics on properties can also be applied to your own custom types as well. As expected, the <code>copy</code> accessor in Objective-C only works with types that inherit from <code>NSCopying</code>, and its usage in setters is simply a syntax sugar to calling the protocol manually.</p>
  <p><code>copy()</code> is the only method defined by <code>NSCopying</code>, and implementing it is simply a matter of returning a new instance of your type. Let's use a <code>Box</code> pattern as an example: In Swift, a common way to bring reference semantics to a value type is to "box" a value inside a <code>class</code>:</p>
- <pre>
-<code>class Box&lt;T&gt; {</code>
-<code>    let element: T</code>
-<code></code>
-<code>    init(element: T) {</code>
-<code>        self.element = element</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>class Box&lt;T&gt; {
+    let element: T
+
+    init(element: T) {
+        self.element = element
+    }
+}</code></pre>
  <p>This allows us to create references to an arbitrary <code>T</code> type, but what if for some reason we wanted to make a copy of this entire box, including the underneath value?</p>
  <p>One way to achieve this would be to simply create a new instance:</p>
- <pre>
-<code>func copyBox() -&gt; Box&lt;T&gt; {</code>
-<code>    let newElement = element</code>
-<code>    let newBox = Box(element: newElement)</code>
-<code>    return newBox</code>
-<code>}</code>
-</pre>
+ <pre><code>func copyBox() -&gt; Box&lt;T&gt; {
+    let newElement = element
+    let newBox = Box(element: newElement)
+    return newBox
+}</code></pre>
  <p>This approach, however, was a small issue: Although we are indeed creating a new instance of the box, we don't really know if the underneath <code>element</code> is going to be copied appropriately. If the <code>T</code> type requires doing additional actions to actually copy its contents, the <code>newElement</code> property would still be partially referencing the original <code>element</code> one.</p>
  <p>One way to fix this would be to make <code>T</code> inherit from some "copying" protocol, giving us the ability to be sure that we're handling a new copy of the element. Luckily we don't need to, because that's exactly what <code>NSCopying</code> is for!</p>
- <pre>
-<code>class Box&lt;T: NSCopying&gt;: NSCopying {</code>
-<code>    let element: T</code>
-<code></code>
-<code>    init(element: T) {</code>
-<code>        self.element = element</code>
-<code>    }</code>
-<code></code>
-<code>    func copy(with zone: NSZone? = nil) -&gt; Any {</code>
-<code>        guard let newElement = element.copy() as? T else {</code>
-<code>            fatalError("Couldn't copy element")</code>
-<code>        }</code>
-<code>        let newBox = Box(element: newElement)</code>
-<code>        return newBox</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>class Box&lt;T: NSCopying&gt;: NSCopying {
+    let element: T
+
+    init(element: T) {
+        self.element = element
+    }
+
+    func copy(with zone: NSZone? = nil) -&gt; Any {
+        guard let newElement = element.copy() as? T else {
+            fatalError("Couldn't copy element")
+        }
+        let newBox = Box(element: newElement)
+        return newBox
+    }
+}</code></pre>
  <p>By calling <code>copy()</code> on our box which internally calls <code>copy()</code> on the element as well, we're now sure that we're handling a reference to a unique copy.</p>
- <pre>
-<code>var nsString = NSMutableString(string: "Swift")</code>
-<code></code>
-<code>let stringBox: Box&lt;NSString&gt; = Box(element: nsString)</code>
-<code>let stringBoxCopy = stringBox.copy() as! Box&lt;NSString&gt;</code>
-<code></code>
-<code>// Getting memory addresses</code>
-<code>print(Unmanaged.passUnretained(stringBox).toOpaque()) // 0x0000600003620da0</code>
-<code>print(Unmanaged.passUnretained(stringBoxCopy).toOpaque()) // 0x0000600003620e20</code>
-<code></code>
-<code>nsString.append("Rocks")</code>
-<code>// Checking if the inner string was copied as well</code>
-<code>print(stringBox.element) // SwiftRocks</code>
-<code>print(stringBoxCopy.element) // Swift</code>
-</pre>
+ <pre><code>var nsString = NSMutableString(string: "Swift")
+
+let stringBox: Box&lt;NSString&gt; = Box(element: nsString)
+let stringBoxCopy = stringBox.copy() as! Box&lt;NSString&gt;
+
+// Getting memory addresses
+print(Unmanaged.passUnretained(stringBox).toOpaque()) // 0x0000600003620da0
+print(Unmanaged.passUnretained(stringBoxCopy).toOpaque()) // 0x0000600003620e20
+
+nsString.append("Rocks")
+// Checking if the inner string was copied as well
+print(stringBox.element) // SwiftRocks
+print(stringBoxCopy.element) // Swift</code></pre>
  <p>(I used <code>NSString</code> in this case because it inherits from <code>NSCopying</code> and is easy to use for tests like this.)</p>
  <p><code>NSCopying</code> can be used in Swift as a generic way to create copies of classes (reference types), and as a bonus, making a Swift type inherit from <code>NSCopying</code> will also allow it to make use of the <code>copy</code> property accessor in Objective-C bridges.</p>
- <pre>
-<code>@property (copy, nonatomic) MyBridgedNSCopyingSwiftClass* foo;</code>
-</pre>
+ <pre><code>@property (copy, nonatomic) MyBridgedNSCopyingSwiftClass* foo;</code></pre>
  <h2>What the hell is the <code>NSZone</code> argument?</h2>
  <p>You might have noticed that <code>copy()</code> takes a <code>NSZone</code> argument that is ignored -- what is that and why is it ignored?</p>
  <p>If you're looking for a short answer, you'll be happy to know that <code>NSZone</code> <b>is deprecated and you can completely ignore it.</b> For a bit of iOS history, keep on reading this section.</p>
  <p>A common problem with heap allocation algorithms is <b>memory fragmentation.</b> We need to scan the heap to find a place to allocate an object, but if we're not careful about <b>where</b> we place it, deallocating objects can end up dividing our available memory into very small pieces of memory that are unusable by larger objects.</p>
  <p>To visualize this, let's assume that we have a 16 bits block of free memory:</p>
- <pre>
-<code>|                |</code>
-</pre>
+ <pre><code>|                |</code></pre>
  <p>Now, let's allocate a 4 bit object called 1, an 8 bit object called 2, and another 4 bit object called 3 to fill our memory:</p>
- <pre>
-<code>|1111222222223333|</code>
-</pre>
+ <pre><code>|1111222222223333|</code></pre>
  <p>Now, let's deallocate objects 1 and 3, but <b>not</b> 2:</p>
- <pre>
-<code>|    22222222    |</code>
-</pre>
+ <pre><code>|    22222222    |</code></pre>
  <p>We now have 8 bits of free memory, but if you actually try to allocate an object that has 8 bits of size at this point, you'll not be able to! Even though we do have this space available, this space is <b>fragmented</b> into two blocks of 4 bits that can't be used by larger objects unless we deallocate or move object 2.</p>
  <p>The solution to mitigate this at the time was to create <b>zones</b> of memory. Instead of putting everything into one big memory space, an algorithm that allocated/deallocated a lot of memory could create a separate allocation zone to prevent the rest of the physical memory from being fragmented. In this case, the algorithm that creates the large 8 bit object could create a separate 8 bit zone:</p>
- <pre>
-<code>Main: |11113333| Zone: |22222222|</code>
-</pre>
+ <pre><code>Main: |11113333| Zone: |22222222|</code></pre>
  <p>After deallocating objects 1 and 3, we'll now have the 8 bits of memory unfragmented and ready to be used by an object of equal size.</p>
- <pre>
-<code>Main: |        | Zone: |22222222|</code>
-</pre>
+ <pre><code>Main: |        | Zone: |22222222|</code></pre>
  <p>This is exactly what <code>NSZone</code> does. Foundation provided a default object pointing to the "main" zone, but custom ones would be created with custom sizes and granularities.</p>
- <pre>
-<code>NSZone* defaultZone = NSDefaultMallocZone();</code>
-<code>NSZone* customZone = NSCreateZone(8, 0, YES);</code>
-</pre>
+ <pre><code>NSZone* defaultZone = NSDefaultMallocZone();
+NSZone* customZone = NSCreateZone(8, 0, YES);</code></pre>
  <p>However, as mentioned before, the usage of <code>NSZone</code> was deprecated long ago. The Objective-C runtimes ignores them completely, and Swift doesn't even let you reference them:</p>
- <pre>
-<code>let zone = NSDefaultMallocZone()</code>
-<code>// 'NSDefaultMallocZone' is unavailable in Swift: Zone-based memory management is unavailable</code>
-</pre>
+ <pre><code>let zone = NSDefaultMallocZone()
+// 'NSDefaultMallocZone' is unavailable in Swift: Zone-based memory management is unavailable</code></pre>
  <p>The reason is that the creation of ARC rendered it unnecessary as its memory management algorithms were smart enough to prevent fragmentation. Also, fragmentation wasn't much of an issue in iOS anyway -- allocating in virtual memory is much more flexible than in physical memory, and iPhones have enough physical memory to make this a rare occurrence.</p>
  <h2>NSMutableCopying</h2>
  <p>For completion purposes, it's important to also mention that Foundation also has a <code>NSMutableCopying</code> protocol that defines a similar <code>mutableCopy()</code> method. The functionality is the exact same as <code>NSCopying</code> -- the difference comes from the fact that it was common in Objective-C to differentiate between immutable and mutable objects. For example, as strings in Objective-C could be defined both as the immutable <code>NSString</code> and the mutable <code>NSMutableString</code>, the <code>NSMutableCopying</code> allowed developers to explicitly create mutable copies of objects. Since <code>let</code> and <code>var</code> accessors made this pattern unnecessary in Swift, <code>NSMutableCopying</code> doesn't have good uses in Swift unless you explicitly create separate mutable versions of your types.</p>

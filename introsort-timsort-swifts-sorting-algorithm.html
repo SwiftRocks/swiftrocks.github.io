@@ -191,149 +191,135 @@
  <p>The <b>stability</b> of a sorting algorithm represents the ability of the algorithm to <b>maintain the original order of equal elements after sorting</b>. An <b>unstable</b> sorting algorithm has no guarantees that the order of equal elements in the unsorted array will stay the same after sorting, while a <b>stable</b> one guarantees that they will stay the same.</p>
  <p>This might sound weird, after all, if the elements are the same, why should I care about their overall order? This can be true if you're sorting elements by value, but when sorting elements by some arbitrary <b>priority</b>, using unstable algorithms can give you undesired results.</p>
  <p>Let's assume that we're building a music player, and our current task is to sort songs based on their popularity:</p>
- <pre>
-<code>struct Music: Comparable, Equatable, CustomStringConvertible {</code>
-<code>    let name: String</code>
-<code>    let popularityValue: Int</code>
-<code></code>
-<code>    static func &lt; (lhs: Music, rhs: Music) -&gt; Bool {</code>
-<code>        return lhs.popularityValue &lt; rhs.popularityValue</code>
-<code>    }</code>
-<code></code>
-<code>    var description: String {</code>
-<code>        return name</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>var songs: [Music] = [</code>
-<code>    Music(name: "I'm that swifty", popularityValue: 3),</code>
-<code>    Music(name: "Swift boi", popularityValue: 5),</code>
-<code>    Music(name: "Swift That Walk", popularityValue: 1),</code>
-<code>    Music(name: "Too Swift", popularityValue: 5),</code>
-<code>]</code>
-</pre>
+ <pre><code>struct Music: Comparable, Equatable, CustomStringConvertible {
+    let name: String
+    let popularityValue: Int
+
+    static func &lt; (lhs: Music, rhs: Music) -&gt; Bool {
+        return lhs.popularityValue &lt; rhs.popularityValue
+    }
+
+    var description: String {
+        return name
+    }
+}
+
+var songs: [Music] = [
+    Music(name: "I'm that swifty", popularityValue: 3),
+    Music(name: "Swift boi", popularityValue: 5),
+    Music(name: "Swift That Walk", popularityValue: 1),
+    Music(name: "Too Swift", popularityValue: 5),
+]</code></pre>
  <p>If we sort <code>songs</code> using Quicksort, we'll get the following result:</p>
- <pre>
-<code>extension Array where Element: Equatable &amp; Comparable {</code>
-<code>    func quicksort(comparison: ((Element, Element) -&gt; Bool)) -&gt; [Element] {</code>
-<code>        var copy = self</code>
-<code>        copy.quick(0, count - 1, comparison: comparison)</code>
-<code>        return copy</code>
-<code>    }</code>
-<code></code>
-<code>    mutating private func quick(_ i: Int, _ j: Int, comparison: ((Element, Element) -&gt; Bool)) {</code>
-<code>        guard i &lt; j else {</code>
-<code>            return</code>
-<code>        }</code>
-<code>        let pivot = partition(i, j, comparison: comparison)</code>
-<code>        quick(i, pivot - 1, comparison: comparison)</code>
-<code>        quick(pivot + 1, j, comparison: comparison)</code>
-<code>    }</code>
-<code></code>
-<code>    mutating private func partition(_ i: Int, _ j: Int, comparison: ((Element, Element) -&gt; Bool)) -&gt; Int {</code>
-<code>        let pivotElement = self[j]</code>
-<code>        var indexToAdd = i - 1</code>
-<code>        for k in i..&lt;j {</code>
-<code>            if comparison(self[k], pivotElement) {</code>
-<code>                indexToAdd += 1</code>
-<code>                swapAt(indexToAdd, k)</code>
-<code>            }</code>
-<code>        }</code>
-<code>        swapAt(indexToAdd + 1, j)</code>
-<code>        return indexToAdd + 1</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>songs = songs.quicksort {</code>
-<code>    $0.popularityValue &gt; $1.popularityValue</code>
-<code>}</code>
-<code>print(songs)</code>
-</pre>
- <pre>
-<code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code>
-</pre>
+ <pre><code>extension Array where Element: Equatable &amp; Comparable {
+    func quicksort(comparison: ((Element, Element) -&gt; Bool)) -&gt; [Element] {
+        var copy = self
+        copy.quick(0, count - 1, comparison: comparison)
+        return copy
+    }
+
+    mutating private func quick(_ i: Int, _ j: Int, comparison: ((Element, Element) -&gt; Bool)) {
+        guard i &lt; j else {
+            return
+        }
+        let pivot = partition(i, j, comparison: comparison)
+        quick(i, pivot - 1, comparison: comparison)
+        quick(pivot + 1, j, comparison: comparison)
+    }
+
+    mutating private func partition(_ i: Int, _ j: Int, comparison: ((Element, Element) -&gt; Bool)) -&gt; Int {
+        let pivotElement = self[j]
+        var indexToAdd = i - 1
+        for k in i..&lt;j {
+            if comparison(self[k], pivotElement) {
+                indexToAdd += 1
+                swapAt(indexToAdd, k)
+            }
+        }
+        swapAt(indexToAdd + 1, j)
+        return indexToAdd + 1
+    }
+}
+
+songs = songs.quicksort {
+    $0.popularityValue &gt; $1.popularityValue
+}
+print(songs)</code></pre>
+ <pre><code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code></pre>
  <p>Although <code>"Swift boi"</code> was placed before <code>"Too Swift"</code> in the original array, Quicksort changed their positions!</p>
  <p>That's not too bad though as we never actually used the unsorted version of the array. However, consider what happens if we re-sort the array multiple times:</p>
- <pre>
-<code>songs = songs.quicksort {</code>
-<code>    $0.popularityValue &gt; $1.popularityValue</code>
-<code>}</code>
-<code>print(songs)</code>
-<code>songs = songs.quicksort {</code>
-<code>    $0.popularityValue &gt; $1.popularityValue</code>
-<code>}</code>
-<code>print(songs)</code>
-<code>songs = songs.quicksort {</code>
-<code>    $0.popularityValue &gt; $1.popularityValue</code>
-<code>}</code>
-<code>print(songs)</code>
-<code>songs = songs.quicksort {</code>
-<code>    $0.popularityValue &gt; $1.popularityValue</code>
-<code>}</code>
-<code>print(songs)</code>
-<code>songs = songs.quicksort {</code>
-<code>    $0.popularityValue &gt; $1.popularityValue</code>
-<code>}</code>
-<code>print(songs)</code>
-</pre>
- <pre>
-<code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code>
-<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
-<code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code>
-<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
-<code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code>
-</pre>
+ <pre><code>songs = songs.quicksort {
+    $0.popularityValue &gt; $1.popularityValue
+}
+print(songs)
+songs = songs.quicksort {
+    $0.popularityValue &gt; $1.popularityValue
+}
+print(songs)
+songs = songs.quicksort {
+    $0.popularityValue &gt; $1.popularityValue
+}
+print(songs)
+songs = songs.quicksort {
+    $0.popularityValue &gt; $1.popularityValue
+}
+print(songs)
+songs = songs.quicksort {
+    $0.popularityValue &gt; $1.popularityValue
+}
+print(songs)</code></pre>
+ <pre><code>// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]
+// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]
+// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]
+// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]
+// [Too Swift, Swift boi, I'm that swifty, Swift That Walk]</code></pre>
  <p>Their relative order keeps changing!</p>
  <p>The reason is because Quicksort is an <b>unstable</b> sorting algorithm. If for some reason we needed to continuously update this list in the UI, the user would see songs changing positions in the ranking even though they have the same priority. That's not very good.</p>
  <p>To keep their order, we need to use a <b>stable</b> algorithm like <b>Mergesort</b>.</p>
- <pre>
-<code>extension Array where Element: Equatable &amp; Comparable {</code>
-<code>    func mergesort(comparison: ((Element, Element) -&gt; Bool)) -&gt; [Element] {</code>
-<code>        return merge(0, count - 1, comparison: comparison)</code>
-<code>    }</code>
-<code></code>
-<code>    private func merge(_ i: Int, _ j: Int, comparison: ((Element, Element) -&gt; Bool)) -&gt; [Element] {</code>
-<code>        guard i &lt;= j else {</code>
-<code>            return []</code>
-<code>        }</code>
-<code>        guard i != j else {</code>
-<code>            return [self[i]]</code>
-<code>        }</code>
-<code>        let half = i + (j - i) / 2</code>
-<code>        let left = merge(i, half, comparison: comparison)</code>
-<code>        let right = merge(half + 1, j, comparison: comparison)</code>
-<code>        var i1 = 0</code>
-<code>        var i2 = 0</code>
-<code>        var new = [Element]()</code>
-<code>        new.reserveCapacity(left.count + right.count)</code>
-<code>        while i1 &lt; left.count &amp;&amp; i2 &lt; right.count {</code>
-<code>            if comparison(right[i2], left[i1]) {</code>
-<code>                new.append(right[i2])</code>
-<code>                i2 += 1</code>
-<code>            } else {</code>
-<code>                new.append(left[i1])</code>
-<code>                i1 += 1</code>
-<code>            }</code>
-<code>        }</code>
-<code>        while i1 &lt; left.count {</code>
-<code>            new.append(left[i1])</code>
-<code>            i1 += 1</code>
-<code>        }</code>
-<code>        while i2 &lt; right.count {</code>
-<code>            new.append(right[i2])</code>
-<code>            i2 += 1</code>
-<code>        }</code>
-<code>        return new</code>
-<code>    }</code>
-<code>}</code>
-</pre>
- <pre>
-<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
-<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
-<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
-<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
-<code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code>
-</pre>
+ <pre><code>extension Array where Element: Equatable &amp; Comparable {
+    func mergesort(comparison: ((Element, Element) -&gt; Bool)) -&gt; [Element] {
+        return merge(0, count - 1, comparison: comparison)
+    }
+
+    private func merge(_ i: Int, _ j: Int, comparison: ((Element, Element) -&gt; Bool)) -&gt; [Element] {
+        guard i &lt;= j else {
+            return []
+        }
+        guard i != j else {
+            return [self[i]]
+        }
+        let half = i + (j - i) / 2
+        let left = merge(i, half, comparison: comparison)
+        let right = merge(half + 1, j, comparison: comparison)
+        var i1 = 0
+        var i2 = 0
+        var new = [Element]()
+        new.reserveCapacity(left.count + right.count)
+        while i1 &lt; left.count &amp;&amp; i2 &lt; right.count {
+            if comparison(right[i2], left[i1]) {
+                new.append(right[i2])
+                i2 += 1
+            } else {
+                new.append(left[i1])
+                i1 += 1
+            }
+        }
+        while i1 &lt; left.count {
+            new.append(left[i1])
+            i1 += 1
+        }
+        while i2 &lt; right.count {
+            new.append(right[i2])
+            i2 += 1
+        }
+        return new
+    }
+}</code></pre>
+ <pre><code>// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]
+// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]
+// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]
+// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]
+// [Swift boi, Too Swift, I'm that swifty, Swift That Walk]</code></pre>
  <h2>2 - Time/Space Complexity</h2>
  <p>The second important thing to be aware of is how much additional memory the algorithm takes to run and what are best/worst cases for the algorithm.</p>
  <p>My favorite example of this is <b>Counting Sort</b>: where an array is sorted by simply counting the occurrences of each element number of elements and then laying them out in order. If the difference between each value is small, say <code>[3,1,4,2,5]</code>, this algorithm can sort arrays in runtimes very close to <b>O(n)</b> -- but if the difference is big, like <code>[1,1000000000]</code>, Counting Sort will take an enormous amount of time to run even if the array is small.</p>
@@ -342,31 +328,29 @@
  <p>Before Swift 5, Swift's sorting algorithm was a hybrid algorithm called <b>Introsort</b>, which mixes the strengths of <code>Quicksort</code>, <code>Heapsort</code> and <code>Insertion Sort</code> into a single algorithm to guarantee a worse case of O(n log n).</p>
  <p>The idea behind Introsort is straightforward: First, if you have <b>less than 20 elements</b> in the partition being sorted, Insertion Sort is used. Although this algorithm has a worst case of O(n2), it also has a best case of O(n). Compared to the general O(n log n) algorithms, Insertion Sort will always perform better in small inputs.</p>
  <p>If the array is not small, Quicksort will be used. This will bring our best case to O(n log n), but also maintain the worst case of O(n2). However, Introsort can avoid it -- if the recursion tree for Quicksort gets too deep, the partition switches to Heapsort. In this case, "too deep" is considered as <code>2 * floor(log2(array.count))</code>.</p>
- <pre>
-<code>internal mutating func _introSortImpl(within range: Range&lt;Index&gt;,</code>
-<code>                                      by areInIncreasingOrder: (Element, Element) throws -&gt; Bool,</code>
-<code>                                      depthLimit: Int) rethrows {</code>
-<code>    // Insertion sort is better at handling smaller regions.</code>
-<code>    if distance(from: range.lowerBound, to: range.upperBound) &lt; 20 {</code>
-<code>        try _insertionSort(within: range, by: areInIncreasingOrder)</code>
-<code>    } else if depthLimit == 0 {</code>
-<code>        try _heapSort(within: range, by: areInIncreasingOrder)</code>
-<code>    } else {</code>
-<code>        // Partition and sort.</code>
-<code>        // We don't check the depthLimit variable for underflow because this</code>
-<code>        // variable is always greater than zero (see check above).</code>
-<code>        let partIdx = try _partition(within: range, by: areInIncreasingOrder)</code>
-<code>        try _introSortImpl(</code>
-<code>            within: range.lowerBound..&lt;partIdx,</code>
-<code>            by: areInIncreasingOrder,</code>
-<code>            depthLimit: depthLimit &amp;- 1)</code>
-<code>        try _introSortImpl(</code>
-<code>            within: partIdx..&lt;range.upperBound,</code>
-<code>            by: areInIncreasingOrder,</code>
-<code>            depthLimit: depthLimit &amp;- 1)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>internal mutating func _introSortImpl(within range: Range&lt;Index&gt;,
+                                      by areInIncreasingOrder: (Element, Element) throws -&gt; Bool,
+                                      depthLimit: Int) rethrows {
+    // Insertion sort is better at handling smaller regions.
+    if distance(from: range.lowerBound, to: range.upperBound) &lt; 20 {
+        try _insertionSort(within: range, by: areInIncreasingOrder)
+    } else if depthLimit == 0 {
+        try _heapSort(within: range, by: areInIncreasingOrder)
+    } else {
+        // Partition and sort.
+        // We don't check the depthLimit variable for underflow because this
+        // variable is always greater than zero (see check above).
+        let partIdx = try _partition(within: range, by: areInIncreasingOrder)
+        try _introSortImpl(
+            within: range.lowerBound..&lt;partIdx,
+            by: areInIncreasingOrder,
+            depthLimit: depthLimit &amp;- 1)
+        try _introSortImpl(
+            within: partIdx..&lt;range.upperBound,
+            by: areInIncreasingOrder,
+            depthLimit: depthLimit &amp;- 1)
+    }
+}</code></pre>
  <p>Introsort greedily attempts to pick the best algorithm for the given situation, backing up to a different option when the previous choice goes wrong. It has a best case of O(n) and worst case of O(n log n), making it a decent one-size-fits-all algorithm.</p>
  <p>In terms of memory usage, it will perform slightly worse than the usual sorting algorithm. Although the three algorithms can sort inplace, Introsort's implementation in Swift was recursive. Since Swift doesn't guarantee that tail recursion calls will be optimized, running the builtin <code>sort()</code> pre-Swift 5 was not the best option if keeping memory usage low was important.</p>
  <p>The biggest thing to note is that Introsort was <b>unstable</b>. Although Insertion Sort is stable, the default implementation of Quicksort and Heapsort are not. If the order of equal elements was important, using <code>sort()</code> pre-Swift 5 was also not a good idea.</p>
@@ -376,37 +360,31 @@
  <h3>Finding the next "run" (Partitioning)</h3>
  <p>Instead of dividing everything first and merging as the last step like Mergesort, Timsort scans the array once and progressively merge these regions (called "runs") as they are found.</p>
  <p>The beauty is that unlike Mergesort, a run isn't simply the array divided by half. Timsort abuses the fact that every array that you want to sort is likely to have a few contiguous subsequences that are <b>almost or already sorted</b>, which happens to be Insertion Sort's best case. To find the next run, Timsort will advance a pointer until the current sequence stops being an ascending/descending pattern:</p>
- <pre>
-<code>[1, 2, 3, 1, 9, 6]</code>
-<code> i     j</code>
-</pre>
+ <pre><code>[1, 2, 3, 1, 9, 6]
+ i     j</code></pre>
  <p><i>Note: This example is just for visual purposes -- because the array here is small, Timsort would just Insertion Sort it right away.</i></p>
  <p>The range from i to j defines our first run <b>run</b>, but the optimizations don't stop here.</p>
  <p>First: If the sequence is descending, we can already sort it in linear time by reversing the elements.</p>
  <p>Second: To increase the speed of Insertion Sort and to balance the amount of merge operations that will be done later, Timsort defines that every run should have a <b>minimum size</b> of a power of two between 16 and 128, or at least something very close to it. If the run that we found has a size smaller than the minimum run size, then the current run's range is expanded and sorted with Insertion Sort.</p>
- <pre>
-<code>// Find the next consecutive run, reversing it if necessary.</code>
-<code>var (end, descending) = try _findNextRun(in: self, from: start, by: areInIncreasingOrder)</code>
-<code>if descending {</code>
-<code>    _reverse(within: start..&lt;end)</code>
-<code>}</code>
-<code></code>
-<code>// If the current run is shorter than the minimum length, use the</code>
-<code>// insertion sort to extend it.</code>
-<code>if end &lt; endIndex &amp;&amp; end - start &lt; minimumRunLength {</code>
-<code>    let newEnd = Swift.min(endIndex, start + minimumRunLength)</code>
-<code>    try _insertionSort(within: start..&lt;newEnd, sortedEnd: end, by: areInIncreasingOrder)</code>
-<code>    end = newEnd</code>
-<code>}</code>
-</pre>
+ <pre><code>// Find the next consecutive run, reversing it if necessary.
+var (end, descending) = try _findNextRun(in: self, from: start, by: areInIncreasingOrder)
+if descending {
+    _reverse(within: start..&lt;end)
+}
+
+// If the current run is shorter than the minimum length, use the
+// insertion sort to extend it.
+if end &lt; endIndex &amp;&amp; end - start &lt; minimumRunLength {
+    let newEnd = Swift.min(endIndex, start + minimumRunLength)
+    try _insertionSort(within: start..&lt;newEnd, sortedEnd: end, by: areInIncreasingOrder)
+    end = newEnd
+}</code></pre>
  <p>For the actual size, Swift specifically will pick a value between 32 and 64 that varies according to the size of the array. Finally, after a run is found, it's added to a stack containing all the other previous runs that we've found.</p>
  <h3>Merging runs</h3>
  <p>Every time a run is found, Timsort will attempt to collapse the top three runs of the stack into a single one by merging them together until the following conditions are satisfied:</p>
- <pre>
-<code>runs.count &lt; 3 || runs[runs.count - 2].size &gt; (runs[runs.count - 1].size + runs.last!.count)</code>
-<code>&amp;&amp;</code>
-<code>runs.count &lt; 2 || runs[runs.count - 1].size &gt; runs.last!.size</code>
-</pre>
+ <pre><code>runs.count &lt; 3 || runs[runs.count - 2].size &gt; (runs[runs.count - 1].size + runs.last!.count)
+&amp;&amp;
+runs.count &lt; 2 || runs[runs.count - 1].size &gt; runs.last!.size</code></pre>
  <p>This is done to reduce the amount of runs we have to remember, but mainly to balance the overall size of the runs as having them close together is beneficial for Timsort's merging phase.</p>
  <p>At first glance Timsort's merging phase works just like Mergesort: we compare a pair of elements from each array, picking the smallest one and moving it to its proper position in the final array.</p>
  <p>However, Timsort beautifully empowers the fact that if one specific array keeps "winning" the comparison, then it's likely to keep doing so. If this happens, instead of continuing to compare elements, we can simply binary search for the correct position of the element from the "losing" array in the "winning" one, moving all elements before it to the final array. This is called <b>galloping</b> and it saves us a lot of time by letting us skip comparing an entire chunk of the winning array.</p>

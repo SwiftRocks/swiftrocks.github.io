@@ -189,21 +189,19 @@
 <h2>What are CPU Exceptions in iOS?</h2>
 <p>According to Apple, your app is free to destroy the phone's CPU -- as long as it's running in the foreground and not doing it for a very long time. If your app is running in the <i>background</i> however, you need to cut back on CPU usage. It's not necessarily a problem to have an expensive task in the background once, but if you're consistently using over 80% CPU over a period of one minute, iOS will kill your app without warning. This is called a <b>CPU Exception</b>, or a "high CPU usage termination".</p>
 <p>As far as I know, this situation is only possible if your app is using a background mode (like an audio app) as regular apps can't run in the background for large periods of time. In any case, when iOS kills your app, you'll get a report file that looks roughly like this:</p>
-<pre>
-<code>Event:            cpu usage</code>
-<code>Action taken:     Process killed</code>
-<code>CPU:              48 seconds cpu time over 52 seconds (93% cpu average), exceeding limit of 80% cpu over 60 seconds</code>
-<code>CPU limit:        48s</code>
-<code>Limit duration:   60s</code>
-<code>CPU used:         48s</code>
-<code>CPU duration:     52s</code>
-<code>Duration:         51.59s</code>
-<code>Duration Sampled: 47.54s</code>
-<code>Steps:            44</code>
-<code></code>
-<code>Heaviest stack for the target process:</code>
-<code>(trace)</code>
-</pre>
+<pre><code>Event:            cpu usage
+Action taken:     Process killed
+CPU:              48 seconds cpu time over 52 seconds (93% cpu average), exceeding limit of 80% cpu over 60 seconds
+CPU limit:        48s
+Limit duration:   60s
+CPU used:         48s
+CPU duration:     52s
+Duration:         51.59s
+Duration Sampled: 47.54s
+Steps:            44
+
+Heaviest stack for the target process:
+(trace)</code></pre>
 <p>If you receive one of these logs as part of a bug report, my first advice is to ignore it completely. The problem here is that the trace is completely useless -- although it tells you roughly which part of the app is hosting the problematic code, it gives you no information about what the actual problem is, and to make it worse, every trace is going to be different from each other. Remember: The issue is not that one specific piece of code is expensive, it's that you've been doing expensive things consistently for over a minute.</p>
 <p>To properly debug this problem, you'll need the reports of multiple users. By having the "expensive stack trace" of multiple instances of the termination, the idea is that we can overlay them to see what they have in common, which should hopefully pinpoint the exact line of code that is bootstrapping the entire cascade that is leading to this issue.</p>
 <h2>Enter Xcode's Energy Organizer</h2>
@@ -231,31 +229,29 @@
 <p>According to Apple, the problem is not that you can't use CPU in the background, it's that you need to use the proper APIs for it. If you absolutely need to do an expensive task in the background, you should be using the proper <b>background task</b> APIs. More specifically for this issue, the <a href="https://developer.apple.com/videos/play/wwdc2020/10078/#:~:text=If%20the%20foreground%20app%20grows,for%20less%20than%2050%20megabytes.">Why is my app getting killed?</a> WWDC session from 2020 recommends using the <code>BGProcessingTask</code> API, which represents an expensive task that will only be executed when the device is in an idle state (for example, charging during the night).</p>
 <p>At the beginning of this article I mentioned that the system won't treat these issues as "crashes", but there's actually you can detect them. Although they are not crashes, <code>MetricKit</code> has a special diagnostic payload specifically for this problem: <code>MXCPUExceptionDiagnostic</code>.</p>
 <p>If you haven't used <code>MetricKit</code> before, it works by subscribing an object to a diagnostics reporter singleton. When that is done, the system will send a report as an array of <code>MXMetricPayload</code> objects at most once per day, containing metrics from the past 24 hours and any previously undelivered daily reports. There are many interesting metrics you can extract, but in this article we're only interested in CPU Exception ones. Here's how you can implement an object that reports CPU Exceptions from a device:</p>
-<pre>
-<code>import MetricKit</code>
-<code></code>
-<code>final class CPUExceptionsReporter: NSObject, MXMetricManagerSubscriber {</code>
-<code>    override init() {</code>
-<code>        super.init()</code>
-<code>        MXMetricManager.shared.add(self)</code>
-<code>    }</code>
-<code></code>
-<code>    func didReceive(_ payloads: [MXMetricPayload]) {}</code>
-<code>    func didReceive(_ payloads: [MXDiagnosticPayload]) {</code>
-<code>        for payload in payloads {</code>
-<code>            payload.cpuExceptionDiagnostics?.forEach(handleCPUException)</code>
-<code>        }</code>
-<code>    }</code>
-<code></code>
-<code>    func handleCPUException(_ diagnostic: MXCPUExceptionDiagnostic) {</code>
-<code>        // Write a report to your crash reporter of choice</code>
-<code>    }</code>
-<code></code>
-<code>    deinit {</code>
-<code>        MXMetricManager.shared.remove(self)</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+<pre><code>import MetricKit
+
+final class CPUExceptionsReporter: NSObject, MXMetricManagerSubscriber {
+    override init() {
+        super.init()
+        MXMetricManager.shared.add(self)
+    }
+
+    func didReceive(_ payloads: [MXMetricPayload]) {}
+    func didReceive(_ payloads: [MXDiagnosticPayload]) {
+        for payload in payloads {
+            payload.cpuExceptionDiagnostics?.forEach(handleCPUException)
+        }
+    }
+
+    func handleCPUException(_ diagnostic: MXCPUExceptionDiagnostic) {
+        // Write a report to your crash reporter of choice
+    }
+
+    deinit {
+        MXMetricManager.shared.remove(self)
+    }
+}</code></pre>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>You should be aware that <code>MetricKit</code> only reports this data once a day, so the data represents a warning/termination that happened <b>in the past</b>, very much likely in a different session entirely.</p>
 </div>

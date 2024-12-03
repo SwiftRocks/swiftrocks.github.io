@@ -186,135 +186,121 @@
  <p>Even if you don't know what the <b>Observer</b> pattern is, there's a good chance that you applied it somewhere in the past. This design pattern is used to create APIs that notify one or more subjects about changes in a certain object, with the <code>NotificationCenter</code> being the most popular use of this pattern in iOS.</p>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>One simple way to reproduce what the <code>NotificationCenter</code> does is to create a dictionary that maps a string (a notification) to an array of closures. Whenever that notification is "posted", all of the closures are executed.</p>
- <pre>
-<code>final class NotificationCenter {</code>
-<code></code>
-<code>    var notifications = [String: [() -&gt; Void]]()</code>
-<code></code>
-<code>    func register(_ closure: @escaping () -&gt; Void, forNotification string: String) {</code>
-<code>        notifications[string, default: []].append(closure)</code>
-<code>    }</code>
-<code></code>
-<code>    func post(notification: String) {</code>
-<code>        notifications[notification]?.forEach { $0() }</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>final class NotificationCenter {
+
+    var notifications = [String: [() -&gt; Void]]()
+
+    func register(_ closure: @escaping () -&gt; Void, forNotification string: String) {
+        notifications[string, default: []].append(closure)
+    }
+
+    func post(notification: String) {
+        notifications[notification]?.forEach { $0() }
+    }
+}</code></pre>
  <p>However, the point of this article is not to attempt to reproduce the <code>NotificationCenter</code>, but to show you <b>what</b> this implementation implies. You must be aware that whenever you're using the basic Swift dictionaries, arrays or sets, <b>all keys and values are retained!</b> Additionally, you need to be aware that <b>closures are reference types</b>, so they are retained as well and can outlive their owners.</p>
  <p>What this means is that you'll see that while this implementation works, it's going to be a huge memory issue. Because it's retaining the closures, they will never be unregistered. The notifications will attempt to execute them even if the object that registered it is <b>long gone</b>.</p>
  <p>If you're been working with iOS for a long time, you might remember that iOS's own <code>NotificationCenter</code> had this issue! Prior to iOS 9, every observer had to be unregistered when being deallocated, because if you didn't, it would attempt to execute it when it shouldn't and crash your app.</p>
- <pre>
-<code>deinit {</code>
-<code>    NotificationCenter.default.removeObserver(self, ...)</code>
-<code>}</code>
-</pre>
+ <pre><code>deinit {
+    NotificationCenter.default.removeObserver(self, ...)
+}</code></pre>
  <p>In the case of our implementation, we could replicate this by adding the concept of "owners" to our closures, so that we are able to remove them if someone wishes to be unregistered. Fortunately, not only we don't need to go this far, but it's good if we don't. If you're developing an API, its usability should be one of your main priorities. In this case, let's take a look at how we can create an observer API that <b>is</b> memory safe while also <b>not having</b> to manually unregister the observers. The problem shown above that <code>NotificationCenter</code> had was fixed in iOS 9 (removing observers became an automatic process) when Apple started applying the same concept.</p>
  <h2>Weak Collections</h2>
  <p>Let's pretend we have a deeplink-based navigation system where "feature providers" can provide a feature (represented as an <code>UIViewController</code>) if they recognize the deeplink that the app wants to present:</p>
- <pre>
-<code>final class FeaturePusher {</code>
-<code></code>
-<code>    typealias FeatureProvider = (URL) -&gt; UIViewController?</code>
-<code></code>
-<code>    lazy var providers = [FeatureProvider]()</code>
-<code></code>
-<code>    func register(featureProvider: @escaping FeatureProvider) {</code>
-<code>        providers.append(featureProvider)</code>
-<code>    }</code>
-<code></code>
-<code>    func feature(forUrl url: URL) -&gt; UIViewController? {</code>
-<code>        return providers.lazy.compactMap { $0(url) }.first</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>final class FeaturePusher {
+
+    typealias FeatureProvider = (URL) -&gt; UIViewController?
+
+    lazy var providers = [FeatureProvider]()
+
+    func register(featureProvider: @escaping FeatureProvider) {
+        providers.append(featureProvider)
+    }
+
+    func feature(forUrl url: URL) -&gt; UIViewController? {
+        return providers.lazy.compactMap { $0(url) }.first
+    }
+}</code></pre>
  <p>Like in the notification center example, this suffers from a memory issue. If whoever provided those closures ceases to exist, the <code>FeaturePusher</code> class will still be able to execute the closure and potentially crash the app. Fortunately, there are a few useful types in <code>Foundation</code> that can assist us in improving that.</p>
  <p>As I've shown before in my <a href="https://swiftrocks.com/weak-dictionary-values-in-swift">Weak Dictionary Values</a> article, <code>Foundation</code> offers a series of lower-level Obj-C collection types that are more powerful than the basic Swift ones. Two of them specifically are <code>NSMapTable</code> and <code>NSHashTable</code>, which are Obj-C versions of <code>Dictionary</code> and <code>Set</code>, respectively. Both of them allow a higher range of memory management options, which include weak references for both values and keys. If instead of using a base Swift array we used a <code>NSMapTable</code> that has our closures as values and <b>weak</b> references to whoever provided that block as a key, our navigation system would automatically evict and deallocate the closures whenever the related providers are deallocated. That's because in weak collections if the weak component is deallocated, the entire entry will be evicted from the collection.</p>
  <p>Creating Weak Collections is just a matter of using the correct initializer. A dictionary with weak keys can be initialized with <code>NSMapTable.weakToStrongObjects()</code>, while one with weak values can be initialized with <code>NSMapTable.strongToWeakObjects()</code>. If we want our navigation system's closures to be automatically unregistered if the object that registered them was deallocated, we can create a weak-keyed dictionary that maps an object to an array of closures:</p>
- <pre>
-<code>lazy var providers = NSMapTable&lt;AnyObject, NSHashTable&lt;FeatureProviderBox&gt;&gt;.weakToStrongObjects()</code>
-</pre>
+ <pre><code>lazy var providers = NSMapTable&lt;AnyObject, NSHashTable&lt;FeatureProviderBox&gt;&gt;.weakToStrongObjects()</code></pre>
  <p>Because the keys are weak, the closures will automatically be evicted from the dictionary if the key ceases to exist.</p>
  <p>Note that <code>NSMapTable</code> is an Obj-C API, so all keys and values must be class objects. That's why we have to use a <code>NSHashTable</code> as a value instead of a regular <code>Set</code> or <code>Array</code>.</p>
  <p>You can make Obj-C types like <code>NSMapTable</code> able to hold Swift structs by creating a generic <code>Box</code> class wrapper type. Here, we create one to be able to represent our feature closure as a class object (<code>FeatureProviderBox</code>) in order to be able to store it inside the <code>NSHashTable</code>.</p>
- <pre>
-<code>final class Box&lt;T&gt; {</code>
-<code>    let obj: T</code>
-<code>    init(obj: T) {</code>
-<code>        self.obj = obj</code>
-<code>    }</code>
-<code>}</code>
-<code></code>
-<code>final class FeaturePusher {</code>
-<code></code>
-<code>    typealias FeatureProvider = (URL) -&gt; UIViewController?</code>
-<code>    typealias FeatureProviderBox = Box&lt;FeatureProvider&gt;</code>
-<code></code>
-<code>    lazy var providers = NSMapTable&lt;AnyObject, NSHashTable&lt;FeatureProviderBox&gt;&gt;.weakToStrongObjects()</code>
-<code></code>
-<code>    func register(featureProvider: @escaping FeatureProvider, forObject object: AnyObject) {</code>
-<code>        if providers.object(forKey: object) == nil {</code>
-<code>            providers.setObject(NSHashTable(), forKey: object)</code>
-<code>        }</code>
-<code>        let box = FeatureProviderBox(obj: featureProvider)</code>
-<code>        providers.object(forKey: object)?.add(box)</code>
-<code>    }</code>
-<code></code>
-<code>    func feature(forUrl url: URL) -&gt; UIViewController? {</code>
-<code>        let allValues = providers.objectEnumerator()</code>
-<code>        while let table = allValues?.nextObject() as? NSHashTable&lt;FeatureProviderBox&gt; {</code>
-<code>            if let feature = table.allObjects.lazy.compactMap { $0.obj(url) }.first {</code>
-<code>                return feature</code>
-<code>            }</code>
-<code>        }</code>
-<code>        return nil</code>
-<code>    }</code>
-<code>}</code>
-</pre>
+ <pre><code>final class Box&lt;T&gt; {
+    let obj: T
+    init(obj: T) {
+        self.obj = obj
+    }
+}
+
+final class FeaturePusher {
+
+    typealias FeatureProvider = (URL) -&gt; UIViewController?
+    typealias FeatureProviderBox = Box&lt;FeatureProvider&gt;
+
+    lazy var providers = NSMapTable&lt;AnyObject, NSHashTable&lt;FeatureProviderBox&gt;&gt;.weakToStrongObjects()
+
+    func register(featureProvider: @escaping FeatureProvider, forObject object: AnyObject) {
+        if providers.object(forKey: object) == nil {
+            providers.setObject(NSHashTable(), forKey: object)
+        }
+        let box = FeatureProviderBox(obj: featureProvider)
+        providers.object(forKey: object)?.add(box)
+    }
+
+    func feature(forUrl url: URL) -&gt; UIViewController? {
+        let allValues = providers.objectEnumerator()
+        while let table = allValues?.nextObject() as? NSHashTable&lt;FeatureProviderBox&gt; {
+            if let feature = table.allObjects.lazy.compactMap { $0.obj(url) }.first {
+                return feature
+            }
+        }
+        return nil
+    }
+}</code></pre>
  <h2>Unit Testing Weak Collections (and Reference Cycles)</h2>
  <p>To check if our improvement worked, we can create a unit test that checks if the correct view controllers are returned:</p>
- <pre>
-<code>func test_observerReturnsTheCorrectFeature() {</code>
-<code></code>
-<code>    let pusher = FeaturePusher()</code>
-<code>    let swiftRocksUrl = URL(string: "myApp://swiftRocks")!</code>
-<code>    let swiftRocksVC = SwiftRocksViewController()</code>
-<code></code>
-<code>    let observerObject: UIView = UIView()</code>
-<code></code>
-<code>    pusher.register(featureProvider: { url in</code>
-<code>        return url == swiftRocksUrl ? swiftRocksVC : nil</code>
-<code>    }, forObject: observerObject)</code>
-<code></code>
-<code>    XCTAssertTrue(pusher.feature(forUrl: swiftRocksUrl) === swiftRocksVC)</code>
-<code></code>
-<code>    let someOtherURL = URL(string: "myApp://notSwiftRocks")!</code>
-<code>    XCTAssertNil(pusher.feature(forUrl: someOtherURL))</code>
-<code>}</code>
-</pre>
+ <pre><code>func test_observerReturnsTheCorrectFeature() {
+
+    let pusher = FeaturePusher()
+    let swiftRocksUrl = URL(string: "myApp://swiftRocks")!
+    let swiftRocksVC = SwiftRocksViewController()
+
+    let observerObject: UIView = UIView()
+
+    pusher.register(featureProvider: { url in
+        return url == swiftRocksUrl ? swiftRocksVC : nil
+    }, forObject: observerObject)
+
+    XCTAssertTrue(pusher.feature(forUrl: swiftRocksUrl) === swiftRocksVC)
+
+    let someOtherURL = URL(string: "myApp://notSwiftRocks")!
+    XCTAssertNil(pusher.feature(forUrl: someOtherURL))
+}</code></pre>
  <p>However, we are mostly interested in seeing if the automatic eviction is working. To test that the observers are being deallocated and the closures are being evicted, we can use an <code>autoreleasepool</code>. As described in my <a href="https://swiftrocks.com/autoreleasepool-in-2019-swift">autoreleasepool article</a>, you can use a pool whenever you want something to be deallocated as soon as possible:</p>
- <pre>
-<code>func test_observerIsDeallocated() {</code>
-<code></code>
-<code>    let pusher = FeaturePusher()</code>
-<code>    let swiftRocksUrl = URL(string: "myApp://swiftRocks")!</code>
-<code>    let swiftRocksVC = SwiftRocksViewController()</code>
-<code></code>
-<code>    autoreleasepool {</code>
-<code>        let observerObject: UIView = UIView()</code>
-<code></code>
-<code>        pusher.register(featureProvider: { url in</code>
-<code>            return url == swiftRocksUrl ? swiftRocksVC : nil</code>
-<code>        }, forObject: observerObject)</code>
-<code></code>
-<code>        XCTAssertTrue(pusher.feature(forUrl: swiftRocksUrl) === swiftRocksVC)</code>
-<code></code>
-<code>        let someOtherURL = URL(string: "myApp://notSwiftRocks")!</code>
-<code>        XCTAssertNil(pusher.feature(forUrl: someOtherURL))</code>
-<code>    }</code>
-<code></code>
-<code>    XCTAssertNil(pusher.feature(forUrl: swiftRocksUrl))</code>
-<code>}</code>
-</pre>
+ <pre><code>func test_observerIsDeallocated() {
+
+    let pusher = FeaturePusher()
+    let swiftRocksUrl = URL(string: "myApp://swiftRocks")!
+    let swiftRocksVC = SwiftRocksViewController()
+
+    autoreleasepool {
+        let observerObject: UIView = UIView()
+
+        pusher.register(featureProvider: { url in
+            return url == swiftRocksUrl ? swiftRocksVC : nil
+        }, forObject: observerObject)
+
+        XCTAssertTrue(pusher.feature(forUrl: swiftRocksUrl) === swiftRocksVC)
+
+        let someOtherURL = URL(string: "myApp://notSwiftRocks")!
+        XCTAssertNil(pusher.feature(forUrl: someOtherURL))
+    }
+
+    XCTAssertNil(pusher.feature(forUrl: swiftRocksUrl))
+}</code></pre>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>You'll see that this test will pass, but if you're not sure why, try removing the pool to see what happens. The test will fail, and the reason is that objects aren't deallocated as soon as they go out of scope in iOS (that will usually happen at the end of a <code>RunLoop</code>). In this case, the pool is simply a way to force it to deallocate immediately for unit testing purposes. This same trick can be applied to unit test any type of reference cycle situation :)</p>
  <h2>Conclusion: Final considerations for Weak Collections</h2>

@@ -184,13 +184,11 @@
   </div> 
  </div>  
  <p>Added in Swift 3, the <code>Never</code> type allows you to define a method that is guaranteed to crash your app. Although we rarely write methods that use this type directly, we do interact with it constantly given that it is the return type of forced-crash methods like <code>fatalError()</code>. The advantage this type brings is that a method that calls another <code>Never</code>-returning method does not need to provide a return value, after all, a crash is certain to happen:</p>
- <pre>
-<code>func getSomeNumber() -&gt; Int</code>
-<code>    fatalError()</code>
-<code>    //I'm not returning an Int, but this still compiles</code>
-<code>    //because fatalError() returns 'Never'.</code>
-<code>}</code>
-</pre>
+ <pre><code>func getSomeNumber() -&gt; Int
+    fatalError()
+    //I'm not returning an Int, but this still compiles
+    //because fatalError() returns 'Never'.
+}</code></pre>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Deep down, <code>Never</code> is just the revamped "swifty" version of <code>@noreturn</code>: an attribute that provided the exact same functionality but was removed for being too complex due to its nature as an attribute. Connecting this behavior to a return type allowed the compiler to work better, and certainly ended up looking better for the developer as well.</p>
  <p>Something about <code>Never</code> intrigued me though. We know that there's nothing in the language itself that allows you to skip return values, so what magic is done in the compiler to allow this?</p>
@@ -198,51 +196,41 @@
  <p><i>Disclaimer: As always, this is a result of my own research and reverse-engineering. As I have nothing to do with the original development of <code>Never</code>, some assumptions might be not fully correct.</p>
  <h2>Uninhabited Types / Never Patterns</h2>
  <p>Expecting to find complex pieces of code, the implementation of <code>Never</code> in the Standard Library shows us something else - the type is nothing but an empty enum:</p>
- <pre>
-<code>public enum Never {}</code>
-</pre>
+ <pre><code>public enum Never {}</code></pre>
  <p>Although that certainly looks weird, it is correct in its theory. When <code>Never</code> got implemented, Swift also added the concept of <b>uninhabited types</b> to its lingo - a type with no value, often used to represent the nonexistent result of something that will never happen. Because an enum with no cases can't be instantiated in any way, it becomes perfect to represent this concept. But if the type itself doesn't do anything, where is the magic done?</p>
  <p>A quick search for <code>"never typecheck"</code> in the Swift repo reveals a method called <code>isNoReturnFunction()</code>, which searches for the presence of an uninhabited type return:</p>
- <pre>
-<code>bool SILFunctionType::isNoReturnFunction() const {</code>
-<code>    for (unsigned i = 0, e = getNumResults(); i &lt; e; ++i) {</code>
-<code>        if (getResults()[i].getType()-&gt;isUninhabited())</code>
-<code>            return true;</code>
-<code>    }</code>
-<code>    return false;</code>
-<code>}</code>
-</pre>
+ <pre><code>bool SILFunctionType::isNoReturnFunction() const {
+    for (unsigned i = 0, e = getNumResults(); i &lt; e; ++i) {
+        if (getResults()[i].getType()-&gt;isUninhabited())
+            return true;
+    }
+    return false;
+}</code></pre>
  <p>The implementation of the mentioned <code>isUninhabited()</code> itself just checks if we're dealing with an empty enum:</p>
- <pre>
-<code>bool TypeBase::isUninhabited() {</code>
-<code>    // Empty enum declarations are uninhabited</code>
-<code>    if (auto nominalDecl = getAnyNominal())</code>
-<code>        if (auto enumDecl = dyn_cast&lt;EnumDecl&gt;(nominalDecl))</code>
-<code>            if (enumDecl-&gt;getAllElements().empty())</code>
-<code>                return true;</code>
-<code>    return false;</code>
-<code>}</code>
-</pre>
+ <pre><code>bool TypeBase::isUninhabited() {
+    // Empty enum declarations are uninhabited
+    if (auto nominalDecl = getAnyNominal())
+        if (auto enumDecl = dyn_cast&lt;EnumDecl&gt;(nominalDecl))
+            if (enumDecl-&gt;getAllElements().empty())
+                return true;
+    return false;
+}</code></pre>
  <p>Because <code>Never</code> has no actual code, I expected the compiler to directly identify and change it somehow, but what this shows is that <code>Never</code> <b>really</b> is just an empty enum - the behavior we see has nothing to do with the type itself, but with the concept of an uninhabited type. This means that you don't need <code>Never</code> at all to ignore return statements:</p>
- <pre>
-<code>enum Crash {}</code>
-<code></code>
-<code>func logAndCrash() -&gt; Crash {</code>
-<code>    print("Oops!")</code>
-<code>    fatalError()</code>
-<code>}</code>
-<code></code>
-<code>func doSomething() -&gt; Int {</code>
-<code>    logAndCrash() //Compiles!</code>
-<code>}</code>
-</pre>
+ <pre><code>enum Crash {}
+
+func logAndCrash() -&gt; Crash {
+    print("Oops!")
+    fatalError()
+}
+
+func doSomething() -&gt; Int {
+    logAndCrash() //Compiles!
+}</code></pre>
  <p>In fact, because the compiler doesn't know the difference, my <code>Crash</code> type will even throw the same errors as <code>Never</code>:</p>
- <pre>
-<code>func logAndCrash() -&gt; Crash {</code>
-<code>    //Function with uninhabited return type 'Crash'</code>
-<code>    //is missing call to another never-returning function on all paths</code>
-<code>}</code>
-</pre>
+ <pre><code>func logAndCrash() -&gt; Crash {
+    //Function with uninhabited return type 'Crash'
+    //is missing call to another never-returning function on all paths
+}</code></pre>
  <p>For context, the very first commit of <code>Never</code> was indeed using the type itself to generate this behavior, but it was later changed to work with all uninhabited types due to multiple bugs that a <code>Never</code>-only solution was causing.</p>
  <p>That's a great start, but I still have two major questions:</p>
  <ul>
@@ -257,124 +245,106 @@
   <img src="https://i.imgur.com/xbVOfbq.png" alt="" style="background-color: #fff"> 
  </div>
  <p>Inspecting the SIL version of a method that returns <code>Never</code> should reveal to us an optimized version of it, with hopefully an indicator of how the type works behind the scenes. I'm going to compile the following snippet - with an explicit return statement just to see how the SIL version reacts to it:</p>
- <pre>
-<code>@inline(never) func crash() -&gt; Never {</code>
-<code>    fatalError()</code>
-<code>}</code>
-<code></code>
-<code>func doSomething() -&gt; Int {</code>
-<code>    crash()</code>
-<code>    let number = 1+1</code>
-<code>    let otherNumber = number * 2</code>
-<code>    return otherNumber</code>
-<code>}</code>
-</pre>
- <pre class="command-line language-bash" data-host="SwiftRocks">
-<code>swiftc -emit-sil never.swift</code>
-</pre>
+ <pre><code>@inline(never) func crash() -&gt; Never {
+    fatalError()
+}
+
+func doSomething() -&gt; Int {
+    crash()
+    let number = 1+1
+    let otherNumber = number * 2
+    return otherNumber
+}</code></pre>
+ <pre class="command-line language-bash" data-host="SwiftRocks"><code>swiftc -emit-sil never.swift</code></pre>
  <p>After running the command above, the output will contain the following reference to <code>doSomething()</code>:</p>
- <pre>
-<code>// doSomething()</code>
-<code>sil hidden @$S5never11doSomethingSiyF : $@convention(thin) () -&gt; Int {</code>
-<code>bb0:</code>
-<code>  // function_ref crash()</code>
-<code>  %0 = function_ref @$S5never5crashs5NeverOyF : $@convention(thin) () -&gt; Never // user: %1</code>
-<code>  %1 = apply %0() : $@convention(thin) () -&gt; Never</code>
-<code>  unreachable // id: %2</code>
-<code>} // end sil function '$S5never11doSomethingSiyF'</code>
-</pre>
+ <pre><code>// doSomething()
+sil hidden @$S5never11doSomethingSiyF : $@convention(thin) () -&gt; Int {
+bb0:
+  // function_ref crash()
+  %0 = function_ref @$S5never5crashs5NeverOyF : $@convention(thin) () -&gt; Never // user: %1
+  %1 = apply %0() : $@convention(thin) () -&gt; Never
+  unreachable // id: %2
+} // end sil function '$S5never11doSomethingSiyF'</code></pre>
  <p>SIL is not very easy to read, but it thankfully comes with a few comments that help us understand what's going on. The first thing we can notice here is the beauty of optimizations: all the unreachable number code I added there is completely gone!</p>
  <p>Besides that, we can see that an <code>unreachable</code> statement was added right after the call to <code>crash()</code>. Normal methods would show a return statement, so this was clearly added by whatever logic handles <code>Never</code>.</p>
  <p>A quick search into the Swift repo revealed that <code>unreachable</code> relates to <code>UnreachableInst</code>, a type that is injected and later used when the compiler needs to make decisions when it comes to code that will never succeed, or even be executed in this case.</p>
- <pre>
-<code>TERMINATOR(UnreachableInst, unreachable,</code>
-<code>           TermInst, None, DoesNotRelease)</code>
-</pre>
+ <pre><code>TERMINATOR(UnreachableInst, unreachable,
+           TermInst, None, DoesNotRelease)</code></pre>
  <p>However, this type is not exclusively used by <code>Never</code>, so more investigation is needed: After attaching lldb to the command used above and creating a breakpoint for <code>UnreachableInst</code>'s init, a call inside <code>simplifyBlocksWithCallsToNoReturn()</code> is revealed: a method defined inside <code>DiagnoseUnreachable.cpp</code>, whose's backtrace revealed it to be one of the mandatory optimization passes before attempting to generate the final LLVM IR. (take a look at my CaseIterable article for details on how to manually use lldb!)</p>
  <p><a href="https://github.com/apple/swift/blob/ad8cd1423398124f7dea0441395ba9c42ed6a0d6/lib/SILOptimizer/Mandatory/DiagnoseUnreachable.cpp#L473">The actual method is quite large</a>, so I've pseudo-coded it:</p>
- <pre>
-<code>static bool simplifyBlocksWithCallsToNoReturn(SILBasicBlock &amp;BB,</code>
-<code>                                 UnreachableUserCodeReportingState *State) {</code>
-<code>    if method_returns_never</code>
-<code>        delete_everything_after_call</code>
-<code>        inject_fake_unreachable_instruction</code>
-<code>}</code>
-</pre>
+ <pre><code>static bool simplifyBlocksWithCallsToNoReturn(SILBasicBlock &amp;BB,
+                                 UnreachableUserCodeReportingState *State) {
+    if method_returns_never
+        delete_everything_after_call
+        inject_fake_unreachable_instruction
+}</code></pre>
  <p>This does exactly what we've seen in the snippet, but still doesn't answer the first question! Why is this enough to stop requiring return values?</p>
  <p>The answer is another mandatory optimization pass file named <code>DataflowDiagnostics.cpp</code>: the responsible for throwing unreachable-related compilation errors such as "missing return", "guard body missing return" and the "never method must call another never-method" from the previous examples.</p>
  <p>One of the methods inside this file is called <code>diagnoseMissingReturn()</code>, which throws the "missing return" error: (note the call to <code>isNoReturnFunction()</code> to throw the different <code>Never</code> error!)</p>
- <pre>
-<code>static void diagnoseMissingReturn(const UnreachableInst *UI,</code>
-<code>                                  ASTContext &amp;Context) {</code>
-<code>    //Removed: Retrieving type data</code>
-<code>    auto diagID = F-&gt;isNoReturnFunction() ? diag::missing_never_call</code>
-<code>                                          : diag::missing_return;</code>
-<code></code>
-<code>    //"diagnose" throws the compilation error</code>
-<code>    diagnose(Context,</code>
-<code>             L.getEndSourceLoc(),</code>
-<code>             diagID, ResTy,</code>
-<code>             FLoc.isASTNode&amp;ClosureExpr&gt;() ? 1 : 0);</code>
-<code>}</code>
-</pre>
+ <pre><code>static void diagnoseMissingReturn(const UnreachableInst *UI,
+                                  ASTContext &amp;Context) {
+    //Removed: Retrieving type data
+    auto diagID = F-&gt;isNoReturnFunction() ? diag::missing_never_call
+                                          : diag::missing_return;
+
+    //"diagnose" throws the compilation error
+    diagnose(Context,
+             L.getEndSourceLoc(),
+             diagID, ResTy,
+             FLoc.isASTNode&amp;ClosureExpr&gt;() ? 1 : 0);
+}</code></pre>
  <p>The decision to call <code>diagnoseMissingReturn()</code> is handled by <code>diagnoseUnreachable()</code>, which checks if the relevant <code>UnreachableInst</code> points to an actual position in the code (when you're really missing a return, so throw an error) or was injected by the compiler (like returning <code>Never</code>, so do nothing), which is exactly our case. Remember that the previous optimization removed everything after the <code>Never</code> call, so we only have the injected one at this point:</p>
- <pre>
-<code>static void diagnoseUnreachable(const SILInstruction *I,</code>
-<code>                                ASTContext &amp;Context) {</code>
-<code>  if (auto *UI = dyn_cast&lt;UnreachableInst&gt;(I)) {</code>
-<code>    SILLocation L = UI-&gt;getLoc();</code>
-<code></code>
-<code>    // Invalid location means that the instruction has been generated by SIL</code>
-<code>    // passes, such as DCE. FIXME: we might want to just introduce a separate</code>
-<code>    // instruction kind, instead of keeping this invariant.</code>
-<code>    //</code>
-<code>    // We also do not want to emit diagnostics for code that was</code>
-<code>    // transparently inlined. We should have already emitted these</code>
-<code>    // diagnostics when we process the callee function prior to</code>
-<code>    // inlining it.</code>
-<code>    if (!L || L.is&lt;MandatoryInlinedLocation&gt;())</code>
-<code>      return;</code>
-<code></code>
-<code>    // The most common case of getting an unreachable instruction is a</code>
-<code>    // missing return statement. In this case, we know that the instruction</code>
-<code>    // location will be the enclosing function.</code>
-<code>    if (L.isASTNode&lt;AbstractFunctionDecl&gt;() || L.isASTNode&lt;ClosureExpr&gt;()) {</code>
-<code>      diagnoseMissingReturn(UI, Context);</code>
-<code>      return;</code>
-<code>    }</code>
-<code></code>
-<code>    if (auto *Guard = L.getAsASTNode&lt;GuardStmt&gt;()) {</code>
-<code>      diagnose(Context, Guard-&gt;getBody()-&gt;getEndLoc(),</code>
-<code>               diag::guard_body_must_not_fallthrough);</code>
-<code>      return;</code>
-<code>    }</code>
-<code>  }</code>
-<code>}</code>
-</pre>
+ <pre><code>static void diagnoseUnreachable(const SILInstruction *I,
+                                ASTContext &amp;Context) {
+  if (auto *UI = dyn_cast&lt;UnreachableInst&gt;(I)) {
+    SILLocation L = UI-&gt;getLoc();
+
+    // Invalid location means that the instruction has been generated by SIL
+    // passes, such as DCE. FIXME: we might want to just introduce a separate
+    // instruction kind, instead of keeping this invariant.
+    //
+    // We also do not want to emit diagnostics for code that was
+    // transparently inlined. We should have already emitted these
+    // diagnostics when we process the callee function prior to
+    // inlining it.
+    if (!L || L.is&lt;MandatoryInlinedLocation&gt;())
+      return;
+
+    // The most common case of getting an unreachable instruction is a
+    // missing return statement. In this case, we know that the instruction
+    // location will be the enclosing function.
+    if (L.isASTNode&lt;AbstractFunctionDecl&gt;() || L.isASTNode&lt;ClosureExpr&gt;()) {
+      diagnoseMissingReturn(UI, Context);
+      return;
+    }
+
+    if (auto *Guard = L.getAsASTNode&lt;GuardStmt&gt;()) {
+      diagnose(Context, Guard-&gt;getBody()-&gt;getEndLoc(),
+               diag::guard_body_must_not_fallthrough);
+      return;
+    }
+  }
+}</code></pre>
  <p>In short, <code>Never</code>'s behavior is defined in the optimization passes - after <code>DiagnoseUnreachable.cpp</code> detects and marks the instruction after a never call as unreachable, <code>DataflowDiagnostics.cpp</code> sees that this specific unreachable statement was injected by the compiler itself, avoids throwing a "missing return" compilation error, and lets the compilation continue.</p>
  <h2>Internals of <code>fatalError()</code></h2>
  <p>Although the main functionality is now uncovered, something still bugs me; We've seen that creating a <code>Never</code> returning method will result in a compilation error if it doesn't call another <code>Never</code> method. Isn't this an infinite loop? Where is this loop broken?</p>
  <p>To get the answer to that, we can inspect the contents of <code>fatalError()</code> and start going up its backtrace. Here's how <code>fatalError()</code> is defined:</p>
- <pre>
-<code>public func fatalError(</code>
-<code>  _ message: @autoclosure () -&gt; String = String(),</code>
-<code>  file: StaticString = #file, line: UInt = #line</code>
-<code>) -&gt; Never {</code>
-<code>  _assertionFailure("Fatal error", message(), file: file, line: line,</code>
-<code>    flags: _fatalErrorFlags())</code>
-<code>}</code>
-</pre>
+ <pre><code>public func fatalError(
+  _ message: @autoclosure () -&gt; String = String(),
+  file: StaticString = #file, line: UInt = #line
+) -&gt; Never {
+  _assertionFailure("Fatal error", message(), file: file, line: line,
+    flags: _fatalErrorFlags())
+}</code></pre>
  <p>This will compile correctly, since <code>_assertionFailure</code> also returns <code>Never</code>. Going up the backtrace, we'll see that it has the following implementation:</p>
- <pre>
-<code>internal func _assertionFailure(</code>
-<code>  _ prefix: StaticString, _ message: StaticString,</code>
-<code>  file: StaticString, line: UInt,</code>
-<code>  flags: UInt32</code>
-<code>) -&gt; Never {</code>
-<code>  //Removed: Write to file</code>
-<code>  Builtin.int_trap()</code>
-<code>}</code>
-</pre>
+ <pre><code>internal func _assertionFailure(
+  _ prefix: StaticString, _ message: StaticString,
+  file: StaticString, line: UInt,
+  flags: UInt32
+) -&gt; Never {
+  //Removed: Write to file
+  Builtin.int_trap()
+}</code></pre>
  <p>Now, <code>Builtin.int_trap()</code> also returns <code>Never</code>, so this too will compile correctly. Going up the backtrace, we'll see that <code>int_trap()</code> is defined as... uhhh....</p>
  <p>Actually, there's no definition for this method! <code>Builtin</code> is not a normal framework - it seems to be generated inside the compiler as a way to allow Swift code to directly access LLVM functions. It appears to be all done <a href="https://github.com/apple/swift/blob/4fb4cb058d5d81f5fc3f8aaeb0adec2b933c5511/lib/AST/Builtins.cpp">in Builtins.cpp</a> by parsing <a href="https://github.com/apple/swift-llvm/blob/e9e59b13f33aadfb02075c373d52506b261a26ac/include/llvm/IR/Intrinsics.td#L835">a table all the way from the swift-llvm repository</a> and generating "pre-compiled" Swift methods from them. In this case, <code>int_trap()</code> is parsed as a <code>Never</code> returning method that calls <a href="https://llvm.org/docs/LangRef.html#llvm-trap-intrinsic">llvm.trap()</a>, a function that adds an instruction to blow up your app.</p>
  <p>So how does the infinite loop stops? The answer seems to be that it simply does not. Because the final call of the chain is inside a "pre-compiled framework" in a sense, diagnostics do not seem to affect it, allowing the app to compile correctly.</p>
