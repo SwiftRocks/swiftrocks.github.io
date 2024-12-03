@@ -193,7 +193,7 @@
  <p>Deep down, <code>Never</code> is just the revamped "swifty" version of <code>@noreturn</code>: an attribute that provided the exact same functionality but was removed for being too complex due to its nature as an attribute. Connecting this behavior to a return type allowed the compiler to work better, and certainly ended up looking better for the developer as well.</p>
  <p>Something about <code>Never</code> intrigued me though. We know that there's nothing in the language itself that allows you to skip return values, so what magic is done in the compiler to allow this?</p>
  <p>Just like in my <a href="https://swiftrocks.com/how-caseiterable-works-internally-in-swift">previous article about the innards of CaseIterable</a>, I'm going to dive into the compiler in order to extract and analyze the pieces of code that intercept and change the functionality of methods that return <code>Never</code> in order to learn more about how the Swift compiler works.</p>
- <p><i>Disclaimer: As always, this is a result of my own research and reverse-engineering. As I have nothing to do with the original development of <code>Never</code>, some assumptions might be not fully correct.</p>
+ <p><i>Disclaimer: As always, this is a result of my own research and reverse-engineering. As I have nothing to do with the original development of <code>Never</code>, some assumptions might be not fully correct.</i></p>
  <h2>Uninhabited Types / Never Patterns</h2>
  <p>Expecting to find complex pieces of code, the implementation of <code>Never</code> in the Standard Library shows us something else - the type is nothing but an empty enum:</p>
  <pre><code>public enum Never {}</code></pre>
