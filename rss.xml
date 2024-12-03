@@ -21,8 +21,7 @@
 <p>It's somewhat commonly believed that git's commits are <b>diffs</b>, but this is not true. Commits are <b>snapshots</b> of your repository, meaning that when you make changes to a file, git will store a <b>full copy of that file</b> on your repository <a href="https://codewords.recurse.com/issues/three/unpacking-git-packfiles">(there is an important exception, but let's keep it simple for now)</a>. This is why you can easily switch between commits and branches no matter how old they are; git doesn't need to "replay" thousands of diffs, it just needs to read and apply the snapshot for the commit you're trying to access.</p>
 <p>Under the hood, git will store all different versions of your files in the <code>.git/objects</code> folder, and this is something we can play with in order to find out what will happen regarding the main question we're trying to answer.</p>
 <p>Let's make a new git repo and add a file called <code>swiftrocks.txt</code> with the <code>Hello World!</code> contents, and commit it:</p>
-<pre class="command-line language-bash">
-<code>git init
+<pre class="command-line language-bash"><code>git init
 echo 'Hello World!' > swiftrocks.txt
 git add swiftrocks.txt
 git commit -m "Add SwiftRocks"</code>

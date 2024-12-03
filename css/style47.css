@@ -365,6 +365,11 @@ code {
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
+pre code {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
 .blog-post pre {
     margin-top: 18px !important;
     margin-bottom: 18px !important;
