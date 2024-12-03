@@ -280,7 +280,7 @@ if Thread.isMainThread {
  </div>
  <p>The task got executed instantly after I pressed the IBAction, and took about 5 seconds to complete. However, the entire screen was frozen, as we blocked the thread.</p>
  <h2>Heavy task on an UserInitiated QoS thread</h2>
- <pre class="language-swift"><code><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
+ <pre class="language-swift"><code>@IBAction func actionOne(_ sender: Any) {
     DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
         self.timeIntensiveTask()
     }
@@ -290,7 +290,7 @@ if Thread.isMainThread {
  </div>
  <p>A new thread spawned, and the task got executed almost instantly after I pressed the IBAction, also taking about 5 seconds to complete. No screen freeze this time! This thread is completely independent.</p>
  <h2>Heavy task on a Background QoS thread</h2>
- <pre class="language-swift"><code><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
+ <pre class="language-swift"><code>@IBAction func actionOne(_ sender: Any) {
     DispatchQueue.global(qos: .background).async { [unowned self] in
         self.timeIntensiveTask()
     }
@@ -300,7 +300,7 @@ if Thread.isMainThread {
  </div>
  <p>Just like UserInitiated, a thread got spawned, but in this case, not only it took some time for the task to start - and it took almost 10 seconds for it to end! This lower priority thread had delayed and reduced access to system resources. However, this is good: If you're sending a task to a background QoS queue, it means you don't want to ruin your user's CPU by focusing on it. </p>
  <h2>Visualizing Serial Queues versus Concurrent Queues</h2>
- <pre class="language-swift"><code><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
+ <pre class="language-swift"><code>@IBAction func actionOne(_ sender: Any) {
     DispatchQueue.main.async { [unowned self] in
         self.timeIntensiveTask()
     }
@@ -314,7 +314,7 @@ if Thread.isMainThread {
  <div class="post-image margin-top-40 margin-bottom-40"> 
   <img src="https://i.imgur.com/MeS2Hbv.png" alt=""> 
  </div>
- <pre class="language-swift"><code><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
+ <pre class="language-swift"><code>@IBAction func actionOne(_ sender: Any) {
     DispatchQueue.global(qos: .background).async { [unowned self] in
         self.timeIntensiveTask()
     }
@@ -332,7 +332,7 @@ if Thread.isMainThread {
  <p>If the concept of a multi-threaded process wasn't mind-boggling enough, we need to careful with the definition of <code>.async</code> and <code>.sync</code> operations.</p>
  <p>A common misconception is to think that <code>DispatchQueue.async</code> means executing something in background, and that's not true.</p>
  <p>What will be the output on <code>actionOne()</code>?</p>
- <pre class="language-swift"><code><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
+ <pre class="language-swift"><code>@IBAction func actionOne(_ sender: Any) {
     DispatchQueue.main.async { [unowned self] in
         print("async started")
         self.timeIntensiveTask()
@@ -350,7 +350,7 @@ private func timeIntensiveTask() {
     }
 }</code></pre>
  <p>The answer will always be:</p>
- <pre class="language-swift"><code><code class="language-swift">sync task started
+ <pre class="language-swift"><code>sync task started
 sync task ended
 async task started
 async task ended</code></pre>
@@ -359,7 +359,7 @@ async task ended</code></pre>
  <p>What <code>DispatchQueue.async</code> means is: <b>Make sure this task is eventually executed on thread X (main, or any other global background thread depending on what queue you are using), but I don't care about the details. I'll keep doing my stuff.</b> </p>
  <p>On the contrary, <code>DispatchQueue.sync</code> means is: <b>Make sure this task is eventually executed on thread X. Please warn me when you do so, because I will also block myself (the calling thread) until this task finishes running.</b> </p>
  <p>Given that, what do you think will be the output of the following <code>actionOne()</code>?</p>
- <pre class="language-swift"><code><code class="language-swift">@IBAction func actionOne(_ sender: Any) {
+ <pre class="language-swift"><code>@IBAction func actionOne(_ sender: Any) {
     DispatchQueue.main.sync { [unowned self] in
         print("a")
     }

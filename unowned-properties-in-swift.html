@@ -184,10 +184,10 @@
   </div> 
  </div>   
  <p>It's very common to use the <code>weak</code> keyword in order to prevent reference cycles in properties like delegates:</p>
- <pre class="language-swift"><code><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
+ <pre class="language-swift"><code class="language-swift">weak var delegate: HomeViewDelegate?</code></pre>
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>Unfortunately, since it protects you from references being lost, the <code>weak</code> keyword forces the usage of <code>var</code> and an optional type, which can be quite jarring if you're building something like an <code>UIView</code> that is not supposed to be used without a delegate - much less change delegates suddenly:</p>
- <pre class="language-swift"><code><code class="language-swift">class HomeView: UIView {
+ <pre class="language-swift"><code class="language-swift">class HomeView: UIView {
     weak var delegate: HomeViewDelegate?
 
     func renderView() {
@@ -201,9 +201,9 @@
     }
 }</code></pre>
  <p>But <code>weak</code> is not the only way of breaking reference cycles. Just like in capture lists, the <code>unowned</code> keyword can be used in properties to create non-strong references:</p>
- <pre class="language-swift"><code><code class="language-swift">unowned let delegate: HomeViewModelDelegate</code></pre>
+ <pre class="language-swift"><code class="language-swift">unowned let delegate: HomeViewModelDelegate</code></pre>
  <p>Unlike <code>weak</code>, <code>unowned</code> references are expected to always have a value. This allows you to not only use non-optional types when declaring them, but also to do so with <code>let</code>, bringing back immutability and making sure your objects won't act in unexpected ways:</p>
- <pre class="language-swift"><code><code class="language-swift">class HomeView: UIView {
+ <pre class="language-swift"><code class="language-swift">class HomeView: UIView {
     private unowned let delegate: HomeViewDelegate
 
     init(delegate: HomeViewDelegate) {

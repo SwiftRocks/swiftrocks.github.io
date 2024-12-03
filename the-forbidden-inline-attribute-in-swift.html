@@ -187,7 +187,7 @@
  <div class="sponsor-article-ad-auto hidden"></div>
  <p>In programming, <b>function inlining</b> is a compiler optimization technique that removes the overhead of calling certain methods by directly replacing calls to them with the method's contents, basically pretending that the method never existed in first place. This provides a great performance boost.</p>
  <p>For example, consider the following code:</p>
- <pre class="language-swift"><code><code class="language-swift">func calculateAndPrintSomething() {
+ <pre class="language-swift"><code class="language-swift">func calculateAndPrintSomething() {
     var num = 1
     num *= 10
     num /= 5
@@ -199,7 +199,7 @@ calculateAndPrintSomething()
 print("Done!")</code></pre>
  <p>Assuming that <code>calculateAndPrintSomething()</code> isn't used anywhere else, it's clear that the method doesn't need to exist in the compiled binary - it's purpose is purely to make the code easier to read.</p>
  <p>With function inlining, the Swift compiler can remove the overhead of calling an useless method by replacing it with it's contents:</p>
- <pre class="language-swift"><code><code class="language-swift">//The compiled binary version of the above example
+ <pre class="language-swift"><code class="language-swift">//The compiled binary version of the above example
 print("I'm going to do print some number")
 var num = 1
 num *= 10
@@ -218,7 +218,7 @@ print("Done!")</code></pre>
  <p>Another more practical example is that you might want a method to be hidden from possible hackers for containing some sort of sensitive info, regardless if it will make your code slower or bigger. You can try to make the code harder to understand or use some obfuscation tool like <a href="https://github.com/rockbruno/swiftshield">SwiftShield</a>, but <code>@inline(__always)</code> can achieve this without hurting your code. I've detailed this example below.</p>
  <h2>Using <code>@inline(__always)</code> to obfuscate Premium content</h2>
  <p>Let's pretend we have a music player in our app and some actions are premium-only. The <code>isUserSubscribed(_:)</code> method validates the user subscription and returns a boolean stating if the user is subscribed or not:</p>
- <pre class="language-swift"><code><code class="language-swift">func isUserSubscribed() -&gt; Bool {
+ <pre class="language-swift"><code class="language-swift">func isUserSubscribed() -&gt; Bool {
     //Some very complex validation
     return true
 }
@@ -241,7 +241,7 @@ func play(song: Song) {
  </div>
  <p>In this case, likely because the method is widely used around the app, the compiler decided to not inline it. This naive decision created a security flaw that allowed the app to be quickly reverse-engineered.</p>
  <p>Now look what happens when <code>@inline(__always)</code> is applied to <code>isUserSubscribed(_:)</code>:</p>
- <pre class="language-swift"><code><code class="language-swift">@inline(__always) func isUserSubscribed() -&gt; Bool {
+ <pre class="language-swift"><code class="language-swift">@inline(__always) func isUserSubscribed() -&gt; Bool {
     //Some very complex validation
     return true
 }
