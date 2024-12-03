@@ -1,7 +1,7 @@
 (function ($) {
     'use strict';
     jQuery(document).ready(function () {
-        $('pre').addClass("language-swift");
+        $('pre:not([class])').addClass("language-swift");
         ///
         var showSponsor = true;
         var sponsorData = [
