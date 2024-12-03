@@ -359,15 +359,13 @@ h3 {
 }
 
 code {
-    padding-left: 6px !important;
-    padding-right: 6px !important;
     color: var(--text-color);
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
-pre code {
-    padding-left: 0px !important;
-    padding-right: 0px !important;
+code:not(pre code) {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
 }
 
 .blog-post pre {
