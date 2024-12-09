@@ -400,10 +400,13 @@ blockquote {
 }
 
 .footer-text {
-            display: flex;
-    justify-content: center;
+  text-align: center;
   font-size: 1.0rem !important;
   color: var(--detail-color) !important;
+}
+
+.footer-text p {
+  font-size: 1.0rem !important;
 }
 
 .footer-share {
