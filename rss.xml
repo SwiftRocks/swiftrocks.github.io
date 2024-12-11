@@ -14,7 +14,7 @@
     <author>Bruno Rocha</author>
 <description><![CDATA[
 <p>Recently at work we were considering renaming a folder that contains an enormous amount of files, and we wondered whether or not that would have notable negative consequences for our git repository. Would the repo become considerably larger? Would accessing git history become slower? Or would this be completely fine?</p>
-<p>After investigated this, I thought the answer was interesting enough that I felt like writing an article about it.</p>
+<p>After investigating this, I thought the answer was interesting enough that I felt like writing an article about it.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>To answer this question, we need to briefly explain how git works under the hood. There's also a TL;DR at the bottom if you'd like to skip the entire explanation.</p>
 <h2>How does git handle files?</h2>
