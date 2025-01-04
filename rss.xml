@@ -7,6 +7,60 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>My Home Automation setup</title>
+    <link>https://swiftrocks.com/my-home-automation-setup</link>
+    <guid>https://swiftrocks.com/my-home-automation-setup</guid>
+    <pubDate>Sat, 4 Jan 2025 13:00:00 GMT+1</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>I recently upgraded my smart home hardware, and I felt like writing a post describing my current setup to serve as inspiration for those wanting to get started or just interested in home automation in general.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<h2>The Software</h2>
+<p>I use <a href="https://www.home-assistant.io/">Home Assistant OS</a> like many others. The way I like to describe HA is that it's an Alexa on steroids. With an Alexa, you buy smart devices, link them with the Alexa, and then setup automations to control those devices based on conditions like time, weather, and so on. But the problem with Alexas is that 1) the devices <i>must</i> support Alexas specifically, and 2) the automations themselves are very limited, only allowing you to do simple things.</p>
+<p>Home Assistant doesn't have such limitations. HA is <b>open-source</b> and has a thriving community, meaning you can find plugins that enable integrations for pretty much <b>anything</b> you can think of, and if you don't, you can build such plugins yourself assuming you have the programming chops to do it! HA is very extensible, and thus perfect for power users who want to set up complex automations or integrate unusual devices in unusual ways.</p>
+<h2>The Hardware</h2>
+<p>For a long time, my setup used to be a simple Raspberry Pi 3b and a SD card. The HA community tells you that this is a bad idea (The 3b is weak and SD cards can die if you use them too much), but in my experience this is fine as long as you don't have too many devices / automations / integrations. It's a good starting point, and it did the trick for me for a couple of years until I started wanting to do more complicated integrations.</p>
+<p>Nowadays, I've retired the 3b in favor of a <b>Raspberry Pi 5 w/ 8GB RAM, with a 256GB official RPi NVMe SSD and enclosed on the Argon One V3 case.</b> This gives HA enough power and cooling to do everything that I need with ease.</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/CRUuh6Q.png">                                    
+</div>
+<p>The way I run the server is via WiFi. The community says that this is also a bad idea and that you should use a wired connection to prevent latency issues, but I never had any such issues running HA via WiFi.</p>
+<p>For voice control, I use an <b>Alexa</b>. The way this works is that HA has a plugin called <a href="https://www.home-assistant.io/integrations/emulated_hue/">Emulated Hue</a> which allows you to trick an Alexa into thinking your HA server is a Philips Hue hub, allowing you to expose your devices and scripts to the Alexa in order to make use of its voice features. But you can also pay for HA Cloud and enjoy the official "proper" Alexa integration, which I don't because I want to keep everything running on the local network.</p>
+<p>I also have a <a href="https://www.amazon.se/-/en/ZBDongle-EFR32MG21-Coordinator-Universal-Assistant/dp/B0BRCWXMSF?th=1">Sonoff ZBDongle-E</a> USB stick plugged into the server in order to drive my Zigbee devices, which I'll mention in more detail further below.</p>
+<h2>The Protocol</h2>
+<p>Currently, I'm running a combination of WiFi and Zigbee devices, which is an alternate wireless protocol made specifically to be used by IoT devices that uses less energy and lays off a mesh network where the devices communicate with each other (as opposed to WiFi devices where everything goes through the router, thus creating a star network).</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/6sxx3bR.jpeg">                                    
+</div>
+<p>The reason I run this mix is just because I didn't know about Zigbee in the beginning. If I could go back in time, I would have the entire network consist of Zigbee devices because I think they are just better than WiFi ones overall. It uses significantly less energy (many Zigbee devices can run on those coin cell batteries), the mesh network allows you to have devices very far away from the server, and best of all: they work even when the WiFi is down.</p>
+<p>When you buy Zigbee devices, usually the store will say that you need a hub to drive them, which they also sell. It's true that you need a hub, but it doesn't have to be that store's <i>specific</i> hub. When using something like HA, you can use a USB antenna stick like the one mentioned above and that will allow you to control <i>any</i> Zigbee device from any manufacturer via HA.</p>
+<h2>The Devices</h2>
+<p>Here are the IoT devices that I have around my apartment, excluding things that are "smart" by default like TVs and such.</p>
+<h2>Sonoff Basic R2 (WiFi)</h2>
+<div class="post-image">
+  <img src="https://i.imgur.com/kcvnBvS.jpeg">                                    
+</div>
+<p>This is a DIY WiFi switch that you hook into "dumb" devices in order to be able to make them smart and turn them on and off via WiFi. Given a bit of skill with electronics (stripping / crimping wires), these switches are much cheaper and more durable compared to buying smart lamps, and I have many of these spread around the apartment!</p>
+<p>By default, these require you to expose your device to some awful Chinese cloud server. Luckily for us, you can flash these devices with custom firmware like <a href="https://tasmota.github.io/docs/">Tasmota</a>, allowing you to have full control of them. This also requires skills with electronics and some special equipment, so keep that in mind.</p>
+<p>As previously mentioned, If I could go back in time, I would have instead bought these switches' Zigbee equivalent to make things easier and better, so I'm in the process of replacing them.</p>
+<h2>Sonoff S26 R2 (WiFi)</h2>
+<div class="post-image">
+  <img src="https://i.imgur.com/JsamvLr.jpeg">                                    
+</div>
+<p>This is the same as above, but as something that you plug directly into the wall socket, thus requiring no messing with wires unless you want to flash the firmware to stop China from spying on you.</p>
+<p>If I could back in time, I would have bought <a href="https://www.ikea.com/se/sv/p/inspelning-stickpropp-smart-energimaetare-00569836/">these IKEA wall sockets instead</a>, as they run on Zigbee and can even provide data on your electrical consumption, so these are also something I'll be replacing soon.</p>
+<h2>Broadlink RM4C mini</h2>
+<div class="post-image">
+  <img src="https://i.imgur.com/L3Dilv9.jpeg">                                    
+</div>
+<p>This is a WiFi IR blaster that you can configure IR commands and thus be able to create automations that allow you to control devices that require a remote control, like your TV.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>In my case it turned out that newer Samsung TVs have some sort of API integration where you can control them over the web, but I used these blasters for a long time before I discovered this. This also puts your device on some Chinese cloud though, and in this case I'm not sure if custom firmwares are available.</p>
+<h2>Random IKEA IoT utilities</h2>
+<p>IKEA has <a href="https://www.ikea.com/se/sv/search/?q=smart">lots of IoT devices</a> like buttons, remote controls, motion detectors, temperature thingies, and more. They are all Zigbee and thus very easy to connect to use. I think only the button and the remote control took a bit more effort because you need to find out exactly how they work in order to build automations against them in HA, but nothing that a simple Google search couldn't solve.</p>
+]]></description>
+</item>
+<item>
     <title>What happens when you move a file in git?</title>
     <link>https://swiftrocks.com/what-happens-when-you-move-a-file-in-git</link>
     <guid>https://swiftrocks.com/what-happens-when-you-move-a-file-in-git</guid>
@@ -2034,18 +2088,6 @@ func grabSomeNumbers(_ s: Sequence&lt;Int>) { ... }</code></pre>
 <p>This practice has a clear downside; it massively reduces the team's productivity when facing issues involving these frameworks. On the other hand, doing this can actually open up the way for you to develop intelligent systems that actually <i>increase</i> developer productivity in the long run, and the most interesting example of this happening is how Xcode's <i>Automatic Reference Counting</i> system came to be.</p>
 <p>At the beginning of the platform, reference counting on iOS used to be a completely manual process that was very easy to get wrong. Apple started helping developers by creating a series of static checks on Xcode that was able to detect and block developers from introducing some of the most common mistakes, and as they improved this system, they realized at one point that it became <i>so good</i> at reference counting that it wasn't necessary to have developers do it manually anymore. You still need to be careful with other forms of memory mistakes like retain cycles, but when it comes to general memory management, the process is now so automated and abstracted from you that it's being deemed unnecessary for new developers to even learn that this is a thing.</p>
 <p>While we cannot ignore the fact that these safety procedures can be extremely detrimental to productivity in the beginning, when it comes to large established projects, I'd argue that this is a very needed trade-off to ensure the project can continue to smoothly evolve as the years go by. Dangerous legacy codes are one of the biggest walls to overcome when maintaining large projects, and actively preventing them from being introduced can save you and the company countless hours of work in the long run.</p>
-]]></description>
-</item>
-<item>
-    <title>Mobile Platform Teams (Runway)</title>
-    <link>https://www.runway.team/blog/why-when-mobile-platform-teams</link>
-    <guid>https://www.runway.team/blog/why-when-mobile-platform-teams</guid>
-    <pubDate>Fri, 15 Jul 2022 14:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
-<p>With every mobile project, you will eventually find yourself hitting roadblocks that are less about the product and features themselves and more about the surrounding infrastructure that allows everything to exist in the first place. This can manifest in a variety of ways, but as a mobile developer you’ve certainly witnessed some of the telltale signs in areas like maintaining project and build settings, managing code signing, and resolving issues with CI/CD pipelines. These are just a few examples of tasks outside the feature development domain that you might have to deal with when working on a mobile product, and which can really slow you and your team down.</p>
-<p>While these sorts of non-product issues are often dealt with in a distributed and ad-hoc way on smaller teams, this approach breaks down as you scale. Platform infrastructure issues can quickly become the single biggest bottleneck for team productivity and have a huge impact on team happiness as the size of both the codebase and the team increases.</p>
-<p>Mobile platform teams are born out of this need to tackle infrastructure pain points head-on. The end goal is to create a robust ecosystem that the wider mobile org can reliably build within and on top of, and members of a mobile platform team dedicate their time and attention entirely towards this end. That might sound bizarre to people on smaller teams – “mobile folks not working on our actual mobile product??” – but the allocation of resources to mobile platform work can be instrumental for larger companies looking to operate and scale successfully. In this article we'll look at why that's the case, and how to know when it’s becoming an important consideration for your organization.</p>
 ]]></description>
 </item>
 </channel></rss>
