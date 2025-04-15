@@ -7,6 +7,67 @@
     <copyright>2019 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>How I'm using AI to improve my software engineering productivity (and why it will not steal your job)</title>
+    <link>https://swiftrocks.com/how-im-using-ai-for-software-engineering</link>
+    <guid>https://swiftrocks.com/how-im-using-ai-for-software-engineering</guid>
+    <pubDate>Tue, 15 Apr 2025 11:50:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>AI has become an important part of my daily software engineering work, so I wanted to write a post sharing how exactly I've been using it in case you're wondering how to use it to improve your productivity as well!</p>
+<h2>Foreword: AI will not steal your software engineering job</h2>
+<p>Before getting to the details of how AI has been helping me to code, I wanted to address the topic of AI replacing software engineers.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>Recently, my social media feeds have become full of people making predictions about how in X months/years everything in the software engineering industry will be done by AI, via doomsday-style content about how everyone is going to lose their jobs and everything will fall apart.</p>
+<p>If you look at who's writing these kinds of posts, you'll notice something interesting: they are either executives who have never done any kind of software engineering, or beginners with no industry experience. Honestly, that should tell you everything you need to know about these "predictions". But in the interest of being informative, I'll try to explain why they are nonsense.</p>
+<p>The problem with these "predictions" is that the people making them for some reason seem to view software engineering as nothing more than coding and closing tasks on JIRA. You arrive at work, pick a task that is very well defined and requires no clarification whatsoever, code it, close it, pick another task that is once again perfectly defined, and repeat that ad-infimum for the entire duration of your career.</p>
+<p>But the reality of software engineering is far more complex than that. While there's certainly a good amount of coding, it's <b>extremely rare</b> that the problems a software engineer needs to solve are <i>perfectly defined</i> from the get-go as claimed by the people making these predictions. This means that more often than not the job is not really about coding, but rather <b>figuring out what exactly needs to be coded</b>, by asking yourself questions such as:</p>
+<ul>
+<li>What problems are we facing right now?</li>
+<li>What are the current objectives of the company?</li>
+<li>What is the current state of the company?</li>
+<li>What is most important for our users?</li>
+<li>Who will benefit from X problem being solved?</li>
+<li>What does the codebase looks like today? Are there any patterns or traps I need to be aware of?</li>
+<li>Are there any political fights going on around me that would affect what I should focus on?</li>
+<li>What's the current state of the industry? Are there any new tools that can help me solve my problems?</li>
+</ul>
+<p>The answers to questions like the ones above provide you with <b>context</b> that helps you define how (and when) exactly certain problems should be solved, and is a critical aspect of software engineering even for junior developers. And the interesting part is that the more senior you become, <b>the less coding you do</b>, and the more time you spend answering these types of questions to help your team/company determine which way it should go. This is something I've also written about on my <i><a href="https://swiftrocks.com/focus-not-on-the-task-but-on-the-problem-behind-the-task">Focus not on the task, but on the problem behind the task</a></i> blog post.</p>
+<p>While AI can be quite good at solving very simple and perfectly defined problems, it is <b>exceptionally bad</b> at handling anything that requires taking this level of context into account, which is something that software engineers constantly have to do. This is very easy to confirm if you have doubts about it: Grab any AI agent and project of your choice (or ask the agent to make a new one), and keep asking it to include more features in your project. While it may do relatively well the first time, it is inevitable that the AI will start confusing itself and destroying the codebase on the subsequent requests. This is because AI today doesn't understand context, and as one user on HackerNews wrote, it's like working with a junior developer that has amnesia.</p>
+<p>Thus, while AI today can be amazing as a coding assistant (which I'll go into more detail further below), the thought of it replacing software engineers is frankly hilarious.</p>
+<p>One counterargument that some people have is that while this is true today, it doesn't mean that in the future the AI won't be able to understand context and thus be able to do complex tasks. While this is true, what must be noted about this is that an AI capable of understanding context (and gathering it on its own) would be so powerful that it wouldn't just replace software engineers; it would replace <b>all of humanity</b>. If such a thing is achieved then software engineering jobs would be the least of our concerns, so I think it's a sort of weird argument to consider. Our entire lives would change in this scenario.</p>
+<p>With that out of the way, I'd like to now present my favorite use cases for AI today!</p>
+<h2>Use case 1: Getting simple tasks done quickly</h2>
+<p>One thing that AI is very good as of writing is solving very concrete and straightforward problems. So when I have to do very menial tasks like changing configuration files or writing a simple function that does X and Y, nowadays what I do is simply ask <a href="https://www.cursor.com/">Cursor</a> to do it for me, sit back, and watch the show.</p>
+<p>Even when taking into account that the AI might not get it 100% correct and that I'll still have to patch the code afterward, this still <b>saves me a massive amount of time</b> overall compared to having me do everything by myself and is definitely my favorite use case of AI today. This is especially true when doing (simple) work on languages that I'm not very familiar with, as the AI in this case is also sparing me from having to do multiple trips to StackOverflow. I still need to do so since the AI will sometimes recommend things that are not correct for my case, but again, even when considering these setbacks, I can get the work done at a much faster pace.</p>
+<p>It must be noted however that the important keyword here is <b>simple, concrete, and straightforward</b>. As mentioned previously, trying to have the AI solve complex problems that require large amounts of context such as code reviews or designing large features will not work in any meaningful way and is a sure way to waste everyone's time.</p>
+<h2>Use case 2: Searching for things when I don't know what exactly I'm looking for</h2>
+<p>I find that Google tends to provide good results if you know <b>exactly</b> what you're looking for. But if you don't really know what is it that you're trying to find out, you'll have a hard time with it.</p>
+<p>For example, the other day I was trying to find what the <code>_start</code> function in iOS (the first function called when your app is launched) is, where it's defined, and what it does. But if I go now and search for "_start function iOS" on Google, I will not find a straight answer to this question. Google <i>does</i> return somewhat good results (the second search result contains some interesting information about it if you scroll down far enough), but it cannot give me a direct response because I asked the wrong question. I know today that what I should've done is ask it about details of how C programs are linked, but I didn't know this back then, so I couldn't have done that.</p>
+<p>AI does not have this problem. If you don't know what you're looking for, you can explain your situation to it and it will point you in the right direction:</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/KuTBOgc.png" alt="Alt">
+</div>
+<p>In this example, you can see that ChatGPT immediately pointed out that I asked the wrong question before attempting to explain it!</p>
+<p>Although the AI's answers won't always be 100% accurate, I find them to be accurate enough to allow me to use Google to find the rest of the information. Just like the previous case, this is not so much about having the AI do everything for me (which it can't), but rather allowing me to save time and get where I want faster.</p>
+<h2>Use case 3: Asking questions that are too specific for Google</h2>
+<p>Even if you know exactly what you're looking for, you may have difficulty using Google if your question is too specific. For example, you cannot search Google on "how to implement X thing in Swift in my app that is using XYZ frameworks in X iOS version with dependency injection bridging an Obj-C type after the user logged in on my TODO list app using Apple Sign-in from Italy during a rainy day in October". For cases like this, usually what you need to do is break your problem into multiple, more generic queries, open many tabs that each help you with a specific part of the problem, and then use all of that combined knowledge to come up with the actual answer to your question.</p>
+<p>AI excels at this. You can be as specific as you want and you'll get a relevant answer. Most coding questions fall into this category, although for these specifically nowadays I prefer using Cursor's code gen features directly as mentioned above.</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/Rlbf1Pl.png" alt="Alt">
+</div>
+<p>In this case, I could've probably found the answer I was looking for in Google by making a bunch of generic searches about C++ global constructors and good practices, opening a bunch of tabs, and summarizing everything I found. But by asking ChatGPT, I was able to save several hours of my time instead.</p>
+<h2>Use case 4: I want FAST answers</h2>
+<p>It has been getting harder and harder to get fast answers to your questions with Google. Today, it's very unlikely that the answer to a question will lie at the top of a page you've opened. As SEO optimization became more and more important for survival on the web, the amount of stuff you have to endure before getting to the actual content has increased significantly. There will be a lengthy introduction, a pause for sponsors, ten paragraphs about how the question reminds the author about a personal story of how their dog bodyslammed their grandma on Christmas, a call to action for the author's newsletter, some backstory on the question, and <b>only then</b> you'll get to the actual content.</p>
+<p>I find that there are many cases where this fluff is relevant and worth reading. But there are also many cases when I'm in a hurry and would much rather just get a straight answer to my question.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>This is also something that I find AI to be quite good at. It generally doesn't try to educate you on things you didn't ask, it just straight up answers your question.</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/SuUcWBm.png" alt="Alt">
+</div>
+<p>By asking follow-up questions regarding one or more things it mentioned in its answer, I can get all of the information I need to learn something new considerably faster than if I had used Google instead. Even though I still need to use Google to double-check if the AI didn't hallucinate particular pieces of information, this ability to quickly gather relevant information saves me an absurd amount of time.</p>
+]]></description>
+</item>
+<item>
     <title>Things that did (and didn't) contribute to Burnout Buddy's success</title>
     <link>https://swiftrocks.com/things-that-did-and-didnt-contribute-to-burnout-buddys-success</link>
     <guid>https://swiftrocks.com/things-that-did-and-didnt-contribute-to-burnout-buddys-success</guid>
@@ -648,67 +709,6 @@ func setupRegistry() {
 <p>If you have been developing for iOS for a while, chances are you had one of two issues involving <b>code signing</b>, the process where Apple/Xcode forces you to "sign" your app with a developer certificate in order to be able to archive it and submit it to the App Store.</p>
 <p>I find code signing to be interesting not just because of what it does, but because it's one of those things that iOS developers kinda just take for granted. We know it's there and we know how to deal with it, but we don't really stop to think <b>why</b> it's there or what it's doing under the hood. We just follow Apple's convoluted steps on how to make it work and move on with our lives.</p>
 <p>In practice, code signing is an incredibly important safety feature of Apple's ecosystems. Knowing what it is and why it exists makes debugging issues related to it considerably easier, so I've written this article to help you understand it.</p>
-]]></description>
-</item>
-<item>
-    <title>How I'm using AI to improve my software engineering productivity (and why it will not steal your job)</title>
-    <link>https://swiftrocks.com/how-im-using-ai-for-software-engineering</link>
-    <guid>https://swiftrocks.com/how-im-using-ai-for-software-engineering</guid>
-    <pubDate>Mon, 11 Dec 2023 13:00:00 GMT+1</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
-<p>AI has become an important part of my daily software engineering work, so I wanted to write a post sharing how exactly I've been using it in case you're wondering how to use it to improve your productivity as well!</p>
-<h2>Foreword: AI will not steal your software engineering job</h2>
-<p>Before getting to the details of how AI has been helping me to code, I wanted to address the topic of AI replacing software engineers.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>Recently, my social media feeds have become full of people making predictions about how in X months/years everything in the software engineering industry will be done by AI, via doomsday-style content about how everyone is going to lose their jobs and everything will fall apart.</p>
-<p>If you look at who's writing these kinds of posts, you'll notice something interesting: they are either executives who have never done any kind of software engineering, or beginners with no industry experience. Honestly, that should tell you everything you need to know about these "predictions". But in the interest of being informative, I'll try to explain why they are nonsense.</p>
-<p>The problem with these "predictions" is that the people making them for some reason seem to view software engineering as nothing more than coding and closing tasks on JIRA. You arrive at work, pick a task that is very well defined and requires no clarification whatsoever, code it, close it, pick another task that is once again perfectly defined, and repeat that ad-infimum for the entire duration of your career.</p>
-<p>But the reality of software engineering is far more complex than that. While there's certainly a good amount of coding, it's <b>extremely rare</b> that the problems a software engineer needs to solve are <i>perfectly defined</i> from the get-go as claimed by the people making these predictions. This means that more often than not the job is not really about coding, but rather <b>figuring out what exactly needs to be coded</b>, by asking yourself questions such as:</p>
-<ul>
-<li>What problems are we facing right now?</li>
-<li>What are the current objectives of the company?</li>
-<li>What is the current state of the company?</li>
-<li>What is most important for our users?</li>
-<li>Who will benefit from X problem being solved?</li>
-<li>What does the codebase looks like today? Are there any patterns or traps I need to be aware of?</li>
-<li>Are there any political fights going on around me that would affect what I should focus on?</li>
-<li>What's the current state of the industry? Are there any new tools that can help me solve my problems?</li>
-</ul>
-<p>The answers to questions like the ones above provide you with <b>context</b> that helps you define how (and when) exactly certain problems should be solved, and is a critical aspect of software engineering even for junior developers. And the interesting part is that the more senior you become, <b>the less coding you do</b>, and the more time you spend answering these types of questions to help your team/company determine which way it should go. This is something I've also written about on my <i><a href="https://swiftrocks.com/focus-not-on-the-task-but-on-the-problem-behind-the-task">Focus not on the task, but on the problem behind the task</a></i> blog post.</p>
-<p>While AI can be quite good at solving very simple and perfectly defined problems, it is <b>exceptionally bad</b> at handling anything that requires taking this level of context into account, which is something that software engineers constantly have to do. This is very easy to confirm if you have doubts about it: Grab any AI agent and project of your choice (or ask the agent to make a new one), and keep asking it to include more features in your project. While it may do relatively well the first time, it is inevitable that the AI will start confusing itself and destroying the codebase on the subsequent requests. This is because AI today doesn't understand context, and as one user on HackerNews wrote, it's like working with a junior developer that has amnesia.</p>
-<p>Thus, while AI today can be amazing as a coding assistant (which I'll go into more detail further below), the thought of it replacing software engineers is frankly hilarious.</p>
-<p>One counterargument that some people have is that while this is true today, it doesn't mean that in the future the AI won't be able to understand context and thus be able to do complex tasks. While this is true, what must be noted about this is that an AI capable of understanding context (and gathering it on its own) would be so powerful that it wouldn't just replace software engineers; it would replace <b>all of humanity</b>. If such a thing is achieved then software engineering jobs would be the least of our concerns, so I think it's a sort of weird argument to consider. Our entire lives would change in this scenario.</p>
-<p>With that out of the way, I'd like to now present my favorite use cases for AI today!</p>
-<h2>Use case 1: Getting simple tasks done quickly</h2>
-<p>One thing that AI is very good as of writing is solving very concrete and straightforward problems. So when I have to do very menial tasks like changing configuration files or writing a simple function that does X and Y, nowadays what I do is simply ask <a href="https://www.cursor.com/">Cursor</a> to do it for me, sit back, and watch the show.</p>
-<p>Even when taking into account that the AI might not get it 100% correct and that I'll still have to patch the code afterward, this still <b>saves me a massive amount of time</b> overall compared to having me do everything by myself and is definitely my favorite use case of AI today. This is especially true when doing (simple) work on languages that I'm not very familiar with, as the AI in this case is also sparing me from having to do multiple trips to StackOverflow. I still need to do so since the AI will sometimes recommend things that are not correct for my case, but again, even when considering these setbacks, I can get the work done at a much faster pace.</p>
-<p>It must be noted however that the important keyword here is <b>simple, concrete, and straightforward</b>. As mentioned previously, trying to have the AI solve complex problems that require large amounts of context such as code reviews or designing large features will not work in any meaningful way and is a sure way to waste everyone's time.</p>
-<h2>Use case 2: Searching for things when I don't know what exactly I'm looking for</h2>
-<p>I find that Google tends to provide good results if you know <b>exactly</b> what you're looking for. But if you don't really know what is it that you're trying to find out, you'll have a hard time with it.</p>
-<p>For example, the other day I was trying to find what the <code>_start</code> function in iOS (the first function called when your app is launched) is, where it's defined, and what it does. But if I go now and search for "_start function iOS" on Google, I will not find a straight answer to this question. Google <i>does</i> return somewhat good results (the second search result contains some interesting information about it if you scroll down far enough), but it cannot give me a direct response because I asked the wrong question. I know today that what I should've done is ask it about details of how C programs are linked, but I didn't know this back then, so I couldn't have done that.</p>
-<p>AI does not have this problem. If you don't know what you're looking for, you can explain your situation to it and it will point you in the right direction:</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/KuTBOgc.png" alt="Alt">
-</div>
-<p>In this example, you can see that ChatGPT immediately pointed out that I asked the wrong question before attempting to explain it!</p>
-<p>Although the AI's answers won't always be 100% accurate, I find them to be accurate enough to allow me to use Google to find the rest of the information. Just like the previous case, this is not so much about having the AI do everything for me (which it can't), but rather allowing me to save time and get where I want faster.</p>
-<h2>Use case 3: Asking questions that are too specific for Google</h2>
-<p>Even if you know exactly what you're looking for, you may have difficulty using Google if your question is too specific. For example, you cannot search Google on "how to implement X thing in Swift in my app that is using XYZ frameworks in X iOS version with dependency injection bridging an Obj-C type after the user logged in on my TODO list app using Apple Sign-in from Italy during a rainy day in October". For cases like this, usually what you need to do is break your problem into multiple, more generic queries, open many tabs that each help you with a specific part of the problem, and then use all of that combined knowledge to come up with the actual answer to your question.</p>
-<p>AI excels at this. You can be as specific as you want and you'll get a relevant answer. Most coding questions fall into this category, although for these specifically nowadays I prefer using Cursor's code gen features directly as mentioned above.</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/Rlbf1Pl.png" alt="Alt">
-</div>
-<p>In this case, I could've probably found the answer I was looking for in Google by making a bunch of generic searches about C++ global constructors and good practices, opening a bunch of tabs, and summarizing everything I found. But by asking ChatGPT, I was able to save several hours of my time instead.</p>
-<h2>Use case 4: I want FAST answers</h2>
-<p>It has been getting harder and harder to get fast answers to your questions with Google. Today, it's very unlikely that the answer to a question will lie at the top of a page you've opened. As SEO optimization became more and more important for survival on the web, the amount of stuff you have to endure before getting to the actual content has increased significantly. There will be a lengthy introduction, a pause for sponsors, ten paragraphs about how the question reminds the author about a personal story of how their dog bodyslammed their grandma on Christmas, a call to action for the author's newsletter, some backstory on the question, and <b>only then</b> you'll get to the actual content.</p>
-<p>I find that there are many cases where this fluff is relevant and worth reading. But there are also many cases when I'm in a hurry and would much rather just get a straight answer to my question.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>This is also something that I find AI to be quite good at. It generally doesn't try to educate you on things you didn't ask, it just straight up answers your question.</p>
-<div class="post-image">
-  <img src="https://i.imgur.com/SuUcWBm.png" alt="Alt">
-</div>
-<p>By asking follow-up questions regarding one or more things it mentioned in its answer, I can get all of the information I need to learn something new considerably faster than if I had used Google instead. Even though I still need to use Google to double-check if the AI didn't hallucinate particular pieces of information, this ability to quickly gather relevant information saves me an absurd amount of time.</p>
 ]]></description>
 </item>
 <item>
