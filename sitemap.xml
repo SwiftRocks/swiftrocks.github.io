@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/how-im-using-ai-for-software-engineering</loc>
+    <lastmod>2025-04-15T11:50:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-im-using-ai-for-software-engineering.html</loc>
+    <lastmod>2025-04-15T11:50:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/software-engineering-book-recommendations</loc>
     <lastmod>2025-04-09T18:00:00+02:00</lastmod>
     <priority>0.80</priority>
@@ -172,16 +182,6 @@
 <url>
     <loc>https://swiftrocks.com/how-necessary-are-the-programming-fundamentals.html</loc>
     <lastmod>2024-02-02T23:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering</loc>
-    <lastmod>2023-12-11T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-im-using-chatgpt-for-software-engineering.html</loc>
-    <lastmod>2023-12-11T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
