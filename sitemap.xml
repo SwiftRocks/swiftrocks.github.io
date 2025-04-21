@@ -5,16 +5,6 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
-    <loc>https://swiftrocks.com/games</loc>
-    <lastmod>2025-04-19T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/games.html</loc>
-    <lastmod>2025-04-19T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
     <loc>https://swiftrocks.com/how-im-using-ai-for-software-engineering</loc>
     <lastmod>2025-04-15T11:50:00+02:00</lastmod>
     <priority>0.80</priority>
@@ -25,52 +15,12 @@
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/software-engineering-book-recommendations</loc>
-    <lastmod>2025-04-09T18:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/software-engineering-book-recommendations.html</loc>
-    <lastmod>2025-04-09T18:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/projects</loc>
-    <lastmod>2025-02-09T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/projects.html</loc>
-    <lastmod>2025-02-09T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/blog</loc>
-    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/blog.html</loc>
-    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
     <loc>https://swiftrocks.com/things-that-did-and-didnt-contribute-to-burnout-buddys-success</loc>
     <lastmod>2025-01-23T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
     <loc>https://swiftrocks.com/things-that-did-and-didnt-contribute-to-burnout-buddys-success.html</loc>
-    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/index</loc>
-    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/index.html</loc>
     <lastmod>2025-01-23T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
@@ -115,6 +65,16 @@
     <priority>0.80</priority>
 </url>
 <url>
+    <loc>https://swiftrocks.com/blog</loc>
+    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/blog.html</loc>
+    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/about</loc>
     <lastmod>2024-09-01T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
@@ -132,26 +92,6 @@
 <url>
     <loc>https://swiftrocks.com/my-process-for-learning-new-languages.html</loc>
     <lastmod>2024-09-01T10:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering</loc>
-    <lastmod>2024-07-27T16:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering.html</loc>
-    <lastmod>2024-07-27T16:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/thread-safety-in-swift</loc>
-    <lastmod>2024-06-17T11:30:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/thread-safety-in-swift.html</loc>
-    <lastmod>2024-06-17T11:30:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
@@ -175,13 +115,23 @@
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/how-necessary-are-the-programming-fundamentals</loc>
-    <lastmod>2024-02-02T23:00:00+02:00</lastmod>
+    <loc>https://swiftrocks.com/software-engineering-book-recommendations</loc>
+    <lastmod>2025-04-09T18:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/how-necessary-are-the-programming-fundamentals.html</loc>
-    <lastmod>2024-02-02T23:00:00+02:00</lastmod>
+    <loc>https://swiftrocks.com/software-engineering-book-recommendations.html</loc>
+    <lastmod>2025-04-09T18:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering</loc>
+    <lastmod>2024-07-27T16:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering.html</loc>
+    <lastmod>2024-07-27T16:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
@@ -205,13 +155,13 @@
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/talks</loc>
-    <lastmod>2023-08-03T14:00:00+02:00</lastmod>
+    <loc>https://swiftrocks.com/games</loc>
+    <lastmod>2025-04-19T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/talks.html</loc>
-    <lastmod>2023-08-03T14:00:00+02:00</lastmod>
+    <loc>https://swiftrocks.com/games.html</loc>
+    <lastmod>2025-04-19T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
@@ -232,16 +182,6 @@
 <url>
     <loc>https://swiftrocks.com/my-experience-with-swiftui.html</loc>
     <lastmod>2023-01-12T10:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/inside-swiftui-compiler-magic</loc>
-    <lastmod>2022-10-11T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/inside-swiftui-compiler-magic.html</loc>
-    <lastmod>2022-10-11T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
@@ -302,6 +242,26 @@
 <url>
     <loc>https://swiftrocks.com/focus-on-concepts-not-approaches.html</loc>
     <lastmod>2022-01-06T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/projects</loc>
+    <lastmod>2025-02-09T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/projects.html</loc>
+    <lastmod>2025-02-09T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/talks</loc>
+    <lastmod>2023-08-03T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/talks.html</loc>
+    <lastmod>2023-08-03T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
@@ -435,6 +395,26 @@
     <priority>0.80</priority>
 </url>
 <url>
+    <loc>https://swiftrocks.com/how-necessary-are-the-programming-fundamentals</loc>
+    <lastmod>2024-02-02T23:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-necessary-are-the-programming-fundamentals.html</loc>
+    <lastmod>2024-02-02T23:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/thread-safety-in-swift</loc>
+    <lastmod>2024-06-17T11:30:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/thread-safety-in-swift.html</loc>
+    <lastmod>2024-06-17T11:30:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/code-generation-with-sourcekit</loc>
     <lastmod>2021-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
@@ -482,16 +462,6 @@
 <url>
     <loc>https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift.html</loc>
     <lastmod>2020-11-24T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/useful-obscure-foundation-types-in-swift</loc>
-    <lastmod>2020-10-18T18:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/useful-obscure-foundation-types-in-swift.html</loc>
-    <lastmod>2020-10-18T18:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
@@ -585,16 +555,6 @@
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets</loc>
-    <lastmod>2020-06-15T11:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets.html</loc>
-    <lastmod>2020-06-15T11:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
     <loc>https://swiftrocks.com/how-random-numbers-work-in-swift</loc>
     <lastmod>2020-05-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
@@ -602,36 +562,6 @@
 <url>
     <loc>https://swiftrocks.com/how-random-numbers-work-in-swift.html</loc>
     <lastmod>2020-05-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift</loc>
-    <lastmod>2020-05-05T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift.html</loc>
-    <lastmod>2020-05-05T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/blockbased-ui-testing-in-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/blockbased-ui-testing-in-swift.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
@@ -645,12 +575,222 @@
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/memory-management-and-performance-of-value-types</loc>
+    <loc>https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift</loc>
+    <lastmod>2020-05-05T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/unit-testing-preprocessor-macros-in-swift.html</loc>
+    <lastmod>2020-05-05T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/weak-dictionary-values-in-swift</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/memory-management-and-performance-of-value-types.html</loc>
+    <loc>https://swiftrocks.com/weak-dictionary-values-in-swift.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/understanding-swifts-objectidentifier</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/understanding-swifts-objectidentifier.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/useful-global-swift-functions</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/useful-global-swift-functions.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-collection-diffing-works-internally-in-swift.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/swift-codable-decodingencoding-with-context</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/swift-codable-decodingencoding-with-context.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets</loc>
+    <lastmod>2020-06-15T11:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets.html</loc>
+    <lastmod>2020-06-15T11:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-hashable-works-in-swift</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-hashable-works-in-swift.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/nscopying-nszone-uses-in-swift</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/nscopying-nszone-uses-in-swift.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/using-simd-vector-types-in-swift</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/using-simd-vector-types-in-swift.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/useful-obscure-foundation-types-in-swift</loc>
+    <lastmod>2020-10-18T18:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/useful-obscure-foundation-types-in-swift.html</loc>
+    <lastmod>2020-10-18T18:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/understanding-opaque-return-types-in-swift</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/understanding-opaque-return-types-in-swift.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/inside-swiftui-compiler-magic</loc>
+    <lastmod>2022-10-11T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/inside-swiftui-compiler-magic.html</loc>
+    <lastmod>2022-10-11T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/autoreleasepool-in-swift</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/autoreleasepool-in-swift.html</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
@@ -665,12 +805,82 @@
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/nscopying-nszone-uses-in-swift</loc>
+    <loc>https://swiftrocks.com/blockbased-ui-testing-in-swift</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/nscopying-nszone-uses-in-swift.html</loc>
+    <loc>https://swiftrocks.com/blockbased-ui-testing-in-swift.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/avoiding-callback-hell-in-swift</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/avoiding-callback-hell-in-swift.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-never-works-internally-in-swift</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-never-works-internally-in-swift.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/whats-type-and-self-swift-metatypes</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/whats-type-and-self-swift-metatypes.html</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/index</loc>
+    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/index.html</loc>
+    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/memory-management-and-performance-of-value-types</loc>
+    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/memory-management-and-performance-of-value-types.html</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
@@ -705,16 +915,6 @@
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/how-hashable-works-in-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-hashable-works-in-swift.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
     <loc>https://swiftrocks.com/detecting-touchid-fingerprint-changes</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
@@ -735,82 +935,12 @@
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/swift-sequence-inside-the-compiler-how-for-loops-work.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/swift-expressibleby-protocols-how-they-work-internally-in-the-compiler.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/avoiding-callback-hell-in-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/avoiding-callback-hell-in-swift.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/building-a-face-detecting-sentry-gun-with-urlsessionwebsockettask-coreml-swiftui-and-arduino.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/introsort-timsort-swifts-sorting-algorithm.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
     <loc>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
     <loc>https://swiftrocks.com/running-other-apps-siri-shortcuts-through-deep-links-in-swift.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-optionset-works-inside-the-swift-compiler.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-dynamicmemberlookup-works-internally-in-swift.html</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
@@ -825,62 +955,12 @@
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/understanding-opaque-return-types-in-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/understanding-opaque-return-types-in-swift.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
     <loc>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
     <loc>https://swiftrocks.com/writing-cleaner-view-code-by-overriding-loadview.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/understanding-swifts-objectidentifier</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/understanding-swifts-objectidentifier.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/using-lldb-manually-xcode-console-tricks.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-never-works-internally-in-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/how-never-works-internally-in-swift.html</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
@@ -895,82 +975,12 @@
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/whats-type-and-self-swift-metatypes</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/whats-type-and-self-swift-metatypes.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/weak-dictionary-values-in-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/weak-dictionary-values-in-swift.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/using-simd-vector-types-in-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/using-simd-vector-types-in-swift.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/autoreleasepool-in-swift</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/autoreleasepool-in-swift.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/adding-deeplink-shortcuts-to-the-ios-home-screen.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
     <loc>https://swiftrocks.com/understanding-dispatchqueues</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
     <loc>https://swiftrocks.com/understanding-dispatchqueues.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/useful-global-swift-functions</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/useful-global-swift-functions.html</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
@@ -985,22 +995,12 @@
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone</loc>
+    <loc>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
-    <loc>https://swiftrocks.com/faster-swift-array-operations-with-collectionofone.html</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/swift-codable-decodingencoding-with-context</loc>
-    <lastmod>2020-04-12T14:00:00+02:00</lastmod>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>https://swiftrocks.com/swift-codable-decodingencoding-with-context.html</loc>
+    <loc>https://swiftrocks.com/reverse-engineering-ios-facebook-messenger-chat.html</loc>
     <lastmod>2020-04-12T14:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
