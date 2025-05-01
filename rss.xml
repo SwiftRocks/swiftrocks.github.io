@@ -177,7 +177,6 @@
   <img src="https://i.imgur.com/L3Dilv9.jpeg">                                    
 </div>
 <p>This is a WiFi IR blaster that you can configure IR commands and thus be able to create automations that allow you to control devices that require a remote control, like your TV.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
 <p>In my case it turned out that newer Samsung TVs have some sort of API integration where you can control them over the web, but I used these blasters for a long time before I discovered this. This also puts your device on some Chinese cloud though, and in this case I'm not sure if custom firmwares are available.</p>
 <h3>Random IKEA IoT utilities (Zigbee)</h3>
 <p>IKEA has <a href="https://www.ikea.com/se/sv/search/?q=smart">lots of IoT devices</a> like buttons, remote controls, motion detectors, temperature thingies, air quality monitors, and more. They are all Zigbee and thus very easy to connect to use. I think only the button and the remote control took a bit more effort because you need to find out exactly how they work in order to build automations against them in HA, but nothing that a simple Google search couldn't solve.</p>
@@ -185,6 +184,7 @@
 <p>Last but not least, I have the official Home Assistant app installed on several of my devices. This gives HA access to a bunch of stuff like location, battery level and notifications, which gives me a ton of potential input data for automations.</p>
 <h2>The Automations</h2>
 <p>It would be too complicated for me to explain every automation and script that I have, so I'll describe this at a higher level only. When you have all of this stuff connected to HA, you can basically do anything you want. Since automations in HA are basically Python scripts, you are limited only by your creativity. As mentioned in the introduction, if HA doesn't natively support something that you want to do then most likely someone already developed an extension for it, and if for some reason that's not the case, you can code it yourself!</p>
+<div class="sponsor-article-ad-auto hidden"></div>
 <p>Here are some of my favorite automations:</p>
 <ul>
   <li>Adjusting the color temperature of my hall lights depending on the sun's current position</li>
