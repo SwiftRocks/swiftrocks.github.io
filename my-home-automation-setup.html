@@ -201,6 +201,7 @@
   <img src="https://i.imgur.com/hETOc60.png">                                    
 </div>
 <p>The dashboarding functionality itself is achieved by using <a href="https://wallpanel.xyz/">Wallpanel</a> to expose the tablet's controls to HA, while the photo album logic is handled via HA's <a href="https://github.com/j-a-n/lovelace-wallpanel">lovelace-wallpanel</a> custom integration. I host the photos on the HA itself. For added security, since we're talking about a Chinese Android device, I also have a special rule on my router's firewall that prevents this tablet from communicating with devices outside the local network.</p>
+<p>Right now, I do not provide a mechanism to allow me to access my HA instance remotely as I don't want to have to worry about securing it properly, but I wanted to mention that this is perfectly possible by using the <a href="https://tailscale.com/blog/remotely-access-home-assistant">Tailscale extension</a>.</p>
 <h2>The Protocol</h2>
 <p>Currently, I'm running a combination of WiFi and Zigbee devices, which is an alternate wireless protocol made specifically to be used by IoT devices that uses less energy and lays off a mesh network where the devices communicate with each other (as opposed to WiFi devices where everything goes through the router, thus creating a star network).</p>
 <div class="post-image">
@@ -233,6 +234,21 @@
 <p>In my case it turned out that newer Samsung TVs have some sort of API integration where you can control them over the web, but I used these blasters for a long time before I discovered this. This also puts your device on some Chinese cloud though, and in this case I'm not sure if custom firmwares are available.</p>
 <h2>Random IKEA IoT utilities (Zigbee)</h2>
 <p>IKEA has <a href="https://www.ikea.com/se/sv/search/?q=smart">lots of IoT devices</a> like buttons, remote controls, motion detectors, temperature thingies, air quality monitors, and more. They are all Zigbee and thus very easy to connect to use. I think only the button and the remote control took a bit more effort because you need to find out exactly how they work in order to build automations against them in HA, but nothing that a simple Google search couldn't solve.</p>
+<h2>Home Assistant App</h2>
+<p>Last but not least, I have the official Home Assistant app installed on several of my devices. This gives HA access to a bunch of stuff like location, battery level and notifications, which gives me a ton of potential input data for automations.</p>
+<h2>The Automations</h2>
+<p>It would be too complicated for me to explain every automation and script that I have, so I'll describe this at a higher level only. When you have all of this stuff connected to HA, you can basically do anything you want. Since automations in HA are basically Python scripts, you are limited only by your creativity. As mentioned in the introduction, if HA doesn't natively support something that you want to do then most likely someone already developed an extension for it, and if for some reason that's not the case, you can code it yourself!</p>
+<p>Here are some of my favorite automations:</p>
+<ul>
+  <li>Adjusting the color temperature of my hall lights depending on the sun's current position</li>
+  <li>Automatically turning off my lava lamp if it has been on for more than 6 hours</li>
+  <li>Getting phone notifications when my 3D Printer finishes printing</li>
+  <li>Having a direct feed to the dashboard's camera, visible from any other device, like a CCTV</li>
+  <li>Turning off the photo album's screen when the TV is turned on, and on again when it's turned off, unless the "Time to Sleep" automation has been triggered very recently, in which case the automation should avoid turning it on again</li>
+  <li>Turning on / off the hall's lights based on motion, except if the remote control has been used to manually adjust the light, in which case the automation should do nothing</li>
+  <li>Having physical buttons around the house and assigning pre-programmed actions to them</li>
+</ul>
+<p>As you can see, this is no different than coding any software. The biggest hurdle is providing an abstraction that allows HA to gather and send data to things that are not natively supported by the platform, but in my experience, even the most niche devices out there already have plug-and-play solutions developed by the community, which is amazing.</p>
 </div></div>
                               
    
