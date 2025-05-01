@@ -158,30 +158,30 @@
 <p>When you buy Zigbee devices, usually the store will say that you need a hub to drive them, which they also sell. It's true that you need a hub, but it doesn't have to be that store's <i>specific</i> hub. When using something like HA, you can use a USB antenna stick like the one mentioned above and that will allow you to control <i>any</i> Zigbee device from any manufacturer via HA.</p>
 <h2>The Devices</h2>
 <p>Here are the IoT devices that I have around my apartment, excluding things that are "smart" by default like TVs and such.</p>
-<h2>Sonoff Basic R2 (WiFi)</h2>
+<h3>Sonoff Basic R2 (WiFi)</h3>
 <div class="post-image">
   <img src="https://i.imgur.com/kcvnBvS.jpeg">                                    
 </div>
 <p>This is a DIY WiFi switch that you hook into "dumb" devices in order to be able to make them smart and turn them on and off via WiFi. Given a bit of skill with electronics (stripping / crimping wires), these switches are much cheaper and more durable compared to buying smart lamps or smart outlets, and I have many of these spread around the apartment!</p>
 <p>By default, these require you to expose your device to some awful Chinese cloud server. Luckily for us, you can flash these devices with custom firmware like <a href="https://tasmota.github.io/docs/">Tasmota</a>, allowing you to have full control of them. This also requires skills with electronics and some special equipment, so keep that in mind.</p>
 <p>As previously mentioned, If I could go back in time, I would have instead bought a Zigbee equivalent to make things easier and better.</p>
-<h2>IKEA INSPELNING (Zigbee)</h2>
+<h3>IKEA INSPELNING (Zigbee)</h3>
 <div class="post-image">
   <img src="https://i.imgur.com/oNdutJo.png" style="max-height: 300px;">                                    
 </div>
 <p>These are similar to the above, but as something that you plug directly into the wall socket instead. This allows you to enjoy the same benefits without having to mess with wires. I use these in cases where I'd like to automate something where messing with the wires would be either tricky or outright impossible.</p>
 <p>This added flexibility comes with a price; they are much more expensive than the DIY switches. But another cool thing of these wall sockets is that they even come with sensors that measure your electrical consumption, so you can get a lot of cool data by having a bunch of these around your home.</p>
 <p>If you'd like something that uses WiFi instead, I can recommend the <b>Sonoff S26 R2</b>, which is what I used before discovering this IKEA Zigbee one. Just note that they suffer from the same issue of exposing your network to some random cloud as the DIY switch mentioned above.</p>
-<h2>Broadlink RM4C mini (WiFi)</h2>
+<h3>Broadlink RM4C mini (WiFi)</h3>
 <div class="post-image">
   <img src="https://i.imgur.com/L3Dilv9.jpeg">                                    
 </div>
 <p>This is a WiFi IR blaster that you can configure IR commands and thus be able to create automations that allow you to control devices that require a remote control, like your TV.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>In my case it turned out that newer Samsung TVs have some sort of API integration where you can control them over the web, but I used these blasters for a long time before I discovered this. This also puts your device on some Chinese cloud though, and in this case I'm not sure if custom firmwares are available.</p>
-<h2>Random IKEA IoT utilities (Zigbee)</h2>
+<h3>Random IKEA IoT utilities (Zigbee)</h3>
 <p>IKEA has <a href="https://www.ikea.com/se/sv/search/?q=smart">lots of IoT devices</a> like buttons, remote controls, motion detectors, temperature thingies, air quality monitors, and more. They are all Zigbee and thus very easy to connect to use. I think only the button and the remote control took a bit more effort because you need to find out exactly how they work in order to build automations against them in HA, but nothing that a simple Google search couldn't solve.</p>
-<h2>Home Assistant App</h2>
+<h3>Home Assistant App</h3>
 <p>Last but not least, I have the official Home Assistant app installed on several of my devices. This gives HA access to a bunch of stuff like location, battery level and notifications, which gives me a ton of potential input data for automations.</p>
 <h2>The Automations</h2>
 <p>It would be too complicated for me to explain every automation and script that I have, so I'll describe this at a higher level only. When you have all of this stuff connected to HA, you can basically do anything you want. Since automations in HA are basically Python scripts, you are limited only by your creativity. As mentioned in the introduction, if HA doesn't natively support something that you want to do then most likely someone already developed an extension for it, and if for some reason that's not the case, you can code it yourself!</p>
