@@ -140,9 +140,14 @@
 <div class="post-image">
   <img src="https://i.imgur.com/CRUuh6Q.png">                                    
 </div>
-<p>The way I run the server is via WiFi. The community says that this is also a bad idea and that you should use a wired connection to prevent latency issues, but I never had any such issues running HA via WiFi.</p>
+<p>Today I run the server via a wired connection, but there was a long period of time where I was running it through WiFi. The community says that this is a bad idea for latency reasons, but I never had any such issues. While the wired connection is definitely much faster, the WiFi latency never really bothered me, so I can confirm it's totally fine to run HA over WiFi if you can't run a cable to it.</p>
 <p>For voice control, I use an <b>Alexa</b>. The way this works is that HA has a plugin called <a href="https://www.home-assistant.io/integrations/emulated_hue/">Emulated Hue</a> which allows you to trick an Alexa into thinking your HA server is a Philips Hue hub, allowing you to expose your devices and scripts to the Alexa in order to make use of its voice features. But you can also pay for HA Cloud and enjoy the official "proper" Alexa integration, which I don't because I want to keep everything running on the local network.</p>
 <p>I also have a <a href="https://www.amazon.se/-/en/ZBDongle-EFR32MG21-Coordinator-Universal-Assistant/dp/B0BRCWXMSF?th=1">Sonoff ZBDongle-E</a> USB stick plugged into the server in order to drive my Zigbee devices, which I'll mention in more detail further below.</p>
+<p>In addition to all of this, I'm using a very old generic Huawei Android tablet under my TV to serve not only as a physical dashboard, but also as a digital photo album when idle:</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/hETOc60.png">                                    
+</div>
+<p>The dashboarding functionality itself is achieved by using <a href="https://wallpanel.xyz/">Wallpanel</a> to expose the tablet's controls to HA, while the photo album logic is handled via HA's <a href="https://github.com/j-a-n/lovelace-wallpanel">lovelace-wallpanel</a> custom integration. I host the photos on the HA itself. For added security, since we're talking about a Chinese Android device, I also have a special rule on my router's firewall that prevents this tablet from communicating with devices outside the local network.</p>
 <h2>The Protocol</h2>
 <p>Currently, I'm running a combination of WiFi and Zigbee devices, which is an alternate wireless protocol made specifically to be used by IoT devices that uses less energy and lays off a mesh network where the devices communicate with each other (as opposed to WiFi devices where everything goes through the router, thus creating a star network).</p>
 <div class="post-image">
@@ -156,15 +161,16 @@
 <div class="post-image">
   <img src="https://i.imgur.com/kcvnBvS.jpeg">                                    
 </div>
-<p>This is a DIY WiFi switch that you hook into "dumb" devices in order to be able to make them smart and turn them on and off via WiFi. Given a bit of skill with electronics (stripping / crimping wires), these switches are much cheaper and more durable compared to buying smart lamps, and I have many of these spread around the apartment!</p>
+<p>This is a DIY WiFi switch that you hook into "dumb" devices in order to be able to make them smart and turn them on and off via WiFi. Given a bit of skill with electronics (stripping / crimping wires), these switches are much cheaper and more durable compared to buying smart lamps or smart outlets, and I have many of these spread around the apartment!</p>
 <p>By default, these require you to expose your device to some awful Chinese cloud server. Luckily for us, you can flash these devices with custom firmware like <a href="https://tasmota.github.io/docs/">Tasmota</a>, allowing you to have full control of them. This also requires skills with electronics and some special equipment, so keep that in mind.</p>
-<p>As previously mentioned, If I could go back in time, I would have instead bought these switches' Zigbee equivalent to make things easier and better, so I'm in the process of replacing them.</p>
-<h2>Sonoff S26 R2 (WiFi)</h2>
+<p>As previously mentioned, If I could go back in time, I would have instead bought a Zigbee equivalent to make things easier and better.</p>
+<h2>IKEA INSPELNING (Zigbee)</h2>
 <div class="post-image">
-  <img src="https://i.imgur.com/JsamvLr.jpeg">                                    
+  <img src="https://i.imgur.com/uTYb1Ug.png">                                    
 </div>
-<p>This is the same as above, but as something that you plug directly into the wall socket, thus requiring no messing with wires unless you want to flash the firmware to stop China from spying on you.</p>
-<p>If I could back in time, I would have bought <a href="https://www.ikea.com/se/sv/p/inspelning-stickpropp-smart-energimaetare-00569836/">these IKEA wall sockets instead</a>, as they run on Zigbee and can even provide data on your electrical consumption, so these are also something I'll be replacing soon.</p>
+<p>These are similar to the above, but as something that you plug directly into the wall socket instead. This allows you to enjoy the same benefits without having to mess with wires. I use these in cases where I'd like to automate something where messing with the wires would be either tricky or outright impossible.</p>
+<p>This added flexibility comes with a price; they are much more expensive than the DIY switches. But another cool thing of these wall sockets is that they even come with sensors that measure your electrical consumption, so you can get a lot of cool data by having a bunch of these around your home.</p>
+<p>If you'd like something that uses WiFi instead, I can recommend the <b>Sonoff S26 R2</b>, which is what I used before discovering this IKEA Zigbee one. Just note that they suffer from the same issue of exposing your network to some random cloud as the DIY switch mentioned above.</p>
 <h2>Broadlink RM4C mini</h2>
 <div class="post-image">
   <img src="https://i.imgur.com/L3Dilv9.jpeg">                                    
@@ -173,7 +179,7 @@
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>In my case it turned out that newer Samsung TVs have some sort of API integration where you can control them over the web, but I used these blasters for a long time before I discovered this. This also puts your device on some Chinese cloud though, and in this case I'm not sure if custom firmwares are available.</p>
 <h2>Random IKEA IoT utilities</h2>
-<p>IKEA has <a href="https://www.ikea.com/se/sv/search/?q=smart">lots of IoT devices</a> like buttons, remote controls, motion detectors, temperature thingies, and more. They are all Zigbee and thus very easy to connect to use. I think only the button and the remote control took a bit more effort because you need to find out exactly how they work in order to build automations against them in HA, but nothing that a simple Google search couldn't solve.</p>
+<p>IKEA has <a href="https://www.ikea.com/se/sv/search/?q=smart">lots of IoT devices</a> like buttons, remote controls, motion detectors, temperature thingies, air quality monitors, and more. They are all Zigbee and thus very easy to connect to use. I think only the button and the remote control took a bit more effort because you need to find out exactly how they work in order to build automations against them in HA, but nothing that a simple Google search couldn't solve.</p>
 ]]></description>
 </item>
 <item>
