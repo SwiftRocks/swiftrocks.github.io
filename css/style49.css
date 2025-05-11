@@ -114,7 +114,7 @@ ul {
   color:black
 } */
 
-a:hover {
+a:hover:not(#logolink) {
     outline: none;
     background-color: var(--link-highlight-bg-color);
     color: var(--link-highlight-color);
