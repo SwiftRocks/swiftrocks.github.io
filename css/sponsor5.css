@@ -13,17 +13,17 @@
 }
 
 .sponsor-article-ad-auto span {
-  position:absolute; 
+  position:absolute;
   width:100%;
   height:100%;
   top:0;
   left: 0;
   z-index: 1;
-} 
+}
 
 .sponsor-article-ad-auto b {
   color: white;
-} 
+}
 
 .sponsor-article-ad-auto-inner {
     margin-top: 8px;
@@ -51,7 +51,7 @@
 }
 
 .sponsor-article-ad-auto .sponsor-article-ad-auto-text p {
-    color: var(--background-color);
+    color: var(--text-color);
 }
 
 .sponsor-article-ad-auto .sponsor-article-ad-auto-header {
