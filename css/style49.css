@@ -114,11 +114,17 @@ ul {
   color:black
 } */
 
-a:hover:not(#logolink) {
+a:hover {
     outline: none;
     background-color: var(--link-highlight-bg-color);
     color: var(--link-highlight-color);
     text-decoration: none;
+}
+
+.logo-link:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--link-color);
+  background-color: unset;
 }
 
 b {
@@ -271,12 +277,6 @@ b {
     margin-bottom: 5px !important;
     margin-top: 20px;
     font-weight: bold;
-   /* transition: 0.25s; */
-}
-
-.post-title-index a:hover > h3 {
-  color: var(--link-highlight-color);
-  /* transition: 0.25s; */
 }
 
 .post-info {
