@@ -68,7 +68,7 @@
   "https://swiftrocks.com/images/thumbs/thumb.jpg"
 ],
 "datePublished": "2025-04-15T11:50:00+02:00",
-"dateModified": "2025-04-15T11:50:00+02:00",
+"dateModified": "2025-05-17T09:20:00+02:00",
 "author": {
   "@type": "Person",
   "name": "Bruno Rocha"
@@ -171,14 +171,14 @@
 <!--WRITEIT_POST_SHORT_DESCRIPTION=AI has become an important part of my daily software engineering work. Here's how I used it and why it will not steal your job.-->
 
 <!--DateFormat example: 2021-04-12T14:00:00+02:00-->
-<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2025-04-15T11:50:00+02:00-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2025-05-17T09:20:00+02:00-->
 <!--WRITEIT_POST_SITEMAP_DATE=2025-04-15T11:50:00+02:00-->
 
 <title>How I'm using AI to improve my software engineering productivity (and why it will not steal your job)</title>
 <div class="blog-post">
   <div class="post-title-index">
     <h1>How I'm using AI to improve my software engineering productivity (and why it will not steal your job)</h1>
-  </div>  
+  </div>
   <div class="post-info">
     <div class="post-info-text">Updated on 15 Apr 2025</div>
   </div>
@@ -209,7 +209,19 @@
 <p>One thing that AI is very good as of writing is solving very concrete and straightforward problems. So when I have to do very menial tasks like changing configuration files or writing a simple function that does X and Y, nowadays what I do is simply ask <a href="https://www.cursor.com/">Cursor</a> to do it for me, sit back, and watch the show.</p>
 <p>Even when taking into account that the AI might not get it 100% correct and that I'll still have to patch the code afterward, this still <b>saves me a massive amount of time</b> overall compared to having me do everything by myself and is definitely my favorite use case of AI today. This is especially true when doing (simple) work on languages that I'm not very familiar with, as the AI in this case is also sparing me from having to do multiple trips to StackOverflow. I still need to do so since the AI will sometimes recommend things that are not correct for my case, but again, even when considering these setbacks, I can get the work done at a much faster pace.</p>
 <p>It must be noted however that the important keyword here is <b>simple, concrete, and straightforward</b>. As mentioned previously, trying to have the AI solve complex problems that require large amounts of context such as code reviews or designing large features will not work in any meaningful way and is a sure way to waste everyone's time.</p>
-<h2>Use case 2: Searching for things when I don't know what exactly I'm looking for</h2>
+<h2>Use case 2: Understanding complex codebases quickly</h2>
+<p>Another thing that I've found AI to be amazing at is when I'm working on a repository that I'm not familiar with and I need to figure out certain things are wired together.</p>
+<p>The way one would do this before AI was to spend hours painstakingly reading through the codebase, but now, with the right questions, it's possible for me to get started <b>in a matter of seconds.</b></p>
+<p>Here's a concrete recent example to demonstrate what I mean by this. I was recently attempting to craft a Build Server Protocol that would connect to <a href="https://github.com/swiftlang/sourcekit-lsp">SourceKit-LSP</a> in order to enable iOS development on my specific non-Xcode conditions.</p>
+<p>The problem here is that SourceKit-LSP is a very complex project. Even though I know what I have to do in theory, I have no idea what SourceKit-LSP expects me to do in practice. But nowadays, instead of having to spend weeks trying to figure this out by searching keywords on the codebase, I can simply ask Cursor to explain the project to me!</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/4u0M9kM.png" alt="Alt">
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/VO60RTY.png" alt="Alt">
+</div>
+<p>Similarly to <b>Use case 1</b>, it's to be expected that the explanation provided by the AI will not be 100% accurate. But once again, even when taking this into consideration, the amount of time these explanations save me is <b>mindblowing</b>. Since Cursor in this case provides shortcuts to the relevant parts of the codebase, I am able to very quickly piece together what I am supposed to do / determine which parts of the explanation are correct and which ones aren't.</p>
+<h2>Use case 3: Searching for things when I don't know what exactly I'm looking for</h2>
 <p>I find that Google tends to provide good results if you know <b>exactly</b> what you're looking for. But if you don't really know what is it that you're trying to find out, you'll have a hard time with it.</p>
 <p>For example, the other day I was trying to find what the <code>_start</code> function in iOS (the first function called when your app is launched) is, where it's defined, and what it does. But if I go now and search for "_start function iOS" on Google, I will not find a straight answer to this question. Google <i>does</i> return somewhat good results (the second search result contains some interesting information about it if you scroll down far enough), but it cannot give me a direct response because I asked the wrong question. I know today that what I should've done is ask it about details of how C programs are linked, but I didn't know this back then, so I couldn't have done that.</p>
 <p>AI does not have this problem. If you don't know what you're looking for, you can explain your situation to it and it will point you in the right direction:</p>
@@ -218,14 +230,14 @@
 </div>
 <p>In this example, you can see that ChatGPT immediately pointed out that I asked the wrong question before attempting to explain it!</p>
 <p>Although the AI's answers won't always be 100% accurate, I find them to be accurate enough to allow me to use Google to find the rest of the information. Just like the previous case, this is not so much about having the AI do everything for me (which it can't), but rather allowing me to save time and get where I want faster.</p>
-<h2>Use case 3: Asking questions that are too specific for Google</h2>
+<h2>Use case 4: Asking questions that are too specific for Google</h2>
 <p>Even if you know exactly what you're looking for, you may have difficulty using Google if your question is too specific. For example, you cannot search Google on "how to implement X thing in Swift in my app that is using XYZ frameworks in X iOS version with dependency injection bridging an Obj-C type after the user logged in on my TODO list app using Apple Sign-in from Italy during a rainy day in October". For cases like this, usually what you need to do is break your problem into multiple, more generic queries, open many tabs that each help you with a specific part of the problem, and then use all of that combined knowledge to come up with the actual answer to your question.</p>
 <p>AI excels at this. You can be as specific as you want and you'll get a relevant answer. Most coding questions fall into this category, although for these specifically nowadays I prefer using Cursor's code gen features directly as mentioned above.</p>
 <div class="post-image">
   <img src="https://i.imgur.com/Rlbf1Pl.png" alt="Alt">
 </div>
 <p>In this case, I could've probably found the answer I was looking for in Google by making a bunch of generic searches about C++ global constructors and good practices, opening a bunch of tabs, and summarizing everything I found. But by asking ChatGPT, I was able to save several hours of my time instead.</p>
-<h2>Use case 4: I want FAST answers</h2>
+<h2>Use case 5: I want FAST answers</h2>
 <p>It has been getting harder and harder to get fast answers to your questions with Google. Today, it's very unlikely that the answer to a question will lie at the top of a page you've opened. As SEO optimization became more and more important for survival on the web, the amount of stuff you have to endure before getting to the actual content has increased significantly. There will be a lengthy introduction, a pause for sponsors, ten paragraphs about how the question reminds the author about a personal story of how their dog bodyslammed their grandma on Christmas, a call to action for the author's newsletter, some backstory on the question, and <b>only then</b> you'll get to the actual content.</p>
 <p>I find that there are many cases where this fluff is relevant and worth reading. But there are also many cases when I'm in a hurry and would much rather just get a straight answer to my question.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
