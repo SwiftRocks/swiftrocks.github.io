@@ -190,6 +190,11 @@
 </div>
 <p>This is a WiFi IR blaster that you can configure IR commands and thus be able to create automations that allow you to control devices that require a remote control, like your TV.</p>
 <p>In my case it turned out that newer Samsung TVs have some sort of API integration where you can control them over the web, but I used these blasters for a long time before I discovered this. This also puts your device on some Chinese cloud though, and in this case I'm not sure if custom firmwares are available.</p>
+<h2>Ulanzi TC001 (WiFi)</h2>
+<div class="post-image">
+  <img src="https://i.imgur.com/xpdkJ43.jpeg">
+</div>
+<p>A hackable LED matrix that can easily be integrated into Home Assistant. Somewhat expensive for what it does, but works really well. I use it as a pretty clock, to show the weather, and to display relevant notifications. This is achieved by ignoring all the default firmware / app stuff and flashing it with <a href="https://blueforcer.github.io/awtrix3/#/">Awtrix 3</a> (very easy, can be done via USB).</p>
 <h3>Random IKEA IoT utilities (Zigbee)</h3>
 <p>IKEA has <a href="https://www.ikea.com/se/sv/search/?q=smart">lots of IoT devices</a> like buttons, remote controls, motion detectors, temperature thingies, air quality monitors, and more. They are all Zigbee and thus very easy to connect to use. I think only the button and the remote control took a bit more effort because you need to find out exactly how they work in order to build automations against them in HA, but nothing that a simple Google search couldn't solve.</p>
 <h3>Home Assistant App</h3>
