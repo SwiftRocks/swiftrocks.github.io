@@ -32,6 +32,7 @@ body {
 
 a {
     color: var(--link-color);
+    fill: var(--link-color);
     text-decoration-color: var(--link-highlight-bg-color);
     font-weight: 500;
 }
@@ -117,6 +118,7 @@ ul {
 a:hover {
     outline: none;
     background-color: var(--link-highlight-bg-color);
+    fill: var(--link-highlight-color);
     color: var(--link-highlight-color);
     text-decoration: none;
 }
@@ -395,6 +397,12 @@ blockquote {
 .footer-logos a {
     margin-left: 8px;
     margin-right: 8px;
+}
+
+.footer-logos svg {
+    width: 1em;
+    height: 1em;
+    vertical-align:-0.125em;
 }
 
 .footer-text {
