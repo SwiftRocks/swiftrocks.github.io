@@ -2051,7 +2051,7 @@ struct Circle: Shape {}
 struct Triangle: Shape {}</code></pre>
 <p>Because the <code>Shape</code> protocol is <b>unconstrained</b>, Swift allows us to quite easily refer to <code>Circle</code> and <code>Triangle</code> as their bare conformances:</p>
 <pre><code>var userShapes = [Shape]()
-func userDidCreate(shape: Shape)
+func userDidCreate(shape: Shape) {
     userShapes.append(shape)
 }
 userDidCreate(shape: Circle())
@@ -2071,7 +2071,7 @@ var sequences = [Sequence]() // Can't do!
     let value: Any
 
     init&lt;T: Sequence>(_ sequence: T) {
-        self.value = shape
+        self.value = value
     }
 }</code></pre>
 <p>This process is called <b>type erasure</b>, and the Swift standard library itself contains many such objects. There are many situations in Swift where you'd need to do this, and one of them was covered in <a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift">our 2020 article on how to use type erasure to build a dependency injection system.</a> In general, you'll find yourself needing to type erase a protocol with generic requirements whenever you're in a situation where knowing the actual constraints of said protocols are irrelevant.</p>
