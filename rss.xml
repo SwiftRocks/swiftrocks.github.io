@@ -7,6 +7,31 @@
     <copyright>2025 Bruno Rocha</copyright>
     <link>https://swiftrocks.com</link>
     <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <title>Becoming unspammable with a domain and catch-all email aliases</title>
+    <link>https://swiftrocks.com/becoming-unspammable-with-a-domain-and-catchall-email-aliases</link>
+    <guid>https://swiftrocks.com/becoming-unspammable-with-a-domain-and-catchall-email-aliases</guid>
+    <pubDate>Sun, 29 Jun 2025 10:00:00 GMT+2</pubDate>
+    <author>Bruno Rocha</author>
+<description><![CDATA[
+<p>I've recently moved away from a regular Gmail account in favor of receiving email on my very own <a href="rockbruno.com">rockbruno.com</a> domain. I did that not just because I thought it would be cool and because it gives me more control over my internet footprint, but also because if you configure things just right, you can make it effectively impossible for spammers to spam you, even in the case of a data leak.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>The trick here is that when you have your own domain, most email server providers will have an option to define <b>email aliases</b>, allowing you to "hide" your real address behind a fake one. Although in some providers this is a limited and manual process, in others such as Google Workplace (the one I use), you can define <b>wildcard</b> or even <b>regex-based</b> aliases:</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/85lCkRU.png" alt="Alt">            
+</div>
+<p>While this was created primarily to allow companies to catch typos in their inbound mail, you can use it to massively increase your privacy. The idea here is that by having "infinite" email aliases, instead of registering on websites with your real address (like me@bla.com), you can instead give each address its own "dedicated" alias, like:</p>
+<ul>
+<li>x@bla.com, for X</li>
+<li>linkedin@bla.com, for LinkedIn</li>
+<li>instagram@bla.com, for Instagram</li>
+</ul>
+<p>That way, when one of these websites inevitably sells or leaks your data, you will know <i>exactly</i> who it was based on which of the aliases you're getting spammed from. You can then follow up by either heavily restricting who can reach that alias or simply nuking it entirely in favor of a new one.</p>
+<h2>Isn't this the same thing as +?</h2>
+<p>You might know that aliases also technically exist with "normal" emails by appending data with +, like me+alias@gmail.com. Isn't it the same thing?</p>
+<p>No. The problem with + aliases is that some websites intentionally strip the alias portion of the address if you try to use one. I have also encountered cases where some websites would not accept these at all, forcing you to expose your real address. In other words, you can <i>sort of</i> do the above trick with a "normal" email address, but your mileage may vary.</p>
+]]></description>
+</item>
+<item>
     <title>How I'm using AI to improve my software engineering productivity (and why it will not steal your job)</title>
     <link>https://swiftrocks.com/how-im-using-ai-for-software-engineering</link>
     <guid>https://swiftrocks.com/how-im-using-ai-for-software-engineering</guid>
@@ -2177,17 +2202,6 @@ func grabSomeNumbers(_ s: Sequence&lt;Int>) { ... }</code></pre>
 <pre><code>let intSequences: [any Sequence&lt;Int>]</code></pre>
 <p>This was previously unheard of in Swift as we were never allowed to define generic constraints in properties. I'm partially disappointed though that they didn't go to the full way to allow us to declare any type of constraint on the fly (like <code>Sequence&lt;where Element == String, Iterator = MyIterator></code>), but the proposal indicates that the existence of primary associated types does not prevent this from being potentially implemented in the future.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
-]]></description>
-</item>
-<item>
-    <title>Architecting iOS apps for fast build times (Runway)</title>
-    <link>https://www.runway.team/blog/how-to-improve-ios-build-times-with-modularization</link>
-    <guid>https://www.runway.team/blog/how-to-improve-ios-build-times-with-modularization</guid>
-    <pubDate>Wed, 31 Aug 2022 14:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
-<p>Most mobile teams understand and appreciate the benefits of fast build times. Being able to quickly compile and test your code means quicker development and iteration, which in turn allows your team to ship more regularly and efficiently. But actually achieving fast build times, and implementing a long-term solution that keeps build times fast as your codebase grows, can be a complex undertaking. There are a number of different tactics, and while some are relatively trivial  — reducing the size of bundled resources, for example — others can be much more involved, or even kind of dangerous (think questionable compiler tricks)!</p>
-<p>Luckily, the riskiest build time improvement techniques are rarely necessary. Instead, most teams will achieve build time success by implementing some of the more common approaches incrementally as their codebase grows and resources scale.</p>
 ]]></description>
 </item>
 </channel></rss>

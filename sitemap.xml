@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/becoming-unspammable-with-a-domain-and-catchall-email-aliases</loc>
+    <lastmod>2025-06-29T10:00:00+0200</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/becoming-unspammable-with-a-domain-and-catchall-email-aliases.html</loc>
+    <lastmod>2025-06-29T10:00:00+0200</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/how-im-using-ai-for-software-engineering</loc>
     <lastmod>2025-05-17T09:20:00+02:00</lastmod>
     <priority>0.80</priority>
