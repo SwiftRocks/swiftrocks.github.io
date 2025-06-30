@@ -26,6 +26,7 @@
 <li>instagram@bla.com, for Instagram</li>
 </ul>
 <p>That way, when one of these websites inevitably sells or leaks your data, you will know <i>exactly</i> who it was based on which of the aliases you're getting spammed from. You can then follow up by either heavily restricting who can reach that alias or simply nuking it entirely in favor of a new one.</p>
+<p>In other words this is basically what features like the "private email" in <i>Sign in with Apple</i> and other services do under the hood, but completely under your control :)</p>
 <h2>Isn't this the same thing as +?</h2>
 <p>You might know that aliases also technically exist with "normal" emails by appending data with +, like me+alias@gmail.com. Isn't it the same thing?</p>
 <p>No. The problem with + aliases is that some websites intentionally strip the alias portion of the address if you try to use one. I have also encountered cases where some websites would not accept these at all, forcing you to expose your real address. In other words, you can <i>sort of</i> do the above trick with a "normal" email address, but your mileage may vary.</p>
