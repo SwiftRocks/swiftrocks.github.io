@@ -1,18 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-<channel>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://swiftrocks.com</id>
     <title>Bruno Rocha</title>
-    <description>SwiftRocks is Bruno Rocha's blog about Swift / iOS and the software engineering industry.</description>
-    <language>en-us</language>
-    <copyright>2025 Bruno Rocha</copyright>
-    <link>https://swiftrocks.com</link>
-    <atom:link href="https://swiftrocks.com/rss.xml" rel="self" type="application/rss+xml"/><item>
+    <subtitle>SwiftRocks is Bruno Rocha's blog about Swift / iOS and the software engineering industry.</subtitle>
+    <updated>2025-06-29T10:00:00+0200</updated>
+    <author>
+        <name>Bruno Rocha</name>
+        <uri>https://swiftrocks.com</uri>
+    </author>
+    <link rel="self" type="application/atom+xml" href="https://swiftrocks.com/rss.xml"/>
+    <link rel="alternate" type="text/html" hreflang="en" href="https://swiftrocks.com"/>
+    <generator uri="https://github.com/rockbruno/writeit">WriteIt</generator>
+    <rights> © 2025 Bruno Rocha </rights><entry>
     <title>Reducing email spam with a domain and catch-all aliases</title>
-    <link>https://swiftrocks.com/becoming-unspammable-with-a-domain-and-catchall-email-aliases</link>
-    <guid>https://swiftrocks.com/becoming-unspammable-with-a-domain-and-catchall-email-aliases</guid>
-    <pubDate>Sun, 29 Jun 2025 10:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/becoming-unspammable-with-a-domain-and-catchall-email-aliases" rel="alternate" type="text/html" title="Reducing email spam with a domain and catch-all aliases"/>
+    <published>2025-06-29T10:00:00+0200</published>
+    <updated>2025-06-29T10:00:00+0200</updated>
+    <id>https://swiftrocks.com/becoming-unspammable-with-a-domain-and-catchall-email-aliases</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Tired of spammers? With your own domain, there's a trick you can use to eliminate them.</summary>
+    <content type="text/html"><![CDATA[
 <p>I've recently moved away from a regular Gmail account in favor of receiving email on my very own <a href="rockbruno.com">rockbruno.com</a> domain. I did that not just because I thought it would be cool and because it gives me more control over my internet footprint, but also because if you configure things just right, you can make it effectively impossible for spammers to spam you, even in the case of a data leak.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>The trick here is that when you have your own domain, most email server providers will have an option to define <b>email aliases</b>, allowing you to "hide" your real address behind a fake one. Although in some providers this is a limited and manual process, in others such as Google Workplace (the one I use), you can define <b>wildcard</b> or even <b>regex-based</b> aliases:</p>
@@ -30,15 +38,18 @@
 <h2>Isn't this the same thing as +?</h2>
 <p>You might know that aliases also technically exist with "normal" emails by appending data with +, like me+alias@gmail.com. Isn't it the same thing?</p>
 <p>No. The problem with + aliases is that some websites intentionally strip the alias portion of the address if you try to use one. I have also encountered cases where some websites would not accept these at all, forcing you to expose your real address. In other words, you can <i>sort of</i> do the above trick with a "normal" email address, but your mileage may vary.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>How I'm using AI to improve my software engineering productivity (and why it will not steal your job)</title>
-    <link>https://swiftrocks.com/how-im-using-ai-for-software-engineering</link>
-    <guid>https://swiftrocks.com/how-im-using-ai-for-software-engineering</guid>
-    <pubDate>Tue, 15 Apr 2025 11:50:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/how-im-using-ai-for-software-engineering" rel="alternate" type="text/html" title="How I'm using AI to improve my software engineering productivity (and why it will not steal your job)"/>
+    <published>2025-04-15T11:50:00+02:00</published>
+    <updated>2025-05-17T09:20:00+02:00</updated>
+    <id>https://swiftrocks.com/how-im-using-ai-for-software-engineering</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>AI has become an important part of my daily software engineering work. Here's how I used it and why it will not steal your job.</summary>
+    <content type="text/html"><![CDATA[
 <p>AI has become an important part of my daily software engineering work, so I wanted to write a post sharing how exactly I've been using it in case you're wondering how to use it to improve your productivity as well!</p>
 <h2>Foreword: AI will not steal your software engineering job</h2>
 <p>Before getting to the details of how AI has been helping me to code, I wanted to address the topic of AI replacing software engineers.</p>
@@ -103,15 +114,18 @@
   <img src="https://i.imgur.com/SuUcWBm.png" alt="Alt">
 </div>
 <p>By asking follow-up questions regarding one or more things it mentioned in its answer, I can get all of the information I need to learn something new considerably faster than if I had used Google instead. Even though I still need to use Google to double-check if the AI didn't hallucinate particular pieces of information, this ability to quickly gather relevant information saves me an absurd amount of time.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>Things that did (and didn't) contribute to Burnout Buddy's success</title>
-    <link>https://swiftrocks.com/things-that-did-and-didnt-contribute-to-burnout-buddys-success</link>
-    <guid>https://swiftrocks.com/things-that-did-and-didnt-contribute-to-burnout-buddys-success</guid>
-    <pubDate>Thu, 23 Jan 2025 13:00:00 GMT+1</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/things-that-did-and-didnt-contribute-to-burnout-buddys-success" rel="alternate" type="text/html" title="Things that did (and didn't) contribute to Burnout Buddy's success"/>
+    <published>2025-01-23T14:00:00+02:00</published>
+    <updated>2025-01-23T14:00:00+02:00</updated>
+    <id>https://swiftrocks.com/things-that-did-and-didnt-contribute-to-burnout-buddys-success</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>ack in 2022 I launched Burnout Buddy, and today the app has succeeded far beyond my expectations.</summary>
+    <content type="text/html"><![CDATA[
 <p>Back in 2022 I launched <a href="https://burnoutbuddy.io/">Burnout Buddy</a>, and today the app has succeeded far beyond my expectations. Netting between $600 and $1000 each month as of writing, BB has been growing 100% organically with little to no effort on my part.</p>
 <p>In this post, I'd like to lay out exactly what I've done that I believe contributed (and didn't contribute) to this growth, serving as documentation and inspiration for the indie dev community out there.</p>
 <h2>Things that helped</h2>
@@ -158,15 +172,18 @@
 <p>If I could go back, I would probably have gone for a solution that allowed me to gather analytics data for the above reasons.</p>
 <h3>Using SwiftUI</h3>
 <p>This is mostly out-of-topic for this post, so I'll keep it short. I decided to use SwiftUI for this project as a learning opportunity, and I sort of regret it. As mentioned in my <a href="https://swiftrocks.com/my-experience-with-swiftui ">SwiftUI vs UIKit post</a>, SwiftUI is good for simple apps, but awful for more complex ones. As BB grew and became more intricate, SwiftUI became more and more of an issue. The app today is full of dirty hacks and visual bugs that are impossible to solve (as of writing) because they originate from SwiftUI itself, in ways that are impossible for me to control without dumping the entire framework.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>My Home Automation setup</title>
-    <link>https://swiftrocks.com/my-home-automation-setup</link>
-    <guid>https://swiftrocks.com/my-home-automation-setup</guid>
-    <pubDate>Sat, 4 Jan 2025 13:00:00 GMT+1</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/my-home-automation-setup" rel="alternate" type="text/html" title="My Home Automation setup"/>
+    <published>2025-01-04T14:00:00+02:00</published>
+    <updated>2025-05-25T12:00:00+02:00</updated>
+    <id>https://swiftrocks.com/my-home-automation-setup</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>I recently upgraded my smart home hardware, and I felt like writing a post describing my current setup to serve as inspiration for those wanting to get started or just interested in home automation in general.</summary>
+    <content type="text/html"><![CDATA[
 <p>I recently upgraded my smart home hardware, and I felt like writing a post describing my current setup to serve as inspiration for those wanting to get started or just interested in home automation in general.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <h2>The Software</h2>
@@ -239,15 +256,18 @@
   <li>Having physical buttons around the house and assigning pre-programmed actions to them</li>
 </ul>
 <p>As you can see, this is no different than coding any software. The biggest hurdle is providing an abstraction that allows HA to gather and send data to things that are not natively supported by the platform, but in my experience, even the most niche devices out there already have plug-and-play solutions developed by the community, which is amazing.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>What happens when you move a file in git?</title>
-    <link>https://swiftrocks.com/what-happens-when-you-move-a-file-in-git</link>
-    <guid>https://swiftrocks.com/what-happens-when-you-move-a-file-in-git</guid>
-    <pubDate>Mon, 2 Dec 2024 13:00:00 GMT+1</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/what-happens-when-you-move-a-file-in-git" rel="alternate" type="text/html" title="What happens when you move a file in git?"/>
+    <published>2024-12-02T14:00:00+02:00</published>
+    <updated>2024-12-02T14:00:00+02:00</updated>
+    <id>https://swiftrocks.com/what-happens-when-you-move-a-file-in-git</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Is renaming large folders in git repos an issue? Let's find out.</summary>
+    <content type="text/html"><![CDATA[
 <p>Recently at work we were considering renaming a folder that contains an enormous amount of files, and we wondered whether or not that would have notable negative consequences for our git repository. Would the repo become considerably larger? Would accessing git history become slower? Or would this be completely fine?</p>
 <p>After investigating this, I thought the answer was interesting enough that I felt like writing an article about it.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
@@ -350,15 +370,18 @@ Change swiftrocks.txt back</code></pre>
 <li><a href="https://jvns.ca/#git">Julia Evans's many articles on git</a></li>
 <li><a href="https://codewords.recurse.com/issues/three/unpacking-git-packfiles">Unpacking git packfiles</a></li>
 <li><a href="https://www.youtube.com/watch?v=fCtZWGhQBvo">Git from the inside out</a></li>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>Focus not on the task, but on the problem behind the task</title>
-    <link>https://swiftrocks.com/focus-not-on-the-task-but-on-the-problem-behind-the-task</link>
-    <guid>https://swiftrocks.com/focus-not-on-the-task-but-on-the-problem-behind-the-task</guid>
-    <pubDate>Mon, 18 Nov 2024 13:00:00 GMT+1</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/focus-not-on-the-task-but-on-the-problem-behind-the-task" rel="alternate" type="text/html" title="Focus not on the task, but on the problem behind the task"/>
+    <published>2024-11-18T14:00:00+02:00</published>
+    <updated>2024-11-18T14:00:00+02:00</updated>
+    <id>https://swiftrocks.com/focus-not-on-the-task-but-on-the-problem-behind-the-task</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Being able to look at the bigger picture is critical when writing code. In this post, we'll take a brief look at what this means and how you can do it.</summary>
+    <content type="text/html"><![CDATA[
 <p>Consider the following situation: A team is asked by their Product Manager to implement features X, Y, and Z into an existing system.</p>
 <p>The team then organizes itself and executes the project. After a certain amount of time, they delivered exactly what was asked of them. But then, one of these things happens (choose at least one):</p>
 <ul>
@@ -388,15 +411,18 @@ Change swiftrocks.txt back</code></pre>
 <p>In <a href="https://www.oreilly.com/library/view/the-staff-engineers/9781098118723/">The Staff Engineer's Path</a>, Tanya Reilly describes this as the <b>Local vs Global Maxima</b> problem, where the Local maxima means focusing on what's good for you or your team in an individual sense (the tunnel vision situation above), and the Global maxima means focusing on what's good <b>for the company as a whole</b>, regardless of whether or not it would be ideal for you as an individual (the big picture situation). In the book, she presents this idea to argue that this focus and ability to gather context about the bigger picture is a <b>core ability of Staff+ level engineers</b> and a minimum requirement for those aspiring to reach that level.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>Although I agree with her that only Staff+ engineers should be <i>expected</i> to be masters at this, I do also believe that this is something everyone should attempt to do, regardless of level. Doing so not only improves your knowledge of how your company works and is structured, but also teaches you how to better determine what does and doesn't matter when trying to solve a particular problem, enabling you to be more effective both at coding and at providing value for your company.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>Working at startups vs large companies</title>
-    <link>https://swiftrocks.com/working-at-startups-vs-large-companies</link>
-    <guid>https://swiftrocks.com/working-at-startups-vs-large-companies</guid>
-    <pubDate>Mon, 14 Oct 2024 21:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/working-at-startups-vs-large-companies" rel="alternate" type="text/html" title="Working at startups vs large companies"/>
+    <published>2024-10-14T21:00:00+02:00</published>
+    <updated>2024-10-14T21:00:00+02:00</updated>
+    <id>https://swiftrocks.com/working-at-startups-vs-large-companies</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Working at a large company like Apple or Google is a common goal in the tech industry. But are they a good fit for you?</summary>
+    <content type="text/html"><![CDATA[
 <p>Working at a large company like Apple or Google is such a common goal in the tech industry that there's even a market for selling courses and books designed to help people achieve this goal.</p>
 <p>But one thing that I've learned in my career is that working at such companies is <b>not for everyone.</b> The experience of working at a large company is extremely different from that of a startup, so if you're not aware of those differences, you can end up having a big (negative) surprise down the road that can make you regret your choices.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
@@ -463,15 +489,18 @@ Change swiftrocks.txt back</code></pre>
 <p>I think that thriving at a large company is directly <b>correlated to how much you can tolerate such politics.</b> No one would look at this description and be happy, but if you look at it and feel that you could take it, then working at a large company might be for you.</p>
 <h2>Conclusion</h2>
 <p>As I mentioned in the beginning, this is just a basic description of the average case. There are thousands of exceptions who surely don't fit into these descriptions. But the idea is just to present that the concept of <b>trade-offs also applies to companies and cultural fit.</b> Just because one company is larger than the other doesn't necessarily mean it's best you; depending on what you value, you might find that smaller companies are a better fit for you.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>My process for learning new languages</title>
-    <link>https://swiftrocks.com/my-process-for-learning-new-languages</link>
-    <guid>https://swiftrocks.com/my-process-for-learning-new-languages</guid>
-    <pubDate>Sun, 1 Sep 2024 10:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/my-process-for-learning-new-languages" rel="alternate" type="text/html" title="My process for learning new languages"/>
+    <published>2024-09-01T10:00:00+02:00</published>
+    <updated>2024-09-01T10:00:00+02:00</updated>
+    <id>https://swiftrocks.com/my-process-for-learning-new-languages</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>In this article, I would like to share the process I personally used more than once (and am still using) to tackle the challenge of learning a new language with great success.</summary>
+    <content type="text/html"><![CDATA[
 <p>Throughout my life, I have met several people who struggle to learn a new language, with some of them being unable to communicate at a basic level despite having studied for several years.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>I believe that learning a language is not a matter of talent, but that of dedication and <b>following a good process.</b> In this article, I would like to share the process I used more than once (and am still using) to tackle the challenge of learning a new language with great success. I currently speak three languages (native Portuguese, English, Swedish), and am in the process of learning a fourth (Japanese).</p>
@@ -512,30 +541,36 @@ Change swiftrocks.txt back</code></pre>
 <p>I think the most important part here is to resist the urge to switch to another language when you start to struggle, especially if you live in a country like Sweden where the natives are good at English. (In fact I would say that the hardest thing about learning a language like Swedish is not the language itself, but rather that Swedes are so good at English that they automatically switch to it when they see you struggling with Swedish, making it almost impossible for you to improve!)</p>
 <h2>Conclusion</h2>
 <p>Although we can divide the process of learning a new language in logical steps, we're still talking about a multi-year effort. That's just how it works, there are no shortcuts. If you struggle with learning a new language, I hope this post was able to teach you something new that can help you in your journey!</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>What are mobile release engineering teams and when do you need one? (Runway)</title>
-    <link>https://www.runway.team/blog/what-are-mobile-release-engineering-teams-and-when-do-you-need-one</link>
-    <guid>https://www.runway.team/blog/what-are-mobile-release-engineering-teams-and-when-do-you-need-one</guid>
-    <pubDate>Fri, 28 Jun 2024 09:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://www.runway.team/blog/what-are-mobile-release-engineering-teams-and-when-do-you-need-one" rel="alternate" type="text/html" title="What are mobile release engineering teams and when do you need one? (Runway)"/>
+    <published>2024-06-28T09:00:00+02:00</published>
+    <updated>2024-06-28T09:00:00+02:00</updated>
+    <id>https://www.runway.team/blog/what-are-mobile-release-engineering-teams-and-when-do-you-need-one</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Let's look at how releasing works in big tech companies!</summary>
+    <content type="text/html"><![CDATA[
 <p>The early (and also not-so-early) days of building a tech startup means hiring and working with people who are capable of wearing a lot of hats. There are a ton of things to do and nowhere near an equal amount of resources to do them. Even if you join as a specialist, chances are you'll find yourself getting deep into other areas.</p>
 
 <p>This is true across the organization, including in mobile engineering. Early engineers don’t just write the code that builds the foundation for the app’s future success (while building up the tech debt that future engineers will pull their hair out over) but also the initial infrastructure both for how teams get things done and how they ship code out the door.</p>
 
 <p>This doesn’t last forever though. As teams grow they make the transition out of generalist, jack-of-all-trades roles and begin focusing on specialization. But one part of the org where there is often a lag in making this transition — and sometimes a very long one — is on the mobile team. Very few mobile engineers will have time to support both their team's app features and the series of Ruby scripts that support their release process, yet the expectation that they do both often lingers far beyond when other teams in the organization have fully specialized.</p>
 <p>In this article, we'll look at why this happens and how big tech companies follow-up on this problem.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>Recommended WWDC24 Sessions</title>
-    <link>https://swiftrocks.com/recommended-wwdc24-sessions</link>
-    <guid>https://swiftrocks.com/recommended-wwdc24-sessions</guid>
-    <pubDate>Mon, 17 Jun 2024 11:20:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/recommended-wwdc24-sessions" rel="alternate" type="text/html" title="Recommended WWDC24 Sessions"/>
+    <published>2024-06-17T11:20:00+02:00</published>
+    <updated>2024-06-17T11:20:00+02:00</updated>
+    <id>https://swiftrocks.com/recommended-wwdc24-sessions</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Every year I watch WWDC and write down some notes.</summary>
+    <content type="text/html"><![CDATA[
 <p>Every year I watch WWDC and write down some notes. But I've just realized that I've never shared those notes and it felt like something I should do, so I've decided to do just that!</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>My approach is to pick a handful of sessions that are immediately useful / interesting to me and ignore the rest. I find this to be a good strategy because in my experience trying to keep up with things that you don't care about / don't have an immediate need for is a very easy way to burn yourself out, especially because Apple has this awful habit of announcing things and then proceeding to make them completely obsolete the next year. If in the future I happen to start working with something where one of the ignored sessions would be handy, I go back and watch it. Otherwise, it stays unwatched.</p>
@@ -588,15 +623,18 @@ Change swiftrocks.txt back</code></pre>
 
 <h2><a href="https://developer.apple.com/videos/play/wwdc2024-10173">Analyze heap memory</a></h2>
 <p>This session not only shows interesting examples of how to use the memory debugger and instrument, but also shares a lot of interesting pieces of info about the difference between <code>weak</code> and <code>unowned</code> that I believe weren't documented before, including how to debug their performance! It also now serves as an "official" source for <a href="https://swiftrocks.com/autoreleasepool-in-swift">the autoreleasepool trick I wrote an article about a long time ago</a>, which is pretty neat.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>Using @_silgen_name to forward declare functions in Swift and improve build times</title>
-    <link>https://swiftrocks.com/using-silgenname-to-call-private-swift-code</link>
-    <guid>https://swiftrocks.com/using-silgenname-to-call-private-swift-code</guid>
-    <pubDate>Thu, 14 Mar 2024 13:00:00 GMT+1</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/using-silgenname-to-call-private-swift-code" rel="alternate" type="text/html" title="Using @_silgen_name to forward declare functions in Swift and improve build times"/>
+    <published>2024-03-14T14:00:00+02:00</published>
+    <updated>2024-03-14T14:00:00+02:00</updated>
+    <id>https://swiftrocks.com/using-silgenname-to-call-private-swift-code</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Let me start this post with a disclaimer. The trick I'm going to show here is quite powerful, but much like every other underscored attribute in Swift, this is something you should not mess with unless you know exactly what you're doing.</summary>
+    <content type="text/html"><![CDATA[
 <blockquote>Disclaimer: The trick I'm going to show here is quite powerful, but like every other underscored attribute in Swift, this is something you should avoid messing with unless you know exactly what you're doing. There are lots of pitfalls attached to these attributes, and the behavior of underscored attributes can change at any time and even stop existing entirely without warning. Don't go around sprinkling this in your projects if you don't fully understand the consequences of doing so!</blockquote>
 <p>Swift is regarded for its type safety, meaning the compiler (usually) doesn't allow you to reference or do things that might potentially not exist / be invalid; the complete opposite of languages like Obj-C where the compiler allows you to do pretty much whatever you want in exchange for compile-time safety.</p>
 <p>But here's an obscure fact about Swift: The language <i>does</i> support ObjC-like <code>Selectors</code> / forward declarations, it's just that we're not supposed to use it. If you know how a function is going to be named in the compiled binary, you can use the <code>@_silgen_name</code> attribute to craft a <b>direct reference</b> to that function, allowing a module to reference and call it regardless of whether or not it actually has "visibility" of it:</p>
@@ -671,15 +709,18 @@ func setupRegistry() {
 <p>But putting this aside, one thing that I tend to reflect on when learning about features like this is how the danger involved in using them is not so much about the features themselves, but rather that their behavior might change without warning.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>Although I understand the Core team's vision of making Swift a safe and predictable language, I think there is a real demand for having poweruser-ish / "I know this is dangerous, I don't care" features like this officially supported in Swift, and it would be amazing if <code>@_silgen_name</code> could be recognized as one such feature. I like what you can achieve with it, and I would love to be able to use it without fear that it might change or stop existing in the future.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>Software engineering book recommendations</title>
-    <link>https://swiftrocks.com/software-engineering-book-recommendations</link>
-    <guid>https://swiftrocks.com/software-engineering-book-recommendations</guid>
-    <pubDate>Sun, 3 Mar 2024 13:00:00 GMT+1</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/software-engineering-book-recommendations" rel="alternate" type="text/html" title="Software engineering book recommendations"/>
+    <published>2024-03-03T14:00:00+02:00</published>
+    <updated>2025-05-26T18:00:00+02:00</updated>
+    <id>https://swiftrocks.com/software-engineering-book-recommendations</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Bruno's personal list of recommended books about software engineering and iOS development.</summary>
+    <content type="text/html"><![CDATA[
 <p>The following is a list of software engineering books I've read that I felt had a strong and lasting positive impact on my career. It's not a list of <i>everything</i> I enjoyed (that would be impossible to list down), but rather a special list of resources that taught/helped me so much that I still find myself thinking about them years later. They are my top recommendations for other software engineers.</p>
 <p>Some are about iOS development specifically, but most relate to general software engineering. If you strive to be a world-class developer, these books and resources will help you get there.</p>
 <ul>
@@ -704,28 +745,34 @@ func setupRegistry() {
 <li><b><a href="https://learngitbranching.js.org/">Learn Git Branching</a></b> - A page that teaches you to use git in the CLI by presenting it as a browser game. This is how I learned how to use git and is a resource that I greatly recommend even if you prefer using GUI apps for your git needs.</li>
 <li><b><a href="https://ocw.mit.edu/">MIT OpenCourseWare</a></b> - MIT has a lot of free content on YouTube, and the ones related to software engineering are amazing. <a href="https://www.youtube.com/watch?v=q1OF_0ICt9A&t=3794s">Here’s a link to my favorite one, which is a class about HTTPS/SSL/modern cryptography.</a>
 </ul>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>What the hell are passkeys? (Runway)</title>
-    <link>https://www.runway.team/blog/an-introduction-to-passkeys</link>
-    <guid>https://www.runway.team/blog/an-introduction-to-passkeys</guid>
-    <pubDate>Thu, 22 Feb 2024 13:00:00 GMT+1</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://www.runway.team/blog/an-introduction-to-passkeys" rel="alternate" type="text/html" title="What the hell are passkeys? (Runway)"/>
+    <published>2024-02-22T14:00:00+02:00</published>
+    <updated>2024-02-22T14:00:00+02:00</updated>
+    <id>https://www.runway.team/blog/an-introduction-to-passkeys</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Lots of companies are adding support for "passkeys". I wasn't sure what I was looking at, so I decided to look into it!</summary>
+    <content type="text/html"><![CDATA[
 <p><b>Passkeys</b> are an alternative to passwords that allow you to sign in to any website or app that supports this technology <b>without needing to define/remember a password.</b></p>
 <p>Over the last couple of years, the tech world has been witnessing many companies updating their products to add support to this new technology, including tech giants like Apple, who introduced several APIs and device features related to passkeys <a href="https://support.apple.com/en-gb/guide/iphone/iphf538ea8d0/ios">in iOS 16</a>, and Google, who has been pushing passkeys hard since announcing passkeys support for Chrome and Gmail <a href="https://blog.google/technology/safety-security/one-step-closer-to-a-passwordless-future/">back in 2022.</a></p>
 <p>When I first saw Apple and Google’s announcements, I wasn't sure what I was looking at. The fact that the tech industry has been trying to move away from old-school passwords wasn't news to me, but I asked myself: didn't we already solve this problem when products started allowing users to register a "secondary" authentication requirement, such as receiving an SMS containing a PIN code?</p>
 <p>I then decided to look deeper into this topic, and was so pleasantly surprised by what I found that I thought it would be cool to share it with you. In this article, we'll take a look at what passkeys are, why companies like Apple and Google are adding support for them, how they work under the hood, and whether or not you should convert your own accounts to use them and build support for them in your mobile apps!</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>There is no right or wrong in software engineering</title>
-    <link>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering</link>
-    <guid>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering</guid>
-    <pubDate>Thu, 28 Dec 2023 15:00:00 GMT+1</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering" rel="alternate" type="text/html" title="There is no right or wrong in software engineering"/>
+    <published>2023-12-28T16:00:00+02:00</published>
+    <updated>2024-07-27T16:00:00+02:00</updated>
+    <id>https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Developers love to argue about which tools and languages are better. In this article, we'll see that things are not that straightforward in practice.</summary>
+    <content type="text/html"><![CDATA[
 <p>Have you ever seen "preachings" like these in the wild west of Twitter, Medium, and LinkedIn?</p>
 <ul>
 <li>"If you're not using X in 2023 you're an idiot!"</li>
@@ -763,27 +810,33 @@ func setupRegistry() {
 <p>This topic however is complex enough that it deserves its own article, and convieniently enough, such an article already exists! You can find more information about this in my <a href="https://swiftrocks.com/how-necessary-are-the-programming-fundamentals">"How necessary are the programming fundamentals?"</a> article, but as a quick summary, this is a very complicated topic that has no objective right or wrong.</p>
 <h2>Conclusion</h2>
 <p>I hope this was able to help you see that some things in software engineering are more complicated than they might seem at first glance. Realizing this is an important step in a software engineer's career, and while this article will certainly not stop those wars from popping up every once in a while, I do believe that as a community we can help others get through this phase faster.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>What even is code signing in iOS? (Runway)</title>
-    <link>https://www.runway.team/blog/what-even-is-code-signing-in-ios</link>
-    <guid>https://www.runway.team/blog/what-even-is-code-signing-in-ios</guid>
-    <pubDate>Fri, 15 Dec 2023 13:00:00 GMT+1</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://www.runway.team/blog/what-even-is-code-signing-in-ios" rel="alternate" type="text/html" title="What even is code signing in iOS? (Runway)"/>
+    <published>2023-12-15T14:00:00+02:00</published>
+    <updated>2023-12-15T14:00:00+02:00</updated>
+    <id>https://www.runway.team/blog/what-even-is-code-signing-in-ios</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>If you have been developing for iOS for a while, chances are you had one of two issues involving code signing.</summary>
+    <content type="text/html"><![CDATA[
 <p>If you have been developing for iOS for a while, chances are you had one of two issues involving <b>code signing</b>, the process where Apple/Xcode forces you to "sign" your app with a developer certificate in order to be able to archive it and submit it to the App Store.</p>
 <p>I find code signing to be interesting not just because of what it does, but because it's one of those things that iOS developers kinda just take for granted. We know it's there and we know how to deal with it, but we don't really stop to think <b>why</b> it's there or what it's doing under the hood. We just follow Apple's convoluted steps on how to make it work and move on with our lives.</p>
 <p>In practice, code signing is an incredibly important safety feature of Apple's ecosystems. Knowing what it is and why it exists makes debugging issues related to it considerably easier, so I've written this article to help you understand it.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>How async/await works internally in Swift</title>
-    <link>https://swiftrocks.com/how-async-await-works-internally-in-swift</link>
-    <guid>https://swiftrocks.com/how-async-await-works-internally-in-swift</guid>
-    <pubDate>Thu, 28 Sep 2023 14:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/how-async-await-works-internally-in-swift" rel="alternate" type="text/html" title="How async/await works internally in Swift"/>
+    <published>2023-09-28T14:00:00+02:00</published>
+    <updated>2023-09-28T14:00:00+02:00</updated>
+    <id>https://swiftrocks.com/how-async-await-works-internally-in-swift</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>You probably know how to use async/await. But have you ever wondered how it works under the hood?</summary>
+    <content type="text/html"><![CDATA[
 <p>async/await in Swift was introduced with iOS 15, and I would guess that at this point you probably already know how to use it. But have you ever wondered <b>how</b> async/await works internally? Or maybe <b>why</b> it looks and behaves the way it does, or even <b>why was it even introduced in the first place?</b></p>
 
 <p>In typical SwiftRocks fashion, we're going deep into the Swift compiler to answer these and other questions about <b>how async/await works internally in Swift</b>. This is not a tutorial on how to use async/await; we're going to take a deep dive into the feature's history and implementation so that we can understand how it works, <b>why it works</b>, what you can achieve with it, and most importantly, <b>what are the gotchas that you must be aware of when working with it.</b></p>
@@ -1807,15 +1860,18 @@ func myMainActorMethod() {}</code></pre>
 
 <p>For more information on thread safety in Swift specifically, <a href="https://swiftrocks.com/thread-safety-in-swift">check out my article about it.</a></p>
 
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>Faster iOS performance debugging with ETTrace</title>
-    <link>https://swiftrocks.com/faster-performance-debugging-with-ettrace</link>
-    <guid>https://swiftrocks.com/faster-performance-debugging-with-ettrace</guid>
-    <pubDate>Thu, 7 Sep 2023 14:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/faster-performance-debugging-with-ettrace" rel="alternate" type="text/html" title="Faster iOS performance debugging with ETTrace"/>
+    <published>2023-09-07T14:00:00+02:00</published>
+    <updated>2023-09-11T14:00:00+02:00</updated>
+    <id>https://swiftrocks.com/faster-performance-debugging-with-ettrace</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Still using the Time Profiler? Better performance debugging tools are available today, and in this article, I'll show you one of them.</summary>
+    <content type="text/html"><![CDATA[
 <p>Performance problems can be rare in this era of blazing-fast iPhones, but chances are you're still having to deal with them every once in a while. Classic performance issues such as scroll hitches are still very easy to introduce if you're not careful about them, and when it happens, you'll want to be properly equipped to get to the bottom of it.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>The "standard" way of debugging performance issues in iOS is to use Xcode's <i>Time Profiler</i> instrument, but I personally never had a good experience with it. While it contains all the information you need to understand a particular problem, that information is not exactly easy to make sense of. To make it worse, sometimes <i>even getting the information to show up</i> in the first place can be quite the challenge, <a href="https://swiftrocks.com/reverse-engineering-xcode-issue-crash-symbol">as Instruments in iOS in general have been historically broken and plagued by bad UX.</a></p>
@@ -1861,15 +1917,18 @@ func myMainActorMethod() {}</code></pre>
 <p>The first case that comes to my mind is when you need to <b>debug something that you cannot reproduce</b>, which is something that <a href="https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles">I've covered previously here at SwiftRocks.</a> For cases like this you'll find Apple's performance trace profiles to be the best solution, which currently require you to use Xcode and the Time Profiler.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>Another case you might still need the Time Profiler for is when you're looking not just for performance data, but also other types of iOS-related information such as thread state, device temperature, battery level, os_logs, signposts, hangs, and so on. Nothing currently matches Xcode's Instruments when it comes to putting all this device information into one single place, so issues that require looking at multiple types of device information are still perfectly suited for it.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>Performance Trace Profiles in iOS: Debugging performance issues you can't reproduce</title>
-    <link>https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles</link>
-    <guid>https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles</guid>
-    <pubDate>Thu, 1 Jun 2023 13:30:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles" rel="alternate" type="text/html" title="Performance Trace Profiles in iOS: Debugging performance issues you can't reproduce"/>
+    <published>2023-06-01T13:30:00+02:00</published>
+    <updated>2023-06-01T13:30:00+02:00</updated>
+    <id>https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>The Performance Trace profile allows you to debug performance issues without having to attach the device to Xcode. Let's see what we can use it for!</summary>
+    <content type="text/html"><![CDATA[
 <p>If you landed at this article then it's possible that you're dealing with one of the most annoying things you can face as a developer: having to investigate an issue reported by your users that <b>nobody</b> seems to be able to reproduce internally.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>The topic of investigating <i>crashes</i> you can't reproduce is something I've already talked about here at SwiftRocks in the <a href="https://swiftrocks.com/how-to-solve-any-ios-crash-ever">"How To Solve Any iOS Crash Ever"</a> article, but what I wanted to show you today refers to a different yet equally challenging category of issues: <b>performance problems</b>, like hangs/freezing UI, slow code, unnecessary threading/concurrency, CPU/memory exceptions, and so on.</p>
@@ -1949,15 +2008,18 @@ func myMainActorMethod() {}</code></pre>
 <p>Performance Traces shine mostly in the very specific case we covered in the introduction: you are facing an issue that is connected to performance and for some reason you cannot reproduce it yourself. You could theoretically use it to gather data on more general logic/UI issues (assuming the data you're looking for would somehow materialize in the sampled stack traces), but for those cases, you'd probably find the steps defined in the <a href="https://swiftrocks.com/how-to-solve-any-ios-crash-ever">article about crashes</a> to be more effective.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>Despite being a rare situation to come by, these traces have saved by butt every time it happened and are now one of my favorite debugging techniques for this category of issues.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>Thoughts on SwiftUI vs UIKit</title>
-    <link>https://swiftrocks.com/my-experience-with-swiftui</link>
-    <guid>https://swiftrocks.com/my-experience-with-swiftui</guid>
-    <pubDate>Thu, 20 Oct 2022 14:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/my-experience-with-swiftui" rel="alternate" type="text/html" title="Thoughts on SwiftUI vs UIKit"/>
+    <published>2022-10-20T14:00:00+02:00</published>
+    <updated>2023-01-12T10:00:00+02:00</updated>
+    <id>https://swiftrocks.com/my-experience-with-swiftui</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>I had played with SwiftUI before, but it wasn't until now that I had built a complete app with it. Here's my experience!</summary>
+    <content type="text/html"><![CDATA[
 <p>I had played with SwiftUI sporadically in the past, but it wasn't until now that I had built a complete App Store-ready app with it. When SwiftUI was first announced I was very concerned about certain quirks of the framework and how it was probably not suitable for professional iOS development, but with the framework evolving constantly over the past couple of years it became time to re-evaluate that statement. Through <a href="https://burnoutbuddy.io">Burnout Buddy,</a> I had the chance to develop a production app 100% with SwiftUI. Here are my thoughts on what works and what could be improved, and how I would fit SwiftUI and UIKit in my day-to-day work.</p>
 <h2>Things that are great</h2>
 <h3>Previews / Hot Reloading</h3>
@@ -2058,15 +2120,18 @@ ForEach(Array(strings.enumerated())) { info in
 <p>I think the situation right now is very similar to when Swift was released. I started with iOS exactly when that happened, and the way I learned it was by first learning as much I could about Objective-C and then using that knowledge to seamlessly move over to Swift and making that my main tool of choice. As the years went by and everyone migrated to Swift, it became less and less necessary to strictly learn Objective-C to the point where nowadays you can defer learning it until you reach a point where you want/need to expand your knowledge of the platform itself.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>This is how I think beginners should approach SwiftUI vs UIKit. While people will always want to learn the shiny new thing, you should always learn both whilst focusing on what the majority of people use right now to maximize your hiring opportunities. I expect that as the years go the majority of UIKit projects will move over to SwiftUI, but it's still too early to tell if UIKit will completely go away given SwiftUI's current issues when used in more complicated projects.</p>
-]]></description>
-</item>
-<item>
+]]></content>
+</entry><entry>
     <title>What's the 'any' keyword? Understanding Type Erasure in Swift</title>
-    <link>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</link>
-    <guid>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</guid>
-    <pubDate>Mon, 12 Sep 2022 14:00:00 GMT+2</pubDate>
-    <author>Bruno Rocha</author>
-<description><![CDATA[
+    <link href="https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift" rel="alternate" type="text/html" title="What's the 'any' keyword? Understanding Type Erasure in Swift"/>
+    <published>2022-09-12T14:00:00+02:00</published>
+    <updated>2022-09-12T14:00:00+02:00</updated>
+    <id>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood.</summary>
+    <content type="text/html"><![CDATA[
 <p>The concept of <b>Type Erasure</b> is not new to Swift, but was radically improved in Swift 5.7 with the addition of the <code>any</code> prefix keyword (not to be confused with the capitalized <code>Any</code> type!) and improvements to the already existing <code>some</code> <b>Opaque Type</b> keyword. In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood.</p>
 <h2>What the hell is Type Erasure?</h2>
 <p>In programming languages with support for generic types, <b>Type Erasure</b> is the process of abstracting constrained generic types inside an <b>unconstrained non-generic type</b> that can be passed around freely.</p>
@@ -2203,6 +2268,5 @@ func grabSomeNumbers(_ s: Sequence&lt;Int>) { ... }</code></pre>
 <pre><code>let intSequences: [any Sequence&lt;Int>]</code></pre>
 <p>This was previously unheard of in Swift as we were never allowed to define generic constraints in properties. I'm partially disappointed though that they didn't go to the full way to allow us to declare any type of constraint on the fly (like <code>Sequence&lt;where Element == String, Iterator = MyIterator></code>), but the proposal indicates that the existence of primary associated types does not prevent this from being potentially implemented in the future.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
-]]></description>
-</item>
-</channel></rss>
+]]></content>
+</entry></feed>
