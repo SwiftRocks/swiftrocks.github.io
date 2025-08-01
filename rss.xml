@@ -2,7 +2,7 @@
     <id>https://swiftrocks.com</id>
     <title>Bruno Rocha</title>
     <subtitle>SwiftRocks is Bruno Rocha's blog about Swift / iOS and the software engineering industry.</subtitle>
-    <updated>2025-06-29T10:00:00+0200</updated>
+    <updated>2025-08-03T12:17:15+0200</updated>
     <author>
         <name>Bruno Rocha</name>
         <uri>https://swiftrocks.com</uri>
@@ -11,6 +11,58 @@
     <link rel="alternate" type="text/html" hreflang="en" href="https://swiftrocks.com"/>
     <generator uri="https://github.com/rockbruno/writeit">WriteIt</generator>
     <rights> © 2025 Bruno Rocha </rights><entry>
+    <title>I upgraded all of my home networking equipment</title>
+    <link href="https://swiftrocks.com/i-upgraded-all-of-my-home-networking-equipment" rel="alternate" type="text/html" title="I upgraded all of my home networking equipment"/>
+    <published>2025-08-03T12:17:15+0200</published>
+    <updated>2025-08-03T12:17:15+0200</updated>
+    <id>https://swiftrocks.com/i-upgraded-all-of-my-home-networking-equipment</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>I recently upgraded all of my home networking equipment, and I thought the reasoning and setup were interesting enough to justify writing a blog post about it.</summary>
+    <content type="text/html"><![CDATA[
+<p>I recently upgraded all of my home networking equipment, and I thought the reasoning and setup were interesting enough to justify writing a blog post about it.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>Here I will only cover the actual networking stack; if you want to know which devices I have plugged into it, check out the separate <a href="https://swiftrocks.com/my-home-automation-setup">"My Home Automation Setup"</a> post which goes into more detail on that.</p>
+<h2>Why upgrade?</h2>
+<p>For over a decade, my home network was powered by nothing more than one of those consumer-level ASUS routers you can buy in any electronics store. While they work fine, two things that started bothering me over time:</p>
+<ul>
+<li><b>Inflexibility:</b> As these routers/switches are designed to be plug-and-play, there is little to no support for more complex network configurations such as VLANs. This can result in an insecure home network, particularly if you’re like me and have lots of untrustworthy IoT devices connected to it like an Alexa or those god awful modern smart TVs that are essentially spyware.</li>
+<li><b>Performance:</b> Even though my router had several gigabit Ethernet ports, in practice I would get considerably less than that simply because the router itself was not powerful enough to efficiently handle that pressure.</li>
+</ul>
+<h2>The choice</h2>
+<p>I chose to go all in on <b>Ubiquity</b> hardware for a simple reason: <b>I wanted something that was designed for power users, but also that didn’t have too much of a learning curve.</b> While I usually fit the criteria of a mega power user for this type of stuff, modern networks are extremely complicated, so I preferred to stop somewhere in the middle of the curve to avoid the stress of being unable to use the internet due to misconfigurations.</p>
+<h2>The hardware</h2>
+<p>By the way, before starting, <b>I would like to note that this setup is extremely overkill for the average home network!</b> I went for this simply because I thought it was cool, so if you’re reading this because you’re looking for equipment recommendations, keep in mind that something considerably less powerful would most likely already do the trick for you.</p>
+<h3>Router: Cloud Gateway Fiber</h3>
+<p>For the router, I chose the <a href="https://techspecs.ui.com/unifi/cloud-gateways/ucg-fiber?subcategory=all-cloud-gateways">Cloud Gateway Fiber</a> as this router is a complete bargain for what it brings to the table. Not only does it have <b>three 10 Gbps ports</b> (one of them being RJ45), including for WAN, it even has a PoE+ port that can power an AP. Usually something like this would be extremely expensive, but for some reason it just… isn’t, and I guess the market agrees, because finding one of these is a massive challenge. They are constantly sold out almost everywhere as of writing.</p>
+<h3>AP (WiFi): U7 Pro XG</h3>
+<p>For the AP, I chose the <a href="https://techspecs.ui.com/unifi/wifi/u7-pro-xg?subcategory=all-wifi">U7 Pro XG</a>, which is a WiFi 7 router with support for the 6 GHz band. This thing even has a 10 Gbps uplink for some reason which I can’t even use as the PoE+ port on the router is “only” 2.5 Gbps, but it was a very cheap upgrade compared to the regular version, so it seemed like a no-brainer. Luckily I do have WiFi 7 devices around already (the newest iPhones), so I can and am already making use of it.</p>
+<h3>Switch: Flex 2.5G</h3>
+<p>Since I had lots of devices connected directly to the router via Ethernet, I chose to also get the <a href="https://techspecs.ui.com/unifi/switching/usw-flex-2-5g-8?subcategory=switching-utility">Flex 2.5G switch</a>, particularly because it has the same SFP+ port that the router has, allowing me to connect the two via fiber and get a clean 10 Gbps connection between them.</p>
+<h3>Extra: Pi-Hole</h3>
+<p>One piece of hardware that was not part of this upgrade but that is worth mentioning here is that I also have a simple <b>Raspberry Pi 3b running Pi-Hole</b> and my own recursive DNS server (via Unbound) for ad-blocking and privacy reasons. I only enable it for my phone and computer however to prevent guests from having issues with it, as it makes navigating certain websites slightly harder (including Google, e.g. because they wrap almost everything in sponsored ad links, which the Pi-Hole will reject).</p>
+<h2>The setup</h2>
+<p>Now comes the part that is the other reason why I wanted to do this upgrade: <b>allowing for more complex network setups.</b></p>
+<p>Today, my network consists of a combination of “regular” devices (like my phone), servers, and random IoT devices. To connect these effectively and securely, I went for the following setup:</p>
+<ul>
+<li><b>VLAN1: Management</b></li>
+<ul><li>Contains only the Ubiquity hardware. Has full access to everything.</li></ul>
+<li><b>VLAN10: Trusted</b></li>
+<ul><li>Phones, computers, and my “trusted” local servers (Pi-Hole and Home Assistant). Have <i>mostly</i> full access to everything, apart from gateway / admin console access which I have made so that only certain devices can access.</li></ul>
+<li><b>VLAN20: IoT</b></li>
+<ul><li>Everything home automation related, like smart switches, my Alexa, my dashboard tablet, and this sort of stuff. This VLAN is <b>completely locked down from everything.</b> It has no external internet access, and they cannot even contact each other (via Wi-Fi client isolation). They are only allowed very specific IP+port exceptions that I control at the firewall level, such as allowing some of the devices to send information to my Home Assistant for automation purposes.</li></ul>
+</ul>
+<p>For Wi-Fi, I have two SSIDs:</p>
+<ul>
+<li>An IoT one, which connects to the IoT VLAN. It only supports 2.4GHz and has somewhat low security protocols for compatibility reasons (which is fine as anything that connects to it is completely isolated by default)</li>
+<li>A “regular” one, which connects to the Trusted VLAN. Uses WPA3 and is tweaked for maximum performance and all of the latest WiFi features like MLO.</li>
+</ul>
+<p>Some people also setup a third “Guest” VLAN and SSID for visitors which is completely isolated from everything else similarly to the IoT one, but I chose not to do so because it breaks things like Chromecast and AirPlay (I’m sure you can setup firewall rules for this, but it seemed too complicated so I chose not to bother). It would add more overhead to the AP, which I would like to avoid.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>In short, I’m very satisfied with my hardware and setup choices. Like I mentioned above this is all extremely overkill for what I actually use my home network for, but since it resulted in me learning more about networks and having a safer / more powerful and future-proof network for all of my devices, I’m very fine with that :)</p>
+]]></content>
+</entry><entry>
     <title>Reducing email spam with a domain and catch-all aliases</title>
     <link href="https://swiftrocks.com/becoming-unspammable-with-a-domain-and-catchall-email-aliases" rel="alternate" type="text/html" title="Reducing email spam with a domain and catch-all aliases"/>
     <published>2025-06-29T10:00:00+0200</published>
@@ -186,6 +238,7 @@
     <content type="text/html"><![CDATA[
 <p>I recently upgraded my smart home hardware, and I felt like writing a post describing my current setup to serve as inspiration for those wanting to get started or just interested in home automation in general.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
+<p>Here I only describe my home automation setup; for information on my networking / homelab hardware, check out my separate <a href="https://swiftrocks.com/i-upgraded-all-of-my-home-networking-equipment">"I upgraded all home networking equipment"</a> post where I go into deeper details of that.</p>
 <h2>The Software</h2>
 <p>I use <a href="https://www.home-assistant.io/">Home Assistant OS</a> like many others. The way I like to describe HA is that it's an Alexa on steroids. With an Alexa, you buy smart devices, link them with the Alexa, and then setup automations to control those devices based on conditions like time, weather, and so on. But the problem with Alexas is that 1) the devices <i>must</i> support Alexas specifically, and 2) the automations themselves are very limited, only allowing you to do simple things.</p>
 <p>Home Assistant doesn't have such limitations. HA is <b>open-source</b> and has a thriving community, meaning you can find plugins that enable integrations for pretty much <b>anything</b> you can think of, and if you don't, you can build such plugins yourself assuming you have the programming chops to do it! HA is very extensible, and thus perfect for power users who want to set up complex automations or integrate unusual devices in unusual ways.</p>
@@ -2120,153 +2173,5 @@ ForEach(Array(strings.enumerated())) { info in
 <p>I think the situation right now is very similar to when Swift was released. I started with iOS exactly when that happened, and the way I learned it was by first learning as much I could about Objective-C and then using that knowledge to seamlessly move over to Swift and making that my main tool of choice. As the years went by and everyone migrated to Swift, it became less and less necessary to strictly learn Objective-C to the point where nowadays you can defer learning it until you reach a point where you want/need to expand your knowledge of the platform itself.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>This is how I think beginners should approach SwiftUI vs UIKit. While people will always want to learn the shiny new thing, you should always learn both whilst focusing on what the majority of people use right now to maximize your hiring opportunities. I expect that as the years go the majority of UIKit projects will move over to SwiftUI, but it's still too early to tell if UIKit will completely go away given SwiftUI's current issues when used in more complicated projects.</p>
-]]></content>
-</entry><entry>
-    <title>What's the 'any' keyword? Understanding Type Erasure in Swift</title>
-    <link href="https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift" rel="alternate" type="text/html" title="What's the 'any' keyword? Understanding Type Erasure in Swift"/>
-    <published>2022-09-12T14:00:00+02:00</published>
-    <updated>2022-09-12T14:00:00+02:00</updated>
-    <id>https://swiftrocks.com/whats-any-understanding-type-erasure-in-swift</id>
-    <author>
-        <name>Bruno Rocha</name>
-    </author>
-    <summary>In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood.</summary>
-    <content type="text/html"><![CDATA[
-<p>The concept of <b>Type Erasure</b> is not new to Swift, but was radically improved in Swift 5.7 with the addition of the <code>any</code> prefix keyword (not to be confused with the capitalized <code>Any</code> type!) and improvements to the already existing <code>some</code> <b>Opaque Type</b> keyword. In this article, we'll explain the concept of type erasure, how it used to be done, what's different in Swift 5.7, and how these changes work under the hood.</p>
-<h2>What the hell is Type Erasure?</h2>
-<p>In programming languages with support for generic types, <b>Type Erasure</b> is the process of abstracting constrained generic types inside an <b>unconstrained non-generic type</b> that can be passed around freely.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>If you don't know why that's necessary, consider the following example where we define a protocol and a few conforming types:</p>
-<pre><code>protocol Shape {}
-struct Circle: Shape {}
-struct Triangle: Shape {}</code></pre>
-<p>Because the <code>Shape</code> protocol is <b>unconstrained</b>, Swift allows us to quite easily refer to <code>Circle</code> and <code>Triangle</code> as their bare conformances:</p>
-<pre><code>var userShapes = [Shape]()
-func userDidCreate(shape: Shape) {
-    userShapes.append(shape)
-}
-userDidCreate(shape: Circle())
-userDidCreate(shape: Triangle())
-// No problems will arise here. It's fine to refer to these types as just "Shape".</code></pre>
-<p>This will <b>not</b> be the case if the protocol has generic requirements. If the protocol has, for example, associated types that each underlying type provides on its own, Swift will strictly forbid you from referring to this protocol if you're also not providing appropriate generic constraints:</p>
-<pre><code>protocol Sequence {
-    associatedtype Element
-}
-var sequences = [Sequence]() // Can't do!
-// Error: Protocol 'Sequence' can only be used as a generic constraint
-// because it has Self or associated type requirements</code></pre>
-<p>The reason you can't do this is that Swift is designed to be a <b>type-safe</b> language. Even though the compiler has no problem determining the underlying type of a <code>Sequence</code> type in the previous snippet, Swift has these features in order to allow you to ship safer products (runtime-wise). Think of access control properties like public and private; they are good examples of concepts that have absolutely no impact on the final binary. In the end, everything is accessible from everywhere, but inside your IDE, the compiler forces access control conventions to be followed so at the very least you are able to write code that is used the way you intended it to be used.</p>
-<p>The issue here with generic constraints is similar. The compiler does know what the underlying type of a particular generic protocol is in runtime, but because Swift is designed to be type-safe, for safety reasons, if it can't be determined in compile time, it will not let you do it. This is the complete opposite of Objective-C where you could easily do whatever you wanted for the (very big) cost of runtime safety.</p>
-<p>Before Swift 5.7, the solution to this problem was to box these objects into <b>unconstrained</b> and generally unsafe "Any" variations of their protocols, like this:</p>
-<pre><code>class AnySequence {
-    let value: Any
-
-    init&lt;T: Sequence>(_ sequence: T) {
-        self.value = value
-    }
-}</code></pre>
-<p>This process is called <b>type erasure</b>, and the Swift standard library itself contains many such objects. There are many situations in Swift where you'd need to do this, and one of them was covered in <a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift">our 2020 article on how to use type erasure to build a dependency injection system.</a> In general, you'll find yourself needing to type erase a protocol with generic requirements whenever you're in a situation where knowing the actual constraints of said protocols are irrelevant.</p>
-<h2>After Swift 5.7: Enter "any"</h2>
-<p>As far as I'm aware, this process was widely disliked by the Swift community. Not only it was a symptom of a design mistake in the language, but the process itself was also quite unsafe as it often involved the extensive usage of force-unwrapping (due to the need of referring to everything as <code>Any</code>).</p>
-<p>This has changed in Swift 5.7. With the addition of the new <code>any</code> <i>existential type</i> keyword, <b>type erasure is now a feature of the Swift compiler</b>. You do not need to create your own "AnyMyType" abstraction anymore; by adding <code>any</code> before a type, the Swift compiler will now automatically abstract it for you. While I like to call these "type-erased values" for simplicity, you should know that the proper terminology for referring to a value as an abstract representation is <b>existential type</b>.</p>
-<pre><code>let erased: any Sequence = MyConcreteSequenceType()</code></pre>
-<p>This also means that the old "protocol can only be used as a generic constraint" error has changed. In Swift 5.7, trying to use such protocols without their constraints will now make the compiler prompt you to refer to it as an existential.</p>
-<pre><code>let erased: Sequence = MyConcreteSequenceType()
-// Error: Use of protocol 'Sequence' as a type must be written 'any Sequence'</code></pre>
-<h3>Type-safety of "any"</h3>
-<p>One amazing benefit of this new keyword is that unlike manual type-erasure, <b>using the new <code>any</code> keyword is type-safe.</b> While before Swift 5.7 you generally had to force-unwrap your type-erased values in order to "unbox" them and access their constraints (and hope you didn't get anything wrong), the Swift 5.7 compiler will watch your back and prevent you from making mistakes. The way in which you achieve this is a bit tricky though, so I've modified an example from WWDC 2022's session about the feature to clarify it.</p>
-<p>Let's assume that we have a <code>Animal</code> protocol that defines a generic food type and a method to feed said food. We also have a <code>FoodProvider</code> protocol that is able to provide said food.</p>
-<pre><code>protocol Animal {
-    associatedtype Food
-    func eat(_ food: Food)
-}
-
-protocol FoodProvider {
-    func getFood&lt;T: Animal>(for animal: T) -> T.Food
-}</code></pre>
-<p>Let's now pretend that we have a helper method that receives a group of animals and tries to feed all of them. Because the particular type of animal doesn't matter to us in this scenario, we want to do so without declaring any generic constraints.</p>
-<pre><code>func feedAll(_ animals: [Animal], provider: FoodProvider) {
-    animals.forEach {
-        let food = provider.getFood(for: $0)
-        $0.eat(food)
-    }
-}</code></pre>
-<p>As you might expect after reading this article, the existence of an associated type will make Swift prevent us from doing that. Before Swift 5.7, the solution to this was generally to create a <code>AnyAnimal</code> type and abstract these actions under unsafe closures powered by force-unwrapping:</p>
-<pre><code>final class AnyAnimal {
-    var getFood: (FoodProvider) -> Any
-    var eatFood: (Any) -> Void
-
-    init&lt;T: Animal>(_ animal: T) {
-        self.getFood = { provider in
-            provider.getFood(for: animal)
-        }
-        self.eatFood = { food in
-            animal.eat(food as! T.Food)
-        }
-    }
-}
-
-func feedAll(_ animals: [AnyAnimal], provider: FoodProvider) {
-    animals.forEach {
-        let food = $0.getFood(provider)
-        $0.eatFood(food)
-    }
-}</code></pre>
-<p>While this solution will work for this case, it's not safe as you could quite easily pass the wrong food type to the erased value and cause a crash. Swift 5.7's <code>any</code> keyword solves this problem by enforcing complete type-safety on any existential value, but there's a small catch <i>(Note: This refers to a limitation of Swift 5.7. If you're reading this in the future, this might not be the case anymore.)</i>. While Swift will freely allow you to call any unconstrained methods of the existential type, attempting to use any constrained methods can prove to be a bit challenging:</p>
-<pre><code>func feedAll(_ animals: [any Animal], provider: FoodProvider) {
-    animals.forEach {
-        let food = provider.getFood(for: $0)
-        $0.eat(food) // Member 'eat' cannot be used on value of type 'any Animal'
-    }
-}</code></pre>
-<p>Even though the naked eye might tell you that the output of <code>getFood(_:)</code> definitely matches the input of <code>getFood(_:)</code>, Swift will not allow you to call any methods involving generic parameters unless you first explicitly "unbox" the existential by passing it to a generic method that receives a non-erased value (with no constraints):</p>
-<pre><code>func feedAll(_ animals: [any Animal], provider: FoodProvider) {
-    animals.forEach {
-        feed($0, provider: provider) // Now works!
-    }
-}
-
-func feed&lt;T: Animal>(_ animal: T, provider: FoodProvider) {
-    let food = provider.getFood(for: animal)
-    animal.eat(food)
-}</code></pre>
-<p>I thought this seemed like a pointless step since they're both doing the same thing, so I asked about it on the official Swift Forums and it turns out that this is indeed a limitation of Swift 5.7. To be more specific, the proposal that introduced the ability to "unbox" existential types in a type-safe manner has a negative side-effect that makes the compiler "lose" information about a particular existential outside of said "unboxing" contexts. <a href="https://github.com/apple/swift-evolution/blob/main/proposals/0352-implicit-open-existentials.md#losing-constraints-when-type-erasing-resulting-values">You can read more about it in the proposal.</a></p>
-<p>It's important to keep in mind though that the <code>any</code> keyword doesn't replace all cases in which you'd need to erase generic types. While it takes care of the basic case of hiding a type's constraints, more special cases such as <b>transforming</b> constraints (<a href="https://swiftrocks.com/using-type-erasure-to-build-a-dependency-injector-in-swift">like in our tutorial about it</a>) still require you to go with the manual approach for the time being.</p>
-<h2>Supporting Features</h2>
-<p>Despite not being directly related to the concept of type erasure, Swift 5.7 comes with some additional features that greatly empower it. Let's check them out.</p>
-<h3>Opaque Parameters</h3>
-<p>One thing we mentioned is the necessity of "unboxing" existentials by writing empty generic clauses. These empty clauses are very common even outside type erasure, and were improved in Swift 5.7 by the addition of the new <b>Opaque Parameters</b> feature. Now, instead of writing this:</p>
-<pre><code>func feed&lt;T: Animal>(_ animal: T)</code></pre>
-<p>You can write it like this:</p>
-<pre><code>func feed(_ animal: some Animal)</code></pre>
-<p>Deep down, these are exactly the same thing. Declaring a parameter as <code>some Type</code> is simply a syntax sugar for declaring an empty generic constraint clause. Despite not being a ground-breaking feature, this is a very welcome change as generic methods with several parameters tended to become borderline unreadable.</p>
-<p><b>Note: This is not to be confused with Swift 5.1's <a href="https://swiftrocks.com/understanding-opaque-return-types-in-swift">Opaque Return Types</a> feature.</b> Despite using the same keyword and behaving relatively similarly, they are different features that work in very different ways.</p>
-<h3>Primary Associated Types</h3>
-<p>Starting on Swift 5.7, you can now declare one or more of your protocol's associated types as its <b>primary associated types</b> by adding them between angle brackets in the protocol's declaration:</p>
-<pre><code>protocol Sequence&lt;Element> { // Element is now a primary associated type
-    associatedtype Element
-    associatedtype Iterator
-}</code></pre>
-<p>This has two purposes. The first one is that it gives you a very welcome syntax sugar when declaring generic constraints just like the one we saw in the Opaque Parameters section; instead of declaring ugly constraint clauses for that particular type like this:</p>
-<pre><code>extension Sequence where Element == Int {
-    func grabSomeNumbers() { ... }
-}
-
-// or
-
-func grabSomeNumbers&lt;T: Sequence>(_ s: T) where T.Element == Int { ... }</code></pre>
-<p>...you are now able to inform this directly in the type!</p>
-<pre><code>extension Sequence&lt;Int> {
-    func grabSomeNumbers() { }
-}
-
-// or
-
-func grabSomeNumbers(_ s: Sequence&lt;Int>) { ... }</code></pre>
-<p>In addition to doing this to your own types, you may find it interesting that many protocols of Swift's Standard Library have already been updated to declare primary associated types.</p>
-<p>The second and most ground-breaking purpose is that this is not restricted to extensions and methods; you can combine with the <code>any</code> keyword to <b>declare type-erased, partially constrained stored properties:</b></p>
-<pre><code>let intSequences: [any Sequence&lt;Int>]</code></pre>
-<p>This was previously unheard of in Swift as we were never allowed to define generic constraints in properties. I'm partially disappointed though that they didn't go to the full way to allow us to declare any type of constraint on the fly (like <code>Sequence&lt;where Element == String, Iterator = MyIterator></code>), but the proposal indicates that the existence of primary associated types does not prevent this from being potentially implemented in the future.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
 ]]></content>
 </entry></feed>
