@@ -208,6 +208,7 @@
 <p>Since I had lots of devices connected directly to the router via Ethernet, I chose to also get the <a href="https://techspecs.ui.com/unifi/switching/usw-flex-2-5g-8?subcategory=switching-utility">Flex 2.5G switch</a>, particularly because it has the same SFP+ port that the router has, allowing me to connect the two via fiber and get a clean 10 Gbps connection between them.</p>
 <h3>Extra: Pi-Hole</h3>
 <p>One piece of hardware that was not part of this upgrade but that is worth mentioning here is that I also have a simple <b>Raspberry Pi 3b running Pi-Hole</b> and my own recursive DNS server (via Unbound) for ad-blocking and privacy reasons. I only enable it for my phone and computer however to prevent guests from having issues with it, as it makes navigating certain websites slightly harder (including Google, e.g. because they wrap almost everything in sponsored ad links, which the Pi-Hole will reject).</p>
+<p>I currently use <b>Tailscale</b> to access the server remotely, but am looking into migrating this to my router's built-in WireGuard functionality.</p>
 <h2>The setup</h2>
 <p>Now comes the part that is the other reason why I wanted to do this upgrade: <b>allowing for more complex network setups.</b></p>
 <p>Today, my network consists of a combination of “regular” devices (like my phone), servers, and random IoT devices. To connect these effectively and securely, I went for the following setup:</p>
