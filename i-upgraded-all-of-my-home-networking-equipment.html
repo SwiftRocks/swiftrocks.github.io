@@ -189,7 +189,7 @@
   </div>
 <p>I recently upgraded all of my home networking equipment, and I thought the reasoning and setup were interesting enough to justify writing a blog post about it.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
-<p>Here I will only cover the actual networking stack; if you want to know which devices I have plugged into it, check out the separate <a href="https://swiftrocks.com/my-home-automation-setup">"My Home Automation Setup"</a> post which goes into more detail on that.</p>
+<p>Here I will only cover the actual networking stack; if you want to know about my Home Assistant server and the devices I have connected to it, check out the separate <a href="https://swiftrocks.com/my-home-automation-setup">"My Home Automation Setup"</a> post which goes into more detail on that.</p>
 <h2>Why upgrade?</h2>
 <p>For over a decade, my home network was powered by nothing more than one of those consumer-level ASUS routers you can buy in any electronics store. While they work fine, two things that started bothering me over time:</p>
 <ul>
@@ -206,8 +206,9 @@
 <p>For the AP, I chose the <a href="https://techspecs.ui.com/unifi/wifi/u7-pro-xg?subcategory=all-wifi">U7 Pro XG</a>, which is a WiFi 7 router with support for the 6 GHz band. This thing even has a 10 Gbps uplink for some reason which I can’t even use as the PoE+ port on the router is “only” 2.5 Gbps, but it was a very cheap upgrade compared to the regular version, so it seemed like a no-brainer. Luckily I do have WiFi 7 devices around already (the newest iPhones), so I can and am already making use of it.</p>
 <h3>Switch: Flex 2.5G</h3>
 <p>Since I had lots of devices connected directly to the router via Ethernet, I chose to also get the <a href="https://techspecs.ui.com/unifi/switching/usw-flex-2-5g-8?subcategory=switching-utility">Flex 2.5G switch</a>, particularly because it has the same SFP+ port that the router has, allowing me to connect the two via fiber and get a clean 10 Gbps connection between them.</p>
-<h3>Extra: Pi-Hole</h3>
+<h3>Extra: Pi-Hole and Plex</h3>
 <p>One piece of hardware that was not part of this upgrade but that is worth mentioning here is that I also have a simple <b>Raspberry Pi 3b running Pi-Hole</b> and my own recursive DNS server (via Unbound) for ad-blocking and privacy reasons. I only enable it for my phone and computer however to prevent guests from having issues with it, as it makes navigating certain websites slightly harder (including Google, e.g. because they wrap almost everything in sponsored ad links, which the Pi-Hole will reject).</p>
+<p>In addition to the Pi-Hole, nowadays my Home Assistant server also doubles as a <a href="https://www.plex.tv/">Plex</a> server (<a href="https://github.com/alexbelgium/hassio-addons/tree/master/plex">via this unofficial addon for HAOS</a>), allowing me to effortlessly stream ultra-high-quality video straight to my TV in cases where I happen to have the video files available locally, thanks to everything being wired locally and the high-speeds now made possible thanks to these upgrades.</p>
 <p>I currently use <b>Tailscale</b> to access the server remotely, but am looking into migrating this to my router's built-in WireGuard functionality.</p>
 <h2>The setup</h2>
 <p>Now comes the part that is the other reason why I wanted to do this upgrade: <b>allowing for more complex network setups.</b></p>
