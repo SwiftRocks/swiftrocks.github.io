@@ -210,7 +210,7 @@
   <img src="https://i.imgur.com/hETOc60.png">
 </div>
 <p>The dashboarding functionality itself is achieved by using <a href="https://wallpanel.xyz/">Wallpanel</a> to expose the tablet's controls to HA, while the photo album logic is handled via HA's <a href="https://github.com/j-a-n/lovelace-wallpanel">lovelace-wallpanel</a> custom integration. I host the photos on the HA itself. For added security, since we're talking about a Chinese Android device, I also have a special rule on my router's firewall that prevents this tablet from communicating with devices outside the local network.</p>
-<p>Right now, I do not provide a mechanism to allow me to access my HA instance remotely as I don't want to have to worry about securing it properly, but I wanted to mention that this is perfectly possible by using the <a href="https://tailscale.com/blog/remotely-access-home-assistant">Tailscale extension</a>.</p>
+<p>Right now I do not provide a mechanism to allow me to access my HA instance remotely as I don't have a good enough reason to do so, but I wanted to mention that HA has official support for <a href="https://tailscale.com/blog/remotely-access-home-assistant">Tailscale</a>, making it very easy to do if you don't happen to have access to better choices like WireGuard.</p>
 <h2>The Protocol</h2>
 <p>Currently, I'm running a combination of WiFi and Zigbee devices, which is an alternate wireless protocol made specifically to be used by IoT devices that uses less energy and lays off a mesh network where the devices communicate with each other (as opposed to WiFi devices where everything goes through the router, thus creating a star network).</p>
 <div class="post-image">
