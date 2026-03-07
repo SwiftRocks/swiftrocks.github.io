@@ -2,7 +2,7 @@
     <id>https://swiftrocks.com</id>
     <title>Bruno Rocha</title>
     <subtitle>SwiftRocks is Bruno Rocha's blog about Swift / iOS and the software engineering industry.</subtitle>
-    <updated>2025-08-01T12:17:15+0200</updated>
+    <updated>2026-03-07T15:51:11+01:00</updated>
     <author>
         <name>Bruno Rocha</name>
         <uri>https://swiftrocks.com</uri>
@@ -10,7 +10,38 @@
     <link rel="self" type="application/atom+xml" href="https://swiftrocks.com/rss.xml"/>
     <link rel="alternate" type="text/html" hreflang="en" href="https://swiftrocks.com"/>
     <generator uri="https://github.com/rockbruno/writeit">WriteIt</generator>
-    <rights> © 2025 Bruno Rocha </rights><entry>
+    <rights> © 2026 Bruno Rocha </rights><entry>
+    <title>How my software engineering workflow has changed in the past year</title>
+    <link href="https://swiftrocks.com/how-my-software-engineering-workflow-has-changed-in-the-past-year" rel="alternate" type="text/html" title="How my software engineering workflow has changed in the past year"/>
+    <published>2026-03-07T15:51:11+01:00</published>
+    <updated>2026-03-07T15:51:11+01:00</updated>
+    <id>https://swiftrocks.com/how-my-software-engineering-workflow-has-changed-in-the-past-year</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Back in April 2025, I wrote a post about how AI has changed my software engineering workflow. However, the release of models like Opus 4.6 since then have changed the landscape of the industry so dramatically that most of what I wrote is already irrelevant!</summary>
+    <content type="text/html"><![CDATA[
+<p>Back in April 2025, <a href="https://swiftrocks.com/how-im-using-ai-for-software-engineering">I wrote a post about how AI has changed my software engineering workflow.</a> However, the release of models like Opus 4.6 since then have changed the landscape of the industry so dramatically that most of what I wrote is already irrelevant! To account for that, I decided to write an updated version that shows what has changed since then.</p>
+<h2>A note on job prospects</h2>
+<p>In my previous post, I wrote about how AI wouldn't replace software engineering jobs because unlike humans, the models cannot make sense of vague requests. <b>This is still largely true.</b> Although the coding capabilities of the models have evolved dramatically, they still require the user to know what they are doing as those capabilities are only unlocked if you provide clear instructions to the model. This makes the idea of a product manager with zero programming experience vibecoding their way into a billion dollar business just as ridiculous as it was back then.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p><b>However,</b> although the job will still exist, it's important to say that <b>what it comprises is radically changing.</b> The archetype of an ultraspecialist that focuses their entire career on a single platform / language, which became very popular around a decade ago when mobile engineering was on the rise, <b>is no longer a valid career path.</b></p>
+<p>There is no longer any point to becoming a specialist on a particular tool when anyone can now guide an AI model to the same result with just a fraction of the experience.</p>
+<p>What's meta now in the engineering industry in the wake of AI is to <b>T-shape</b> into having broad knowledge on all the different systems and products developed by your company. That way, while the AI focuses on the deep aspects of the code, you can focus on what the AI currently <i>cannot</i> do, which is making sure that what it implements is in line with what's being developed for other aspects of the product, akin to a blend between software engineering and a product manager. <a href="https://newsletter.pragmaticengineer.com/p/when-ai-writes-almost-all-code-what?utm_source=post-email-title&publication_id=458709&post_id=183694080&utm_campaign=email-post-title&isFreemail=false&r=a1dby&triedRedirect=true">The Pragmatic Engineer calls this a product engineer</a>.</p>
+<p>I predict that companies will soon require everyone to migrate to this capacity, with those that fail to do so being at risk of future layoffs. Those who are at senior level likely already perform at this role at some capacity, but this could be a large barrier to clear for more junior developers.</p>
+<h2>How my workflow has changed</h2>
+<p>In my previous post, I mentioned that the bulk of my work happened with Cursor's tab completion, with Claude only being a small percentage for more special cases. <b>This has now flipped around.</b> I would say I nowadays do <b>95% of my work by prompting Claude</b>, with around 5% manual coding being required only to sometimes make small adjustments to the AI's code. I also stopped using ChatGPT entirely in favor of using Claude for everything.</p>
+<p>The reason for this change is because the newest models are so intelligent that it is now much faster to simply ask the model to do the work instead of having me do it myself. While before the models would cause all sorts of mistakes, nowadays they really get pretty much everything right if you give them clear instructions. In repos that have well defined AGENTS.md files and skills, I can even go a step further and use the <code>--dangerously-skip-permissions</code> flag to let the agent do its work and commit + open a PR without any supervision.</p>
+<p>It's even scary at times; sometimes I prompt absolute garbage full of typos, but still somehow the model is able to understand exactly what I meant.</p>
+<p>Many folks are using all kinds of complex architectures and plugins to interact with agents, but I run a fully vanilla setup without any of that fuss. I find that those special setups are completely unnecessary to get good performance out of the agent.</p>
+<p>The use-case for agents that I find the most powerful was and still is <b>making sense of complex codebases</b>. Recently I've been constantly doing tasks that require me to work in multiple codebases I've never seen before, and what would previously be a multi-month task requiring several engineers can now be done in <b>mere minutes</b> by simply asking Claude some questions while having the code cloned locally. Thanks to AI, I've been able to deliver extremely intricate improvements to some of our systems not only completely by myself, but also at an unprecedented speed. It's really incredible how much this technology was able to change the industry.</p>
+<h2>The downside: Am I really having fun?</h2>
+<p>What draws me to software engineering is the problem solving. I really enjoy trying to make sense of complicated issues. But now that AI does all of that for me, I'm not getting that kick anymore. Yes, I can deliver much faster now, but also I now feel that I don't really understand what I'm delivering anymore. Struggling to solve something was a very important part of the learning process, so with that out of the way, I feel that I'm not really learning anything anymore despite technically being able to deliver much more than I used to. I know many others are also feeling like this.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>This makes me confused in regards to what the future of the industry will be. The AI models are smart because they were trained on decades of human content and documentation. But if no one produces this content anymore due to everything now being made by AI, how will future models be trained? They cannot train on their own content. Does this imply that there is an upper-bound to how smart coding AIs can be?</p>
+<p>The future is very uncertain right now, but I hope we find ways to continue having fun in the midst of it.</p>
+]]></content>
+</entry><entry>
     <title>I upgraded all of my home networking equipment</title>
     <link href="https://swiftrocks.com/i-upgraded-all-of-my-home-networking-equipment" rel="alternate" type="text/html" title="I upgraded all of my home networking equipment"/>
     <published>2025-08-01T12:17:15+0200</published>
@@ -104,6 +135,7 @@
     </author>
     <summary>AI has become an important part of my daily software engineering work. Here's how I used it and why it will not steal your job.</summary>
     <content type="text/html"><![CDATA[
+<p>Important: This post is outdated! Check out the updated version: <a href="how-my-software-engineering-workflow-has-changed-in-the-past-year">How my software engineering workflow has changed in the past year</a>.</p>
 <p>AI has become an important part of my daily software engineering work, so I wanted to write a post sharing how exactly I've been using it in case you're wondering how to use it to improve your productivity as well!</p>
 <h2>Foreword: AI will not steal your software engineering job</h2>
 <p>Before getting to the details of how AI has been helping me to code, I wanted to address the topic of AI replacing software engineers.</p>
@@ -2063,117 +2095,5 @@ func myMainActorMethod() {}</code></pre>
 <p>Performance Traces shine mostly in the very specific case we covered in the introduction: you are facing an issue that is connected to performance and for some reason you cannot reproduce it yourself. You could theoretically use it to gather data on more general logic/UI issues (assuming the data you're looking for would somehow materialize in the sampled stack traces), but for those cases, you'd probably find the steps defined in the <a href="https://swiftrocks.com/how-to-solve-any-ios-crash-ever">article about crashes</a> to be more effective.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>Despite being a rare situation to come by, these traces have saved by butt every time it happened and are now one of my favorite debugging techniques for this category of issues.</p>
-]]></content>
-</entry><entry>
-    <title>Thoughts on SwiftUI vs UIKit</title>
-    <link href="https://swiftrocks.com/my-experience-with-swiftui" rel="alternate" type="text/html" title="Thoughts on SwiftUI vs UIKit"/>
-    <published>2022-10-20T14:00:00+02:00</published>
-    <updated>2023-01-12T10:00:00+02:00</updated>
-    <id>https://swiftrocks.com/my-experience-with-swiftui</id>
-    <author>
-        <name>Bruno Rocha</name>
-    </author>
-    <summary>I had played with SwiftUI before, but it wasn't until now that I had built a complete app with it. Here's my experience!</summary>
-    <content type="text/html"><![CDATA[
-<p>I had played with SwiftUI sporadically in the past, but it wasn't until now that I had built a complete App Store-ready app with it. When SwiftUI was first announced I was very concerned about certain quirks of the framework and how it was probably not suitable for professional iOS development, but with the framework evolving constantly over the past couple of years it became time to re-evaluate that statement. Through <a href="https://burnoutbuddy.io">Burnout Buddy,</a> I had the chance to develop a production app 100% with SwiftUI. Here are my thoughts on what works and what could be improved, and how I would fit SwiftUI and UIKit in my day-to-day work.</p>
-<h2>Things that are great</h2>
-<h3>Previews / Hot Reloading</h3>
-<p>I can't stress hard enough how awesome SwiftUI's previews are. The amount of time UIKit devs were wasting compiling and running code to make small iterative UI changes is unfathomable -- yes, there were LLDB tricks and tools like <i>Reveal</i> which could sort of let you make certain types of changes on the fly, but I don't know anyone who was actually able to flawlessly integrate these into their day-to-day work. The previews allow you to iterate on visual changes and sometimes even the app's logic itself extremely quickly, and its ability to bootstrap itself out of any arbitrary <code>View</code> pairs perfectly when building composable components.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>To be fair, the previews aren't perfect. I had a frequent bug where the preview refused to show up and was unable to do any form of debugging on the preview itself, and a lot of people reached out to say that the previews are painfully slow on their older Macbook models, but it generally works well and I'm very happy we finally have official hot-reloading support in iOS. I'm eager to see how it will be improved in the future.</p>
-<h3>Development speed</h3>
-<p>Another extremely notable SwiftUI benefit is how easy it is to build apps with it. You can quite literally build an app to start to finish in just a couple of minutes, something which would be unheard of in any professional-level UIKit app (meaning no Storyboards and similar features that are known for not being scalable).</p>
-<p>While Burnout Buddy took me a couple of weeks to build, the majority of that time was spent on the logic and architecture. The UI itself for the entire app was built in just a couple of minutes.</p>
-<p>It's important to mention that this is not always true. As we'll see down below there's an entire category of "more complicated" products where SwiftUI is actually <i>extremely detrimental</i> to development speed, but we should still appreciate that SwiftUI works amazingly well for the more straight-forward category of projects that the majority of developers deal with. It's also not too surprising that this is the case considering that they have been Apple's primary target audience for Xcode features since the dawn of iOS.</p>
-<h3>It encourages great coding practices</h3>
-<p>It's very easy to make a UIKit app that has everything shoved into one god object. You could theoretically do the same in SwiftUI, but you'd have a much harder doing so. The way views are setup and referenced between each other encourages you to break up your views into small independent pieces, which is an amazing habit to have when building apps of any size as it improves the quality of your project in multiple areas such as composability, scalability, testability and code readability. For developers who are not yet familiar with those concepts, SwiftUI is a great tool to learn and apply those practices.</p>
-<h2>Things that are not so great</h2>
-<h3>Great for simple things, not so great for not-so-simple things</h3>
-<p>It's generally easy to build state logic with UIKit. Because there are no constraints on what things should look like, you can build everything on the fly and achieve virtually anything you want at the cost of having to write a lot of annoying UI code.</p>
-<p>SwiftUI is the opposite on steroids. It's <b>very, very easy</b> to build UI with, and <b>very, very hard</b> to build any piece of real business logic that you wouldn't see in a simple Hello World tutorial.</p>
-<p>My first thought when SwiftUI was announced was that there's <i>no way</i> it works seamlessly for complex apps, and I imagine that anyone who ever had experience with React on the web front had the same thought. The reason for that is because data-drivenness, SwiftUI's main concept that some people already were experienced with due to React functioning roughly in the same way, doesn't scale very well. SwiftUI forces you to shape your model in a way so that the complete structure and state of all views are static and known well in advance, which while not an impossible task, can be insanely difficult for views that have lots of moving parts and conditions.</p>
-<p>The best example I can show of how data-drivenness can massively spike the complexity of an app is SwiftUI's <code>ForEach</code> API:</p>
-<pre><code>ForEach(0..<7) { i in
-    MyObject(myStrings[i])
-}</code></pre>
-<p>If all you're doing is iterating a static list of elements, everything will work like in UIKit. You can build a loop that takes a fixed integer range and access the indexes without any additional trouble.</p> 
-<p>Iterating the <b>mutable state</b> of your view is a bit trickier, but still doable. While in UIKit this doesn't incur any extra architectural cost on your behalf, SwiftUI forbids you from doing so unless the content conforms to <code>Identifiable</code>. This can be quite annoying given that almost nothing in Swift's Standard Library conforms to this protocol, but the requirement makes sense in the context of SwiftUI where the framework relies on the concept of model identity and uniqueness in order to determine when the UI should be re-drawn.</p>
-<pre><code>ForEach(myStrings) { string in
-    MyObject(string)
-} // Error: String does not conform to Identifiable
-
-// Solution: Replace "myStrings" with:
-struct MyModel: Identifiable {
-    let id = ... // How this is implemented depends
-    // on what the model represents in practice and how it should be updated
-    let string: String
-}</code></pre>
-<p>Try to do anything more complicated than that though and you'll face the wrath of data-drivenness. Consider the simple use-case of keeping track of the position of an item in a list while iterating it, something which is very common in iOS to implement features like alternating background colors in views: While this is trivial to pull off in UIKit, attempting to introduce dynamic behavior like this in SwiftUI can result in your view's entire architecture being body slammed!</p>
-<pre><code>ForEach(contentList.enumerated()) { info in
-    MyObject(info.element, info.offset)
-} // Error: Arbitrary sequences cannot be iterated in SwiftUI, only RandomAccessCollections
-
-ForEach(Array(strings.enumerated())) { info in
-    MyObject(info.element, info.offset)
-} // Error: Tuples don't conform to Identifiable, the model must expose some form of unique id</code></pre>
-<p>Because the concept of object identity is critical in SwiftUI, if the position of an item is relevant to the UI, we must architecture our view's state model around this fact and provide/predict it in advance alongside everything else that is relevant to the view:</p>
-<pre><code>struct ListIndexable&lt;T>: Identifiable {
-    let id = ... // How this is implemented depends
-    // on what the model represents in practice and how it should be updated
-    let index: Int
-    let object: T
-}</code></pre>
-<p>This means that trying to add new behavior to views can result in the <i>entire architecture</i> of that view needing to be refactored, which is a trade-off that developers creating complicated apps would want to avoid at all costs.</p>
-<p>But before we continue, we must mention something very important in this area. Astute readers that have used SwiftUI before might look at this example and point out that you don't really need to do any of these, because there's a variation of <code>ForEach</code> that allows you to manually provide the <code>Hashable</code> value that SwiftUI will use deep-down to enforce uniqueness. This allows you to skip the <code>Identifiable</code> requirement and solve the <code>.enumerated()</code> problem with zero extra code, and if you look up this problem in StackOverflow you can even find plug-and-play extensions for this exact use-case:</p>
-<pre><code>private func ForEachEnumerated&lt;T: Hashable, U: View>(_ arr: Binding<[T]>, @ViewBuilder content: @escaping (Int, Binding&lt;T>) -> U) -> some View {
-    let arr = Array(arr.enumerated())
-    return ForEach(arr, id: \.offset, content: content)
-}</code></pre>
-<p><b>You need to be very careful when using snippets like this in SwiftUI</b>, because trying to out-smart the framework is a very easy way to end up with cryptic and undebuggable rendering problems. In this case the problem with the snippet is that using the index itself as the definition of uniqueness has serious implications for how SwiftUI will draw updates to that particular list, which might not be what you're expecting for your particular use-case. This is the same reason why I've refrained from implementing <code>let id</code> in the examples above.</p>
-<p>When working with frameworks like SwiftUI and React, you should always avoid shortcuts and take the extra time to think how to architect your view's state in a static and predictable way. I've found that this forces you to put quite a lot of pre-thinking into what you want a certain view to do, because if you forget something down the line it can be very hard to recover from it. This won't be a big deal for simple products, but if you're developing a very complicated app, you might not be willing to make that trade-off.</p>
-<h3>Rendering issues are impossible to debug</h3>
-<p>Almost nothing you write in SwiftUI is "real" Swift code. With <a href="https://swiftrocks.com/inside-swiftui-compiler-magic">Property Wrappers and Function Builders</a> at its core, almost everything you write will result in the compiler generating additional wiring code for you.</p>
-<p>The fact that SwiftUI relies heavily on generated code is not a problem by itself, because as long you know what that wiring code is, you can generally follow along and debug issues just as if that wasn't the case. When the wiring code leads to closed source code however, the story is different.</p>
-<p>Here's an example of how this can negatively affect your work. In Burnout Buddy, it's possible to shortcut your way into configuring time schedules for an entire week by setting just one of them and asking the tool to copy the values into the remaining days. In code, I attempted to achieve this by creating a custom <code>Binding</code> object that pastes Monday's schedule into the rest of the week:</p>
-<pre><code>let weekdayBinding = Binding<[TimeRange]> {
-    schedule.days[0]
-} set: { range, transaction in
-    schedule.days[0] = range
-    schedule.days[1] = range
-    schedule.days[2] = range
-    schedule.days[3] = range
-    schedule.days[4] = range
-}</code></pre>
-<p>The code above however did not work. To be very specific, it does quite literally nothing. While I could breakpoint the <code>set</code> closure and see that it was being called correctly with the right values, the view was not being updated accordingly. To make things worse, I was also seeing other completely unrelated things being updated as a result of this code that made no sense whatsoever!</p>
-<p>The reason it didn't work? I don't know, because <code>Binding</code> is closed source. It took me multiple hours to even realize that this particular piece of code was the source of the problem as there was no feedback from SwiftUI itself that there was something wrong, meaning the only thing I could do was re-write parts of the app aimlessly and hope for the best.</p>
-<p>I eventually managed to solve the problem by slightly re-shaping how the closure is executed. Instead of setting each array entry one by one, I chose to copy the entire structure, change it accordingly, and then apply it back to the original bound state object. Because I couldn't actually debug the problem, I can only speculate that the bug has something to do with <code>State</code> not being able to process more than one update in a single stack frame.</p>
-<pre><code>let weekdayBinding = Binding<[TimeRange]> {
-    schedule.days[0]
-} set: { range, transaction in
-    var days = schedule.days
-    days[0] = range
-    days[1] = range
-    days[2] = range
-    days[3] = range
-    days[4] = range
-    schedule.days = days
-}</code></pre>
-<p>This is not a problem with SwiftUI itself, but with Apple deciding to hide critical logic (in this case, what causes a view to re-render) from you. In contrast, you'd not see problems like this in UIKit because the important bits are always handled on your side of the field (e.g when to call <code>addSubview</code>, <code>layoutIfNeeded</code>, etc).</p>
-<p>The good news is that SwiftUI is already able to warn you when you make a rendering mistake in certain cases, so Apple is definitely aware of this problem and is working on ways to make it less disruptive.</p>
-<h2>Should I learn SwiftUI?</h2>
-<p>Ever since the dawn of software engineering, there have been people engaging in "platform wars". They'll evangelize for the "best architecture", "best framework", "best OS", "best design pattern", and claim that theirs is the only option and everything else is a mistake. This is no different for iOS development, and "SwiftUI vs UIKit" is, sure enough, the new "conflict' of choice.</p>
-<p>As a software engineer, it's critical for you to realize that there is no such thing as "best X". Everything is a tool, and whether or not you should use them depends only on what you're trying to achieve. Even Objective-C still has its uses! (If you want more examples of that, <a href="https://swiftrocks.com/there-is-no-right-or-wrong-in-software-engineering">I've written a full article about how there is no right or wrong in tech.</a>)</p>
-<p>SwiftUI and UIKit do not cancel each other; they are both good and bad in different ways, and whether or not you should pick SwiftUI specifically will depend on the details of what you're trying to build.</p>
-<p>After building a SwiftUI app myself, these are the guidelines that I would personally follow for my next projects:</p>
-<ul>
-<li><b>Simple UI, Simple Logic:</b> Would make it 100% with SwiftUI.</li>
-<li><b>Simple UI, Not-so-simple Logic:</b> I'd start with a 100% SwiftUI app, but if it got too tough I'd fall back to using SwiftUI for the UI itself and UIKit for the more complex pieces of logic (via <code>UIViewRepresentable</code>).</li>
-<li><b>Not-so-simple UI, Simple Logic:</b> Will greatly depend on what's being built. I find that more complex pieces of UI can be a lot harder to pull off with SwiftUI when compared to UIKit.</li>
-<li><b>Not-so-simple UI, Not-so-simple Logic:</b> Probably best to go 100% UIKit to avoid issues in the long run.</li>
-</ul>
-<h2>What should beginners learn first?</h2>
-<p>I think the situation right now is very similar to when Swift was released. I started with iOS exactly when that happened, and the way I learned it was by first learning as much I could about Objective-C and then using that knowledge to seamlessly move over to Swift and making that my main tool of choice. As the years went by and everyone migrated to Swift, it became less and less necessary to strictly learn Objective-C to the point where nowadays you can defer learning it until you reach a point where you want/need to expand your knowledge of the platform itself.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>This is how I think beginners should approach SwiftUI vs UIKit. While people will always want to learn the shiny new thing, you should always learn both whilst focusing on what the majority of people use right now to maximize your hiring opportunities. I expect that as the years go the majority of UIKit projects will move over to SwiftUI, but it's still too early to tell if UIKit will completely go away given SwiftUI's current issues when used in more complicated projects.</p>
 ]]></content>
 </entry></feed>

@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/how-my-software-engineering-workflow-has-changed-in-the-past-year</loc>
+    <lastmod>2026-03-07T15:51:11+01:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/how-my-software-engineering-workflow-has-changed-in-the-past-year.html</loc>
+    <lastmod>2026-03-07T15:51:11+01:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/i-upgraded-all-of-my-home-networking-equipment</loc>
     <lastmod>2025-08-01T12:17:15+0200</lastmod>
     <priority>0.80</priority>
