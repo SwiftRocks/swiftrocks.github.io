@@ -2,7 +2,7 @@
     <id>https://swiftrocks.com</id>
     <title>Bruno Rocha</title>
     <subtitle>SwiftRocks is Bruno Rocha's blog about Swift / iOS and the software engineering industry.</subtitle>
-    <updated>2026-03-07T15:51:11+01:00</updated>
+    <updated>2026-03-29T13:02:19+0200</updated>
     <author>
         <name>Bruno Rocha</name>
         <uri>https://swiftrocks.com</uri>
@@ -11,6 +11,96 @@
     <link rel="alternate" type="text/html" hreflang="en" href="https://swiftrocks.com"/>
     <generator uri="https://github.com/rockbruno/writeit">WriteIt</generator>
     <rights> © 2026 Bruno Rocha </rights><entry>
+    <title>Digitizing photos from the 1998 Game Boy Printer</title>
+    <link href="https://swiftrocks.com/digitizing-photos-from-the-1998-game-boy-printer" rel="alternate" type="text/html" title="Digitizing photos from the 1998 Game Boy Printer"/>
+    <published>2026-03-29T13:02:19+0200</published>
+    <updated>2026-03-29T13:02:19+0200</updated>
+    <id>https://swiftrocks.com/digitizing-photos-from-the-1998-game-boy-printer</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>My primary goal after obtaining a Game Boy Camera was finding out how to digitize the photos using modern approaches.</summary>
+    <content type="text/html"><![CDATA[
+<p>One of my passions is retro game collecting, particularly things that I wanted to have as a kid but didn’t either because my parents couldn’t afford it or because those products weren’t available in Brazil.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>Recently, I was able to get my hands on one of these wishes: <b>The Game Boy Camera and its printer accessory.</b> Released in 1998, this “game” turned your Game Boy into a kinda bad digital camera, but certainly amazing for the time. Today, even though the quality clearly sucks, I feel that there’s a certain charm to it that I can’t quite put into words.</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/i6i41uP.jpeg" alt="">
+  <div class="post-info-text">Source: @paulrickards@mastodon.social</div>  
+</div>
+<div class="post-image">    
+  <img src="https://i.imgur.com/DBINdiW.jpeg" alt="">
+  <div class="post-info-text">Source: @paulrickards@mastodon.social</div>  
+</div>
+<p>The way saving photos worked is that the game itself can only hold 30 photos, and if you wanted more than that, you needed to use the Game Boy Printer accessory to bring them to the real world. The problem with the printer however is that it uses the same thermal printing technology used for receipts, so not only were the photos comically small, but they also faded over time.</p>
+<p>This is even worse today because on top of those issues, there’s now also the <b>additional problem</b> of how difficult it is to compatible find paper rolls nowadays. The Seiko S950 rolls are the only ones I’m aware of that work great, and not only they are not easy to find, but also quite expensive…</p>
+<div class="post-image">    
+  <img src="https://i.imgur.com/fxmgERS.jpeg" alt="">
+</div>
+<h2>Emulating the Game Boy Printer</h2>
+<p>With that in mind, my primary goal after obtaining these products was finding out how to <b>digitize the photos using modern approaches.</b> I was ready to reverse engineer the printer signal to determine how to emulate it via software, but as it turns out, the community has already done all of that!</p>
+<p>The <a href="https://mofosyne.github.io/arduino-gameboy-printer-emulator/">Arduino Gameboy Printer Emulator (V3)</a> is an open-source project that does just what the name says. It’s hosted under the GitHub account of <a href="https://github.com/mofosyne">Brian Khuu (mofosyne)</a>, but from what I could tell, this project is actually the combined work of him and several other devs, primarily <b>Raphaël Boichot</b> who seemed to have done a lot of work to decode the printer signals and designing the final PCBs.</p>
+<p>By wiring an Arduino in between the camera and the printer, they were able to sniff the signals and make sense of the protocol used by the printer. I’m not going to pretend to be smart enough to explain to you how exactly the protocol works, so I’ll just copy-paste the information they added to the README:</p>
+<pre><code>| BYTE POS :    |     0     |     1     |     2     |      3      |     4     |     5     |  6 + X    | 6 + X + 1 | 6 + X + 2 | 6 + X + 3 | 6 + X + 4 |
+|---------------|-----------|-----------|-----------|-------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+| SIZE          |        2 Bytes        |  1 Byte   |   1 Byte    |  1 Bytes  |  1 Bytes  | Variable  |        2 Bytes        |  1 Bytes  |  1 Bytes  |
+| DESCRIPTION   |       SYNC_WORD       | COMMAND   | COMPRESSION |     DATA_LENGTH(X)    | Payload   |       CHECKSUM        |  DEVICEID |  STATUS   |
+| GB TO PRINTER |    0x88   |    0x33   | See Below | See Below   | Low Byte  | High Byte | See Below |       See Below       |    0x00   |    0x00   |
+| TO PRINTER    |    0x00   |    0x00   |    0x00   |   0x00      |    0x00   |    0x00   |    0x00   |    0x00   |    0x00   |    0x81   | See Below |</code></pre>
+<p><ul>
+<li>Header is the Command, Compression and Data Length</li>
+<li>Command field may be either Initialize (0x01), Data (0x04), Print (0x02), or Inquiry (0x0F).</li>
+<li>Compression field is a compression indicator. No compression (0x00), Yes Compression (0x01)</li>
+<li>Payload byte count size depends on the value of the <code>DATA_LENGTH</code> field.</li>
+<li>Checksum is 2 bytes of data representing the sum of the header + all data in the data portion of the packet</li>
+<li>Status byte is a bitfield byte indicating various status of the printer itself. (e.g. If it is still printing)</li>
+</ul></p>
+<p>With that sorted out, all that was left was cloning this protocol in software so that you could use an Arduino to emulate the printer and extract the actual image data being printed.</p>
+<p>So that meant that there was no software work for me to do, but I still had one challenge to solve myself: <b>how to actually run this thing?</b> I had no intentions of prying open an actual Game Boy cable, so something would have to be built.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<p>Luckily for me, Raphaël also <a href="https://github.com/Raphael-Boichot/Collection-of-PCB-for-Game-Boy-Printer-Emulators">designed PCBs</a> for this project, providing a much more elegant solution than ripping some cables apart. I ordered the Arduino Uno version from JLPCB, and after waiting a very long time for a third-party GBC port and some pin headers to arrive from China, I was now tasked with my first serious soldering job.</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/d65Cqni.png" alt="">                    
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/31Kg3GC.png" alt="">                    
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/zUn9e1f.png" alt="">                    
+</div>
+<p>I had no expectations that this would actually work, but soldering this project turned out to be easier than I expected, and everything worked first try!</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/Oz0I3Gm.png" alt="">                    
+</div>
+<p>The output of the Arduino is the raw photo information, which you then need to extract to later convert it to a proper image (there are many community built solutions on the README):</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/Wy5XViB.png" alt="">                    
+</div>
+<p>However I later found out that one of these solutions (<a href="https://herrzatacke.github.io/gb-printer-web/webusb/">the Game Boy Camera Gallery</a>) can even do the serial reading directly from the browser, so I didn’t even need to pull the serial logs from the Arduino. You can even change the color scheme of the photos to match the different color palettes you’d see across the different Game Boy models you could use the camera with which I thought was a really neat feature.</p>
+<p>Here are some of my favorite recently digitized photos:</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/1Cg6eDU.png" alt="">                    
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/TwoHhij.png" alt="">                    
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/5k7l7W3.png" alt="">                    
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/HzncIXE.png" alt="">                    
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/qb13Kel.png" alt="">                    
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/ilorCDO.png" alt="">                    
+</div>
+<div class="post-image">
+  <img src="https://i.imgur.com/WFqR9Ky.png" alt="">                    
+</div>
+]]></content>
+</entry><entry>
     <title>How my software engineering workflow has changed in the past year</title>
     <link href="https://swiftrocks.com/how-my-software-engineering-workflow-has-changed-in-the-past-year" rel="alternate" type="text/html" title="How my software engineering workflow has changed in the past year"/>
     <published>2026-03-07T15:51:11+01:00</published>
@@ -2003,96 +2093,5 @@ func myMainActorMethod() {}</code></pre>
 <p>The first case that comes to my mind is when you need to <b>debug something that you cannot reproduce</b>, which is something that <a href="https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles">I've covered previously here at SwiftRocks.</a> For cases like this you'll find Apple's performance trace profiles to be the best solution, which currently require you to use Xcode and the Time Profiler.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
 <p>Another case you might still need the Time Profiler for is when you're looking not just for performance data, but also other types of iOS-related information such as thread state, device temperature, battery level, os_logs, signposts, hangs, and so on. Nothing currently matches Xcode's Instruments when it comes to putting all this device information into one single place, so issues that require looking at multiple types of device information are still perfectly suited for it.</p>
-]]></content>
-</entry><entry>
-    <title>Performance Trace Profiles in iOS: Debugging performance issues you can't reproduce</title>
-    <link href="https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles" rel="alternate" type="text/html" title="Performance Trace Profiles in iOS: Debugging performance issues you can't reproduce"/>
-    <published>2023-06-01T13:30:00+02:00</published>
-    <updated>2023-06-01T13:30:00+02:00</updated>
-    <id>https://swiftrocks.com/debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles</id>
-    <author>
-        <name>Bruno Rocha</name>
-    </author>
-    <summary>The Performance Trace profile allows you to debug performance issues without having to attach the device to Xcode. Let's see what we can use it for!</summary>
-    <content type="text/html"><![CDATA[
-<p>If you landed at this article then it's possible that you're dealing with one of the most annoying things you can face as a developer: having to investigate an issue reported by your users that <b>nobody</b> seems to be able to reproduce internally.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>The topic of investigating <i>crashes</i> you can't reproduce is something I've already talked about here at SwiftRocks in the <a href="https://swiftrocks.com/how-to-solve-any-ios-crash-ever">"How To Solve Any iOS Crash Ever"</a> article, but what I wanted to show you today refers to a different yet equally challenging category of issues: <b>performance problems</b>, like hangs/freezing UI, slow code, unnecessary threading/concurrency, CPU/memory exceptions, and so on.</p>
-<p>While some of the techniques mentioned in the crashes article can also be used to investigate performance-related problems, chances are you won't have to, because this category of issues has access to a debugging weapon so powerful that you don't even need to run the app yourself to find the exact source of the problem!</p>
-<h2>Performance Trace Profiles</h2>
-<p><i>Debugging Profiles</i> are relatively unknown in the iOS community (possibly because the types of problems that require them are themselves quite rare to come across), but they are my current favorite way of debugging performance-related issues.</p>
-<p>The standard way of debugging performance problems is by hooking your device to Xcode's Instruments, but if you can't reproduce the issue yourself, then obviously you cannot do that. However, if you know <i>anyone</i> who can reproduce it (doesn't matter if it's a developer or a random user), you can still fully debug the problem by having them run a <b>Performance Trace</b> for you.</p>
-<p><b>Profiles</b> are files you open in your iOS device to temporarily unlock features that the device wouldn't normally have access to, something you might've already experienced if you ever enrolled one of your devices to the beta OS program. What you might not know though is that there are <i>many</i> types of profiles out there that you can install, and some of them are oriented towards helping you debug issues in your apps!</p>
-<p>As the name implies, the <b>Performance Trace</b> profile gives your device performance-tracing capabilities. To be more specific, it allows the device that has it to run a system trace of <b>everything</b> that is currently running on the phone, generating a trace that you can later extract and open in Instruments. In other words, it's like if you were locally running a profile build of your app, except that it doesn't require the device to be plugged anywhere and works on any device and build of your product, even the App Store ones.</p>
-<p><b>Be careful though, because with this great power comes also great responsibility; the trace will capture everything that is happening on the user's phone, which includes a lot of personal/sensitive information about that particular device.</b> If you're going to be asking strangers to do this process for you, make sure this is clear to them and that you're not violating any data protection laws from your country that may apply.</p>
-<h2>Running a Performance Trace</h2>
-<p>Follow these steps to enable performance tracing on your device:</p>
-<ol>
-<li>Open Apple's <a href="https://developer.apple.com/bug-reporting/profiles-and-logs/">Profiles and Logs</a> page.</li>
-<li>Find the <i>Performance Trace</i> entry in the list of profiles.</li>
-<li>Download the profile and install it on the device that can reproduce the issue. (You can, for example, use AirDrop to transfer the profile from a computer to the device).</li>
-<li>Restart the device if needed.</li>
-<li>Go to <i>Settings > Control Center > Customize Controls</i>, and then enable the <i>Performance Trace</i> control.</li>
-</ol>
-<p>To run a trace, follow these steps:</p>
-<ol>
-<li>Open Control Center and tap on the Performance Trace control to begin tracing.</li>
-<li>Open your app (if you haven't done it already), and reproduce the issue. Keep in mind that traces cannot be longer than 30 seconds.</li>
-<li>After reproducing the problem, either open Control Center and tap on the Performance Trace control again to stop tracing or wait for the 30 seconds time limit (after which the trace will automatically stop itself).</li>
-<li>Wait a while for your phone to process the trace. You will receive a notification when this is done containing the name of the generated file (usually <code>trace_somethingsomething.tgz</code>).</li>
-<li>Either tap the notification or go to <i>Settings > Privacy > Analytics & Improvements > Analytics Data</i></li>
-<li>Locate the trace in the list and send it to your Mac. Trace archives are usually a couple of hundred megabytes in size.</li>
-<li>(Optional) Find the profile in <i>Settings > VPN & Device Management</i> and delete it. The profile will otherwise automatically delete itself after 7 days.</li>
-</ol>
-<p>From your Mac, uncompress the archive. The result will be an instruments report that you can open in Xcode.</p>
-<h2>Analyzing the trace</h2>
-<p>Once you open the trace you may find that Xcode will highlight the <b>System Trace</b> instrument for you, and that's exactly what you should open. Keep in mind that by default no symbols will be resolved since the trace was generated outside of Xcode, so you'll need access to the dSYMs for the build that was traced in hand in order to make sense of the report. Instruments should be able to automatically symbolicate the report if the dSYMs are in your machine, but if it doesn't do that (it almost never does for me), you can manually provide the path to the dSYMs at File -> Symbols. If that also doesn't work, the <a href="https://swiftrocks.com/reverse-engineering-xcode-issue-crash-symbol">Spotlight refreshing steps mentioned in this article</a> should do the trick.</p>
-<p>I find that the best way to learn how to use this particular instrument is to <a href="https://developer.apple.com/videos/play/wwdc2016/411/">watch Apple's WWDC session about it</a>, but if you've watched it and still feel lost, the example below may help you.</p>
-<p>The System Trace instrument is basically the Time Profiler on steroids. While the latter (which I'm assuming you have prior experience with) allows you to analyze the CPU usage and memory footprint of an app, System Trace does that <b>in addition</b> to providing detailed information about the state of the different threads in the app, including what's causing them to not run code (if applicable). When facing performance issues, this additional threading information can usually point you to the exact source of the problem!</p>
-<p>Here's an example that shows how I usually approach performance issues. Consider this intentionally slow horrible piece of code:</p>
-<pre><code>final class ViewController: UIViewController {
-    let queue = DispatchQueue(label: "slow-queue")
-    let waitSemaphore = DispatchSemaphore(value: 0)
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        queue.async {
-            self.runVerySlowCode()
-            self.waitSemaphore.signal()
-        }
-        waitSemaphore.wait()
-        runVerySlowCode()
-    }
-
-    func runVerySlowCode() {
-        var arr = Array(0...100_000)
-        for i in (1..&lt;arr.count).reversed() {
-            for j in 0..&lt;i where arr[j] > arr[j + 1] {
-                arr.swapAt(j, j + 1)
-            }
-        }
-    }
-}</code></pre>
-<p>When displayed, this view controller will run some very expensive code in a background thread, <b>block itself</b> until that finishes (because why not?), and then proceed to run the same expensive code again because we really like it. This code, which results in the main thread hanging for several seconds, is obviously terrible, but pretend that somehow this slipped into production without your knowledge, your users are now complaining, and you had someone send you a performance trace. After opening the trace, you'll see something like this:</p>
- <div class="post-image margin-top-40 margin-bottom-40"> 
-  <img src="https://i.imgur.com/NbmMGSM.png" alt=""> 
- </div>
-<p>The System Trace instrument tracks the state of all threads in the process, and here you can immediately see that something's wrong: the main thread is marked as <b>Blocked</b> by something for a really long time and then running non-stop for also a really long time. Each of these actions will result in the app hanging.</p>
-<h2>Tips for debugging the blocked state</h2>
-<p>What I really like about this instrument is that it's capable of telling you exactly <i>why</i> a thread is marked as blocked. If you change the bottom inspector to the <b>Narrative</b> mode and move the timeline to the beginning of the blocked section, the instrument will tell you that the main thread was blocked by a semaphore, which was later released by another thread:</p>
- <div class="post-image margin-top-40 margin-bottom-40"> 
-  <img src="https://i.imgur.com/fvsiPfN.png" alt=""> 
- </div>
-<p>Many of the elements in this view are clickable and will provide more information when highlighted. In this case, by clicking the row that mentions the semaphore, you'll be able to see in the bottom right exactly which line triggered the event (which in this case is the semaphore in <code>viewWillAppear</code>). Another useful thing you can do is tap the name of the thread that eventually released it, which will take you to it in the timeline and reveal to you what exactly this thread was doing that caused the main thread to be blocked for so long (the next thing we'll look at).</p>
-<h2>Tips for debugging the excessive work</h2>
-<p>These traces will eventually lead you to a thread doing a lot of expensive work, and the process to debug those is no different than using the standard Time Profiler instrument; by highlighting the suspicious area and changing the bottom inspector to the <b>Profile</b> view, we can see what the app was doing at the time.</p>
-<p>I assume you already know how to use the Time Profiler so I'll skip explaining the many different ways in which you can read this data, but if you need a refresher, <a href="https://developer.apple.com/videos/play/wwdc2019">this WWDC session</a> should cover what you need to know. We had two such cases (the work being done by the background thread that caused the main thread to be blocked and the work the main thread did on itself) in our example, and in any of them we can see that <code>runVerySlowCode</code> is the method to blame.</p>
- <div class="post-image margin-top-40 margin-bottom-40"> 
-  <img src="https://i.imgur.com/894bK1H.png" alt="">
- </div>
-<h2>What else can Performance Traces be used for?</h2>
-<p>Performance Traces shine mostly in the very specific case we covered in the introduction: you are facing an issue that is connected to performance and for some reason you cannot reproduce it yourself. You could theoretically use it to gather data on more general logic/UI issues (assuming the data you're looking for would somehow materialize in the sampled stack traces), but for those cases, you'd probably find the steps defined in the <a href="https://swiftrocks.com/how-to-solve-any-ios-crash-ever">article about crashes</a> to be more effective.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
-<p>Despite being a rare situation to come by, these traces have saved by butt every time it happened and are now one of my favorite debugging techniques for this category of issues.</p>
 ]]></content>
 </entry></feed>
