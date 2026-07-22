@@ -19,11 +19,11 @@
     <author>
         <name>Bruno Rocha</name>
     </author>
-    <summary>One of my issues with current AI models is how they try to mimick human social patterns ("you're absolutely right!"). I made a prompt to get it to stop doing that.</summary>
+    <summary>One of my issues with current AI models is how they try to mimic human social patterns ("you're absolutely right!"). I made a prompt to get it to stop doing that.</summary>
     <content type="text/html"><![CDATA[
-<p>One of my issues with current AI models is how they try to mimick human social patterns (things like "great question!", "hmm, let me think", "you're absolutely right!", you know it). I'm not sure why these irk me as much as they do (maybe the combination of it being completely unnecessary with how obviously fake and dystopian it feels?) but they make working with AI almost unbearable to me. When I interact with AI I just want it to output things directly and clearly much like any CLI tool would, I don't need it to pretend to be something it's not.</p>
+<p>One of my issues with current AI models is how they try to mimic human social patterns (things like "great question!", "hmm, let me think", "you're absolutely right!", you know it). I'm not sure why these irk me as much as they do (maybe the combination of it being completely unnecessary with how obviously fake and dystopian it feels?) but they make working with AI almost unbearable to me. When I interact with AI I just want it to output things directly and clearly much like any CLI tool would, I don't need it to pretend to be something it's not.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
-<p>I then started writing a system prompt to get it to stop doing this, and after a couple iterations I arrived at something reasonably effective. I haven't ran any evals on top of it so there is certainly room for improvement when it comes to context window / token efficiency, but since all I wanted was to stop this behavior no matter what, it was good enough for me and I'm sharing it here in case anyone else would also like to try it!</p>
+<p>I then started writing a system prompt to get it to stop doing this, and after a couple iterations I arrived at something reasonably effective. I haven't run any evals on top of it so there is certainly room for improvement when it comes to context window / token efficiency, but since all I wanted was to stop this behavior no matter what, it was good enough for me and I'm sharing it here in case anyone else would also like to try it!</p>
 
 <p>The aim of it is to 1) remove all fake human behavior in favor of conciseness, and 2) have the model refer to itself based on its actual LLM capabilities when applicable (e.g. say "the algorithm predicted" instead of "I think").</p>
 
