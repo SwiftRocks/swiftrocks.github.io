@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/a-system-prompt-to-get-ai-to-stop-pretending-to-be-human</loc>
+    <lastmod>2026-07-22T07:53:31+0200</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/a-system-prompt-to-get-ai-to-stop-pretending-to-be-human.html</loc>
+    <lastmod>2026-07-22T07:53:31+0200</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/i-tried-to-record-music-onto-a-cassette-tape-using-modern-tech</loc>
     <lastmod>2026-07-17T10:25:35+0200</lastmod>
     <priority>0.80</priority>
@@ -116,12 +126,12 @@
 </url>
 <url>
     <loc>https://swiftrocks.com/blog</loc>
-    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
+    <lastmod>2026-07-22T07:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
     <loc>https://swiftrocks.com/blog.html</loc>
-    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
+    <lastmod>2026-07-22T07:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
@@ -916,12 +926,12 @@
 </url>
 <url>
     <loc>https://swiftrocks.com/index</loc>
-    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
+    <lastmod>2026-07-22T07:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
     <loc>https://swiftrocks.com/index.html</loc>
-    <lastmod>2025-01-23T14:00:00+02:00</lastmod>
+    <lastmod>2026-07-22T07:00:00+02:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
