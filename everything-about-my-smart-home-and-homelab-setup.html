@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <script src="https://use.fontawesome.com/afd448ce82.js"></script>
+    
+    <!-- Meta Tag -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO -->
+    <meta name="author" content="Bruno Rocha">
+    <meta name="keywords" content="Software, Engineering, Blog, Posts, iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
+    <meta name="description" content="I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post.">
+    <meta name="title" content="Everything about my smart home and homelab setup">
+    <meta name="url" content="https://swiftrocks.com/$WRITEIT_POST_HTML_NAME">
+    <meta name="image" content="https://swiftrocks.com/images/thumbs/thumb_dark.jpg">
+    <meta name="copyright" content="Bruno Rocha">
+    <meta name="robots" content="index,follow">
+
+    <meta property="og:title" content="Everything about my smart home and homelab setup"/>
+    <meta property="og:image" content="https://swiftrocks.com/images/thumbs/thumb_dark.jpg"/>
+    <meta property="og:description" content="I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://swiftrocks.com/$WRITEIT_POST_HTML_NAME"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/thumb_dark.jpg"/>
+    <meta name="twitter:image:alt" content="Page Thumbnail"/>
+    <meta name="twitter:title" content="Everything about my smart home and homelab setup"/>
+    <meta name="twitter:description" content="I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post."/>
+    <meta name="twitter:site" content="@rockbruno_"/>
+
+    <meta name="fediverse:creator" content="@rockbruno@hachyderm.io">
+
+    <!-- Favicon -->
+    <!-- 16x16 -->
+    <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/favicon/favicon_180.png" sizes="180x180">
+    <link rel="icon" href="images/favicon/favicon_32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="images/favicon/favicon_48.png" sizes="48x48" type="image/png">
+    <link rel="icon" href="images/favicon/favicon_96.png" sizes="96x96" type="image/png">
+    <link rel="icon" href="images/favicon/favicon_144.png" sizes="144x144" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+    <link rel="canonical" href="https://swiftrocks.com/$WRITEIT_POST_HTML_NAME"/>
+
+  <!-- Bootstrap CSS Plugins --> 
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <!-- Prism CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/prism5.css"> 
+  <!-- Main CSS Stylesheet --> 
+  <link rel="stylesheet" type="text/css" href="css/style49.css"> 
+  <link rel="stylesheet" type="text/css" href="css/sponsor5.css">
+    
+    <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <script type="application/ld+json">
+  {
+"@context": "https://schema.org",
+"@type": "BlogPosting",
+"mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://swiftrocks.com/everything-about-my-smart-home-and-homelab-setup"
+},
+"image": [
+  "https://swiftrocks.com/images/thumbs/thumb_dark.jpg"
+],
+"datePublished": "2026-08-02T09:29:03+0200",
+"dateModified": "2026-08-02T09:29:03+0200",
+"author": {
+  "@type": "Person",
+  "name": "Bruno Rocha"
+},
+ "publisher": {
+  "@type": "Organization",
+  "name": "SwiftRocks",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://swiftrocks.com/images/thumbs/thumb_dark.jpg"
+  }
+},
+"headline": "Everything about my smart home and homelab setup",
+    "abstract": "I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post."
+}
+  </script>
+    
+
+  </head>
+
+ <body>
+      
+    
+    
+     
+    
+    
+  <div id="main"> 
+<!-- Blog Header --> 
+         <!-- Blog Post (Right Sidebar) Start --> 
+   <div class="container"> 
+                 <div class="col-xs-12">
+                    <div class="page-body">
+                    	<div class="row">
+         <div><a class="logo-link" href="https://swiftrocks.com">
+           <img id="logo" class="logo" alt="SwiftRocks" src="images/bg/logo2dark.png">
+         </a>
+           <div class="menu-large">
+           <div class="menu-arrow-right"></div>
+           <div class="menu-header menu-header-large">
+           <div class="menu-item">
+            <a href="blog">blog</a>
+           </div>
+           <div class="menu-item">
+            <a href="about">about</a>
+           </div>
+           <div class="menu-item">
+            <a href="talks">talks</a>
+           </div>
+           <div class="menu-item">
+            <a href="projects">projects</a>
+           </div>
+           <div class="menu-item">
+            <a href="software-engineering-book-recommendations">book recs</a>
+           </div>
+           <div class="menu-item">
+            <a href="games">game recs</a>
+           </div>
+           <div class="menu-arrow-right-2"></div>
+           </div>
+           </div>
+           <div class="menu-small">
+           <div class="menu-arrow-right"></div>
+           <div class="menu-header menu-header-small-1">
+           <div class="menu-item">
+            <a href="blog">blog</a>
+           </div>
+           <div class="menu-item">
+            <a href="about">about</a>
+           </div>
+           <div class="menu-item">
+            <a href="talks">talks</a>
+           </div>
+           <div class="menu-item">
+            <a href="projects">projects</a>
+           </div>
+           <div class="menu-arrow-right-2"></div>
+           </div>
+           <div class="menu-arrow-right"></div>
+           <div class="menu-header menu-header-small-2">
+           <div class="menu-item">
+            <a href="software-engineering-book-recommendations">book recs</a>
+           </div>
+           <div class="menu-item">
+            <a href="games">game recs</a>
+           </div>
+           <div class="menu-arrow-right-2"></div>
+           </div>
+           </div>
+       </div>
+                            <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
+<!--WRITEIT_POST_NAME=Everything about my smart home and homelab setup-->
+<!--WRITEIT_POST_SITEMAP_DATE=2026-08-02T09:29:03+0200-->
+<!--WRITEIT_POST_SITEMAP_DATE_LAST_MOD=2026-08-02T09:29:03+0200-->
+
+<!--Add here the additional properties that you want each page to possess.-->
+<!--These properties can be used to change content in the template page or in the page itself as shown here.-->
+<!--Properties must start with 'WRITEIT_POST'.-->
+<!--Writeit provides and injects WRITEIT_POST_NAME, WRITEIT_POST_SITEMAP_DATE and WRITEIT_POST_SITEMAP_DATE_LAST_MOD by default, so these don't need to be stated here.-->
+
+<!--WRITEIT_POST_SHORT_DESCRIPTION=I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post.-->
+
+<title>Everything about my smart home and homelab setup</title>
+<div class="blog-post">
+  <div class="post-title-index">
+    <h1>Everything about my smart home and homelab setup</h1>
+  </div>  
+  <div class="post-info">
+    <div class="post-info-text">Published on 02 Aug 2026</div>
+  </div>
+<p>I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<h2>Part 1: Network stack</h2>
+<p>My network infra is entirely <b>Ubiquity</b> hardware for a simple reason: <b>I wanted something that was designed for power users, but also that didn’t have too much of a learning curve.</b> While I usually fit the criteria of a mega power user for this type of stuff, modern networks are extremely complicated, so I preferred to stop somewhere in the middle of the curve to avoid the stress of being unable to use the internet due to misconfigurations.</p>
+<p>By the way, before starting, <b>I would like to note that this setup is extremely overkill for the average home network!</b> I went for this simply because I thought it was cool, so if you’re reading this because you’re looking for equipment recommendations, keep in mind that something considerably less powerful would most likely already do the trick for you.</p>
+<h3>Router: Cloud Gateway Fiber</h3>
+<p>For the router, I chose the <a href="https://techspecs.ui.com/unifi/cloud-gateways/ucg-fiber?subcategory=all-cloud-gateways">Cloud Gateway Fiber</a> as this router is a complete bargain for what it brings to the table. Not only does it have <b>three 10 Gbps ports</b> (one of them being RJ45), including for WAN, it even has a PoE+ port that can power an AP. Usually something like this would be extremely expensive, but for some reason it just… isn’t, and I guess the market agrees, because finding one of these is a massive challenge. They are constantly sold out almost everywhere as of writing.</p>
+<h3>AP (WiFi): U7 Pro XG</h3>
+<p>For the AP, I chose the <a href="https://techspecs.ui.com/unifi/wifi/u7-pro-xg?subcategory=all-wifi">U7 Pro XG</a>, which is a WiFi 7 router with support for the 6 GHz band. This thing even has a 10 Gbps uplink for some reason which I can’t even use as the PoE+ port on the router is “only” 2.5 Gbps, but it was a very cheap upgrade compared to the regular version, so it seemed like a no-brainer. Luckily I do have WiFi 7 devices around already (the newest iPhones), so I can and am already making use of it.</p>
+<h3>Switch: Flex 2.5G</h3>
+<p>I prefer connecting things via Ethernet for maximum performance and reliability, so I chose a <a href="https://techspecs.ui.com/unifi/switching/usw-flex-2-5g-8?subcategory=switching-utility">Flex 2.5G switch</a> particularly because it has the same SFP+ port that the router has, allowing me to connect the two via fiber and get a clean 10 Gbps connection between them. I also have a second switch of the smaller variant on the opposite end of the aparment. Naturally this means I have long Ethernet cables running through the ceiling to reach all the different rooms of the aparment.</p>
+<h3>DNS: Pi-Hole</h3>
+<p>I have a simple <b>Raspberry Pi 3b running Pi-Hole</b> to act as my personal DNS server. It runs Unbound and has a cron job to update the root DNS server list every month. I do not enable it globally though; only certain devices make use of it because I want to prevent guests from having issues as the Pi-Hole makes certain types of websites a bit harder to navigate (sometimes it blocks more than it should and breaks the website).</p>
+<h3>VPN: WireGuard</h3>
+<p>My router has native WireGuard support, so I use it to have my phone connect to my home network whenever I'm not connected to my home Wi-Fi. The main use for this is for me to make use of the Pi-Hole anywhere, so as a result the VPN automatically sets the Pi-Hole as the DNS server for its connected devices. I also sometimes use it to access the router's admin console remotely. Nothing else is routed through this VPN.</p>
+<h3>IP Stack: IPv4 and IPv6 Dual Stack</h3>
+<p>I went through the trouble of enabling and configuring IPv6 on my network for no reason other than I thought it would be cool. Every VLAN and firewall feature mentioned below then accounts for both IPv4 and IPv6. When it comes to IPv6, the internal networks use SLAAC to distribute the prefixes and have ULAs setup to make writing the IPv6 variant of each firewall rule easier.</p> 
+<h3>VLAN and Firewall setup</h3>
+<p>My network today consists of a combination of “regular” devices (like my phone), servers, and random IoT devices. To connect these effectively and securely, I went for the following setup:</p>
+<ul>
+<li><b>VLAN1: Management</b></li>
+<ul><li>Contains only the Ubiquity hardware. Has full access to everything.</li></ul>
+<li><b>VLAN10: Trusted</b></li>
+<ul><li>Phones, computers, and my local servers (Pi-Hole, etc). Have <i>mostly</i> full access to everything, apart from gateway / admin console access which I have made so that only certain devices can access.</li></ul>
+<li><b>VLAN20: IoT</b></li>
+<ul><li>Everything home automation related that works via Wi-Fi. This VLAN is <b>completely locked down from everything.</b> It has no external internet access, and they cannot even contact each other (via Wi-Fi client isolation). They are only allowed very specific IP+port exceptions that I control at the firewall level, such as allowing some of the devices to send specific bits of information to my Home Assistant for automation purposes. Otherwise they cannot do anything.</li></ul>
+<li><b>VLAN90: VPN</b></li>
+<ul><li>Powers the WireGuard integration mentioned above. Fully locked down by default, with only a set of minimal firewall rules to allow my phone's IP to access the Pi-Hole and the admin console.</li></ul>
+</ul>
+<h3>Wi-Fi</h3>
+<p>My AP exposes three Wi-Fi SSIDs:</p>
+<ul>
+<li><b>"Max" network:</b> 5GHz and 6GHz bands, WPA3, Wi-Fi 7 features, basically a network that only has modern features enabled for modern devices.</li>
+<li><b>"Legacy" network:</b> 2.4GHz band and none of the modern stuff enabled. Used for older devices like the Nintendo Switch that cannot connect to the "Max" network for some reason (either because it only supports for 2.4Ghz or because one of those modern features causes it to not work properly)</li>
+<li><b>"IoT" network:</b> Similar to the "Legacy" network, but even more stripped down. Connects the device to the isolated IoT VLAN.</li>
+</ul>
+<p>To maximize performance and efficiency, every once in a while I use the AP's radio scanning features to find the most optional settings for things such as channel selection and transmit power for each band.</p>
+<h3>Final thoughts on Part 1</h3>
+<p>I’m very satisfied with my hardware and setup choices. Like I mentioned above this is all extremely overkill for what I actually use my home network for, but doing so resulted in me vastly increasing my networking knowledge and capabilities and that was my main goal here :)</p>
+<h2>Part 2: Smart Home / Home Automation</h2>
+<p>Everything in my smart home revolves around two main devices: A Home Assistant server and an Alexa.</p>
+<p>I use <a href="https://www.home-assistant.io/">Home Assistant OS</a> like many others. The way I like to describe HA is that it's an Alexa on steroids. With an Alexa, you buy smart devices, link them with the Alexa, and then setup automations to control those devices based on conditions like time, weather, and so on. But the problem with Alexas is that 1) the devices <i>must</i> support Alexas specifically, and 2) the automations themselves are very limited, only allowing you to do simple things.</p>
+<p>Home Assistant doesn't have such limitations. HA is <b>open-source</b> and has a thriving community, meaning you can find plugins that enable integrations for pretty much <b>anything</b> you can think of, and if you don't, you can build such plugins yourself assuming you have the programming chops to do it! HA is very extensible, and thus perfect for power users who want to set up complex automations or integrate unusual devices in unusual ways.</p>
+<h3>Primary Main Server: Raspberry Pi 5 w/ Zigbee Dongle running HAOS</h3>
+<p>For a long time, my hardware for running HAOS used to be a simple Raspberry Pi 3b and a SD card. The HA community tells you that this is a bad idea (The 3b is weak and SD cards can die if you use them too much), but in my experience this is fine as long as you don't have too many devices / automations / integrations. It's a good starting point, and it did the trick for me for a couple of years until I started wanting to do more complicated integrations.</p>
+<p>Nowadays, I've retired the 3b in favor of a <b>Raspberry Pi 5 w/ 8GB RAM, with a 256GB official RPi NVMe SSD and enclosed on the Argon One V3 case.</b> This gives HA enough power and cooling to do everything that I need with ease.</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/CRUuh6Q.png">
+</div>
+<p>Today I run the server via a wired connection, but there was a long period of time where I was running it through Wi-Fi. The community says that this is a bad idea for latency reasons, but I never had any such issues. While the wired connection is definitely much faster, the Wi-Fi latency never really bothered me, so I can confirm it's totally fine to run HA over Wi-Fi if you can't run a cable to it.</p>
+<p>The server has a <a href="https://www.amazon.se/-/en/ZBDongle-EFR32MG21-Coordinator-Universal-Assistant/dp/B0BRCWXMSF?th=1">Sonoff ZBDongle-E</a> USB antenna plugged into it to allow HA to recognize and drive Zigbee devices, which I'll mention in more detail further below.</p>
+<h3>Secondary Main Server: Amazon Alexa for voice control and Matter bridging</h3>
+<p>In conjunction with the HA server, I use an Alexa to do two things my HA server can't do by itself: <b>voice control and Matter bridging</b>. Since I don't have the HA's dedicated Matter antenna, I use the Alexa to host any Matter devices I purchase and then use HA's <a href="https://github.com/RiDDiX/home-assistant-matter-hub/">Matter Hub custom integration</a> to allow the Alexa to "share" these devices with my HA server. This allows me to control everything via the HA UI even though in practice some of the devices are actually "owned" by the Alexa itself. I then also use the same integration to do the <b>opposite</b> (share devices "owned" by HA with the Alexa), allowing me to control everything and anything via voice commands.</p>
+<h3>Dashboard Tablet</h3>
+<p>I'm using a generic Huawei Android tablet under my TV to serve not only as a physical dashboard, but also as a digital photo album when idle:</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/hETOc60.png">
+</div>
+<p>The dashboarding functionality itself is achieved by using <a href="https://wallpanel.xyz/">Wallpanel</a> to expose the tablet's controls to HA, while the photo album logic is handled via HA's <a href="https://github.com/j-a-n/lovelace-wallpanel">lovelace-wallpanel</a> custom integration. I host the photos on the HA itself. Since this is a Wi-Fi device, it connects to the IoT VLAN to fully isolate it from the external world (especially because this is a Chinese android device).</p>
+<h3>Communication: Wi-Fi, Bluetooth, Zigbee, Matter (Thread)</h3>
+<p>My smart devices implement different protocols depending on the type of device, with Zigbee currently comprising the great majority of them and Matter via Thread (the Matter "equivalent" of Zigbee) slowly catching up.</p>
+<p><b>If you have no idea what these words mean,</b> Zigbee and Thread are alternative wireless radio communication systems made specifically to be used by IoT devices. Unlike Wi-Fi, they use very little energy and lay off a mesh network where the devices can propagate information to each other (as opposed to Wi-Fi's "star" network where everything has to go through the router), making them perfect for home automation setups.</p>
+<div class="post-image">
+  <img src="https://i.imgur.com/6sxx3bR.jpeg">
+</div>
+<p>Matter on the other hand is simply a protocol designed to accomodate the fact that different devices might require communication capabilities. Back in the day there would be no straightforward way to make a Wi-Fi device talk (for example) to a device that <b>didn't</b> also use Wi-Fi, but today if both these devices implement Matter, they will be able to communicate as long as you have a <i>third</i> device somewhere that can act as a "translator" between these two two devices (referred to in the protocol as a "border router"). That's why when you purchase a Matter device that uses Thread you'll see a note that you need a "Thread border router" to use it; your home is primarily a Wi-Fi/Ethernet network, so something needs to be able to translate that from-and-to Thread commands for you to be able to plug it on said network. Most modern smart home hubs like the Alexa can act as such routers and are advertised as such.</p>
+<p>The reason I use Zigbee the most is simply because Matter via Thread was not yet a thing when I first bought these devices. Most new devices nowadays seem to not support Zigbee at all (opting to use solely Matter via Thread instead), so I expect that little by little my Zigbee usage will reduce until everything operates via Matter.</p>
+<h3>Proxying Bluetooth with ESP32s</h3>
+<p>Another critical component of my smart home worth mentioning is <b>Bluetooth Proxying</b>. Some of my devices operate via Bluetooth (curtain motors, plant monitors), but because the HA server itself is on a cabinet, they get zero signal that way.</p>
+<p>The solution to that is to have a device that can as a bridge between Wi-Fi and Bluetooth and place it near the Bluetooth devices. That way most of the data flows via Wi-Fi, and the Bluetooth connection itself gets perfect signal since the bridge will be right next to the devices in question.</p>
+<p>I use a single small inexpensive ESP32 S3 device to do this job. This is a very common use case, so the ESPHome addon for HA has built-in utilities to flash such devices with the right firmware and connect them to HA itself. It was very easy to set up this functionality.</p>
+<h3>Devices and Automations</h3>
+<p>Detailing every device I own would take too much time and probably not be interesting in the slightest, so here's a small summary: I got lamps, door sensors, buttons, remote controls, CO2 and air quality sensors, plant monitors, configurable displays to show whatever I want, smart switches, motion sensors, smart TV, a robot vaccuum, the list goes on. Everything is connected to HA and used in unison to provide a bunch of automations that I use to make my life easier. I also use the Home Assistant app itself to provide even more automation surfaces (mostly GPS and the ability to receive push notifications).</p>
+<p>Some of my favorite automations are:</p>
+<ul>
+  <li>Adjusting the color temperature of my hall lights depending on the sun's current position</li>
+  <li>Turning off the dashboard's screen when the TV is turned on, and on again when it's turned off, unless the "Time to Sleep" automation has been triggered very recently, in which case the automation should avoid turning it on again</li>
+  <li>Turning on / off the hall's lights based on motion, except if it's too late in the night or if the remote control has been used to manually adjust the light, in which case the automation should do nothing</li>
+  <li>Automatically turn on the living room lights when it starts getting late, and the later it gets, the more red the lights become to reduce my exposure to blue light before I go to sleep</li>
+  <li>Using HA's scripting functionality to expose an arbitrary set of commands as a dedicated entity that can be exposed to Alexa as a device (and thus enabling the script to be triggered via voice)</li>
+  <li>"Travel mode": A script / voice command that disables any and every time-based automation, plus turns of the entire home, to be used to save energy when I'm going to sleep somewhere else</li>
+  <li>Having physical buttons around the house and assigning pre-programmed actions to them such as opening / closing all curtains, or turning off everything when it's sleep time</li>
+  <li>Showing alerts on one of my smart displays if e.g. one of my plants need water</li>
+  <li>Getting phone notifications when the 3D Printer finishes printing</li>
+</ul>
+<h3>Important: No Smart Locks</h3>
+<p>I do not use smart locks because they make me uncomfortable. Sometimes I think it could be cool to be able to open my door with the same RFID tag I use to open the building's gate, but I also feel that I would be constantly stressed out when traveling thinking that the door would spontaneously unlock itself. So this became effectively a section of life where I explicitly do not want any tech or automation.</p>
+<div class="sponsor-article-ad-auto hidden"></div>
+<h3>Final thoughts on Part 2</h3>
+<p>As you can see, this is no different than coding any software. The biggest hurdle is providing an abstraction that allows HA to gather and send data to things that are not natively supported by the platform, but in my experience, even the most niche devices out there already have plug-and-play solutions developed by the community, which is amazing.</p>
+<p>When it comes to smart homes and homelabs the important thing is to make sure you're making your life easier. A mistake I see people make a lot is to make their networks and setups so overcomplicated that it actually becomes <b>harder</b> to live. The reason everything detailed here works for me is because it was meticulously organized to serve me, so I never feel that my home is working against me! :)</p>
+</div></div>
+                              
+   
+
+    <div class="blog-post footer-main">
+      <div class="footer-logos">
+        <a href="https://swiftrocks.com/rss.xml"><i class="fa fa-rss"></i></a>
+        <a href="https://hachyderm.io/@rockbruno"><svg class="svg-logo-link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M433 179.1c0-97.2-63.7-125.7-63.7-125.7-62.5-28.7-228.6-28.4-290.5 0 0 0-63.7 28.5-63.7 125.7 0 115.7-6.6 259.4 105.6 289.1 40.5 10.7 75.3 13 103.3 11.4 50.8-2.8 79.3-18.1 79.3-18.1l-1.7-36.9s-36.3 11.4-77.1 10.1c-40.4-1.4-83-4.4-89.6-54a102.5 102.5 0 0 1 -.9-13.9c85.6 20.9 158.7 9.1 178.8 6.7 56.1-6.7 105-41.3 111.2-72.9 9.8-49.8 9-121.5 9-121.5zm-75.1 125.2h-46.6v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.3V197c0-58.5-64-56.6-64-6.9v114.2H90.2c0-122.1-5.2-147.9 18.4-175 25.9-28.9 79.8-30.8 103.8 6.1l11.6 19.5 11.6-19.5c24.1-37.1 78.1-34.8 103.8-6.1 23.7 27.3 18.4 53 18.4 175z"/></svg></a>
+        <a href="https://twitter.com/rockbruno_"><i class="fa fa-twitter"></i></a>
+        <a href="https://github.com/rockbruno"><i class="fa fa-github"></i></a>
+      </div>
+      <div class="footer-text">
+        © 2026 Bruno Rocha
+      </div>
+      <div class="footer-text">
+        <p><a href="https://swiftrocks.com">Home</a>       /        <a href="blog">See all posts</a></p>
+      </div>
+      <div class="footer-text">
+        No AI has been ever used in this blog. Everything down to the HTML/CSS has been handcrafted by me.
+      </div>
+      </div>
+    </div>
+
+                         </div>
+
+</div>
+                        
+                           
+                         </div>
+                     
+                     
+                  </div>
+                  <!-- Blog Post (Right Sidebar) End -->
+                
+            </div>
+         </div>
+      </div>
+    
+    
+    <!-- All Javascript Plugins  -->
+  <script type="text/javascript" src="js/jquery.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/prism5.js"></script> 
+    <!-- Main Javascript File  -->
+    <script type="text/javascript" src="js/scripts30.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8KZTWSQ1R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H8KZTWSQ1R');
+</script>
+
+   </body>
+ </html>

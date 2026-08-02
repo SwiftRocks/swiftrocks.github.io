@@ -5,6 +5,16 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/everything-about-my-smart-home-and-homelab-setup</loc>
+    <lastmod>2026-08-02T09:29:03+0200</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/everything-about-my-smart-home-and-homelab-setup.html</loc>
+    <lastmod>2026-08-02T09:29:03+0200</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/a-system-prompt-to-get-ai-to-stop-pretending-to-be-human</loc>
     <lastmod>2026-07-22T07:53:31+0200</lastmod>
     <priority>0.80</priority>
