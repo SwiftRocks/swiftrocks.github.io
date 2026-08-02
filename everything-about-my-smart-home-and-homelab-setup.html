@@ -13,7 +13,7 @@
     <!-- SEO -->
     <meta name="author" content="Bruno Rocha">
     <meta name="keywords" content="Software, Engineering, Blog, Posts, iOS, Xcode, Swift, Articles, Tutorials, OBJ-C, Objective-C, Apple">
-    <meta name="description" content="I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post.">
+    <meta name="description" content="I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it changed so much over time that it's now time for an updated post! This time I'll put everything together in the same post.">
     <meta name="title" content="Everything about my smart home and homelab setup">
     <meta name="url" content="https://swiftrocks.com/$WRITEIT_POST_HTML_NAME">
     <meta name="image" content="https://swiftrocks.com/images/thumbs/thumb_dark.jpg">
@@ -22,7 +22,7 @@
 
     <meta property="og:title" content="Everything about my smart home and homelab setup"/>
     <meta property="og:image" content="https://swiftrocks.com/images/thumbs/thumb_dark.jpg"/>
-    <meta property="og:description" content="I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post."/>
+    <meta property="og:description" content="I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it changed so much over time that it's now time for an updated post! This time I'll put everything together in the same post."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://swiftrocks.com/$WRITEIT_POST_HTML_NAME"/>
 
@@ -30,7 +30,7 @@
     <meta name="twitter:image" content="https://swiftrocks.com/images/thumbs/thumb_dark.jpg"/>
     <meta name="twitter:image:alt" content="Page Thumbnail"/>
     <meta name="twitter:title" content="Everything about my smart home and homelab setup"/>
-    <meta name="twitter:description" content="I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post."/>
+    <meta name="twitter:description" content="I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it changed so much over time that it's now time for an updated post! This time I'll put everything together in the same post."/>
     <meta name="twitter:site" content="@rockbruno_"/>
 
     <meta name="fediverse:creator" content="@rockbruno@hachyderm.io">
@@ -90,7 +90,7 @@
   }
 },
 "headline": "Everything about my smart home and homelab setup",
-    "abstract": "I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post."
+    "abstract": "I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it changed so much over time that it's now time for an updated post! This time I'll put everything together in the same post."
 }
   </script>
     
@@ -177,7 +177,7 @@
 <!--Properties must start with 'WRITEIT_POST'.-->
 <!--Writeit provides and injects WRITEIT_POST_NAME, WRITEIT_POST_SITEMAP_DATE and WRITEIT_POST_SITEMAP_DATE_LAST_MOD by default, so these don't need to be stated here.-->
 
-<!--WRITEIT_POST_SHORT_DESCRIPTION=I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post.-->
+<!--WRITEIT_POST_SHORT_DESCRIPTION=I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it changed so much over time that it's now time for an updated post! This time I'll put everything together in the same post.-->
 
 <title>Everything about my smart home and homelab setup</title>
 <div class="blog-post">
@@ -187,30 +187,30 @@
   <div class="post-info">
     <div class="post-info-text">Published on 02 Aug 2026</div>
   </div>
-<p>I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it has been changing so much over time that it's now time for an updated post! This time I'll put everything together on the same post.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
+<p>I've written a couple of posts in the past about how my home network and home automation setup is laid out, but it changed so much over time that it's now time for an updated post! This time I'll put everything together in the same post.</p>
+<!-- <div class="sponsor-article-ad-auto hidden"></div> -->
 <h2>Part 1: Network stack</h2>
 <p>My network infra is entirely <b>Ubiquity</b> hardware for a simple reason: <b>I wanted something that was designed for power users, but also that didn’t have too much of a learning curve.</b> While I usually fit the criteria of a mega power user for this type of stuff, modern networks are extremely complicated, so I preferred to stop somewhere in the middle of the curve to avoid the stress of being unable to use the internet due to misconfigurations.</p>
 <p>By the way, before starting, <b>I would like to note that this setup is extremely overkill for the average home network!</b> I went for this simply because I thought it was cool, so if you’re reading this because you’re looking for equipment recommendations, keep in mind that something considerably less powerful would most likely already do the trick for you.</p>
 <h3>Router: Cloud Gateway Fiber</h3>
-<p>For the router, I chose the <a href="https://techspecs.ui.com/unifi/cloud-gateways/ucg-fiber?subcategory=all-cloud-gateways">Cloud Gateway Fiber</a> as this router is a complete bargain for what it brings to the table. Not only does it have <b>three 10 Gbps ports</b> (one of them being RJ45), including for WAN, it even has a PoE+ port that can power an AP. Usually something like this would be extremely expensive, but for some reason it just… isn’t, and I guess the market agrees, because finding one of these is a massive challenge. They are constantly sold out almost everywhere as of writing.</p>
+<p>For the router, I chose the <a href="https://techspecs.ui.com/unifi/cloud-gateways/ucg-fiber?subcategory=all-cloud-gateways">Cloud Gateway Fiber</a> as this router is a complete bargain for what it brings to the table. Not only does it have <b>three 10 Gbps ports</b> (one of them being RJ45), including one for WAN, it even has a PoE+ port that can power an AP. Usually something like this would be extremely expensive, but for some reason it just… isn’t, and I guess the market agrees, because finding one of these is a massive challenge. They are constantly sold out almost everywhere as of writing.</p>
 <h3>AP (WiFi): U7 Pro XG</h3>
 <p>For the AP, I chose the <a href="https://techspecs.ui.com/unifi/wifi/u7-pro-xg?subcategory=all-wifi">U7 Pro XG</a>, which is a WiFi 7 router with support for the 6 GHz band. This thing even has a 10 Gbps uplink for some reason which I can’t even use as the PoE+ port on the router is “only” 2.5 Gbps, but it was a very cheap upgrade compared to the regular version, so it seemed like a no-brainer. Luckily I do have WiFi 7 devices around already (the newest iPhones), so I can and am already making use of it.</p>
 <h3>Switch: Flex 2.5G</h3>
-<p>I prefer connecting things via Ethernet for maximum performance and reliability, so I chose a <a href="https://techspecs.ui.com/unifi/switching/usw-flex-2-5g-8?subcategory=switching-utility">Flex 2.5G switch</a> particularly because it has the same SFP+ port that the router has, allowing me to connect the two via fiber and get a clean 10 Gbps connection between them. I also have a second switch of the smaller variant on the opposite end of the aparment. Naturally this means I have long Ethernet cables running through the ceiling to reach all the different rooms of the aparment.</p>
+<p>I prefer connecting things via Ethernet for maximum performance and reliability, so I chose a <a href="https://techspecs.ui.com/unifi/switching/usw-flex-2-5g-8?subcategory=switching-utility">Flex 2.5G switch</a> particularly because it has the same SFP+ port that the router has, allowing me to connect the two via fiber and get a clean 10 Gbps connection between them. I also have a second switch of the smaller variant on the opposite end of the apartment. Naturally this means I have long Ethernet cables running through the ceiling to reach all the different rooms of the apartment.</p>
 <h3>DNS: Pi-Hole</h3>
 <p>I have a simple <b>Raspberry Pi 3b running Pi-Hole</b> to act as my personal DNS server. It runs Unbound and has a cron job to update the root DNS server list every month. I do not enable it globally though; only certain devices make use of it because I want to prevent guests from having issues as the Pi-Hole makes certain types of websites a bit harder to navigate (sometimes it blocks more than it should and breaks the website).</p>
 <h3>VPN: WireGuard</h3>
 <p>My router has native WireGuard support, so I use it to have my phone connect to my home network whenever I'm not connected to my home Wi-Fi. The main use for this is for me to make use of the Pi-Hole anywhere, so as a result the VPN automatically sets the Pi-Hole as the DNS server for its connected devices. I also sometimes use it to access the router's admin console remotely. Nothing else is routed through this VPN.</p>
 <h3>IP Stack: IPv4 and IPv6 Dual Stack</h3>
-<p>I went through the trouble of enabling and configuring IPv6 on my network for no reason other than I thought it would be cool. Every VLAN and firewall feature mentioned below then accounts for both IPv4 and IPv6. When it comes to IPv6, the internal networks use SLAAC to distribute the prefixes and have ULAs setup to make writing the IPv6 variant of each firewall rule easier.</p> 
+<p>I went through the trouble of enabling and configuring IPv6 on my network for no reason other than I thought it would be cool. Every VLAN and firewall feature mentioned below then accounts for both IPv4 and IPv6. When it comes to IPv6, the internal networks use SLAAC to distribute the prefixes and have ULAs set up to make writing the IPv6 variant of each firewall rule easier.</p> 
 <h3>VLAN and Firewall setup</h3>
 <p>My network today consists of a combination of “regular” devices (like my phone), servers, and random IoT devices. To connect these effectively and securely, I went for the following setup:</p>
 <ul>
 <li><b>VLAN1: Management</b></li>
 <ul><li>Contains only the Ubiquity hardware. Has full access to everything.</li></ul>
 <li><b>VLAN10: Trusted</b></li>
-<ul><li>Phones, computers, and my local servers (Pi-Hole, etc). Have <i>mostly</i> full access to everything, apart from gateway / admin console access which I have made so that only certain devices can access.</li></ul>
+<ul><li>Phones, computers, and my local servers (Pi-Hole, etc). Has <i>mostly</i> full access to everything, apart from gateway / admin console access which I have made so that only certain devices can access.</li></ul>
 <li><b>VLAN20: IoT</b></li>
 <ul><li>Everything home automation related that works via Wi-Fi. This VLAN is <b>completely locked down from everything.</b> It has no external internet access, and they cannot even contact each other (via Wi-Fi client isolation). They are only allowed very specific IP+port exceptions that I control at the firewall level, such as allowing some of the devices to send specific bits of information to my Home Assistant for automation purposes. Otherwise they cannot do anything.</li></ul>
 <li><b>VLAN90: VPN</b></li>
@@ -220,19 +220,19 @@
 <p>My AP exposes three Wi-Fi SSIDs:</p>
 <ul>
 <li><b>"Max" network:</b> 5GHz and 6GHz bands, WPA3, Wi-Fi 7 features, basically a network that only has modern features enabled for modern devices.</li>
-<li><b>"Legacy" network:</b> 2.4GHz band and none of the modern stuff enabled. Used for older devices like the Nintendo Switch that cannot connect to the "Max" network for some reason (either because it only supports for 2.4Ghz or because one of those modern features causes it to not work properly)</li>
+<li><b>"Legacy" network:</b> 2.4GHz band and none of the modern stuff enabled. Used for older devices like the Nintendo Switch that cannot connect to the "Max" network for some reason (either because it only supports 2.4Ghz or because one of those modern features causes it to not work properly)</li>
 <li><b>"IoT" network:</b> Similar to the "Legacy" network, but even more stripped down. Connects the device to the isolated IoT VLAN.</li>
 </ul>
-<p>To maximize performance and efficiency, every once in a while I use the AP's radio scanning features to find the most optional settings for things such as channel selection and transmit power for each band.</p>
+<p>To maximize performance and efficiency, every once in a while I use the AP's radio scanning features to find the most optimal settings for things such as channel selection and transmit power for each band.</p>
 <h3>Final thoughts on Part 1</h3>
-<p>I’m very satisfied with my hardware and setup choices. Like I mentioned above this is all extremely overkill for what I actually use my home network for, but doing so resulted in me vastly increasing my networking knowledge and capabilities and that was my main goal here :)</p>
+<p>I’m very satisfied with my hardware and setup choices. As I mentioned above this is all extremely overkill for what I actually use my home network for, but doing so resulted in me vastly increasing my networking knowledge and capabilities and that was my main goal here :)</p>
 <h2>Part 2: Smart Home / Home Automation</h2>
 <p>Everything in my smart home revolves around two main devices: A Home Assistant server and an Alexa.</p>
-<p>I use <a href="https://www.home-assistant.io/">Home Assistant OS</a> like many others. The way I like to describe HA is that it's an Alexa on steroids. With an Alexa, you buy smart devices, link them with the Alexa, and then setup automations to control those devices based on conditions like time, weather, and so on. But the problem with Alexas is that 1) the devices <i>must</i> support Alexas specifically, and 2) the automations themselves are very limited, only allowing you to do simple things.</p>
+<p>I use <a href="https://www.home-assistant.io/">Home Assistant OS</a> like many others. The way I like to describe HA is that it's an Alexa on steroids. With an Alexa, you buy smart devices, link them with the Alexa, and then set up automations to control those devices based on conditions like time, weather, and so on. But the problem with Alexas is that 1) the devices <i>must</i> support Alexas specifically, and 2) the automations themselves are very limited, only allowing you to do simple things.</p>
 <p>Home Assistant doesn't have such limitations. HA is <b>open-source</b> and has a thriving community, meaning you can find plugins that enable integrations for pretty much <b>anything</b> you can think of, and if you don't, you can build such plugins yourself assuming you have the programming chops to do it! HA is very extensible, and thus perfect for power users who want to set up complex automations or integrate unusual devices in unusual ways.</p>
 <h3>Primary Main Server: Raspberry Pi 5 w/ Zigbee Dongle running HAOS</h3>
-<p>For a long time, my hardware for running HAOS used to be a simple Raspberry Pi 3b and a SD card. The HA community tells you that this is a bad idea (The 3b is weak and SD cards can die if you use them too much), but in my experience this is fine as long as you don't have too many devices / automations / integrations. It's a good starting point, and it did the trick for me for a couple of years until I started wanting to do more complicated integrations.</p>
-<p>Nowadays, I've retired the 3b in favor of a <b>Raspberry Pi 5 w/ 8GB RAM, with a 256GB official RPi NVMe SSD and enclosed on the Argon One V3 case.</b> This gives HA enough power and cooling to do everything that I need with ease.</p>
+<p>For a long time, my hardware for running HAOS used to be a simple Raspberry Pi 3b and an SD card. The HA community tells you that this is a bad idea (The 3b is weak and SD cards can die if you use them too much), but in my experience this is fine as long as you don't have too many devices / automations / integrations. It's a good starting point, and it did the trick for me for a couple of years until I started wanting to do more complicated integrations.</p>
+<p>Nowadays, I've retired the 3b in favor of a <b>Raspberry Pi 5 w/ 8GB RAM, with a 256GB official RPi NVMe SSD and enclosed in the Argon One V3 case.</b> This gives HA enough power and cooling to do everything that I need with ease.</p>
 <div class="post-image">
   <img src="https://i.imgur.com/CRUuh6Q.png">
 </div>
@@ -245,21 +245,21 @@
 <div class="post-image">
   <img src="https://i.imgur.com/hETOc60.png">
 </div>
-<p>The dashboarding functionality itself is achieved by using <a href="https://wallpanel.xyz/">Wallpanel</a> to expose the tablet's controls to HA, while the photo album logic is handled via HA's <a href="https://github.com/j-a-n/lovelace-wallpanel">lovelace-wallpanel</a> custom integration. I host the photos on the HA itself. Since this is a Wi-Fi device, it connects to the IoT VLAN to fully isolate it from the external world (especially because this is a Chinese android device).</p>
+<p>The dashboarding functionality itself is achieved by using <a href="https://wallpanel.xyz/">Wallpanel</a> to expose the tablet's controls to HA, while the photo album logic is handled via HA's <a href="https://github.com/j-a-n/lovelace-wallpanel">lovelace-wallpanel</a> custom integration. I host the photos on HA itself. Since this is a Wi-Fi device, it connects to the IoT VLAN to fully isolate it from the external world (especially because this is a Chinese Android device).</p>
 <h3>Communication: Wi-Fi, Bluetooth, Zigbee, Matter (Thread)</h3>
 <p>My smart devices implement different protocols depending on the type of device, with Zigbee currently comprising the great majority of them and Matter via Thread (the Matter "equivalent" of Zigbee) slowly catching up.</p>
-<p><b>If you have no idea what these words mean,</b> Zigbee and Thread are alternative wireless radio communication systems made specifically to be used by IoT devices. Unlike Wi-Fi, they use very little energy and lay off a mesh network where the devices can propagate information to each other (as opposed to Wi-Fi's "star" network where everything has to go through the router), making them perfect for home automation setups.</p>
+<p><b>If you have no idea what these words mean,</b> Zigbee and Thread are alternative wireless radio communication systems made specifically to be used by IoT devices. Unlike Wi-Fi, they use very little energy and lay out a mesh network where the devices can propagate information to each other (as opposed to Wi-Fi's "star" network where everything has to go through the router), making them perfect for home automation setups.</p>
 <div class="post-image">
   <img src="https://i.imgur.com/6sxx3bR.jpeg">
 </div>
-<p>Matter on the other hand is simply a protocol designed to accomodate the fact that different devices might require communication capabilities. Back in the day there would be no straightforward way to make a Wi-Fi device talk (for example) to a device that <b>didn't</b> also use Wi-Fi, but today if both these devices implement Matter, they will be able to communicate as long as you have a <i>third</i> device somewhere that can act as a "translator" between these two two devices (referred to in the protocol as a "border router"). That's why when you purchase a Matter device that uses Thread you'll see a note that you need a "Thread border router" to use it; your home is primarily a Wi-Fi/Ethernet network, so something needs to be able to translate that from-and-to Thread commands for you to be able to plug it on said network. Most modern smart home hubs like the Alexa can act as such routers and are advertised as such.</p>
-<p>The reason I use Zigbee the most is simply because Matter via Thread was not yet a thing when I first bought these devices. Most new devices nowadays seem to not support Zigbee at all (opting to use solely Matter via Thread instead), so I expect that little by little my Zigbee usage will reduce until everything operates via Matter.</p>
+<p>Matter on the other hand is simply a protocol designed to accommodate the fact that different devices might require communication capabilities. Back in the day there would be no straightforward way to make a Wi-Fi device talk (for example) to a device that <b>didn't</b> also use Wi-Fi, but today if both these devices implement Matter, they will be able to communicate as long as you have a <i>third</i> device somewhere that can act as a "translator" between these two two devices (referred to in the protocol as a "border router"). That's why when you purchase a Matter device that uses Thread you'll see a note that you need a "Thread border router" to use it; your home is primarily a Wi-Fi/Ethernet network, so something needs to be able to translate that from-and-to Thread commands for you to be able to plug it on said network. Most modern smart home hubs like the Alexa can act as such routers and are advertised as such.</p>
+<p>The reason I use Zigbee the most is simply that Matter via Thread was not yet a thing when I first bought these devices. Most new devices nowadays seem to not support Zigbee at all (opting to use solely Matter via Thread instead), so I expect that little by little my Zigbee usage will reduce until everything operates via Matter.</p>
 <h3>Proxying Bluetooth with ESP32s</h3>
-<p>Another critical component of my smart home worth mentioning is <b>Bluetooth Proxying</b>. Some of my devices operate via Bluetooth (curtain motors, plant monitors), but because the HA server itself is on a cabinet, they get zero signal that way.</p>
-<p>The solution to that is to have a device that can as a bridge between Wi-Fi and Bluetooth and place it near the Bluetooth devices. That way most of the data flows via Wi-Fi, and the Bluetooth connection itself gets perfect signal since the bridge will be right next to the devices in question.</p>
+<p>Another critical component of my smart home worth mentioning is <b>Bluetooth Proxying</b>. Some of my devices operate via Bluetooth (curtain motors, plant monitors), but because the HA server itself is in a cabinet, they get zero signal that way.</p>
+<p>The solution to that is to have a device that acts as a bridge between Wi-Fi and Bluetooth and place it near the Bluetooth devices. That way most of the data flows via Wi-Fi, and the Bluetooth connection itself gets a perfect signal since the bridge will be right next to the devices in question.</p>
 <p>I use a single small inexpensive ESP32 S3 device to do this job. This is a very common use case, so the ESPHome addon for HA has built-in utilities to flash such devices with the right firmware and connect them to HA itself. It was very easy to set up this functionality.</p>
 <h3>Devices and Automations</h3>
-<p>Detailing every device I own would take too much time and probably not be interesting in the slightest, so here's a small summary: I got lamps, door sensors, buttons, remote controls, CO2 and air quality sensors, plant monitors, configurable displays to show whatever I want, smart switches, motion sensors, smart TV, a robot vaccuum, the list goes on. Everything is connected to HA and used in unison to provide a bunch of automations that I use to make my life easier. I also use the Home Assistant app itself to provide even more automation surfaces (mostly GPS and the ability to receive push notifications).</p>
+<p>Detailing every device I own would take too much time and probably not be interesting in the slightest, so here's a small summary: I got lamps, door sensors, buttons, remote controls, CO2 and air quality sensors, plant monitors, configurable displays to show whatever I want, smart switches, motion sensors, smart TV, a robot vacuum, the list goes on. Everything is connected to HA and used in unison to provide a bunch of automations that I use to make my life easier. I also use the Home Assistant app itself to provide even more automation surfaces (mostly GPS and the ability to receive push notifications).</p>
 <p>Some of my favorite automations are:</p>
 <ul>
   <li>Adjusting the color temperature of my hall lights depending on the sun's current position</li>
@@ -267,17 +267,17 @@
   <li>Turning on / off the hall's lights based on motion, except if it's too late in the night or if the remote control has been used to manually adjust the light, in which case the automation should do nothing</li>
   <li>Automatically turn on the living room lights when it starts getting late, and the later it gets, the more red the lights become to reduce my exposure to blue light before I go to sleep</li>
   <li>Using HA's scripting functionality to expose an arbitrary set of commands as a dedicated entity that can be exposed to Alexa as a device (and thus enabling the script to be triggered via voice)</li>
-  <li>"Travel mode": A script / voice command that disables any and every time-based automation, plus turns of the entire home, to be used to save energy when I'm going to sleep somewhere else</li>
+  <li>"Travel mode": A script / voice command that disables any and every time-based automation, plus turns off the entire home, to be used to save energy when I'm going to sleep somewhere else</li>
   <li>Having physical buttons around the house and assigning pre-programmed actions to them such as opening / closing all curtains, or turning off everything when it's sleep time</li>
-  <li>Showing alerts on one of my smart displays if e.g. one of my plants need water</li>
+  <li>Showing alerts on one of my smart displays if e.g. one of my plants needs water</li>
   <li>Getting phone notifications when the 3D Printer finishes printing</li>
 </ul>
 <h3>Important: No Smart Locks</h3>
 <p>I do not use smart locks because they make me uncomfortable. Sometimes I think it could be cool to be able to open my door with the same RFID tag I use to open the building's gate, but I also feel that I would be constantly stressed out when traveling thinking that the door would spontaneously unlock itself. So this became effectively a section of life where I explicitly do not want any tech or automation.</p>
-<div class="sponsor-article-ad-auto hidden"></div>
+<!-- <div class="sponsor-article-ad-auto hidden"></div> -->
 <h3>Final thoughts on Part 2</h3>
 <p>As you can see, this is no different than coding any software. The biggest hurdle is providing an abstraction that allows HA to gather and send data to things that are not natively supported by the platform, but in my experience, even the most niche devices out there already have plug-and-play solutions developed by the community, which is amazing.</p>
-<p>When it comes to smart homes and homelabs the important thing is to make sure you're making your life easier. A mistake I see people make a lot is to make their networks and setups so overcomplicated that it actually becomes <b>harder</b> to live. The reason everything detailed here works for me is because it was meticulously organized to serve me, so I never feel that my home is working against me! :)</p>
+<p>When it comes to smart homes and homelabs the important thing is to make sure you're making your life easier. A mistake I see people make a lot is to make their networks and setups so overcomplicated that it actually becomes <b>harder</b> to live. The reason everything detailed here works for me is that it was meticulously organized to serve me, so I never feel that my home is working against me! :)</p>
 </div></div>
                               
    
