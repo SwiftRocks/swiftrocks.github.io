@@ -169,7 +169,7 @@
        </div>
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
 <!--WRITEIT_POST_NAME=Performance Trace Profiles in iOS: Debugging performance issues you can't reproduce-->
-<!--WRITEIT_POST_HTML_NAME=debugging-ios-performance-issues-you-cant-reproduce-with-performance-trace-profiles-->
+
 
 <!--Add here the additional properties that you want each page to possess.-->
 <!--These properties can be used to change content in the template page or in the page itself as shown here.-->
@@ -186,7 +186,7 @@
 <div class="blog-post">
   <div class="post-title-index">
     <h1>Performance Trace Profiles in iOS: Debugging performance issues you can't reproduce</h1>
-  </div>  
+  </div>
   <div class="post-info">
     <div class="post-info-text">Published on 01 Jun 2023</div>
   </div>
@@ -249,20 +249,20 @@
     }
 }</code></pre>
 <p>When displayed, this view controller will run some very expensive code in a background thread, <b>block itself</b> until that finishes (because why not?), and then proceed to run the same expensive code again because we really like it. This code, which results in the main thread hanging for several seconds, is obviously terrible, but pretend that somehow this slipped into production without your knowledge, your users are now complaining, and you had someone send you a performance trace. After opening the trace, you'll see something like this:</p>
- <div class="post-image margin-top-40 margin-bottom-40"> 
-  <img src="https://i.imgur.com/NbmMGSM.png" alt=""> 
+ <div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/NbmMGSM.png" alt="">
  </div>
 <p>The System Trace instrument tracks the state of all threads in the process, and here you can immediately see that something's wrong: the main thread is marked as <b>Blocked</b> by something for a really long time and then running non-stop for also a really long time. Each of these actions will result in the app hanging.</p>
 <h2>Tips for debugging the blocked state</h2>
 <p>What I really like about this instrument is that it's capable of telling you exactly <i>why</i> a thread is marked as blocked. If you change the bottom inspector to the <b>Narrative</b> mode and move the timeline to the beginning of the blocked section, the instrument will tell you that the main thread was blocked by a semaphore, which was later released by another thread:</p>
- <div class="post-image margin-top-40 margin-bottom-40"> 
-  <img src="https://i.imgur.com/fvsiPfN.png" alt=""> 
+ <div class="post-image margin-top-40 margin-bottom-40">
+  <img src="https://i.imgur.com/fvsiPfN.png" alt="">
  </div>
 <p>Many of the elements in this view are clickable and will provide more information when highlighted. In this case, by clicking the row that mentions the semaphore, you'll be able to see in the bottom right exactly which line triggered the event (which in this case is the semaphore in <code>viewWillAppear</code>). Another useful thing you can do is tap the name of the thread that eventually released it, which will take you to it in the timeline and reveal to you what exactly this thread was doing that caused the main thread to be blocked for so long (the next thing we'll look at).</p>
 <h2>Tips for debugging the excessive work</h2>
 <p>These traces will eventually lead you to a thread doing a lot of expensive work, and the process to debug those is no different than using the standard Time Profiler instrument; by highlighting the suspicious area and changing the bottom inspector to the <b>Profile</b> view, we can see what the app was doing at the time.</p>
 <p>I assume you already know how to use the Time Profiler so I'll skip explaining the many different ways in which you can read this data, but if you need a refresher, <a href="https://developer.apple.com/videos/play/wwdc2019">this WWDC session</a> should cover what you need to know. We had two such cases (the work being done by the background thread that caused the main thread to be blocked and the work the main thread did on itself) in our example, and in any of them we can see that <code>runVerySlowCode</code> is the method to blame.</p>
- <div class="post-image margin-top-40 margin-bottom-40"> 
+ <div class="post-image margin-top-40 margin-bottom-40">
   <img src="https://i.imgur.com/894bK1H.png" alt="">
  </div>
 <h2>What else can Performance Traces be used for?</h2>

@@ -169,7 +169,7 @@
        </div>
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
 <!--WRITEIT_POST_NAME=Benchmarking Swift Code Properly with Attabench-->
-<!--WRITEIT_POST_HTML_NAME=benchmarking-swift-code-properly-with-attabench-->
+
 
 <!--Add here the additional properties that you want each page to possess.-->
 <!--These properties can be used to change content in the template page or in the page itself as shown here.-->
@@ -186,9 +186,9 @@
 <div class="blog-post">
   <div class="post-title-index">
     <h1>Benchmarking Swift Code Properly with Attabench</h1>
-  </div>  
+  </div>
   <div class="post-info">
-    
+
     <div class="post-info-text">Published on 20 Jul 2021</div>
   </div>
 <p>Hmmmm, how fast is this piece of code? Let's find out!</p>
@@ -197,7 +197,7 @@
 <h2>Introducing Attabench</h2>
 <p><b>Attabench</b> is an open-source benchmarking tool created by Apple engineer Karoy Lorentey back in 2017 and has been my favorite benchmarking utility ever since I found it. The tool itself is a wrapper on top of Swift Package Manager that includes a benchmarking framework in where you can set up the code you'd like to measure, accompanied by a GUI app that lets you to see and customize how the result is presented:</p>
 <div class="post-image">
-  <img src="https://i.imgur.com/4p4iHrb.png" alt="Attabench">                             
+  <img src="https://i.imgur.com/4p4iHrb.png" alt="Attabench">
 </div>
 <p>The measuring process is similar to how one would do with a playground, but Attabench's SPM abstraction not only compiles your app in the release configuration but also runs your code multiple times with different inputs, later providing a graph showing how your code behaves in function of the size of its input.</p>
 <p>The project has technically been abandoned in favor of the <a href="https://github.com/apple/swift-collections-benchmark">Swift Collections Benchmark package</a> that is roughly the same thing as Attabench, but the package is heavily command-line based which makes it a lot harder to use than Attabench. For that reason, I think that Attabench is still the superior benchmarking tool.</p>
@@ -205,7 +205,7 @@
 <p>Before you open Attabench, we must first create a benchmarking file. It doesn't seem like you can create this from the tool itself, so we'll do it by copying an existing one. The zip downloaded I linked earlier has a <b>Sorting.attabench</b> file -- copy it somewhere and open it with Attabench.</p>
 <p>When you open the file, you'll see a benchmark that compares Swift's default sorting method with a custom Quicksort. If you click the <b>Run</b> button, Attabench will start continuously running the two methods with different input sizes and update the graph as it proceeds:</p>
 <div class="post-image">
-  <img src="https://i.imgur.com/Gk4PxMV.png" alt="Alt">                                    
+  <img src="https://i.imgur.com/Gk4PxMV.png" alt="Alt">
 </div>
 <p>It takes a massive amount of time for Attabench to fully complete its run, but you don't need for all of it. I normally wait just a couple of seconds until the graph appears to be stable enough and stop it.</p>
 <p>One interesting configuration you can play with is the <b>input size</b> in the top left of the app, which controls the minimum and maximum value that Attabench will use in its runs. In this case, the value between 1 and 1 million dictates the number of elements in the array that is going to be parsed.</p>

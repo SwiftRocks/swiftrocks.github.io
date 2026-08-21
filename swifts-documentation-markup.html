@@ -169,7 +169,7 @@
        </div>
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
 <!--WRITEIT_POST_NAME=Swift's Documentation Markup-->
-<!--WRITEIT_POST_HTML_NAME=swifts-documentation-markup-->
+
 
 <!--Add here the additional properties that you want each page to possess.-->
 <!--These properties can be used to change content in the template page or in the page itself as shown here.-->
@@ -186,9 +186,9 @@
 <div class="blog-post">
   <div class="post-title-index">
     <h1>Swift's Documentation Markup</h1>
-  </div>  
+  </div>
   <div class="post-info">
-    
+
     <div class="post-info-text">Published on 17 Aug 2021</div>
   </div>
 <p>Swift always had its own documentation format, but the introduction of DocC in Xcode 13 added some cool new features. Let's take a look at what we can do now!</p>
@@ -244,7 +244,7 @@ MARKUP_SIMPLE_FIELD(RecommendedoverField, recommendedover, Recommendedover)</cod
 /// - Returns: A combined publisher that has the condition of both publishers.
 func ...</code></pre>
 <div class="post-image">
-  <img src="https://i.imgur.com/AMjU98I.png" alt="Alt">                                    
+  <img src="https://i.imgur.com/AMjU98I.png" alt="Alt">
 </div>
 <h2>Xcode specific features</h2>
 <p>Although most of the work is inside Swift, Xcode has some features of its own. You may know by now that Xcode can render Markdown, and perhaps the most interesting use of it in my opinion is to add links to the documentation:</p>
@@ -252,7 +252,7 @@ func ...</code></pre>
 ///
 /// - Bug:[IOS-10395](https://myjira.com/ios/10395)</code></pre>
 <div class="post-image">
-  <img src="https://i.imgur.com/Fm3UssT.png" alt="Alt">                                    
+  <img src="https://i.imgur.com/Fm3UssT.png" alt="Alt">
 </div>
 <p>But Xcode also has some styling utilities. I especially like that you can create horizontal rules:</p>
 <pre><code>An example of using a *horizontal rule*
@@ -260,26 +260,26 @@ func ...</code></pre>
 This text is above the horizontal rule
 
 *  *  *  *  *
- 
+
 And this is below</code></pre>
 <div class="post-image">
-  <img src="https://i.imgur.com/AAnJMbf.png" alt="Alt">                                    
+  <img src="https://i.imgur.com/AAnJMbf.png" alt="Alt">
 </div>
 <p>But unfortunately, Xcode's coolest documentation features are restricted to playgrounds. In a playground, the link markup can be used even to display videos:</p>
 <pre><code>//: Watch the WWDC session introducing the San Francisco Font
 //: ![San Francisco font introduction](new-fonts.mp4)</code></pre>
 <div class="post-image">
-  <img src="https://i.imgur.com/oFW6TS8.png" alt="Alt">                                    
+  <img src="https://i.imgur.com/oFW6TS8.png" alt="Alt">
 </div>
 <p>Xcode also claims to support a heading markup to display larger text, but it doesn't seem to work in the latest Xcode versions.</p>
 <pre><code>/**
   An example of using a character underline for a *heading*
- 
+
   This is a Heading 1
   ===================
  */</code></pre>
 <div class="post-image">
-  <img src="https://i.imgur.com/hLAFybL.png" alt="Alt">                                    
+  <img src="https://i.imgur.com/hLAFybL.png" alt="Alt">
 </div>
 <h2>Changes introduced with Xcode 13 / DocC</h2>
 <p>With Apple's new documentation page generation tool released in Xcode 13, you now have the ability to <b>reference code</b>. You could already write chunks of code with <code>`</code> or <code>```swift</code> for blocks, but it didn't actually link to the references:</p>
@@ -290,14 +290,14 @@ And this is below</code></pre>
 /// let combined = publisher.combineCondition(publisherB)
 /// ```</code></pre>
 <div class="post-image">
-  <img src="https://i.imgur.com/OVgrJEp.png" alt="Alt">                                    
+  <img src="https://i.imgur.com/OVgrJEp.png" alt="Alt">
 </div>
 <p>In Xcode 13, a new double backtick markup was introduced for this purpose to allow DocC to reference other pages:</p>
 <div class="post-image">
-  <img src="https://i.imgur.com/X11pshP.png" alt="Alt">                                    
+  <img src="https://i.imgur.com/X11pshP.png" alt="Alt">
 </div>
 <div class="post-image">
-  <img src="https://i.imgur.com/RMZReD6.png" alt="Alt">                                    
+  <img src="https://i.imgur.com/RMZReD6.png" alt="Alt">
 </div>
 <p>References of the same class can be reference by just typing the name, while references from other types can be referenced with the <code>``Type/property``</code> format. There's even code completion!</p>
 <div class="sponsor-article-ad-auto hidden"></div>

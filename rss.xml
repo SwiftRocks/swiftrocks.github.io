@@ -823,10 +823,10 @@ Change swiftrocks.txt back</code></pre>
 </ul>
 <p><b>It's only after understanding this context that you can consider yourself ready to come up with a technical solution to it.</b> But what happens a lot is that some engineers tend to <b>immediately</b> jump into problem-solving as soon as they are presented with a task, leading to solutions that despite being "accurate" when evaluating the task in isolation, completely miss the mark when looking at the bigger picture. In short, the issue was that the engineers in that situation had <b>too much tunnel vision.</b></p>
 <div class="post-image">
-  <img src="https://i.imgur.com/BfKDQC5.png" alt="Alt">                                    
+  <img src="https://i.imgur.com/BfKDQC5.png" alt="Alt">
 </div>
 <div class="post-image">
-  <img src="https://i.imgur.com/IHGr3P5.png" alt="Alt">                                    
+  <img src="https://i.imgur.com/IHGr3P5.png" alt="Alt">
 </div>
 <p>Understanding the context behind tasks allows you to come up with a solution that fits the bigger picture, making it possible not only to solve your users' problems, but also to do so in a way that is clean, scalable, easy to maintain, and that benefits everyone (as opposed to being beneficial to you and your team, but a pain in the ass for everyone else in the company).</p>
 <p>In <a href="https://www.oreilly.com/library/view/the-staff-engineers/9781098118723/">The Staff Engineer's Path</a>, Tanya Reilly describes this as the <b>Local vs Global Maxima</b> problem, where the Local maxima means focusing on what's good for you or your team in an individual sense (the tunnel vision situation above), and the Global maxima means focusing on what's good <b>for the company as a whole</b>, regardless of whether or not it would be ideal for you as an individual (the big picture situation). In the book, she presents this idea to argue that this focus and ability to gather context about the bigger picture is a <b>core ability of Staff+ level engineers</b> and a minimum requirement for those aspiring to reach that level.</p>
@@ -847,7 +847,7 @@ Change swiftrocks.txt back</code></pre>
 <p>Working at a large company like Apple or Google is such a common goal in the tech industry that there's even a market for selling courses and books designed to help people achieve this goal.</p>
 <p>But one thing that I've learned in my career is that working at such companies is <b>not for everyone.</b> The experience of working at a large company is extremely different from that of a startup, so if you're not aware of those differences, you can end up having a big (negative) surprise down the road that can make you regret your choices.</p>
 <div class="sponsor-article-ad-auto hidden"></div>
-<p>In this article, I'd like to show you the difference between companies of different sizes so that you can <b>determine which one better fits your personal style and interests.</b></p> 
+<p>In this article, I'd like to show you the difference between companies of different sizes so that you can <b>determine which one better fits your personal style and interests.</b></p>
 <blockquote>Disclaimer: I haven't worked at every company to ever exist in this planet, so this is obviously not a 100% perfect model for every company out there. <b>There are always exceptions</b>, this is just a basic description of the average case.</blockquote>
 <h2>Working at a startup</h2>
 <p><b>Pros:</b></p>

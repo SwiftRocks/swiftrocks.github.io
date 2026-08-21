@@ -169,7 +169,7 @@
        </div>
                             <div class="content-page" id="WRITEIT_DYNAMIC_CONTENT">
 <!--WRITEIT_POST_NAME=Thoughts on SwiftUI vs UIKit-->
-<!--WRITEIT_POST_HTML_NAME=my-experience-with-swiftui-->
+
 
 <!--Add here the additional properties that you want each page to possess.-->
 <!--These properties can be used to change content in the template page or in the page itself as shown here.-->
@@ -186,7 +186,7 @@
 <div class="blog-post">
   <div class="post-title-index">
     <h1>Thoughts on SwiftUI vs UIKit</h1>
-  </div>  
+  </div>
   <div class="post-info">
     <div class="post-info-text">Published on 20 Oct 2022</div>
   </div>
@@ -211,7 +211,7 @@
 <pre><code>ForEach(0..<7) { i in
     MyObject(myStrings[i])
 }</code></pre>
-<p>If all you're doing is iterating a static list of elements, everything will work like in UIKit. You can build a loop that takes a fixed integer range and access the indexes without any additional trouble.</p> 
+<p>If all you're doing is iterating a static list of elements, everything will work like in UIKit. You can build a loop that takes a fixed integer range and access the indexes without any additional trouble.</p>
 <p>Iterating the <b>mutable state</b> of your view is a bit trickier, but still doable. While in UIKit this doesn't incur any extra architectural cost on your behalf, SwiftUI forbids you from doing so unless the content conforms to <code>Identifiable</code>. This can be quite annoying given that almost nothing in Swift's Standard Library conforms to this protocol, but the requirement makes sense in the context of SwiftUI where the framework relies on the concept of model identity and uniqueness in order to determine when the UI should be re-drawn.</p>
 <pre><code>ForEach(myStrings) { string in
     MyObject(string)
