@@ -2,7 +2,7 @@
     <id>https://swiftrocks.com</id>
     <title>Bruno Rocha</title>
     <subtitle>SwiftRocks is Bruno Rocha's blog about Swift / iOS and the software engineering industry.</subtitle>
-    <updated>2026-08-10T16:00:26+0200</updated>
+    <updated>2026-08-10T16:00:26+02:00</updated>
     <author>
         <name>Bruno Rocha</name>
         <uri>https://swiftrocks.com</uri>
@@ -13,8 +13,8 @@
     <rights> © 2026 Bruno Rocha </rights><entry>
     <title>Using AI while exercising your critical thinking</title>
     <link href="https://swiftrocks.com/using-ai-without-losing-critical-thinking" rel="alternate" type="text/html" title="Using AI while exercising your critical thinking"/>
-    <published>2026-08-09T09:00:26+0200</published>
-    <updated>2026-08-10T16:00:26+0200</updated>
+    <published>2026-08-09T09:00:26+02:00</published>
+    <updated>2026-08-10T16:00:26+02:00</updated>
     <id>https://swiftrocks.com/using-ai-without-losing-critical-thinking</id>
     <author>
         <name>Bruno Rocha</name>
@@ -44,8 +44,8 @@
 </entry><entry>
     <title>Everything about my smart home and homelab setup</title>
     <link href="https://swiftrocks.com/everything-about-my-smart-home-and-homelab-setup" rel="alternate" type="text/html" title="Everything about my smart home and homelab setup"/>
-    <published>2026-08-02T09:29:03+0200</published>
-    <updated>2026-08-02T09:29:03+0200</updated>
+    <published>2026-08-02T09:29:03+02:00</published>
+    <updated>2026-08-02T09:29:03+02:00</updated>
     <id>https://swiftrocks.com/everything-about-my-smart-home-and-homelab-setup</id>
     <author>
         <name>Bruno Rocha</name>
@@ -147,8 +147,8 @@
 </entry><entry>
     <title>A system prompt to get AI to stop pretending to be human</title>
     <link href="https://swiftrocks.com/a-system-prompt-to-get-ai-to-stop-pretending-to-be-human" rel="alternate" type="text/html" title="A system prompt to get AI to stop pretending to be human"/>
-    <published>2026-07-22T07:53:31+0200</published>
-    <updated>2026-07-22T07:53:31+0200</updated>
+    <published>2026-07-22T07:53:31+02:00</published>
+    <updated>2026-07-22T07:53:31+02:00</updated>
     <id>https://swiftrocks.com/a-system-prompt-to-get-ai-to-stop-pretending-to-be-human</id>
     <author>
         <name>Bruno Rocha</name>
@@ -190,8 +190,8 @@ When referring to yourself, use language that acknowledges your LLM computationa
 </entry><entry>
     <title>I tried to record music onto a cassette tape using modern tech</title>
     <link href="https://swiftrocks.com/i-tried-to-record-music-onto-a-cassette-tape-using-modern-tech" rel="alternate" type="text/html" title="I tried to record music onto a cassette tape using modern tech"/>
-    <published>2026-07-17T10:25:35+0200</published>
-    <updated>2026-07-17T10:25:35+0200</updated>
+    <published>2026-07-17T10:25:35+02:00</published>
+    <updated>2026-07-17T10:25:35+02:00</updated>
     <id>https://swiftrocks.com/i-tried-to-record-music-onto-a-cassette-tape-using-modern-tech</id>
     <author>
         <name>Bruno Rocha</name>
@@ -258,8 +258,8 @@ Although plugging it <i>did</i> work in a sense, the volume was so low I could b
 </entry><entry>
     <title>Digitizing photos from the 1998 Game Boy Camera</title>
     <link href="https://swiftrocks.com/digitizing-photos-from-the-1998-game-boy-camera" rel="alternate" type="text/html" title="Digitizing photos from the 1998 Game Boy Camera"/>
-    <published>2026-03-29T13:02:19+0200</published>
-    <updated>2026-03-29T13:02:19+0200</updated>
+    <published>2026-03-29T13:02:19+02:00</published>
+    <updated>2026-03-29T13:02:19+02:00</updated>
     <id>https://swiftrocks.com/digitizing-photos-from-the-1998-game-boy-camera</id>
     <author>
         <name>Bruno Rocha</name>
@@ -378,8 +378,8 @@ Although plugging it <i>did</i> work in a sense, the volume was so low I could b
 </entry><entry>
     <title>I upgraded all of my home networking equipment</title>
     <link href="https://swiftrocks.com/i-upgraded-all-of-my-home-networking-equipment" rel="alternate" type="text/html" title="I upgraded all of my home networking equipment"/>
-    <published>2025-08-01T12:17:15+0200</published>
-    <updated>2025-08-01T12:17:15+0200</updated>
+    <published>2025-08-01T12:17:15+02:00</published>
+    <updated>2025-08-01T12:17:15+02:00</updated>
     <id>https://swiftrocks.com/i-upgraded-all-of-my-home-networking-equipment</id>
     <author>
         <name>Bruno Rocha</name>
@@ -432,8 +432,8 @@ Although plugging it <i>did</i> work in a sense, the volume was so low I could b
 </entry><entry>
     <title>Reducing email spam with a domain and catch-all aliases</title>
     <link href="https://swiftrocks.com/becoming-unspammable-with-a-domain-and-catchall-email-aliases" rel="alternate" type="text/html" title="Reducing email spam with a domain and catch-all aliases"/>
-    <published>2025-06-29T10:00:00+0200</published>
-    <updated>2025-06-29T10:00:00+0200</updated>
+    <published>2025-06-29T10:00:00+02:00</published>
+    <updated>2025-06-29T10:00:00+02:00</updated>
     <id>https://swiftrocks.com/becoming-unspammable-with-a-domain-and-catchall-email-aliases</id>
     <author>
         <name>Bruno Rocha</name>
