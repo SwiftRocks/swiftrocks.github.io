@@ -2,7 +2,7 @@
     <id>https://swiftrocks.com</id>
     <title>Bruno Rocha</title>
     <subtitle>SwiftRocks is Bruno Rocha's blog about Swift / iOS and the software engineering industry.</subtitle>
-    <updated>2026-08-10T16:00:26+02:00</updated>
+    <updated>2026-11-08T21:07:24+01:00</updated>
     <author>
         <name>Bruno Rocha</name>
         <uri>https://swiftrocks.com</uri>
@@ -11,6 +11,31 @@
     <link rel="alternate" type="text/html" hreflang="en" href="https://swiftrocks.com"/>
     <generator uri="https://github.com/rockbruno/writeit">WriteIt</generator>
     <rights> © 2026 Bruno Rocha </rights><entry>
+    <title>Being a meat proxy for AI should be grounds for getting people fired</title>
+    <link href="https://swiftrocks.com/being-a-meat-proxy-for-ai-should-be-grounds-for-getting-people-fired" rel="alternate" type="text/html" title="Being a meat proxy for AI should be grounds for getting people fired"/>
+    <published>2026-11-08T21:07:24+01:00</published>
+    <updated>2026-11-08T21:07:24+01:00</updated>
+    <id>https://swiftrocks.com/being-a-meat-proxy-for-ai-should-be-grounds-for-getting-people-fired</id>
+    <author>
+        <name>Bruno Rocha</name>
+    </author>
+    <summary>Devs intentionally using AI as a way to escape responsibility for the code they push is destroying software engineering and should be punished.</summary>
+    <content type="text/html"><![CDATA[
+<p>If someone is assigned a task, be it to review a PR, work on a reasonably complex coding task, or even just asked a simple question, and <b>literally all they do is prompt the agent "do X" and copy-paste the results back to you</b>, with <b>zero</b> guidance or validation on behalf of the human (meaning it was 100% handled by the agent), and <b>sometimes not even disclosing that this was the case</b>, in my opinion <b>this should be grounds for getting the dev in question punished in some capacity, and potentially even fired in more serious cases.</b></p>
+<p>No, I'm not talking about the usual AI-assisted workflow which is commonplace nowadays where the human guides the agent, corrects it, reviews what comes out of it and opens PRs based on something that has been properly validated and cleaned up for other humans to review. I'm talking about the scenario where the human was nothing more than a <a href="https://swiftrocks.com/using-ai-without-losing-critical-thinking">meat proxy</a> between you and whatever agent they used, making you feel that <b>the person added no value and you should've just launched an agent yourself and skipped them entirely.</b> They might have even potentially made things <b>worse</b> for you by doing so, and in more egregious cases even sometimes attempted to use this as a way to strip themselves of any responsibility regarding the code they write and merge (e.g. <i>"This code broke master and took down production? It was opened and merged under my user? No, you see, it's not my problem because it was the AI who did this, not me!</i> :)").</p>
+<p><b>This shit is becoming increasingly prevalent in the software engineering industry and it's ruining software jobs.</b> IMO this behavior should be punished because devs who do this are:</p>
+<ul>
+<li><b>Wasting your time</b>, because if all they do is proxy their work to an agent, you might as well skip the person and do that yourself</li>
+<li><b>Forcing you to do their work for them</b>, because you now have to not only review and validate agentic output that they obviously did not, but also potentially have to be one dealing with the consequences of any nonsense code that they may have managed to merge when you were not paying attention</li>
+<li><b>Wasting the company's time and resources</b>, as this behavior is basically a convoluted way of stating that they are 1) getting paid a salary to do nothing essentially, 2) contributing nothing of value to their team, 3) harming the company's products, and 4) wasting the time of anyone having to deal with them</li>
+</ul>
+<p>I always saw the software engineering field as being comprised of two groups of people: people who are devs because they are passionate about building software, and people who don't actually enjoy software but joined the field because it's a job that pays well. The latter being something that I find to be a perfectly fine thing to do as long as, you know, you actually do your job. Pre-AI, although sometimes I've found people in this group to not have been doing a particularly impressive job, they were still doing it nonetheless.</p>
+<p><b>But now that AI is widespread, I've been bumping into many folks who basically weaponized AI</b> to make it <i>seem like</i> to their managers they are being extremely productive by opening hundreds of PRs with very complex descriptions and bold claims of having fixed and/or improved things, when in reality this "work" comprises entirely of <b>nonsense, vibe-coded garbage created by AI with zero supervision</b>, that not only actively harms whatever products they are "working" with but also massively complicates the work of the devs who have to deal with the consequences of said garbage code and actually care about building good products and using AI responsibly.</p>
+<p><b>This is getting so insane that I've even had cases where I would DM someone on Slack and notice right away that I'm talking to an AI.</b> Not in the sense that they've set up an agent to handle their messages for them (wouldn't be surprised if people start doing this though), but that they are copying my question to an agent and pasting back the response (without disclosure, so making it seem that they wrote it themselves). WTF?</p>
+<p>When chatting about this problem with colleagues, some of them suggested that the answer might be to <b>throw AI back at the person</b> (so if you get a barrage of unreviewed AI-generated review comments on your PR, throw another unreviewed AI-generated barrage of AI responses <i>back</i> at the person). <b>But I feel that this just makes everything worse.</b> It may get the PR itself out of your hands, but the code will suffer as a result and you'll probably have to end up dealing with the consequences of that.</p>
+<p>I've always kept the content of this blog neutral, but this issue is genuinely pissing me off. I don't understand why someone who doesn't like their job would try so hard to come up with ways to not do it that they would be fine with messing up their colleagues' work in order to achieve it. Nobody is forcing anyone to work in tech. If someone doesn't like it, they can just quit and do something they actually enjoy. It's what I would do.</p>
+]]></content>
+</entry><entry>
     <title>Using AI while exercising your critical thinking</title>
     <link href="https://swiftrocks.com/using-ai-without-losing-critical-thinking" rel="alternate" type="text/html" title="Using AI while exercising your critical thinking"/>
     <published>2026-08-09T09:00:26+02:00</published>
@@ -1166,21 +1191,5 @@ func setupRegistry() {
 <li><b><a href="https://learngitbranching.js.org/">Learn Git Branching</a></b> - A page that teaches you to use git in the CLI by presenting it as a browser game. This is how I learned how to use git and is a resource that I greatly recommend even if you prefer using GUI apps for your git needs.</li>
 <li><b><a href="https://ocw.mit.edu/">MIT OpenCourseWare</a></b> - MIT has a lot of free content on YouTube, and the ones related to software engineering are amazing. <a href="https://www.youtube.com/watch?v=q1OF_0ICt9A&t=3794s">Here’s a link to my favorite one, which is a class about HTTPS/SSL/modern cryptography.</a>
 </ul>
-]]></content>
-</entry><entry>
-    <title>What the hell are passkeys? (Runway)</title>
-    <link href="https://www.runway.team/blog/an-introduction-to-passkeys" rel="alternate" type="text/html" title="What the hell are passkeys? (Runway)"/>
-    <published>2024-02-22T14:00:00+02:00</published>
-    <updated>2024-02-22T14:00:00+02:00</updated>
-    <id>https://www.runway.team/blog/an-introduction-to-passkeys</id>
-    <author>
-        <name>Bruno Rocha</name>
-    </author>
-    <summary>Lots of companies are adding support for "passkeys". I wasn't sure what I was looking at, so I decided to look into it!</summary>
-    <content type="text/html"><![CDATA[
-<p><b>Passkeys</b> are an alternative to passwords that allow you to sign in to any website or app that supports this technology <b>without needing to define/remember a password.</b></p>
-<p>Over the last couple of years, the tech world has been witnessing many companies updating their products to add support to this new technology, including tech giants like Apple, who introduced several APIs and device features related to passkeys <a href="https://support.apple.com/en-gb/guide/iphone/iphf538ea8d0/ios">in iOS 16</a>, and Google, who has been pushing passkeys hard since announcing passkeys support for Chrome and Gmail <a href="https://blog.google/technology/safety-security/one-step-closer-to-a-passwordless-future/">back in 2022.</a></p>
-<p>When I first saw Apple and Google’s announcements, I wasn't sure what I was looking at. The fact that the tech industry has been trying to move away from old-school passwords wasn't news to me, but I asked myself: didn't we already solve this problem when products started allowing users to register a "secondary" authentication requirement, such as receiving an SMS containing a PIN code?</p>
-<p>I then decided to look deeper into this topic, and was so pleasantly surprised by what I found that I thought it would be cool to share it with you. In this article, we'll take a look at what passkeys are, why companies like Apple and Google are adding support for them, how they work under the hood, and whether or not you should convert your own accounts to use them and build support for them in your mobile apps!</p>
 ]]></content>
 </entry></feed>
