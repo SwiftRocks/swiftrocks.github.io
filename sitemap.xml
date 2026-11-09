@@ -5,13 +5,23 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
+    <loc>https://swiftrocks.com/my-gear</loc>
+    <lastmod>2026-11-09T19:07:24+01:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
+    <loc>https://swiftrocks.com/my-gear.html</loc>
+    <lastmod>2026-11-09T19:07:24+01:00</lastmod>
+    <priority>0.80</priority>
+</url>
+<url>
     <loc>https://swiftrocks.com/being-a-meat-proxy-for-ai-should-be-grounds-for-getting-people-fired</loc>
-    <lastmod>2026-11-08T21:07:24+01:00</lastmod>
+    <lastmod>2026-11-09T19:07:24+01:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
     <loc>https://swiftrocks.com/being-a-meat-proxy-for-ai-should-be-grounds-for-getting-people-fired.html</loc>
-    <lastmod>2026-11-08T21:07:24+01:00</lastmod>
+    <lastmod>2026-11-09T19:07:24+01:00</lastmod>
     <priority>0.80</priority>
 </url>
 <url>
